@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SchoolYearController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,16 +22,22 @@ Route::get('/', function () {
 Auth::routes(['login' => true, 'register' => false]);
 
 //admin
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function() {
     Route::get('/', function() {
         return view('dashboard.admin.layouts.app');
     });
+    Route::resources([
+        'schoolYears' => SchoolYearController::class,
+    ]);
     Route::get('/schools', function() {
         return view('dashboard.admin.pages.school.index');
     })->name('schools');
     Route::get('/schools/create', function() {
         return view('dashboard.admin.pages.school.create');
     })->name('create-school');
+    Route::get('/schools/detail', function() {
+        return view('dashboard.admin.pages.school.detail');
+    })->name('detail-school');
     Route::get('/materials', function() {
         return view('dashboard.admin.pages.material.index');
     })->name('materials');
@@ -44,6 +52,33 @@ Route::prefix('admin')->name('admin.')->group(function() {
     })->name('leaderboards');
 });
 //end admin
+
+//Route::prefix('admin')->name('admin.')->group(function() {
+//    Route::get('/', function() {
+//        return view('dashboard.admin.layouts.app');
+//    });
+//    Route::get('/schools', function() {
+//        return view('dashboard.admin.pages.school.index');
+//    })->name('schools');
+//    Route::get('/schools/create', function() {
+//        return view('dashboard.admin.pages.school.create');
+//    })->name('create-school');
+//    Route::get('/schools/detail', function() {
+//        return view('dashboard.admin.pages.school.detail');
+//    })->name('detail-school');
+//    Route::get('/materials', function() {
+//        return view('dashboard.admin.pages.material.index');
+//    })->name('materials');
+//    Route::get('/materials/sub-material', function() {
+//        return view('dashboard.admin.pages.material.submaterial');
+//    })->name('submaterial');
+//    Route::get('/materials/sub-material/detail', function() {
+//        return view('dashboard.admin.pages.material.detail');
+//    })->name('detail-submaterial');
+//    Route::get('/leaderboards', function() {
+//        return view('dashboard.admin.pages.leaderboard.index');
+//    })->name('leaderboards');
+//});
 
 //student
 Route::prefix('student')->name('student.')->group(function() {

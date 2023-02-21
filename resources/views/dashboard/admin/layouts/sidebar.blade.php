@@ -95,7 +95,7 @@
 </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span  class="menu-title" >Tahun Ajaran</span><span  class="menu-arrow" ></span></span>
+                        <span  class="menu-title" >Tahun Ajaran & Angkatan</span><span  class="menu-arrow" ></span></span>
                     <!--end:Menu link--><!--begin:Menu sub-->
                     <div  class="menu-sub menu-sub-accordion" >
                         <!--begin:Menu item-->
@@ -103,17 +103,18 @@
                             <!--begin:Menu item-->
                             <div  class="menu-item" >
                                 <!--begin:Menu link-->
-                                <a class="menu-link"  href="index-2.html" >
-                                    <span  class="menu-bullet" ><span class="bullet bullet-dot"></span></span>
-                                    <span  class="menu-title" >Tambah Tahun Ajaran</span>
-                                </a>
-                                <!--end:Menu link-->
-                                <!--begin:Menu link-->
                                 <a class="menu-link active"  href="index-2.html" >
                                     <span  class="menu-bullet" ><span class="bullet bullet-dot"></span></span>
                                     <span  class="menu-title" >List Tahun Ajaran</span>
                                 </a>
                                 <!--end:Menu link-->
+                                <!--begin:Menu link-->
+                                <a class="menu-link"  href="index-2.html" >
+                                    <span  class="menu-bullet" ><span class="bullet bullet-dot"></span></span>
+                                    <span  class="menu-title" >List Angkatan</span>
+                                </a>
+                                <!--end:Menu link-->
+
                             </div>
                             <!--end:Menu item-->
                         </div>

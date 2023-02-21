@@ -1,68 +1,115 @@
-<div id="kt_header" class="header " >
-    <!--begin::Container-->
-    <div class="container-fluid d-flex flex-stack">
-        <!--begin::Brand-->
-        <div class="d-flex align-items-center me-5">
-            <!--begin::Aside toggle-->
-            <div class="d-lg-none btn btn-icon btn-active-color-white w-30px h-30px ms-n2 me-3" id="kt_aside_toggle">
+<div id="kt_app_header" class="app-header "
+
+>
+
+    <!--begin::Header container-->
+    <div class="app-container  container-fluid d-flex align-items-stretch justify-content-between " id="kt_app_header_container">
+        <!--begin::Header logo-->
+        <div class="app-header-logo d-flex align-items-center ps-lg-2 me-lg-10">
+            <!--begin::Mobile toggle-->
+            <div class="btn btn-icon btn-color-gray-500 btn-active-color-primary w-35px h-35px ms-n2 me-2 d-flex d-lg-none" id="kt_app_sidebar_mobile_toggle">
                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs015.svg-->
-                <span class="svg-icon svg-icon-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span class="svg-icon svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="currentColor"/>
 <path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="currentColor"/>
 </svg>
 </span>
-                <!--end::Svg Icon-->			</div>
-            <!--end::Aside  toggle-->
+                <!--end::Svg Icon-->	</div>
+            <!--end::Mobile toggle-->
 
-            <!--begin::Logo-->
+            <!--begin::Logo image-->
             <a href="index-2.html">
-                <img alt="Logo" src="{{ asset('app-assets/media/logos/default-small.svg') }}" class="h-25px h-lg-30px"/>
+                <img alt="Logo" src="{{ asset('user-assets/media/logos/demo31.svg') }}" class="h-30px"/>
             </a>
-            <!--end::Logo-->
-
-            <!--begin::Nav-->
-            <div class="ms-5 ms-md-10">
-                <!--begin::Toggle-->
-                <span class="badge badge-light-primary p-3">Login : Admin</span>
-                <!--end::Toggle-->
-            </div>
-            <!--end::Nav-->
+            <!--end::Logo image-->
         </div>
-        <!--end::Brand-->
+        <!--end::Header logo-->
+        <!--begin::Header wrapper-->
+        <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
 
+            <!--begin::Menu wrapper-->
+            <div class="d-flex align-items-stretch" id="kt_app_header_menu_wrapper">
+                <!--begin::Menu holder-->
+                <div
+                    class="app-header-menu app-header-mobile-drawer align-items-stretch"
 
-        <!--begin::Topbar-->
-        <div class="d-flex align-items-center flex-shrink-0">
+                    data-kt-drawer="true"
+                    data-kt-drawer-name="app-header-menu"
+                    data-kt-drawer-activate="{default: true, lg: false}"
+                    data-kt-drawer-overlay="true"
+                    data-kt-drawer-width="{default:'200px', '300px': '250px'}"
+                    data-kt-drawer-direction="start"
+                    data-kt-drawer-toggle="#kt_app_header_menu_toggle"
 
-            <!--begin::My apps links-->
-            <div class="d-flex align-items-center ms-1">
-                <!--begin::Menu wrapper-->
-                <div class="btn btn-icon btn-custom btn-icon-muted btn-active-dark btn-active-color-primary w-30px h-30px w-md-35px h-md-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                    <i class="fonticon-alarm fs-2 "></i>
-                    <div class="badge badge-circle badge-danger position-absolute translate-middle bottom-0 ms-10 mt-10 h-15px w-15px fs-9">5</div>
-                </div>
-
-                <!--begin::My apps-->
-                <div class="menu menu-sub menu-sub-dropdown menu-column w-100 w-sm-350px" data-kt-menu="true">
-                    <!--begin::Card-->
-                    <div class="card">
-                        <!--begin::Card header-->
-                        <div class="card-header">
-                            <!--begin::Card title-->
-                            <div class="card-title">Notifikasi</div>
-                            <!--end::Card title-->
+                    data-kt-swapper="true"
+                    data-kt-swapper-mode="prepend"
+                    data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_menu_wrapper'}"
+                >
+                    <!--begin::Menu-->
+                    <div
+                        class="menu menu-rounded menu-column menu-lg-row menu-active-bg menu-title-gray-600 menu-state-dark menu-arrow-gray-400 fw-semibold fw-semibold fs-6 align-items-stretch my-5 my-lg-0 px-2 px-lg-0"
+                        id="#kt_app_header_menu"
+                        data-kt-menu="true"
+                    >
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <!--begin:Menu link-->
+                            <a href="http://localhost:8000" class="menu-link"><span class="menu-title">Beranda</span></a>
+                            <!--end:Menu link-->
                         </div>
-                        <!--end::Card header-->
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <!--begin:Menu link-->
+                            <a href="{{ route('student.materials') }}" class="menu-link"><span class="menu-title">Materi</span></a>
+                            <!--end:Menu link-->
+                        </div>
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <!--begin:Menu link-->
+                            <a href="{{ route('student.challenges') }}" class="menu-link"><span class="menu-title">Tantangan</span></a>
+                            <!--end:Menu link-->
+                        </div>
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <!--begin:Menu link-->
+                            <a href="{{ route('student.challenges') }}" class="menu-link"><span class="menu-title">Peringkat</span></a>
+                            <!--end:Menu link-->
+                        </div>
+                    </div>
+                    <!--end::Menu-->
+                </div>
+                <!--end::Menu holder-->
+            </div>
+            <!--end::Menu wrapper-->
 
-                        <!--begin::Card body-->
-                        <div class="card-body py-5">
-                            <!--begin::Scroll-->
-                            <div class="mh-450px scroll-y me-n5 pe-5">
-                                <div class="d-flex flex-stack py-4">
-                                    <!--begin::Section-->
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Symbol-->
-                                        <div class="symbol symbol-35px me-4">
+            <!--begin::Navbar-->
+            <div class="app-navbar flex-shrink-0">
+
+                <!--begin::My apps links-->
+                <div class="app-navbar-item ms-3 ms-md-6">
+                    <!--begin::Menu wrapper-->
+                    <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-35px h-md-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                        <i class="fonticon-alarm fs-2"></i>
+                        <div class="badge badge-circle badge-danger position-absolute translate-middle bottom-0 ms-10 mt-10 h-15px w-15px fs-9">5</div>
+                    </div>
+
+                    <!--begin::My apps-->
+                    <div class="menu menu-sub menu-sub-dropdown menu-column w-100 w-sm-350px" data-kt-menu="true">
+                        <!--begin::Card-->
+                        <div class="card">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">Notifikasi</div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+
+                            <!--begin::Card body-->
+                            <div class="card-body py-5">
+                                <!--begin::Scroll-->
+                                <div class="mh-450px scroll-y me-n5 pe-5">
+                                    <div class="d-flex flex-stack py-4">
+                                        <!--begin::Section-->
+                                        <div class="d-flex align-items-center">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-35px me-4">
                                 <span class="symbol-label bg-light-primary">
                                     <!--begin::Svg Icon | path: icons/duotune/technology/teh008.svg-->
 <span class="svg-icon svg-icon-2 svg-icon-primary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,40 +119,93 @@
 </span>
                                     <!--end::Svg Icon-->
                                 </span>
-                                        </div>
-                                        <!--end::Symbol-->
+                                            </div>
+                                            <!--end::Symbol-->
 
-                                        <!--begin::Title-->
-                                        <div class="mb-0 me-2">
-                                            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">Project Alice</a>
-                                            <div class="text-gray-400 fs-7">Phase 1 development</div>
+                                            <!--begin::Title-->
+                                            <div class="mb-0 me-2">
+                                                <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">Project Alice</a>
+                                                <div class="text-gray-400 fs-7">Phase 1 development</div>
+                                            </div>
+                                            <!--end::Title-->
                                         </div>
-                                        <!--end::Title-->
+                                        <!--end::Section-->
+
+                                        <!--begin::Label-->
+                                        <span class="badge badge-light fs-8">1 hr</span>
+                                        <!--end::Label-->
                                     </div>
-                                    <!--end::Section-->
-
-                                    <!--begin::Label-->
-                                    <span class="badge badge-light fs-8">1 hr</span>
-                                    <!--end::Label-->
                                 </div>
+                                <!--end::Scroll-->
                             </div>
-                            <!--end::Scroll-->
+                            <!--end::Card body-->
                         </div>
-                        <!--end::Card body-->
+                        <!--end::Card-->
                     </div>
-                    <!--end::Card-->
+                    <!--end::My apps-->        <!--end::Menu wrapper-->
                 </div>
-                <!--end::My apps-->        <!--end::Menu wrapper-->
-            </div>
-            <!--end::My apps links-->
+                <!--end::My apps links-->
 
-            <!--begin::Theme mode-->
-            <div class="d-flex align-items-center ms-1">
+                <!--begin::User menu-->
+                <div class="app-navbar-item ms-3 ms-md-6" id="kt_header_user_menu_toggle">
+                    <!--begin::Menu wrapper-->
+                    <div class="cursor-pointer symbol symbol-30px symbol-md-35px"
+                         data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                         data-kt-menu-attach="parent"
+                         data-kt-menu-placement="bottom-end">
+                        <img class="symbol symbol-circle symbol-30px symbol-md-35px" src="{{ asset('user-assets/media/avatars/300-1.jpg') }}" alt="user"/>
+                    </div>
 
-                <!--begin::Menu toggle-->
-                <a href="#" class="btn btn-icon btn-color-white bg-hover-white bg-hover-opacity-10 w-30px h-30px h-40px w-40px" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                    <!--begin::Svg Icon | path: icons/duotune/general/gen060.svg-->
-                    <span class="svg-icon theme-light-show svg-icon-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!--begin::User account menu-->
+                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-3">
+                            <div class="menu-content d-flex align-items-center px-3">
+                                <!--begin::Avatar-->
+                                <div class="symbol symbol-50px me-5">
+                                    <img alt="Logo" src="{{ asset('user-assets/media/avatars/300-1.jpg') }}"/>
+                                </div>
+                                <!--end::Avatar-->
+
+                                <!--begin::Username-->
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold d-flex align-items-center fs-5">
+                                        Max Smith                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                    </div>
+
+                                    <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
+                                        max@kt.com                </a>
+                                </div>
+                                <!--end::Username-->
+                            </div>
+                        </div>
+                        <!--end::Menu item-->
+
+                        <!--begin::Menu separator-->
+                        <div class="separator my-2"></div>
+                        <!--end::Menu separator-->
+
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-5">
+                            <a href="account/overview.html" class="menu-link px-5">
+                                My Profile
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+
+                        <!--begin::Menu separator-->
+                        <div class="separator my-2"></div>
+                        <!--end::Menu separator-->
+
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
+                            <a href="#" class="menu-link px-5">
+                <span class="menu-title position-relative">
+                    Mode
+
+                    <span class="ms-5 position-absolute translate-middle-y top-50 end-0">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen060.svg-->
+<span class="svg-icon theme-light-show svg-icon-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.9905 5.62598C10.7293 5.62574 9.49646 5.9995 8.44775 6.69997C7.39903 7.40045 6.58159 8.39619 6.09881 9.56126C5.61603 10.7263 5.48958 12.0084 5.73547 13.2453C5.98135 14.4823 6.58852 15.6185 7.48019 16.5104C8.37186 17.4022 9.50798 18.0096 10.7449 18.2557C11.9818 18.5019 13.2639 18.3757 14.429 17.8931C15.5942 17.4106 16.5901 16.5933 17.2908 15.5448C17.9915 14.4962 18.3655 13.2634 18.3655 12.0023C18.3637 10.3119 17.6916 8.69129 16.4964 7.49593C15.3013 6.30056 13.6808 5.62806 11.9905 5.62598Z" fill="currentColor"/>
 <path d="M22.1258 10.8771H20.627C20.3286 10.8771 20.0424 10.9956 19.8314 11.2066C19.6204 11.4176 19.5018 11.7038 19.5018 12.0023C19.5018 12.3007 19.6204 12.5869 19.8314 12.7979C20.0424 13.0089 20.3286 13.1274 20.627 13.1274H22.1258C22.4242 13.1274 22.7104 13.0089 22.9214 12.7979C23.1324 12.5869 23.2509 12.3007 23.2509 12.0023C23.2509 11.7038 23.1324 11.4176 22.9214 11.2066C22.7104 10.9956 22.4242 10.8771 22.1258 10.8771Z" fill="currentColor"/>
 <path d="M11.9905 19.4995C11.6923 19.5 11.4064 19.6187 11.1956 19.8296C10.9848 20.0405 10.8663 20.3265 10.866 20.6247V22.1249C10.866 22.4231 10.9845 22.7091 11.1953 22.9199C11.4062 23.1308 11.6922 23.2492 11.9904 23.2492C12.2886 23.2492 12.5746 23.1308 12.7854 22.9199C12.9963 22.7091 13.1147 22.4231 13.1147 22.1249V20.6247C13.1145 20.3265 12.996 20.0406 12.7853 19.8296C12.5745 19.6187 12.2887 19.5 11.9905 19.4995Z" fill="currentColor"/>
@@ -117,22 +217,23 @@
 <path d="M5.09541 6.69715C5.19979 6.8017 5.32374 6.88466 5.4602 6.94128C5.59665 6.9979 5.74292 7.02708 5.89065 7.02714C6.03839 7.0272 6.18469 6.99815 6.32119 6.94164C6.45769 6.88514 6.58171 6.80228 6.68618 6.69782C6.79064 6.59336 6.87349 6.46933 6.93 6.33283C6.9865 6.19633 7.01556 6.05003 7.01549 5.9023C7.01543 5.75457 6.98625 5.60829 6.92963 5.47184C6.87301 5.33539 6.79005 5.21143 6.6855 5.10706L5.6247 4.04626C5.5204 3.94137 5.39643 3.8581 5.25989 3.80121C5.12335 3.74432 4.97692 3.71493 4.82901 3.71472C4.68109 3.71452 4.53458 3.7435 4.39789 3.80001C4.26119 3.85652 4.13699 3.93945 4.03239 4.04404C3.9278 4.14864 3.84487 4.27284 3.78836 4.40954C3.73185 4.54624 3.70287 4.69274 3.70308 4.84066C3.70329 4.98858 3.73268 5.135 3.78957 5.27154C3.84646 5.40808 3.92974 5.53205 4.03462 5.63635L5.09541 6.69715Z" fill="currentColor"/>
 </svg>
 </span>
-                    <!--end::Svg Icon-->    <!--begin::Svg Icon | path: icons/duotune/general/gen061.svg-->
-                    <span class="svg-icon theme-dark-show svg-icon-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!--end::Svg Icon-->                        <!--begin::Svg Icon | path: icons/duotune/general/gen061.svg-->
+<span class="svg-icon theme-dark-show svg-icon-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M19.0647 5.43757C19.3421 5.43757 19.567 5.21271 19.567 4.93534C19.567 4.65796 19.3421 4.43311 19.0647 4.43311C18.7874 4.43311 18.5625 4.65796 18.5625 4.93534C18.5625 5.21271 18.7874 5.43757 19.0647 5.43757Z" fill="currentColor"/>
 <path d="M20.0692 9.48884C20.3466 9.48884 20.5714 9.26398 20.5714 8.98661C20.5714 8.70923 20.3466 8.48438 20.0692 8.48438C19.7918 8.48438 19.567 8.70923 19.567 8.98661C19.567 9.26398 19.7918 9.48884 20.0692 9.48884Z" fill="currentColor"/>
 <path d="M12.0335 20.5714C15.6943 20.5714 18.9426 18.2053 20.1168 14.7338C20.1884 14.5225 20.1114 14.289 19.9284 14.161C19.746 14.034 19.5003 14.0418 19.3257 14.1821C18.2432 15.0546 16.9371 15.5156 15.5491 15.5156C12.2257 15.5156 9.48884 12.8122 9.48884 9.48886C9.48884 7.41079 10.5773 5.47137 12.3449 4.35752C12.5342 4.23832 12.6 4.00733 12.5377 3.79251C12.4759 3.57768 12.2571 3.42859 12.0335 3.42859C7.32556 3.42859 3.42857 7.29209 3.42857 12C3.42857 16.7079 7.32556 20.5714 12.0335 20.5714Z" fill="currentColor"/>
 <path d="M13.0379 7.47998C13.8688 7.47998 14.5446 8.15585 14.5446 8.98668C14.5446 9.26428 14.7693 9.48891 15.0469 9.48891C15.3245 9.48891 15.5491 9.26428 15.5491 8.98668C15.5491 8.15585 16.225 7.47998 17.0558 7.47998C17.3334 7.47998 17.558 7.25535 17.558 6.97775C17.558 6.70015 17.3334 6.47552 17.0558 6.47552C16.225 6.47552 15.5491 5.76616 15.5491 4.93534C15.5491 4.65774 15.3245 4.43311 15.0469 4.43311C14.7693 4.43311 14.5446 4.65774 14.5446 4.93534C14.5446 5.76616 13.8688 6.47552 13.0379 6.47552C12.7603 6.47552 12.5357 6.70015 12.5357 6.97775C12.5357 7.25535 12.7603 7.47998 13.0379 7.47998Z" fill="currentColor"/>
 </svg>
 </span>
-                    <!--end::Svg Icon--></a>
-                <!--begin::Menu toggle-->
+                        <!--end::Svg Icon-->                    </span>
+                </span>
+                            </a>
 
-                <!--begin::Menu-->
-                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-muted menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px" data-kt-menu="true" data-kt-element="theme-mode-menu">
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3 my-0">
-                        <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="light">
+                            <!--begin::Menu-->
+                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-muted menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px" data-kt-menu="true" data-kt-element="theme-mode-menu">
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3 my-0">
+                                    <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="light">
             <span class="menu-icon" data-kt-element="icon">
                 <!--begin::Svg Icon | path: icons/duotune/general/gen060.svg-->
 <span class="svg-icon svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -148,16 +249,16 @@
 </svg>
 </span>
                 <!--end::Svg Icon-->            </span>
-                            <span class="menu-title">
+                                        <span class="menu-title">
                 Light
             </span>
-                        </a>
-                    </div>
-                    <!--end::Menu item-->
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
 
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3 my-0">
-                        <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="dark">
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3 my-0">
+                                    <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="dark">
             <span class="menu-icon" data-kt-element="icon">
                 <!--begin::Svg Icon | path: icons/duotune/general/gen061.svg-->
 <span class="svg-icon svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -168,16 +269,16 @@
 </svg>
 </span>
                 <!--end::Svg Icon-->            </span>
-                            <span class="menu-title">
+                                        <span class="menu-title">
                 Dark
             </span>
-                        </a>
-                    </div>
-                    <!--end::Menu item-->
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
 
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3 my-0">
-                        <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="system">
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3 my-0">
+                                    <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="system">
             <span class="menu-icon" data-kt-element="icon">
                 <!--begin::Svg Icon | path: icons/duotune/general/gen062.svg-->
 <span class="svg-icon svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,96 +286,46 @@
 </svg>
 </span>
                 <!--end::Svg Icon-->            </span>
-                            <span class="menu-title">
+                                        <span class="menu-title">
                 System
             </span>
-                        </a>
-                    </div>
-                    <!--end::Menu item-->
-                </div>
-                <!--end::Menu-->
-
-            </div>
-            <!--end::Theme mode-->
-
-            <!--begin::User-->
-            <div class="d-flex align-items-center ms-1" id="kt_header_user_menu_toggle">
-                <!--begin::User info-->
-                <div
-                    class="btn btn-flex align-items-center bg-hover-white bg-hover-opacity-10 py-2 px-2 px-md-3"
-                    data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-
-                    <!--begin::Name-->
-                    <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
-                        <span class="text-muted fs-8 fw-semibold lh-1 mb-1">Max</span>
-                        <span class="text-white fs-8 fw-bold lh-1">UX Designer</span>
-                    </div>
-                    <!--end::Name-->
-
-                    <!--begin::Symbol-->
-                    <div class="symbol symbol-30px symbol-md-40px">
-                        <img src="{{ asset('app-assets/media/avatars/300-1.jpg') }}" alt="image"/>
-                    </div>
-                    <!--end::Symbol-->
-                </div>
-                <!--end::User info-->
-
-
-
-
-                <!--begin::User account menu-->
-                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                        <div class="menu-content d-flex align-items-center px-3">
-                            <!--begin::Avatar-->
-                            <div class="symbol symbol-50px me-5">
-                                <img alt="Logo" src="{{ asset('app-assets/media/avatars/300-1.jpg') }}"/>
-                            </div>
-                            <!--end::Avatar-->
-
-                            <!--begin::Username-->
-                            <div class="d-flex flex-column">
-                                <div class="fw-bold d-flex align-items-center fs-5">
-                                    Max Smith                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                    </a>
                                 </div>
-
-                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
-                                    max@kt.com                </a>
+                                <!--end::Menu item-->
                             </div>
-                            <!--end::Username-->
+                            <!--end::Menu-->
+
                         </div>
-                    </div>
-                    <!--end::Menu item-->
+                        <!--end::Menu item-->
 
-                    <!--begin::Menu separator-->
-                    <div class="separator my-2"></div>
-                    <!--end::Menu separator-->
-
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-5">
-                        <a href="account/overview.html" class="menu-link px-5">
-                            My Profile
-                        </a>
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-5">
+                            <a href="authentication/layouts/corporate/sign-in.html" class="menu-link px-5">
+                                Sign Out
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
                     </div>
-                    <!--end::Menu item-->
-
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-5">
-                        <a href="{{ route('logout') }}" class="menu-link px-5" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            Sign Out
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                    <!--end::Menu item-->
+                    <!--end::User account menu-->
+                    <!--end::Menu wrapper-->
                 </div>
-                <!--end::User account menu-->
+                <!--end::User menu-->
+
+                <!--begin::Header menu toggle-->
+                <div class="app-navbar-item d-lg-none ms-2 me-n3" title="Show header menu">
+                    <div class="btn btn-icon btn-color-gray-500 btn-active-color-primary w-35px h-35px" id="kt_app_header_menu_toggle">
+                        <!--begin::Svg Icon | path: icons/duotune/text/txt001.svg-->
+                        <span class="svg-icon svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 11H3C2.4 11 2 10.6 2 10V9C2 8.4 2.4 8 3 8H13C13.6 8 14 8.4 14 9V10C14 10.6 13.6 11 13 11ZM22 5V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4V5C2 5.6 2.4 6 3 6H21C21.6 6 22 5.6 22 5Z" fill="currentColor"/>
+<path opacity="0.3" d="M21 16H3C2.4 16 2 15.6 2 15V14C2 13.4 2.4 13 3 13H21C21.6 13 22 13.4 22 14V15C22 15.6 21.6 16 21 16ZM14 20V19C14 18.4 13.6 18 13 18H3C2.4 18 2 18.4 2 19V20C2 20.6 2.4 21 3 21H13C13.6 21 14 20.6 14 20Z" fill="currentColor"/>
+</svg>
+</span>
+                        <!--end::Svg Icon-->            </div>
+                </div>
+                <!--end::Header menu toggle-->
             </div>
-            <!--end::User -->
-        </div>
-        <!--end::Topbar-->	</div>
-    <!--end::Container-->
+            <!--end::Navbar--> </div>
+        <!--end::Header wrapper-->
+    </div>
+    <!--end::Header container-->
 </div>

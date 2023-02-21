@@ -154,6 +154,28 @@
                                </div>
 
                            </div>
+                           <div class="form-group row mb-3">
+
+                               <label class="col-xl-3 col-lg-3 col-form-label">Konfirmasi Password</label>
+
+                               <div class="col-lg-9 col-xl-9">
+
+                                   <input class="form-control form-control-solid form-control-lg" name="nama" type="password" value="" placeholder="password" required="">
+
+                               </div>
+
+                           </div>
+                           <div class="form-group row mb-3">
+
+                               <label class="col-xl-3 col-lg-3 col-form-label">Logo</label>
+
+                               <div class="col-lg-9 col-xl-9">
+
+                                   <input class="form-control form-control-solid form-control-lg" name="nama" type="file" value="" placeholder="password" required="">
+
+                               </div>
+
+                           </div>
                        </div>
 
                     </div>
