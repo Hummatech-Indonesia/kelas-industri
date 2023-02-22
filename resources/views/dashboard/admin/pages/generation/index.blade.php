@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Tahun Ajaran
+                Angkatan
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                halaman tahun ajaran
+                halaman angkatan di setiap tahun ajaran
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -22,8 +22,15 @@
         <!--begin::Actions-->
         <div class="d-flex align-items-center py-2 py-md-1">
 
+            <!--begin::school year-->
+            <select name="school_year_id" id="year" class="form-select form-select-solid me-5" data-control="select2" data-placeholder="Select an option" data-hide-search="true">
+                @foreach($schoolYears as $schoolYear)
+                    <option {{ ($selectedSchoolYear == $schoolYear->id) ? 'selected' : '' }} value="{{ $schoolYear->id }}">{{ $schoolYear->school_year }}</option>
+                @endforeach
+            </select>
+            <!--end::school yeaer-->
             <!--begin::Button-->
-            <button class="btn btn-dark fw-bold"  data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+            <button class="btn btn-dark fw-bold ms-5"  data-bs-toggle="modal" data-bs-target="#kt_modal_1">
                 Tambah            </button>
             <!--end::Button-->
         </div>
@@ -39,7 +46,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Tambah Tahun Ajaran</h3>
+                    <h3 class="modal-title">Tambah Angkatan</h3>
 
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
@@ -47,13 +54,21 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <form action="{{ route('admin.schoolYears.store') }}" method="POST">
+                <form action="{{ route('admin.generations.store') }}" method="POST">
                     @csrf
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
+                            <label class="mb-3" for="">Angkatan</label>
+                            <input type="text" class="form-control" name="generation" placeholder="Angkatan 11">
+                        </div>
+                        <div class="col-12 mt-5">
                             <label class="mb-3" for="">Tahun Ajaran</label>
-                            <input type="text" name="school_year" class="form-control" placeholder="2021-2022">
+                            <select name="school_year_id" class="form-select" data-control="select2" data-placeholder="Select an option">
+                                @foreach($schoolYears as $schoolYear)
+                                    <option value="{{ $schoolYear->id }}">{{ $schoolYear->school_year }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -87,8 +102,16 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
+                            <label class="mb-3" for="">Angkatan</label>
+                            <input type="text" class="form-control" id="edit-generation" name="generation" placeholder="Angkatan 11">
+                        </div>
+                        <div class="col-12 mt-5">
                             <label class="mb-3" for="">Tahun Ajaran</label>
-                            <input type="text" name="school_year" id="edit_school_year" class="form-control" placeholder="2021-2022">
+                            <select name="school_year_id" id="select-school-year" class="form-select" data-control="select2" data-placeholder="Select an option">
+                                @foreach($schoolYears as $schoolYear)
+                                    <option value="{{ $schoolYear->id }}">{{ $schoolYear->school_year }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -105,8 +128,8 @@
 
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            @forelse($schoolYears as $schoolYear)
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-5 mb-5">
+            @forelse($generations as $generation)
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-5">
 
                 <!--begin::Card-->
 
@@ -114,6 +137,7 @@
                     <!--begin::Body-->
 
                     <div class="card-body">
+
 
                         <!--begin::Section-->
 
@@ -127,7 +151,7 @@
 
                                 <h5 class="card-title text-hover-primary fw-bolder font-size-h5 text-dark mb-1">
 
-                                    Tahun Ajaran {{ $schoolYear->school_year }}
+                                    {{ $generation->generation }}
                                 </h5>
 
                                 <!--end::Title-->
@@ -164,7 +188,7 @@
 </span>
                                 <!--end::Svg Icon-->
 
-                                <a href="#" data-item="{{ $schoolYear }}" class="fw-bold text-primary ms-2 btn-update">Edit</a>
+                                <a href="#" data-item="{{ $generation }}" class="fw-bold text-primary ms-2 btn-update">Edit</a>
 
                             </div>
 
@@ -185,7 +209,7 @@
 </span>
                                 <!--end::Svg Icon-->
 
-                                <a href="#" class="fw-bold text-danger ms-2 btn-delete" data-id="{{ $schoolYear->id }}">Hapus</a>
+                                <a href="#" class="fw-bold text-danger ms-2 btn-delete" data-id="{{ $generation->id }}">Hapus</a>
 
                             </div>
 
@@ -205,18 +229,29 @@
 
             </div>
             @empty
-                <x-empty-component title="tahun ajaran"></x-empty-component>
+                <x-empty-component title="angkatan"></x-empty-component>
             @endforelse
         </div>
 
-        <x-pagination-component :paginator="$schoolYears" route="admin.schoolYears.index"></x-pagination-component>
+        <x-pagination-component :paginator="$generations" route="admin.generations.index"></x-pagination-component>
     </div>
 @endsection
 @section('script')
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+
+            $('select:not(.normal)').each(function () {
+                $(this).select2({
+                    dropdownParent: $(this).parent()
+                });
+            });
+
+            $('#year').change(function() {
+                window.location.href = "{{ route('admin.generations.index', 'search=' . ':id') }}".replace(':id', $(this).val())
+            })
+
             $('.btn-delete').click(function() {
-                const url = "{{ route('admin.schoolYears.destroy', ':id') }}".replace(':id', $(this).data('id'))
+                const url = "{{ route('admin.generations.destroy', ':id') }}".replace(':id', $(this).data('id'))
                 $('#form-delete').attr('action', url)
 
                 $('#kt_modal_delete').modal('show')
@@ -224,13 +259,28 @@
 
             $('.btn-update').click(function() {
                 const item = $(this).data('item')
-                $('#edit_school_year').val(item.school_year)
-                const url = "{{ route('admin.schoolYears.update', ':id') }}".replace(':id', item.id)
+                $('#edit-generation').val(item.generation)
+                $('#select-school-year').val(item.school_year_id)
+                $('#select-school-year').trigger('change')
+
+                const url = "{{ route('admin.generations.update', ':id') }}".replace(':id', item.id)
                 $('#form-update').attr('action', url)
 
 
                 $('#kt_modal_update').modal('show')
             })
         });
+
+        @if(\Illuminate\Support\Facades\Session::has('success'))
+        Swal.fire({
+            text: "{{ Session::get('success') }}",
+            icon: "success",
+            buttonsStyling: false,
+            confirmButtonText: "Ok!",
+            customClass: {
+                confirmButton: "btn btn-primary"
+            }
+        });
+        @endif
     </script>
 @endsection

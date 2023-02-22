@@ -13,11 +13,15 @@ abstract class BaseRepository implements BaseInterface
      * Handle the Get all data event from models.
      *
      *
+     * @param array|null $order
      * @return mixed
      */
 
-    public function getAll(): mixed
+    public function getAll(array $order = null): mixed
     {
+        if($order){
+            return $this->model->query()->orderBy($order['key'], $order['value'])->get();
+        }
         return $this->model->all();
     }
 
@@ -98,12 +102,17 @@ abstract class BaseRepository implements BaseInterface
      * get paginated data
      *
      * @param int $limit
-     *
+     * @param array|null $order
      * @return mixed
      */
 
-    public function get_paginate(int $limit): mixed
+    public function get_paginate(int $limit, array $order = null): mixed
     {
+        if($order){
+            return $this->model->query()
+                ->orderBy($order['key'], $order['value'])
+                ->paginate($limit);
+        }
         return $this->model->query()
             ->paginate($limit);
     }

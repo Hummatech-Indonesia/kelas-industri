@@ -15,6 +15,17 @@ class SchoolYearService
     }
 
     /**
+     * handle get all
+     *
+     * @param array|null $order
+     * @return mixed
+     */
+    public function handleGetAll(array $order = null): mixed
+    {
+        return $this->repository->getAll($order);
+    }
+
+    /**
      * handle get paginated
      *
      * @return mixed
