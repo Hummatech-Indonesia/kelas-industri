@@ -42,7 +42,7 @@
                         <span class="menu-title">Beranda</span></a><!--end:Menu link--></div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
-                <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion" >
+                <div  data-kt-menu-trigger="click"  class="menu-item {{ (request()->routeIs('admin.schools.*')) ? 'show here' : '' }} menu-accordion" >
                     <!--begin:Menu link-->
                     <span class="menu-link" >
                         <span  class="menu-icon" >
@@ -62,13 +62,13 @@
                             <!--begin:Menu item-->
                             <div  class="menu-item" >
                                 <!--begin:Menu link-->
-                                <a class="menu-link"  href="index-2.html" >
+                                <a class="menu-link {{ (request()->routeIs('admin.schools.create')) ? 'active' : '' }}"  href="{{ route('admin.schools.create') }}" >
                                     <span  class="menu-bullet" ><span class="bullet bullet-dot"></span></span>
                                     <span  class="menu-title" >Tambah Sekolah</span>
                                 </a>
                                 <!--end:Menu link-->
                                 <!--begin:Menu link-->
-                                <a class="menu-link active"  href="index-2.html" >
+                                <a class="menu-link {{ (request()->routeIs('admin.schools.*') && !request()->routeIs('admin.schools.create')) ? 'active' : '' }}"  href="{{ route('admin.schools.index') }}" >
                                     <span  class="menu-bullet" ><span class="bullet bullet-dot"></span></span>
                                     <span  class="menu-title" >List Sekolah</span>
                                 </a>

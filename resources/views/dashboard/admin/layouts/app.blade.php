@@ -154,6 +154,17 @@ License: For each use you must have a valid license purchased only from above li
         }
     });
     @endif
+    @if(\Illuminate\Support\Facades\Session::has('error'))
+    Swal.fire({
+        text: "{{ Session::get('error') }}",
+        icon: "error",
+        buttonsStyling: false,
+        confirmButtonText: "Ok!",
+        customClass: {
+            confirmButton: "btn btn-danger"
+        }
+    });
+    @endif
 </script>
 <!--end::Javascript-->
 

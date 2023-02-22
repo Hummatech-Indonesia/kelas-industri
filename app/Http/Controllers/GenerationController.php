@@ -31,8 +31,8 @@ class GenerationController extends Controller
     public function index(Request $request): View
     {
         $schoolYear = SchoolYearHelper::get_current_school_year();
-        $generations = $this->service->handleGetPaginate($schoolYear->id);
-        $selectedSchoolYear = $schoolYear->id;
+        $generations = $this->service->handleGetPaginate(($schoolYear->id ?? 0));
+        $selectedSchoolYear = $schoolYear->id ?? 0;
 
        if($request->has('search')){
            $generations = $this->service->handleGetPaginate($request->search);

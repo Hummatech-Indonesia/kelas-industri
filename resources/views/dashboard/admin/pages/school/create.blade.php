@@ -7,43 +7,31 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Overview
+                Tambah Sekolah
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7 my-1">
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-600">
-                    <a href="../../index-2.html" class="text-gray-600 text-hover-primary">
-                        Home                            </a>
-                </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-600">
-                    User Profile                                            </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-500">
-                    Overview                    </li>
-                <!--end::Item-->
-            </ul>
+            <p class="text-muted m-0">
+                Halaman tambah sekolah
+            </p>
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
         <!--begin::Actions-->
         <div class="d-flex align-items-center py-2 py-md-1">
 
-            <!--begin::Button-->
-            <a href="#" class="btn btn-dark fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">
-                Tambah            </a>
-            <!--end::Button-->
         </div>
         <!--end::Actions-->
     </div>
+    @if($errors->any())
+        <x-errors-component />
+    @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
+            <form action="{{ route('admin.schools.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
             <div class="col-12">
                 <div class="card card-custom card-sticky" id="kt_page_sticky_card">
 
@@ -61,7 +49,7 @@
 
                         <div class="card-toolbar">
 
-                            <a href="https://class.hummasoft.com/admin/sekolah" class="btn btn-light-primary font-weight-bolder me-2">
+                            <a href="{{ route('admin.schools.index') }}" class="btn btn-light-primary font-weight-bolder me-2">
 
                                 <i class="ki ki-long-arrow-back icon-sm"></i>
 
@@ -94,7 +82,7 @@
 
                                <div class="col-lg-9 col-xl-9">
 
-                                   <input class="form-control form-control-solid form-control-lg" name="nama" type="text" value="" placeholder="SMK INDUSTRI 1" required="">
+                                   <input class="form-control form-control-solid form-control-lg" name="name" type="text" value="{{ old('name') }}" placeholder="SMK INDUSTRI 1" required="">
 
                                </div>
 
@@ -105,7 +93,7 @@
 
                                <div class="col-lg-9 col-xl-9">
 
-                                   <input class="form-control form-control-solid form-control-lg" name="nama" type="text" value="" placeholder="Afrizal Himawan, S.Kom" required="">
+                                   <input class="form-control form-control-solid form-control-lg" name="headmaster" type="text" value="{{ old('headmaster') }}" placeholder="Afrizal Himawan, S.Kom" required="">
 
                                </div>
 
@@ -116,7 +104,7 @@
 
                                <div class="col-lg-9 col-xl-9">
 
-                                   <textarea class="form-control form-control-solid form-control-lg" name="nama" type="text" placeholder="Jl. Ramah Tamah Ngijo Karangploso Malang" required=""></textarea>
+                                   <textarea class="form-control form-control-solid form-control-lg" name="address" type="text" placeholder="Jl. Ramah Tamah Ngijo Karangploso Malang" required="">{{ old('address') }}</textarea>
 
                                </div>
 
@@ -127,7 +115,7 @@
 
                                <div class="col-lg-9 col-xl-9">
 
-                                   <input class="form-control form-control-solid form-control-lg" name="nama" type="text" value="" placeholder="083000000000" required="">
+                                   <input class="form-control form-control-solid form-control-lg" name="phone_number" type="text" value="{{ old('phone_number') }}" placeholder="083000000000" required="">
 
                                </div>
 
@@ -138,7 +126,7 @@
 
                                <div class="col-lg-9 col-xl-9">
 
-                                   <input class="form-control form-control-solid form-control-lg" name="nama" type="text" value="" placeholder="smkindustri1@gmail.com" required="">
+                                   <input class="form-control form-control-solid form-control-lg" name="email" type="text" value="{{ old('email') }}" placeholder="smkindustri1@gmail.com" required="">
 
                                </div>
 
@@ -149,7 +137,7 @@
 
                                <div class="col-lg-9 col-xl-9">
 
-                                   <input class="form-control form-control-solid form-control-lg" name="nama" type="password" value="" placeholder="password" required="">
+                                   <input class="form-control form-control-solid form-control-lg" name="password" type="password" value="" placeholder="password" required="">
 
                                </div>
 
@@ -160,7 +148,7 @@
 
                                <div class="col-lg-9 col-xl-9">
 
-                                   <input class="form-control form-control-solid form-control-lg" name="nama" type="password" value="" placeholder="password" required="">
+                                   <input class="form-control form-control-solid form-control-lg" name="password_confirmation" type="password" value="" placeholder="password" required="">
 
                                </div>
 
@@ -171,7 +159,7 @@
 
                                <div class="col-lg-9 col-xl-9">
 
-                                   <input class="form-control form-control-solid form-control-lg" name="nama" type="file" value="" placeholder="password" required="">
+                                   <input class="form-control form-control-solid form-control-lg" name="photo" type="file" value="" placeholder="password" required="">
 
                                </div>
 
@@ -182,6 +170,7 @@
 
                 </div>
             </div>
+            </form>
         </div>
     </div>
 @endsection
