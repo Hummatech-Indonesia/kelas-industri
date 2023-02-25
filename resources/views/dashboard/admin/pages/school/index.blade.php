@@ -7,28 +7,15 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Overview
+                Sekolah
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7 my-1">
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-600">
-                    <a href="../../index-2.html" class="text-gray-600 text-hover-primary">
-                        Home                            </a>
-                </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-600">
-                    User Profile                                            </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-500">
-                    Overview                    </li>
-                <!--end::Item-->
-            </ul>
+            <p class="text-muted">
+                List sekolah yang terdaftar di kelas industri.
+            </p>
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
@@ -44,7 +31,7 @@
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="#">
+            <div class="col-12">
                 <!--begin::Card-->
                 <div class="card mb-7">
                     <!--begin::Card body-->
@@ -52,7 +39,7 @@
                         <!--begin::Compact form-->
                         <div class="d-flex align-items-center">
                             <!--begin::Input group-->
-                            <div class="position-relative col-12">
+                            <div class="position-relative col-11">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                 <span class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
@@ -60,7 +47,10 @@
 </svg>
 </span>
                                 <!--end::Svg Icon-->
-                                <input type="text" class="form-control form-control-solid ps-10" name="search" value="" placeholder="Search">
+                                <input type="text" class="form-control form-control-solid ps-10" name="search" value="{{ $parameters['search'] ?? '' }}" placeholder="Search">
+                            </div>
+                            <div class="col-1">
+                                <button class="btn btn-primary ms-3" id="btn-search">Cari</button>
                             </div>
                             <!--end::Input group-->
                         </div>
@@ -69,7 +59,7 @@
                     <!--end::Card body-->
                 </div>
                 <!--end::Card-->
-            </form>
+            </div>
         </div>
     <div class="row">
         @forelse($schools as $school)
@@ -85,13 +75,17 @@
 
                         <!--begin::Section-->
 
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center justify-content-between">
 
                             <!--begin::Pic-->
 
-                            <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle display-2">
+                            <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle display-5">
 
-                                <img src="https://class.hummasoft.com/public/assets/media/sekolah/20220726214620.png" alt="kanesa">
+                                @if($school->photo)
+                                    <img src="{{ asset('storage/' . $school->photo) }}" alt="kanesa">
+                                @else
+                                    <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">{{ substr($school->name, 0, 1) }}</div>
+                                @endif
 
                             </div>
 
@@ -244,9 +238,14 @@
 
             </div>
         @empty
-            <x-empty-component />
+            <x-empty-component title="sekolah" />
         @endforelse
     </div>
+        <div class="row">
+            <div class="col-md-12">
+                <x-pagination-component :paginator="$schools" :parameters="$parameters" route="admin.schools.index" />
+            </div>
+        </div>
         <x-delete-modal-component />
     </div>
 @endsection
@@ -259,6 +258,10 @@
                 $('#form-delete').attr('action', url)
 
                 $('#kt_modal_delete').modal('show')
+            })
+
+            $('#btn-search').click(function() {
+                window.location.href = "{{ route('admin.schools.index', 'search=' . ':id') }}".replace(':id', $("input[name='search']").val())
             })
         });
     </script>

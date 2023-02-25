@@ -28,6 +28,17 @@ class SchoolService
     }
 
     /**
+     * handle search
+     *
+     * @param string|null $search
+     * @return mixed
+     */
+    public function handleSearch(string|null $search): mixed
+    {
+        return $this->repository->search_paginate($search, 6);
+    }
+
+    /**
      * store school year
      *
      * @param SchoolRequest $request
@@ -46,7 +57,7 @@ class SchoolService
      * update school year
      *
      * @param SchoolRequest $request
-     * @param int $id
+     * @param User $school
      * @return void
      */
     public function handleUpdate(SchoolRequest $request, User $school): void

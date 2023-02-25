@@ -8,9 +8,7 @@ use Illuminate\Validation\Rule;
 class SchoolRequest extends BaseRequest
 {
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
+     * @return array
      */
     public function rules(): array
     {

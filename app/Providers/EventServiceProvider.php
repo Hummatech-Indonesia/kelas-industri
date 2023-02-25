@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Materials;
 use App\Models\User;
+use App\Observers\MaterialObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -30,6 +32,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         User::observe(UserObserver::class);
+        Materials::observe(MaterialObserver::class);
     }
 
     /**

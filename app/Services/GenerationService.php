@@ -16,6 +16,16 @@ class GenerationService
     }
 
     /**
+     * handle get all
+     *
+     * @return mixed
+     */
+    public function handleGetAll(): mixed
+    {
+        return $this->repository->getAll();
+    }
+
+    /**
      * handle get paginated
      *
      * @param int $schoolYearId

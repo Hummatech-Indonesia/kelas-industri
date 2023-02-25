@@ -25,8 +25,16 @@ class SchoolController extends Controller
      */
     public function index(): View
     {
+        $schools = $this->service->handleGetPaginate();
+        $parameters = null;
+
+        if(request()->has('search')){
+            $schools = $this->service->handleSearch(request()->search);
+            $parameters = request()->query();
+        }
         $data = [
-            'schools'   => $this->service->handleGetPaginate()
+            'schools'   => $schools,
+            'parameters'    => $parameters
         ];
         return view('dashboard.admin.pages.school.index', $data);
     }

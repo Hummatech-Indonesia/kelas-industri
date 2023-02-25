@@ -7,28 +7,15 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Overview
+                Materi
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7 my-1">
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-600">
-                    <a href="../../index-2.html" class="text-gray-600 text-hover-primary">
-                        Home                            </a>
-                </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-600">
-                    User Profile                                            </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-500">
-                    Overview                    </li>
-                <!--end::Item-->
-            </ul>
+            <p class="text-muted">
+                List materi di kelas industri.
+            </p>
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
@@ -36,7 +23,7 @@
         <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <a href="#" class="btn btn-dark fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">
+            <a href="{{ route('admin.materials.create') }}" class="btn btn-dark fw-bold">
                 Tambah            </a>
             <!--end::Button-->
         </div>
@@ -44,7 +31,7 @@
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="#">
+            <form id="form-search" action="#">
                 <!--begin::Card-->
                 <div class="card mb-7">
                     <!--begin::Card body-->
@@ -52,7 +39,7 @@
                         <!--begin::Compact form-->
                         <div class="d-flex align-items-center">
                             <!--begin::Input group-->
-                            <div class="position-relative col-12">
+                            <div class="position-relative col-lg-6 col-md-12 me-3">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                 <span class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
@@ -61,6 +48,17 @@
 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" class="form-control form-control-solid ps-10" name="search" value="" placeholder="Search">
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <select name="generation_id" class="form-select form-select-solid me-5" data-control="select2" data-placeholder="Select an option">
+                                    @foreach($generations as $generation)
+                                        <option {{ (old('generation_id') == $generation->id) ? 'selected' : '' }} value="{{ $generation->id }}">{{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-md-12 ms-3">
+                                <button type="submit" class="btn btn-primary">Cari</button>
+                                <a href="{{ route('admin.materials.index') }}" type="button" class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
                             </div>
                             <!--end::Input group-->
                         </div>
@@ -72,118 +70,145 @@
             </form>
         </div>
         <div class="row">
-            <div class="col-xl-4">
+            @forelse($materials as $material)
+                <div class="col-xl-4 mb-3">
 
-                <!--begin::Card-->
+                    <!--begin::Card-->
 
-                <div class="card card-custom gutter-b card-stretch">
+                    <div class="card card-custom gutter-b card-stretch">
 
-                    <!--begin::Body-->
+                        <!--begin::Body-->
 
-                    <div class="card-body">
+                        <div class="card-body">
 
-                        <!--begin::Section-->
+                            <!--begin::Section-->
 
-                        <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center">
 
-                            <!--begin::Pic-->
+                                <!--begin::Pic-->
 
-                            <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle symbol-primary me-5">
+                                <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
 
-                                <span class="font-size-h5 symbol-label font-weight-boldest">PE</span>
+                                    <span class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($material->title, 0, 1) }}</span>
 
 
+
+                                </div>
+
+                                <!--end::Pic-->
+
+                                <!--begin::Info-->
+
+                                <div class="d-flex flex-column me-auto">
+
+                                    <!--begin: Title-->
+
+                                    <a href="https://class.hummasoft.com/siswa/materi/11/4" class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
+
+                                        {{ $material->title }}
+                                    </a>
+
+
+
+                                    <span class="text-muted font-weight-bold">
+                                            {{ $material->generation->generation }}
+                                    </span>
+
+                                    <!--end::Title-->
+
+                                </div>
+
+                                <!--end::Info-->
+
+                                <div class="d-flex">
+                                    <a href="{{ route('admin.materials.edit', $material->id) }}" class="btn btn-default btn-sm p-1"><i class="fonticon-setting fs-2 text-warning"></i></a>
+                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $material->id }}"><i class="fonticon-trash-bin fs-2 text-danger"></i></button>
+                                </div>
 
                             </div>
 
-                            <!--end::Pic-->
+                            <!--end::Section-->
 
-                            <!--begin::Info-->
-
-                            <div class="d-flex flex-column mr-auto">
-
-                                <!--begin: Title-->
-
-                                <a href="https://class.hummasoft.com/siswa/materi/11/4" class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
-
-                                    Pengenalan HTML
-                                </a>
+                            <!--begin::Content-->
 
 
 
-                                <span class="text-muted font-weight-bold">
+                            <!--end::Content-->
 
-                                            Bab dan tugas  untuk Pengenalan HTML
-                                        </span>
+                            <!--begin::Text-->
 
-                                <!--end::Title-->
+                            <p class="mb-7 mt-5">
 
-                            </div>
+                                {{ $material->description }}
+                            </p>
 
-                            <!--end::Info-->
+                            <!--end::Text-->
 
 
 
                         </div>
 
-                        <!--end::Section-->
+                        <!--end::Body-->
 
-                        <!--begin::Content-->
+                        <!--begin::Footer-->
 
+                        <div class="card-footer d-flex flex-row justify-content-between">
 
+                            <div class="d-flex">
 
-                        <!--end::Content-->
-
-                        <!--begin::Text-->
-
-                        <p class="mb-7 mt-5">
-
-                            Mengenal website dari dasar
-                        </p>
-
-                        <!--end::Text-->
-
-
-
-                    </div>
-
-                    <!--end::Body-->
-
-                    <!--begin::Footer-->
-
-                    <div class="card-footer d-flex flex-row justify-content-between">
-
-                        <div class="d-flex">
-
-                            <div class="d-flex align-items-center me-5">
-                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
-                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <div class="d-flex align-items-center me-5">
+                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
+                                    <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect opacity="0.5" x="7" y="2" width="14" height="16" rx="3" fill="currentColor"/>
     <rect x="3" y="6" width="14" height="16" rx="3" fill="currentColor"/>
 </svg>
 </span>
-                                <!--end::Svg Icon-->
-                                <a href="https://class.hummasoft.com/siswa/materi/11/4" class="fw-bold text-info ml-2">5 Bab</a>
+                                    <!--end::Svg Icon-->
+                                    <a href="https://class.hummasoft.com/siswa/materi/11/4" class="fw-bold text-info ml-2">{{ count($material->subMaterials) }} Bab</a>
+
+
+
+                                </div>
 
 
 
                             </div>
 
-
+                            <a href="{{ route('student.submaterial') }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                         </div>
 
-                        <a href="{{ route('student.submaterial') }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                        <!--end::Footer-->
 
                     </div>
 
-                    <!--end::Footer-->
+                    <!--end::Card-->
 
                 </div>
-
-                <!--end::Card-->
-
-            </div>
+            @empty
+                <x-empty-component title="materi"/>
+            @endforelse
         </div>
+        <div class="row">
+            <x-pagination-component :paginator="$materials" route="admin.materials.index" />
+        </div>
+
+        {{--    delete modal --}}
+        <x-delete-modal-component></x-delete-modal-component>
+        {{--    end modal --}}
+
     </div>
+@endsection
+@section('script')
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            $('.btn-delete').click(function() {
+                const url = "{{ route('admin.materials.destroy', ':id') }}".replace(':id', $(this).data('id'))
+                $('#form-delete').attr('action', url)
+
+                $('#kt_modal_delete').modal('show')
+            })
+        });
+    </script>
 @endsection

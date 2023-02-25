@@ -270,17 +270,5 @@
                 $('#kt_modal_update').modal('show')
             })
         });
-
-        @if(\Illuminate\Support\Facades\Session::has('success'))
-        Swal.fire({
-            text: "{{ Session::get('success') }}",
-            icon: "success",
-            buttonsStyling: false,
-            confirmButtonText: "Ok!",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        });
-        @endif
     </script>
 @endsection
