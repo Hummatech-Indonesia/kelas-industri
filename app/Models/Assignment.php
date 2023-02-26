@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubMaterials extends Model
+class Assignment extends Model
 {
     use HasFactory;
 
     public $incrementing = false;
     public $keyType = 'char';
-    protected $table = 'sub_materials';
+    protected $table = 'assignments';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'material_id', 'title', 'description', 'student_file', 'teacher_file'];
+    protected $fillable = ['id', 'sub_material_id', 'title', 'description', 'start_date', 'end_date'];
 }

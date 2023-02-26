@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Materials extends Model
+class Material extends Model
 {
     use HasFactory;
 
@@ -35,6 +35,6 @@ class Materials extends Model
      */
     public function subMaterials(): HasMany
     {
-        return $this->hasMany(SubMaterials::class, 'material_id');
+        return $this->hasMany(SubMaterial::class, 'material_id');
     }
 }

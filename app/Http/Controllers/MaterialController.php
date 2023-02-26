@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\MaterialRequest;
-use App\Models\Materials;
+use App\Models\Material;
 use App\Services\GenerationService;
 use App\Services\MaterialService;
+use App\Services\SubMaterialService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,11 +16,13 @@ class MaterialController extends Controller
 {
     private MaterialService $service;
     private GenerationService $generationService;
+    private SubMaterialService $subMaterialService;
 
-    public function __construct(MaterialService $service, GenerationService $generationService)
+    public function __construct(MaterialService $service, GenerationService $generationService, SubMaterialService $subMaterialService)
     {
         $this->service = $service;
         $this->generationService = $generationService;
+        $this->subMaterialService = $subMaterialService;
     }
 
     /**
@@ -67,21 +70,28 @@ class MaterialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Material $material
+     * @return View
      */
-    public function show($id)
+    public function show(Material $material): View
     {
-        //
+        $data = [
+            'material'  => $material,
+            'subMaterials' => $this->subMaterialService->handleGetPaginate($material->id),
+            'parameters' => [
+                'material'  => $material->id
+            ]
+        ];
+        return view('dashboard.admin.pages.submaterial.index', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Materials $material
+     * @param Material $material
      * @return View
      */
-    public function edit(Materials $material): View
+    public function edit(Material $material): View
     {
         $data = [
             'generations' => $this->generationService->handleGetAll(),
@@ -94,10 +104,10 @@ class MaterialController extends Controller
      * Update the specified resource in storage.
      *
      * @param MaterialRequest $request
-     * @param Materials $material
+     * @param Material $material
      * @return RedirectResponse
      */
-    public function update(MaterialRequest $request, Materials $material): RedirectResponse
+    public function update(MaterialRequest $request, Material $material): RedirectResponse
     {
         $this->service->handleUpdate($request, $material->id);
 
@@ -107,10 +117,10 @@ class MaterialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Materials $material
+     * @param Material $material
      * @return RedirectResponse
      */
-    public function destroy(Materials $material): RedirectResponse
+    public function destroy(Material $material): RedirectResponse
     {
         $data = $this->service->handleDelete($material->id);
 

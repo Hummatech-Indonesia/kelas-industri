@@ -4,6 +4,7 @@ use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\SubMaterialController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,11 +31,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         return view('dashboard.admin.layouts.app');
     });
     Route::resources([
-        'schoolYears' => SchoolYearController::class,
-        'generations' => GenerationController::class,
-        'schools'     => SchoolController::class,
-        'materials'   => MaterialController::class
+        'schoolYears'   => SchoolYearController::class,
+        'generations'   => GenerationController::class,
+        'schools'       => SchoolController::class,
+        'materials'     => MaterialController::class,
+        'submaterials'  => SubMaterialController::class
     ]);
+
+    Route::name('materials.')->prefix('materials')->group(function() {
+        Route::get('/{material}/create', [SubMaterialController::class, 'create'])->name('createSubmaterial');
+        Route::get('/{material}/{subMaterial}', [SubMaterialController::class, 'edit'])->name('editSubmaterial');
+    });
 //    Route::get('/schools', function() {
 //        return view('dashboard.admin.pages.school.index');
 //    })->name('schools');

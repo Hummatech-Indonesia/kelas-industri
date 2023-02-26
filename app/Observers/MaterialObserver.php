@@ -2,62 +2,62 @@
 
 namespace App\Observers;
 
-use App\Models\Materials;
+use App\Models\Material;
 use Faker\Provider\Uuid;
 
 class MaterialObserver
 {
     /**
-     * Handle the Materials "creating" event.
+     * Handle the Material "creating" event.
      *
-     * @param  \App\Models\Materials  $materials
+     * @param  \App\Models\Material  $material
      * @return void
      */
-    public function creating(Materials $materials)
+    public function creating(Material $material)
     {
-        $materials->id = Uuid::uuid();
+        $material->id = Uuid::uuid();
     }
 
     /**
-     * Handle the Materials "updated" event.
+     * Handle the Material "updated" event.
      *
-     * @param  \App\Models\Materials  $materials
+     * @param  \App\Models\Material  $material
      * @return void
      */
-    public function updated(Materials $materials)
-    {
-        //
-    }
-
-    /**
-     * Handle the Materials "deleted" event.
-     *
-     * @param  \App\Models\Materials  $materials
-     * @return void
-     */
-    public function deleted(Materials $materials)
+    public function updated(Material $material)
     {
         //
     }
 
     /**
-     * Handle the Materials "restored" event.
+     * Handle the Material "deleted" event.
      *
-     * @param  \App\Models\Materials  $materials
+     * @param  \App\Models\Material  $material
      * @return void
      */
-    public function restored(Materials $materials)
+    public function deleted(Material $material)
     {
         //
     }
 
     /**
-     * Handle the Materials "force deleted" event.
+     * Handle the Material "restored" event.
      *
-     * @param  \App\Models\Materials  $materials
+     * @param  \App\Models\Material  $material
      * @return void
      */
-    public function forceDeleted(Materials $materials)
+    public function restored(Material $material)
+    {
+        //
+    }
+
+    /**
+     * Handle the Material "force deleted" event.
+     *
+     * @param  \App\Models\Material  $material
+     * @return void
+     */
+    public function forceDeleted(Material $material)
     {
         //
     }

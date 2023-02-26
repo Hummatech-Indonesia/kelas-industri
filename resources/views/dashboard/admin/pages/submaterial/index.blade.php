@@ -2,36 +2,40 @@
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
-
         <!--begin::Page title-->
-        <div class="page-title d-flex flex-column me-3">
+        <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
             <!--begin::Title-->
-            <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Materi
+            <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+                {{ $material->title }}
             </h1>
             <!--end::Title-->
 
-
             <!--begin::Breadcrumb-->
-            <p class="text-muted">
-                List materi di kelas industri.
-            </p>
+            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    {{ count($material->subMaterials) }} Bab
+                </li>
+                <!--end::Item-->
+
+            </ul>
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
         <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
-
-            <!--begin::Button-->
-            <a href="{{ route('admin.materials.create') }}" class="btn btn-dark fw-bold">
-                Tambah            </a>
-            <!--end::Button-->
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <a href="{{ url()->previous() }}" class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Kembali
+            </a>
+            <a href="{{ route('admin.materials.createSubmaterial', $material->id) }}" class="btn btn-dark fw-bold h-40px fs-7">
+                Tambah
+            </a>
         </div>
         <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form id="form-search" action="#">
+            <form action="#">
                 <!--begin::Card-->
                 <div class="card mb-7">
                     <!--begin::Card body-->
@@ -39,7 +43,7 @@
                         <!--begin::Compact form-->
                         <div class="d-flex align-items-center">
                             <!--begin::Input group-->
-                            <div class="position-relative col-lg-6 col-md-12 me-3">
+                            <div class="position-relative col-12">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                 <span class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
@@ -48,17 +52,6 @@
 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" class="form-control form-control-solid ps-10" name="search" value="" placeholder="Search">
-                            </div>
-                            <div class="col-lg-4 col-md-12">
-                                <select name="generation_id" class="form-select form-select-solid me-5" data-control="select2" data-placeholder="Select an option">
-                                    @foreach($generations as $generation)
-                                        <option {{ (old('generation_id') == $generation->id) ? 'selected' : '' }} value="{{ $generation->id }}">{{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-lg-2 col-md-12 ms-3">
-                                <button type="submit" class="btn btn-primary">Cari</button>
-                                <a href="{{ route('admin.materials.index') }}" type="button" class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
                             </div>
                             <!--end::Input group-->
                         </div>
@@ -70,7 +63,7 @@
             </form>
         </div>
         <div class="row">
-            @forelse($materials as $material)
+            @forelse($subMaterials as $subMaterial)
                 <div class="col-xl-4 mb-3">
 
                     <!--begin::Card-->
@@ -87,9 +80,9 @@
 
                                 <!--begin::Pic-->
 
-                                <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle me-5">
+                                <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
 
-                                    <span class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($material->title, 0, 1) }}</span>
+                                    <span class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($subMaterial->title, 0, 1) }}</span>
 
 
 
@@ -105,14 +98,15 @@
 
                                     <a href="https://class.hummasoft.com/siswa/materi/11/4" class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
 
-                                        {{ $material->title }}
+                                        {{ $subMaterial->title }}
                                     </a>
 
 
 
                                     <span class="text-muted font-weight-bold">
-                                            {{ $material->generation->generation }}
-                                    </span>
+
+                                            {{ $material->title }}
+                                        </span>
 
                                     <!--end::Title-->
 
@@ -121,8 +115,8 @@
                                 <!--end::Info-->
 
                                 <div class="d-flex">
-                                    <a href="{{ route('admin.materials.edit', $material->id) }}" class="btn btn-default btn-sm p-1"><i class="fonticon-setting fs-2 text-warning"></i></a>
-                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $material->id }}"><i class="fonticon-trash-bin fs-2 text-danger"></i></button>
+                                    <a href="{{ route('admin.materials.editSubmaterial', ['material' => $material->id, 'subMaterial' => $subMaterial->id]) }}" class="btn btn-default btn-sm p-1"><i class="fonticon-setting fs-2 text-warning"></i></a>
+                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $subMaterial->id }}"><i class="fonticon-trash-bin fs-2 text-danger"></i></button>
                                 </div>
 
                             </div>
@@ -139,7 +133,7 @@
 
                             <p class="mb-7 mt-5">
 
-                                {{ $material->description }}
+                                {{ $subMaterial->description }}
                             </p>
 
                             <!--end::Text-->
@@ -164,7 +158,7 @@
 </svg>
 </span>
                                     <!--end::Svg Icon-->
-                                    <a href="{{ route('admin.materials.show', $material->id) }}" class="fw-bold text-info ml-2">{{ count($material->subMaterials) }} Bab</a>
+                                    <a href="https://class.hummasoft.com/siswa/materi/11/4" class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }} Tugas</a>
 
 
 
@@ -174,7 +168,7 @@
 
                             </div>
 
-                            <a href="{{ route('admin.materials.show', $material->id) }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                            <a href="{{ route('student.submaterial') }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                         </div>
 
@@ -186,17 +180,13 @@
 
                 </div>
             @empty
-                <x-empty-component title="materi"/>
+                <x-empty-component title="bab" />
             @endforelse
         </div>
         <div class="row">
-            <x-pagination-component :paginator="$materials" route="admin.materials.index" />
+            <x-pagination-component :paginator="$subMaterials" route="admin.materials.show" :parameters="$parameters" />
         </div>
-
-        {{--    delete modal --}}
-        <x-delete-modal-component></x-delete-modal-component>
-        {{--    end modal --}}
-
+        <x-delete-modal-component />
     </div>
 @endsection
 @section('script')
@@ -204,7 +194,7 @@
         document.addEventListener("DOMContentLoaded", () => {
 
             $('.btn-delete').click(function() {
-                const url = "{{ route('admin.materials.destroy', ':id') }}".replace(':id', $(this).data('id'))
+                const url = "{{ route('admin.submaterials.destroy', ':id') }}".replace(':id', $(this).data('id'))
                 $('#form-delete').attr('action', url)
 
                 $('#kt_modal_delete').modal('show')

@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TeacherClassrooms extends Model
+class SubmitAssignment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['teacher_id', 'classroom_id'];
+    protected $fillable = ['sub_material_id', 'student_id', 'file'];
 }

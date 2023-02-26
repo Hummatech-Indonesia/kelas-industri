@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\Materials;
+use App\Models\Material;
 
 class MaterialRepository extends BaseRepository
 {
-    public function __construct(Materials $materials)
+    public function __construct(Material $materials)
     {
         $this->model = $materials;
     }

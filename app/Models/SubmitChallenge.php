@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubmitChallanges extends Model
+class SubmitChallenge extends Model
 {
     use HasFactory;
 
