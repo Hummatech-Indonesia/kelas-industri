@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Assignment;
 use App\Models\Material;
 use App\Models\SubMaterial;
 use App\Models\User;
+use App\Observers\AssignmentObserver;
 use App\Observers\MaterialObserver;
 use App\Observers\SubmaterialObserver;
 use App\Observers\UserObserver;
@@ -36,6 +38,7 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Material::observe(MaterialObserver::class);
         SubMaterial::observe(SubmaterialObserver::class);
+        Assignment::observe(AssignmentObserver::class);
     }
 
     /**

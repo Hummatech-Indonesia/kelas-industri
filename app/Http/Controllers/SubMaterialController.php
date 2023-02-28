@@ -55,12 +55,15 @@ class SubMaterialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param SubMaterial $submaterial
+     * @return View
      */
-    public function show($id)
+    public function show(SubMaterial $submaterial): View
     {
-        //
+        $data = [
+            'subMaterial'   => $submaterial
+        ];
+        return view('dashboard.admin.pages.submaterial.detail', $data);
     }
 
     /**

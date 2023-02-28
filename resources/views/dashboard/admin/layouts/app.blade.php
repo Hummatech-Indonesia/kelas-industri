@@ -32,7 +32,6 @@ License: For each use you must have a valid license purchased only from above li
 
     {{--    Plugin Stylesheets --}}
     <link href="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('app-assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
 
     {{--    End Plugin Stylesheets --}}
 </head>
@@ -139,7 +138,6 @@ License: For each use you must have a valid license purchased only from above li
 
 {{--Plugin Javascript --}}
 <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-<script src="{{ asset('app-assets/plugins/global/plugins.bundle.js') }}"></script>
 {{--End Plugin Javascript --}}
 @yield('script')
 <script>

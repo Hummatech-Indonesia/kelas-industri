@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\SchoolController;
@@ -35,31 +36,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'generations'   => GenerationController::class,
         'schools'       => SchoolController::class,
         'materials'     => MaterialController::class,
-        'submaterials'  => SubMaterialController::class
+        'submaterials'  => SubMaterialController::class,
+        'assignments'   => AssignmentController::class
     ]);
 
     Route::name('materials.')->prefix('materials')->group(function() {
         Route::get('/{material}/create', [SubMaterialController::class, 'create'])->name('createSubmaterial');
         Route::get('/{material}/{subMaterial}', [SubMaterialController::class, 'edit'])->name('editSubmaterial');
     });
-//    Route::get('/schools', function() {
-//        return view('dashboard.admin.pages.school.index');
-//    })->name('schools');
-//    Route::get('/schools/create', function() {
-//        return view('dashboard.admin.pages.school.create');
-//    })->name('create-school');
-//    Route::get('/schools/detail', function() {
-//        return view('dashboard.admin.pages.school.detail');
-//    })->name('detail-school');
-//    Route::get('/materials', function() {
-//        return view('dashboard.admin.pages.material.index');
-//    })->name('materials');
-//    Route::get('/materials/sub-material', function() {
-//        return view('dashboard.admin.pages.material.submaterial');
-//    })->name('submaterial');
-//    Route::get('/materials/sub-material/detail', function() {
-//        return view('dashboard.admin.pages.material.detail');
-//    })->name('detail-submaterial');
+    Route::get('assignments/{submaterial}/create', [AssignmentController::class, 'create'])->name('createAssignment');
+
     Route::get('/leaderboards', function() {
         return view('dashboard.admin.pages.leaderboard.index');
     })->name('leaderboards');
