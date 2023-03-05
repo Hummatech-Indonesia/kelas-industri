@@ -27,49 +27,52 @@ Route::get('/', function () {
 Auth::routes(['login' => true, 'register' => false]);
 
 //admin
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function() {
-    Route::get('/', function() {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
         return view('dashboard.admin.layouts.app');
     });
     Route::resources([
-        'schoolYears'   => SchoolYearController::class,
-        'generations'   => GenerationController::class,
-        'schools'       => SchoolController::class,
-        'materials'     => MaterialController::class,
-        'submaterials'  => SubMaterialController::class,
-        'assignments'   => AssignmentController::class
+        'schoolYears' => SchoolYearController::class,
+        'generations' => GenerationController::class,
+        'schools' => SchoolController::class,
+        'materials' => MaterialController::class,
+        'submaterials' => SubMaterialController::class,
+        'assignments' => AssignmentController::class
     ]);
 
-    Route::name('materials.')->prefix('materials')->group(function() {
+    Route::name('materials.')->prefix('materials')->group(function () {
         Route::get('/{material}/create', [SubMaterialController::class, 'create'])->name('createSubmaterial');
         Route::get('/{material}/{subMaterial}', [SubMaterialController::class, 'edit'])->name('editSubmaterial');
     });
-    Route::get('assignments/{submaterial}/create', [AssignmentController::class, 'create'])->name('createAssignment');
+    Route::name('submaterials.')->prefix('submaterials')->group(function () {
+        Route::get('/assignments/{submaterial}/create', [AssignmentController::class, 'create'])->name('createAssignment');
+        Route::get('/{submaterial}/view/{role}', [SubMaterialController::class, 'viewMaterial'])->name('viewMaterial');
+    });
 
-    Route::get('/leaderboards', function() {
+    Route::get('/leaderboards', function () {
         return view('dashboard.admin.pages.leaderboard.index');
     })->name('leaderboards');
 });
 //end admin
 
 //student
-Route::prefix('student')->name('student.')->group(function() {
-    Route::get('/', function() {
+Route::prefix('student')->name('student.')->group(function () {
+    Route::get('/', function () {
         return view('dashboard.user.pages.material.index');
     });
-    Route::get('/materials', function() {
+    Route::get('/materials', function () {
         return view('dashboard.user.pages.material.index');
     })->name('materials');
-    Route::get('/sub-material', function() {
+    Route::get('/sub-material', function () {
         return view('dashboard.user.pages.material.submaterial');
     })->name('submaterial');
-    Route::get('/sub-material/detail', function() {
+    Route::get('/sub-material/detail', function () {
         return view('dashboard.user.pages.material.detail');
     })->name('submaterial-detail');
-    Route::get('/challenges', function() {
+    Route::get('/challenges', function () {
         return view('dashboard.user.pages.challenge.index');
     })->name('challenges');
-    Route::get('/leaderboards', function() {
+    Route::get('/leaderboards', function () {
         return view('dashboard.user.pages.leaderboard.index');
     })->name('leaderboards');
 });

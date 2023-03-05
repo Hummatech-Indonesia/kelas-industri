@@ -82,10 +82,39 @@
 
                                     <div class="my-lg-0 my-1">
 
-                                        <a href="https://class.hummasoft.com/siswa/view/materi-siswa/11"
-                                           class="btn btn-sm btn-danger font-weight-bolder text-uppercase">Lihat
-                                            Materi</a>
+                                        <button type="button"
+                                                class="btn btn-sm btn-danger font-weight-bolder text-uppercase"
+                                                data-bs-toggle="modal" data-bs-target="#kt_modal_1">Lihat
+                                            Materi
+                                        </button>
 
+                                        {{--                                        modal materi --}}
+                                        <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title">Materi {{ $subMaterial->title }}</h3>
+
+                                                        <!--begin::Close-->
+                                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                             data-bs-dismiss="modal" aria-label="Close">
+                                                            <span class="svg-icon svg-icon-1"></span>
+                                                        </div>
+                                                        <!--end::Close-->
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <a href="{{ route('admin.submaterials.viewMaterial', [$subMaterial->id, 'teacher']) }}"
+                                                           class="btn btn-primary me-3">Materi Guru
+                                                        </a>
+                                                        <a href="{{ route('admin.submaterials.viewMaterial', [$subMaterial->id, 'student']) }}"
+                                                           class="btn btn-danger">Materi Siswa
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{--                                        end modal materi--}}
                                     </div>
 
                                 </div>
@@ -133,7 +162,7 @@
 
                         <div class="my-lg-0 my-1">
 
-                            <a href="{{ route('admin.createAssignment', ['submaterial' => $subMaterial->id]) }}"
+                            <a href="{{ route('admin.submaterials.createAssignment', ['submaterial' => $subMaterial->id]) }}"
                                class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Tambah Tugas</a>
 
                         </div>

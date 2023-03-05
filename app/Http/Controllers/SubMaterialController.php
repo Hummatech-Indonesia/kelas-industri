@@ -7,7 +7,7 @@ use App\Models\Material;
 use App\Models\SubMaterial;
 use App\Services\SubMaterialService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class SubMaterialController extends Controller
@@ -22,7 +22,7 @@ class SubMaterialController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -61,7 +61,7 @@ class SubMaterialController extends Controller
     public function show(SubMaterial $submaterial): View
     {
         $data = [
-            'subMaterial'   => $submaterial
+            'subMaterial' => $submaterial
         ];
         return view('dashboard.admin.pages.submaterial.detail', $data);
     }
@@ -101,8 +101,20 @@ class SubMaterialController extends Controller
     {
         $data = $this->service->handleDelete($submaterial->id);
 
-        if(!$data) return back()->with('error', trans('alert.delete_constrained'));
+        if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    /**
+     * view submaterial pdf
+     *
+     * @param SubMaterial $submaterial
+     * @param string $role
+     * @return View
+     */
+    public function viewMaterial(SubMaterial $submaterial, string $role): View
+    {
+        return view('dashboard.admin.pages.submaterial.view', compact('submaterial', 'role'));
     }
 }

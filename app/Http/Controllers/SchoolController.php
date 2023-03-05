@@ -6,7 +6,6 @@ use App\Http\Requests\SchoolRequest;
 use App\Models\User;
 use App\Services\SchoolService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SchoolController extends Controller
@@ -28,13 +27,13 @@ class SchoolController extends Controller
         $schools = $this->service->handleGetPaginate();
         $parameters = null;
 
-        if(request()->has('search')){
+        if (request()->has('search')) {
             $schools = $this->service->handleSearch(request()->search);
             $parameters = request()->query();
         }
         $data = [
-            'schools'   => $schools,
-            'parameters'    => $parameters
+            'schools' => $schools,
+            'parameters' => $parameters
         ];
         return view('dashboard.admin.pages.school.index', $data);
     }
@@ -70,7 +69,7 @@ class SchoolController extends Controller
      */
     public function show(User $school): View
     {
-        //
+        dd($school);
     }
 
     /**
@@ -108,7 +107,7 @@ class SchoolController extends Controller
     {
         $data = $this->service->handleDelete($school);
 
-        if(!$data){
+        if (!$data) {
             return back()->with('error', trans('alert.delete_constrained'));
         }
 
