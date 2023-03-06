@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\SchoolController;
@@ -54,6 +55,19 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     })->name('leaderboards');
 });
 //end admin
+
+//schools
+Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->group(function () {
+    Route::get('/', function () {
+        return view('dashboard.admin.layouts.app');
+    });
+
+    Route::resources([
+        'classrooms' => ClassroomController::class,
+    ]);
+
+});
+//end schools
 
 //student
 Route::prefix('student')->name('student.')->group(function () {

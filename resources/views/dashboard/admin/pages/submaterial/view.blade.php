@@ -33,7 +33,7 @@
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 text-center">
                 <div class="mx-auto flex flex-col h-screen">
                     {{--                    <div class="flex justify-between my-4">--}}
                     {{--                        <nav class="nav justify-content-end"><a class="border rounded py-2 px-4 bg-blue-500" id="prev"--}}
@@ -73,6 +73,35 @@
         <!--end::Prebuilts toggle-->
 
         <!--begin::Prebuilts toggle-->
+        <a href="#" id="zoom-in"
+           class="app-engage-btn hover-primary">
+            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-30-131017/core/html/src/media/icons/duotune/arrows/arr075.svg-->
+            <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)"
+      fill="currentColor"/>
+<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor"/>
+</svg></span>
+            <!--end::Svg Icon-->
+            Zoom In
+        </a>
+        <!--end::Prebuilts toggle-->
+
+        <!--begin::Prebuilts toggle-->
+        <a href="#" id="zoom-out"
+           class="app-engage-btn hover-primary">
+            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-30-131017/core/html/src/media/icons/duotune/arrows/arr089.svg-->
+            <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"/>
+</svg>
+</span>
+            <!--end::Svg Icon-->
+            Zoom Out
+        </a>
+        <!--end::Prebuilts toggle-->
+
+        <!--begin::Prebuilts toggle-->
         <a href="#" id="next" class="app-engage-btn hover-primary">
             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-30-131017/core/html/src/media/icons/duotune/arrows/arr071.svg-->
             <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24"
@@ -91,14 +120,21 @@
 @endsection
 @section('script')
     <script src="{{ asset('app-assets/plugins/custom/pdfjs-3.4.120-dist/build/pdf.js') }}"></script>
+    {{--    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>--}}
     <script>
+
+        // setup
+        var width = 60;
         const url = "{{ ($role == 'teacher') ? asset('storage/' . $submaterial->teacher_file) : asset('storage/' . $submaterial->student_file) }}";
 
         const pdfjsLib = window["pdfjs-dist/build/pdf"];
         pdfjsLib.GlobalWorkerOptions.workerSrc =
-            "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
+            "{{ asset('app-assets/plugins/custom/pdfjs-3.4.120-dist/build/pdf.worker.js') }}";
 
-        let loggedIn = false,
+        $('#pdfviewer').css('width', `${width}%`)
+
+
+        let loggedIn = true,
             pdfDoc = null,
             pageNum = 1,
             pageRendering = false,
@@ -192,15 +228,6 @@
         document.getElementById("next").addEventListener("click", onNextPage);
 
 
-        document.getElementById("download").addEventListener("click", (e) => {
-            if (loggedIn) {
-                toastr.success('You can download the Document', 'Ok!');
-            } else {
-                toastr.error("You Must be Logged in to Download this Document", "Sorry");
-            }
-        });
-
-
         const loggedInClass = "bg-green-500";
         const loggedOutClass = "bg-red-500";
         $(".nav").prepend($("<a>", {href: "#"})
@@ -217,5 +244,19 @@
                 }
             }))
         ;
+
+        document.getElementById("zoom-in").addEventListener("click", function () {
+            if (width < 100) {
+                width += 10
+                $('#pdfviewer').css('width', `${width}%`)
+            }
+        });
+
+        document.getElementById("zoom-out").addEventListener("click", function () {
+            if (width > 50) {
+                width -= 10
+                $('#pdfviewer').css('width', `${width}%`)
+            }
+        });
     </script>
 @endsection

@@ -48,7 +48,8 @@
 
                                 <div class="symbol symbol-50 symbol-lg-120 symbol-primary ">
 
-                                    <span class="font-size-h3 symbol-label font-weight-boldest">MA</span>
+                                    <span
+                                        class="font-size-h3 symbol-label font-weight-boldest">{{ substr($subMaterial->title, 0, 1) }}</span>
 
                                 </div>
 

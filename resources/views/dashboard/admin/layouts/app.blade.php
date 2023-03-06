@@ -44,7 +44,7 @@ https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
     <style>
         #pdfviewer {
             border: 1px #333 solid;
-            width: 100%;
+            /*width: 60%;*/
             background: #eee;
         }
     </style>

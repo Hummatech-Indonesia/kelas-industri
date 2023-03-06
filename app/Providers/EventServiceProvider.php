@@ -3,17 +3,18 @@
 namespace App\Providers;
 
 use App\Models\Assignment;
+use App\Models\Classroom;
 use App\Models\Material;
 use App\Models\SubMaterial;
 use App\Models\User;
 use App\Observers\AssignmentObserver;
+use App\Observers\ClassroomObserver;
 use App\Observers\MaterialObserver;
 use App\Observers\SubmaterialObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -39,6 +40,7 @@ class EventServiceProvider extends ServiceProvider
         Material::observe(MaterialObserver::class);
         SubMaterial::observe(SubmaterialObserver::class);
         Assignment::observe(AssignmentObserver::class);
+        Classroom::observe(ClassroomObserver::class);
     }
 
     /**
