@@ -20,5 +20,6 @@ return [
     'update_failed' => 'Gagal memperbarui data',
     'delete_success' => 'Berhasil menghapus data',
     'delete_constrained' => 'Gagal menghapus! data sedang digunakan',
-    'delete_failed' => 'Gagal menghapus data'
+    'delete_failed' => 'Gagal menghapus data',
+    'import_success' => 'Berhasil mengimport data',
 ];

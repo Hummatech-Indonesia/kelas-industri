@@ -177,7 +177,7 @@
 
                             </div>
 
-                            <a href="{{ route('admin.materials.show', $classroom->id) }}"
+                            <a href="{{ route('school.classrooms.show', $classroom->id) }}"
                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                         </div>
@@ -195,7 +195,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <x-pagination-component :paginator="$classrooms" :parameters="$parameters" route="admin.schools.index"/>
+                <x-pagination-component :paginator="$classrooms" :parameters="$parameters"
+                                        route="school.classrooms.index"/>
             </div>
         </div>
         <x-delete-modal-component/>
@@ -213,7 +214,7 @@
             })
 
             $('#btn-search').click(function () {
-                window.location.href = "{{ route('admin.schools.index', 'search=' . ':id') }}".replace(':id', $("input[name='search']").val())
+                window.location.href = "{{ route('school.classrooms.index', 'search=' . ':id') }}".replace(':id', $("input[name='search']").val())
             })
         });
     </script>

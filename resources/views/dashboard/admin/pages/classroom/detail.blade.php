@@ -6,7 +6,7 @@
         <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
             <!--begin::Title-->
             <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                Pengenalan HTML
+                {{ $classroom->name }}
             </h1>
             <!--end::Title-->
 
@@ -14,7 +14,7 @@
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    Jl Kedungpedaringan, Kepanjen
+                    {{ count($classroom->students) }} Siswa
                 </li>
                 <!--end::Item-->
 
@@ -24,395 +24,423 @@
         <!--end::Page title-->
         <!--begin::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ url()->previous() }}" class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+            <a href="{{ url()->previous() }}"
+               class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                 <i class="bi bi-arrow-left me-2"></i> Kembali
             </a>
         </div>
         <!--end::Actions-->
     </div>
-    <div class="content flex-column-fluid" id="kt_content">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-custom gutter-b">
 
-                    <div class="card-body">
+    {{--    modal import --}}
+    <div class="modal fade" tabindex="-1" id="modal-import">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Import Siswa</h3>
 
-                        <!--begin::Details-->
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                         aria-label="Close">
+                        <span class="svg-icon svg-icon-1"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <form action="{{ route('school.importStudents') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <!--begin::Alert-->
+                        <div class="alert alert-warning d-flex align-items-center p-5">
+                            <!--begin::Icon-->
+                            <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
+                            <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="24" height="24"
+                                                                                           viewBox="0 0 24 24"
+                                                                                           fill="none"
+                                                                                           xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.3"
+      d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
+      fill="currentColor"></path>
+<path
+    d="M10.5606 11.3042L9.57283 10.3018C9.28174 10.0065 8.80522 10.0065 8.51412 10.3018C8.22897 10.5912 8.22897 11.0559 8.51412 11.3452L10.4182 13.2773C10.8099 13.6747 11.451 13.6747 11.8427 13.2773L15.4859 9.58051C15.771 9.29117 15.771 8.82648 15.4859 8.53714C15.1948 8.24176 14.7183 8.24176 14.4272 8.53714L11.7002 11.3042C11.3869 11.6221 10.874 11.6221 10.5606 11.3042Z"
+    fill="currentColor"></path>
+</svg>
+</span>
+                        </span>
+                            <!--end::Icon-->
 
-                        <div class="d-flex mb-9">
-
-                            <!--begin: Pic-->
-
-                            <div class="flex-shrink-0 me-7 mt-lg-0 mt-3">
-
-{{--                                <div class="symbol symbol-50 symbol-lg-120">--}}
-
-{{--                                    <img src="/public/assets/media/sekolah/20220726214620.png" alt="image">--}}
-
-{{--                                </div>--}}
-
-
-
-                                <div class="symbol symbol-50px">
-                                    <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">L</div>
-                                </div>
-
-                            </div>
-
-                            <!--end::Pic-->
-
-
-
-                            <!--begin::Info-->
-
-                            <div class="flex-grow-1">
-
+                            <!--begin::Wrapper-->
+                            <div class="d-flex flex-column">
                                 <!--begin::Title-->
-
-                                <div class="d-flex justify-content-between flex-wrap mt-1">
-
-                                    <div class="d-flex flex-row align-items-center me-3">
-
-                                        <p class="fw-bolder text-hover-primary h5 font-weight-bold mb-0 me-3">SMKN 1 Kepanjen
-                                        </p>
-
-                                        <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen026.svg-->
-                                        <span class="svg-icon svg-icon-success svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-                                          <path d="M10.0813 3.7242C10.8849 2.16438 13.1151 2.16438 13.9187 3.7242V3.7242C14.4016 4.66147 15.4909 5.1127 16.4951 4.79139V4.79139C18.1663 4.25668 19.7433 5.83365 19.2086 7.50485V7.50485C18.8873 8.50905 19.3385 9.59842 20.2758 10.0813V10.0813C21.8356 10.8849 21.8356 13.1151 20.2758 13.9187V13.9187C19.3385 14.4016 18.8873 15.491 19.2086 16.4951V16.4951C19.7433 18.1663 18.1663 19.7433 16.4951 19.2086V19.2086C15.491 18.8873 14.4016 19.3385 13.9187 20.2758V20.2758C13.1151 21.8356 10.8849 21.8356 10.0813 20.2758V20.2758C9.59842 19.3385 8.50905 18.8873 7.50485 19.2086V19.2086C5.83365 19.7433 4.25668 18.1663 4.79139 16.4951V16.4951C5.1127 15.491 4.66147 14.4016 3.7242 13.9187V13.9187C2.16438 13.1151 2.16438 10.8849 3.7242 10.0813V10.0813C4.66147 9.59842 5.1127 8.50905 4.79139 7.50485V7.50485C4.25668 5.83365 5.83365 4.25668 7.50485 4.79139V4.79139C8.50905 5.1127 9.59842 4.66147 10.0813 3.7242V3.7242Z" fill="currentColor"/>
-                                          <path d="M14.8563 9.1903C15.0606 8.94984 15.3771 8.9385 15.6175 9.14289C15.858 9.34728 15.8229 9.66433 15.6185 9.9048L11.863 14.6558C11.6554 14.9001 11.2876 14.9258 11.048 14.7128L8.47656 12.4271C8.24068 12.2174 8.21944 11.8563 8.42911 11.6204C8.63877 11.3845 8.99996 11.3633 9.23583 11.5729L11.3706 13.4705L14.8563 9.1903Z" fill="white"/>
-                                        </svg></span>
-                                                                                <!--end::Svg Icon-->
-
-                                    </div>
-
-                                </div>
-
+                                <h4 class="mb-1 text-dark">Informasi</h4>
                                 <!--end::Title-->
-
-
-
                                 <!--begin::Content-->
-
-                                <div class="d-flex flex-wrap justify-content-between mt-1">
-
-                                    <div class="d-flex flex-column flex-grow-1 pr-8">
-
-                                        <div class="d-flex flex-wrap mb-1">
-
-                                            <p class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2"><i class="las la-user-tie me-2 fs-3"></i>Lasmono, S.Pd., MM</p>
-
-                                        </div>
-
-                                        <div class="d-flex flex-wrap mb-1">
-
-                                            <p class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2"><i class="las la-envelope me-2 fs-3"></i>smkn1kepanjen@hummasoft.com</p>
-
-                                        </div>
-
-                                        <div class="d-flex flex-wrap mb-1">
-
-                                            <p class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2"><i class="las la-phone me-2 fs-3"></i>(+62) 341395777</p>
-
-                                        </div>
-
-                                        <div class="d-flex flex-wrap mb-4">
-
-                                            <p class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2"><i class="las la-map-marker-alt me-2 fs-3"></i>Jl, Ngadiluwih, Kedungpedaringan, Kec. Kepanjen, Kabupaten Malang, Jawa Timur 65163</p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
+                                <ul>
+                                    <li>Jika siswa tidak terimport maka kemungkinan email siswa tersebut telah
+                                        digunakan.
+                                    </li>
+                                    <li>File yang dapat diunggah berupa file excel berekstensi xls, xlsx.</li>
+                                    <li>Password siswa secara default adalah <b>password</b></li>
+                                    <li>Format pengisian file excel seperti dibawah ini.</li>
+                                    <li>
+                                        <a href="{{ asset('data-siswa.xlsx') }}" class="btn btn-success btn-sm"><i
+                                                class="fas fa-file-excel"></i> Download
+                                            Format Excel
+                                        </a>
+                                    </li>
+                                </ul>
                                 <!--end::Content-->
 
                             </div>
-
-                            <!--end::Info-->
-
+                            <!--end::Wrapper-->
                         </div>
+                        <!--end::Alert-->
 
-                        <!--end::Details-->
-
-
-
-                        <div class="separator separator-solid"></div>
-
-
-
-                        <!--begin::Items-->
-
-                        <div class="d-flex align-items-center flex-wrap mt-8">
-
-                            <!--begin::Item-->
-
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-
-                                <span class="me-4">
-
-                                    <i class="las la-chalkboard-teacher text-muted fs-3x"></i>
-
-                                </span>
-
-                                <div class="d-flex flex-column text-dark-75">
-
-                                    <span class="fw-bolder font-size-sm">Guru</span>
-
-                                    <span class="fw-bolder font-size-h5">
-
-                                        <span class="text-dark-50 font-weight-bold"></span>3</span>
-
-                                </div>
-
-                            </div>
-
-                            <!--end::Item-->
-
-
-
-                            <!--begin::Item-->
-
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-
-                                <span class="me-4">
-
-                                    <i class="las la-user-friends text-muted fs-3x"></i>
-
-                                </span>
-
-                                <div class="d-flex flex-column text-dark-75">
-
-                                    <span class="fw-bolder font-size-sm">Siswa</span>
-
-                                    <span class="fw-bolder font-size-h5">
-
-                                        <span class="text-dark-50 font-weight-bold"></span>73</span>
-
-                                </div>
-
-                            </div>
-
-                            <!--end::Item-->
-
-
-
-                            <!--begin::Item-->
-
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-
-                                <span class="me-4">
-
-                                    <i class="las la-university text-muted fs-3x"></i>
-
-                                </span>
-
-                                <div class="d-flex flex-column text-dark-75">
-
-                                    <span class="fw-bolder font-size-sm">Kelas</span>
-
-                                    <span class="fw-bolder font-size-h5">
-
-                                        <span class="text-dark-50 font-weight-bold"></span>2</span>
-
-                                </div>
-
-                            </div>
-
-                            <!--end::Item-->
-
+                        <input type="hidden" name="classroom_id" value="{{ $classroom->id }}">
+                        <div class="col-12">
+                            <label for="">File Excel <span class="text-danger">*</span></label>
+                            <input type="file" class="form-control mt-3" name="file">
                         </div>
-
-                        <!--begin::Items-->
-
                     </div>
 
-                </div>
-            </div>
-            <div class="col-12 mt-7">
-                <div class="card">
-                    <div class="card-header pt-7">
-                        <!--begin::Title-->
-                        <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bold text-gray-800">Guru</span>
-                            <span class="text-gray-400 mt-1 fw-semibold fs-6">daftar guru di SMKN 1 Kepanjen.</span>
-                        </h3>
-                        <!--end::Title-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
-                    <div class="card-body">
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--    end modal import --}}
 
-                        <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
-                            <thead>
-                            <tr class="fw-semibold fs-6 text-gray-800">
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Sekolah</th>
-                                <th>Poin</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td><span class="badge badge-light-danger">2011/04/25</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
+    {{--    modal add student --}}
+    <div class="modal fade" tabindex="-1" id="modal-add">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Tambah Siswa</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                         aria-label="Close">
+                        <span class="svg-icon svg-icon-1"></span>
                     </div>
+                    <!--end::Close-->
                 </div>
-            </div>
-            <div class="toolbar mt-7 mb-lg-7" id="kt_toolbar">
-
-                <!--begin::Page title-->
-                <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                    <!--begin::Title-->
-                    <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                        List Kelas
-                    </h1>
-                    <!--end::Title-->
-
-                    <!--begin::Breadcrumb-->
-                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                        <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">
-                            list kelas SMKN 1 Kepanjen
-                        </li>
-                        <!--end::Item-->
-
-                    </ul>
-                    <!--end::Breadcrumb-->
-                </div>
-                <!--end::Page title-->
-                <!--begin::Actions-->
-                <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <a href="{{ url()->previous() }}" class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                        <i class="bi bi-arrow-left me-2"></i> Filter
-                    </a>
-                </div>
-                <!--end::Actions-->
-            </div>
-            <div class="col-12 mt-3">
-                <div class="col-xl-4">
-
-                    <!--begin::Card-->
-
-                    <div class="card card-custom gutter-b card-stretch">
-
-                        <!--begin::Body-->
-
-                        <div class="card-body">
-
-                            <!--begin::Section-->
-
-                            <div class="d-flex align-items-center">
-
-                                <!--begin::Pic-->
-
-                                <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle symbol-primary me-5">
-
-                                    <span class="font-size-h5 symbol-label font-weight-boldest">PE</span>
-
-
-
-                                </div>
-
-                                <!--end::Pic-->
-
-                                <!--begin::Info-->
-
-                                <div class="d-flex flex-column mr-auto">
-
-                                    <!--begin: Title-->
-
-                                    <a href="https://class.hummasoft.com/siswa/materi/11/4" class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
-
-                                        Pengenalan HTML
-                                    </a>
-
-
-
-                                    <span class="text-muted font-weight-bold">
-
-                                            Bab dan tugas  untuk Pengenalan HTML
-                                        </span>
-
-                                    <!--end::Title-->
-
-                                </div>
-
-                                <!--end::Info-->
-
-
-
-                            </div>
-
-                            <!--end::Section-->
-
-                            <!--begin::Content-->
-
-
-
-                            <!--end::Content-->
-
-                            <!--begin::Text-->
-
-                            <p class="mb-7 mt-5">
-
-                                Mengenal website dari dasar
-                            </p>
-
-                            <!--end::Text-->
-
-
-
-                        </div>
-
-                        <!--end::Body-->
-
-                        <!--begin::Footer-->
-
-                        <div class="card-footer d-flex flex-row justify-content-between">
-
-                            <div class="d-flex">
-
-                                <div class="d-flex align-items-center me-5">
-                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
-                                    <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect opacity="0.5" x="7" y="2" width="14" height="16" rx="3" fill="currentColor"/>
-    <rect x="3" y="6" width="14" height="16" rx="3" fill="currentColor"/>
+                <form action="{{ route('school.students.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="classroom_id" value="{{ $classroom->id }}">
+                    <div class="modal-body">
+                        <!--begin::Alert-->
+                        <div class="alert alert-warning d-flex align-items-center p-5">
+                            <!--begin::Icon-->
+                            <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
+                            <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="24" height="24"
+                                                                                           viewBox="0 0 24 24"
+                                                                                           fill="none"
+                                                                                           xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.3"
+      d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
+      fill="currentColor"></path>
+<path
+    d="M10.5606 11.3042L9.57283 10.3018C9.28174 10.0065 8.80522 10.0065 8.51412 10.3018C8.22897 10.5912 8.22897 11.0559 8.51412 11.3452L10.4182 13.2773C10.8099 13.6747 11.451 13.6747 11.8427 13.2773L15.4859 9.58051C15.771 9.29117 15.771 8.82648 15.4859 8.53714C15.1948 8.24176 14.7183 8.24176 14.4272 8.53714L11.7002 11.3042C11.3869 11.6221 10.874 11.6221 10.5606 11.3042Z"
+    fill="currentColor"></path>
 </svg>
 </span>
-                                    <!--end::Svg Icon-->
-                                    <a href="https://class.hummasoft.com/siswa/materi/11/4" class="fw-bold text-info ml-2">5 Bab</a>
+                        </span>
+                            <!--end::Icon-->
 
-
-
-                                </div>
-
-
+                            <!--begin::Wrapper-->
+                            <div class="d-flex flex-column">
+                                <!--begin::Title-->
+                                <h4 class="mb-1 text-dark">Informasi</h4>
+                                <!--end::Title-->
+                                <!--begin::Content-->
+                                <ul>
+                                    <li>Password siswa secara default adalah <b>password</b></li>
+                                </ul>
+                                <!--end::Content-->
 
                             </div>
-
-                            <a href="{{ route('student.submaterial') }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
-
+                            <!--end::Wrapper-->
                         </div>
+                        <!--end::Alert-->
 
-                        <!--end::Footer-->
-
+                        <div class="col-12">
+                            <label for="">Nama <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control mt-3" name="name" placeholder="john">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control mt-3" name="email" placeholder="john@gmail.com">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="">No Telepon <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control mt-3" name="phone_number" placeholder="085xxxxxxxxx">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="">Alamat <span class="text-danger">*</span></label>
+                            <textarea class="form-control mt-3" name="address"
+                                      placeholder="jl jendral sudirman no 5"></textarea>
+                        </div>
                     </div>
 
-                    <!--end::Card-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--    end modal add student --}}
 
+    {{--    modal update student --}}
+    <div class="modal fade" tabindex="-1" id="modal-update">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Siswa</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                         aria-label="Close">
+                        <span class="svg-icon svg-icon-1"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <form id="formStudentEdit" action="{{ route('school.students.store') }}" method="POST">
+                    @method('PATCH')
+                    @csrf
+                    <input type="hidden" name="classroom_id" value="{{ $classroom->id }}">
+                    <div class="modal-body">
+
+                        <div class="col-12">
+                            <label for="">Nama <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control mt-3" id="studentName" name="name"
+                                   placeholder="john">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control mt-3" id="studentEmail" name="email"
+                                   placeholder="john@gmail.com">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="">No Telepon <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control mt-3" id="studentPhone" name="phone_number"
+                                   placeholder="085xxxxxxxxx">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="">Alamat <span class="text-danger">*</span></label>
+                            <textarea class="form-control mt-3" name="address"
+                                      placeholder="jl jendral sudirman no 5" id="studentAddress"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--    end modal update student --}}
+
+    <div class="content flex-column-fluid" id="kt_content">
+        <div class="row">
+            @if($errors->any())
+                <div class="col-12">
+                    <x-errors-component/>
+                </div>
+            @endif
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header pt-7">
+                                <!--begin::Title-->
+                                <div class="col-lg-6">
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold text-gray-800">Siswa</span>
+                                        <span
+                                            class="text-gray-400 mt-1 fw-semibold fs-6">daftar siswa di kelas {{ $classroom->name }}.</span>
+                                    </h3>
+                                </div>
+                                <div class="col-lg-6 d-flex justify-content-end">
+                                    <button class="btn btn-light-success h-40px fs-7 me-3" data-bs-toggle="modal"
+                                            data-bs-target="#modal-import">Import
+                                    </button>
+                                    <button class="btn btn-light-primary h-40px fs-7" data-bs-toggle="modal"
+                                            data-bs-target="#modal-add">Tambah
+                                    </button>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                            <div class="card-body">
+
+                                @if(count($classroom->students) > 0)
+                                    <table id="kt_datatable_responsive"
+                                           class="table table-striped border rounded gy-5 gs-7">
+                                        <thead>
+                                        <tr class="fw-semibold fs-6 text-gray-800">
+                                            <th data-priority="1">No</th>
+                                            <th class="min-w-200px" data-priority="2">Nama</th>
+                                            <th data-priority="3">Email</th>
+                                            <th data-priority="4">No Telepon</th>
+                                            <th class="min-w-100px" data-priority="5">Aksi</th>
+                                            <th>Alamat</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($classroom->students as $student)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $student->student->name }}</td>
+                                                <td>{{ $student->student->email }}</td>
+                                                <td>{{ $student->student->phone_number }}</td>
+                                                <td>
+                                                    <button data-student="{{ $student->student }}"
+                                                            class="btn btn-default btn-sm p-1 btn-edit"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modal-update"><i
+                                                            class="fonticon-setting fs-2 text-warning"></i></button>
+                                                    <button class="btn btn-default btn-sm p-1 btn-delete"
+                                                            data-id="{{ $student->student->id }}">
+                                                        <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
+                                                </td>
+                                                <td>{{ $student->student->address }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <x-empty-component title="siswa"/>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card mb-5 mb-xl-8">
+                    <!--begin::Card body-->
+                    <div class="card-body">
+                        @if($classroom->teacher)
+                            <!--begin::Summary-->
+
+
+                            <!--begin::User Info-->
+                            <div class="d-flex flex-center flex-column py-5">
+                                <!--begin::Avatar-->
+                                <div class="symbol symbol-100px symbol-circle mb-7">
+                                    <img src="{{ asset('app-assets/media/avatars/300-6.jpg') }}" alt="image">
+                                </div>
+                                <!--end::Avatar-->
+
+                                <!--begin::Name-->
+                                <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-3">
+                                    {{ $classroom->teacher->user->name }} </a>
+                                <!--end::Name-->
+
+                                <!--begin::Position-->
+                                <div class="mb-9">
+                                    <!--begin::Badge-->
+                                    <div class="badge badge-lg badge-light-primary d-inline">Guru</div>
+                                    <!--begin::Badge-->
+                                </div>
+                                <!--end::Position-->
+
+                                <!--begin::Info-->
+                            </div>
+                            <!--end::User Info-->        <!--end::Summary-->
+
+                            <!--begin::Details toggle-->
+                            <div class="d-flex flex-stack fs-4 py-3">
+                                <div class="fw-bold rotate collapsible" data-bs-toggle="collapse"
+                                     href="#kt_user_view_details" role="button" aria-expanded="false"
+                                     aria-controls="kt_user_view_details">
+                                    Detail
+                                    <span class="ms-2 rotate-180">
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+<span class="svg-icon svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                       xmlns="http://www.w3.org/2000/svg">
+<path
+    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+    fill="currentColor"></path>
+</svg>
+</span>
+                                        <!--end::Svg Icon-->                </span>
+                                </div>
+                            </div>
+                            <!--end::Details toggle-->
+
+                            <div class="separator"></div>
+
+                            <!--begin::Details content-->
+                            <div id="kt_user_view_details" class="collapse show">
+                                <div class="pb-5 fs-6">
+                                    <!--begin::Details item-->
+                                    <div class="fw-bold mt-5">Nomor Rekening</div>
+                                    <div
+                                        class="text-gray-600">{{ ($classroom->teacher->user->account_number) ? $classroom->teacher->user->account_number : '-' }}
+                                        ( {{ ($classroom->teacher->user->bank) ? $classroom->teacher->user->bank : '-' }}
+                                        )
+                                    </div>
+                                    <!--begin::Details item-->
+                                    <!--begin::Details item-->
+                                    <div class="fw-bold mt-5">Email</div>
+                                    <div class="text-gray-600"><a href="#"
+                                                                  class="text-gray-600 text-hover-primary">{{ ($classroom->teacher->user->email) ? $classroom->teacher->user->email : '-' }}</a>
+                                    </div>
+                                    <!--begin::Details item-->
+                                    <!--begin::Details item-->
+                                    <div class="fw-bold mt-5">No Telepon</div>
+                                    <div
+                                        class="text-gray-600">{{ ($classroom->teacher->user->phone_number) ? $classroom->teacher->user->phone_number : '-' }}</div>
+                                    <!--begin::Details item-->
+                                    <!--begin::Details item-->
+                                    <div class="fw-bold mt-5">Alamat</div>
+                                    <div
+                                        class="text-gray-600">{{ ($classroom->teacher->user->address) ? $classroom->teacher->user->address : '-' }}
+                                    </div>
+                                    <!--begin::Details item-->
+                                </div>
+                            </div>
+                            <!--end::Details content-->
+                        @else
+                            <x-empty-component title="guru"/>
+                        @endif
+                    </div>
+                    <!--end::Card body-->
                 </div>
             </div>
         </div>
     </div>
+
+    <x-delete-modal-component/>
 @endsection
 @section('script')
     <script>
         $("#kt_datatable_responsive").DataTable({
             responsive: true
         });
+
+        $('.btn-edit').click(function () {
+            const data = $(this).data('student')
+            $('#studentName').val(data.name)
+            $('#studentEmail').val(data.email)
+            $('#studentPhone').val(data.phone_number)
+            $('#studentAddress').val(data.address)
+
+            const url = "{{ route('school.students.update', ':id') }}".replace(':id', data.id)
+            $('#formStudentEdit').attr('action', url)
+        })
+
+        $('.btn-delete').click(function () {
+            const url = "{{ route('school.students.destroy', ':id') }}".replace(':id', $(this).data('id'))
+            $('#form-delete').attr('action', url)
+
+            $('#kt_modal_delete').modal('show')
+        })
     </script>
 @endsection

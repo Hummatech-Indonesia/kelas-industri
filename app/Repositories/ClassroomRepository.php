@@ -24,4 +24,20 @@ class ClassroomRepository extends BaseRepository
             ->where('school_id', $schoolId)
             ->paginate($limit);
     }
+
+    /**
+     * get_paginate_by_school_search
+     *
+     * @param string $search
+     * @param string $schoolId
+     * @param int $limit
+     * @return mixed
+     */
+    public function get_paginate_by_school_search(string $search, string $schoolId, int $limit): mixed
+    {
+        return $this->model->query()
+            ->where('name', 'like', '%' . $search . '%')
+            ->where('school_id', $schoolId)
+            ->paginate($limit);
+    }
 }

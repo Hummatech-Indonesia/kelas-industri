@@ -36,6 +36,17 @@ class ClassroomService
     }
 
     /**
+     * handle search
+     *
+     * @param string $schoolId
+     * @return mixed
+     */
+    public function handleSearch(string $search, string $schoolId): mixed
+    {
+        return $this->repository->get_paginate_by_school_search($search, $schoolId, 8);
+    }
+
+    /**
      * store generation year
      *
      * @param ClassroomRequest $request

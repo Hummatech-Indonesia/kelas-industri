@@ -41,6 +41,9 @@ License: For each use you must have a valid license purchased only from above li
     <link href="
 https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
 " rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+
     <style>
         #pdfviewer {
             border: 1px #333 solid;
@@ -159,7 +162,9 @@ https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
 <!--end::Custom Javascript-->
 
 {{--Plugin Javascript --}}
-<script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+{{--<script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>--}}
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 {{--End Plugin Javascript --}}
 @yield('script')
 <script>

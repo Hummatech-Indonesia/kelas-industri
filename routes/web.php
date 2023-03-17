@@ -4,9 +4,12 @@ use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\MentorController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubMaterialController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +41,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'schools' => SchoolController::class,
         'materials' => MaterialController::class,
         'submaterials' => SubMaterialController::class,
-        'assignments' => AssignmentController::class
+        'assignments' => AssignmentController::class,
+        'mentors' => MentorController::class,
     ]);
 
     Route::name('materials.')->prefix('materials')->group(function () {
@@ -62,8 +66,11 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
         return view('dashboard.admin.layouts.app');
     });
 
+    Route::post('/import-students', [ClassroomController::class, 'importStudents'])->name('importStudents');
     Route::resources([
         'classrooms' => ClassroomController::class,
+        'students' => StudentController::class,
+        'teachers' => TeacherController::class,
     ]);
 
 });

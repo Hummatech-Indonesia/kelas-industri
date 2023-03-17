@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClassroomRequest;
+use App\Imports\StudentImport;
 use App\Models\Classroom;
 use App\Services\ClassroomService;
 use App\Services\GenerationService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClassroomController extends Controller
 {
@@ -28,9 +30,16 @@ class ClassroomController extends Controller
      */
     public function index(): View
     {
+        $classrooms = $this->service->handleGetPaginate(auth()->id());
+        $parameters = null;
+
+        if (request()->has('search')) {
+            $classrooms = $this->service->handleSearch(request()->search, auth()->id());
+            $parameters = request()->query();
+        }
         $data = [
-            'classrooms' => $this->service->handleGetPaginate(auth()->id()),
-            'parameters' => []
+            'classrooms' => $classrooms,
+            'parameters' => $parameters
         ];
         return view('dashboard.admin.pages.classroom.index', $data);
     }
@@ -64,12 +73,12 @@ class ClassroomController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param Classroom $classroom
+     * @return View
      */
-    public function show($id)
+    public function show(Classroom $classroom): View
     {
-        //
+        return \view('dashboard.admin.pages.classroom.detail', compact('classroom'));
     }
 
     /**
@@ -114,5 +123,18 @@ class ClassroomController extends Controller
         if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    /**
+     * import students
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function importStudents(Request $request): RedirectResponse
+    {
+        Excel::import(new StudentImport($request->classroom_id), $request->file);
+
+        return back()->with('success', trans('alert.import_success'));
     }
 }
