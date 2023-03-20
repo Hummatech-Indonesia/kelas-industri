@@ -25,6 +25,18 @@ class ClassroomService
     }
 
     /**
+     * handle get by school in the current school year
+     *
+     * @param string $schoolId
+     * @param int $schoolYearId
+     * @return mixed
+     */
+    public function handleGetBySchool(string $schoolId, int $schoolYearId): mixed
+    {
+        return $this->repository->get_by_school($schoolId, $schoolYearId);
+    }
+
+    /**
      * handle get paginated
      *
      * @param string $schoolId

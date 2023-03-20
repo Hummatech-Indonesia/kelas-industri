@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -36,5 +37,15 @@ class Classroom extends Model
     public function teacher(): HasOne
     {
         return $this->hasOne(TeacherClassroom::class);
+    }
+
+    /**
+     * many to one relationship
+     *
+     * @return BelongsTo
+     */
+    public function generation(): BelongsTo
+    {
+        return $this->belongsTo(Generation::class);
     }
 }

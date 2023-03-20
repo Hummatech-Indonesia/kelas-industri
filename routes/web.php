@@ -10,6 +10,7 @@ use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ZoomScheduleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +44,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'submaterials' => SubMaterialController::class,
         'assignments' => AssignmentController::class,
         'mentors' => MentorController::class,
+        'zoomSchedules' => ZoomScheduleController::class
     ]);
+
+    Route::prefix('rolling-mentor')->name('rollingMentor.')->group(function () {
+        Route::get('/', [MentorController::class, 'rollingMentor'])->name('index');
+    });
 
     Route::name('materials.')->prefix('materials')->group(function () {
         Route::get('/{material}/create', [SubMaterialController::class, 'create'])->name('createSubmaterial');

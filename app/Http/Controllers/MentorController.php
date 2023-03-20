@@ -31,10 +31,23 @@ class MentorController extends Controller
         if (request()->ajax()) {
             return $this->userService->handleGetMentor();
         }
-        $data = [
-            'mentors' => $this->userService->handleGetMentor(),
-        ];
-        return view('dashboard.admin.pages.mentor.index', $data);
+
+        return view('dashboard.admin.pages.mentor.index');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return View
+     * @throws Exception
+     */
+    public function rollingMentor(): mixed
+    {
+        if (request()->ajax()) {
+            return $this->userService->handleGetMentor();
+        }
+
+        return view('dashboard.admin.pages.mentor.rolling');
     }
 
     /**

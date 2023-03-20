@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TeacherRequest;
 use App\Models\User;
 use App\Services\TeacherService;
+use App\Services\UserServices;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
 class TeacherController extends Controller
 {
     private TeacherService $service;
+    private UserServices $userServices;
 
-    public function __construct(TeacherService $service)
+    public function __construct(TeacherService $service, UserServices $userServices)
     {
         $this->service = $service;
+        $this->userServices = $userServices;
     }
 
     /**
@@ -22,9 +25,13 @@ class TeacherController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(): mixed
     {
-        //
+        if (request()->ajax()) {
+            return
+        }
+
+        return view('dashboard.admin.pages.teacher.index');
     }
 
     /**

@@ -12,6 +12,25 @@ class ClassroomRepository extends BaseRepository
     }
 
     /**
+     * Handle the Get all data event from models.
+     *
+     *
+     * @param string $schoolId
+     * @param int $schoolYearId
+     * @return mixed
+     */
+
+    public function get_by_school(string $schoolId, int $schoolYearId): mixed
+    {
+        return $this->model->query()
+            ->where('school_id', $schoolId)
+            ->whereRelation('generation', function ($q) use ($schoolYearId) {
+                return $q->where('school_year_id', $schoolYearId);
+            })
+            ->get();
+    }
+
+    /**
      * get_paginate_by_school
      *
      * @param string $schoolId

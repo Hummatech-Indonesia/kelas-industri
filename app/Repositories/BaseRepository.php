@@ -19,7 +19,7 @@ abstract class BaseRepository implements BaseInterface
 
     public function getAll(array $order = null): mixed
     {
-        if($order){
+        if ($order) {
             return $this->model->query()->orderBy($order['key'], $order['value'])->get();
         }
         return $this->model->all();
@@ -39,19 +39,6 @@ abstract class BaseRepository implements BaseInterface
     }
 
     /**
-     * Handle get the specified data by id from models.
-     *
-     * @param mixed $id
-     *
-     * @return mixed
-     */
-
-    public function show(mixed $id): mixed
-    {
-        return $this->model->findOrFail($id);
-    }
-
-    /**
      * Handle show method and update data instantly from models.
      *
      * @param mixed $id
@@ -63,6 +50,19 @@ abstract class BaseRepository implements BaseInterface
     public function update(mixed $id, array $data): mixed
     {
         return $this->show($id)->update($data);
+    }
+
+    /**
+     * Handle get the specified data by id from models.
+     *
+     * @param mixed $id
+     *
+     * @return mixed
+     */
+
+    public function show(mixed $id): mixed
+    {
+        return $this->model->findOrFail($id);
     }
 
     /**
@@ -108,7 +108,7 @@ abstract class BaseRepository implements BaseInterface
 
     public function get_paginate(int $limit, array $order = null): mixed
     {
-        if($order){
+        if ($order) {
             return $this->model->query()
                 ->orderBy($order['key'], $order['value'])
                 ->paginate($limit);
