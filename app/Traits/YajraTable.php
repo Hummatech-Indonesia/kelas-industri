@@ -43,6 +43,12 @@ trait YajraTable
     {
         return DataTables::of($collection)
             ->addIndexColumn()
+            ->editColumn('date', function ($data) {
+                return view('dashboard.admin.pages.zoomSchedule.date', compact('data'));
+            })
+            ->editColumn('link', function ($data) {
+                return view('dashboard.admin.pages.zoomSchedule.link', compact('data'));
+            })
             ->addColumn('action', function ($data) {
                 return view('dashboard.admin.pages.zoomSchedule.datatables', compact('data'));
             })

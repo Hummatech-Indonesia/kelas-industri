@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Tambah Jadwal Zoom
+                Edit Jadwal Zoom
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman tambah jadwal zoom
+                Halaman edit jadwal zoom
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -30,7 +30,9 @@
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('admin.zoomSchedules.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.zoomSchedules.update', $zoomSchedule->id) }}" method="POST"
+                  enctype="multipart/form-data">
+                @method('PATCH')
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -84,7 +86,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="title"
-                                               type="text" value="{{ old('title') }}"
+                                               type="text" value="{{ $zoomSchedule->title }}"
                                                placeholder="Jadwal Zoom SMKN 1 Kepanjen"
                                                required="">
 
@@ -99,10 +101,9 @@
 
                                         <select name="generation_id" class="form-select form-select-solid me-5"
                                                 data-control="select2" data-placeholder="Select an option" id="schools">
-                                            <option value=""></option>
                                             @foreach($schools as $school)
                                                 <option
-                                                    {{ (old('school_id') == $school->id) ? 'selected' : '' }} value="{{ $school->id }}">{{ $school->name }}</option>
+                                                    {{ ($zoomSchedule->classroom->school_id == $school->id) ? 'selected' : '' }} value="{{ $school->id }}">{{ $school->name }}</option>
                                             @endforeach
                                         </select>
 
@@ -133,7 +134,7 @@
                                                 data-control="select2" data-placeholder="Select an option">
                                             @foreach($mentors as $mentor)
                                                 <option
-                                                    {{ (old('mentor_id') == $mentor->id) ? 'selected' : '' }} value="{{ $mentor->id }}">{{ $mentor->name }}</option>
+                                                    {{ ($zoomSchedule->mentor_id == $mentor->id) ? 'selected' : '' }} value="{{ $mentor->id }}">{{ $mentor->name }}</option>
                                             @endforeach
                                         </select>
 
@@ -168,7 +169,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="link"
-                                               type="text" value="{{ old('link') }}"
+                                               type="text" value="{{ $zoomSchedule->link }}"
                                                placeholder="https://zoom.us/j/96417985873?pwd=a2txVnQ5RnZacFMvOTNPT3duall6UT09"
                                                required="">
 
@@ -187,26 +188,35 @@
 @endsection
 @section('script')
     <script>
+
+        function getClassrooms(schoolId) {
+            $.ajax({
+                method: 'GET',
+                url: '{{ route('admin.zoomSchedules.create') }}',
+                data: {school_id: schoolId},
+                success: function (classrooms) {
+                    let html = ''
+
+                    classrooms.map(classroom => {
+                        html += `<option
+                                    ({{ $zoomSchedule->classroom_id }} == ${classroom.id}) ? 'selected' : '' value="${classroom.id}">${classroom.name}</option>`
+                    })
+
+                    $('#classrooms').html(html)
+                }
+            })
+        }
+
+        getClassrooms($('#schools').val())
+
         $(document).ready(function () {
             const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
             datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
+            let date = moment('{{ $zoomSchedule->date }}', 'YYYY-MM-DD H:m:s').toDate();
+            datepicker2.dates.setValue(tempusDominus.DateTime.convert(date));
 
             $('#schools').change(function () {
-                $.ajax({
-                    method: 'GET',
-                    url: '{{ route('admin.zoomSchedules.create') }}',
-                    data: {school_id: $(this).val()},
-                    success: function (classrooms) {
-                        let html = ''
-
-                        classrooms.map(classroom => {
-                            html += `<option
-                                    (old('classsroom_id') == ${classroom.id}) ? 'selected' : '' value="${classroom.id}">${classroom.name}</option>`
-                        })
-
-                        $('#classrooms').html(html)
-                    }
-                })
+                getClassrooms($(this).val())
             })
         })
     </script>

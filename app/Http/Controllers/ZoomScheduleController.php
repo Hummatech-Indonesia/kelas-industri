@@ -89,7 +89,13 @@ class ZoomScheduleController extends Controller
      */
     public function edit(ZoomSchedule $zoomSchedule): View
     {
-        return \view('dashboard.admin.pages.zoomSchedule.edit', compact('zoomSchedule'));
+        $data = [
+            'schools' => $this->userServices->handleGetAllSchool(),
+            'mentors' => $this->userServices->handleGetAllMentor(),
+            'zoomSchedule' => $zoomSchedule
+        ];
+
+        return \view('dashboard.admin.pages.zoomSchedule.edit', $data);
     }
 
     /**
@@ -103,7 +109,7 @@ class ZoomScheduleController extends Controller
     {
         $this->service->handleUpdate($request, $zoomSchedule->id);
 
-        return to_route('admin.zoomSchedules,index')->with('success', trans('alert.update_success'));
+        return to_route('admin.zoomSchedules.index')->with('success', trans('alert.update_success'));
     }
 
     /**

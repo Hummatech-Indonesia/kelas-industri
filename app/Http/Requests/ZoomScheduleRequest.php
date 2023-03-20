@@ -15,8 +15,8 @@ class ZoomScheduleRequest extends BaseRequest
             'classroom_id' => 'required',
             'mentor_id' => 'required',
             'title' => 'required|string',
-            'link' => 'required',
-            'date' => 'required|after_or_equal:now()'
+            'link' => 'required|url',
+            'date' => 'required|after_or_equal:now'
         ];
     }
 
@@ -33,6 +33,7 @@ class ZoomScheduleRequest extends BaseRequest
             'title.required' => 'Judul tidak boleh kosong !',
             'title.string' => 'Judul harus berupa string !',
             'link.required' => 'Link tidak boleh kosong !',
+            'link.url' => 'Link harus berupa url !',
             'date.required' => 'Tanggal tidak boleh kosong !',
             'date.after_or_equal' => 'Tanggal harus melebihi tanggal sekarang !'
         ];
