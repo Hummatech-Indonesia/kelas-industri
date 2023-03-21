@@ -442,7 +442,7 @@
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div data-kt-menu-trigger="click"
-                         class="menu-item {{ (request()->routeIs('school.students.*'))? 'show here' : '' }} menu-accordion">
+                         class="menu-item {{ (request()->routeIs('school.students.*')) || (request()->routeIs('school.rollingStudent.index')) ? 'show here' : '' }} menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                         <span class="menu-icon">
@@ -470,15 +470,15 @@
                                 <div class="menu-item">
 
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ (request()->routeIs('school.students.*') && !request()->routeIs('school.students.rolling')) ? 'active' : '' }}"
+                                    <a class="menu-link {{ request()->routeIs('school.students.*') ? 'active' : '' }}"
                                        href="{{ route('school.students.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">List Siswa</span>
                                     </a>
                                     <!--end:Menu link-->
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ (request()->routeIs('school.students.rolling')) ? 'active' : '' }}"
-                                       href="{{ route('school.students.create') }}">
+                                    <a class="menu-link {{ (request()->routeIs('school.rollingStudent.index')) ? 'active' : '' }}"
+                                       href="{{ route('school.rollingStudent.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Rolling Siswa</span>
                                     </a>

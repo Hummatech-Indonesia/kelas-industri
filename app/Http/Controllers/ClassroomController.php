@@ -6,18 +6,23 @@ use App\Http\Requests\ClassroomRequest;
 use App\Models\Classroom;
 use App\Services\ClassroomService;
 use App\Services\GenerationService;
+use App\Services\StudentService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ClassroomController extends Controller
 {
     private ClassroomService $service;
     private GenerationService $generationService;
+    private StudentService $studentService;
 
-    public function __construct(ClassroomService $service, GenerationService $generationService)
+    public function __construct(ClassroomService $service, GenerationService $generationService, StudentService $studentService)
     {
         $this->service = $service;
         $this->generationService = $generationService;
+        $this->studentService = $studentService;
     }
 
     /**
@@ -72,10 +77,16 @@ class ClassroomController extends Controller
      *
      * @param Classroom $classroom
      * @return View
+     * @throws Exception
      */
     public function show(Classroom $classroom): View
     {
-        return \view('dashboard.admin.pages.classroom.detail', compact('classroom'));
+        $data = [
+            'classroom' => $classroom,
+            'students' => $this->studentService->handleGetBySchool(auth()->id())
+        ];
+
+        return \view('dashboard.admin.pages.classroom.detail', $data);
     }
 
     /**
@@ -120,5 +131,18 @@ class ClassroomController extends Controller
         if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    /**
+     * add students to classroom
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function addStudentClassroom(Request $request): RedirectResponse
+    {
+        $this->service->handleAddStudent($request);
+
+        return back()->with('success', trans('alert.add_success'));
     }
 }

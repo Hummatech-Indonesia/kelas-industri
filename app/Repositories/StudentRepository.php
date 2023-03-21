@@ -3,16 +3,20 @@
 namespace App\Repositories;
 
 use App\Models\StudentSchool;
+use App\Models\User;
 
 class StudentRepository extends BaseRepository
 {
-    public function __construct(StudentSchool $model)
+    private User $userModel;
+
+    public function __construct(StudentSchool $model, User $userModel)
     {
         $this->model = $model;
+        $this->userModel = $userModel;
     }
 
     /**
-     * get by classroom
+     * get by school
      *
      * @param string $schoolId
      * @return mixed

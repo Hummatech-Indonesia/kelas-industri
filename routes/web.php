@@ -84,6 +84,11 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
         'teachers' => TeacherController::class,
     ]);
 
+    Route::prefix('rolling-student')->name('rollingStudent.')->group(function () {
+        Route::get('/', [StudentController::class, 'rollingStudent'])->name('index');
+        Route::post('/', [ClassroomController::class, 'addStudentClassroom'])->name('store');
+    });
+
 });
 //end schools
 

@@ -24,7 +24,7 @@
         <!--end::Page title-->
         <!--begin::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ url()->previous() }}"
+            <a href="{{ route('school.classrooms.index') }}"
                class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                 <i class="bi bi-arrow-left me-2"></i> Kembali
             </a>
@@ -32,7 +32,7 @@
         <!--end::Actions-->
     </div>
 
-    
+
 
     {{--    modal add student --}}
     <div class="modal fade" tabindex="-1" id="modal-add">
@@ -48,61 +48,19 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <form action="{{ route('school.students.store') }}" method="POST">
+                <form action="{{ route('school.rollingStudent.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="classroom_id" value="{{ $classroom->id }}">
                     <div class="modal-body">
-                        <!--begin::Alert-->
-                        <div class="alert alert-warning d-flex align-items-center p-5">
-                            <!--begin::Icon-->
-                            <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
-                            <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="24" height="24"
-                                                                                           viewBox="0 0 24 24"
-                                                                                           fill="none"
-                                                                                           xmlns="http://www.w3.org/2000/svg">
-<path opacity="0.3"
-      d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
-      fill="currentColor"></path>
-<path
-    d="M10.5606 11.3042L9.57283 10.3018C9.28174 10.0065 8.80522 10.0065 8.51412 10.3018C8.22897 10.5912 8.22897 11.0559 8.51412 11.3452L10.4182 13.2773C10.8099 13.6747 11.451 13.6747 11.8427 13.2773L15.4859 9.58051C15.771 9.29117 15.771 8.82648 15.4859 8.53714C15.1948 8.24176 14.7183 8.24176 14.4272 8.53714L11.7002 11.3042C11.3869 11.6221 10.874 11.6221 10.5606 11.3042Z"
-    fill="currentColor"></path>
-</svg>
-</span>
-                        </span>
-                            <!--end::Icon-->
-
-                            <!--begin::Wrapper-->
-                            <div class="d-flex flex-column">
-                                <!--begin::Title-->
-                                <h4 class="mb-1 text-dark">Informasi</h4>
-                                <!--end::Title-->
-                                <!--begin::Content-->
-                                <ul>
-                                    <li>Password siswa secara default adalah <b>password</b></li>
-                                </ul>
-                                <!--end::Content-->
-
-                            </div>
-                            <!--end::Wrapper-->
-                        </div>
-                        <!--end::Alert-->
-
                         <div class="col-12">
-                            <label for="">Nama <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control mt-3" name="name" placeholder="john">
-                        </div>
-                        <div class="col-12 mt-3">
-                            <label for="">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control mt-3" name="email" placeholder="john@gmail.com">
-                        </div>
-                        <div class="col-12 mt-3">
-                            <label for="">No Telepon <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control mt-3" name="phone_number" placeholder="085xxxxxxxxx">
-                        </div>
-                        <div class="col-12 mt-3">
-                            <label for="">Alamat <span class="text-danger">*</span></label>
-                            <textarea class="form-control mt-3" name="address"
-                                      placeholder="jl jendral sudirman no 5"></textarea>
+                            <label for="">Siswa <span class="text-danger">*</span></label>
+                            <select name="students[]" class="form-select form-select-solid me-5 mt-3"
+                                    data-control="select2" data-placeholder="Select an option" multiple="multiple">
+                                @foreach($students as $student)
+                                    <option
+                                        {{ (in_array($student->id, $classroom->students->pluck('student_school_id')->toArray() )) ? 'selected' : '' }} value="{{ $student->id }}">{{ $student->student->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -115,58 +73,6 @@
         </div>
     </div>
     {{--    end modal add student --}}
-
-    {{--    modal update student --}}
-    <div class="modal fade" tabindex="-1" id="modal-update">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Edit Siswa</h3>
-
-                    <!--begin::Close-->
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                         aria-label="Close">
-                        <span class="svg-icon svg-icon-1"></span>
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <form id="formStudentEdit" action="{{ route('school.students.store') }}" method="POST">
-                    @method('PATCH')
-                    @csrf
-                    <input type="hidden" name="classroom_id" value="{{ $classroom->id }}">
-                    <div class="modal-body">
-
-                        <div class="col-12">
-                            <label for="">Nama <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control mt-3" id="studentName" name="name"
-                                   placeholder="john">
-                        </div>
-                        <div class="col-12 mt-3">
-                            <label for="">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control mt-3" id="studentEmail" name="email"
-                                   placeholder="john@gmail.com">
-                        </div>
-                        <div class="col-12 mt-3">
-                            <label for="">No Telepon <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control mt-3" id="studentPhone" name="phone_number"
-                                   placeholder="085xxxxxxxxx">
-                        </div>
-                        <div class="col-12 mt-3">
-                            <label for="">Alamat <span class="text-danger">*</span></label>
-                            <textarea class="form-control mt-3" name="address"
-                                      placeholder="jl jendral sudirman no 5" id="studentAddress"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{--    end modal update student --}}
 
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -189,9 +95,6 @@
                                     </h3>
                                 </div>
                                 <div class="col-lg-6 d-flex justify-content-end">
-                                    <button class="btn btn-light-success h-40px fs-7 me-3" data-bs-toggle="modal"
-                                            data-bs-target="#modal-import">Import
-                                    </button>
                                     <button class="btn btn-light-primary h-40px fs-7" data-bs-toggle="modal"
                                             data-bs-target="#modal-add">Tambah
                                     </button>
@@ -207,9 +110,8 @@
                                         <tr class="fw-semibold fs-6 text-gray-800">
                                             <th data-priority="1">No</th>
                                             <th class="min-w-200px" data-priority="2">Nama</th>
-                                            <th data-priority="3">Email</th>
+                                            <th class="min-w-200px" data-priority="3">Email</th>
                                             <th data-priority="4">No Telepon</th>
-                                            <th class="min-w-100px" data-priority="5">Aksi</th>
                                             <th>Alamat</th>
                                         </tr>
                                         </thead>
@@ -217,20 +119,10 @@
                                         @foreach($classroom->students as $student)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $student->student->name }}</td>
-                                                <td>{{ $student->student->email }}</td>
-                                                <td>{{ $student->student->phone_number }}</td>
-                                                <td>
-                                                    <button data-student="{{ $student->student }}"
-                                                            class="btn btn-default btn-sm p-1 btn-edit"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modal-update"><i
-                                                            class="fonticon-setting fs-2 text-warning"></i></button>
-                                                    <button class="btn btn-default btn-sm p-1 btn-delete"
-                                                            data-id="{{ $student->student->id }}">
-                                                        <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
-                                                </td>
-                                                <td>{{ $student->student->address }}</td>
+                                                <td>{{ $student->studentSchool->student->name }}</td>
+                                                <td>{{ $student->studentSchool->student->email }}</td>
+                                                <td>{{ $student->studentSchool->student->phone_number }}</td>
+                                                <td>{{ $student->studentSchool->student->address }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

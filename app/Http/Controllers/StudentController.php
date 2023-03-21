@@ -6,6 +6,7 @@ use App\Http\Requests\StudentRequest;
 use App\Imports\StudentImport;
 use App\Models\User;
 use App\Services\StudentService;
+use App\Traits\YajraTable;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,6 +16,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
+    use YajraTable;
+
     private StudentService $studentService;
 
     public function __construct(StudentService $studentService)
@@ -30,7 +33,7 @@ class StudentController extends Controller
      */
     public function index(): mixed
     {
-        if (request()->ajax()) return $this->studentService->handleGetBySchool(auth()->id());
+        if (request()->ajax()) return $this->StudentMockup($this->studentService->handleGetBySchool(auth()->id()));
 
         return view('dashboard.admin.pages.student.index');
     }
@@ -121,5 +124,18 @@ class StudentController extends Controller
         Excel::import(new StudentImport(auth()->id()), $request->file);
 
         return back()->with('success', trans('alert.import_success'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     * @throws Exception
+     */
+    public function rollingStudent(): mixed
+    {
+        if (request()->ajax()) return $this->RollingStudentMockup($this->studentService->handleGetBySchool(auth()->id()));
+
+        return view('dashboard.admin.pages.student.rolling');
     }
 }

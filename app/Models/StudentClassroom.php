@@ -10,16 +10,16 @@ class StudentClassroom extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id', 'classroom_id'];
+    protected $fillable = ['student_school_id', 'classroom_id'];
 
     /**
      * one to one relationship
      *
      * @return BelongsTo
      */
-    public function student(): BelongsTo
+    public function studentSchool(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(StudentSchool::class);
     }
 
     /**
