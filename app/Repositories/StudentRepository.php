@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\StudentClassroom;
+use App\Models\StudentSchool;
 
 class StudentRepository extends BaseRepository
 {
-    public function __construct(StudentClassroom $model)
+    public function __construct(StudentSchool $model)
     {
         $this->model = $model;
     }
@@ -14,14 +14,14 @@ class StudentRepository extends BaseRepository
     /**
      * get by classroom
      *
-     * @param string $classroomId
+     * @param string $schoolId
      * @return mixed
      */
-    public function get_by_classroom(string $classroomId): mixed
+    public function get_by_school(string $schoolId): mixed
     {
         return $this->model->query()
             ->with('student')
-            ->where('classroom_id', $classroomId)
+            ->where('school_id', $schoolId)
             ->get();
     }
 }

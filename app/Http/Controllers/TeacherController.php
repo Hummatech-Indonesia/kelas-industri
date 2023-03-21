@@ -27,9 +27,9 @@ class TeacherController extends Controller
      */
     public function index(): mixed
     {
-        if (request()->ajax()) {
-            return
-        }
+//        if (request()->ajax()) {
+//            return
+//        }
 
         return view('dashboard.admin.pages.teacher.index');
     }

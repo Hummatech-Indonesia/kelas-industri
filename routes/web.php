@@ -5,6 +5,7 @@ use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MentorController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\StudentController;
@@ -30,6 +31,10 @@ Route::get('/', function () {
 });
 
 Auth::routes(['login' => true, 'register' => false]);
+
+Route::prefix('profile')->name('profile.')->group(function () {
+    Route::get('/', [ProfileController::class, 'edit'])->name('index');
+});
 
 //admin
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -72,7 +77,7 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
         return view('dashboard.admin.layouts.app');
     });
 
-    Route::post('/import-students', [ClassroomController::class, 'importStudents'])->name('importStudents');
+    Route::post('/import-students', [StudentController::class, 'importStudents'])->name('importStudents');
     Route::resources([
         'classrooms' => ClassroomController::class,
         'students' => StudentController::class,

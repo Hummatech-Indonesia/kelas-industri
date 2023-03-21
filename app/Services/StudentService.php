@@ -6,9 +6,14 @@ use App\Http\Requests\StudentRequest;
 use App\Models\User;
 use App\Repositories\StudentRepository;
 use App\Repositories\UserRepository;
+use App\Traits\YajraTable;
+use Exception;
+use Illuminate\Http\JsonResponse;
 
 class StudentService
 {
+    use YajraTable;
+
     private StudentRepository $repository;
     private UserRepository $userRepository;
 
@@ -19,14 +24,15 @@ class StudentService
     }
 
     /**
-     * handle get by classroom
+     * handle get by school
      *
-     * @param string $classroomId
-     * @return mixed
+     * @param string $schoolId
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function handleGetByClassroom(string $classroomId): mixed
+    public function handleGetBySchool(string $schoolId): JsonResponse
     {
-        return $this->repository->get_by_classroom($classroomId);
+        return $this->StudentMockup($this->repository->get_by_school($schoolId));
     }
 
     /**
@@ -45,7 +51,7 @@ class StudentService
 
         $data = [
             'student_id' => $user->id,
-            'classroom_id' => $request->classroom_id
+            'school_id' => auth()->id()
         ];
 
         $this->repository->store($data);

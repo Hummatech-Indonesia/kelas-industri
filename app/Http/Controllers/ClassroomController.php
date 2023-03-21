@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClassroomRequest;
-use App\Imports\StudentImport;
 use App\Models\Classroom;
 use App\Services\ClassroomService;
 use App\Services\GenerationService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ClassroomController extends Controller
 {
@@ -123,18 +120,5 @@ class ClassroomController extends Controller
         if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
-    }
-
-    /**
-     * import students
-     *
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function importStudents(Request $request): RedirectResponse
-    {
-        Excel::import(new StudentImport($request->classroom_id), $request->file);
-
-        return back()->with('success', trans('alert.import_success'));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\StudentClassroom;
+use App\Models\StudentSchool;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -10,11 +10,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class StudentImport implements ToCollection, WithHeadingRow
 {
-    private string $classroomId;
+    private string $schoolId;
 
-    public function __construct(string $classroomId)
+    public function __construct(string $schoolId)
     {
-        $this->classroomId = $classroomId;
+        $this->schoolId = $schoolId;
     }
 
     /**
@@ -36,9 +36,9 @@ class StudentImport implements ToCollection, WithHeadingRow
                     'password' => bcrypt('password')
                 ]);
 
-                StudentClassroom::create([
+                StudentSchool::create([
                     'student_id' => $user->id,
-                    'classroom_id' => $this->classroomId
+                    'school_id' => $this->schoolId
                 ]);
             }
         }

@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
+use App\Imports\StudentImport;
 use App\Models\User;
 use App\Services\StudentService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -21,20 +26,23 @@ class StudentController extends Controller
      * Display a listing of the resource.
      *
      * @return Response
+     * @throws Exception
      */
-    public function index()
+    public function index(): mixed
     {
-        //
+        if (request()->ajax()) return $this->studentService->handleGetBySchool(auth()->id());
+
+        return view('dashboard.admin.pages.student.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('dashboard.admin.pages.student.create');
     }
 
     /**
@@ -48,7 +56,7 @@ class StudentController extends Controller
     {
         $this->studentService->handleCreate($request);
 
-        return back()->with('success', trans('alert.add_success'));
+        return to_route('school.students.index')->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -65,12 +73,12 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param User $student
+     * @return View
      */
-    public function edit($id)
+    public function edit(User $student): View
     {
-        //
+        return view('dashboard.admin.pages.student.edit', compact('student'));
     }
 
     /**
@@ -84,7 +92,7 @@ class StudentController extends Controller
     {
         $this->studentService->handleUpdate($request, $student);
 
-        return back()->with('success', trans('alert.update_success'));
+        return to_route('school.students.index')->with('success', trans('alert.update_success'));
     }
 
     /**
@@ -100,5 +108,18 @@ class StudentController extends Controller
         if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    /**
+     * import students
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function importStudents(Request $request): RedirectResponse
+    {
+        Excel::import(new StudentImport(auth()->id()), $request->file);
+
+        return back()->with('success', trans('alert.import_success'));
     }
 }

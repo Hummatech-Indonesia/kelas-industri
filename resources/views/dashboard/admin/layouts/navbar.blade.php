@@ -334,7 +334,7 @@
 
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                        <a href="account/overview.html" class="menu-link px-5">
+                        <a href="{{ route('profile.index') }}" class="menu-link px-5">
                             My Profile
                         </a>
                     </div>
