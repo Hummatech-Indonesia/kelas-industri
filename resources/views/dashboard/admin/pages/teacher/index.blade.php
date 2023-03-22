@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Mentor
+                Guru
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List mentor pada kelas industri.
+                List guru pada {{ auth()->user()->name }}.
             </p>
             <!--end::Breadcrumb-->
         </div>

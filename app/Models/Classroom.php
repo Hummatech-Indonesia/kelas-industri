@@ -48,4 +48,14 @@ class Classroom extends Model
     {
         return $this->belongsTo(Generation::class);
     }
+
+    /**
+     * many to one relationship
+     *
+     * @return BelongsTo
+     */
+    public function classroom(): BelongsTo
+    {
+        return $this->belongsTo(Classroom::class);
+    }
 }

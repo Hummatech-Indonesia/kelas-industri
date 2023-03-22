@@ -3,21 +3,46 @@
 namespace App\Services;
 
 use App\Http\Requests\MentorRequest;
+use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\TeacherRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
-use App\Traits\YajraTable;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class UserServices
 {
-    use YajraTable;
 
     private UserRepository $repository;
 
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
+    }
+
+    /**
+     * handle update profile
+     *
+     * @param ProfileRequest $request
+     * @param User $user
+     * @return void
+     */
+    public function handleUpdateProfile(ProfileRequest $request, User $user): void
+    {
+        $data = $request->validated();
+
+        if ($request->avatar_remove == 1 && Storage::exists('public/' . $user->photo)) {
+            Storage::delete('public/' . $user->photo);
+            $data['photo'] = null;
+        }
+
+        if ($request->hasFile('photo')) {
+            if (Storage::exists('public/' . $user->photo)) Storage::delete('public/' . $user->photo);
+
+            $data['photo'] = $request->file('photo')->store('user_photo', 'public');
+        }
+
+        $this->repository->update($user->id, $data);
     }
 
     /**
@@ -45,11 +70,10 @@ class UserServices
      *
      * @return mixed
      *
-     * @throws Exception
      */
     public function handleGetMentor(): mixed
     {
-        return $this->MentorMockup($this->repository->get_mentors());
+        return $this->repository->get_mentors();
     }
 
     /**

@@ -419,8 +419,8 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ (request()->routeIs('admin.mentors.*')) ? 'active' : '' }}"
-                                       href="{{ route('admin.mentors.index') }}">
+                                    <a class="menu-link {{ (request()->routeIs('school.teachers.*')) ? 'active' : '' }}"
+                                       href="{{ route('school.teachers.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">List Guru</span>
                                     </a>

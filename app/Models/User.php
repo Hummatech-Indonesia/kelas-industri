@@ -64,4 +64,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(StudentClassroom::class, 'student_id');
     }
+
+    /**
+     * one to many relationship
+     *
+     * @return HasMany
+     */
+    public function mentorClassrooms(): HasMany
+    {
+        return $this->hasMany(MentorClassroom::class, 'mentor_id');
+    }
 }

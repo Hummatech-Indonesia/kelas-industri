@@ -19,14 +19,14 @@ class TeacherService
     }
 
     /**
-     * handle get by classroom
+     * handle get by school
      *
-     * @param string $classroomId
+     * @param string $schoolId
      * @return mixed
      */
-    public function handleGetByClassroom(string $classroomId): mixed
+    public function handleGetBySchool(string $schoolId): mixed
     {
-        return $this->repository->get_teacher_by_classroom($classroomId);
+        return $this->repository->get_teacher_by_school($schoolId);
     }
 
     /**

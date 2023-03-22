@@ -1,5 +1,5 @@
-@if(count($data->classrooms) > 0)
-    @foreach($data->classrooms as $classroom)
+@if(count($data->mentorClassrooms) > 0)
+    @foreach($data->mentorClassrooms as $classroom)
         <span
             class="badge badge-light-success me-3">{{ $classroom->classroom->name . " - " . $classroom->classroom->generation->schoolYear->school_year }}</span>
     @endforeach

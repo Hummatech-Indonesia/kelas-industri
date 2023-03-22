@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MentorRequest;
 use App\Models\User;
 use App\Services\UserServices;
+use App\Traits\YajraTable;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -13,6 +14,8 @@ use function request;
 
 class MentorController extends Controller
 {
+    use YajraTable;
+
     private UserServices $userService;
 
     public function __construct(UserServices $userService)
@@ -29,7 +32,7 @@ class MentorController extends Controller
     public function index(): mixed
     {
         if (request()->ajax()) {
-            return $this->userService->handleGetMentor();
+            return $this->MentorMockup($this->userService->handleGetMentor());
         }
 
         return view('dashboard.admin.pages.mentor.index');
@@ -44,10 +47,20 @@ class MentorController extends Controller
     public function rollingMentor(): mixed
     {
         if (request()->ajax()) {
-            return $this->userService->handleGetMentor();
+            return $this->RollingMentorMockup($this->userService->handleGetMentor());
         }
 
         return view('dashboard.admin.pages.mentor.rolling');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return View
+     */
+    public function addRollingMentor(): View
+    {
+        return view('dashboard.admin.pages.mentor.add-rolling');
     }
 
     /**

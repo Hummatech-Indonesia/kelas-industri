@@ -34,6 +34,7 @@ Auth::routes(['login' => true, 'register' => false]);
 
 Route::prefix('profile')->name('profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'edit'])->name('index');
+    Route::patch('/update-profile/{user}', [ProfileController::class, 'update'])->name('update');
 });
 
 //admin
@@ -54,6 +55,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::prefix('rolling-mentor')->name('rollingMentor.')->group(function () {
         Route::get('/', [MentorController::class, 'rollingMentor'])->name('index');
+        Route::get('/{mentor}', [MentorController::class, 'addRollingMentor'])->name('add');
     });
 
     Route::name('materials.')->prefix('materials')->group(function () {

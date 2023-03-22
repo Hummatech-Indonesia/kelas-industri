@@ -20,15 +20,6 @@
         </div>
         <!--end::Page title-->
 
-        <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
-
-            <!--begin::Button-->
-            <a href="{{ route('admin.mentors.create') }}" class="btn btn-dark fw-bold">
-                Tambah </a>
-            <!--end::Button-->
-        </div>
-        <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -46,10 +37,7 @@
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Email</th>
-                                <th>No Telepon</th>
-                                <th>No Rekening</th>
-                                <th>Bank</th>
+                                <th>Kelas</th>
                                 <th>Aksi</th>
                             </tr>
                             <!--end::Table row-->
@@ -97,7 +85,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('admin.mentors.index') }}",
+                ajax: "{{ route('admin.rollingMentor.index') }}",
                 oLanguage: {sProcessing: 'loading...'},
                 columns: [
                     {
@@ -109,20 +97,8 @@
                         name: 'name'
                     },
                     {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'phone_number',
-                        name: 'phone_number'
-                    },
-                    {
-                        data: 'account_number',
-                        name: 'account_number'
-                    },
-                    {
-                        data: 'bank',
-                        name: 'bank'
+                        data: 'classrooms',
+                        name: 'classrooms'
                     },
                     {
                         data: 'action',
