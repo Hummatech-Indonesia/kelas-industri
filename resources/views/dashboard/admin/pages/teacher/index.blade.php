@@ -24,7 +24,7 @@
         <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <a href="{{ route('admin.mentors.create') }}" class="btn btn-dark fw-bold">
+            <a href="{{ route('school.teachers.create') }}" class="btn btn-dark fw-bold">
                 Tambah </a>
             <!--end::Button-->
         </div>
@@ -79,7 +79,7 @@
         document.addEventListener("DOMContentLoaded", () => {
 
             $(document).on('click', '.delete', function () {
-                const url = "{{ route('admin.mentors.destroy', ':id') }}".replace(':id', $(this).data('id'))
+                const url = "{{ route('school.teachers.destroy', ':id') }}".replace(':id', $(this).data('id'))
                 $('#form-delete').attr('action', url)
 
                 $('#kt_modal_delete').modal('show')
@@ -97,7 +97,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('admin.mentors.index') }}",
+                ajax: "{{ route('school.teachers.index') }}",
                 oLanguage: {sProcessing: 'loading...'},
                 columns: [
                     {
@@ -105,24 +105,24 @@
                         searchable: false
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'teacher.name',
+                        name: 'teacher.name'
                     },
                     {
-                        data: 'email',
-                        name: 'email'
+                        data: 'teacher.email',
+                        name: 'teacher.email'
                     },
                     {
-                        data: 'phone_number',
-                        name: 'phone_number'
+                        data: 'teacher.phone_number',
+                        name: 'teacher.phone_number'
                     },
                     {
-                        data: 'account_number',
-                        name: 'account_number'
+                        data: 'teacher.account_number',
+                        name: 'teacher.account_number'
                     },
                     {
-                        data: 'bank',
-                        name: 'bank'
+                        data: 'teacher.bank',
+                        name: 'teacher.bank'
                     },
                     {
                         data: 'action',

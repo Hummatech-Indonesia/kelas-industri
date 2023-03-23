@@ -27,6 +27,21 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * get teachers by school
+     *
+     * @param int $limit
+     * @return mixed
+     */
+    public function get_teachers_by_school(string $schoolId): mixed
+    {
+        return $this->model->query()
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "mentor");
+            })
+            ->get();
+    }
+
+    /**
      * get schools
      *
      * @param int $limit

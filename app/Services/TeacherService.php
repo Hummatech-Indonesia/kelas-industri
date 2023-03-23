@@ -45,7 +45,7 @@ class TeacherService
 
         $data = [
             'teacher_id' => $user->id,
-            'classroom_id' => $request->classroom_id
+            'school_id' => $request->school_id
         ];
 
         $this->repository->store($data);

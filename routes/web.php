@@ -89,6 +89,13 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
         'teachers' => TeacherController::class,
     ]);
 
+    Route::prefix('rolling-teacher')->name('rollingTeacher.')->group(function () {
+        Route::get('/', [TeacherController::class, 'rollingTeacher'])->name('index');
+        Route::get('/{teacher}', [TeacherController::class, 'addRollingTeacher'])->name('add');
+        Route::post('/action-rolling-teacher', [TeacherController::class, 'actionRollingTeacher'])->name('actionRollingTeacher');
+        Route::delete('/delete-rolling-teacher/{teacherClassroom}', [TeacherController::class, 'deleteTeacherClassroom'])->name('deleteRollingTeacher');
+    });
+
     Route::prefix('rolling-student')->name('rollingStudent.')->group(function () {
         Route::get('/', [StudentController::class, 'rollingStudent'])->name('index');
         Route::post('/', [ClassroomController::class, 'addStudentClassroom'])->name('store');

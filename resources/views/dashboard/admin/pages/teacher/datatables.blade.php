@@ -4,11 +4,12 @@
                 aria-haspopup="true" aria-expanded="false">Opsi
         </button>
         <div class="dropdown-menu"><a class="dropdown-item"
-                                      href="{{ route('admin.mentors.edit', $data->id) }}">Edit</a><a type="button"
-                                                                                                     data-toggle="modal"
-                                                                                                     data-target="#kt_modal_delete"
-                                                                                                     data-id='{{ $data->id }}'
-                                                                                                     class="dropdown-item delete">Hapus</a>
+                                      href="{{ route('school.teachers.edit', $data->teacher->id) }}">Edit</a><a
+                type="button"
+                data-toggle="modal"
+                data-target="#kt_modal_delete"
+                data-id='{{ $data->teacher->id }}'
+                class="dropdown-item delete">Hapus</a>
         </div>
     </div>
 </td>

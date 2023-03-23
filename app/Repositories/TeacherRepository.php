@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\TeacherClassroom;
+use App\Models\TeacherSchool;
 
 class TeacherRepository extends BaseRepository
 {
-    public function __construct(TeacherClassroom $model)
+    public function __construct(TeacherSchool $model)
     {
         $this->model = $model;
     }
@@ -18,9 +18,8 @@ class TeacherRepository extends BaseRepository
     public function get_teacher_by_school(string $schoolId): mixed
     {
         return $this->model->query()
-            ->whereRelation('classroom', function ($q) use ($schoolId) {
-                return $q->where('school_id', $schoolId);
-            })
+            ->with('teacher')
+            ->where('school_id', $schoolId)
             ->get();
     }
 }

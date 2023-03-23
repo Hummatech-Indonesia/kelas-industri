@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TeacherRequest;
+use App\Models\MentorClassroom;
 use App\Models\User;
 use App\Services\TeacherService;
 use App\Services\UserServices;
+use App\Traits\YajraTable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class TeacherController extends Controller
 {
+    use YajraTable;
+
     private TeacherService $service;
     private UserServices $userServices;
 
@@ -27,19 +33,80 @@ class TeacherController extends Controller
      */
     public function index(): mixed
     {
-        if (request()->ajax()) return $this->service->handleGetBySchool(auth()->id());
+        if (request()->ajax()) return $this->TeacherMockup($this->service->handleGetBySchool(auth()->id()));
 
         return view('dashboard.admin.pages.teacher.index');
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return View
+     * @throws Exception
+     */
+    public function rollingTeacher(): mixed
+    {
+//        if (request()->ajax()) {
+//            return $this->RollingMentorMockup($this->userService->handleGetMentor());
+//        }
+
+        return view('dashboard.admin.pages.mentor.rolling');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param User $mentor
+     * @return mixed
+     * @throws Exception
+     */
+    public function addRollingTeacher(User $mentor): mixed
+    {
+//        if (request()->ajax()) {
+//            return $this->mentorService->handleGetMentorClassrooms($mentor->id);
+//        }
+
+        $data = [
+            'schools' => $this->userService->handleGetAllSchool(),
+            'mentor' => $mentor
+        ];
+        return view('dashboard.admin.pages.mentor.add-rolling', $data);
+    }
+
+    /**
+     * action rolling mentor
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function actionRollingTeacher(Request $request): RedirectResponse
+    {
+//        $this->mentorService->handleStore($request);
+
+        return back()->with('success', trans('alert.add_success'));
+    }
+
+    /**
+     * delete mentor classroom
+     *
+     * @param MentorClassroom $mentorClassroom
+     * @return RedirectResponse
+     */
+    public function deleteTeacherClassroom(MentorClassroom $mentorClassroom): RedirectResponse
+    {
+//        $this->mentorService->handleDelete($mentorClassroom->id);
+
+        return back()->with('success', trans('alert.delete_success'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('dashboard.admin.pages.teacher.create');
     }
 
     /**
@@ -52,7 +119,7 @@ class TeacherController extends Controller
     {
         $this->service->handleCreate($request);
 
-        return back()->with('success', trans('alert.add_success'));
+        return to_route('school.teachers.index')->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -69,12 +136,12 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param User $teacher
+     * @return View
      */
-    public function edit($id)
+    public function edit(User $teacher): View
     {
-        //
+        return view('dashboard.admin.pages.teacher.edit', compact('teacher'));
     }
 
     /**
@@ -88,7 +155,7 @@ class TeacherController extends Controller
     {
         $this->service->handleUpdate($request, $teacher);
 
-        return back()->with('success', trans('alert.update_success'));
+        return to_route('school.teachers.index')->with('success', trans('alert.update_success'));
     }
 
     /**

@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Tambah Guru
+                Edit Guru
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman tambah guru
+                Halaman edit guru
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -30,7 +30,9 @@
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('school.teachers.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('school.teachers.update', $teacher->id) }}" method="POST"
+                  enctype="multipart/form-data">
+                @method('PATCH')
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -84,7 +86,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="name"
-                                               type="text" value="{{ old('name') }}" placeholder="John Doe"
+                                               type="text" value="{{ $teacher->name }}" placeholder="John Doe"
                                                required="">
 
                                     </div>
@@ -97,7 +99,8 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="email"
-                                               type="email" value="{{ old('email') }}" placeholder="johndoe@gmail.com"
+                                               type="email" value="{{ $teacher->email }}"
+                                               placeholder="johndoe@gmail.com"
                                                required="">
 
                                     </div>
@@ -111,7 +114,8 @@
 
                                         <input class="form-control form-control-solid form-control-lg"
                                                name="phone_number"
-                                               type="text" value="{{ old('phone_number') }}" placeholder="087xxxxxxxxx"
+                                               type="text" value="{{ $teacher->phone_number }}"
+                                               placeholder="087xxxxxxxxx"
                                                required="">
 
                                     </div>
@@ -125,7 +129,7 @@
 
                                         <input class="form-control form-control-solid form-control-lg"
                                                name="account_number"
-                                               type="text" value="{{ old('account_number') }}"
+                                               type="text" value="{{ $teacher->account_number }}"
                                                placeholder="117-129-x-xxx"
                                                required="">
 
@@ -140,7 +144,7 @@
 
                                         <input class="form-control form-control-solid form-control-lg"
                                                name="bank"
-                                               type="text" value="{{ old('bank') }}"
+                                               type="text" value="{{ $teacher->bank }}"
                                                placeholder="Mandiri"
                                                required="">
 
@@ -157,7 +161,7 @@
                                                   name="address"
                                                   type="text"
                                                   placeholder="Jl. Soekarno Hatta No 9"
-                                                  required="">{{ old('address') }}</textarea>
+                                                  required="">{{ $teacher->address }}</textarea>
 
                                     </div>
 
