@@ -56,6 +56,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::prefix('rolling-mentor')->name('rollingMentor.')->group(function () {
         Route::get('/', [MentorController::class, 'rollingMentor'])->name('index');
         Route::get('/{mentor}', [MentorController::class, 'addRollingMentor'])->name('add');
+        Route::post('/get-classrooms', [MentorController::class, 'getClassroomBySchool'])->name('getClassrooms');
+        Route::post('/action-rolling-mentor', [MentorController::class, 'actionRollingMentor'])->name('actionRollingMentor');
+        Route::delete('/delete-rolling-mentor/{mentorClassroom}', [MentorController::class, 'deleteMentorClassroom'])->name('deleteRollingMentor');
     });
 
     Route::name('materials.')->prefix('materials')->group(function () {

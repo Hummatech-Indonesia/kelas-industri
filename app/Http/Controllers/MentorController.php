@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\MentorRequest;
+use App\Models\MentorClassroom;
 use App\Models\User;
+use App\Services\ClassroomService;
+use App\Services\MentorService;
 use App\Services\UserServices;
 use App\Traits\YajraTable;
 use Exception;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use function request;
@@ -17,10 +22,14 @@ class MentorController extends Controller
     use YajraTable;
 
     private UserServices $userService;
+    private ClassroomService $classroomService;
+    private MentorService $mentorService;
 
-    public function __construct(UserServices $userService)
+    public function __construct(UserServices $userService, ClassroomService $classroomService, MentorService $mentorService)
     {
         $this->userService = $userService;
+        $this->classroomService = $classroomService;
+        $this->mentorService = $mentorService;
     }
 
     /**
@@ -54,13 +63,61 @@ class MentorController extends Controller
     }
 
     /**
+     * handle get classrooms by school
+     *
+     * @return mixed
+     */
+    public function getClassroomBySchool(): mixed
+    {
+        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+
+        return $this->classroomService->handleGetBySchool(request()->schoolId, $currentSchoolYear->id);
+    }
+
+    /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @param User $mentor
+     * @return mixed
+     * @throws Exception
      */
-    public function addRollingMentor(): View
+    public function addRollingMentor(User $mentor): mixed
     {
-        return view('dashboard.admin.pages.mentor.add-rolling');
+        if (request()->ajax()) {
+            return $this->mentorService->handleGetMentorClassrooms($mentor->id);
+        }
+
+        $data = [
+            'schools' => $this->userService->handleGetAllSchool(),
+            'mentor' => $mentor
+        ];
+        return view('dashboard.admin.pages.mentor.add-rolling', $data);
+    }
+
+    /**
+     * action rolling mentor
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function actionRollingMentor(Request $request): RedirectResponse
+    {
+        $this->mentorService->handleStore($request);
+
+        return back()->with('success', trans('alert.add_success'));
+    }
+
+    /**
+     * delete mentor classroom
+     *
+     * @param MentorClassroom $mentorClassroom
+     * @return RedirectResponse
+     */
+    public function deleteMentorClassroom(MentorClassroom $mentorClassroom): RedirectResponse
+    {
+        $this->mentorService->handleDelete($mentorClassroom->id);
+
+        return back()->with('success', trans('alert.delete_success'));
     }
 
     /**

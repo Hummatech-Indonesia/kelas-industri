@@ -294,7 +294,9 @@
 
                     <!--begin::Symbol-->
                     <div class="symbol symbol-30px symbol-md-40px">
-                        <img src="{{ asset('app-assets/media/avatars/300-1.jpg') }}" alt="image"/>
+                        <img
+                            src="{{ (auth()->user()->photo) ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
+                            alt="image"/>
                     </div>
                     <!--end::Symbol-->
                 </div>
@@ -310,7 +312,8 @@
                         <div class="menu-content d-flex align-items-center px-3">
                             <!--begin::Avatar-->
                             <div class="symbol symbol-50px me-5">
-                                <img alt="Logo" src="{{ asset('app-assets/media/avatars/300-1.jpg') }}"/>
+                                <img alt="Logo"
+                                     src="{{ (auth()->user()->photo) ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"/>
                             </div>
                             <!--end::Avatar-->
 

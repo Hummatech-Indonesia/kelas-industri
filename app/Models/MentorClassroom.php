@@ -10,6 +10,8 @@ class MentorClassroom extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['mentor_id', 'classroom_id'];
+
     /**
      * many to one relationship
      *

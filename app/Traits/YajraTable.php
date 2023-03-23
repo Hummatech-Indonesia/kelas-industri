@@ -47,7 +47,7 @@ trait YajraTable
                 return view('dashboard.admin.pages.mentor.classrooms', compact('data'));
             })
             ->addColumn('action', function ($data) {
-                return view('dashboard.admin.pages.mentor.datatables', compact('data'));
+                return view('dashboard.admin.pages.mentor.rolling-datatables', compact('data'));
             })
             ->rawColumns(['action'])
             ->toJson();

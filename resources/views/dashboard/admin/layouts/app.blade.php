@@ -22,6 +22,8 @@ License: For each use you must have a valid license purchased only from above li
     <title>Metronic - The World's #1 Selling Bootstrap Admin Template by Keenthemes</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+
     <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
 
     <!--begin::Fonts(mandatory for all pages)-->

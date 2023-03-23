@@ -58,4 +58,14 @@ class Classroom extends Model
     {
         return $this->belongsTo(Classroom::class);
     }
+
+    /**
+     * many to one relationship
+     *
+     * @return BelongsTo
+     */
+    public function school(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'school_id');
+    }
 }
