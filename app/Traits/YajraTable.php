@@ -73,6 +73,29 @@ trait YajraTable
     }
 
     /**
+     * Datatable mockup for rolling mentor resource
+     *
+     * @param mixed $collection
+     *
+     * @return JsonResponse
+     * @throws Exception
+     */
+
+    public function RollingTeacherMockup(mixed $collection): JsonResponse
+    {
+        return DataTables::of($collection)
+            ->addIndexColumn()
+            ->editColumn('classrooms', function ($data) {
+                return view('dashboard.admin.pages.teacher.classrooms', compact('data'));
+            })
+            ->addColumn('action', function ($data) {
+                return view('dashboard.admin.pages.teacher.rolling-datatables', compact('data'));
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    /**
      * Datatable mockup for zoom schedule resource
      *
      * @param mixed $collection

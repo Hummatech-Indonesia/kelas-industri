@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\TeacherRequest;
 use App\Models\MentorClassroom;
+use App\Models\TeacherClassroom;
 use App\Models\User;
+use App\Services\ClassroomService;
 use App\Services\TeacherService;
 use App\Services\UserServices;
 use App\Traits\YajraTable;
@@ -13,17 +16,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
-class TeacherController extends Controller
+class   TeacherController extends Controller
 {
     use YajraTable;
 
     private TeacherService $service;
     private UserServices $userServices;
+    private ClassroomService $classroomService;
 
-    public function __construct(TeacherService $service, UserServices $userServices)
+    public function __construct(TeacherService $service, UserServices $userServices, ClassroomService $classroomService)
     {
         $this->service = $service;
         $this->userServices = $userServices;
+        $this->classroomService = $classroomService;
     }
 
     /**
@@ -46,31 +51,32 @@ class TeacherController extends Controller
      */
     public function rollingTeacher(): mixed
     {
-//        if (request()->ajax()) {
-//            return $this->RollingMentorMockup($this->userService->handleGetMentor());
-//        }
+        if (request()->ajax()) {
+            return $this->RollingTeacherMockup($this->service->handleGetBySchool(auth()->id()));
+        }
 
-        return view('dashboard.admin.pages.mentor.rolling');
+        return view('dashboard.admin.pages.teacher.rolling');
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @param User $mentor
+     * @param User $teacher
      * @return mixed
      * @throws Exception
      */
-    public function addRollingTeacher(User $mentor): mixed
+    public function addRollingTeacher(User $teacher): mixed
     {
-//        if (request()->ajax()) {
-//            return $this->mentorService->handleGetMentorClassrooms($mentor->id);
-//        }
+        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+        if (request()->ajax()) {
+            return $this->service->handleGetTeacherClassrooms($teacher->teacherSchool->id);
+        }
 
         $data = [
-            'schools' => $this->userService->handleGetAllSchool(),
-            'mentor' => $mentor
+            'classrooms' => $this->classroomService->handleGetBySchool(auth()->id(), $currentSchoolYear->id),
+            'teacher' => $teacher
         ];
-        return view('dashboard.admin.pages.mentor.add-rolling', $data);
+        return view('dashboard.admin.pages.teacher.add-rolling', $data);
     }
 
     /**
@@ -81,7 +87,7 @@ class TeacherController extends Controller
      */
     public function actionRollingTeacher(Request $request): RedirectResponse
     {
-//        $this->mentorService->handleStore($request);
+        $this->service->handleStoreTeacherClassroom($request);
 
         return back()->with('success', trans('alert.add_success'));
     }
@@ -92,9 +98,9 @@ class TeacherController extends Controller
      * @param MentorClassroom $mentorClassroom
      * @return RedirectResponse
      */
-    public function deleteTeacherClassroom(MentorClassroom $mentorClassroom): RedirectResponse
+    public function deleteTeacherClassroom(TeacherClassroom $teacherClassroom): RedirectResponse
     {
-//        $this->mentorService->handleDelete($mentorClassroom->id);
+        $this->service->handleDeleteTeacherClassroom($teacherClassroom->id);
 
         return back()->with('success', trans('alert.delete_success'));
     }

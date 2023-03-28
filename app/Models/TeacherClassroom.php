@@ -10,7 +10,7 @@ class TeacherClassroom extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['teacher_id', 'classroom_id'];
+    protected $fillable = ['teacher_school_id', 'classroom_id'];
 
     /**
      * many to one relationship

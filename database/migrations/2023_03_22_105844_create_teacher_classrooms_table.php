@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('teacher_classrooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('teacher_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('teacher_school_id')->constrained('teacher_schools')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignUuid('classroom_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

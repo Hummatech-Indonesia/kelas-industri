@@ -4,18 +4,22 @@ namespace App\Services;
 
 use App\Http\Requests\TeacherRequest;
 use App\Models\User;
+use App\Repositories\TeacherClassroomRepository;
 use App\Repositories\TeacherRepository;
 use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 
 class TeacherService
 {
     private TeacherRepository $repository;
     private UserRepository $userRepository;
+    private TeacherClassroomRepository $teacherClassroomRepository;
 
-    public function __construct(TeacherRepository $repository, UserRepository $userRepository)
+    public function __construct(TeacherRepository $repository, UserRepository $userRepository, TeacherClassroomRepository $teacherClassroomRepository)
     {
         $this->repository = $repository;
         $this->userRepository = $userRepository;
+        $this->teacherClassroomRepository = $teacherClassroomRepository;
     }
 
     /**
@@ -30,7 +34,7 @@ class TeacherService
     }
 
     /**
-     * store school year
+     * store teacher
      *
      * @param TeacherRequest $request
      * @return void
@@ -52,7 +56,7 @@ class TeacherService
     }
 
     /**
-     * update school year
+     * update teacher
      *
      * @param TeacherRequest $request
      * @param User $teacher
@@ -66,7 +70,7 @@ class TeacherService
     }
 
     /**
-     * handle delete school year
+     * handle delete teacher
      *
      * @param User $teacher
      * @return bool
@@ -74,5 +78,42 @@ class TeacherService
     public function handleDelete(User $teacher): bool
     {
         return $this->userRepository->destroy($teacher->id);
+    }
+
+    /**
+     * handle store teacher classroom
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function handleStoreTeacherClassroom(Request $request): void
+    {
+        $data = [
+            'teacher_school_id' => $request->teacher_school_id,
+            'classroom_id' => $request->classroom_id
+        ];
+        $this->teacherClassroomRepository->store($data, $data);
+    }
+
+    /**
+     * handle teacher classrooms
+     *
+     * @param int $teacherSchoolId
+     * @return mixed
+     */
+    public function handleGetTeacherClassrooms(int $teacherSchoolId): mixed
+    {
+        return $this->teacherClassroomRepository->get_by_teacher_school($teacherSchoolId);
+    }
+
+    /**
+     * handle delete teacher classroom
+     *
+     * @param int $teacherClassroomId
+     * @return void
+     */
+    public function handleDeleteTeacherClassroom(int $teacherClassroomId): void
+    {
+        $this->teacherClassroomRepository->destroy($teacherClassroomId);
     }
 }

@@ -427,7 +427,7 @@
                                     <!--end:Menu link-->
                                     <!--begin:Menu link-->
                                     <a class="menu-link {{ request()->routeIs('admin.rollingMentor.*') ? 'active' : '' }}"
-                                       href="{{ route('admin.rollingMentor.index') }}">
+                                       href="{{ route('school.rollingTeacher.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Rolling Guru</span>
                                     </a>
