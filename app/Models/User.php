@@ -34,7 +34,7 @@ class User extends Authenticatable
         'photo',
         'bank',
         'account_number',
-        'headmaster'
+        'headmaster',
     ];
 
     /**
@@ -61,7 +61,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function classrooms(): HasMany
+    public function studentClassrooms(): HasMany
     {
         return $this->hasMany(StudentClassroom::class, 'student_id');
     }
@@ -84,5 +84,20 @@ class User extends Authenticatable
     public function teacherSchool(): HasOne
     {
         return $this->hasOne(TeacherSchool::class, 'teacher_id');
+    }
+
+    public function teachers(): HasMany
+    {
+        return $this->hasMany(TeacherSchool::class, 'school_id');
+    }
+
+    public function students(): HasMany
+    {
+        return $this->hasMany(StudentSchool::class, 'student_id');
+    }
+
+    public function classrooms(): HasMany
+    {
+        return $this->hasMany(Classroom::class, 'school_id');
     }
 }

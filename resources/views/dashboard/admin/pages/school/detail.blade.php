@@ -6,7 +6,7 @@
         <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
             <!--begin::Title-->
             <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                Pengenalan HTML
+                Detail Sekolah
             </h1>
             <!--end::Title-->
 
@@ -14,7 +14,7 @@
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    Jl Kedungpedaringan, Kepanjen
+                    Detail Halaman Dari {{ $school->name }}
                 </li>
                 <!--end::Item-->
 
@@ -24,7 +24,8 @@
         <!--end::Page title-->
         <!--begin::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ url()->previous() }}" class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+            <a href="{{ url()->previous() }}"
+                class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                 <i class="bi bi-arrow-left me-2"></i> Kembali
             </a>
         </div>
@@ -45,17 +46,17 @@
 
                             <div class="flex-shrink-0 me-7 mt-lg-0 mt-3">
 
-{{--                                <div class="symbol symbol-50 symbol-lg-120">--}}
-
-{{--                                    <img src="/public/assets/media/sekolah/20220726214620.png" alt="image">--}}
-
-{{--                                </div>--}}
-
-
-
-                                <div class="symbol symbol-50px">
-                                    <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">L</div>
+                                <div class="symbol symbol-50 symbol-lg-120">
+                                    @if ($school->photo)
+                                        <img src="{{ asset('storage/' . $school->photo) }}" alt="kanesa">
+                                    @else
+                                        <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
+                                            {{ substr($school->name, 0, 1) }}</div>
+                                    @endif
                                 </div>
+                                {{-- <div class="symbol symbol-50px">
+                                    <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger"></div>
+                                </div> --}}
 
                             </div>
 
@@ -73,15 +74,22 @@
 
                                     <div class="d-flex flex-row align-items-center me-3">
 
-                                        <p class="fw-bolder text-hover-primary h5 font-weight-bold mb-0 me-3">SMKN 1 Kepanjen
+                                        <p class="fw-bolder text-hover-primary h5 font-weight-bold mb-0 me-3">
+                                            {{ $school->name }}
                                         </p>
 
                                         <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen026.svg-->
-                                        <span class="svg-icon svg-icon-success svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-                                          <path d="M10.0813 3.7242C10.8849 2.16438 13.1151 2.16438 13.9187 3.7242V3.7242C14.4016 4.66147 15.4909 5.1127 16.4951 4.79139V4.79139C18.1663 4.25668 19.7433 5.83365 19.2086 7.50485V7.50485C18.8873 8.50905 19.3385 9.59842 20.2758 10.0813V10.0813C21.8356 10.8849 21.8356 13.1151 20.2758 13.9187V13.9187C19.3385 14.4016 18.8873 15.491 19.2086 16.4951V16.4951C19.7433 18.1663 18.1663 19.7433 16.4951 19.2086V19.2086C15.491 18.8873 14.4016 19.3385 13.9187 20.2758V20.2758C13.1151 21.8356 10.8849 21.8356 10.0813 20.2758V20.2758C9.59842 19.3385 8.50905 18.8873 7.50485 19.2086V19.2086C5.83365 19.7433 4.25668 18.1663 4.79139 16.4951V16.4951C5.1127 15.491 4.66147 14.4016 3.7242 13.9187V13.9187C2.16438 13.1151 2.16438 10.8849 3.7242 10.0813V10.0813C4.66147 9.59842 5.1127 8.50905 4.79139 7.50485V7.50485C4.25668 5.83365 5.83365 4.25668 7.50485 4.79139V4.79139C8.50905 5.1127 9.59842 4.66147 10.0813 3.7242V3.7242Z" fill="currentColor"/>
-                                          <path d="M14.8563 9.1903C15.0606 8.94984 15.3771 8.9385 15.6175 9.14289C15.858 9.34728 15.8229 9.66433 15.6185 9.9048L11.863 14.6558C11.6554 14.9001 11.2876 14.9258 11.048 14.7128L8.47656 12.4271C8.24068 12.2174 8.21944 11.8563 8.42911 11.6204C8.63877 11.3845 8.99996 11.3633 9.23583 11.5729L11.3706 13.4705L14.8563 9.1903Z" fill="white"/>
-                                        </svg></span>
-                                                                                <!--end::Svg Icon-->
+                                        <span class="svg-icon svg-icon-success svg-icon-2x"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M10.0813 3.7242C10.8849 2.16438 13.1151 2.16438 13.9187 3.7242V3.7242C14.4016 4.66147 15.4909 5.1127 16.4951 4.79139V4.79139C18.1663 4.25668 19.7433 5.83365 19.2086 7.50485V7.50485C18.8873 8.50905 19.3385 9.59842 20.2758 10.0813V10.0813C21.8356 10.8849 21.8356 13.1151 20.2758 13.9187V13.9187C19.3385 14.4016 18.8873 15.491 19.2086 16.4951V16.4951C19.7433 18.1663 18.1663 19.7433 16.4951 19.2086V19.2086C15.491 18.8873 14.4016 19.3385 13.9187 20.2758V20.2758C13.1151 21.8356 10.8849 21.8356 10.0813 20.2758V20.2758C9.59842 19.3385 8.50905 18.8873 7.50485 19.2086V19.2086C5.83365 19.7433 4.25668 18.1663 4.79139 16.4951V16.4951C5.1127 15.491 4.66147 14.4016 3.7242 13.9187V13.9187C2.16438 13.1151 2.16438 10.8849 3.7242 10.0813V10.0813C4.66147 9.59842 5.1127 8.50905 4.79139 7.50485V7.50485C4.25668 5.83365 5.83365 4.25668 7.50485 4.79139V4.79139C8.50905 5.1127 9.59842 4.66147 10.0813 3.7242V3.7242Z"
+                                                    fill="currentColor" />
+                                                <path
+                                                    d="M14.8563 9.1903C15.0606 8.94984 15.3771 8.9385 15.6175 9.14289C15.858 9.34728 15.8229 9.66433 15.6185 9.9048L11.863 14.6558C11.6554 14.9001 11.2876 14.9258 11.048 14.7128L8.47656 12.4271C8.24068 12.2174 8.21944 11.8563 8.42911 11.6204C8.63877 11.3845 8.99996 11.3633 9.23583 11.5729L11.3706 13.4705L14.8563 9.1903Z"
+                                                    fill="white" />
+                                            </svg></span>
+                                        <!--end::Svg Icon-->
 
                                     </div>
 
@@ -99,25 +107,37 @@
 
                                         <div class="d-flex flex-wrap mb-1">
 
-                                            <p class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2"><i class="las la-user-tie me-2 fs-3"></i>Lasmono, S.Pd., MM</p>
+                                            <p
+                                                class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2">
+                                                <i class="las la-user-tie me-2 fs-3"></i>{{ $school->headmaster }}
+                                            </p>
 
                                         </div>
 
                                         <div class="d-flex flex-wrap mb-1">
 
-                                            <p class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2"><i class="las la-envelope me-2 fs-3"></i>smkn1kepanjen@hummasoft.com</p>
+                                            <p
+                                                class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2">
+                                                <i class="las la-envelope me-2 fs-3"></i>{{ $school->email }}
+                                            </p>
 
                                         </div>
 
                                         <div class="d-flex flex-wrap mb-1">
 
-                                            <p class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2"><i class="las la-phone me-2 fs-3"></i>(+62) 341395777</p>
+                                            <p
+                                                class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2">
+                                                <i class="las la-phone me-2 fs-3"></i>{{ $school->phone_number }}
+                                            </p>
 
                                         </div>
 
                                         <div class="d-flex flex-wrap mb-4">
 
-                                            <p class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2"><i class="las la-map-marker-alt me-2 fs-3"></i>Jl, Ngadiluwih, Kedungpedaringan, Kec. Kepanjen, Kabupaten Malang, Jawa Timur 65163</p>
+                                            <p
+                                                class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2">
+                                                <i class="las la-map-marker-alt me-2 fs-3"></i>{{ $school->address }}
+                                            </p>
 
                                         </div>
 
@@ -161,7 +181,8 @@
 
                                     <span class="fw-bolder font-size-h5">
 
-                                        <span class="text-dark-50 font-weight-bold"></span>3</span>
+                                        <span
+                                            class="text-dark-50 font-weight-bold"></span>{{ count($school->teachers) }}</span>
 
                                 </div>
 
@@ -187,7 +208,8 @@
 
                                     <span class="fw-bolder font-size-h5">
 
-                                        <span class="text-dark-50 font-weight-bold"></span>73</span>
+                                        <span
+                                            class="text-dark-50 font-weight-bold"></span>{{ count($school->students) }}</span>
 
                                 </div>
 
@@ -213,7 +235,8 @@
 
                                     <span class="fw-bolder font-size-h5">
 
-                                        <span class="text-dark-50 font-weight-bold"></span>2</span>
+                                        <span
+                                            class="text-dark-50 font-weight-bold"></span>{{ count($school->classrooms) }}</span>
 
                                 </div>
 
@@ -243,20 +266,26 @@
 
                         <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                             <thead>
-                            <tr class="fw-semibold fs-6 text-gray-800">
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Sekolah</th>
-                                <th>Poin</th>
-                            </tr>
+                                <tr class="fw-semibold fs-6 text-gray-800">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>No Telepon</th>
+                                    <th>No Rekening</th>
+                                    <th>Bank</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td><span class="badge badge-light-danger">2011/04/25</span></td>
-                            </tr>
+                                @foreach ($school->teachers as $teacher)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$teacher->teacher->name}}</td>
+                                    <td>{{$teacher->teacher->email}}</td>
+                                    <td>{{$teacher->teacher->phone_number}}</td>
+                                    <td>{{$teacher->teacher->address}}</td>
+                                    <td>{{$teacher->teacher->bank}}</td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -276,7 +305,7 @@
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            list kelas SMKN 1 Kepanjen
+                            list kelas {{$school->name}}
                         </li>
                         <!--end::Item-->
 
@@ -286,7 +315,8 @@
                 <!--end::Page title-->
                 <!--begin::Actions-->
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <a href="{{ url()->previous() }}" class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                    <a href="{{ url()->previous() }}"
+                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                         <i class="bi bi-arrow-left me-2"></i> Filter
                     </a>
                 </div>
@@ -301,6 +331,7 @@
 
                         <!--begin::Body-->
 
+                        @foreach ($school->classrooms as $classroom)
                         <div class="card-body">
 
                             <!--begin::Section-->
@@ -309,10 +340,10 @@
 
                                 <!--begin::Pic-->
 
-                                <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle symbol-primary me-5">
+                                <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle me-5">
 
-                                    <span class="font-size-h5 symbol-label font-weight-boldest">PE</span>
-
+                                    <span
+                                        class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($classroom->name, 0, 1) }}</span>
 
 
                                 </div>
@@ -321,21 +352,20 @@
 
                                 <!--begin::Info-->
 
-                                <div class="d-flex flex-column mr-auto">
+                                <div class="d-flex flex-column me-auto">
 
                                     <!--begin: Title-->
 
-                                    <a href="https://class.hummasoft.com/siswa/materi/11/4" class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
+                                    <a href="https://class.hummasoft.com/siswa/materi/11/4"
+                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
 
-                                        Pengenalan HTML
+                                        {{ $classroom->name }}
                                     </a>
 
 
-
                                     <span class="text-muted font-weight-bold">
-
-                                            Bab dan tugas  untuk Pengenalan HTML
-                                        </span>
+                                        {{ $classroom->name }}
+                                    </span>
 
                                     <!--end::Title-->
 
@@ -343,7 +373,13 @@
 
                                 <!--end::Info-->
 
-
+                                <div class="d-flex">
+                                    <a href="{{ route('school.classrooms.edit', $classroom->id) }}"
+                                        class="btn btn-default btn-sm p-1"><i
+                                            class="fonticon-setting fs-2 text-warning"></i></a>
+                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $classroom->id }}">
+                                        <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
+                                </div>
 
                             </div>
 
@@ -352,21 +388,21 @@
                             <!--begin::Content-->
 
 
-
                             <!--end::Content-->
 
                             <!--begin::Text-->
 
                             <p class="mb-7 mt-5">
 
-                                Mengenal website dari dasar
+                                {{ $classroom->description }}
                             </p>
 
                             <!--end::Text-->
 
 
-
                         </div>
+                        @endforeach
+
 
                         <!--end::Body-->
 
@@ -378,13 +414,17 @@
 
                                 <div class="d-flex align-items-center me-5">
                                     <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
-                                    <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect opacity="0.5" x="7" y="2" width="14" height="16" rx="3" fill="currentColor"/>
-    <rect x="3" y="6" width="14" height="16" rx="3" fill="currentColor"/>
-</svg>
-</span>
+                                    <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.5" x="7" y="2" width="14"
+                                                height="16" rx="3" fill="currentColor" />
+                                            <rect x="3" y="6" width="14" height="16"
+                                                rx="3" fill="currentColor" />
+                                        </svg>
+                                    </span>
                                     <!--end::Svg Icon-->
-                                    <a href="https://class.hummasoft.com/siswa/materi/11/4" class="fw-bold text-info ml-2">5 Bab</a>
+                                    <a href="https://class.hummasoft.com/siswa/materi/11/4"
+                                        class="fw-bold text-info ml-2">5 Bab</a>
 
 
 
@@ -394,7 +434,8 @@
 
                             </div>
 
-                            <a href="{{ route('student.submaterial') }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                            <a href="{{ route('student.submaterial') }}"
+                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                         </div>
 
