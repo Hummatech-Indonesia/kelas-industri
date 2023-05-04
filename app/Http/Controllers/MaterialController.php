@@ -36,7 +36,7 @@ class MaterialController extends Controller
         $selectedSchoolYear = $schoolYear->id;
         $data = [
             'generations' => $this->generationService->handleGetAll(),
-            'materials'     =>  $this->service->handleGetPaginate($selectedSchoolYear)
+            'materials' =>  $this->service->handleGetPaginate($selectedSchoolYear)
         ];
         return view('dashboard.admin.pages.material.index', $data);
     }

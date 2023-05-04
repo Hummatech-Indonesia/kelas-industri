@@ -28,6 +28,12 @@ class ClassroomService
         return $this->repository->getAll();
     }
 
+    
+    public function handleGetClassroomByStudent(string $studentId)
+    {
+        return $this->repository->get_by_student($studentId);
+    }
+
     /**
      * handle get by school in the current school year
      *

@@ -20,7 +20,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Horizontal
+                                    Kelas
                                 </h1>
                                 <!--end::Title-->
 
@@ -105,7 +105,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xl-4">
+                        @foreach ($classrooms as $classroom)
+                        <div class="col-xl-4 mb-3">
 
                             <!--begin::Card-->
 
@@ -121,10 +122,10 @@
 
                                         <!--begin::Pic-->
 
-                                        <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle symbol-primary me-5">
+                                        <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle me-5">
 
-                                            <span class="font-size-h5 symbol-label font-weight-boldest">PE</span>
-
+                                            <span
+                                            class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($classroom->classroom->name, 0, 1) }}</span>
 
 
                                         </div>
@@ -133,30 +134,26 @@
 
                                         <!--begin::Info-->
 
-                                        <div class="d-flex flex-column mr-auto">
+                                        <div class="d-flex flex-column me-auto">
 
                                             <!--begin: Title-->
 
-                                            <a href="https://class.hummasoft.com/siswa/materi/11/4" class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
+                                            <a href="https://class.hummasoft.com/siswa/materi/11/4"
+                                                class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
 
-                                                Pengenalan HTML
+                                                {{ $classroom->classroom->name }}
                                             </a>
 
-
-
+                                            {{-- seharusnya generation atau school_year  --}}
                                             <span class="text-muted font-weight-bold">
-
-                                            Bab dan tugas  untuk Pengenalan HTML
-                                        </span>
+                                                {{ $classroom->classroom->name }}
+                                            </span>
 
                                             <!--end::Title-->
 
                                         </div>
 
                                         <!--end::Info-->
-
-
-
                                     </div>
 
                                     <!--end::Section-->
@@ -164,18 +161,13 @@
                                     <!--begin::Content-->
 
 
-
                                     <!--end::Content-->
 
                                     <!--begin::Text-->
 
-                                    <p class="mb-7 mt-5">
 
-                                        Mengenal website dari dasar
-                                    </p>
 
                                     <!--end::Text-->
-
 
 
                                 </div>
@@ -187,26 +179,15 @@
                                 <div class="card-footer d-flex flex-row justify-content-between">
 
                                     <div class="d-flex">
-
-                                        <div class="d-flex align-items-center me-5">
-                                            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
-                                            <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect opacity="0.5" x="7" y="2" width="14" height="16" rx="3" fill="currentColor"/>
-    <rect x="3" y="6" width="14" height="16" rx="3" fill="currentColor"/>
-</svg>
-</span>
-                                            <!--end::Svg Icon-->
-                                        <a href="https://class.hummasoft.com/siswa/materi/11/4" class="fw-bold text-info ml-2">5 Bab</a>
-
-
-
-                                        </div>
-
+                                        {{-- masih salah --}}
+                                        <a href="{{ route('school.classrooms.show', $classroom->classroom->generation_id) }}"
+                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">materi</a>
 
 
                                     </div>
 
-                                    <a href="{{ route('student.submaterial') }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                    <a href="{{ route('school.classrooms.show', $classroom->classroom->id) }}"
+                                        class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                 </div>
 
@@ -217,6 +198,8 @@
                             <!--end::Card-->
 
                         </div>
+                        @endforeach
+
                     </div>
                 </div>
                 <!--end::Content container-->
@@ -245,7 +228,8 @@
 
                     <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
-                <!--end::Menu-->        </div>
+                <!--end::Menu-->
+            </div>
             <!--end::Footer container-->
         </div>
         <!--end::Footer-->

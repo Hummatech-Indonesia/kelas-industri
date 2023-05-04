@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\AssignmentController;
-use App\Http\Controllers\ChallengeController;
-use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\GenerationController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\MentorController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\SchoolYearController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\SubMaterialController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\ZoomScheduleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MentorController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\GenerationController;
+use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\SubMaterialController;
+use App\Http\Controllers\ZoomScheduleController;
+use App\Http\Controllers\StudentClassroomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -118,6 +119,7 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/', function () {
         return view('dashboard.user.pages.material.index');
     });
+    Route::get('/classrooms', [StudentClassroomController::class, 'index'])->name('classrooms');
     Route::get('/materials', function () {
         return view('dashboard.user.pages.material.index');
     })->name('materials');

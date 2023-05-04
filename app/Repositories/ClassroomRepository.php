@@ -2,13 +2,27 @@
 
 namespace App\Repositories;
 
+use App\Models\StudentClassroom;
 use App\Models\Classroom;
 
 class ClassroomRepository extends BaseRepository
 {
-    public function __construct(Classroom $model)
+
+    private StudentClassroom $studentClassroom;
+
+    public function __construct(Classroom $model, StudentClassroom $studentClassroom)
     {
         $this->model = $model;
+        $this->studentClassroom = $studentClassroom;
+    }
+
+    public function get_by_student(string $studentId)
+    {
+        return $this->studentClassroom->query()
+        ->whereRelation('studentSchool', function($q) use ($studentId){
+            $q->where('student_id', $studentId);
+        })
+        ->get();
     }
 
     /**
