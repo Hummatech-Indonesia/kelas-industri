@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.admin.pages.home');
+        if (in_array(auth()->user()->roles->pluck('name')[0], ['admin', 'school'])) {
+            return view('dashboard.admin.pages.home');
+        }
+
+        return view('dashboard.user.pages.home');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\MaterialController;
@@ -103,6 +104,14 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
 
 });
 //end schools
+
+//teacher
+Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
+    Route::resources([
+        'challenges' => ChallengeController::class
+    ]);
+});
+//end teacher
 
 //student
 Route::prefix('student')->name('student.')->group(function () {
