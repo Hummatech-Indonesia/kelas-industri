@@ -441,10 +441,9 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click"
-                         class="menu-item {{ (request()->routeIs('school.students.*')) || (request()->routeIs('school.rollingStudent.index')) ? 'show here' : '' }} menu-accordion">
+                    <div class="menu-item {{ (request()->routeIs('school.students.*')) ? 'show here' : '' }}">
                         <!--begin:Menu link-->
-                        <span class="menu-link">
+                        <a class="menu-link" href="{{ route('school.students.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/communication/com014.svg-->
 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -461,35 +460,7 @@
 </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Siswa</span><span class="menu-arrow"></span></span>
-                        <!--end:Menu link--><!--begin:Menu sub-->
-                        <div class="menu-sub menu-sub-accordion">
-                            <!--begin:Menu item-->
-                            <div class="menu-item">
-                                <!--begin:Menu item-->
-                                <div class="menu-item">
-
-                                    <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('school.students.*') ? 'active' : '' }}"
-                                       href="{{ route('school.students.index') }}">
-                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">List Siswa</span>
-                                    </a>
-                                    <!--end:Menu link-->
-                                    <!--begin:Menu link-->
-                                    <a class="menu-link {{ (request()->routeIs('school.rollingStudent.index')) ? 'active' : '' }}"
-                                       href="{{ route('school.rollingStudent.index') }}">
-                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Rolling Siswa</span>
-                                    </a>
-                                    <!--end:Menu link-->
-                                </div>
-                                <!--end:Menu item-->
-                            </div>
-                            <!--end:Menu item-->
-                        </div>
-                        <!--end:Menu sub-->
-                    </div>
+                            <span class="menu-title">Siswa</span></a><!--end:Menu link--></div>
                     <!--end:Menu item-->
                 @endif
             </div>

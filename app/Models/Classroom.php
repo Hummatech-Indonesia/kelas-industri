@@ -34,7 +34,7 @@ class Classroom extends Model
      *
      * @return HasOne
      */
-    public function teacher(): HasOne
+    public function teacherClassroom(): HasOne
     {
         return $this->hasOne(TeacherClassroom::class);
     }

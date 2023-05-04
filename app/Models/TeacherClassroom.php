@@ -17,9 +17,9 @@ class TeacherClassroom extends Model
      *
      * @return BelongsTo
      */
-    public function user(): BelongsTo
+    public function teacherSchool(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'teacher_id');
+        return $this->belongsTo(TeacherSchool::class, 'teacher_school_id');
     }
 
     /**

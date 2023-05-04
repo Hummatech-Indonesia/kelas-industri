@@ -139,7 +139,7 @@
                 <div class="card mb-5 mb-xl-8">
                     <!--begin::Card body-->
                     <div class="card-body">
-                        @if($classroom->teacher)
+                        @if($classroom->teacherClassroom)
                             <!--begin::Summary-->
 
 
@@ -153,7 +153,7 @@
 
                                 <!--begin::Name-->
                                 <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-3">
-                                    {{ $classroom->teacher->user->name }} </a>
+                                    {{ $classroom->teacherClassroom->teacherSchool->teacher->name }} </a>
                                 <!--end::Name-->
 
                                 <!--begin::Position-->
@@ -196,26 +196,26 @@
                                     <!--begin::Details item-->
                                     <div class="fw-bold mt-5">Nomor Rekening</div>
                                     <div
-                                        class="text-gray-600">{{ ($classroom->teacher->user->account_number) ? $classroom->teacher->user->account_number : '-' }}
-                                        ( {{ ($classroom->teacher->user->bank) ? $classroom->teacher->user->bank : '-' }}
+                                        class="text-gray-600">{{ ($classroom->teacherClassroom->teacherSchool->teacher->account_number) ? $classroom->teacherClassroom->teacherSchool->teacher->account_number : '-' }}
+                                        ( {{ ($classroom->teacherClassroom->teacherSchool->teacher->bank) ? $classroom->teacherClassroom->teacherSchool->teacher->bank : '-' }}
                                         )
                                     </div>
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
                                     <div class="fw-bold mt-5">Email</div>
                                     <div class="text-gray-600"><a href="#"
-                                                                  class="text-gray-600 text-hover-primary">{{ ($classroom->teacher->user->email) ? $classroom->teacher->user->email : '-' }}</a>
+                                                                  class="text-gray-600 text-hover-primary">{{ ($classroom->teacherClassroom->teacherSchool->teacher->email) ? $classroom->teacherClassroom->teacherSchool->teacher->email : '-' }}</a>
                                     </div>
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
                                     <div class="fw-bold mt-5">No Telepon</div>
                                     <div
-                                        class="text-gray-600">{{ ($classroom->teacher->user->phone_number) ? $classroom->teacher->user->phone_number : '-' }}</div>
+                                        class="text-gray-600">{{ ($classroom->teacherClassroom->teacherSchool->teacher->phone_number) ? $classroom->teacherClassroom->teacherSchool->teacher->phone_number : '-' }}</div>
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
                                     <div class="fw-bold mt-5">Alamat</div>
                                     <div
-                                        class="text-gray-600">{{ ($classroom->teacher->user->address) ? $classroom->teacher->user->address : '-' }}
+                                        class="text-gray-600">{{ ($classroom->teacherClassroom->teacherSchool->teacher->address) ? $classroom->teacherClassroom->teacherSchool->teacher->address : '-' }}
                                     </div>
                                     <!--begin::Details item-->
                                 </div>
