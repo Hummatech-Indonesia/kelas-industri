@@ -48,6 +48,7 @@ class SchoolService
     {
         $data = $request->validated();
         $data['photo'] = $request->file('photo')->store('school-logo', 'public');
+        $data['password'] = bcrypt('password');
 
         $school = $this->repository->store($data);
         $school->assignRole('school');
@@ -68,6 +69,7 @@ class SchoolService
 
             $data['photo'] = $request->file('photo')->store('school-logo', 'public');
         }
+        $data['password'] = bcrypt('password');
 
         $this->repository->update($school->id, $data);
     }
