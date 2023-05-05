@@ -1,21 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MentorController;
-use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\GenerationController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\MentorController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SchoolYearController;
-use App\Http\Controllers\SubMaterialController;
-use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\StudentClassroomController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubMaterialController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ZoomScheduleController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ use App\Http\Controllers\StudentClassroomController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('welcome');
@@ -52,7 +52,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'submaterials' => SubMaterialController::class,
         'assignments' => AssignmentController::class,
         'mentors' => MentorController::class,
-        'zoomSchedules' => ZoomScheduleController::class
+        'zoomSchedules' => ZoomScheduleController::class,
     ]);
 
     Route::prefix('rolling-mentor')->name('rollingMentor.')->group(function () {
@@ -109,7 +109,7 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
 //teacher
 Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
     Route::resources([
-        'challenges' => ChallengeController::class
+        'challenges' => ChallengeController::class,
     ]);
 });
 //end teacher
@@ -120,9 +120,12 @@ Route::prefix('student')->name('student.')->group(function () {
         return view('dashboard.user.pages.material.index');
     });
     Route::get('/classrooms', [StudentClassroomController::class, 'index'])->name('classrooms');
-    Route::get('/materials', function () {
-        return view('dashboard.user.pages.material.index');
-    })->name('materials');
+    Route::get('/classrooms/{classroom}', [StudentClassroomController::class, 'show'])->name('showClassrooms');
+    Route::get('/materials/{classroom}', [StudentClassroomController::class, 'materials'])->name('materials');
+    Route::get('/showMaterial/{material}', [StudentClassroomController::class, 'showMaterial'])->name('showMaterial');
+    Route::get('/showSubMaterial/{submaterial}', [StudentClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
+    Route::get('/showDocument/{submaterial}/{role}', [StudentClassroomController::class, 'showDocument'])->name('showDocument');
+
     Route::get('/sub-material', function () {
         return view('dashboard.user.pages.material.submaterial');
     })->name('submaterial');

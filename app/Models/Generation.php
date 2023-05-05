@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Classroom;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,9 +24,14 @@ class Generation extends Model
         return $this->belongsTo(SchoolYear::class);
     }
 
-    
+
     public function materialStudent(): HasMany
     {
         return $this->hasMany(Material::class);
+    }
+
+    public function classrooms(): HasMany
+    {
+        return $this->hasMany(Classroom::class);
     }
 }

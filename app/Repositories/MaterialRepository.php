@@ -27,4 +27,12 @@ class MaterialRepository extends BaseRepository
                 })
                 ->paginate($limit);
     }
+
+    public function get_by_classroom(string $classroomId, int $limit){
+        return $this->model->query()
+        ->whereRelation('generation.classrooms', function($q) use ($classroomId){
+            return $q->where('id', $classroomId);
+        })
+        ->paginate($limit);
+    }
 }

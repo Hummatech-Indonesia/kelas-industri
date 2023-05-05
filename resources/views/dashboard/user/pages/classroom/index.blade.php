@@ -118,123 +118,99 @@
                     </div>
 
                     <div class="row">
-                        <div class="row">
-                            @forelse($materials as $material)
-                                <div class="col-xl-4 mb-3">
+                        @foreach ($classrooms as $classroom)
+                            <div class="col-xl-4 mb-3">
 
-                                    <!--begin::Card-->
+                                <!--begin::Card-->
 
-                                    <div class="card card-custom gutter-b card-stretch">
+                                <div class="card card-custom gutter-b card-stretch">
 
-                                        <!--begin::Body-->
+                                    <!--begin::Body-->
 
-                                        <div class="card-body">
+                                    <div class="card-body">
 
-                                            <!--begin::Section-->
+                                        <!--begin::Section-->
 
-                                            <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center">
 
-                                                <!--begin::Pic-->
+                                            <!--begin::Pic-->
 
-                                                <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle me-5">
+                                            <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle me-5">
 
-                                                    <span class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($material->title, 0, 1) }}</span>
-
-
-
-                                                </div>
-
-                                                <!--end::Pic-->
-
-                                                <!--begin::Info-->
-
-                                                <div class="d-flex flex-column me-auto">
-
-                                                    <!--begin: Title-->
-
-                                                    <a href="https://class.hummasoft.com/siswa/materi/11/4" class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
-
-                                                        {{ $material->title }}
-                                                    </a>
-
-
-
-                                                    <span class="text-muted font-weight-bold">
-                                                            {{ $material->generation->generation }}
-                                                    </span>
-
-                                                    <!--end::Title-->
-
-                                                </div>
-
-                                                <!--end::Info-->
-
+                                                <span
+                                                    class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($classroom->classroom->name, 0, 1) }}</span>
 
 
                                             </div>
 
-                                            <!--end::Section-->
+                                            <!--end::Pic-->
 
-                                            <!--begin::Content-->
+                                            <!--begin::Info-->
 
+                                            <div class="d-flex flex-column me-auto">
 
+                                                <!--begin: Title-->
 
-                                            <!--end::Content-->
+                                                <a href="https://class.hummasoft.com/siswa/materi/11/4"
+                                                    class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
 
-                                            <!--begin::Text-->
+                                                    {{ $classroom->classroom->name }}
+                                                </a>
 
-                                            <p class="mb-7 mt-5">
+                                                <span class="text-muted font-weight-bold">
+                                                    {{ $classroom->classroom->generation->generation }}
+                                                    ({{ $classroom->classroom->generation->schoolYear->school_year }})
+                                                </span>
 
-                                                {{ $material->description }}
-                                            </p>
-
-                                            <!--end::Text-->
-
-
-
-                                        </div>
-
-                                        <!--end::Body-->
-
-                                        <!--begin::Footer-->
-
-                                        <div class="card-footer d-flex flex-row justify-content-between">
-
-                                            <div class="d-flex">
-
-                                                <div class="d-flex align-items-center me-5">
-                                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
-                                                    <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect opacity="0.5" x="7" y="2" width="14" height="16" rx="3" fill="currentColor"/>
-                    <rect x="3" y="6" width="14" height="16" rx="3" fill="currentColor"/>
-                </svg>
-                </span>
-                                                    <!--end::Svg Icon-->
-                                                    <a href="{{ route('student.showMaterial', $material->id) }}" class="fw-bold text-info ml-2">{{ count($material->subMaterials) }} Bab</a>
-
-
-
-                                                </div>
-
-
+                                                <!--end::Title-->
 
                                             </div>
 
-                                            <a href="{{ route('student.showMaterial', $material->id) }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
-
+                                            <!--end::Info-->
                                         </div>
 
-                                        <!--end::Footer-->
+                                        <!--end::Section-->
+
+                                        <!--begin::Content-->
+
+
+                                        <!--end::Content-->
+
+                                        <!--begin::Text-->
+
+
+
+                                        <!--end::Text-->
+
 
                                     </div>
 
-                                    <!--end::Card-->
+                                    <!--end::Body-->
+
+                                    <!--begin::Footer-->
+
+                                    <div class="card-footer d-flex flex-row justify-content-between">
+
+                                        <div class="d-flex">
+                                            {{-- masih salah --}}
+                                            <a href="{{ route('student.showClassrooms', $classroom->classroom->id) }}"
+                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+
+                                        </div>
+
+                                        <a href="{{ route('student.materials', $classroom->classroom->id) }}"
+                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">materi</a>
+
+                                    </div>
+
+                                    <!--end::Footer-->
 
                                 </div>
-                            @empty
-                                <x-empty-component title="materi"/>
-                            @endforelse
-                        </div>
+
+                                <!--end::Card-->
+
+                            </div>
+                        @endforeach
 
                     </div>
                 </div>

@@ -109,17 +109,17 @@
 <!--end::Global Javascript Bundle-->
 
 <!--begin::Custom Javascript(used for this page only)-->
-<script src="{{ asset('user-assets/js/widgets.bundle.js') }}"></script>
-<script src="{{ asset('user-assets/js/custom/widgets.js') }}"></script>
-<script src="{{ asset('user-assets/js/custom/apps/chat/chat.js') }}"></script>
-<script src="{{ asset('user-assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-<script src="{{ asset('user-assets/js/custom/utilities/modals/new-target.js') }}"></script>
-<script src="{{ asset('user-assets/js/custom/utilities/modals/new-address.js') }}"></script>
-<script src="{{ asset('user-assets/js/custom/utilities/modals/users-search.js') }}"></script>
+<script src="{{ asset('app-assets/js/widgets.bundle.js') }}"></script>
+<script src="{{ asset('app-assets/js/custom/widgets.js') }}"></script>
+<script src="{{ asset('app-assets/js/custom/apps/chat/chat.js') }}"></script>
+<script src="{{ asset('app-assets/js/custom/utilities/modals/create-app.js') }}"></script>
+<script src="{{ asset('app-assets/js/custom/utilities/modals/create-campaign.js') }}"></script>
+<script src="{{ asset('app-assets/js/custom/utilities/modals/users-search.js') }}"></script>
 <!--end::Custom Javascript-->
 
 {{--Plugin Javascript --}}
-<script src="{{ asset('user-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 {{--End Plugin Javascript --}}
 @yield('script')
 <!--end::Javascript-->
