@@ -11,7 +11,7 @@ use App\Services\MaterialService;
 use App\Services\ClassroomService;
 use App\Services\SubMaterialService;
 
-class StudentClassroomController extends Controller
+class UserClassroomController extends Controller
 {
     private ClassroomService $classroomService;
     private StudentService $studentService;
@@ -30,7 +30,7 @@ class StudentClassroomController extends Controller
     public function index(): View
     {
         $data = [
-            'classrooms' => $this->classroomService->handleGetClassroomByStudent(auth()->id()),
+            'classrooms' => $this->classroomService->handleGetClassroomByUser(auth()->id()),
         ];
         return view('dashboard.user.pages.classroom.index', $data);
     }

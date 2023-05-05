@@ -104,41 +104,21 @@
                                                 </div>
 
                                                 <div class="my-lg-0 my-1">
+                                                    @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'student']) }}"
+                                                        class="btn btn-danger">Materi
+                                                    </a>
+                                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'mentor']) }}"
+                                                        class="btn btn-danger">Materi
+                                                    </a>
+                                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'teacher']) }}"
+                                                        class="btn btn-danger">Materi
+                                                    </a>
+                                                    @endif
 
-                                                    <button type="button"
-                                                        class="btn btn-sm btn-danger font-weight-bolder text-uppercase"
-                                                        data-bs-toggle="modal" data-bs-target="#kt_modal_1">Lihat
-                                                        Materi
-                                                    </button>
 
-                                                    {{--                                        modal materi --}}
-                                                    <div class="modal fade" tabindex="-1" id="kt_modal_1">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h3 class="modal-title">Materi {{ $subMaterial->title }}
-                                                                    </h3>
-
-                                                                    <!--begin::Close-->
-                                                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                        <span class="svg-icon svg-icon-1"></span>
-                                                                    </div>
-                                                                    <!--end::Close-->
-                                                                </div>
-
-                                                                <div class="modal-body">
-                                                                    {{-- <a href="{{ route('admin.submaterials.viewMaterial', [$subMaterial->id, 'teacher']) }}"
-                                                                       class="btn btn-primary me-3">Materi Guru
-                                                                    </a> --}}
-                                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'student']) }}"
-                                                                       class="btn btn-danger">Materi
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {{--                                        end modal materi --}}
                                                 </div>
 
                                             </div>

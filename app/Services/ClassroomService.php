@@ -28,11 +28,18 @@ class ClassroomService
         return $this->repository->getAll();
     }
 
-    
-    public function handleGetClassroomByStudent(string $studentId)
+
+    public function handleGetClassroomByUser(string $userId)
     {
-        return $this->repository->get_by_student($studentId);
+        if(auth()->user()->roles->pluck('name')[0] == 'student'){
+            return $this->repository->get_by_student($userId);
+        }elseif(auth()->user()->roles->pluck('name')[0] == 'mentor'){
+            return $this->repository->get_by_mentor($userId);
+        }elseif(auth()->user()->roles->pluck('name')[0] == 'teacher'){
+            return $this->repository->get_by_teacher($userId);
+        }
     }
+
 
     /**
      * handle get by school in the current school year
