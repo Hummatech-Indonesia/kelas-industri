@@ -100,7 +100,6 @@
 
                                                     <!--end::Name-->
 
-
                                                 </div>
 
                                                 <div class="my-lg-0 my-1">
@@ -117,7 +116,6 @@
                                                         class="btn btn-danger">Materi
                                                     </a>
                                                     @endif
-
 
                                                 </div>
 

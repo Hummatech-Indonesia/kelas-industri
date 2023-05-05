@@ -45,7 +45,7 @@ class TeacherService
         $data['password'] = bcrypt('password');
 
         $user = $this->userRepository->store($data);
-        $user->assignRole('student');
+        $user->assignRole('teacher');
 
         $data = [
             'teacher_id' => $user->id,
