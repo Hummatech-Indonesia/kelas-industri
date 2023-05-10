@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('dashboard.user.layouts.app')
 
 @section('content')
@@ -11,7 +12,8 @@
                 <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-8 ">
 
                     <!--begin::Toolbar container-->
-                    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex flex-stack flex-wrap ">
+                    <div id="kt_app_toolbar_container"
+                         class="app-container  container-fluid d-flex flex-stack flex-wrap ">
                         <!--begin::Toolbar wrapper-->
                         <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
 
@@ -40,7 +42,7 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 <a href="{{ url()->previous() }}"
-                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                   class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
                             </div>
@@ -69,8 +71,8 @@
                                                     width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                        height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                        fill="currentColor"></rect>
+                                                          height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                                          fill="currentColor"></rect>
                                                     <path
                                                         d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
                                                         fill="currentColor"></path>
@@ -78,7 +80,7 @@
                                             </span>
                                             <!--end::Svg Icon-->
                                             <input type="text" class="form-control form-control-solid ps-10"
-                                                name="search" value="" placeholder="Search">
+                                                   name="search" value="" placeholder="Search">
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -115,7 +117,6 @@
                                                     class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($subMaterial->title, 0, 1) }}</span>
 
 
-
                                             </div>
 
                                             <!--end::Pic-->
@@ -127,11 +128,10 @@
                                                 <!--begin: Title-->
 
                                                 <a href="https://class.hummasoft.com/siswa/materi/11/4"
-                                                    class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
+                                                   class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
 
                                                     {{ $subMaterial->title }}
                                                 </a>
-
 
 
                                                 <span class="text-muted font-weight-bold">
@@ -152,7 +152,6 @@
                                         <!--begin::Content-->
 
 
-
                                         <!--end::Content-->
 
                                         <!--begin::Text-->
@@ -163,7 +162,6 @@
                                         </p>
 
                                         <!--end::Text-->
-
 
 
                                     </div>
@@ -179,29 +177,29 @@
                                             <div class="d-flex align-items-center me-5">
                                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
                                                 <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                                                        height="24"
+                                                                                                        viewBox="0 0 24 24"
+                                                                                                        fill="none"
+                                                                                                        xmlns="http://www.w3.org/2000/svg">
                                                         <rect opacity="0.5" x="7" y="2" width="14"
-                                                            height="16" rx="3" fill="currentColor" />
+                                                              height="16" rx="3" fill="currentColor"/>
                                                         <rect x="3" y="6" width="14" height="16"
-                                                            rx="3" fill="currentColor" />
+                                                              rx="3" fill="currentColor"/>
                                                     </svg>
                                                 </span>
                                                 <!--end::Svg Icon-->
                                                 <a href="https://class.hummasoft.com/siswa/materi/11/4"
-                                                    class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }}
+                                                   class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }}
                                                     Tugas</a>
-
 
 
                                             </div>
 
 
-
                                         </div>
 
-                                        <a href="{{ route('student.showSubMaterial', $subMaterial->id) }}"
-                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'submaterial' => $subMaterial->id]) }}"
+                                           class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                     </div>
 
@@ -213,7 +211,7 @@
 
                             </div>
                         @empty
-                            <x-empty-component title="bab" />
+                            <x-empty-component title="bab"/>
                         @endforelse
                     </div>
 
@@ -231,7 +229,7 @@
             <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
                 <!--begin::Copyright-->
                 <div class="text-dark order-2 order-md-1">
-                    <span class="text-muted fw-semibold me-1">{{ \Carbon\Carbon::now()->format('Y') }}©</span>
+                    <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
                     <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
                         Industri</a>
                 </div>
@@ -243,10 +241,10 @@
                             Kami</a></li>
 
                     <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
-                            class="menu-link px-2">Syarat & Ketentuan</a></li>
+                                             class="menu-link px-2">Syarat & Ketentuan</a></li>
 
                     <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
-                            class="menu-link px-2">Kebijakan Privasi</a></li>
+                                             class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>

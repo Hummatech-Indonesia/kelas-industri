@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('dashboard.user.layouts.app')
 
 @section('content')
@@ -11,7 +12,8 @@
                 <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-8 ">
 
                     <!--begin::Toolbar container-->
-                    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex flex-stack flex-wrap ">
+                    <div id="kt_app_toolbar_container"
+                         class="app-container  container-fluid d-flex flex-stack flex-wrap ">
                         <!--begin::Toolbar wrapper-->
                         <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
 
@@ -40,7 +42,7 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 <a href="{{ url()->previous() }}"
-                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                   class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
                             </div>
@@ -104,17 +106,17 @@
 
                                                 <div class="my-lg-0 my-1">
                                                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'student']) }}"
-                                                        class="btn btn-danger">Materi
-                                                    </a>
+                                                        <a href="{{ route('common.showDocument', [$subMaterial->id, 'student']) }}"
+                                                           class="btn btn-danger btn-sm">Materi
+                                                        </a>
                                                     @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'mentor']) }}"
-                                                        class="btn btn-danger">Materi
-                                                    </a>
+                                                        <a href="{{ route('common.showDocument', [$subMaterial->id, 'mentor']) }}"
+                                                           class="btn btn-danger btn-sm">Materi
+                                                        </a>
                                                     @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'teacher']) }}"
-                                                        class="btn btn-danger">Materi
-                                                    </a>
+                                                        <a href="{{ route('common.showDocument', [$subMaterial->id, 'teacher']) }}"
+                                                           class="btn btn-danger btn-sm">Materi
+                                                        </a>
                                                     @endif
 
                                                 </div>
@@ -128,7 +130,8 @@
 
                                             <div class="d-flex align-items-center flex-wrap justify-content-between">
 
-                                                <div class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
+                                                <div
+                                                    class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
 
                                                     <div style="width: 45vw">
 
@@ -173,56 +176,62 @@
                                 <div class="card-body">
 
                                     <table id="kt_datatable_responsive"
-                                        class="table table-striped border rounded gy-5 gs-7">
+                                           class="table table-striped border rounded gy-5 gs-7">
                                         <thead>
-                                            <tr class="fw-semibold fs-6 text-gray-800">
-                                                <th class="min-w-300px" data-priority="1">Judul</th>
-                                                <th class="min-w-300px">Deskripsi</th>
-                                                <th class="min-w-100px" data-priority="2">Mulai</th>
-                                                <th class="min-w-100px" data-priority="3">Tenggat</th>
-                                                <th class="min-w-100px" data-priority="4">Status</th>
-                                                <th class="min-w-100px" data-priority="5">Aksi</th>
-                                            </tr>
+                                        <tr class="fw-semibold fs-6 text-gray-800">
+                                            <th class="min-w-300px" data-priority="1">Judul</th>
+                                            <th class="min-w-300px">Deskripsi</th>
+                                            <th class="min-w-100px" data-priority="2">Mulai</th>
+                                            <th class="min-w-100px" data-priority="3">Tenggat</th>
+                                            <th class="min-w-100px" data-priority="4">Status</th>
+                                            <th class="min-w-100px" data-priority="5">Aksi</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse($subMaterial->assignments as $assignment)
-                                                <tr>
-                                                    <td>{{ $assignment->title }}</td>
-                                                    <td>{{ $assignment->description }}</td>
-                                                    <td><span
-                                                            class="badge badge-light-primary">{{ $assignment->start_date }}</span>
-                                                    </td>
-                                                    <td><span
-                                                            class="badge badge-light-danger">{{ $assignment->end_date }}</span>
-                                                    </td>
-                                                    <td>
-                                                        @if (strtotime(now()) <= strtotime($assignment->end_date))
-                                                            <span class="badge badge-light-success">Tersedia</span>
+                                        @forelse($subMaterial->assignments as $assignment)
+                                            <tr>
+                                                <td>{{ $assignment->title }}</td>
+                                                <td>{{ $assignment->description }}</td>
+                                                <td><span
+                                                        class="badge badge-light-primary">{{ $assignment->start_date }}</span>
+                                                </td>
+                                                <td><span
+                                                        class="badge badge-light-danger">{{ $assignment->end_date }}</span>
+                                                </td>
+                                                <td>
+                                                    @if (strtotime(now()) <= strtotime($assignment->end_date))
+                                                        <span class="badge badge-light-success">Tersedia</span>
+                                                    @else
+                                                        <span class="badge badge-light-danger">Ditutup</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if (strtotime(now()) <= strtotime($assignment->end_date))
+                                                        @if(auth()->user()->roles->pluck('name')[0] == 'student')
+                                                            <a href="#"
+                                                               class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
                                                         @else
-                                                            <span class="badge badge-light-danger">Ditutup</span>
+                                                            <a href="{{ route('teacher.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                                               class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
                                                         @endif
-                                                    </td>
-                                                    <td>
-                                                        @if (strtotime(now()) <= strtotime($assignment->end_date))
-                                                        <a href="#" class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
-                                                        @else
-                                                            <span class="badge badge-light-danger">Ditutup</span>
-                                                        @endif
-                                                    </td>
-                                                    {{-- <td>
-                                                    <div class="d-flex">
-                                                        <a href="{{ route('admin.assignments.edit', $assignment->id) }}"
-                                                           class="btn btn-default btn-sm p-1"><i
-                                                                class="fonticon-setting fs-2 text-warning"></i></a>
-                                                        <button class="btn btn-default btn-sm p-1 btn-delete"
-                                                                data-id="{{ $assignment->id }}"><i
-                                                                class="fonticon-trash-bin fs-2 text-danger"></i></button>
-                                                    </div>
-                                                </td> --}}
-                                                </tr>
-                                            @empty
-                                                <x-empty-component title="tugas" />
-                                            @endforelse
+                                                    @else
+                                                        <span class="badge badge-light-danger">Ditutup</span>
+                                                    @endif
+                                                </td>
+                                                {{-- <td>
+                                                <div class="d-flex">
+                                                    <a href="{{ route('admin.assignments.edit', $assignment->id) }}"
+                                                       class="btn btn-default btn-sm p-1"><i
+                                                            class="fonticon-setting fs-2 text-warning"></i></a>
+                                                    <button class="btn btn-default btn-sm p-1 btn-delete"
+                                                            data-id="{{ $assignment->id }}"><i
+                                                            class="fonticon-trash-bin fs-2 text-danger"></i></button>
+                                                </div>
+                                            </td> --}}
+                                            </tr>
+                                        @empty
+                                            <x-empty-component title="tugas"/>
+                                        @endforelse
                                         </tbody>
                                     </table>
                                 </div>
@@ -244,7 +253,7 @@
             <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
                 <!--begin::Copyright-->
                 <div class="text-dark order-2 order-md-1">
-                    <span class="text-muted fw-semibold me-1">{{ \Carbon\Carbon::now()->format('Y') }}©</span>
+                    <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
                     <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
                         Industri</a>
                 </div>
@@ -256,10 +265,10 @@
                             Kami</a></li>
 
                     <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
-                            class="menu-link px-2">Syarat & Ketentuan</a></li>
+                                             class="menu-link px-2">Syarat & Ketentuan</a></li>
 
                     <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
-                            class="menu-link px-2">Kebijakan Privasi</a></li>
+                                             class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>

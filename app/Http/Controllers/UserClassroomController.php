@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Material;
 use App\Models\Classroom;
-use Illuminate\View\View;
+use App\Models\Material;
 use App\Models\SubMaterial;
-use App\Services\StudentService;
-use App\Services\MaterialService;
 use App\Services\ClassroomService;
+use App\Services\MaterialService;
+use App\Services\StudentService;
 use App\Services\SubMaterialService;
+use Illuminate\View\View;
 
 class UserClassroomController extends Controller
 {
@@ -45,30 +45,33 @@ class UserClassroomController extends Controller
         return \view('dashboard.user.pages.classroom.detail', $data);
     }
 
-    public function materials(Classroom $classroom) :View
+    public function materials(Classroom $classroom): View
     {
         $data = [
+            'classroom' => $classroom,
             'materials' => $this->materialService->handleByClassroom($classroom->id)
         ];
 
         return \view('dashboard.user.pages.material.index', $data);
     }
 
-    public function showMaterial(Material $material): View
+    public function showMaterial(Classroom $classroom, Material $material): View
     {
         $data = [
-            'material'  => $material,
+            'classroom' => $classroom,
+            'material' => $material,
             'subMaterials' => $this->subMaterialService->handleGetPaginate($material->id),
             'parameters' => [
-                'material'  => $material->id
+                'material' => $material->id
             ]
         ];
         return view('dashboard.user.pages.submaterial.index', $data);
     }
 
-    public function showSubMaterial(SubMaterial $submaterial): View
+    public function showSubMaterial(Classroom $classroom, SubMaterial $submaterial): View
     {
         $data = [
+            'classroom' => $classroom,
             'subMaterial' => $submaterial
         ];
         return view('dashboard.user.pages.submaterial.detail', $data);
