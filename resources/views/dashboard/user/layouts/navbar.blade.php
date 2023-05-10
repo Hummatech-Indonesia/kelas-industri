@@ -52,7 +52,7 @@
                         </div>
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <a href="{{ route('student.classrooms') }}" class="menu-link"><span
+                            <a href="{{ route('common.classrooms') }}" class="menu-link"><span
                                     class="menu-title">Kelas</span></a>
                             <!--end:Menu link-->
                         </div>

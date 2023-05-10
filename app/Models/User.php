@@ -61,9 +61,9 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function studentClassrooms(): HasMany
+    public function studentSchool(): HasMany
     {
-        return $this->hasMany(StudentClassroom::class, 'student_id');
+        return $this->hasMany(StudentSchool::class, 'student_id');
     }
 
     /**
@@ -99,5 +99,15 @@ class User extends Authenticatable
     public function classrooms(): HasMany
     {
         return $this->hasMany(Classroom::class, 'school_id');
+    }
+
+    public function submitAssignments(): HasMany
+    {
+        return $this->hasMany(SubmitAssignment::class, 'student_id');
+    }
+
+    public function submitAssignment(): HasOne
+    {
+        return $this->hasOne(SubmitAssignment::class, 'student_id');
     }
 }

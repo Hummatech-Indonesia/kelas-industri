@@ -26,6 +26,18 @@ class AssignmentService
     }
 
     /**
+     * handle get assignment student
+     *
+     * @param string $classroomId
+     * @param string $assignmentId
+     * @return mixed
+     */
+    public function handleGetAssignmentStudent(string $classroomId, string $assignmentId): mixed
+    {
+        return $this->repository->get_assignment_student($classroomId, $assignmentId);
+    }
+
+    /**
      * handle store
      *
      * @param AssignmentRequest $request

@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('dashboard.user.layouts.app')
 
 @section('content')
@@ -104,17 +105,17 @@
 
                                                 <div class="my-lg-0 my-1">
                                                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'student']) }}"
-                                                        class="btn btn-danger">Materi
-                                                    </a>
+                                                        <a href="{{ route('common.showDocument', [$subMaterial->id, 'student']) }}"
+                                                            class="btn btn-danger btn-sm">Materi
+                                                        </a>
                                                     @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'mentor']) }}"
-                                                        class="btn btn-danger">Materi
-                                                    </a>
+                                                        <a href="{{ route('common.showDocument', [$subMaterial->id, 'mentor']) }}"
+                                                            class="btn btn-danger btn-sm">Materi
+                                                        </a>
                                                     @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'teacher']) }}"
-                                                        class="btn btn-danger">Materi
-                                                    </a>
+                                                        <a href="{{ route('common.showDocument', [$subMaterial->id, 'teacher']) }}"
+                                                            class="btn btn-danger btn-sm">Materi
+                                                        </a>
                                                     @endif
 
                                                 </div>
@@ -204,7 +205,18 @@
                                                     </td>
                                                     <td>
                                                         @if (strtotime(now()) <= strtotime($assignment->end_date))
-                                                        <a href="{{ route('', $assignment->id) }}" class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
+                                                            @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                                                <a href="#"
+                                                                    class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
+                                                            @else
+                                                                <a href="{{ route('teacher.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                                                    class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
+                                                            @endif
+                                                    </td>
+                                                    <td>
+                                                        @if (strtotime(now()) <= strtotime($assignment->end_date))
+                                                            <a href="{{ route('', $assignment->id) }}"
+                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
                                                         @else
                                                             <span class="badge badge-light-danger">Ditutup</span>
                                                         @endif
@@ -244,7 +256,7 @@
             <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
                 <!--begin::Copyright-->
                 <div class="text-dark order-2 order-md-1">
-                    <span class="text-muted fw-semibold me-1">{{ \Carbon\Carbon::now()->format('Y') }}©</span>
+                    <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
                     <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
                         Industri</a>
                 </div>

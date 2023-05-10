@@ -1,23 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MentorController;
-use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\GenerationController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\MentorController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubMaterialController;
-use App\Http\Controllers\ZoomScheduleController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\UserClassroomController;
-use App\Http\Controllers\MentorClassroomController;
-
+use App\Http\Controllers\ZoomScheduleController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,7 +112,13 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::resources([
         'challenges' => ChallengeController::class,
     ]);
-    Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+//    Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
+//    Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
+//    Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
+//    Route::get('/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
+//    Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
+//    Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+    Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
 });
 //end teacher
 
@@ -125,6 +130,17 @@ Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->g
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 });
 //end mentor
+
+//mentor, student, teacher
+Route::name('common.')->group(function () {
+    Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
+    Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
+    Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
+    Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
+    Route::get('{classroom}/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
+    Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+});
+//end mentor, student, teacher
 
 //student
 Route::prefix('student')->name('student.')->group(function () {

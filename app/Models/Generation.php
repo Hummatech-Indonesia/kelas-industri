@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Classroom;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Generation extends Model
 {
@@ -25,7 +24,7 @@ class Generation extends Model
     }
 
 
-    public function materialStudent(): HasMany
+    public function materials(): HasMany
     {
         return $this->hasMany(Material::class);
     }
