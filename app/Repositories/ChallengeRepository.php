@@ -26,4 +26,5 @@ class ChallengeRepository extends BaseRepository
             ->where('created_by', $teacherId)
             ->get();
     }
+    
 }

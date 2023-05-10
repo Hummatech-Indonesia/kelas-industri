@@ -45,6 +45,11 @@ class UserClassroomController extends Controller
         return \view('dashboard.user.pages.classroom.detail', $data);
     }
 
+    public function create() : View
+    {
+        return \view('dashboard.user.pages.submaterial.create');
+    }
+
     public function materials(Classroom $classroom) :View
     {
         $data = [

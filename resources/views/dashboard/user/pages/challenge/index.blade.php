@@ -33,12 +33,17 @@
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
-                            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                            <div class="d-flex align-items-center py-2 py-md-1">
 
-                                <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold" data-bs-toggle="modal"
-                                   data-bs-target="#kt_modal_create_campaign">
-                                    Tambah
-                                </a>
+                                <!--begin::Button-->
+                                @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <a href="{{ route('teacher.challenges.create') }}" class="btn btn-dark fw-bold">
+                                    Tambah </a>
+                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                    <a href="{{ route('mentor.challenges.create') }}" class="btn btn-dark fw-bold">
+                                        Tambah </a>
+                                @endif
+                                <!--end::Button-->
                             </div>
                             <!--end::Actions-->
                         </div>
@@ -108,19 +113,22 @@
 
                                                     Batas:
 
-                                                    3 Sep 22
+                                                    {{$challenge->end_date}}
                                                 </span>
 
                                             </div>
-
-                                            <div class="d-flex align-items-center">
-
-                                                <span
-                                                    class="badge badge-light-warning btn-sm font-weight-bold btn-upper btn-text">Maks. Poin:
-
-                                                    10</span>
-
+                                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                            <div class="d-flex">
+                                                <a href="{{ route('teacher.challenges.edit', $challenge->id) }}" class="btn btn-default btn-sm p-1"><i class="fonticon-setting fs-2 text-warning"></i></a>
+                                                <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $challenge->id }}"><i class="fonticon-trash-bin fs-2 text-danger"></i></button>
                                             </div>
+                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                            <div class="d-flex">
+                                                <a href="{{ route('mentor.challenges.edit', $challenge->id) }}" class="btn btn-default btn-sm p-1"><i class="fonticon-setting fs-2 text-warning"></i></a>
+                                                <button class="btn btn-default btn-sm p-1 btn-delete-mentor" data-id="{{ $challenge->id }}"><i class="fonticon-trash-bin fs-2 text-danger"></i></button>
+                                            </div>
+                                            @endif
+
 
                                         </div>
 
@@ -138,7 +146,7 @@
                                                 class="flex-shrink-0 mr-4 symbol symbol-60 symbol-circle  symbol-danger me-3">
 
                                                 <span
-                                                    class="font-size-h5 symbol-label font-weight-boldest">LthnLy</span>
+                                                    class="font-size-h5 symbol-label font-weight-boldest">{{ substr($challenge->title, 0, 1) }}</span>
 
                                             </div>
 
@@ -156,7 +164,7 @@
                                                     <a href="https://class.hummasoft.com/siswa/challenge/9"
                                                        class="text-dark text-hover-primary font-size-h4 font-weight-bolder mb-1">
 
-                                                        Latihan Layouting dengan HTML dan CSS
+                                                       {{$challenge->title}}
                                                     </a>
 
                                                 </div>
@@ -174,41 +182,43 @@
                                         <!--begin::Description-->
 
                                         <div class="mb-10 mt-5 font-weight-bold">
-
-                                            Buatlah layout landing page suatu pelatihan (bisa pelatihan pemrograman,
-                                            pelatihan UI/UX, pelatihan desa, pelatihan sekolah dsb.) dengan menggunakan
-                                            HTML, CSS maupun Javascript (lebih bagus),
-
-                                            catatan: hanya 1 halaman website
-                                            contoh : https://www.dicoding.com/
-                                            https://www.udemy.com/
+                                            {{$challenge->description}}
                                         </div>
 
                                         <!--end::Description-->
 
+
+                                        @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                         <div class="d-flex justify-content-between align-items-center">
 
-                                            <span class="text-dark-75 font-weight-bolder mr-2">Status:</span>
-
+                                            <span class="text-dark-75 font-weight-bolder mr-2">Status :</span>
 
                                             <span class="badge badge-light-danger font-weight-bold btn-upper btn-text">Belum Dikerjakan</span>
 
-
                                         </div>
+                                        @endif
 
 
                                     </div>
 
                                     <!--end::Body-->
 
-
                                     <!--begin::Footer-->
 
                                     <div class="card-footer">
+                                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                         <div class="d-grid gap-2">
-                                            <a class="btn btn-primary btn-sm" type="button">Selengkapnya</a>
+
+                                            <a href="{{ route('teacher.challenges.show', $challenge->id) }}" class="btn btn-primary btn-sm" type="button">Selengkapnya</a>
 
                                         </div>
+                                        @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                        <div class="d-grid gap-2">
+
+                                            <a href="{{ route('mentor.challenges.show', $challenge->id) }}" class="btn btn-primary btn-sm" type="button">Selengkapnya</a>
+
+                                        </div>
+                                        @endif
 
                                         <!--end::Footer-->
 
@@ -257,6 +267,38 @@
                 </div>
                 <!--end::Footer container-->
             </div>
+
+            <x-delete-modal-component />
             <!--end::Footer-->
         </div>
 @endsection
+@section('script')
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            $('.btn-delete').click(function() {
+                const url = "{{ route('teacher.challenges.destroy', ':id') }}".replace(':id', $(this).data(
+                    'id'))
+                $('#form-delete').attr('action', url)
+
+                $('#kt_modal_delete').modal('show')
+            })
+
+            $('.btn-delete-mentor').click(function() {
+                const url = "{{ route('mentor.challenges.destroy', ':id') }}".replace(':id', $(this).data(
+                    'id'))
+                $('#form-delete').attr('action', url)
+
+                $('#kt_modal_delete').modal('show')
+            })
+
+            $('#btn-search').click(function() {
+                window.location.href = "{{ route('teacher.challenges.index', 'search=' . ':id') }}".replace(
+                    ':id', $("input[name='search']").val())
+            })
+
+            
+        });
+    </script>
+@endsection
+

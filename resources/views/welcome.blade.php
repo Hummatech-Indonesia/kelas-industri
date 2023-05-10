@@ -1,132 +1,1072 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
 
-        <title>Laravel</title>
+<!-- Mirrored from/index3.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 05 May 2023 15:13:07 GMT -->
 
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="style/images/favicon.png">
+  <title>Snowlake</title>
 
-        <!-- Styles -->
-        <style>
-            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--tw-bg-opacity: 1;background-color:rgb(255 255 255 / var(--tw-bg-opacity))}.bg-gray-100{--tw-bg-opacity: 1;background-color:rgb(243 244 246 / var(--tw-bg-opacity))}.border-gray-200{--tw-border-opacity: 1;border-color:rgb(229 231 235 / var(--tw-border-opacity))}.border-t{border-top-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{--tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);--tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow)}.text-center{text-align:center}.text-gray-200{--tw-text-opacity: 1;color:rgb(229 231 235 / var(--tw-text-opacity))}.text-gray-300{--tw-text-opacity: 1;color:rgb(209 213 219 / var(--tw-text-opacity))}.text-gray-400{--tw-text-opacity: 1;color:rgb(156 163 175 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity: 1;color:rgb(107 114 128 / var(--tw-text-opacity))}.text-gray-600{--tw-text-opacity: 1;color:rgb(75 85 99 / var(--tw-text-opacity))}.text-gray-700{--tw-text-opacity: 1;color:rgb(55 65 81 / var(--tw-text-opacity))}.text-gray-900{--tw-text-opacity: 1;color:rgb(17 24 39 / var(--tw-text-opacity))}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--tw-bg-opacity: 1;background-color:rgb(31 41 55 / var(--tw-bg-opacity))}.dark\:bg-gray-900{--tw-bg-opacity: 1;background-color:rgb(17 24 39 / var(--tw-bg-opacity))}.dark\:border-gray-700{--tw-border-opacity: 1;border-color:rgb(55 65 81 / var(--tw-border-opacity))}.dark\:text-white{--tw-text-opacity: 1;color:rgb(255 255 255 / var(--tw-text-opacity))}.dark\:text-gray-400{--tw-text-opacity: 1;color:rgb(156 163 175 / var(--tw-text-opacity))}.dark\:text-gray-500{--tw-text-opacity: 1;color:rgb(107 114 128 / var(--tw-text-opacity))}}
-        </style>
+  <link rel="stylesheet" type="text/css" href="{{ asset ('landing_kelas_industri/style/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset ('landing_kelas_industri/style/css/plugins.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset ('landing_kelas_industri/style/revolution/css/settings.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset ('landing_kelas_industri/style/revolution/css/layers.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset ('landing_kelas_industri/style/revolution/css/navigation.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset ('landing_kelas_industri/style/type/type.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset ('landing_kelas_industri/style/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset ('landing_kelas_industri/style/css/color/blue.css') }}">
+</head>
 
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
-                        <g clip-path="url(#clip0)" fill="#EF3B2D">
-                            <path d="M248.032 44.676h-16.466v100.23h47.394v-14.748h-30.928V44.676zM337.091 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.431 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162-.001 2.863-.479 5.584-1.432 8.161zM463.954 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.432 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162 0 2.863-.479 5.584-1.432 8.161zM650.772 44.676h-15.606v100.23h15.606V44.676zM365.013 144.906h15.607V93.538h26.776V78.182h-42.383v66.724zM542.133 78.182l-19.616 51.096-19.616-51.096h-15.808l25.617 66.724h19.614l25.617-66.724h-15.808zM591.98 76.466c-19.112 0-34.239 15.706-34.239 35.079 0 21.416 14.641 35.079 36.239 35.079 12.088 0 19.806-4.622 29.234-14.688l-10.544-8.158c-.006.008-7.958 10.449-19.832 10.449-13.802 0-19.612-11.127-19.612-16.884h51.777c2.72-22.043-11.772-40.877-33.023-40.877zm-18.713 29.28c.12-1.284 1.917-16.884 18.589-16.884 16.671 0 18.697 15.598 18.813 16.884h-37.402zM184.068 43.892c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002-35.648-20.524a2.971 2.971 0 00-2.964 0l-35.647 20.522-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v38.979l-29.706 17.103V24.493a3 3 0 00-.103-.776c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002L40.098 1.396a2.971 2.971 0 00-2.964 0L1.487 21.919l-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v122.09c0 1.063.568 2.044 1.489 2.575l71.293 41.045c.156.089.324.143.49.202.078.028.15.074.23.095a2.98 2.98 0 001.524 0c.069-.018.132-.059.2-.083.176-.061.354-.119.519-.214l71.293-41.045a2.971 2.971 0 001.489-2.575v-38.979l34.158-19.666a2.971 2.971 0 001.489-2.575V44.666a3.075 3.075 0 00-.106-.774zM74.255 143.167l-29.648-16.779 31.136-17.926.001-.001 34.164-19.669 29.674 17.084-21.772 12.428-43.555 24.863zm68.329-76.259v33.841l-12.475-7.182-17.231-9.92V49.806l12.475 7.182 17.231 9.92zm2.97-39.335l29.693 17.095-29.693 17.095-29.693-17.095 29.693-17.095zM54.06 114.089l-12.475 7.182V46.733l17.231-9.92 12.475-7.182v74.537l-17.231 9.921zM38.614 7.398l29.693 17.095-29.693 17.095L8.921 24.493 38.614 7.398zM5.938 29.632l12.475 7.182 17.231 9.92v79.676l.001.005-.001.006c0 .114.032.221.045.333.017.146.021.294.059.434l.002.007c.032.117.094.222.14.334.051.124.088.255.156.371a.036.036 0 00.004.009c.061.105.149.191.222.288.081.105.149.22.244.314l.008.01c.084.083.19.142.284.215.106.083.202.178.32.247l.013.005.011.008 34.139 19.321v34.175L5.939 144.867V29.632h-.001zm136.646 115.235l-65.352 37.625V148.31l48.399-27.628 16.953-9.677v33.862zm35.646-61.22l-29.706 17.102V66.908l17.231-9.92 12.475-7.182v33.841z"/>
-                        </g>
-                    </svg>
-                </div>
-
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-6">
-                            <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-500"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs" class="underline text-gray-900 dark:text-white">Documentation</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel has wonderful, thorough documentation covering every aspect of the framework. Whether you are new to the framework or have previous experience with Laravel, we recommend reading all of the documentation from beginning to end.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
-                            <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-500"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laracasts.com" class="underline text-gray-900 dark:text-white">Laracasts</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-                            <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-500"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" /></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel-news.com/" class="underline text-gray-900 dark:text-white">Laravel News</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
-                            <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-500"><path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" /></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline">Forge</a>, <a href="https://vapor.laravel.com" class="underline">Vapor</a>, <a href="https://nova.laravel.com" class="underline">Nova</a>, and <a href="https://envoyer.io" class="underline">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline">Telescope</a>, and more.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
-                        <div class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                            </svg>
-
-                            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
-                                Shop
-                            </a>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                            </svg>
-
-                            <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
-                                Sponsor
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
-                </div>
-            </div>
+<body>
+  <div class="content-wrapper">
+    <nav class="navbar absolute transparent navbar-expand-lg nav-uppercase">
+      <div class="container flex-row justify-content-center">
+        <div class="navbar-brand"><a href="index.html"><img src="#"
+              srcset="style/images/logo.png 1x, style/images/logo@2x.png 2x" alt="" /></a></div>
+        <div class="navbar-other ml-auto order-lg-3">
+          <ul class="navbar-nav flex-row align-items-center" data-sm-skip="true">
+            <li class="nav-item">
+              <div class="navbar-hamburger d-lg-none d-xl-none ml-auto"><button class="hamburger animate plain"
+                  data-toggle="offcanvas-nav"><span></span></button></div>
+            </li>
+            @auth
+            <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('home') }}" class="btn btn-default m-0">Home</a></li>
+                @else
+                <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('login') }}" class="btn btn-default m-0">login</a></li>
+            @endauth
+          </ul>
+          <!-- /.navbar-nav -->
         </div>
-    </body>
+        <!-- /.navbar-other -->
+        <div class="navbar-collapse offcanvas-nav">
+          <div class="offcanvas-header d-lg-none d-xl-none">
+            <a href="index.html"><img src="#" srcset="style/images/logo-light.png 1x, style/images/logo-light@2x.png 2x"
+                alt="" /></a>
+            <button class="plain offcanvas-close offcanvas-nav-close"><i class="jam jam-close"></i></button>
+          </div>
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a>
+              <ul class="dropdown-menu mega-menu boxed list-view text-left">
+                <li class="mega-menu-content">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <ul class="list-unstyled">
+                        <li><a class="dropdown-item" href="index.html">Digital Startup</a></li>
+                        <li><a class="dropdown-item" href="index2.html">Saas Landing</a></li>
+                        <li><a class="dropdown-item" href="index3.html">SEO Agency</a></li>
+                        <li><a class="dropdown-item" href="index4.html">Modern Business</a></li>
+                        <li><a class="dropdown-item" href="index5.html">Design Agency</a></li>
+                        <li><a class="dropdown-item" href="index6.html">App Presentation</a></li>
+                        <li><a class="dropdown-item" href="index7.html">Creative Landing</a></li>
+                      </ul>
+                    </div>
+                    <!--/column -->
+                    <div class="col-lg-3">
+                      <ul class="list-unstyled">
+                        <li><a class="dropdown-item" href="index8.html">Marketing Startup</a></li>
+                        <li><a class="dropdown-item" href="index9.html">Digital Agency</a></li>
+                        <li><a class="dropdown-item" href="index10.html">Creative Business</a></li>
+                        <li><a class="dropdown-item" href="index11.html">Software Landing</a></li>
+                        <li><a class="dropdown-item" href="index12.html">App Landing</a></li>
+                        <li><a class="dropdown-item" href="index13.html">Creative Agency</a></li>
+                        <li><a class="dropdown-item" href="index14.html">Wedding Photography</a></li>
+                      </ul>
+                    </div>
+                    <!--/column -->
+                    <div class="col-lg-3">
+                      <ul class="list-unstyled">
+                        <li><a class="dropdown-item" href="index15.html">Food Photography</a></li>
+                        <li><a class="dropdown-item" href="index16.html">Creative Onepage</a></li>
+                        <li><a class="dropdown-item" href="index17.html">Marketing Company</a></li>
+                        <li><a class="dropdown-item" href="index18.html">Startup Business</a></li>
+                        <li><a class="dropdown-item" href="index19.html">Creative Resume</a></li>
+                        <li><a class="dropdown-item" href="index20.html">Digital Studio</a></li>
+                        <li><a class="dropdown-item" href="index21.html">Travel Blog</a></li>
+                      </ul>
+                    </div>
+                    <!--/column -->
+                    <div class="col-lg-3">
+                      <ul class="list-unstyled">
+                        <li><a class="dropdown-item" href="index22.html">Minimal Shop</a></li>
+                        <li><a class="dropdown-item" href="index23.html">Minimal Portfolio</a></li>
+                        <li><a class="dropdown-item" href="index24.html">Coming Soon</a></li>
+                        <li><a class="dropdown-item" href="index25.html">Personal Creative</a></li>
+                        <li><a class="dropdown-item" href="index26.html">Minimal Photography</a></li>
+                        <li><a class="dropdown-item" href="index27.html">Maintenance</a></li>
+                      </ul>
+                    </div>
+                    <!--/column -->
+                  </div>
+                  <!--/.row -->
+                </li>
+                <!--/.mega-menu-content-->
+              </ul>
+              <!--/.dropdown-menu -->
+            </li>
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#!">Features</a>
+              <ul class="dropdown-menu">
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Header</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="header.html">Classic Header</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="header2.html">Classic Light Header</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="header3.html">Classic Dark Header</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="header4.html">Header with Topbar</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="header5.html">Wide Header</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="header6.html">Extended Header</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="header7.html">Fancy Light Header</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="header8.html">Fancy Dark Header</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="header9.html">Centered Header</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Footer</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="footer.html">Footer with Details</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="footer2.html">Centered Footer</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="footer3.html">Simple Footer</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="footer4.html">Footer with Widgets</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="footer5.html">Minimalist Footer</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="footer6.html">Footer with Overflow</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="footer7.html">Footer with Background Image</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Page Title</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="page-title.html">Page Title with Image</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="page-title2.html">Page Title with
+                        Breadcrumbs</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="page-title3.html">Page Title with Light
+                        Wrapper</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="page-title4.html">Page Title with Gray
+                        Wrapper</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="page-title5.html">Page Title with Dark
+                        Wrapper</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="page-title6.html">Page Title with Colored
+                        Wrapper</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="page-title7.html">Page Title with Gradient
+                        Wrapper</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="page-title8.html">Page Title with Video
+                        Wrapper</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Modal Popup</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="modal-popup1.html">Subscription</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="modal-popup2.html">Subscription Alternative</a>
+                    </li>
+                    <li class="nav-item"><a class="dropdown-item" href="modal-popup3.html">Sign Up</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="modal-popup4.html">Contact Form</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="modal-popup5.html">Cookie</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="modal-popup6.html">Sale</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown"><a class="dropdown-item dropdown-toggle" href="#">Fonts</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="font1.html">Jost</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="font2.html">Nunito</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="font3.html">DM Sans + Zilla Slab</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="font4.html">HK Grotesk</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="font5.html">Abhaya Libre</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown"><a class="dropdown-item dropdown-toggle" href="#">Colors</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="color1.html">Aqua</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color2.html">Blue</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color3.html">Brown</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color4.html">Cobalt</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color5.html">Green</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color6.html">Hibiscus</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color7.html">Leaf</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color8.html">Meander</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color9.html">Orange</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color10.html">Pink</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color11.html">Purple</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color12.html">Red</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color13.html">Rose</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color14.html">Sky</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color15.html">Teal</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color16.html">Violet</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="color17.html">Yellow</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Onepage</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="index16.html">Demo I</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="index19.html">Demo II</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item"><a class="dropdown-item" href="box-layout.html">Box Layout</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#!">Pages</a>
+              <ul class="dropdown-menu">
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Services</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="services.html">Services I</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="services2.html">Services II</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="services3.html">Services III</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="services4.html">Services IV</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="services5.html">Services V</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">About</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="about.html">About I</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="about2.html">About II</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="about3.html">About III</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="about4.html">About IV</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Shop</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="shop.html">Shop</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="shop2.html">Shop with Sidebar</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="shop3.html">Shop with Left Sidebar</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="shop-product.html">Product Page</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="shop-cart.html">Shopping Cart</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="shop-checkout.html">Checkout</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Contact</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="contact.html">Contact I</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="contact2.html">Contact II</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="contact3.html">Contact III</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="contact4.html">Contact IV</a></li>
+                  </ul>
+                </li>
+                <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+                <li><a class="dropdown-item" href="page-loading.html">Page Loading</a></li>
+                <li><a class="dropdown-item" href="scroll-animation.html">Scroll Animation</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#!">Elements</a>
+              <ul class="dropdown-menu mega-menu boxed list-view text-left">
+                <li class="mega-menu-content">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <ul class="list-unstyled">
+                        <li><a href="accordion.html">Accordion</a></li>
+                        <li><a href="alerts.html">Alerts</a></li>
+                        <li><a href="animated-text.html">Animated Text</a></li>
+                        <li><a href="blockquote.html">Blockquote</a></li>
+                        <li><a href="buttons-badges.html">Buttons & Badges</a></li>
+                        <li><a href="call-to-action.html">Call to Action</a></li>
+                        <li><a href="carousel.html">Carousel</a></li>
+                        <li><a href="clients.html">Clients</a></li>
+                        <li><a href="countdown.html">Countdown</a></li>
+                        <li><a href="counter.html">Counter</a></li>
+                      </ul>
+                    </div>
+                    <!--/column -->
+                    <div class="col-lg-3">
+                      <ul class="list-unstyled">
+                        <li><a href="dividers.html">Dividers</a></li>
+                        <li><a href="dropcap.html">Dropcap</a></li>
+                        <li><a href="forms.html">Forms</a></li>
+                        <li><a href="icon-concept.html">Icons - Concept</a></li>
+                        <li><a href="icon-jam.html">Icons - Jam</a></li>
+                        <li><a href="icon-icofont.html">Icons - Icofont</a></li>
+                        <li><a href="icon-lineal.html">Icons - Lineal</a></li>
+                        <li><a href="icon-box.html">Icon Box</a></li>
+                        <li><a href="image-hover.html">Image Hover</a></li>
+                        <li><a href="image-mask.html">Image Mask</a></li>
+                      </ul>
+                    </div>
+                    <!--/column -->
+                    <div class="col-lg-3">
+                      <ul class="list-unstyled">
+                        <li><a href="lightbox.html">Lightbox</a></li>
+                        <li><a href="lists.html">Lists</a></li>
+                        <li><a href="player.html">Media Player</a></li>
+                        <li><a href="modal.html">Modal</a></li>
+                        <li><a href="pricing.html">Pricing Tables</a></li>
+                        <li><a href="process.html">Process Steps</a></li>
+                        <li><a href="progressbar.html">Progress Bar</a></li>
+                        <li><a href="animations.html">Scroll Animations</a></li>
+                        <li><a href="social-icons.html">Social Icons</a></li>
+                        <li><a href="tables.html">Tables</a></li>
+                      </ul>
+                    </div>
+                    <!--/column -->
+                    <div class="col-lg-3">
+                      <ul class="list-unstyled">
+                        <li><a href="tabs.html">Tabs</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="titles.html">Titles</a></li>
+                        <li><a href="toggle.html">Toggle</a></li>
+                        <li><a href="tooltip-popover.html">Tooltip & Popover</a></li>
+                        <li><a href="typography.html">Typography</a></li>
+                        <li><a href="video-popup.html">Video Popup</a></li>
+                        <li><a href="waves.html">Waves</a></li>
+                        <li><a href="wrappers.html">Wrappers</a></li>
+                      </ul>
+                    </div>
+                    <!--/column -->
+                  </div>
+                  <!--/.row -->
+                </li>
+                <!--/.mega-menu-content-->
+              </ul>
+              <!--/.dropdown-menu -->
+            </li>
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#!">Portfolio</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="portfolio.html">Grid Portfolio</a></li>
+                <li><a class="dropdown-item" href="portfolio2.html">Grid Portfolio with Details</a></li>
+                <li><a class="dropdown-item" href="portfolio3.html">Masonry Portfolio</a></li>
+                <li><a class="dropdown-item" href="portfolio4.html">Masonry Portfolio with Details</a></li>
+                <li><a class="dropdown-item" href="portfolio5.html">Mosaic Portfolio</a></li>
+                <li><a class="dropdown-item" href="portfolio6.html">Fullscreen Grid Portfolio</a></li>
+                <li><a class="dropdown-item" href="portfolio7.html">Portfolio with Item Details</a></li>
+                <li><a class="dropdown-item" href="portfolio8.html">Box Portfolio with Item Details</a></li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Portfolio Posts</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="portfolio-post.html">Post with Multiple
+                        Images</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="portfolio-post2.html">Post with Slider</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="portfolio-post3.html">Post with Masonry
+                        Gallery</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="portfolio-post4.html">Post with Carousel</a>
+                    </li>
+                    <li class="nav-item"><a class="dropdown-item" href="portfolio-post5.html">Post with Columns</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="portfolio-post6.html">Post with Video</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#!">Blog</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="blog.html">Grid View</a></li>
+                <li><a class="dropdown-item" href="blog2.html">Grid View with Sidebar</a></li>
+                <li><a class="dropdown-item" href="blog3.html">Box Grid View</a></li>
+                <li><a class="dropdown-item" href="blog4.html">Box Grid View with Sidebar</a></li>
+                <li><a class="dropdown-item" href="blog5.html">Classic View</a></li>
+                <li><a class="dropdown-item" href="blog6.html">Classic View with Sidebar</a></li>
+                <li><a class="dropdown-item" href="blog7.html">Box Classic View</a></li>
+                <li><a class="dropdown-item" href="blog8.html">Box Classic View with Sidebar</a></li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Blog Posts</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="dropdown-item" href="blog-post.html">Post No Sidebar</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="blog-post2.html">Post with Sidebar</a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="blog-post3.html">Box Post No Sidebar </a></li>
+                    <li class="nav-item"><a class="dropdown-item" href="blog-post4.html">Box Post with Sidebar </a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <!-- /.navbar-nav -->
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+    </nav>
+    <!-- /.navbar -->
+    <div class="offcanvas-info inverse-text">
+      <button class="plain offcanvas-close offcanvas-info-close"><i class="jam jam-close"></i></button>
+      <a href="index.html"><img src="#" srcset="style/images/logo-light.png 1x, style/images/logo-light@2x.png 2x"
+          alt="" /></a>
+      <div class="space30"></div>
+      <p>Snowlake is a multi-concept and powerful site template contains rich layouts with possibility of unlimited
+        combinations & beautiful elements.</p>
+      <div class="space20"></div>
+      <div class="widget">
+        <h5 class="widget-title">Contact Info</h5>
+        <address> Moonshine St. 14/05 <br /> Light City, London <div class="space20"></div>
+          <a href="https://demos.elemisthemes.com/cdn-cgi/l/email-protection#22444b5051560c4e43515662474f434b4e0c414d4f"
+            class="nocolor"><span class="__cf_email__"
+              data-cfemail="d7beb9b1b897b2bab6bebbf9b4b8ba">[email&#160;protected]</span></a><br /> +00 (123) 456 78 90
+        </address>
+      </div>
+      <!-- /.widget -->
+      <div class="widget">
+        <h3 class="widget-title">Learn More</h3>
+        <ul class="list-unstyled">
+          <li><a href="#" class="nocolor">Our Story</a></li>
+          <li><a href="#" class="nocolor">Terms of Use</a></li>
+          <li><a href="#" class="nocolor">Privacy Policy</a></li>
+          <li><a href="#" class="nocolor">Contact Us</a></li>
+        </ul>
+      </div>
+      <!-- /.widget -->
+      <div class="widget">
+        <h3 class="widget-title">Follow Us</h3>
+        <ul class="social social-mute social-s ml-auto">
+          <li><a href="#"><i class="jam jam-twitter"></i></a></li>
+          <li><a href="#"><i class="jam jam-facebook"></i></a></li>
+          <li><a href="#"><i class="jam jam-instagram"></i></a></li>
+          <li><a href="#"><i class="jam jam-vimeo"></i></a></li>
+          <li><a href="#"><i class="jam jam-youtube"></i></a></li>
+        </ul>
+      </div>
+      <!-- /.widget -->
+    </div>
+    <!-- /.offcanvas-info -->
+    <div class="wrapper bg-opacity-default">
+      <div class="rev_slider_wrapper fullwidth-container dark-spinner">
+        <div id="slider7" class="rev_slider fullwidthbanner" data-version="5.4.7">
+          <ul>
+            <li data-transition="fade" data-thumb=""><img src="{{ asset('landing_kelas_industri/style/images/dummy.png')}}" style="background:transparent"
+                alt="" />
+              <div class="tp-caption" data-x="['center','center','center','center']"
+                data-y="['bottom','bottom','bottom','bottom']" data-hoffset="['0','0','0','0']"
+                data-voffset="['-2','-2','-2','-2']"
+                data-frames='[{"delay":0,"speed":1200,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                data-visibility="['on','on','on','on']" data-width="none" data-height="none" data-type="image"
+                data-responsive="on" data-responsive_offset="on" data-basealign="slide" style="z-index: 5;"><img
+                  data-lazyload="" src="{{ asset('landing_kelas_industri/style/images/art/rocket1.png') }}" data-ww="['100%','100%','100%','100%']"
+                  data-hh="auto" alt="" />
+              </div>
+              <!-- /.tp-caption -->
+              <div class="tp-caption" data-x="['center','center','center','center']"
+                data-y="['middle','middle','middle','middle']" data-hoffset="['260','260','260','260']"
+                data-voffset="['60','60','60','60']"
+                data-frames='[{"delay":600,"speed":1200,"frame":"0","from":"y:bottom;rX:90deg;","to":"o:1;","ease":"Power4.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                data-visibility="['on','on','on','off']" data-width="none" data-height="none" data-type="image"
+                data-responsive="on" data-responsive_offset="on" data-basealign="slide" style="z-index: 5;"><img
+                  data-lazyload="" src="{{ asset('landing_kelas_industri/style/images/art/rocket2.png')}} " data-ww="['220','220','220','220']" data-hh="auto"
+                  alt="" />
+              </div>
+              <!-- /.tp-caption -->
+              <div class="tp-caption" data-x="['center','center','center','center']"
+                data-y="['middle','middle','middle','middle']" data-hoffset="['260','260','260','260']"
+                data-voffset="['-170','-170','-170','-170']"
+                data-frames='[{"delay":0,"speed":1200,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                data-visibility="['on','on','on','off']" data-width="none" data-height="none" data-type="image"
+                data-responsive="on" data-responsive_offset="on" data-basealign="slide" style="z-index: 6;"><img
+                  data-lazyload="" src="{{asset('landing_kelas_industri/style/images/art/rocket3.png')}}" data-ww="['380','380','380','380']" data-hh="auto"
+                  alt="" />
+              </div>
+              <!-- /.tp-caption -->
+              <div class="tp-caption" data-x="['center','center','center','center']"
+                data-y="['middle','middle','middle','middle']" data-hoffset="['300','300','300','300']"
+                data-voffset="['70','70','70','70']"
+                data-frames='[{"delay":0,"speed":1200,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                data-visibility="['on','on','on','off']" data-width="none" data-height="none" data-type="image"
+                data-responsive="on" data-responsive_offset="on" data-basealign="slide" style="z-index: 5;"><img
+                  data-lazyload="" src="{{asset('landing_kelas_industri/style/images/art/rocket4.png')}}" data-ww="['480','480','480','480']" data-hh="auto"
+                  alt="" />
+              </div>
+              <!-- /.tp-caption -->
+              <div class="tp-caption font-weight-500 color-dark" data-x="['left','left','left','center']"
+                data-y="middle" data-hoffset="['50','30','30','0']" data-voffset="['-125','-125','-125','-105']"
+                data-fontsize="['40','40','34','36']" data-lineheight="['50','50','44','46']"
+                data-width="['500','500','420','340']" data-textAlign="['left','left','left','center']"
+                data-whitespace="['normal','normal','normal','normal']"
+                data-frames='[{"delay":1000,"speed":1200,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                data-responsive="on" data-responsive_offset="on" style="z-index: 9;">Selamat Datang DiWebsite Kelas Industri
+              </div>
+              <!-- /.tp-caption -->
+              <div class="tp-caption font-weight-300 color-dark" data-x="['left','left','left','center']"
+                data-y="middle" data-hoffset="['50','30','30','0']" data-voffset="['-20','-20','-20','30']"
+                data-fontsize="['26','26','22','24']" data-lineheight="['36','36','32','34']"
+                data-width="['500','500','420','340']" data-textAlign="['left','left','left','center']"
+                data-whitespace="['normal','normal','normal','normal']"
+                data-frames='[{"delay":1500,"speed":1200,"frame":"0","from":"x:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                data-responsive="on" data-responsive_offset="on" style="z-index: 9;">Kami membantu sekolah guru mentor serta murit untuk meningkatkan
+
+              </div>
+              <!-- /.tp-caption -->
+              <a class="tp-caption btn btn-l btn-default" data-x="['left','left','left','center']" data-y="middle"
+                data-hoffset="['50','30','30','0']" data-voffset="['75','75','75','135']"
+                data-width="['auto','auto','auto','auto']" data-textAlign="['left','left','left','center']"
+                data-frames='[{"delay":2000,"speed":1200,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                data-responsive="on" data-responsive_offset="on" style="z-index: 9;" href="#">Try It For Free
+              </a>
+              <!-- /.tp-caption -->
+            </li>
+          </ul>
+          <div class="tp-bannertimer tp-bottom"></div>
+        </div>
+        <!-- /.rev_slider -->
+      </div>
+      <!-- /.rev_slider_wrapper -->
+    </div>
+    <!-- /.wrapper -->
+    <div class="wrapper white-wrapper">
+      <div class="container inner pt-100">
+        <h2 class="title-color color-gray text-center">What We Do?</h2>
+        <h3 class="display-3 text-center">The full service we are offering is specifically <br
+            class="d-none d-lg-block" />designed to meet your business needs.</h3>
+        <div class="space40"></div>
+        <div class="row text-center gutter-60">
+          <div class="col-md-6 col-lg-3">
+            <div class="icon icon-blob icon-blob-rose color-rose mb-20"> <i class="jam jam-search"></i> </div>
+            <h5>SEO Services</h5>
+            <p>Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus. Cras justo.
+            </p>
+          </div>
+          <!--/column -->
+          <div class="col-md-6 col-lg-3">
+            <div class="icon icon-blob icon-blob-blue color-blue mb-20"> <i class="jam jam-layout"></i> </div>
+            <h5>Web Design</h5>
+            <p>Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus. Cras justo.
+            </p>
+          </div>
+          <!--/column -->
+          <div class="space30 d-none d-md-block d-lg-none"></div>
+          <div class="col-md-6 col-lg-3">
+            <div class="icon icon-blob icon-blob-green color-green mb-20"> <i class="jam jam-share-alt"></i> </div>
+            <h5>Social Engagement</h5>
+            <p>Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus. Cras justo.
+            </p>
+          </div>
+          <!--/column -->
+          <div class="col-md-6 col-lg-3">
+            <div class="icon icon-blob icon-blob-purple color-purple mb-20"> <i class="jam jam-task-list"></i> </div>
+            <h5>Content Marketing</h5>
+            <p>Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus. Cras justo.
+            </p>
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+        <div class="space140"></div>
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <figure><img src="#" srcset="{{ asset('landing_kelas_industri/style/images/concept/concept8.png') }}"
+                alt="" /></figure>
+          </div>
+          <!--/column -->
+          <div class="space20 d-md-none"></div>
+          <div class="space50 d-none d-md-block d-lg-none"></div>
+          <div class="col-lg-6 pl-60 pl-md-15">
+            <h2 class="title-color color-gray">Mengapa Memilih Kami?</h2>
+            <h3 class="display-3">Why is Search Engine Optimization important for your business?</h3>
+            <div class="space20"></div>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
+              fermentum. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo,
+              tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <ul class="icon-list bullet-default">
+              <li><i class="icofont-verification-check"></i>Aenean eu leo quam ornare.</li>
+              <li><i class="icofont-verification-check"></i>Nullam quis risus eget mollis.</li>
+              <li><i class="icofont-verification-check"></i>Donec elit non mi porta gravida.</li>
+              <li><i class="icofont-verification-check"></i>Fusce dapibus cursus commodo.</li>
+            </ul>
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+        <div class="space140"></div>
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <figure><img src="#" srcset="{{ asset('landing_kelas_industri/style/images/concept/concept1.png') }}"
+                alt="" /></figure>
+          </div>
+          <!--/column -->
+          <div class="space20 d-md-none"></div>
+          <div class="space50 d-none d-md-block d-lg-none"></div>
+          <div class="col-lg-6 pr-60 pr-md-15">
+            <h2 class="title-color color-gray">Our Process</h2>
+            <h3 class="display-3">We bring solutions to make life easier for our customers</h3>
+            <div class="space30"></div>
+            <div class="d-flex flex-row justify-content-center">
+              <div>
+                <span class="icon icon-blob icon-blob-blue color-blue mr-25"><i class="jam jam-lightbulb"></i><span
+                    class="step bg-blue">1</span></span>
+              </div>
+              <div>
+                <h5>Collect Ideas</h5>
+                <p class="mb-0">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget
+                  metus. Cras justo.</p>
+              </div>
+            </div>
+            <div class="space30"></div>
+            <div class="d-flex flex-row justify-content-center">
+              <div>
+                <span class="icon icon-blob icon-blob-teal color-teal mr-25"><i class="jam jam-search-folder"></i><span
+                    class="step bg-teal">2</span></span>
+              </div>
+              <div>
+                <h5>Data Analysis</h5>
+                <p class="mb-0">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget
+                  metus. Cras justo.</p>
+              </div>
+            </div>
+            <div class="space30"></div>
+            <div class="d-flex flex-row justify-content-center">
+              <div>
+                <span class="icon icon-blob icon-blob-yellow color-yellow mr-25"><i class="jam jam-heart"></i><span
+                    class="step bg-yellow">3</span></span>
+              </div>
+              <div>
+                <h5>Magic Touch</h5>
+                <p class="mb-0">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget
+                  metus. Cras justo.</p>
+              </div>
+            </div>
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+        <div class="space140"></div>
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <figure><img src="#" srcset="{{ asset('landing_kelas_industri/style/images/concept/concept3.png') }}"
+                alt="" /></figure>
+          </div>
+          <!--/column -->
+          <div class="space20 d-md-none"></div>
+          <div class="space50 d-none d-md-block d-lg-none"></div>
+          <div class="col-lg-6 pl-60 pl-md-15 order-lg-2">
+            <h2 class="title-color color-gray">Our Personalized Solutions</h2>
+            <h3 class="display-3">Just sit and relax while we take care of your business needs</h3>
+            <div class="space20"></div>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
+              fermentum. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo,
+              tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <ul class="icon-list bullet-default">
+              <li><i class="icofont-verification-check"></i>Aenean eu leo quam ornare.</li>
+              <li><i class="icofont-verification-check"></i>Nullam quis risus eget mollis.</li>
+              <li><i class="icofont-verification-check"></i>Donec elit non mi porta gravida.</li>
+              <li><i class="icofont-verification-check"></i>Fusce dapibus cursus commodo.</li>
+            </ul>
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+      </div>
+      <!-- /.container -->
+    </div>
+    <!-- /.wrapper -->
+    <div class="wrapper light-wrapper">
+      <div class="container inner">
+        <h2 class="title-color color-gray text-center">Customer Stories</h2>
+        <h3 class="display-3 text-center">Customer satisfaction is our major goal. <br class="d-none d-lg-block" />See
+          what our customers are saying about us.</h3>
+        <div class="space20"></div>
+        <div class="grid-view">
+          <div class="carousel owl-carousel gap-small" data-margin="0" data-dots="true" data-autoplay="false"
+            data-autoplay-timeout="5000"
+            data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1140":{"items": "3"}}'>
+            <div class="item">
+              <div class="item-inner">
+                <div class="box bg-white shadow">
+                  <blockquote>
+                    <p>"Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing
+                      elit. Duis mollis, est non commodo luctus, nisi erat porttitor ligula."</p>
+                    <div class="blockquote-details">
+                      <div class="img-blob blob1"><img src="{{asset('landing_kelas_industri/style/images/art/t1.jpg')}}" alt="" /></div>
+                      <div class="info">
+                        <h6 class="mb-0">Connor Gibson</h6>
+                        <span class="meta mb-0">Financial Analyst</span>
+                      </div>
+                    </div>
+                  </blockquote>
+                </div>
+                <!-- /.box -->
+              </div>
+              <!-- /.item-inner -->
+            </div>
+            <!-- /.item -->
+            <div class="item">
+              <div class="item-inner">
+                <div class="box bg-white shadow">
+                  <blockquote>
+                    <p>"Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Vestibulum id ligula
+                      porta felis euismod semper. Cras justo odio, dapibus ac facilisis."</p>
+                    <div class="blockquote-details">
+                      <div class="img-blob blob1"><img src="{{asset('landing_kelas_industri/style/images/art/t2.jpg')}}" alt="" /></div>
+                      <div class="info">
+                        <h6 class="mb-0">Coriss Ambady</h6>
+                        <span class="meta mb-0">Marketing Specialist</span>
+                      </div>
+                    </div>
+                  </blockquote>
+                </div>
+                <!-- /.box -->
+              </div>
+              <!-- /.item-inner -->
+            </div>
+            <!-- /.item -->
+            <div class="item">
+              <div class="item-inner">
+                <div class="box bg-white shadow">
+                  <blockquote>
+                    <p>"Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+                      Cras justo odio, dapibus ac facilisis in, egestas eget quam venenatis."</p>
+                    <div class="blockquote-details">
+                      <div class="img-blob blob1"><img src="{{asset('landing_kelas_industri/style/images/art/t3.jpg')}}" alt="" /></div>
+                      <div class="info">
+                        <h6 class="mb-0">Barclay Widerski</h6>
+                        <span class="meta mb-0">Sales Manager</span>
+                      </div>
+                    </div>
+                  </blockquote>
+                </div>
+                <!-- /.box -->
+              </div>
+              <!-- /.item-inner -->
+            </div>
+            <!-- /.item -->
+            <div class="item">
+              <div class="item-inner">
+                <div class="box bg-white shadow">
+                  <blockquote>
+                    <p>"Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus posuere velit
+                      aliquet. Duis mollis, est non commodo luctus."</p>
+                    <div class="blockquote-details">
+                      <div class="img-blob blob1"><img src="{{asset('landing_kelas_industri/style/images/art/t4.jpg')}}" alt="" /></div>
+                      <div class="info">
+                        <h6 class="mb-0">Nikolas Brooten</h6>
+                        <span class="meta mb-0">Investment Planner</span>
+                      </div>
+                    </div>
+                  </blockquote>
+                </div>
+                <!-- /.box -->
+              </div>
+              <!-- /.item-inner -->
+            </div>
+            <!-- /.item -->
+            <div class="item">
+              <div class="item-inner">
+                <div class="box bg-white shadow">
+                  <blockquote>
+                    <p>"Aenean lacinia bibendum nulla sed consectetur. Cum sociis natoque penatibus et magnis dis
+                      parturient montes, nascetur ridiculus mus vestibulum."</p>
+                    <div class="blockquote-details">
+                      <div class="img-blob blob1"><img src="{{asset('landing_kelas_industri/style/images/art/t5.jpg')}}" alt="" /></div>
+                      <div class="info">
+                        <h6 class="mb-0">Jackie Sanders</h6>
+                        <span class="meta mb-0">Sales Specialist</span>
+                      </div>
+                    </div>
+                  </blockquote>
+                </div>
+                <!-- /.box -->
+              </div>
+              <!-- /.item-inner -->
+            </div>
+            <!-- /.item -->
+            <div class="item">
+              <div class="item-inner">
+                <div class="box bg-white shadow">
+                  <blockquote>
+                    <p>"Donec sed odio dui. Cras mattis consectetur purus sit amet fermentum. Aenean eu leo quam.
+                      Pellentesque ornare sem lacinia quam venenatis."</p>
+                    <div class="blockquote-details">
+                      <div class="img-blob blob1"><img src="{{asset('landing_kelas_industri/style/images/art/t6.jpg')}}" alt="" /></div>
+                      <div class="info">
+                        <h6 class="mb-0">Tina Geller</h6>
+                        <span class="meta mb-0">Financial Analyst</span>
+                      </div>
+                    </div>
+                  </blockquote>
+                </div>
+                <!-- /.box -->
+              </div>
+              <!-- /.item-inner -->
+            </div>
+            <!-- /.item -->
+          </div>
+          <!-- /.owl-carousel -->
+        </div>
+        <!-- /.grid-view -->
+        <div class="space160"></div>
+        <div class="row">
+          <div class="col-lg-5 pr-50 pr-md-15">
+            <h2 class="title-color color-gray">Our Pricing</h2>
+            <h3 class="display-3">We offer great prices, premium products and quality service for your business.</h3>
+            <div class="space20"></div>
+            <p>Nulla vitae elit libero, a pharetra augue. Donec ullamcorper nulla non metus auctor fringilla. Maecenas
+              sed diam eget risus varius blandit sit amet non magna. Nulla vitae elit libero, a pharetra augue. Cras
+              justo odio, dapibus ac facilisis in, egestas eget quam. Sed posuere consectetur est.</p>
+          </div>
+          <!--/column -->
+          <div class="space70 d-none d-md-block d-lg-none"></div>
+          <div class="space20 d-md-none"></div>
+          <div class="col-lg-7">
+            <div class="pricing-wrapper">
+              <div class="row no-gutters">
+                <div class="col-md-6 popular">
+                  <div class="pricing panel box bg-white shadow">
+                    <div class="panel-heading">
+                      <div class="prices color-dark">
+                        <div class="price price-show"><span class="price-currency">$</span><span
+                            class="price-value">9</span> <span class="price-duration">month</span></div>
+                        <div class="price price-hide price-hidden"><span class="price-currency">$</span><span
+                            class="price-value">99</span> <span class="price-duration">year</span></div>
+                      </div>
+                      <h4 class="panel-title mb-0">Basic Plan</h4>
+                    </div>
+                    <!--/.panel-heading -->
+                    <div class="panel-body">
+                      <table class="table">
+                        <tr>
+                          <td><strong>1</strong> Project </td>
+                        </tr>
+                        <tr>
+                          <td><strong>100K</strong> API Access </td>
+                        </tr>
+                        <tr>
+                          <td><strong>100MB</strong> Storage </td>
+                        </tr>
+                        <tr>
+                          <td> Custom <strong>Cloud</strong> Services </td>
+                        </tr>
+                        <tr>
+                          <td> Weekly <strong>Reports</strong></td>
+                        </tr>
+                        <tr>
+                          <td> 7/24 <strong>Support</strong></td>
+                        </tr>
+                      </table>
+                    </div>
+                    <!--/.panel-body -->
+                    <div class="panel-footer"> <a href="#" class="btn" role="button">Choose Plan</a></div>
+                  </div>
+                  <!--/.pricing -->
+                </div>
+                <!--/column -->
+                <div class="col-md-6">
+                  <div class="pricing panel box bg-white shadow">
+                    <div class="panel-heading">
+                      <div class="prices color-dark">
+                        <div class="price price-show"><span class="price-currency">$</span><span
+                            class="price-value">19</span> <span class="price-duration">month</span></div>
+                        <div class="price price-hide price-hidden"><span class="price-currency">$</span><span
+                            class="price-value">199</span> <span class="price-duration">year</span></div>
+                      </div>
+                      <h4 class="panel-title mb-0">Premium Plan</h4>
+                    </div>
+                    <!--/.panel-heading -->
+                    <div class="panel-body">
+                      <table class="table">
+                        <tr>
+                          <td><strong>5</strong> Projects </td>
+                        </tr>
+                        <tr>
+                          <td><strong>100K</strong> API Access </td>
+                        </tr>
+                        <tr>
+                          <td><strong>200MB</strong> Storage </td>
+                        </tr>
+                        <tr>
+                          <td> Custom <strong>Cloud</strong> Services </td>
+                        </tr>
+                        <tr>
+                          <td> Weekly <strong>Reports</strong></td>
+                        </tr>
+                        <tr>
+                          <td> 7/24 <strong>Support</strong></td>
+                        </tr>
+                      </table>
+                    </div>
+                    <!--/.panel-body -->
+                    <div class="panel-footer"> <a href="#" class="btn" role="button">Choose Plan</a></div>
+                  </div>
+                  <!--/.pricing -->
+                </div>
+                <!--/column -->
+              </div>
+              <!--/.row -->
+            </div>
+            <!--/.pricing-wrapper -->
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+        <div class="space140"></div>
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <figure><img src="#"
+                srcset="{{ asset('landing_kelas_industri/style/images/concept/concept12.png') }}" alt="" />
+            </figure>
+          </div>
+          <!--/column -->
+          <div class="space50 d-none d-md-block d-lg-none"></div>
+          <div class="space10 d-md-none"></div>
+          <div class="col-lg-6 pl-60 pl-md-15">
+            <h2 class="title-color color-gray">Let's Talk</h2>
+            <h3 class="display-3">Let's make something great together. If you got any questions, don't hesitate to get
+              in touch with us.</h3>
+            <div class="space20"></div>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare
+              vel eu leo. Maecenas faucibus mollis interdum. Aenean lacinia bibendum nulla sed consectetur.</p>
+            <div class="space10"></div>
+            <a href="#" class="btn btn-default">Contact Us</a>
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+      </div>
+      <!-- /.container -->
+    </div>
+    <!-- /.wrapper -->
+    <div class="wrapper bg-opacity-default">
+      <div class="container inner">
+        <div class="row text-center">
+          <div class="col-lg-8 offset-lg-2">
+            <h2 class="title-color color-gray">Analyze Now</h2>
+            <h3 class="display-3">Wonder how much faster your website can go?<br class="d-none d-xl-block" /> Easily
+              check your SEO Score now.</h3>
+          </div>
+          <!-- /column -->
+        </div>
+        <!-- /.row -->
+        <div class="space30"></div>
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <form class="fields-white">
+              <div class="input-group">
+                <input type="email" value="" name="EMAIL" class="email form-control mb-0 mr-2 mb-sm-0"
+                  placeholder="Email Address" required>
+                <button type="submit" class="btn btn-rounded btn-default mr-0 mb-0 pull-right">Analyze</button>
+              </div>
+            </form>
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+      </div>
+      <!-- /.container -->
+      <figure style="margin-bottom:-3px;"><img src="{{ asset('landing_kelas_industri/style/images/art/rocket1.png') }}" alt="" /></figure>
+    </div>
+    <!-- /.wrapper -->
+    <footer class="white-wrapper">
+      <div class="container inner">
+        <div class="row">
+          <div class="col-md-6 col-lg-3">
+            <div class="widget">
+              <h3 class="widget-title">Popular Posts</h3>
+              <ul class="image-list">
+                <li>
+                  <figure class="rounded"><a href="blog-post.html"><img src="{{ asset('landing_kelas_industri/style/images/art/a1.jpg') }}" alt="" /></a>
+                  </figure>
+                  <div class="post-content">
+                    <h6 class="post-title"> <a href="blog-post.html">Magna Mollis Ultricies</a> </h6>
+                    <div class="meta"><span class="date"><i class="jam jam-clock"></i>12 Nov 2017</span><span
+                        class="comments"><i class="jam jam-message-alt"></i><a href="#">4</a></span></div>
+                  </div>
+                </li>
+                <li>
+                  <figure class="rounded"> <a href="blog-post.html"><img src="{{ asset('landing_kelas_industri/style/images/art/a2.jpg') }}" alt="" /></a>
+                  </figure>
+                  <div class="post-content">
+                    <h6 class="post-title"> <a href="blog-post.html">Ornare Nullam Risus</a> </h6>
+                    <div class="meta"><span class="date"><i class="jam jam-clock"></i>12 Nov 2017</span><span
+                        class="comments"><i class="jam jam-message-alt"></i><a href="#">4</a></span></div>
+                  </div>
+                </li>
+                <li>
+                  <figure class="rounded"><a href="blog-post.html"><img src="{{ asset('landing_kelas_industri/style/images/art/a3.jpg') }}" alt="" /></a>
+                  </figure>
+                  <div class="post-content">
+                    <h6 class="post-title"> <a href="blog-post.html">Euismod Nullam</a> </h6>
+                    <div class="meta"><span class="date"><i class="jam jam-clock"></i>12 Nov 2017</span><span
+                        class="comments"><i class="jam jam-message-alt"></i><a href="#">4</a></span></div>
+                  </div>
+                </li>
+              </ul>
+              <!-- /.image-list -->
+            </div>
+            <!-- /.widget -->
+          </div>
+          <!-- /column -->
+          <div class="col-md-6 col-lg-3">
+            <div class="widget">
+              <h3 class="widget-title">Tags</h3>
+              <ul class="list-unstyled tag-list">
+                <li><a href="#" class="btn btn-s">Still Life</a></li>
+                <li><a href="#" class="btn btn-s">Urban</a></li>
+                <li><a href="#" class="btn btn-s">Nature</a></li>
+                <li><a href="#" class="btn btn-s">Landscape</a></li>
+              </ul>
+            </div>
+            <div class="widget">
+              <h3 class="widget-title">Categories</h3>
+              <ul class="unordered-list column-2">
+                <li><a href="#" class="nocolor">Lifestyle (21)</a></li>
+                <li><a href="#" class="nocolor">Photo (19)</a></li>
+                <li><a href="#" class="nocolor">Journal (16)</a></li>
+                <li><a href="#" class="nocolor">Works (7)</a></li>
+                <li><a href="#" class="nocolor">Still Life (9)</a></li>
+                <li><a href="#" class="nocolor">Travel (17)</a></li>
+              </ul>
+            </div>
+            <!-- /.widget -->
+          </div>
+          <!-- /column -->
+          <div class="col-md-6 col-lg-3">
+            <div class="widget">
+              <h3 class="widget-title">Get in Touch</h3>
+              <address> Moonshine St. 14/05 Light City, London, United Kingdom</address>
+              <a
+                href="https://demos.elemisthemes.com/cdn-cgi/l/email-protection#33555a4140471d5f52404773565e525a5f1d505c5e"><span
+                  class="__cf_email__"
+                  data-cfemail="71181f171e31141c10181d5f121e1c">[email&#160;protected]</span></a><br /> +00 (123) 456 78
+              90
+            </div>
+            <!-- /.widget -->
+            <div class="widget">
+              <h3 class="widget-title">Elsewhere</h3>
+              <ul class="social social-mute social-s ml-auto">
+                <li><a href="#"><i class="jam jam-twitter"></i></a></li>
+                <li><a href="#"><i class="jam jam-facebook"></i></a></li>
+                <li><a href="#"><i class="jam jam-instagram"></i></a></li>
+                <li><a href="#"><i class="jam jam-vimeo"></i></a></li>
+                <li><a href="#"><i class="jam jam-youtube"></i></a></li>
+              </ul>
+            </div>
+            <!-- /.widget -->
+          </div>
+          <!-- /column -->
+          <div class="col-md-6 col-lg-3">
+            <div class="widget">
+              <h3 class="widget-title">Learn More</h3>
+              <ul class="list-unstyled">
+                <li><a href="#" class="nocolor">About Us</a></li>
+                <li><a href="#" class="nocolor">Our Story</a></li>
+                <li><a href="#" class="nocolor">Projects</a></li>
+              </ul>
+            </div>
+            <!-- /.widget -->
+            <div class="widget">
+              <h3 class="widget-title">Need Help?</h3>
+              <ul class="list-unstyled">
+                <li><a href="#" class="nocolor">Support</a></li>
+                <li><a href="#" class="nocolor">Get Started</a></li>
+                <li><a href="#" class="nocolor">Contact Us</a></li>
+              </ul>
+            </div>
+            <!-- /.widget -->
+          </div>
+          <!-- /column -->
+        </div>
+        <!--/.row -->
+        <div class="space50"></div>
+        <p class="text-center">© 2020 Snowlake. All rights reserved.</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+  </div>
+  <!-- /.content-wrapper -->
+  <div id="options-nav"></div>
+  <script data-cfasync="false" src="{{asset('landing_kelas_industri/demos.elemisthemes.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/js/jquery.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/js/popper.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/js/bootstrap.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.actions.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.carousel.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.kenburn.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.layeranimation.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.navigation.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.parallax.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.video.min.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/js/plugins.js')}}"></script>
+  <script src="{{ asset('landing_kelas_industri/style/js/scripts.js')}}"></script>
+</body>
+
+<!-- Mirrored from/index3.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 05 May 2023 15:13:12 GMT -->
+
 </html>

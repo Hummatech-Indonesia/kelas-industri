@@ -5,17 +5,20 @@ namespace App\Services;
 use App\Http\Requests\ClassroomRequest;
 use App\Repositories\ClassroomRepository;
 use App\Repositories\StudentClassroomRepository;
+use App\Repositories\TeacherClassroomRepository;
 use Illuminate\Http\Request;
 
 class ClassroomService
 {
     private ClassroomRepository $repository;
     private StudentClassroomRepository $studentClassroomRepository;
+    private TeacherClassroomRepository $teacherClassroomRepository;
 
-    public function __construct(ClassroomRepository $repository, StudentClassroomRepository $studentClassroomRepository)
+    public function __construct(ClassroomRepository $repository, StudentClassroomRepository $studentClassroomRepository, TeacherClassroomRepository $teacherClassroomRepository)
     {
         $this->repository = $repository;
         $this->studentClassroomRepository = $studentClassroomRepository;
+        $this->teacherClassroomRepository = $teacherClassroomRepository;
     }
 
     /**
@@ -28,18 +31,26 @@ class ClassroomService
         return $this->repository->getAll();
     }
 
+    public function handleGetByTeacher(string $teacherId): mixed
+    {
+        return $this->repository->get_by_teacher($teacherId);
+    }
+
+    public function handleGetByMentor(String $mentorId): mixed
+    {
+        return $this->repository->get_by_mentor($mentorId);
+    }
 
     public function handleGetClassroomByUser(string $userId)
     {
-        if(auth()->user()->roles->pluck('name')[0] == 'student'){
+        if (auth()->user()->roles->pluck('name')[0] == 'student') {
             return $this->repository->get_by_student($userId);
-        }elseif(auth()->user()->roles->pluck('name')[0] == 'mentor'){
+        } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             return $this->repository->get_by_mentor($userId);
-        }elseif(auth()->user()->roles->pluck('name')[0] == 'teacher'){
+        } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             return $this->repository->get_by_teacher($userId);
         }
     }
-
 
     /**
      * handle get by school in the current school year
@@ -123,7 +134,7 @@ class ClassroomService
         foreach ($request->students as $student) {
             $this->studentClassroomRepository->store([
                 'classroom_id' => $request->classroom_id,
-                'student_school_id' => $student
+                'student_school_id' => $student,
             ]);
         }
     }

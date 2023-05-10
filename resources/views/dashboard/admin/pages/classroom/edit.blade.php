@@ -102,7 +102,8 @@
                                                 data-control="select2" data-placeholder="Select an option">
                                             @foreach($generations as $generation)
                                                 <option
-                                                    {{ ($classroom->generation_id == $generation->id) ? 'selected' : '' }} value="{{ $generation->id }}">{{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}</option>
+                                                    {{ ($classroom->generation_id == $generation->id) ? 'selected' : '' }} value="{{ $generation->id }}">{{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}
+                                                </option>
                                             @endforeach
                                         </select>
 

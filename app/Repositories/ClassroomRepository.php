@@ -11,7 +11,7 @@ class ClassroomRepository extends BaseRepository
 {
 
     private StudentClassroom $studentClassroom;
-
+    
     public function __construct(Classroom $model, StudentClassroom $studentClassroom, MentorClassroom $mentorClassroom, TeacherClassroom $teacherClassroom)
     {
         $this->model = $model;

@@ -123,7 +123,30 @@
 {{--End Plugin Javascript --}}
 @yield('script')
 <!--end::Javascript-->
-
+<script>
+    @if(Session::has('success'))
+    Swal.fire({
+        text: "{{ Session::get('success') }}",
+        icon: "success",
+        buttonsStyling: false,
+        confirmButtonText: "Ok!",
+        customClass: {
+            confirmButton: "btn btn-primary"
+        }
+    });
+    @endif
+    @if(Session::has('error'))
+    Swal.fire({
+        text: "{{ Session::get('error') }}",
+        icon: "error",
+        buttonsStyling: false,
+        confirmButtonText: "Ok!",
+        customClass: {
+            confirmButton: "btn btn-danger"
+        }
+    });
+    @endif
+</script>
 </body>
 <!--end::Body-->
 

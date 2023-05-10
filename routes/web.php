@@ -119,6 +119,9 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
 
 //mentor
 Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->group(function () {
+    Route::resources([
+        'challenges' => ChallengeController::class,
+    ]);
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 });
 //end mentor
@@ -129,11 +132,14 @@ Route::prefix('student')->name('student.')->group(function () {
         return view('dashboard.user.pages.material.index');
     });
     Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
+    Route::get('/create', [UserClassroomController::class, 'create'])->name('create');
     Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
     Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
     Route::get('/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
     Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+
+    Route::get('submitAssigment/{assigment}', [UserAssigmentController::class, 'create'])->name('submitAssigment');
 
     Route::get('/sub-material', function () {
         return view('dashboard.user.pages.material.submaterial');

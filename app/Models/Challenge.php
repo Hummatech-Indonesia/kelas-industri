@@ -13,6 +13,9 @@ class Challenge extends Model
     public $keyType = 'char';
     protected $table = 'challenges';
     protected $primaryKey = 'id';
+    
 
     protected $fillable = ['id', 'classroom_id', 'created_by', 'difficulty', 'title', 'description', 'point', 'start_date', 'end_date'];
+
+
 }

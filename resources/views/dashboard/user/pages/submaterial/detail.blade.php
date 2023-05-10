@@ -204,7 +204,7 @@
                                                     </td>
                                                     <td>
                                                         @if (strtotime(now()) <= strtotime($assignment->end_date))
-                                                        <a href="#" class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
+                                                        <a href="{{ route('', $assignment->id) }}" class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
                                                         @else
                                                             <span class="badge badge-light-danger">Ditutup</span>
                                                         @endif
