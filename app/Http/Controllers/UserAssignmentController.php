@@ -25,4 +25,12 @@ class UserAssignmentController extends Controller
 //        dd($data);
         return \view('dashboard.user.pages.assignment.index', $data);
     }
+
+    public function create(Assignment $assignment) : View
+    {
+        $data = [
+            'submitAssignment' => $this->assignmentService->handleGetStudentSubmitAssignment(auth()->id(), $assignment->id)
+        ];
+        return \view('dashboard.user.pages.assignment.detail', $data);
+    }
 }

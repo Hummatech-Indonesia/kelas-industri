@@ -70,4 +70,10 @@ class AssignmentService
     {
         return $this->repository->destroy($id);
     }
+
+    public function handleGetStudentSubmitAssignment(string $studentId, string $assignmentId) :mixed
+    {
+        return $this->repository->get_submit_assignment_student($studentId, $assignmentId);
+    }
+
 }

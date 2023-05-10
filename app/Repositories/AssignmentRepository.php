@@ -2,20 +2,23 @@
 
 namespace App\Repositories;
 
+use App\Models\User;
 use App\Models\Assignment;
 use App\Models\StudentClassroom;
-use App\Models\User;
+use App\Models\SubmitAssignment;
 
 class AssignmentRepository extends BaseRepository
 {
     private StudentClassroom $studentClassroom;
     private User $student;
+    private SubmitAssignment $submitAssignment;
 
-    public function __construct(Assignment $assignment, StudentClassroom $studentClassroom, User $student)
+    public function __construct(Assignment $assignment, StudentClassroom $studentClassroom, User $student, SubmitAssignment $submitAssignment)
     {
         $this->model = $assignment;
         $this->studentClassroom = $studentClassroom;
         $this->student = $student;
+        $this->submitAssignment = $submitAssignment;
     }
 
     public function get_by_submaterial(string $submaterialId)
@@ -37,6 +40,13 @@ class AssignmentRepository extends BaseRepository
 //            ->withCount(['submitAssignment' => function ($q) use ($assignmentId) {
 //                $q->where('assignment_id', $assignmentId);
 //            }])
+            ->get();
+    }
+
+    public function get_submit_assignment_student(string $studentId, string $assignmentId): mixed
+    {
+        return $this->submitAssignment->query()
+            ->where(['assignment_id' => $studentId, 'student_id' => $studentId])
             ->get();
     }
 }
