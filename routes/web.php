@@ -155,7 +155,8 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 
-    Route::get('submitAssignment/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
+    Route::get('{classroom}/submitAssignment/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
+    Route::post('{classroom}/storeassignment/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
 
     Route::get('/sub-material', function () {
         return view('dashboard.user.pages.material.submaterial');

@@ -21,7 +21,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Tantangan
+                                    Tugas
                                 </h1>
                                 <!--end::Title-->
 
@@ -73,17 +73,17 @@
                         <x-errors-component />
                     @endif
                     <div class="row">
-                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
 
-                        <form action="{{ route('teacher.challenges.store') }}" method="POST" enctype="multipart/form-data">
-
-                        @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-
-                        <form action="{{ route('mentor.challenges.store') }}" method="POST" enctype="multipart/form-data">
-                        @endif
+                        <form
+                            action="{{ route('student.storeassignment', ['classroom' => $classroom, 'submaterial' => $subMaterial]) }}"
+                            method="POST" enctype="multipart/form-data">
 
                             @csrf
+
                             <div class="col-12">
+
+                                <input type="hidden" name="assignment_id" value="{{ $assignment->id }}">
+
                                 <div class="card card-custom card-sticky" id="kt_page_sticky_card">
 
                                     <div class="card-header" style="">
@@ -92,16 +92,15 @@
 
                                             <h3 class="card-label">
 
-                                                Silakan Isi Data Tantangan
+                                                Silakan Isi Tugas
 
                                             </h3>
 
                                         </div>
 
                                         <div class="card-toolbar">
-                                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
 
-                                            <a href="{{ route('teacher.challenges.index') }}"
+                                            <a href="{{ url()->previous() }}"
                                                 class="btn btn-light-primary font-weight-bolder me-2">
 
                                                 <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -109,19 +108,6 @@
                                                 Kembali
 
                                             </a>
-
-                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-
-                                            <a href="{{ route('mentor.challenges.index') }}"
-                                            class="btn btn-light-primary font-weight-bolder me-2">
-
-                                            <i class="ki ki-long-arrow-back icon-sm"></i>
-
-                                            Kembali
-
-                                        </a>
-
-                                            @endif
 
                                             <div class="btn-group">
 
@@ -142,33 +128,35 @@
                                     <div class="card-body">
 
                                         <div class="row">
-                                            @if (count($submitAssignment)>0)
+
 
                                             <div class="form-group row mb-3">
 
-                                                <label class="col-xl-3 col-lg-3 col-form-label">File </label>
+                                                <label class="col-xl-3 col-lg-3 col-form-label">File Tugas : </label>
 
                                                 <div class="col-lg-9 col-xl-9">
 
-                                                    <input class="form-control form-control-solid form-control-lg" name="teacher_file" type="file" value="{{$submitAssignment->file}}" placeholder="password" required="">
+                                                    <input class="form-control form-control-solid form-control-lg"
+                                                        name="file" type="file" value="" placeholder="password"
+                                                        required="">
 
                                                 </div>
 
                                             </div>
+                                            @if ($submitAssignment)
+                                                <div class="form-group row mb-3">
+
+                                                    <label class="col-xl-3 col-lg-3 col-form-label"></label>
+
+                                                    <div class="col-lg-9 col-xl-9">
+
+                                                        <a href="{{ asset($submitAssignment->file) }}" class="btn btn-success btn-sm mt-2"><i
+                                                class="fas fa-file-excel"></i>File tugas yang sudah anda kirim</a>
+
+                                                    </div>
+
+                                                </div>
                                             @endif
-
-                                            <div class="form-group row mb-3">
-
-                                                <label class="col-xl-3 col-lg-3 col-form-label">File </label>
-
-                                                <div class="col-lg-9 col-xl-9">
-
-                                                    <input class="form-control form-control-solid form-control-lg" name="teacher_file" type="file" value="" placeholder="password" required="">
-
-                                                </div>
-
-                                            </div>
-
                                         </div>
 
                                     </div>
@@ -200,8 +188,7 @@
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
-                            class="menu-link px-2">Tentang
+                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
                             Kami</a></li>
 
                     <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
@@ -217,4 +204,3 @@
         <!--end::Footer-->
     </div>
 @endsection
-

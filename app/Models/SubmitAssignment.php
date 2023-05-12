@@ -9,5 +9,5 @@ class SubmitAssignment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sub_material_id', 'student_id', 'file'];
+    protected $fillable = ['assignment_id', 'student_id', 'file'];
 }

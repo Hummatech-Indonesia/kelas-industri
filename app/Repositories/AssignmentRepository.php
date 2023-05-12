@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
 use App\Models\Assignment;
 use App\Models\StudentClassroom;
 use App\Models\SubmitAssignment;
+use App\Models\User;
 
 class AssignmentRepository extends BaseRepository
 {
@@ -46,7 +46,12 @@ class AssignmentRepository extends BaseRepository
     public function get_submit_assignment_student(string $studentId, string $assignmentId): mixed
     {
         return $this->submitAssignment->query()
-            ->where(['assignment_id' => $studentId, 'student_id' => $studentId])
-            ->get();
+            ->where(['assignment_id' => $assignmentId, 'student_id' => $studentId])
+            ->first();
+    }
+
+    public function create_submit_assignment(array $data): void
+    {
+        $this->submitAssignment->create($data);
     }
 }

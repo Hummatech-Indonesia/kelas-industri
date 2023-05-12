@@ -208,7 +208,7 @@
                                                 <td>
                                                     @if (strtotime(now()) <= strtotime($assignment->end_date))
                                                         @if(auth()->user()->roles->pluck('name')[0] == 'student')
-                                                            <a href="{{ route('student.submitAssignment', ['assignment' => $assignment->id]) }}"
+                                                            <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id,  ]) }}"
                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
                                                         @else
                                                             <a href="{{ route('teacher.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"

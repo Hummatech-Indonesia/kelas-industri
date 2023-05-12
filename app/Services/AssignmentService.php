@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\AssignmentRequest;
+use App\Http\Requests\SubmitAssignmentRequest;
 use App\Repositories\AssignmentRepository;
 
 class AssignmentService
@@ -12,6 +13,7 @@ class AssignmentService
     public function __construct(AssignmentRepository $repository)
     {
         $this->repository = $repository;
+
     }
 
     /**
@@ -48,6 +50,15 @@ class AssignmentService
         $this->repository->store($request->validated());
     }
 
+    public function submitAssignment(SubmitAssignmentRequest $request): void
+    {
+        // $data['assignment_id'] = $assignmentId;
+        $data = $request->validated();
+        $data['student_id'] = auth()->id();
+
+        $this->repository->create_submit_assignment($data);
+    }
+
     /**
      * handle update
      *
@@ -71,7 +82,7 @@ class AssignmentService
         return $this->repository->destroy($id);
     }
 
-    public function handleGetStudentSubmitAssignment(string $studentId, string $assignmentId) :mixed
+    public function handleGetStudentSubmitAssignment(string $studentId, string $assignmentId): mixed
     {
         return $this->repository->get_submit_assignment_student($studentId, $assignmentId);
     }
