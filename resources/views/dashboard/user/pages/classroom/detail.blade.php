@@ -88,10 +88,10 @@
                                                     <thead>
                                                         <tr class="fw-semibold fs-6 text-gray-800">
                                                             <th data-priority="1">No</th>
-                                                            <th class="min-w-200px" data-priority="2">Nama</th>
-                                                            <th class="min-w-200px" data-priority="3">Email</th>
+                                                            <th class="min-w-50px" data-priority="2">Nama</th>
+                                                            <th data-priority="3">Email</th>
                                                             <th data-priority="4">No Telepon</th>
-                                                            <th>Alamat</th>
+                                                            <th class="min-w-50px" data-priority="5">Alamat</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -252,4 +252,12 @@
         </div>
         <!--end::Footer-->
     </div>
+@endsection
+@section('script')
+<script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script>
+        $("#kt_datatable_responsive").DataTable({
+            responsive: true
+        });
+    </script>
 @endsection

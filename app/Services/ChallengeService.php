@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\ChallengeRequest;
 use App\Repositories\ChallengeRepository;
+use App\Http\Requests\SubmitChallengeRequest;
 
 class ChallengeService
 {
@@ -25,18 +26,38 @@ class ChallengeService
         return $this->repository->get_challenge_by_teacher($teacherId);
     }
 
+    public function handleGetByStudent(String $classroomId, int $schoolYearId): mixed
+    {
+        return $this->repository->get_challenge_by_student($classroomId, $schoolYearId);
+    }
+
+    public function handleGetByMentor(String $mentorId, int $schoolYearId): mixed
+    {
+        return $this->repository->get_challenge_by_mentor($mentorId, $schoolYearId);
+    }
+
     public function handleCreate(ChallengeRequest $request): void
     {
         $data = $request->validated();
         $data['created_by'] = auth()->id();
-        if(auth()->user()->roles->pluck('name')[0] == 'mentor'){
+        if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             $data['point'] = 2;
-        }elseif(auth()->user()->roles->pluck('name')[0] == 'teacher')
+        } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $data['point'] = 1;
+        }
+
         $this->repository->store($data);
     }
 
-    public function handleUpdate(ChallengeRequest $request, string $id) : void
+    public function submitChallenge(SubmitChallengeRequest $request): void
+    {
+        $data = $request->validated();
+        $data['student_school_id'] = auth()->id();
+
+        $this->repository->create_submit_challenge($data);
+    }
+
+    public function handleUpdate(ChallengeRequest $request, string $id): void
     {
         $this->repository->update($id, $request->validated());
     }

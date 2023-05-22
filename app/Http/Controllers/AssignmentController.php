@@ -37,7 +37,10 @@ class AssignmentController extends Controller
      */
     public function create(SubMaterial $submaterial): View
     {
-        return view('dashboard.admin.pages.assignment.create', compact('submaterial'));
+        $data = [
+            'submaterial' => $submaterial
+        ];
+        return view('dashboard.admin.pages.assignment.create', $data);
     }
 
     /**

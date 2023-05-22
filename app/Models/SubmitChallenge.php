@@ -9,5 +9,5 @@ class SubmitChallenge extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['challenge_id', 'student_id', 'is_valid'];
+    protected $fillable = ['challenge_id', 'student_school_id', 'is_valid'];
 }

@@ -21,7 +21,9 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+
                                     Latihan {{ $challenge->title }}
+
                                 </h1>
                                 <!--end::Title-->
 
@@ -69,8 +71,12 @@
 
                                             <div class="symbol symbol-50 symbol-lg-120  symbol-danger ">
 
+
+
                                                 <span
                                                     class="font-size-h3 symbol-label font-weight-boldest">{{ substr($challenge->title, 0, 1) }}</span>
+
+
 
                                             </div>
 
@@ -131,6 +137,7 @@
                                                 <div class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
 
                                                     {{ $challenge->description }}
+
                                                 </div>
 
 
@@ -146,7 +153,9 @@
                                                             <span
                                                                 class="badge badge-light-primary text-uppercase font-weight-bold">
 
+
                                                                 {{ $challenge->start_date }}
+
                                                             </span>
 
                                                         </div>
@@ -158,7 +167,9 @@
                                                             <span
                                                                 class="badge badge-light-danger text-uppercase font-weight-bold">
 
+
                                                                 {{ $challenge->end_date }}
+
                                                             </span>
                                                         </div>
 
@@ -211,8 +222,11 @@
                                                 <span class="font-size-sm">Poin</span>
 
                                                 <span class="fw-bold font-size-h5"><span
-                                                        class="text-dark-50 font-weight-bold"></span>{{ $challenge->point }}
-                                                    poin</span>
+                                                        class="text-dark-50 font-weight-bold"></span>
+
+                                                    {{ $challenge->point }} poin
+
+                                                </span>
 
                                             </div>
 
@@ -233,7 +247,11 @@
                                                 <span class="font-weight-bolder font-size-sm">Kesulitan</span>
 
                                                 <span class="fw-bold font-size-h5"><span
-                                                        class="text-dark-50 font-weight-bold"></span>{{ $challenge->difficulty }}</span>
+                                                        class="text-dark-50 font-weight-bold"></span>
+
+                                                    {{ $challenge->difficulty }}
+
+                                                </span>
 
                                             </div>
 
@@ -248,10 +266,10 @@
                                         <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
 
                                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                            <span class="me-4">
-                                                <i class="las la-info-circle text-muted fs-3x"></i>
+                                                <span class="me-4">
+                                                    <i class="las la-info-circle text-muted fs-3x"></i>
 
-                                            </span>
+                                                </span>
 
                                                 <div class="d-flex flex-column flex-lg-fill">
 
@@ -296,27 +314,59 @@
                                         class="table table-striped border rounded gy-5 gs-7">
                                         <thead>
                                             <tr class="fw-semibold fs-6 text-gray-800">
-                                                <th class="min-w-300px" data-priority="1">Judul</th>
+                                                <th class="min-w-200px" data-priority="1">Judul</th>
                                                 <th class="min-w-300px">Deskripsi</th>
                                                 <th class="min-w-100px" data-priority="2">Nilai</th>
                                                 <th class="min-w-100px" data-priority="3">Tenggat</th>
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                    <th class="min-w-100px" data-priority="4">Status</th>
+                                                    <th class="min-w-100px" data-priority="5">Status</th>
+                                                    <th class="min-w-100px" data-priority="4">Aksi</th>
                                                 @endif
-                                                
+
 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>{{ $challenge->title }}</td>
-                                                <td>{{ $challenge->description }}</td>
+                                                <td>
+
+                                                    {{ $challenge->title }}
+
+                                                </td>
+                                                <td>
+
+                                                    {{ $challenge->description }}
+
+                                                </td>
                                                 <td>61</td>
-                                                <td><span
-                                                        class="badge badge-light-danger">{{ $challenge->end_date }}</span>
+                                                <td><span class="badge badge-light-danger">
+
+                                                        {{ $challenge->end_date }}
+
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    @if (strtotime(now()) <= strtotime($challenge->end_date))
+                                                        <span class="badge badge-light-success">Tersedia</span>
+                                                    @else
+                                                        <span class="badge badge-light-danger">Ditutup</span>
+                                                    @endif
                                                 </td>
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                    <td>Tidak Dikerjakan</td>
+                                                    <td>
+                                                        @if (strtotime(now()) <= strtotime($challenge->end_date))
+                                                            @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                                                <a href="{{ route('student.submitChallenge', ['challenge' => $challenge->id ]) }}"
+                                                                    class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
+                                                            @else
+                                                                <a href="#"
+                                                                    class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
+                                                            @endif
+                                                        @else
+                                                            <span class="badge badge-light-danger">Ditutup</span>
+                                                        @endif
+                                                    </td>
+
                                                 @endif
 
                                             </tr>
@@ -364,10 +414,10 @@
         </div>
     @endsection
     @section('script')
-        <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-        <script>
-            $("#kt_datatable_responsive").DataTable({
-                responsive: true
-            });
-        </script>
+    <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script>
+        $("#kt_datatable_responsive").DataTable({
+            responsive: true
+        });
+    </script>
     @endsection

@@ -209,10 +209,9 @@
 
                                                 <div class="col-lg-9 col-xl-9">
 
-                                                    <textarea class="form-control form-control-solid form-control-lg" name="description" type="text"
-                                                        value="{{ old('description') }}" placeholder="" required="" id="" cols="10" rows="5">
-                                                    </textarea>
-
+                                                    <textarea class="form-control form-control-solid form-control-lg" rows="5"
+                                                              name="description" type="text" placeholder="deskripsi tantangan"
+                                                              required="">{{ old('description') }}</textarea>
 
                                                 </div>
 

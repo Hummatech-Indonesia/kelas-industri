@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\MentorClassroom;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +28,16 @@ class Classroom extends Model
     public function students(): HasMany
     {
         return $this->hasMany(StudentClassroom::class);
+    }
+
+    /**
+     * one to many relationship
+     *
+     * @return HasOne
+     */
+    public function mentorClassrooms(): HasMany
+    {
+        return $this->hasMany(MentorClassroom::class);
     }
 
     /**

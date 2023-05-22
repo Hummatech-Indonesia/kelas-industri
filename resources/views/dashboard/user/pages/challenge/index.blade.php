@@ -218,6 +218,12 @@
                                             <a href="{{ route('mentor.challenges.show', $challenge->id) }}" class="btn btn-primary btn-sm" type="button">Selengkapnya</a>
 
                                         </div>
+                                        @elseif (auth()->user()->roles->pluck('name')[0] == 'student')
+                                        <div class="d-grid gap-2">
+
+                                            <a href="{{ route('student.challenges.show', $challenge->id) }}" class="btn btn-primary btn-sm" type="button">Selengkapnya</a>
+
+                                        </div>
                                         @endif
 
                                         <!--end::Footer-->
@@ -297,7 +303,7 @@
                     ':id', $("input[name='search']").val())
             })
 
-            
+
         });
     </script>
 @endsection

@@ -59,11 +59,11 @@ class User extends Authenticatable
     /**
      * one to many relaltionship
      *
-     * @return HasMany
+     * @return HasOne
      */
-    public function studentSchool(): HasMany
+    public function studentSchool(): HasOne
     {
-        return $this->hasMany(StudentSchool::class, 'student_id');
+        return $this->hasOne(StudentSchool::class, 'student_id');
     }
 
     /**

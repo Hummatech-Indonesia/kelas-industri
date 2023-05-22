@@ -70,15 +70,27 @@
                                         class="menu-title">Tantangan</span></a>
                             @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                 <a href="{{ route('mentor.challenges.index') }}"
-                                    class="menu-link {{ request()->routeIs('teacher.challenges.index') ? 'active' : '' }}"><span
+                                    class="menu-link {{ request()->routeIs('mentor.challenges.index') ? 'active' : '' }}"><span
+                                        class="menu-title">Tantangan</span></a>
+                            @elseif (auth()->user()->roles->pluck('name')[0] == 'student')
+                                <a href="{{ route('student.challenges.index') }}"
+                                    class="menu-link {{ request()->routeIs('student.challenges.index') ? 'active' : '' }}"><span
                                         class="menu-title">Tantangan</span></a>
                             @endif
                             <!--end:Menu link-->
                         </div>
+                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <!--begin:Menu link-->
+                                <a href="{{ route('mentor.absent') }}" class="menu-link"><span
+                                        class="menu-title">Absen</span></a>
+                                <!--end:Menu link-->
+                            </div>
+                        @endif
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <a href="{{ route('student.challenges') }}" class="menu-link"><span
-                                    class="menu-title">Peringkat</span></a>
+                            <a href="#" class="menu-link">
+                                <span class="menu-title">Peringkat</span></a>
                             <!--end:Menu link-->
                         </div>
                     </div>

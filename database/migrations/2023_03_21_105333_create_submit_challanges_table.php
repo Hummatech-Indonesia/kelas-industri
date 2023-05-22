@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('submit_challenges', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('challenge_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignUuid('student_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('student_school_id')->constrained('student_schools')->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('is_valid', ['valid', 'not_valid']);
             $table->timestamps();
         });

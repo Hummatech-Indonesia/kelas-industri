@@ -1,22 +1,23 @@
 <?php
 
-use App\Http\Controllers\AssignmentController;
-use App\Http\Controllers\ChallengeController;
-use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\GenerationController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\MentorController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\SchoolYearController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\SubMaterialController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\UserAssignmentController;
-use App\Http\Controllers\UserClassroomController;
-use App\Http\Controllers\ZoomScheduleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AbsentController;
+use App\Http\Controllers\MentorController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\GenerationController;
+use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\SubMaterialController;
+use App\Http\Controllers\ZoomScheduleController;
+use App\Http\Controllers\UserClassroomController;
+use App\Http\Controllers\UserAssignmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,6 +128,7 @@ Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->g
     Route::resources([
         'challenges' => ChallengeController::class,
     ]);
+    Route::get('/absent', [AbsentController::class, 'index'])->name('absent');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 });
 //end mentor
@@ -157,19 +159,26 @@ Route::prefix('student')->name('student.')->group(function () {
 
     Route::get('{classroom}/submitAssignment/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
     Route::post('{classroom}/storeassignment/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
+    
+    Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
+    Route::post('storeassignment', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
 
-    Route::get('/sub-material', function () {
-        return view('dashboard.user.pages.material.submaterial');
-    })->name('submaterial');
-    Route::get('/sub-material/detail', function () {
-        return view('dashboard.user.pages.material.detail');
-    })->name('submaterial-detail');
-    Route::get('/challenges', function () {
-        return view('dashboard.user.pages.challenge.index');
-    })->name('challenges');
-    Route::get('/leaderboards', function () {
-        return view('dashboard.user.pages.leaderboard.index');
-    })->name('leaderboards');
+    Route::resources([
+        'challenges' => ChallengeController::class,
+    ]);
+
+    // Route::get('/sub-material', function () {
+    //     return view('dashboard.user.pages.material.submaterial');
+    // })->name('submaterial');
+    // Route::get('/sub-material/detail', function () {
+    //     return view('dashboard.user.pages.material.detail');
+    // })->name('submaterial-detail');
+    // Route::get('/challenges', function () {
+    //     return view('dashboard.user.pages.challenge.index');
+    // })->name('challenges');
+    // Route::get('/leaderboards', function () {
+    //     return view('dashboard.user.pages.leaderboard.index');
+    // })->name('leaderboards');
 });
 //end student
 

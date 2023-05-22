@@ -41,6 +41,11 @@ class ClassroomService
         return $this->repository->get_by_mentor($mentorId);
     }
 
+    public function handleGetByStudent(String $studentId): mixed
+    {
+        return $this->repository->get_by_student($studentId);
+    }
+
     public function handleGetClassroomByUser(string $userId)
     {
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
