@@ -38,4 +38,16 @@ class MentorRepository extends BaseRepository
             'classroom_id' => $data['classroom_id']
         ], $data);
     }
+
+    public function student_have_mentor(string $mentorId): bool
+    {
+        $check = $this->model
+        ->where('classroom_id',auth()->user()->students[0]->classrooms[0]->classroom_id)
+        ->where('mentor_id',$mentorId)
+        ->count();
+        if($check > 0){
+            return true;
+        }
+        return false;
+    }
 }

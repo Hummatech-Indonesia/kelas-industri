@@ -57,15 +57,9 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="#"
-                                   class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold"
-                                   data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">
-                                    Add Member
-                                </a>
-
                                 <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold"
                                    data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">
-                                    New Campaign
+                                    Buat Absensi
                                 </a>
                             </div>
                             <!--end::Actions-->
@@ -84,6 +78,7 @@
                                 <div class="card-body pt-0">
 
                                     <!--begin::Table-->
+                                    @if($attendances->count() > 0)
                                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
                                         <!--begin::Table head-->
                                         <thead>
@@ -101,9 +96,15 @@
 
                                         <!--begin::Table body-->
                                         <tbody class="fw-semibold text-gray-600">
+                                            @foreach($attendances as $attendance)
+                                            
+                                            @endforeach
                                         </tbody>
                                         <!--end::Table body-->
                                     </table>
+                                    @else
+                                    <x-empty-component title="Absen"/>
+                                    @endif
                                     <!--end::Table-->
                                 </div>
                                 <!--end::Card body-->

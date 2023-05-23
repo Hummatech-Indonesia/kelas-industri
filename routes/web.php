@@ -12,6 +12,7 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\SubMaterialController;
@@ -127,8 +128,8 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
 Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->group(function () {
     Route::resources([
         'challenges' => ChallengeController::class,
+        'absent' => AttendanceController::class
     ]);
-    Route::get('/absent', [AbsentController::class, 'index'])->name('absent');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 });
 //end mentor
