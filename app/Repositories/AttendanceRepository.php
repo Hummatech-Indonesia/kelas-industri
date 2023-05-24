@@ -27,6 +27,7 @@ class AttendanceRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('created_by', $mentorId)
+            ->orderBy('created_at','desc')
             ->get();
     }
     public function get_student_attendance_status(string $attendanceId): mixed 
@@ -43,10 +44,9 @@ class AttendanceRepository extends BaseRepository
 
     public function update_status(string $id): void
     {
-        $this->model->findorfail($id)
-            ->update([
-                'status' => 'close',
-            ]);
+        $data = $this->model->query()->findorfail($id);
+        $data->status = 'close';
+        $data->save();
     }
 }
 

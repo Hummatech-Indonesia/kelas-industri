@@ -7,12 +7,14 @@ use App\Models\Material;
 use App\Models\Challenge;
 use App\Models\Classroom;
 use App\Models\Assignment;
+use App\Models\Attendance;
 use App\Models\SubMaterial;
 use App\Observers\UserObserver;
 use App\Observers\MaterialObserver;
 use App\Observers\ChallengeObserver;
 use App\Observers\ClassroomObserver;
 use App\Observers\AssignmentObserver;
+use App\Observers\AttendanceObserver;
 use App\Observers\SubmaterialObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -44,6 +46,7 @@ class EventServiceProvider extends ServiceProvider
         Assignment::observe(AssignmentObserver::class);
         Classroom::observe(ClassroomObserver::class);
         Challenge::observe(ChallengeObserver::class);
+        Attendance::observe(AttendanceObserver::class);
     }
 
     /**

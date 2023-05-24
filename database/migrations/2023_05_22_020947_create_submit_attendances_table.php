@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('submit_attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('attendace_id');
-            $table->foreign('attendace_id')
+            $table->foreignUuid('attendance_id');
+            $table->foreign('attendance_id')
             ->references('id')
             ->on('attendances')
             ->cascadeOnDelete();

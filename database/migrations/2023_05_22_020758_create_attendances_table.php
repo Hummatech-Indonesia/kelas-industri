@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('title');
             $table->string('status')->default('open');
             $table->foreignUuid('created_by')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();

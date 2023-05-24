@@ -20,7 +20,19 @@ class AttendanceRequest extends BaseRequest
     public function rules() : array
     {
         return [
-            //
+            'title' => 'required'
+        ];
+    }
+
+    /**
+     * custom messages
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Judul Tidak Boleh Kosong!'
         ];
     }
 }

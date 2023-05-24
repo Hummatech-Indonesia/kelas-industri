@@ -163,7 +163,7 @@ Route::prefix('student')->name('student.')->group(function () {
     
     Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
     Route::post('storeassignment', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
-
+    Route::get('/absen/{attendance}',[AttendanceController::class,'submit']);
     Route::resources([
         'challenges' => ChallengeController::class,
     ]);

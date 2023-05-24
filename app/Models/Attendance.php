@@ -9,5 +9,12 @@ class Attendance extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+    public $keyType = 'char';
+    protected $table = 'attendances';
+    protected $primaryKey = 'id';
+
+    protected $fillable = ['id','title', 'created_by'];
+
     protected $guarded = [];
 }

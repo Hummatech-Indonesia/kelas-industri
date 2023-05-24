@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\AttendanceRequest;
 use App\Http\Requests\SubmitAttendanceRequest;
+use App\Models\Attendance;
 use App\Repositories\AttendanceRepository;
 use App\Repositories\MentorRepository;
 
@@ -33,52 +34,58 @@ class AttendanceService
     public function handleCreate(AttendanceRequest $request): void
     {
         $data = $request->validated();
-        $data['created_by'] = auth()->id();
-        if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            $data['point'] = 2;
-        } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            $data['point'] = 1;
-        }
-
+        $data['created_by'] = auth()->user()->id;
         $this->repository->store($data);
+    }
+
+    public function handleShow(Attendance $attandance) : mixed
+    {
+        return $this->repository->show($attandance->id);
     }
 
     public function validate_student_mentor($mentorId) : bool 
     {
         return $this->mentorRepository->student_have_mentor($mentorId);
     }
-    public function validate_attendance_status($attendanceId) : bool
+    public function validate_attendance_status(Attendance $attendance) : bool
     {
-        $check = $this->repository->show($attendanceId);
+        $check = $this->repository->show($attendance->id);
         if($check->status == 'close'){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
-    public function validate_student_submit_status(string $attendanceId) : bool 
+    public function validate_student_submit_status(Attendance $attendance) : bool
     {
-        return $this->repository->get_student_attendance_status($attendanceId);;
+        if($this->repository->get_student_attendance_status($attendance->id)->count() > 0){
+            return true;
+        }
+        return false;
     }
 
-    public function submitAttendance(SubmitAttendanceRequest $request): void
+    public function submitAttendance(Attendance $attendance): void
     {
-        $data = $request->validated();
-        $data['student_school_id'] = auth()->id();
+        $data['student_id'] = auth()->id();
+        $data['attendance_id'] = $attendance->id;
         $this->repository->create_submit_attendance($data);
     }
 
-    public function handleUpdate(AttendanceRequest $request, string $id): void
+    public function handleUpdate(AttendanceRequest $request, Attendance $attandance): void
     {
-        $this->repository->update($id, $request->validated());
+        $this->repository->update($attandance->id, $request->validated());
     }
 
-    public function changeStatus(string $id): void
+    // public function changeStatus(Attendance $attendance): void
+    // {
+    //     $this->repository->update_status($attendance->id);
+    // }
+    public function changeStatus($id): void
     {
         $this->repository->update_status($id);
     }
 
-    public function handleDelete(string $id): bool
+    public function handleDelete($id): bool
     {
         return $this->repository->destroy($id);
     }

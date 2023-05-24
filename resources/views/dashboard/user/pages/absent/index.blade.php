@@ -57,8 +57,7 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold"
-                                   data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">
+                                <a href="/mentor/absent/create" class="btn btn-flex btn-primary h-40px fs-7 fw-bold">
                                     Buat Absensi
                                 </a>
                             </div>
@@ -88,6 +87,7 @@
                                             <th>Judul</th>
                                             <th>Tanggal</th>
                                             <th>Link</th>
+                                            <th>Status</th>
                                             <th class="text-end min-w-70px">Aksi</th>
                                         </tr>
                                         <!--end::Table row-->
@@ -97,7 +97,27 @@
                                         <!--begin::Table body-->
                                         <tbody class="fw-semibold text-gray-600">
                                             @foreach($attendances as $attendance)
-                                            
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$attendance->title}}</td>
+                                                <td>{{ \Carbon\Carbon::parse($attendance->created_at)->locale('id')->isoFormat('D MMMM YYYY') }}</td>
+                                                <td>
+                                                    <button class="clipboard-link" style="border:none" data-link="/{{ $attendance->id }}">
+                                                        <i class="clipboard-icon fas fa-clipboard"></i>
+                                                    </button>
+                                                </td>
+                                                <td>{{$attendance->status}}</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <button class="btn btn-default btn-update btn-sm p-1" data-id="{{$attendance->id}}">
+                                                            <i class="fonticon-setting fs-2 text-warning"></i>
+                                                        </button>
+                                                        <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $attendance->id }}">
+                                                            <i class="fonticon-trash-bin fs-2 text-danger"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             @endforeach
                                         </tbody>
                                         <!--end::Table body-->
@@ -149,12 +169,74 @@
         </div>
         <!--end::Footer-->
     </div>
+    <x-delete-modal-component />
+    {{--    Update Status --}}
+    <div class="modal fade" tabindex="-1" id="kt_modal_update">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Tutup Absen</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <form id="form-update" action="" method="post">
+                    @method('PUT')
+                    @csrf
+                    <div class="modal-body">
+                        <p>Apakah anda yakin ingin menutup absen? siswa tidak akan dapat absen lagi</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-warning">Tutup Absen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--    end Update Statusl --}}
 @endsection
 @section('script')
     <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $("#kt_datatable_responsive").DataTable({
             responsive: true
+        });
+
+        $('.btn-delete').click(function() {
+                const url = "{{ route('mentor.absent.destroy', ':id') }}".replace(':id', $(this).data(
+                    'id'))
+                $('#form-delete').attr('action', url)
+
+                $('#kt_modal_delete').modal('show')
+        })
+        $('.btn-update').click(function() {
+                const url = "{{ route('mentor.absent.update', ':id') }}".replace(':id', $(this).data(
+                    'id'))
+                $('#form-update').attr('action', url)
+
+                $('#kt_modal_update').modal('show')
+        })
+
+        
+        $(document).ready(function() {
+            $('.clipboard-link').click(function() {
+                var link = $(this).attr('data-link');
+                var currentURL = window.location.href;
+                var baseURL = window.location.protocol + "//" + window.location.hostname;
+                const link_absen = baseURL + '/students/absen' + link
+                var tempInput = $('<input>');
+                $('body').append(tempInput);
+                tempInput.val(link_absen).select();
+                document.execCommand('copy');
+                tempInput.remove();
+                alert('Tautan berhasil disalin ke clipboard!');
+                console.log(link_absen)
+            });
         });
     </script>
 @endsection

@@ -35,20 +35,19 @@ class AttendanceController extends Controller
      */
     public function create(): View
     {
-        return view();
+        return view('dashboard.user.pages.absent.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ClassroomRequest $request
+     * @param AttendanceRequest $request
      * @return RedirectResponse
      */
     public function store(AttendanceRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-        $this->service->handleCreate($data);
-        return redirect()->back();
+        $this->service->handleCreate($request);
+        return to_route('mentor.absent.index')->with('success', trans('alert.create_success'));
     }
 
     /**
@@ -62,6 +61,7 @@ class AttendanceController extends Controller
     {
         return view('tes');
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -78,23 +78,54 @@ class AttendanceController extends Controller
      * Update the specified resource in storage.
      *
      * @param ClassroomRequest $request
-     * @param Classroom $classroom
+     * @param Attendance $attendance
      * @return RedirectResponse
      */
-    public function update(Attendance $attendance): RedirectResponse
+    // public function update(Attendance $attendance): RedirectResponse
+    // {
+    //     dd($attendance);
+    //     $this->service->changeStatus($attendance);
+    //     return to_route('mentor.absent.index')->with('success', trans('alert.update_success'));
+    // }
+    public function update($id): RedirectResponse
     {
-        $this->service->changeStatus($attendance);
-        return to_route('school.classrooms.index')->with('success', trans('alert.update_success'));
+        // dd($attendance);
+        $this->service->changeStatus($id);
+        return to_route('mentor.absent.index')->with('success', trans('alert.update_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param Attendance $attendance
+     * @return RedirectResponse
+     */
+    // public function destroy(Attendance $attendance): RedirectResponse
+    // {
+    //     $this->service->handleDelete($attendance);
+    //     return back()->with('success', trans('alert.delete_success'));
+    // }
+    public function destroy($id): RedirectResponse
+    {
+        $this->service->handleDelete($id);
+        return back()->with('success', trans('alert.delete_success'));
+    }
+
+    /**
+     * submit absent.
+     *
      * @param Classroom $classroom
      * @return RedirectResponse
      */
-    public function destroy(Attendance $attendance): RedirectResponse
+    public function submit(Attendance $attendance): view
     {
-        return back()->with('success', trans('alert.delete_success'));
+        $mentor = $this->service->handleShow($attendance);
+        if($this->service->validate_student_mentor($mentor->created_by)) abort(404);
+        if($this->service->validate_attendance_status($attendance)) return view('dashboard.user.pages.absent.status')->with(['status' => 'closed']);
+        if($this->service->validate_student_submit_status($attendance)) return view('dashboard.user.pages.absent.status')->with(['status' => 'have_done']);
+
+        $this->service->submitAttendance($attendance);
+        return view('dashboard.user.pages.absent.status')->with(['status' => 'success']);
+
     }
 }
