@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('challenge_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('student_school_id')->constrained('student_schools')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->text('file');
             $table->enum('is_valid', ['valid', 'not_valid']);
             $table->timestamps();
         });

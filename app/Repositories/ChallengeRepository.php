@@ -2,18 +2,21 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
 use App\Models\Challenge;
+use App\Models\Point;
 use App\Models\SubmitChallenge;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ChallengeRepository extends BaseRepository
 {
     private User $user;
 
-    public function __construct(Challenge $model, SubmitChallenge $submitChallenge)
+    public function __construct(Challenge $model, SubmitChallenge $submitChallenge, Point $point)
     {
         $this->model = $model;
         $this->submitChallenge = $submitChallenge;
+        $this->point = $point;
     }
 
     /**
@@ -54,8 +57,76 @@ class ChallengeRepository extends BaseRepository
             ->get();
     }
 
-    public function create_submit_challenge(array $data) : void
+    public function updateSubmitChallengeByStudentId($data, int $studentId): void
     {
-        $this->submitChallenge->create($data);
+        // Menghapus file lama jika ada
+        $oldFile = $this->submitChallenge->where('student_school_id', $studentId)->first();
+        if ($oldFile) {
+            Storage::disk('public')->delete($oldFile->file);
+        }
+        // Simpan data tantangan yang baru
+
+        $this->submitChallenge->updateOrCreate(
+            [
+                'challenge_id' => $data['challenge_id'],
+                'student_school_id' => $studentId,
+            ],
+            [
+                'file' => $data['file'],
+                'is_valid' => $data['is_valid'],
+            ]
+        );
     }
+
+    public function getSubmitChallengeByStudentId($studentId)
+    {
+        return $this->submitChallenge->where('student_school_id', $studentId)->first();
+    }
+
+    public function update_challenge_valid(int $id): void
+    {
+        $this->submitChallenge->findorfail($id)->update([
+            'is_valid' => 'valid',
+        ]);
+    }
+
+    public function create_point_challenge(int $point, string $studentId): void
+    {
+        $this->point->create([
+            'student_id' => $studentId,
+            'point' => $point,
+        ]);
+    }
+
+    public function get_submit_challenge_student(string $studentId, string $challengeId): mixed
+    {
+        return $this->submitChallenge->query()
+            ->where(['challenge_id' => $challengeId, 'student_school_id' => $studentId])
+            ->first();
+    }
+
+    public function get_student_challenge_by_mentor(string $challengeId): mixed
+    {
+        return $this->submitChallenge->query()
+            ->with([
+                'studentSchool' => [
+                    'student',
+                ],
+            ])
+            ->where(['challenge_id' => $challengeId])
+            ->get();
+    }
+
+    public function get_student_challenge_by_teacher(string $challengeId): mixed
+    {
+        return $this->submitChallenge->query()
+            ->with([
+                'challenge' => [
+                    'teacher',
+                ],
+            ])
+            ->where(['challenge_id' => $challengeId])
+            ->get();
+    }
+
 }

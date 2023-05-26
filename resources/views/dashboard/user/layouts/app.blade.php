@@ -25,7 +25,7 @@
 {{--    Plugin Stylesheets --}}
     <link href="{{ asset('user-assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
 
-{{--    End Plugin Stylesheets --}}
+{{--    End Plugin Styleshets --}}
 </head>
 <!--end::Head-->
 

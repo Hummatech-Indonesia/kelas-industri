@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\ChallengeRequest;
 use App\Repositories\ChallengeRepository;
 use App\Http\Requests\SubmitChallengeRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ChallengeService
 {
@@ -26,6 +27,11 @@ class ChallengeService
         return $this->repository->get_challenge_by_teacher($teacherId);
     }
 
+    public function handleChallengeByTeacher(string $challengeId): mixed
+    {
+        return $this->repository->get_student_challenge_by_teacher($challengeId);
+    }
+
     public function handleGetByStudent(String $classroomId, int $schoolYearId): mixed
     {
         return $this->repository->get_challenge_by_student($classroomId, $schoolYearId);
@@ -34,6 +40,11 @@ class ChallengeService
     public function handleGetByMentor(String $mentorId, int $schoolYearId): mixed
     {
         return $this->repository->get_challenge_by_mentor($mentorId, $schoolYearId);
+    }
+
+    public function handleGetChallengeByMentor(String $challengeId): mixed
+    {
+        return $this->repository->get_student_challenge_by_mentor($challengeId);
     }
 
     public function handleCreate(ChallengeRequest $request): void
@@ -49,12 +60,36 @@ class ChallengeService
         $this->repository->store($data);
     }
 
+    public function handleUpadetValid($id): void
+    {
+        $this->repository->update_challenge_valid($id);
+    }
+
+    public function handleCreatePoint($point, $studentId): void
+    {
+        $this->repository->create_point_challenge($point, $studentId);
+    }
+
     public function submitChallenge(SubmitChallengeRequest $request): void
     {
         $data = $request->validated();
-        $data['student_school_id'] = auth()->id();
+        $data['is_valid'] = 'not_valid';
+        $studentId = auth()->user()->students[0]->id;
 
-        $this->repository->create_submit_challenge($data);
+        $oldFile = $this->repository->getSubmitChallengeByStudentId($studentId);
+        if ($oldFile) {
+            Storage::disk('public')->delete($oldFile->file);
+        }
+
+        $data['file'] = $request->file('file')->store('challenge_file', 'public');
+        $data['student_school_id'] = $studentId;
+        $this->repository->updateSubmitChallengeByStudentId($data, $studentId);
+    }
+
+    public function handleGetStudentSubmitChallenge(string $studentId, string $challengeId): mixed
+    {
+
+        return $this->repository->get_submit_challenge_student($studentId, $challengeId);
     }
 
     public function handleUpdate(ChallengeRequest $request, string $id): void

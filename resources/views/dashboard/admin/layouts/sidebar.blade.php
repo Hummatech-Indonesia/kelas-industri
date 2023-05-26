@@ -261,8 +261,7 @@
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div class="menu-item"><!--begin:Menu link-->
-                        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/base/utilities"
-                           target="_blank">
+                        <a class="menu-link" href="{{route('admin.rankings')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/arrows/arr056.svg-->
 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"

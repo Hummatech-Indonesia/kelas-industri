@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Point;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -38,4 +39,15 @@ class StudentSchool extends Model
     {
         return $this->hasOne(studentClassroom::class)->latest();
     }
+
+    /**
+     * Get the school that owns the StudentSchool
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function school(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'school_id');
+    }
+
 }

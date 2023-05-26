@@ -12,8 +12,7 @@
                 <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-8 ">
 
                     <!--begin::Toolbar container-->
-                    <div id="kt_app_toolbar_container"
-                         class="app-container  container-fluid d-flex flex-stack flex-wrap ">
+                    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex flex-stack flex-wrap ">
                         <!--begin::Toolbar wrapper-->
                         <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
 
@@ -23,7 +22,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    {{ 'aa' }}
+
                                 </h1>
                                 <!--end::Title-->
 
@@ -31,7 +30,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        {{ 'aa' }} Tugasg
+                                        Tugas
                                     </li>
                                     <!--end::Item-->
 
@@ -42,7 +41,7 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 <a href="{{ url()->previous() }}"
-                                   class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
                             </div>
@@ -65,53 +64,68 @@
                                         <span class="text-gray-400 mt-1 fw-semibold fs-6">list tugas anda.</span>
                                     </h3>
 
-                                    {{-- <div class="my-lg-0 my-1">
+                                    <div class="my-lg-0 my-1">
 
-                                        <a href="{{ route('admin.submaterials.createAssignment', ['submaterial' => $subMaterial->id]) }}"
-                                           class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Tambah Tugas</a>
+                                        <form action="storePointAssignment/{submitAssingnment}" method="post">
+                                            @csrf
+                                            <button class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
+                                                Nilai
+                                            </button>
+                                            <button class="btn btn-sm btn-success font-weight-bolder text-uppercase">
+                                                Dwonload Semua File
+                                            </button>
 
-                                    </div> --}}
+                                    </div>
+
+
                                     <!--end::Title-->
                                 </div>
                                 <div class="card-body">
 
                                     <table id="kt_datatable_responsive"
-                                           class="table table-striped border rounded gy-5 gs-7">
+                                        class="table table-striped border rounded gy-5 gs-7">
                                         <thead>
-                                        <tr class="fw-semibold fs-6 text-gray-800">
-                                            <th data-priority="1">No</th>
-                                            <th class="min-w-200px" data-priority="2">Nama</th>
-                                            <th class="min-w-200px" data-priority="3">File</th>
-                                            <th data-priority="4">Nilai</th>
-                                            <th>Aksi</th>
-                                        </tr>
+                                            <tr class="fw-semibold fs-6 text-gray-800">
+                                                <th data-priority="1">No</th>
+                                                <th class="min-w-100px" data-priority="2">Nama</th>
+                                                <th data-priority="3">File</th>
+                                                <th data-priority="4">Nilai</th>
+                                                <th data-priority="5">Masukkan Nilai</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        @forelse($students as $student)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $student->name }}</td>
-                                                @if($student->submitAssignment)
-                                                    <td>{{ $student->submitAssignment->file }}</td>
-                                                    @if($student->submitAssignment->point)
-                                                        <td>{{ $student->submitAssignment->point }}</td>
-                                                        <td>-</td>
+                                            @forelse($students as $student)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $student->name }}</td>
+                                                    @if ($student->submitAssignment)
+                                                        <td>
+                                                            <a href="{{ asset('storage/' . $student->submitAssignment->file) }}"
+                                                                target="_blank" class="btn btn-danger btn-sm"><i
+                                                                    class="fas fa-file-pdf"></i>Download </a>
+                                                        </td>
+                                                        @if ($student->submitAssignment->point)
+                                                            <td>{{ $student->submitAssignment->point }}</td>
+                                                            <td>-</td>
+                                                        @else
+                                                            <td>-</td>
+                                                            <td>
+                                                                <input type="text"
+                                                                    class="form-control form-control-solid form-control-lg"
+                                                                    placeholder="Nilai"></input>
+                                                            </td>
+                                                            </form>
+                                                        @endif
                                                     @else
                                                         <td>-</td>
-                                                        <td>
-                                                            <button class="btn btn-primary btn-sm">Nilai</button>
-                                                        </td>
+                                                        <td>-</td>
+                                                        <td>-</td>
                                                     @endif
-                                                @else
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                @endif
 
-                                            </tr>
-                                        @empty
-                                            <x-empty-component title="tugas"/>
-                                        @endforelse
+                                                </tr>
+                                            @empty
+                                                <x-empty-component title="tugas" />
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>
@@ -145,10 +159,10 @@
                             Kami</a></li>
 
                     <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
-                                             class="menu-link px-2">Syarat & Ketentuan</a></li>
+                            class="menu-link px-2">Syarat & Ketentuan</a></li>
 
                     <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
-                                             class="menu-link px-2">Kebijakan Privasi</a></li>
+                            class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>

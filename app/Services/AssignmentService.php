@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AssignmentRequest;
-use App\Http\Requests\SubmitAssignmentRequest;
 use App\Repositories\AssignmentRepository;
+use App\Http\Requests\SubmitAssignmentRequest;
 
 class AssignmentService
 {
@@ -52,11 +53,24 @@ class AssignmentService
 
     public function submitAssignment(SubmitAssignmentRequest $request): void
     {
-        // $data['assignment_id'] = $assignmentId;
         $data = $request->validated();
-        $data['student_id'] = auth()->id();
+    $studentId = auth()->id();
 
-        $this->repository->create_submit_assignment($data);
+    // Menghapus file lama jika ada
+    $oldAssignment = $this->repository->getSubmitAssignmentByStudentId($studentId);
+    if ($oldAssignment) {
+        Storage::disk('public')->delete($oldAssignment->file);
+    }
+
+    // Simpan file baru
+    $data['file'] = $request->file('file')->store('assignment_file', 'public');
+    $data['student_id'] = $studentId;
+    $this->repository->create_submit_assignment($data, $studentId);
+}
+
+public function storePointStudent(): void
+{
+    $this->repository->update();
     }
 
     /**

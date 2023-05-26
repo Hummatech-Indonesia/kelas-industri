@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\User;
 use App\Models\Assignment;
 use App\Models\StudentClassroom;
 use App\Models\SubmitAssignment;
-use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class AssignmentRepository extends BaseRepository
 {
@@ -43,6 +44,12 @@ class AssignmentRepository extends BaseRepository
             ->get();
     }
 
+    public function getSubmitAssignmentByStudentId($studentId)
+{
+    return $this->submitAssignment->where('student_id', $studentId)->first();
+}
+
+
     public function get_submit_assignment_student(string $studentId, string $assignmentId): mixed
     {
         return $this->submitAssignment->query()
@@ -50,8 +57,15 @@ class AssignmentRepository extends BaseRepository
             ->first();
     }
 
-    public function create_submit_assignment(array $data): void
+    public function create_submit_assignment(array $data, string $studentId): void
     {
-        $this->submitAssignment->create($data);
+
+    $oldFile = $this->submitAssignment->where('student_id', $studentId)->first();
+    if ($oldFile) {
+        Storage::disk('public')->delete($oldFile->file);
+    }
+    
+    $this->submitAssignment->updateOrCreate(
+        ['student_id' => $studentId], $data);
     }
 }

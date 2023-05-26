@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Challenge;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Models\SubmitChallenge;
 use App\Helpers\SchoolYearHelper;
+use App\Http\Requests\ChallengeRequest;
+use App\Http\Requests\SubmitChallengeRequest;
+use App\Models\Challenge;
+use App\Models\SubmitChallenge;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\ChallengeRequest;
-use App\Http\Requests\SubmitChallengeRequest;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class ChallengeController extends Controller
 {
     private ChallengeService $service;
 
-    public function __construct(ChallengeService $service, ClassroomService $classroomService, SubmitChallenge $submitChallengeService)
+    public function __construct(ChallengeService $service, ClassroomService $classroomService)
     {
         $this->service = $service;
         $this->classroomService = $classroomService;
-        $this->submitChallengeService = $submitChallengeService;
     }
 
     /**
@@ -44,6 +43,7 @@ class ChallengeController extends Controller
         } elseif (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data = [
                 'challenges' => $this->service->handleGetByStudent(auth()->user()->studentSchool->studentClassroom->classroom_id, $currentSchoolYear->id),
+
             ];
         }
         return view('dashboard.user.pages.challenge.index', $data);
@@ -72,7 +72,8 @@ class ChallengeController extends Controller
     public function submitChallenge(Challenge $challenge): View
     {
         $data = [
-            'challenge' => $challenge
+            'challenge' => $challenge,
+            'submitChallenge' => $this->service->handleGetStudentSubmitChallenge(auth()->user()->students[0]->id, $challenge->id),
         ];
         return \view ('dashboard.user.pages.challenge.store', $data);
     }
@@ -96,10 +97,11 @@ class ChallengeController extends Controller
 
     }
 
-    public function storeChallenge(SubmitChallengeRequest $request): RedirectRespone
+    public function storeChallenge(SubmitChallengeRequest $request): RedirectResponse
     {
         $this->service->submitChallenge($request);
-            return to_route('mentor.challenges.index')->with('success', trans('alert.add_success'));
+
+        return to_route('student.challenges.index')->with('success', trans('alert.add_success'));
     }
 
 
@@ -114,22 +116,44 @@ class ChallengeController extends Controller
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $data = [
                 'challenge' => $challenge,
-                'classrooms' => $this->classroomService->handleGetByTeacher(auth()->id()),
+                'student' => $this->service->handleChallengeByTeacher($challenge->id)
+
             ];
 
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
 
             $data = [
                 'challenge' => $challenge,
-                'classrooms' => $this->classroomService->handleGetByMentor(auth()->id()),
+                'student' => $this->service->handleGetChallengeByMentor($challenge->id)
             ];
         } elseif (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data = [
                 'challenge' => $challenge,
-                'classrooms' => $this->classroomService->handleGetByStudent(auth()->id()),
             ];
         }
         return \view ('dashboard.user.pages.challenge.detail', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function validChallenge($id): RedirectResponse
+    {
+        $submitChallenge = SubmitChallenge::findorfail($id);
+        $this->service->handleUpadetValid($submitChallenge->id);
+        $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id);
+        return redirect()->back()->with('success', trans('alert.update_success'));
+    }
+
+    public function validChallengeTeacher($id): RedirectResponse
+    {
+        $submitChallenge = SubmitChallenge::findorfail($id);
+        $this->service->handleUpadetValid($submitChallenge->id);
+        $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id);
+        return redirect()->back()->with('success', trans('alert.update_success'));
     }
 
     /**

@@ -66,6 +66,11 @@ class User extends Authenticatable
         return $this->hasOne(StudentSchool::class, 'student_id');
     }
 
+    public function studentSchools(): HasMany
+    {
+        return $this->hasMany(StudentSchool::class, 'school_id');
+    }
+
     /**
      * one to many relationship
      *

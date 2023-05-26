@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AbsentController;
+use App\Http\Controllers\PointController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ProfileController;
@@ -47,6 +47,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/', function () {
         return view('dashboard.admin.layouts.app');
     });
+
+    Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
+
     Route::resources([
         'schoolYears' => SchoolYearController::class,
         'generations' => GenerationController::class,
@@ -121,6 +124,9 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
 //    Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
 //    Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
     Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
+    Route::post('/storepoint{submitassignment}', [UserAssignmentController::class, 'storePoint'])->name('storepoint');
+    Route::post('validChallengeTeacher/{submitChallenge}', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
+    Route::post('storePointAssignment/{submitAssingnment}', [PointController::class, 'storePointAssignment'])->name('storePointAssignment');
 });
 //end teacher
 
@@ -130,6 +136,7 @@ Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->g
         'challenges' => ChallengeController::class,
         'absent' => AttendanceController::class
     ]);
+    Route::post('validChallenge/{submitChallenge}', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 });
 //end mentor
@@ -160,7 +167,7 @@ Route::prefix('student')->name('student.')->group(function () {
 
     Route::get('{classroom}/submitAssignment/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
     Route::post('{classroom}/storeassignment/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
-    
+
     Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
     Route::post('storeassignment', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
     Route::get('/absen/{attendance}',[AttendanceController::class,'submit']);

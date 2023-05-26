@@ -14,7 +14,7 @@ class SubmitChallengeRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'file' => 'required',
+            'file' => 'required|file|mimes:rar,zip',
             'challenge_id' => 'required',
         ];
     }
@@ -23,6 +23,7 @@ class SubmitChallengeRequest extends BaseRequest
     {
         return [
             'file.required' => 'File tidak boleh kosong !',
+            'file.mimes' => 'File harus format rar/zip!',
         ];
     }
 }

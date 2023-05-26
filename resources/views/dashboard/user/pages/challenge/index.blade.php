@@ -91,7 +91,7 @@
 
                     <div class="row">
                         @forelse($challenges as $challenge)
-                            <div class="col-xl-4">
+                            <div class="col-xl-4 mb-5   ">
 
                                 <!--begin::Card-->
 
@@ -192,9 +192,12 @@
                                         <div class="d-flex justify-content-between align-items-center">
 
                                             <span class="text-dark-75 font-weight-bolder mr-2">Status :</span>
-
+                                                {{-- @dd($challenge->StudentSubmitChallenge) --}}
+                                                @if($challenge->studentSubmitChallenge)
+                                                <span class="badge badge-light-success font-weight-bold btn-upper btn-text">Sudah Dikerjakan</span>
+                                                @else
                                             <span class="badge badge-light-danger font-weight-bold btn-upper btn-text">Belum Dikerjakan</span>
-
+                                                @endif
                                         </div>
                                         @endif
 
