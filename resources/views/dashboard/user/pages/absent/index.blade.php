@@ -57,7 +57,7 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="/mentor/absent/create" class="btn btn-flex btn-primary h-40px fs-7 fw-bold">
+                                <a href="/mentor/attendance/create" class="btn btn-flex btn-primary h-40px fs-7 fw-bold">
                                     Buat Absensi
                                 </a>
                             </div>

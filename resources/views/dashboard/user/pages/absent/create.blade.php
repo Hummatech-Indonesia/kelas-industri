@@ -20,7 +20,7 @@
                                 <x-errors-component />
                             @endif
                             <div class="row">
-                                <form action="{{ route('mentor.absent.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('mentor.attendance.store') }}" method="POST" enctype="multipart/form-data">
         
                                     @csrf
                                     <div class="col-12">
