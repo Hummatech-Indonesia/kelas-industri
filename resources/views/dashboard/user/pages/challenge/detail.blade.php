@@ -392,7 +392,7 @@
                                                 Tantangan.</span>
                                         </h3>
 
-                                        <a href="{{ asset('data-siswa.xlsx') }}" class="btn btn-success btn-sm mb-5"><i
+                                        <a href="{{Route('mentor.downloadAllFile',['challenge' => $challenge->id])}}" class="btn btn-success btn-sm mb-5"><i
                                                 class="fas fa-file-excel"></i> Download File Semua Siswa
                                         </a>
 
@@ -425,7 +425,7 @@
                                                         </td>
                                                         <td>
                                                             <a href="{{ asset('storage/'.$students->file) }}" target="_blank" class="btn btn-danger btn-sm"><i
-                                                                class="fas fa-file-pdf"></i>Dwonload File Siswa</a>
+                                                                class="fas fa-file-pdf"></i>Dwonload</a>
                                                         </td>
                                                         <td>
                                                             @if ($students->is_valid == 'not_valid')
