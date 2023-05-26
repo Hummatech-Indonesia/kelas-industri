@@ -424,7 +424,7 @@
                                                             {{ $students->studentSchool->student->name }}
                                                         </td>
                                                         <td>
-                                                            <a href="{{ asset('storage/'.$students->file) }}" target="_blank" class="btn btn-danger btn-sm"><i
+                                                            <a href="{{ Route('mentor.download',['submitChallenge' => $students->id]) }}" target="_blank" class="btn btn-danger btn-sm"><i
                                                                 class="fas fa-file-pdf"></i>Dwonload</a>
                                                         </td>
                                                         <td>

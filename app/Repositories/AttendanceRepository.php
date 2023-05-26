@@ -48,5 +48,6 @@ class AttendanceRepository extends BaseRepository
         $data->status = 'close';
         $data->save();
     }
+    
 }
 

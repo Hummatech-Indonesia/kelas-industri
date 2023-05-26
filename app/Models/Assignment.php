@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Assignment extends Model
 {
@@ -16,7 +17,7 @@ class Assignment extends Model
     protected $table = 'assignments';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'assignment_id', 'title', 'description', 'start_date', 'end_date'];
+    protected $fillable = ['id', 'sub_material_id', 'title', 'description', 'start_date', 'end_date'];
 
     /**
      * many to one relationship
@@ -25,11 +26,11 @@ class Assignment extends Model
      */
     public function submaterial(): BelongsTo
     {
-        return $this->belongsTo(SubMaterial::class, 'assignment_id');
+        return $this->belongsTo(SubMaterial::class, 'sub_material_id');
     }
 
-    public function StudentSubmitAssignment(): HasOne
+    public function StudentSubmitAssignment(): HasMany
     {
-        return $this->hasOne(SubmitAssignment::class);
+        return $this->hasMany(SubmitAssignment::class ,'assignment_id');
     }
 }

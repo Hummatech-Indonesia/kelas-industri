@@ -102,9 +102,7 @@
                                                 <td>{{$attendance->title}}</td>
                                                 <td>{{ \Carbon\Carbon::parse($attendance->created_at)->locale('id')->isoFormat('D MMMM YYYY') }}</td>
                                                 <td>
-                                                    <button class="clipboard-link" style="border:none" data-link="/{{ $attendance->id }}">
-                                                        <i class="clipboard-icon fas fa-clipboard"></i>
-                                                    </button>
+                                                    <svg class=" clipboard-link" data-link="/{{ $attendance->id }}" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="48"><path d="M180-81q-24 0-42-18t-18-42v-603h60v603h474v60H180Zm120-120q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h440q24 0 42 18t18 42v560q0 24-18 42t-42 18H300Zm0-60h440v-560H300v560Zm0 0v-560 560Z"/></svg>
                                                 </td>
                                                 <td>{{$attendance->status}}</td>
                                                 <td>
@@ -236,7 +234,11 @@
                 tempInput.val(link_absen).select();
                 document.execCommand('copy');
                 tempInput.remove();
-                alert('Tautan berhasil disalin ke clipboard!');
+                Swal.fire({
+                    title:'Berhasil',
+                    icon:'success',
+                    text:'Tautan Berhasil Disalin ke clipboard'
+                })
                 console.log(link_absen)
             });
         });

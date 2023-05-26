@@ -19,6 +19,7 @@ use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\UserAssignmentController;
+use App\Models\Challenge;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,7 +125,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
 //    Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
 //    Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
     Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
-    Route::post('/storepoint{submitassignment}', [UserAssignmentController::class, 'storePoint'])->name('storepoint');
+    Route::post('/storepoint', [AssignmentController::class, 'storePoint'])->name('storepoint');
     Route::post('validChallengeTeacher/{submitChallenge}', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
     Route::post('storePointAssignment/{submitAssingnment}', [PointController::class, 'storePointAssignment'])->name('storePointAssignment');
 });
@@ -139,6 +140,7 @@ Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->g
     Route::post('validChallenge/{submitChallenge}', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
     Route::get('/downloadAllFile/{challenge}',[ChallengeController::class,'downloadAll'])->name('downloadAllFile');
+    Route::get('/downloadFile/{submitChallenge}',[ChallengeController::class,'download'])->name('download');
 });
 //end mentor
 
