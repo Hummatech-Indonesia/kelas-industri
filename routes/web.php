@@ -128,7 +128,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
 Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->group(function () {
     Route::resources([
         'challenges' => ChallengeController::class,
-        'absent' => AttendanceController::class
+        'attendance' => AttendanceController::class
     ]);
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 });

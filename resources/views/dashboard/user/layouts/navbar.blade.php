@@ -82,7 +82,7 @@
                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
-                                <a href="/mentor/absent" class="menu-link"><span
+                                <a href="/mentor/attendance" class="menu-link"><span
                                         class="menu-title">Absen</span></a>
                                 <!--end:Menu link-->
                             </div>
