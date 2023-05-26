@@ -47,7 +47,7 @@ class AttendanceController extends Controller
     public function store(AttendanceRequest $request): RedirectResponse
     {
         $this->service->handleCreate($request);
-        return to_route('mentor.absent.index')->with('success', trans('alert.create_success'));
+        return to_route('mentor.attendance.index')->with('success', trans('alert.create_success'));
     }
 
     /**
@@ -81,17 +81,10 @@ class AttendanceController extends Controller
      * @param Attendance $attendance
      * @return RedirectResponse
      */
-    // public function update(Attendance $attendance): RedirectResponse
-    // {
-    //     dd($attendance);
-    //     $this->service->changeStatus($attendance);
-    //     return to_route('mentor.absent.index')->with('success', trans('alert.update_success'));
-    // }
-    public function update($id): RedirectResponse
+    public function update(Attendance $attendance): RedirectResponse
     {
-        // dd($attendance);
-        $this->service->changeStatus($id);
-        return to_route('mentor.absent.index')->with('success', trans('alert.update_success'));
+        $this->service->changeStatus($attendance);
+        return to_route('mentor.attendance.index')->with('success', trans('alert.update_success'));
     }
 
     /**
@@ -100,14 +93,9 @@ class AttendanceController extends Controller
      * @param Attendance $attendance
      * @return RedirectResponse
      */
-    // public function destroy(Attendance $attendance): RedirectResponse
-    // {
-    //     $this->service->handleDelete($attendance);
-    //     return back()->with('success', trans('alert.delete_success'));
-    // }
-    public function destroy($id): RedirectResponse
+    public function destroy(Attendance $attendance): RedirectResponse
     {
-        $this->service->handleDelete($id);
+        $this->service->handleDelete($attendance);
         return back()->with('success', trans('alert.delete_success'));
     }
 

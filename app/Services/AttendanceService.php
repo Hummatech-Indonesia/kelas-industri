@@ -76,17 +76,14 @@ class AttendanceService
         $this->repository->update($attandance->id, $request->validated());
     }
 
-    // public function changeStatus(Attendance $attendance): void
-    // {
-    //     $this->repository->update_status($attendance->id);
-    // }
-    public function changeStatus($id): void
+    public function changeStatus(Attendance $attendance): void
     {
-        $this->repository->update_status($id);
+        $this->repository->update_status($attendance->id);
     }
+    
 
-    public function handleDelete($id): bool
+    public function handleDelete(Attendance $attendance): bool
     {
-        return $this->repository->destroy($id);
+        return $this->repository->destroy($attendance->id);
     }
 }

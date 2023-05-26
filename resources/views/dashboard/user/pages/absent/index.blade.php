@@ -108,10 +108,12 @@
                                                 </td>
                                                 <td>{{$attendance->status}}</td>
                                                 <td>
-                                                    <div class="d-flex">
+                                                    <div class="d-flex justify-content-end">
+                                                        @if($attendance->status == 'open')
                                                         <button class="btn btn-default btn-update btn-sm p-1" data-id="{{$attendance->id}}">
                                                             <i class="fonticon-setting fs-2 text-warning"></i>
                                                         </button>
+                                                        @endif
                                                         <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $attendance->id }}">
                                                             <i class="fonticon-trash-bin fs-2 text-danger"></i>
                                                         </button>
@@ -208,14 +210,14 @@
         });
 
         $('.btn-delete').click(function() {
-                const url = "{{ route('mentor.absent.destroy', ':id') }}".replace(':id', $(this).data(
+                const url = "{{ route('mentor.attendance.destroy', ':id') }}".replace(':id', $(this).data(
                     'id'))
                 $('#form-delete').attr('action', url)
 
                 $('#kt_modal_delete').modal('show')
         })
         $('.btn-update').click(function() {
-                const url = "{{ route('mentor.absent.update', ':id') }}".replace(':id', $(this).data(
+                const url = "{{ route('mentor.attendance.update', ':id') }}".replace(':id', $(this).data(
                     'id'))
                 $('#form-update').attr('action', url)
 
