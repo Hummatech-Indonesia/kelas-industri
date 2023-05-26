@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Spatie\Permission\Models\Role;
 
 class StudentImport implements ToCollection, WithHeadingRow
 {
@@ -35,6 +36,9 @@ class StudentImport implements ToCollection, WithHeadingRow
                     'address' => $row['alamat'],
                     'password' => bcrypt('password')
                 ]);
+
+                $role = Role::where('name', 'student')->first();
+                $user->assignRole($role);
 
                 StudentSchool::create([
                     'student_id' => $user->id,
