@@ -22,7 +22,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-
+                                    {{ $students[0]->submitAssignment->assignment->title }}
                                 </h1>
                                 <!--end::Title-->
 
@@ -30,7 +30,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Tugas
+                                        Tugas {{ $students[0]->submitAssignment->assignment->description }}
                                     </li>
                                     <!--end::Item-->
 
@@ -68,12 +68,13 @@
 
                                         <form action="storePointAssignment/{submitAssingnment}" method="post">
                                             @csrf
-                                            <button class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
+                                            <button type="submit"
+                                                class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
                                                 Nilai
                                             </button>
-                                            <button class="btn btn-sm btn-success font-weight-bolder text-uppercase">
+                                            {{-- <button class="btn btn-sm btn-success font-weight-bolder text-uppercase">
                                                 Dwonload Semua File
-                                            </button>
+                                            </button> --}}
 
                                     </div>
 
@@ -110,7 +111,7 @@
                                                         @else
                                                             <td>-</td>
                                                             <td>
-                                                                <input type="text"
+                                                                <input type="text" name="point[]"
                                                                     class="form-control form-control-solid form-control-lg"
                                                                     placeholder="Nilai"></input>
                                                             </td>
@@ -175,7 +176,8 @@
     <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $("#kt_datatable_responsive").DataTable({
-            responsive: true
+            responsive: true,
+            // pageLength: 1
         });
     </script>
 @endsection

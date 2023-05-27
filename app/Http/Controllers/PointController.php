@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\View\View;
-use App\Services\PointService;
-use App\Models\SubmitAssignment;
 use App\Helpers\SchoolYearHelper;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\PointController;
 use App\Http\Requests\SubmitAssignmentRequest;
+use App\Models\SubmitAssignment;
+use App\Services\PointService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class PointController extends Controller
 {
 
-    private PointService  $services;
+    private PointService $services;
 
     public function __construct(PointService $services)
     {
@@ -29,20 +28,29 @@ class PointController extends Controller
     public function index(): View
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
-        $data = [
-            'rankings' => $this->services->handleGetPointStudent($currentSchoolYear),
-        ];
-        return view('dashboard.admin.pages.ranking.index', $data);
+        if (auth()->user()->roles->pluck('name')[0] == 'admin') {
+            $data = [
+                'rankings' => $this->services->handleGetPointStudent($currentSchoolYear),
+            ];
+            return view('dashboard.admin.pages.leaderboard.index', $data);
+        }elseif(auth()->user()->roles->pluck('name')[0] == 'school'){
+            $data = [
+                'rankings' => $this->services->handleGetPointStudent($currentSchoolYear),
+            ];
+            return view('dashboard.admin.pages.leaderboard.index', $data);
+        }else
+            $data = [
+                'rankings' => $this->services->handleGetPointStudent($currentSchoolYear),
+            ];
+        return view('dashboard.user.pages.leaderboard.index', $data);
     }
 
-    public function storePointAssignment(SubmitAssignmentRequest $request) :RedirectResponse
+    public function storePointAssignment(SubmitAssignmentRequest $request): RedirectResponse
     {
-        $data = $request->only('point'); // Ganti 'field1', 'field2', dll. dengan nama field yang ingin Anda tambahkan
+        $data = $request->only('point');
         dd($data);
         SubmitAssignment::create($data);
 
-    // Kode lain yang diperlukan setelah penambahan data
-
-    return response()->json(['message' => 'Data added successfully']);
+        return response()->json(['message' => 'Data added successfully']);
     }
 }

@@ -19,8 +19,9 @@
                             <!--begin::Page title-->
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
-                                <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Horizontal
+                                <h1
+                                    class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+                                    Peringkat
                                 </h1>
                                 <!--end::Title-->
 
@@ -29,28 +30,10 @@
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
                                         <a href="../../index-2.html" class="text-muted text-hover-primary">
-                                            Home                            </a>
+                                            daftar siswa dengan nilai
+                                            terbaik. </a>
                                     </li>
                                     <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Utilities                                            </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Search                                            </li>
                                     <!--end::Item-->
 
                                 </ul>
@@ -59,17 +42,21 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="#" class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">
+                                <a href="#"
+                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold"
+                                    data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">
                                     Add Member
                                 </a>
 
-                                <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">
+                                <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold"
+                                    data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">
                                     New Campaign
                                 </a>
                             </div>
                             <!--end::Actions-->
                         </div>
-                        <!--end::Toolbar wrapper-->        </div>
+                        <!--end::Toolbar wrapper-->
+                    </div>
                     <!--end::Toolbar container-->
                 </div>
                 <!--begin::Content container-->
@@ -78,32 +65,66 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header pt-7">
+                                <div class="card-header">
                                     <!--begin::Title-->
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold text-gray-800">Peringkat</span>
-                                        <span class="text-gray-400 mt-1 fw-semibold fs-6">daftar siswa dengan nilai terbaik.</span>
+                                        @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                            @php
+                                                $rangking = $rankings->search(function ($rank) {
+                                                    return $rank->student_id === auth()->id();
+                                                });
+                                            @endphp
+
+                                            <span class="card-label fw-bold text-gray-800"><span
+                                                    class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M14 18V16H10V18L9 20H15L14 18Z" fill="currentColor" />
+                                                        <path opacity="0.3"
+                                                            d="M20 4H17V3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3V4H4C3.4 4 3 4.4 3 5V9C3 11.2 4.8 13 7 13C8.2 14.2 8.8 14.8 10 16H14C15.2 14.8 15.8 14.2 17 13C19.2 13 21 11.2 21 9V5C21 4.4 20.6 4 20 4ZM5 9V6H7V11C5.9 11 5 10.1 5 9ZM19 9C19 10.1 18.1 11 17 11V6H19V9ZM17 21V22H7V21C7 20.4 7.4 20 8 20H16C16.6 20 17 20.4 17 21ZM10 9C9.4 9 9 8.6 9 8V5C9 4.4 9.4 4 10 4C10.6 4 11 4.4 11 5V8C11 8.6 10.6 9 10 9ZM10 13C9.4 13 9 12.6 9 12V11C9 10.4 9.4 10 10 10C10.6 10 11 10.4 11 11V12C11 12.6 10.6 13 10 13Z"
+                                                            fill="currentColor" />
+                                                    </svg>
+                                                </span>{{ auth()->user()->name }}
+                                                Anda Berada Pada Rangking {{ $rangking + 1, auth()->id() }}
+                                            </span>
+                                        @endif
+                                        {{-- @dd($rankings->search) --}}
                                     </h3>
                                     <!--end::Title-->
                                 </div>
                                 <div class="card-body">
 
-                                    <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
+                                    <table id="kt_datatable_responsive"
+                                        class="table table-striped border rounded gy-5 gs-7">
                                         <thead>
-                                        <tr class="fw-semibold fs-6 text-gray-800">
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>Sekolah</th>
-                                            <th>Poin</th>
-                                        </tr>
+                                            <tr class="fw-semibold fs-6 text-gray-800">
+                                                <th>No</th>
+                                                <th>Nama</th>
+                                                <th>Sekolah</th>
+                                                <th>Point</th>
+
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td><span class="badge badge-light-danger">2011/04/25</span></td>
-                                        </tr>
+                                            @foreach ($rankings as $key => $ranking)
+                                                <tr>
+                                                    @if ($key == 0)
+                                                        <td><img width="50px" src="{{ asset('storage/medal_file/gold-medal.png') }}"
+                                                                alt=""></td>
+                                                    @elseif ($key == 1)
+                                                        <td><img width="50px" src="{{ asset('storage/medal_file/silver-medal.png') }}"
+                                                                alt=""></td>
+                                                    @elseif ($key == 2)
+                                                        <td><img width="50px" src="{{ asset('storage/medal_file/bronze-medal.png') }}"
+                                                                alt=""></td>
+                                                    @else
+                                                        <td>{{ ($key == 3) ? $loop->iteration : ($loop->iteration + $key - 3) }}</td>
+                                                    @endif
+                                                    <td>{{ $ranking->student->name }}</td>
+                                                    <td>{{ $ranking->student->studentSchool->school->name }}</td>
+                                                    <td>{{ $ranking->point }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -124,28 +145,33 @@
                     <!--begin::Copyright-->
                     <div class="text-dark order-2 order-md-1">
                         <span class="text-muted fw-semibold me-1">{{ \Carbon\Carbon::now()->format('Y') }}©</span>
-                        <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas Industri</a>
+                        <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
+                            Industri</a>
                     </div>
                     <!--end::Copyright-->
 
                     <!--begin::Menu-->
                     <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                        <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang Kami</a></li>
+                        <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
+                                class="menu-link px-2">Tentang Kami</a></li>
 
-                        <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank" class="menu-link px-2">Syarat & Ketentuan</a></li>
+                        <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                                class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                        <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Kebijakan Privasi</a></li>
+                        <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                                class="menu-link px-2">Kebijakan Privasi</a></li>
                     </ul>
-                    <!--end::Menu-->        </div>
+                    <!--end::Menu-->
+                </div>
                 <!--end::Footer container-->
             </div>
             <!--end::Footer-->
         </div>
-@endsection
-        @section('script')
-            <script>
-                $("#kt_datatable_responsive").DataTable({
-                    responsive: true
-                });
-            </script>
-@endsection
+    @endsection
+    @section('script')
+        <script>
+            $("#kt_datatable_responsive").DataTable({
+                responsive: true
+            });
+        </script>
+    @endsection

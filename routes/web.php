@@ -109,6 +109,8 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
         Route::post('/', [ClassroomController::class, 'addStudentClassroom'])->name('store');
     });
 
+    Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
+
 });
 //end schools
 
@@ -127,6 +129,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::post('/storepoint{submitassignment}', [UserAssignmentController::class, 'storePoint'])->name('storepoint');
     Route::post('validChallengeTeacher/{submitChallenge}', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
     Route::post('storePointAssignment/{submitAssingnment}', [PointController::class, 'storePointAssignment'])->name('storePointAssignment');
+    Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
 });
 //end teacher
 
@@ -138,6 +141,7 @@ Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->g
     ]);
     Route::post('validChallenge/{submitChallenge}', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+    Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
 });
 //end mentor
 
@@ -157,6 +161,7 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/', function () {
         return view('dashboard.user.pages.material.index');
     });
+    Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
     Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
     Route::get('/create', [UserClassroomController::class, 'create'])->name('create');
     Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');

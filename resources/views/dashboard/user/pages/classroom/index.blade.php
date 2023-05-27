@@ -165,6 +165,9 @@
                                                     {{ $classroom->classroom->generation->generation }}
                                                     ({{ $classroom->classroom->generation->schoolYear->school_year }})
                                                 </span>
+                                                <span class="text-muted font-weight-bold">
+                                                    {{$classroom->classroom->school->name}}
+                                                </span>
 
                                                 <!--end::Title-->
 

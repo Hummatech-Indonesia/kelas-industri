@@ -17,29 +17,30 @@
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-gray-600">
                     <a href="../../index-2.html" class="text-gray-600 text-hover-primary">
-                        Home                            </a>
+                        Home </a>
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-gray-600">
-                    User Profile                                            </li>
+                    User Profile </li>
                 <!--end::Item-->
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-gray-500">
-                    Overview                    </li>
+                    Overview </li>
                 <!--end::Item-->
             </ul>
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
         <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
+        {{-- <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <a href="#" class="btn btn-dark fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">
-                Tambah            </a>
+            <a href="#" class="btn btn-dark fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app"
+                id="kt_toolbar_primary_button">
+                Tambah </a>
             <!--end::Button-->
-        </div>
+        </div> --}}
         <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
@@ -50,7 +51,8 @@
                         <!--begin::Title-->
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label fw-bold text-gray-800">Peringkat</span>
-                            <span class="text-gray-400 mt-1 fw-semibold fs-6">daftar siswa dengan nilai terbaik.</span>
+                            <span class="text-gray-400 mt-1 fw-semibold fs-6">Daftar siswa dengan nilai terbaik di kelas
+                                industri.</span>
                         </h3>
                         <!--end::Title-->
                     </div>
@@ -58,20 +60,34 @@
 
                         <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                             <thead>
-                            <tr class="fw-semibold fs-6 text-gray-800">
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Sekolah</th>
-                                <th>Poin</th>
-                            </tr>
+                                <tr class="fw-semibold fs-6 text-gray-800">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Sekolah</th>
+                                    <th>Point</th>
+
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td><span class="badge badge-light-danger">2011/04/25</span></td>
-                            </tr>
+                                @foreach ($rankings as $key=>$ranking)
+                                    <tr>
+                                        @if ($key == 0)
+                                            <td><img width="50px" src="{{ asset('storage/medal_file/gold-medal.png') }}"
+                                                    alt=""></td>
+                                        @elseif ($key == 1)
+                                            <td><img width="50px" src="{{ asset('storage/medal_file/silver-medal.png') }}"
+                                                    alt=""></td>
+                                        @elseif ($key == 2)
+                                            <td><img width="50px" src="{{ asset('storage/medal_file/bronze-medal.png') }}"
+                                                    alt=""></td>
+                                        @else
+                                            <td>{{ $key == 3 ? $loop->iteration : $loop->iteration + $key - 3 }}</td>
+                                        @endif
+                                        <td>{{ $ranking->student->name }}</td>
+                                        <td>{{ $ranking->student->studentSchool->school->name }}</td>
+                                        <td>{{ $ranking->point }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -87,4 +103,3 @@
         });
     </script>
 @endsection
-

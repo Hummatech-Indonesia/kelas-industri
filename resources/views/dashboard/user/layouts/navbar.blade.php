@@ -89,8 +89,17 @@
                         @endif
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <a href="#" class="menu-link">
+                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                            <a href="{{route('mentor.rankings')}}" class="menu-link">
                                 <span class="menu-title">Peringkat</span></a>
+                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            <a href="{{route('teacher.rankings')}}" class="menu-link">
+                                <span class="menu-title">Peringkat</span></a>
+                            @else
+                            <a href="{{route('student.rankings')}}" class="menu-link">
+                                <span class="menu-title">Peringkat</span></a>
+                            @endif
+
                             <!--end:Menu link-->
                         </div>
                     </div>
