@@ -68,4 +68,21 @@ class AssignmentRepository extends BaseRepository
     $this->submitAssignment->updateOrCreate(
         ['student_id' => $studentId], $data);
     }
+
+    public function get_student_done_submit(string $assignmentId)
+    {
+        return $this->submitAssignment->query()
+            ->where('assignment_id',$assignmentId)
+            ->whereNotNull('point')
+            ->pluck('student_id')
+            ->toArray();
+    }
+
+    public function storePoint(int $id , int $point):void
+    {
+        $data = $this->submitAssignment->query()
+            ->findorfail($id);
+        $data->point = $point;
+        $data->save();
+    }
 }

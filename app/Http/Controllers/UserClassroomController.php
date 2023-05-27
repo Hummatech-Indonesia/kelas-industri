@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\Material;
 use App\Models\SubMaterial;
+use App\Services\AssignmentService;
 use App\Services\ClassroomService;
 use App\Services\MaterialService;
 use App\Services\StudentService;
@@ -17,6 +18,7 @@ class UserClassroomController extends Controller
     private StudentService $studentService;
     private MaterialService $materialService;
     private SubMaterialService $subMaterialService;
+    // private AssignmentService $assignmentService;
 
     public function __construct(ClassroomService $classroomService, StudentService $studentService, MaterialService $materialService, SubMaterialService $subMaterialService)
     {
@@ -73,6 +75,7 @@ class UserClassroomController extends Controller
         $data = [
             'classroom' => $classroom,
             'subMaterial' => $submaterial,
+            // 'studentDone' => $this->assignmentService->handleGetStudentDoneSubmit($assignment),
         ];
         return view('dashboard.user.pages.submaterial.detail', $data);
     }

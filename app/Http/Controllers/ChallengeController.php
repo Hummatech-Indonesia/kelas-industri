@@ -12,6 +12,7 @@ use App\Services\ClassroomService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use ZipArchive;
 use Illuminate\View\View;
 
 class ChallengeController extends Controller
@@ -222,5 +223,34 @@ class ChallengeController extends Controller
             return to_route('mentor.challenges.index')->with('success', trans('alert.delete_success'));
 
         }
+    }
+
+    public function downloadAll(Challenge $challenge)
+    {
+        $file = $this->service->handleGetChallengeByMentor($challenge->id);
+
+        $zipName = 'Challenge.zip';
+        $zipPath = storage_path('app/public/' . $zipName);
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+
+            foreach ($file as $file) {
+                if (file_exists(storage_path('app/public/' . $file->file))) {
+                    $zip->addFile(storage_path('app/public/' . $file->file), $file->studentSchool->student->name.'.zip');
+                }
+            }
+
+            $zip->close();
+        }
+
+        return Response()->download($zipPath, $zipName);
+
+    }
+
+    public function download(SubmitChallenge $submitChallenge){
+        $path = public_path('storage/'.$submitChallenge->file);
+        $name = $submitChallenge->studentSchool->student->name.'.zip';
+        return response()->download($path,$name);
     }
 }

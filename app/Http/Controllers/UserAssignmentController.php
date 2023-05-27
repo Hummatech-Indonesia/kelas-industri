@@ -9,6 +9,7 @@ use App\Models\SubMaterial;
 use App\Services\AssignmentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class UserAssignmentController extends Controller
 {
@@ -37,7 +38,6 @@ class UserAssignmentController extends Controller
             'subMaterial' => $submaterial,
             'submitAssignment' => $this->assignmentService->handleGetStudentSubmitAssignment(auth()->id(), $assignment->id),
         ];
-        // dd($data);
         return \view ('dashboard.user.pages.assignment.detail', $data);
 
     }

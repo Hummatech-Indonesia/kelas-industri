@@ -7,6 +7,7 @@ use App\Models\Assignment;
 use App\Models\SubMaterial;
 use App\Services\AssignmentService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -104,5 +105,15 @@ class AssignmentController extends Controller
         if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    public function storePoint(Request $request)
+    {
+        $nilai = $request->nilai;
+        $id = $request->id;
+        foreach($id as $index => $item){
+            $this->service->storePoint($item ,$nilai[$index]);
+        }
+        return response()->json($id);
     }
 }

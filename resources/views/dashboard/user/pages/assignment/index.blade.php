@@ -66,15 +66,12 @@
 
                                     <div class="my-lg-0 my-1">
 
-                                        <form action="storePointAssignment/{submitAssingnment}" method="post">
-                                            @csrf
-                                            <button type="submit"
-                                                class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
+                                            <button onclick="BeriNilai()" class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
                                                 Nilai
                                             </button>
-                                            {{-- <button class="btn btn-sm btn-success font-weight-bolder text-uppercase">
-                                                Dwonload Semua File
-                                            </button> --}}
+                                            <button class="btn btn-sm btn-success font-weight-bolder text-uppercase">
+                                                Download Semua File
+                                            </button>
 
                                     </div>
 
@@ -111,11 +108,11 @@
                                                         @else
                                                             <td>-</td>
                                                             <td>
-                                                                <input type="text" name="point[]"
-                                                                    class="form-control form-control-solid form-control-lg"
-                                                                    placeholder="Nilai"></input>
+                                                                <input type="text" data-id="{{$student->submitAssignment->id}}"
+                                                                    value=""
+                                                                    class="form-control form-control-solid input-nilai form-control-lg"
+                                                                    placeholder="Nilai">
                                                             </td>
-                                                            </form>
                                                         @endif
                                                     @else
                                                         <td>-</td>
@@ -179,5 +176,45 @@
             responsive: true,
             // pageLength: 1
         });
+
+
+        function BeriNilai(){
+            var arr_nilai = [];
+            var arr_id = [];
+            $('.input-nilai').each(function() {
+                var nilai = $(this).val();
+                var id = $(this).data('id');
+                if (nilai !== '') {
+                    arr_nilai.push(nilai);
+                    arr_id.push(id)
+                }
+            });
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/teacher/storepoint',
+                type: 'POST',
+                data: {
+                    nilai:arr_nilai,
+                    id:arr_id
+                },
+                success: function(response) {
+                    Swal.fire({
+                        title:'Berhasil!',
+                        icon:'success',
+                        text:'Berhasil Memberikan Nilai!'
+                    }).then(function(){
+                        window.location.reload()
+                    })
+
+                },
+                error: function(xhr, status, error) {
+                    console.log('Terjadi kesalahan: ' + error);
+                }
+            });
+        }
     </script>
 @endsection
