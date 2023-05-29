@@ -131,6 +131,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::post('validChallengeTeacher/{submitChallenge}', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
     Route::post('storePointAssignment/{submitAssingnment}', [PointController::class, 'storePointAssignment'])->name('storePointAssignment');
     Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
+    Route::get('showStudentDetail/{student}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
 });
 //end teacher
 
@@ -140,6 +141,8 @@ Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->g
         'challenges' => ChallengeController::class,
         'attendance' => AttendanceController::class
     ]);
+    Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
+    Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
     Route::post('validChallenge/{submitChallenge}', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
     Route::get('/downloadAllFile/{challenge}',[ChallengeController::class,'downloadAll'])->name('downloadAllFile');

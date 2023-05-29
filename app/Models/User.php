@@ -117,8 +117,8 @@ class User extends Authenticatable
         return $this->hasOne(SubmitAssignment::class, 'student_id');
     }
 
-    public function point(): HasMany
+    public function point(): HasOne
     {
-        return $this->hasMany(Point::class);
+        return $this->hasOne(Point::class, 'student_id');
     }
 }

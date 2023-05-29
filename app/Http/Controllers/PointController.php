@@ -44,13 +44,4 @@ class PointController extends Controller
             ];
         return view('dashboard.user.pages.leaderboard.index', $data);
     }
-
-    public function storePointAssignment(SubmitAssignmentRequest $request): RedirectResponse
-    {
-        $data = $request->only('point');
-        dd($data);
-        SubmitAssignment::create($data);
-
-        return response()->json(['message' => 'Data added successfully']);
-    }
 }

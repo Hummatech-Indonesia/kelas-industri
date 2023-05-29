@@ -208,29 +208,40 @@
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                                                 @if ($assignment->StudentSubmitAssignment == null)
                                                                     <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
-                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan ( blm ada yg mengerjakan )</a>
+                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan
+                                                                        ( blm ada yg mengerjakan )</a>
                                                                 @else
-                                                                    @if(in_array(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray()))
-                                                                        @if($assignment->StudentSubmitAssignment[array_search(auth()->user()->id,$assignment->StudentSubmitAssignment->pluck('student_id')->toArray())]->point === null)
+                                                                    @if (in_array(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray()))
+                                                                        @if (
+                                                                            $assignment->StudentSubmitAssignment[
+                                                                                array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
+                                                                            ]->point === null)
                                                                             <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
-                                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan ( mengerjakan blm dinilai )</a>
+                                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan
+                                                                                ( mengerjakan blm dinilai )</a>
                                                                         @else
-                                                                            <span class="badge badge-light-danger">-</span> 
+                                                                            <span class="badge badge-light-danger">-</span>
                                                                         @endif
                                                                     @else
                                                                         <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
-                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan ( belum mengerjakan )</a>
-                                                                    
+                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan
+                                                                            ( belum mengerjakan )</a>
                                                                     @endif
                                                                 @endif
-                                                            @else
+                                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                                 <a href="{{ route('teacher.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                                                    class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
+                                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                                <a href="{{ route('mentor.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
                                                                     class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
                                                             @endif
                                                         @else
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                                 <a href="{{ route('teacher.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
                                                                     class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
+                                                            @elseif(auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                            <a href="{{ route('mentor.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
                                                             @else
                                                                 <span class="badge badge-light-danger">Ditutup</span>
                                                             @endif

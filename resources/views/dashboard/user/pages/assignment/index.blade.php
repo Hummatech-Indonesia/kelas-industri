@@ -22,7 +22,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    {{ $students[0]->submitAssignment->assignment->title }}
+
                                 </h1>
                                 <!--end::Title-->
 
@@ -30,7 +30,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Tugas {{ $students[0]->submitAssignment->assignment->description }}
+                                        Tugas
                                     </li>
                                     <!--end::Item-->
 
@@ -88,7 +88,6 @@
                                                 <th class="min-w-100px" data-priority="2">Nama</th>
                                                 <th data-priority="3">File</th>
                                                 <th data-priority="4">Nilai</th>
-                                                <th data-priority="5">Masukkan Nilai</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -103,19 +102,19 @@
                                                                     class="fas fa-file-pdf"></i>Download </a>
                                                         </td>
                                                         @if ($student->submitAssignment->point)
-                                                            <td>{{ $student->submitAssignment->point }}</td>
-                                                            <td>-</td>
+                                                            <td><input type="text" data-id="{{$student->submitAssignment->id}}"
+                                                                value="{{ $student->submitAssignment->point }}"
+                                                                class="form-control form-control-solid input-nilai form-control-lg"
+                                                                placeholder="Masukkan Nilai"></td>
                                                         @else
-                                                            <td>-</td>
                                                             <td>
                                                                 <input type="text" data-id="{{$student->submitAssignment->id}}"
-                                                                    value=""
-                                                                    class="form-control form-control-solid input-nilai form-control-lg"
-                                                                    placeholder="Nilai">
+                                                                value=""
+                                                                class="form-control form-control-solid input-nilai form-control-lg"
+                                                                placeholder="Masukkan Nilai">
                                                             </td>
                                                         @endif
                                                     @else
-                                                        <td>-</td>
                                                         <td>-</td>
                                                         <td>-</td>
                                                     @endif

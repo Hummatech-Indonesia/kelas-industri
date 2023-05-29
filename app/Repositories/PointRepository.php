@@ -21,4 +21,13 @@ class PointRepository extends BaseRepository
 
     }
 
+    public function get_student_by_point(string $studentId) : mixed
+    {
+        return $this->model->query()
+        ->where('student_id', $studentId)
+        ->groupBy('student_id')
+        ->selectRaw('student_id, sum(point) as point')
+        ->get();
+    }
+
 }

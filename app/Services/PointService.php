@@ -18,4 +18,8 @@ class PointService
         return $this->repository->get_point_stundet();
     }
 
+    public function handleGetPointByStudent(string $studentId) : mixed
+    {
+        return $this->repository->get_student_by_point($studentId);
+    }
 }
