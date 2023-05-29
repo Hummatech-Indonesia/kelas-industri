@@ -69,9 +69,9 @@
                                             <button onclick="BeriNilai()" class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
                                                 Nilai
                                             </button>
-                                            <button class="btn btn-sm btn-success font-weight-bolder text-uppercase">
+                                            <a href="{{Route('teacher.downloadAll',['classroom' => $classroom->id,'assignment' => $assignment->id ])}}" class="btn btn-sm btn-success font-weight-bolder text-uppercase">
                                                 Download Semua File
-                                            </button>
+                                            </a>
 
                                     </div>
 
@@ -97,7 +97,7 @@
                                                     <td>{{ $student->name }}</td>
                                                     @if ($student->submitAssignment)
                                                         <td>
-                                                            <a href="{{ asset('storage/' . $student->submitAssignment->file) }}"
+                                                            <a href="{{Route('teacher.download' ,['submitAssignment' => $student->submitAssignment->id])}}"
                                                                 target="_blank" class="btn btn-danger btn-sm"><i
                                                                     class="fas fa-file-pdf"></i>Download </a>
                                                         </td>
