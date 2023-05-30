@@ -22,4 +22,9 @@ class PointService
     {
         return $this->repository->get_student_by_point($studentId);
     }
+
+    public function handleCreatePoint($point, $studentId): void
+    {
+        $this->repository->create_point($point, $studentId);
+    }
 }

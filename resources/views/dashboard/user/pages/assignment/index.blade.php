@@ -211,7 +211,11 @@
 
                 },
                 error: function(xhr, status, error) {
-                    console.log('Terjadi kesalahan: ' + error);
+                    Swal.fire({
+                        title:'gagal',
+                        icon:'error',
+                        text: xhr.responseText
+                    })
                 }
             });
         }

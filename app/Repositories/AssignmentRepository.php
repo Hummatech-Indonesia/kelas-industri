@@ -85,4 +85,9 @@ class AssignmentRepository extends BaseRepository
         $data->point = $point;
         $data->save();
     }
+
+    public function showSubmitAssignment($id){
+        return $this->submitAssignment->query()
+            ->findOrFail($id);
+    }
 }

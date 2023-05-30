@@ -6,6 +6,7 @@ use App\Models\Point;
 
 class PointRepository extends BaseRepository
 {
+    private Point $point;
     public function __construct(Point $point)
     {
         $this->model = $point;
@@ -28,6 +29,14 @@ class PointRepository extends BaseRepository
         ->groupBy('student_id')
         ->selectRaw('student_id, sum(point) as point')
         ->get();
+    }
+
+    public function create_point($point, string $studentId): void
+    {
+        $this->model->create([
+            'student_id' => $studentId,
+            'point' => $point,
+        ]);
     }
 
 }
