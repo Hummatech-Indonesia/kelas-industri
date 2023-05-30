@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Challenge;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PointController;
+use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ProfileController;
@@ -19,7 +21,6 @@ use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\UserAssignmentController;
-use App\Models\Challenge;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +120,7 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
 Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
     Route::resources([
         'challenges' => ChallengeController::class,
+        'jurnal' => JurnalController::class,
     ]);
 //    Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
 //    Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
@@ -132,6 +134,8 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::post('storePointAssignment/{submitAssingnment}', [PointController::class, 'storePointAssignment'])->name('storePointAssignment');
     Route::get('downloadAllFile/{classroom}/{assignment}',[UserAssignmentController::class,'downloadAll'])->name('downloadAll');
     Route::get('downloadFile/{submitAssignment}',[UserAssignmentController::class,'download'])->name('download');
+    Route::get('/showStudentDetail/{student}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
+    Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
 });
 //end teacher
 
@@ -139,10 +143,12 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
 Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->group(function () {
     Route::resources([
         'challenges' => ChallengeController::class,
-        'attendance' => AttendanceController::class
+        'attendance' => AttendanceController::class,
+        'jurnal' => JurnalController::class
     ]);
     Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
     Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
+    Route::get('/showStudentDetail/{student}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
     Route::post('validChallenge/{submitChallenge}', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
     Route::get('/downloadAllFile/{challenge}',[ChallengeController::class,'downloadAll'])->name('downloadAllFile');

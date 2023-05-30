@@ -17,14 +17,14 @@ class SchoolRequest extends BaseRequest
             'headmaster'        => 'nullable|string',
             'address'           => 'required',
             'phone_number'      => 'nullable|max:15',
-            'email'             => ['required', Rule::unique('users')],
+            'email'             => ['required','email', Rule::unique('users')],
             'password'          => 'required|confirmed',
             'photo'             => 'required|file|max:2048|mimes:jpg,jpeg,png'
         ];
 
         if(request()->routeIs('admin.schools.update')){
             $rules['photo'] = 'file|max:2048|mimes:jpg,jpeg,png';
-            $rules['email'] = ['required', Rule::unique('users')->ignore($this->school)];
+            $rules['email'] = ['required','email', Rule::unique('users')->ignore($this->school)];
         }
 
         return $rules;
@@ -45,6 +45,7 @@ class SchoolRequest extends BaseRequest
             'address.required'  => 'Alamat tidak boleh kosong !',
             'email.required'    => 'Email tidak boleh kosong !',
             'email.unique'      => 'Email telah digunakan !',
+            'email.email'      => 'Email tidak valid !',
             'password.required' => 'Password tidak boleh kosong !',
             'password.confirmed'    => 'Konfirmasi password tidak sesuai !',
             'photo.required'    => 'Photo tidak boleh kosong !',

@@ -19,11 +19,26 @@ class ProfileController extends Controller
 
     public function edit(): View
     {
-        $data = [
-            'user' => auth()->user()
-        ];
+        if(auth()->user()->roles->pluck('name')[0] == 'admin'){
+            $data = [
+                'user' => auth()->user()
+            ];
+            return view('dashboard.admin.pages.profile.index', $data);
+        }elseif(auth()->user()->roles->pluck('name')[0] == 'school'){
+            $data = [
+                'user' => auth()->user()
+            ];
 
-        return view('dashboard.admin.pages.profile.index', $data);
+            return view('dashboard.admin.pages.profile.index', $data);
+        }else{
+            $data = [
+                'user' => auth()->user()
+            ];
+
+            return view('dashboard.user.pages.profile.index', $data);
+        }
+
+
     }
 
     /**

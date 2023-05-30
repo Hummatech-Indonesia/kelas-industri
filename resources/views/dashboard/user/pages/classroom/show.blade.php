@@ -257,7 +257,7 @@
                                                 <div class="fw-bold mt-5">Point</div>
                                                 <div class="text-gray-600">
 
-                                                    {{ $point[0]->point ? $point[0]->point : '-' }}
+                                                    {{ $point ? $point : '-' }}
                                                 </div>
                                                 <!--begin::Details item-->
                                             </div>

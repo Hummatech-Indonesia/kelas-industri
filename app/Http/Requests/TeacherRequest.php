@@ -16,7 +16,7 @@ class TeacherRequest extends BaseRequest
     {
         $request = [
             'name' => 'required|string',
-            'email' => ['required', Rule::unique('users')],
+            'email' => ['required','email', Rule::unique('users')],
             'phone_number' => 'required|max:15',
             'bank' => 'required',
             'account_number' => 'required',
@@ -24,7 +24,7 @@ class TeacherRequest extends BaseRequest
         ];
 
         if (request()->routeIs('school.teachers.update')) {
-            $request['email'] = ['required', Rule::unique('users')->ignore($this->teacher)];
+            $request['email'] = ['required','email', Rule::unique('users')->ignore($this->teacher)];
         }
 
         return $request;
@@ -42,6 +42,7 @@ class TeacherRequest extends BaseRequest
             'name.string' => 'Nama harus berupa string !',
             'email.required' => 'Email tidak boleh kosong !',
             'email.unique' => 'Email sudah digunakan !',
+            'email.email' => 'Email tidak valid !',
             'phone_number.required' => 'Nomor telepon tidak boleh kosong !',
             'phone_number.max' => 'Nomor telepon maksimal 15 angka !',
             'address.required' => 'Alamat tidak boleh kosong !',

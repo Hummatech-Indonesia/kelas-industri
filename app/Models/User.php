@@ -102,6 +102,11 @@ class User extends Authenticatable
         return $this->hasMany(StudentSchool::class, 'student_id');
     }
 
+    public function schoolStudents(): HasMany
+    {
+        return $this->hasMany(StudentSchool::class, 'school_id');
+    }
+
     public function classrooms(): HasMany
     {
         return $this->hasMany(Classroom::class, 'school_id');

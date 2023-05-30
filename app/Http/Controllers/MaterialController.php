@@ -33,7 +33,10 @@ class MaterialController extends Controller
     public function index(): View
     {
         $schoolYear = SchoolYearHelper::get_current_school_year();
-        $selectedSchoolYear = $schoolYear->id;
+        $selectedSchoolYear = 0;
+        if($schoolYear){
+            $selectedSchoolYear = $schoolYear->id;
+        }
         $data = [
             'generations' => $this->generationService->handleGetAll(),
             'materials' =>  $this->service->handleGetPaginate($selectedSchoolYear)

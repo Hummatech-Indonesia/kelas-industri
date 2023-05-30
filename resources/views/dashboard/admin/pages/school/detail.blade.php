@@ -209,7 +209,9 @@
                                     <span class="fw-bolder font-size-h5">
 
                                         <span
-                                            class="text-dark-50 font-weight-bold"></span>{{ count($school->students) }}</span>
+                                            class="text-dark-50 font-weight-bold">
+                                            {{ count($school->students) }}
+                                        </span>
 
                                 </div>
 
@@ -236,7 +238,9 @@
                                     <span class="fw-bolder font-size-h5">
 
                                         <span
-                                            class="text-dark-50 font-weight-bold"></span>{{ count($school->classrooms) }}</span>
+                                            class="text-dark-50 font-weight-bold"></span>
+                                            {{ count($school->classrooms) }}
+                                        </span>
 
                                 </div>
 
@@ -313,13 +317,7 @@
                     <!--end::Breadcrumb-->
                 </div>
                 <!--end::Page title-->
-                <!--begin::Actions-->
-                <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <a href="{{ url()->previous() }}"
-                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                        <i class="bi bi-arrow-left me-2"></i> Filter
-                    </a>
-                </div>
+                
                 <!--end::Actions-->
             </div>
             <div class="col-12 mt-3">
@@ -434,7 +432,7 @@
 
                             </div>
 
-                            <a href="{{ route('student.submaterial') }}"
+                            <a href="#"
                                 class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                         </div>

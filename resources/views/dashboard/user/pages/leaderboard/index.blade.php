@@ -67,8 +67,8 @@
                             <div class="card">
                                 <div class="card-header">
                                     <!--begin::Title-->
-                                    <h3 class="card-title align-items-start flex-column">
-                                        @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                    @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                        <h3 class="card-title align-items-start flex-column">
                                             @php
                                                 $rangking = $rankings->search(function ($rank) {
                                                     return $rank->student_id === auth()->id();
@@ -87,8 +87,16 @@
                                                 </span>{{ auth()->user()->name }}
                                                 Anda Berada Pada Rangking {{ $rangking + 1, auth()->id() }}
                                             </span>
-                                        @endif
-                                        {{-- @dd($rankings->search) --}}
+                                        </h3>
+                                    @else
+                                        <h3 class="card-title align-items-start flex-column">
+                                            <span class="card-label fw-bold text-gray-800">Peringkat</span>
+                                            <span class="text-gray-400 mt-1 fw-semibold fs-6">Daftar siswa dengan nilai
+                                                terbaik di kelas
+                                                industri.</span>
+                                        </h3>
+                                    @endif
+                                    {{-- @dd($rankings->search) --}}
                                     </h3>
                                     <!--end::Title-->
                                 </div>
@@ -109,16 +117,20 @@
                                             @foreach ($rankings as $key => $ranking)
                                                 <tr>
                                                     @if ($key == 0)
-                                                        <td><img width="50px" src="{{ asset('storage/medal_file/gold-medal.png') }}"
+                                                        <td><img width="50px"
+                                                                src="{{ asset('storage/medal_file/gold-medal.png') }}"
                                                                 alt=""></td>
                                                     @elseif ($key == 1)
-                                                        <td><img width="50px" src="{{ asset('storage/medal_file/silver-medal.png') }}"
+                                                        <td><img width="50px"
+                                                                src="{{ asset('storage/medal_file/silver-medal.png') }}"
                                                                 alt=""></td>
                                                     @elseif ($key == 2)
-                                                        <td><img width="50px" src="{{ asset('storage/medal_file/bronze-medal.png') }}"
+                                                        <td><img width="50px"
+                                                                src="{{ asset('storage/medal_file/bronze-medal.png') }}"
                                                                 alt=""></td>
                                                     @else
-                                                        <td>{{ ($key == 3) ? $loop->iteration : ($loop->iteration + $key - 3) }}</td>
+                                                        <td>{{ $key == 3 ? $loop->iteration : $loop->iteration + $key - 3 }}
+                                                        </td>
                                                     @endif
                                                     <td>{{ $ranking->student->name }}</td>
                                                     <td>{{ $ranking->student->studentSchool->school->name }}</td>
