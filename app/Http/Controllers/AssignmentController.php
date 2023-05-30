@@ -113,6 +113,7 @@ class AssignmentController extends Controller
         $id = $request->id;
         foreach($id as $index => $item){
             $this->service->storePoint($item ,$nilai[$index]);
+            $this->service->storePoint($item ,0.5);
         }
         return response()->json($id);
     }
