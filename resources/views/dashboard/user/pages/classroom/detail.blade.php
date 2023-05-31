@@ -105,8 +105,14 @@
                                                                 <td>{{ $student->studentSchool->student->phone_number }}
                                                                 </td>
                                                                 <td>{{ $student->studentSchool->student->address }}</td>
-                                                                <td><a href="{{ route('teacher.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                                <td>
+                                                                    @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                                    <a href="{{ route('teacher.showStudentDetail', $student->studentSchool->student->id) }}"
                                                                         class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
+                                                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                                    <a href="{{ route('mentor.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -132,8 +138,8 @@
                                         <div class="d-flex flex-center flex-column py-5">
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-100px symbol-circle mb-7">
-                                                <img src="{{ asset('app-assets/media/avatars/300-6.jpg') }}"
-                                                    alt="image">
+                                                <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
+                                                    alt="image" />
                                             </div>
                                             <!--end::Avatar-->
 

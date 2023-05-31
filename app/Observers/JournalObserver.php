@@ -21,43 +21,43 @@ class JournalObserver
     /**
      * Handle the Attendance "updated" event.
      *
-     * @param  \App\Models\Attendance  $Attendance
+     * @param  \App\Models\Journal  $Journlas
      * @return void
      */
-    public function updated(Attendance $Attendance)
+    public function updated(Journal $Journal)
     {
         //
     }
 
     /**
-     * Handle the Attendance "deleted" event.
+     * Handle the Journlas "deleted" event.
      *
-     * @param  \App\Models\Attendance  $Attendance
+     * @param  \App\Models\Journlas  $Journlas
      * @return void
      */
-    public function deleted(Attendance $Attendance)
+    public function deleted(Journal $Journal)
     {
         //
     }
 
     /**
-     * Handle the Attendance "restored" event.
+     * Handle the Journlas "restored" event.
      *
-     * @param  \App\Models\Attendance  $Attendance
+     * @param  Journlas  $Journlas
      * @return void
      */
-    public function restored(Attendance $Attendance)
+    public function restored(Journlas $Journlas)
     {
         //
     }
 
     /**
-     * Handle the Attendance "force deleted" event.
+     * Handle the Journlas "force deleted" event.
      *
-     * @param  \App\Models\Attendance  $Attendance
+     * @param  \App\Models\Journlas  $Journlas
      * @return void
      */
-    public function forceDeleted(Attendance $Attendance)
+    public function forceDeleted(Journlas $Journlas)
     {
         //
     }

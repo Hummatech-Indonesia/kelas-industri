@@ -187,8 +187,9 @@
 
                                                     <div class="col-lg-9 col-xl-9">
 
-                                                        <a href="{{ asset('storage/'.$submitChallenge->file) }}" target="_blank" class="btn btn-danger mt-2"><i
-                                                class="fas fa-file-pdf"></i>Lihat file tugas anda</a>
+                                                        <a href="{{ Route('mentor.downloadChallenge', ['submitChallenge' => $students->id]) }}"
+                                                            target="_blank" class="btn btn-danger btn-sm"><i
+                                                                class="fas fa-file-pdf"></i>File Tantangan</a>
 
                                                     </div>
 

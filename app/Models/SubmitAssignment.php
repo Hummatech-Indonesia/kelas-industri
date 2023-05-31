@@ -18,6 +18,11 @@ class SubmitAssignment extends Model
     {
         return $this->belongsTo(Assignment::class);
     }
+
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
 
 ?>

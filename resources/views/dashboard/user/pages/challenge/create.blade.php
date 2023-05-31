@@ -150,8 +150,9 @@
                                                 <div class="col-lg-9 col-xl-9">
 
                                                     <select name="classroom_id" class="form-select form-select-solid me-5"
-                                                        data-control="select2" data-placeholder="Select an option">
+                                                        data-control="select2" data-placeholder="Pilih Kelas">
                                                         @foreach ($classrooms as $classroom)
+                                                        <option value=""></option>
                                                             <option
                                                                 {{ old('classroom_id') == $classroom->classroom->id ? 'selected' : '' }}
                                                                 value="{{ $classroom->classroom->id }}">
@@ -171,8 +172,8 @@
                                                 <div class="col-lg-9 col-xl-9">
 
                                                     <select name="difficulty" class="form-select form-select-solid me-5"
-                                                        data-control="select2" data-placeholder="Select an option">
-
+                                                        data-control="select2" data-placeholder="Pilih Kesulitan">
+                                                        <option value=""></option>
                                                         <option value="sulit">
                                                             Sulit
                                                         </option>

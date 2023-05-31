@@ -89,10 +89,10 @@
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                <a href="{{ route('mentor.jurnal.index') }}" class="menu-link">
+                                <a href="{{ route('mentor.journal.index') }}" class="menu-link">
                                     <span class="menu-title">Jurnal</span></a>
                             @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                <a href="{{ route('teacher.jurnal.index') }}" class="menu-link">
+                                <a href="{{ route('teacher.journal.index') }}" class="menu-link">
                                     <span class="menu-title">Jurnal</span></a>
                             @endif
 

@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Journal;
 use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\JournalRequest;
 use App\Repositories\JournalRepository;
-use App\Http\Requests\GenerationRequest;
 use App\Repositories\GenerationRepository;
 
 class JournalService
@@ -25,6 +25,11 @@ class JournalService
     public function handleGetAll(): mixed
     {
         return $this->repository->getAll();
+    }
+
+    public function handleGetJournalByUser(): mixed
+    {
+        return $this->repository->get_journal_by_user();
     }
 
     /**
@@ -52,11 +57,11 @@ class JournalService
     /**
      * update generation year
      *
-     * @param GenerationRequest $request
+     * @param JournalRequest $request
      * @param int $id
      * @return void
      */
-    public function handleUpdate(GenerationRequest $request, int $id): void
+    public function handleUpdate(JournalRequest $request, string $id): void
     {
         $this->repository->update($id, $request->validated());
     }
@@ -67,8 +72,7 @@ class JournalService
      * @param int $id
      * @return bool
      */
-    public function handleDelete(int $id): bool
+    public function handleDelete(Journal $journal): bool
     {
-        return $this->repository->destroy($id);
-    }
-}
+        return $this->repository->destroy($journal->id);
+    }}

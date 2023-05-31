@@ -21,11 +21,11 @@
                             @endif
                             <div class="row">
                                 @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                <form action="{{ route('mentor.journal.store') }}" method="POST" enctype="multipart/form-data">
-                                @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                <form action="{{ route('teacher.journal.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('mentor.journal.update', [$journal->id]) }}" method="post" enctype="multipart/form-data">
+                                    @elseif(auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                    <form action="{{ route('teacher.journal.update', [$journal->id]) }}" method="post" enctype="multipart/form-data">
                                 @endif
-
+                                    @method('PUT')
                                     @csrf
                                     <div class="col-12">
                                         <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -36,7 +36,7 @@
 
                                                     <h3 class="card-label">
 
-                                                        Silakan Isi Data Jurnal
+                                                        Edit Isi Data Jurnal
 
                                                     </h3>
 
@@ -82,7 +82,7 @@
                                                         <div class="col-lg-9 col-xl-9">
 
                                                             <input class="form-control form-control-solid form-control-lg"
-                                                                name="title" type="text" value="{{ old('title') }}"
+                                                                name="title" type="text" value="{{$journal->title}}"
                                                                 placeholder="Masukkan Judul" required="">
 
                                                         </div>
@@ -95,8 +95,7 @@
 
                                                         <div class="col-lg-9 col-xl-9">
 
-                                                            <select name="classroom_id" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih kelas">
-                                                                <option value=""></option>
+                                                            <select name="classroom_id" class="form-select form-select-solid" data-control="select2" data-placeholder="Select an option">
                                                                 @foreach($classrooms as $classroom)
                                                                     <option {{ (old('classroom_id') == $classroom->classroom_id) ? 'selected' : '' }} value="{{ $classroom->classroom_id }}">
                                                                         {{ $classroom->classroom->name}}
@@ -113,7 +112,8 @@
                                                         <label class="col-xl-3 col-lg-3 col-form-label">Tanggal</label>
 
                                                         <div class="col-lg-9 col-xl-9">
-                                                            <input class="form-control form-control-solid form-control-lg" type="date" name="date">
+
+                                                            <input class="form-control form-control-solid form-control-lg" type="date" name="date" value="{{$journal->date}}">
                                                         </span>
                                                     </div>
 
@@ -131,7 +131,7 @@
 
                                                             <textarea class="form-control form-control-solid form-control-lg" rows="5"
                                                               name="description" type="text" placeholder="deskripsi Jurnal"
-                                                              required="">{{ old('description') }}</textarea>
+                                                              required="">{{$journal->description}}</textarea>
 
                                                         </div>
 

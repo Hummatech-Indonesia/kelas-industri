@@ -58,6 +58,7 @@ class UserAssignmentController extends Controller
         $name = $submitAssignment->student->name.'.zip';
         return response()->download($path,$name);
     }
+
     public function downloadAll(Classroom $classroom,Assignment $assignment){
         $file = $this->assignmentService->handleGetAssignmentStudent($classroom->id, $assignment->id);
         $zipName = 'Assignment.zip';
@@ -66,8 +67,10 @@ class UserAssignmentController extends Controller
         if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
 
             foreach ($file as $file) {
-                if (file_exists(storage_path('app/public/' . $file->submitAssignment->file))) {
-                    $zip->addFile(storage_path('app/public/' . $file->submitAssignment->file), $file->name.'.zip');
+                if($file->submitAssignment){
+                    if (file_exists(storage_path('app/public/' . $file->submitAssignment->file))) {
+                        $zip->addFile(storage_path('app/public/' . $file->submitAssignment->file), $file->name.'.zip');
+                    }
                 }
             }
 

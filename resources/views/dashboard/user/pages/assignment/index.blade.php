@@ -64,16 +64,26 @@
                                         <span class="text-gray-400 mt-1 fw-semibold fs-6">list tugas anda.</span>
                                     </h3>
 
-                                    <div class="my-lg-0 my-1">
-
-                                            <button onclick="BeriNilai()" class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
+                                    @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                        <div class="my-lg-0 my-1">
+                                            <button onclick="BeriNilai()"
+                                                class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
                                                 Nilai
                                             </button>
-                                            <a href="{{Route('teacher.downloadAll',['classroom' => $classroom->id,'assignment' => $assignment->id ])}}" class="btn btn-sm btn-success font-weight-bolder text-uppercase">
+                                            <a href="{{ Route('teacher.downloadAll', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                                class="btn btn-sm btn-success font-weight-bolder text-uppercase"
+                                                id="btn-download-all">
                                                 Download Semua File
                                             </a>
+                                        </div>
+                                    @else
+                                        <a href="{{ Route('mentor.downloadAll', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                            class="btn btn-sm btn-success font-weight-bolder text-uppercase mb-5"
+                                            id="btn-download-all">
+                                            Download Semua File
+                                        </a>
+                                    @endif
 
-                                    </div>
 
 
                                     <!--end::Title-->
@@ -97,22 +107,42 @@
                                                     <td>{{ $student->name }}</td>
                                                     @if ($student->submitAssignment)
                                                         <td>
-                                                            <a href="{{Route('teacher.download' ,['submitAssignment' => $student->submitAssignment->id])}}"
-                                                                target="_blank" class="btn btn-danger btn-sm"><i
-                                                                    class="fas fa-file-pdf"></i>Download </a>
+                                                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                                <a href="{{ Route('teacher.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
+                                                                    target="_blank"
+                                                                    class="btn btn-danger btn-sm btn-download"><i
+                                                                        class="fas fa-file-pdf"></i>Download </a>
+                                                            @else
+                                                                <a href="{{ Route('mentor.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
+                                                                    target="_blank"
+                                                                    class="btn btn-danger btn-sm btn-download"><i
+                                                                        class="fas fa-file-pdf"></i>Download </a>
+                                                            @endif
                                                         </td>
-                                                        @if ($student->submitAssignment->point)
-                                                            <td><input type="text" data-id="{{$student->submitAssignment->id}}"
-                                                                value="{{ $student->submitAssignment->point }}"
-                                                                class="form-control form-control-solid input-nilai form-control-lg"
-                                                                placeholder="Masukkan Nilai"></td>
+                                                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                            @if ($student->submitAssignment->point)
+                                                                <td><input type="text"
+                                                                        data-id="{{ $student->submitAssignment->id }}"
+                                                                        value="{{ $student->submitAssignment->point }}"
+                                                                        class="form-control form-control-solid input-nilai form-control-lg"
+                                                                        placeholder="Nilai"></td>
+                                                            @else
+                                                                <td>
+                                                                    <input type="text"
+                                                                        data-id="{{ $student->submitAssignment->id }}"
+                                                                        value=""
+                                                                        class="form-control form-control-solid input-nilai form-control-lg"
+                                                                        placeholder="Nilai">
+                                                                </td>
+                                                            @endif
                                                         @else
-                                                            <td>
-                                                                <input type="text" data-id="{{$student->submitAssignment->id}}"
-                                                                value=""
-                                                                class="form-control form-control-solid input-nilai form-control-lg"
-                                                                placeholder="Masukkan Nilai">
-                                                            </td>
+                                                            @if ($student->submitAssignment->point)
+                                                                <td>{{ $student->submitAssignment->point }}</td>
+                                                            @else
+                                                                <td>
+                                                                    -
+                                                                </td>
+                                                            @endif
                                                         @endif
                                                     @else
                                                         <td>-</td>
@@ -177,7 +207,7 @@
         });
 
 
-        function BeriNilai(){
+        function BeriNilai() {
             var arr_nilai = [];
             var arr_id = [];
             $('.input-nilai').each(function() {
@@ -190,22 +220,22 @@
             });
             $.ajaxSetup({
                 headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
                 url: '/teacher/storepoint',
                 type: 'POST',
                 data: {
-                    nilai:arr_nilai,
-                    id:arr_id
+                    nilai: arr_nilai,
+                    id: arr_id
                 },
                 success: function(response) {
                     Swal.fire({
-                        title:'Berhasil!',
-                        icon:'success',
-                        text:'Berhasil Memberikan Nilai!'
-                    }).then(function(){
+                        title: 'Berhasil!',
+                        icon: 'success',
+                        text: 'Berhasil Memberikan Nilai!'
+                    }).then(function() {
                         window.location.reload()
                     })
 
@@ -214,6 +244,12 @@
                     console.log('Terjadi kesalahan: ' + error);
                 }
             });
+        }
+
+        var downloadButtons = $(".btn-download");
+
+        if (downloadButtons.length === 0) {
+            $("#btn-download-all").remove();
         }
     </script>
 @endsection

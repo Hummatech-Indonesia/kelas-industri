@@ -11,4 +11,11 @@ class JournalRepository extends BaseRepository
         $this->model = $journal;
     }
 
+    public function get_journal_by_user(): mixed
+    {
+        return $this->model->query()
+        ->where('created_by', auth()->id())
+        ->get();
+    }
+
 }

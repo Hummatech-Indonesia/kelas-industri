@@ -301,27 +301,27 @@
                         </div>
                         @if (auth()->user()->roles->pluck('name')[0] == 'student')
 
-                        <div class="col-12 mt-5">
-                            <div class="card">
-                                <div class="card-header pt-7">
-                                    <!--begin::Title-->
-                                    <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold text-gray-800">Pengumpulan Tantangan</span>
+                            <div class="col-12 mt-5">
+                                <div class="card">
+                                    <div class="card-header pt-7">
+                                        <!--begin::Title-->
+                                        <h3 class="card-title align-items-start flex-column">
+                                            <span class="card-label fw-bold text-gray-800">Pengumpulan Tantangan</span>
                                             <span class="text-gray-400 mt-1 fw-semibold fs-6">submit tantangan yang telah
                                                 anda
-                                            selesaikan dibawah ini.</span>
-                                    </h3>
-                                    <!--end::Title-->
-                                </div>
-                                <div class="card-body">
+                                                selesaikan dibawah ini.</span>
+                                        </h3>
+                                        <!--end::Title-->
+                                    </div>
+                                    <div class="card-body">
 
-                                    <table id="kt_datatable_responsive"
-                                        class="table table-striped border rounded gy-5 gs-7">
-                                        <thead>
-                                            <tr class="fw-semibold fs-6 text-gray-800">
+                                        <table id="kt_datatable_responsive"
+                                            class="table table-striped border rounded gy-5 gs-7">
+                                            <thead>
+                                                <tr class="fw-semibold fs-6 text-gray-800">
 
-                                                <th class="min-w-200px" data-priority="1">Judul</th>
-                                                <th class="min-w-300px">Deskripsi</th>
+                                                    <th class="min-w-200px" data-priority="1">Judul</th>
+                                                    <th class="min-w-300px">Deskripsi</th>
 
                                                     <th class="min-w-100px" data-priority="2">Tenggat</th>
                                                     <th class="min-w-100px" data-priority="3">Status</th>
@@ -329,42 +329,43 @@
 
 
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
 
-                                                    {{ $challenge->title }}
+                                                        {{ $challenge->title }}
 
-                                                </td>
-                                                <td>
+                                                    </td>
+                                                    <td>
 
-                                                    {{ $challenge->description }}
+                                                        {{ $challenge->description }}
 
-                                                </td>
+                                                    </td>
 
-                                                <td><span class="badge badge-light-danger">
+                                                    <td><span class="badge badge-light-danger">
 
-                                                        {{ $challenge->end_date }}
+                                                            {{ $challenge->end_date }}
 
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    @if (strtotime(now()) <= strtotime($challenge->end_date))
-                                                        <span class="badge badge-light-success">Tersedia</span>
-                                                    @else
-                                                        <span class="badge badge-light-danger">Ditutup</span>
-                                                    @endif
-                                                </td>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        @if (strtotime(now()) <= strtotime($challenge->end_date))
+                                                            <span class="badge badge-light-success">Tersedia</span>
+                                                        @else
+                                                            <span class="badge badge-light-danger">Ditutup</span>
+                                                        @endif
+                                                    </td>
                                                     <td>
 
                                                         @if (strtotime(now()) <= strtotime($challenge->end_date))
-                                                            @if($challenge->studentSubmitChallenge)
+                                                            @if ($challenge->studentSubmitChallenge)
                                                                 @if ($challenge->studentSubmitChallenge->is_valid == 'valid')
-                                                                <button class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">-</button>
+                                                                    <button
+                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">-</button>
                                                                 @elseif ($challenge->studentSubmitChallenge->is_valid == 'not_valid')
-                                                                <a href="{{ route('student.submitChallenge', ['challenge' => $challenge->id]) }}"
+                                                                    <a href="{{ route('student.submitChallenge', ['challenge' => $challenge->id]) }}"
                                                                         class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
                                                                 @endif
                                                             @else
@@ -392,10 +393,13 @@
                                                 Tantangan.</span>
                                         </h3>
 
-                                        <a href="{{Route('mentor.downloadAllFile',['challenge' => $challenge->id])}}" class="btn btn-success btn-sm mb-5"><i
-                                                class="fas fa-file-excel"></i> Download File Semua Siswa
-                                        </a>
-
+                                        @if (count($student) > 0)
+                                            <a href="{{ Route('mentor.downloadAllFile', ['challenge' => $challenge->id]) }}"
+                                                class="btn btn-success btn-sm mb-5"><i class="fas fa-file-excel"></i>
+                                                Download File Semua Siswa
+                                            </a>
+                                        @else
+                                        @endif
 
                                         <!--end::Title-->
                                     </div>
@@ -419,34 +423,39 @@
                                                 <tbody>
                                                     <tr>
 
-                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>{{ $loop->iteration }}</td>
                                                         <td>
                                                             {{ $students->studentSchool->student->name }}
                                                         </td>
                                                         <td>
-                                                            <a href="{{ Route('mentor.download',['submitChallenge' => $students->id]) }}" target="_blank" class="btn btn-danger btn-sm"><i
-                                                                class="fas fa-file-pdf"></i>Dwonload</a>
+                                                            <a href="{{ Route('mentor.downloadFileChallenge', ['submitChallenge' => $students->id]) }}"
+                                                                target="_blank" class="btn btn-danger btn-sm"><i
+                                                                    class="fas fa-file-pdf"></i>Download</a>
                                                         </td>
                                                         <td>
                                                             @if ($students->is_valid == 'not_valid')
-                                                            <span class="badge badge-light-danger">Not Valid</span>
+                                                                <span class="badge badge-light-danger">Not Valid</span>
                                                             @else
-                                                            <span class="badge badge-light-success">Valid</span>
-                                                @endif
+                                                                <span class="badge badge-light-success">Valid</span>
+                                                            @endif
                                                         </td>
                                                         <td>
-                                                            @if ($students->is_valid == 'not_valid')
-                                                                <form
-                                                                    action="{{ route('mentor.validChallenge', ['submitChallenge' => $students]) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    <button type="submit"
-                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
-                                                                        Valid
-                                                                    </button>
-                                                                </form>
+                                                            @if ($challenge->created_by == auth()->user()->id)
+                                                                @if ($students->is_valid == 'not_valid')
+                                                                    <form
+                                                                        action="{{ route('teacher.validChallengeTeacher', ['submitChallenge' => $students]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
+                                                                            Valid
+                                                                        </button>
+                                                                    </form>
+                                                                @else
+                                                                    -
+                                                                @endif
                                                             @else
-                                                            <span class="badge badge-light-primary">-</span>
+                                                            -
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -457,7 +466,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                        @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
                             <div class="col-12 mt-5">
                                 <div class="card">
                                     <div class="card-header pt-7">
@@ -467,8 +476,12 @@
                                             <span class="text-gray-400 mt-1 fw-semibold fs-6">Siswa Yang Telah Mengumpulkan
                                                 Tantangan.</span>
                                         </h3>
-                                        <a href="{{ asset('data-siswa.xlsx') }}" class="btn btn-success btn-sm mb-5"><i
-                                                class="fas fa-file-excel"></i> Download Semua File
+                                        @if (count($student) > 0)
+                                            <a href="{{ Route('teacher.downloadAllFile', ['challenge' => $challenge->id]) }}"
+                                                class="btn btn-success btn-sm mb-5"><i class="fas fa-file-excel"></i>
+                                                Download File Semua Siswa
+                                            @else
+                                        @endif
                                         </a>
                                         <!--end::Title-->
                                     </div>
@@ -484,51 +497,58 @@
                                                     <th class="min-w-100px" data-priority="3">Status</th>
                                                     <th class="min-w-100px" data-priority="4">Aksi</th>
 
+
                                                 </tr>
                                             </thead>
                                             @foreach ($student as $students)
                                                 <tbody>
                                                     <tr>
-                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>{{ $loop->iteration }}</td>
                                                         <td>
                                                             {{ $students->studentSchool->student->name }}
                                                         </td>
                                                         <td>
 
-                                                            <a href="{{ asset('storage/'.$students->file) }}" target="_blank" class="btn btn-danger btn-sm"><i
-                                                                class="fas fa-file-pdf"></i> Download</a>
+                                                            <a href="{{ Route('teacher.downloadFileChallenge', ['submitChallenge' => $students->id]) }}"
+                                                                target="_blank" class="btn btn-danger btn-sm"><i
+                                                                    class="fas fa-file-pdf"></i>Download</a>
                                                         </td>
-                                                        <td>
-                                                            @if ($students->is_valid == 'not_valid')
-                                                            <span class="badge badge-light-danger">Not Valid</span>
-                                                            @else
-                                                            <span class="badge badge-light-success">Valid</span>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($students->is_valid == 'not_valid')
 
-                                                                <form
-                                                                    action="{{ route('teacher.validChallengeTeacher', ['submitChallenge' => $students]) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    <button type="submit"
-                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
-                                                                        Valid
-                                                                    </button>
-                                                                </form>
+                                                        <td>
+                                                            @if ($students->is_valid == 'not_valid')
+                                                                <span class="badge badge-light-danger">Not Valid</span>
                                                             @else
-                                                                -
+                                                                <span class="badge badge-light-success">Valid</span>
                                                             @endif
                                                         </td>
-                                            </tr>
-                                        </tbody>
+
+                                                        <td>
+                                                            @if ($challenge->created_by == auth()->user()->id)
+                                                                @if ($students->is_valid == 'not_valid')
+                                                                    <form
+                                                                        action="{{ route('teacher.validChallengeTeacher', ['submitChallenge' => $students]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
+                                                                            Valid
+                                                                        </button>
+                                                                    </form>
+                                                                @else
+                                                                    -
+                                                                @endif
+                                                            @else
+                                                            -
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
                                             @endforeach
 
-                                    </table>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
 
                     </div>
@@ -570,10 +590,10 @@
         </div>
     @endsection
     @section('script')
-    <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script>
-        $("#kt_datatable_responsive").DataTable({
-            responsive: true
-        });
-    </script>
+        <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+        <script>
+            $("#kt_datatable_responsive").DataTable({
+                responsive: true
+            });
+        </script>
     @endsection
