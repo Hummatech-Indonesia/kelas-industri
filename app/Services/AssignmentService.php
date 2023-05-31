@@ -75,6 +75,10 @@ class AssignmentService
         $this->repository->storePoint($id,$point);
     }
 
+    public function handleShowSubmitAssignment($id){
+        return $this->repository->ShowSubmitAssignment($id);
+    }
+
     /**
      * handle update
      *
