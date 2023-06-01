@@ -32,6 +32,11 @@ class JournalService
         return $this->repository->get_journal_by_user();
     }
 
+    public function handleGetBySchool(): mixed
+    {
+        return $this->repository->get_journal_by_school();
+    }
+
     /**
      * handle get paginated
      *

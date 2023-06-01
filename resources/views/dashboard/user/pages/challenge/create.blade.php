@@ -198,7 +198,7 @@
 
                                                     <input class="form-control form-control-solid form-control-lg"
                                                         name="title" type="text" value="{{ old('title') }}"
-                                                        placeholder="" required="">
+                                                        placeholder="judul tantangan" required="">
 
                                                 </div>
 

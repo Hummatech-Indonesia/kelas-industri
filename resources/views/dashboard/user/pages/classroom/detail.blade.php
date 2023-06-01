@@ -93,7 +93,13 @@
                                                             <th data-priority="3">Email</th>
                                                             <th data-priority="4">No Telepon</th>
                                                             <th class="min-w-50px" data-priority="5">Alamat</th>
-                                                            <th>Aksi</th>
+
+                                                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                                <th>Aksi</th>
+                                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                                <th>Aksi</th>
+                                                            @else
+                                                            @endif
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -105,15 +111,18 @@
                                                                 <td>{{ $student->studentSchool->student->phone_number }}
                                                                 </td>
                                                                 <td>{{ $student->studentSchool->student->address }}</td>
-                                                                <td>
-                                                                    @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                                    <a href="{{ route('teacher.showStudentDetail', $student->studentSchool->student->id) }}"
-                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
-                                                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                                    <a href="{{ route('mentor.showStudentDetail', $student->studentSchool->student->id) }}"
-                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
-                                                                    @endif
-                                                                </td>
+                                                                @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                                    <td>
+                                                                        <a href="{{ route('teacher.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
+                                                                    </td>
+                                                                @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                                    <td>
+                                                                        <a href="{{ route('mentor.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
+                                                                    </td>
+                                                                @else
+                                                                @endif
                                                             </tr>
                                                         @endforeach
                                                     </tbody>

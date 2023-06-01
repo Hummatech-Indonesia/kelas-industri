@@ -24,9 +24,14 @@ class MaterialService
      * @param int $schoolYearId
      * @return mixed
      */
-    public function handleGetPaginate(int $schoolYearId): mixed
+    public function handleGetPaginate($request, int $schoolYearId): mixed
     {
-        return $this->repository->get_paginate_by_school_year($schoolYearId, 6);
+        return $this->repository->get_paginate_by_school_year($request, $schoolYearId, 6);
+    }
+
+    public function handleSearch(string|null $search): mixed
+    {
+        return $this->repository->search_paginate($search, 6);
     }
 
     /**

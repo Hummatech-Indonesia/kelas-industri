@@ -95,8 +95,8 @@
                                         <thead>
                                             <tr class="fw-semibold fs-6 text-gray-800">
                                                 <th data-priority="1">No</th>
-                                                <th class="min-w-100px" data-priority="2">Nama</th>
-                                                <th data-priority="3">File</th>
+                                                <th class="min-w-200px" data-priority="2">Nama</th>
+                                                <th class="min-w-100px" data-priority="3">File</th>
                                                 <th data-priority="4">Nilai</th>
                                             </tr>
                                         </thead>

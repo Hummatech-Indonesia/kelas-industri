@@ -31,7 +31,8 @@
             <!--end::school yeaer-->
             <!--begin::Button-->
             <button class="btn btn-dark fw-bold ms-5"  data-bs-toggle="modal" data-bs-target="#kt_modal_1">
-                Tambah            </button>
+                Tambah
+            </button>
             <!--end::Button-->
         </div>
         <!--end::Actions-->

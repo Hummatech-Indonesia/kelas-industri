@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Material;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SubMaterial extends Model
 {
@@ -25,5 +27,10 @@ class SubMaterial extends Model
     public function assignments() : HasMany
     {
         return $this->hasMany(Assignment::class);
+    }
+
+    public function material() : BelongsTo
+    {
+        return $this->belongsTo(Material::class, 'material_id');
     }
 }

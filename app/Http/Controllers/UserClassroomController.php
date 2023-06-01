@@ -47,6 +47,14 @@ class UserClassroomController extends Controller
 
     public function show(Classroom $classroom): View
     {
+        if(auth()->user()->roles->pluck('name')[0] == 'admin'){
+            $data = [
+                'classroom' => $classroom,
+                'students' => $this->studentService->handleGetBySchool(auth()->id()),
+            ];
+    //        dd($data);
+            return \view ('dashboard.admin.pages.classroom.show', $data);
+        }else
         $data = [
             'classroom' => $classroom,
             'students' => $this->studentService->handleGetBySchool(auth()->id()),
@@ -100,7 +108,7 @@ class UserClassroomController extends Controller
             'point' => $this->pointService->handleGetPointByStudent($student->id),
             'challenges' => $this->submitChallengeService->handleGetCountStudentByChallenge($student->students[0]->id),
             'assignments' => $this->submitAssignmentService->handleGetCountStudentByAssignment($student->id),
-            'rankings' => $this->pointService->handleGetPointStudent()
+            'rankings' => $this->pointService->handleGetPoint()
         ];
         return view('dashboard.user.pages.classroom.show', $data);
     }

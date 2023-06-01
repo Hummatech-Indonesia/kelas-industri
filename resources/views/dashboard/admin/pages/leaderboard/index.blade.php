@@ -1,47 +1,71 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
-    <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
-
-
-        <!--begin::Page title-->
-        <div class="page-title d-flex flex-column me-3">
+    <div class="toolbar mb-lg-7" id="kt_toolbar">
+        <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
             <!--begin::Title-->
-            <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Overview
+            <h1
+                class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+                Peringkat
             </h1>
             <!--end::Title-->
 
-
             <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7 my-1">
+            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-600">
-                    <a href="../../index-2.html" class="text-gray-600 text-hover-primary">
-                        Home </a>
+                <li class="breadcrumb-item text-muted">
+                    <a href="../../index-2.html" class="text-muted text-hover-primary">
+                        daftar siswa dengan nilai
+                        terbaik. </a>
                 </li>
                 <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-600">
-                    User Profile </li>
                 <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-500">
-                    Overview </li>
-                <!--end::Item-->
+
             </ul>
             <!--end::Breadcrumb-->
         </div>
-        <!--end::Page title-->
-        <!--begin::Actions-->
-        {{-- <div class="d-flex align-items-center py-2 py-md-1">
+        @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+        <form id="form-search" action="{{ route('admin.rankings') }}">
+            <!--begin::Actions-->
+            <div class="d-flex align-items-center py-2 py-md-1">
 
-            <!--begin::Button-->
-            <a href="#" class="btn btn-dark fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app"
-                id="kt_toolbar_primary_button">
-                Tambah </a>
-            <!--end::Button-->
-        </div> --}}
-        <!--end::Actions-->
+                <!--begin::school year-->
+                <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
+                    data-control="select">
+                    <option value="">Semua Sekolah</option>
+                    @foreach ($schools as $school)
+                        <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
+                            {{ $school->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <!--end::school yeaer-->
+                <!--begin::Button-->
+                <button type="submit" class="btn btn-primary">Cari</button>
+                <!--end::Button-->
+        </form>
+        @else
+        <form id="form-search" action="{{ route('school.rankings') }}">
+            <!--begin::Actions-->
+            <div class="d-flex align-items-center py-2 py-md-1">
+
+                <!--begin::school year-->
+                <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
+                    data-control="select">
+                    <option value="">Semua Sekolah</option>
+                    @foreach ($schools as $school)
+                        <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
+                            {{ $school->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <!--end::school yeaer-->
+                <!--begin::Button-->
+                <button type="submit" class="btn btn-primary">Cari</button>
+                <!--end::Button-->
+        </form>
+        @endif
+
+    </div>
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -69,7 +93,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($rankings as $key=>$ranking)
+                                @foreach ($rankings as $key => $ranking)
                                     <tr>
                                         @if ($key == 0)
                                             <td><img width="50px" src="{{ asset('storage/medal_file/gold-medal.png') }}"

@@ -18,4 +18,11 @@ class JournalRepository extends BaseRepository
         ->get();
     }
 
+    public function get_journal_by_school(): mixed
+    {
+        return $this->model->query()
+        ->whereIn('classroom_id',auth()->user()->classrooms->pluck('id')->toArray())
+        ->get();
+    }
+
 }

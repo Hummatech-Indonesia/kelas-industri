@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Jadwal Zoom
+                Jurnal
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List jadwal zoom pada kelas industri.
+                List jurnal guru dan mentor pada
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -38,6 +38,10 @@
                                     <!--begin::Table row-->
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th>No</th>
+                                        <th>Pembuat</th>
+                                        @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                                            <th>Sekolah</th>
+                                        @endif
                                         <th>Judul</th>
                                         <th>Tanggal</th>
                                         <th>Kelas</th>
@@ -52,6 +56,10 @@
                                     @foreach ($journals as $journal)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $journal->user->name }}</td>
+                                            @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                                                <td>{{ $journal->classroom->school->name }}</td>
+                                            @endif
                                             <td>{{ $journal->title }}</td>
                                             <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}
                                             </td>

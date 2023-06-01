@@ -31,6 +31,11 @@ class AttendanceService
         return $this->repository->get_attendance_by_mentor(auth()->user()->id);
     }
 
+    public function handleGetByAdmin(): mixed
+    {
+        return $this->repository->getAll();
+    }
+
     public function handleCreate(AttendanceRequest $request): void
     {
         $data = $request->validated();
@@ -43,7 +48,7 @@ class AttendanceService
         return $this->repository->show($attandance->id);
     }
 
-    public function validate_student_mentor($mentorId) : bool 
+    public function validate_student_mentor($mentorId) : bool
     {
         return $this->mentorRepository->student_have_mentor($mentorId);
     }
@@ -80,7 +85,7 @@ class AttendanceService
     {
         $this->repository->update_status($attendance->id);
     }
-    
+
 
     public function handleDelete(Attendance $attendance): bool
     {

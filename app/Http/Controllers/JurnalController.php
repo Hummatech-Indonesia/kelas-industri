@@ -24,23 +24,22 @@ class JurnalController extends Controller
 
     public function index()
     {
-        if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            $data = [
-                'journals' => $this->journalService->handleGetJournalByUser(),
-            ];
-            return view('dashboard.user.pages.jurnal.index', $data);
-
-        } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            $data = [
-                'journals' => $this->journalService->handleGetJournalByUser(),
-            ];
-            return view('dashboard.user.pages.jurnal.index', $data);
-
-        } else {
+        if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data = [
                 'journals' => $this->journalService->handleGetAll(),
             ];
             return view('dashboard.admin.pages.jurnal.index', $data);
+
+        } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
+            $data = [
+                'journals' => $this->journalService->handleGetBySchool()
+            ];
+            return view('dashboard.admin.pages.jurnal.index', $data);
+        } else {
+            $data = [
+                'journals' => $this->journalService->handleGetJournalByUser(),
+            ];
+            return view('dashboard.user.pages.jurnal.index', $data);
         }
 
     }

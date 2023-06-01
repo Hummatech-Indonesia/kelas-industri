@@ -208,8 +208,7 @@
 
                                     <span class="fw-bolder font-size-h5">
 
-                                        <span
-                                            class="text-dark-50 font-weight-bold">
+                                        <span class="text-dark-50 font-weight-bold">
                                             {{ count($school->students) }}
                                         </span>
 
@@ -237,10 +236,9 @@
 
                                     <span class="fw-bolder font-size-h5">
 
-                                        <span
-                                            class="text-dark-50 font-weight-bold"></span>
-                                            {{ count($school->classrooms) }}
-                                        </span>
+                                        <span class="text-dark-50 font-weight-bold"></span>
+                                        {{ count($school->classrooms) }}
+                                    </span>
 
                                 </div>
 
@@ -281,14 +279,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($school->teachers as $teacher)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$teacher->teacher->name}}</td>
-                                    <td>{{$teacher->teacher->email}}</td>
-                                    <td>{{$teacher->teacher->phone_number}}</td>
-                                    <td>{{$teacher->teacher->address}}</td>
-                                    <td>{{$teacher->teacher->bank}}</td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $teacher->teacher->name }}</td>
+                                        <td>{{ $teacher->teacher->email }}</td>
+                                        <td>{{ $teacher->teacher->phone_number }}</td>
+                                        <td>{{ $teacher->teacher->address }}</td>
+                                        <td>{{ $teacher->teacher->bank }}</td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -309,7 +307,7 @@
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            list kelas {{$school->name}}
+                            list kelas {{ $school->name }}
                         </li>
                         <!--end::Item-->
 
@@ -317,133 +315,140 @@
                     <!--end::Breadcrumb-->
                 </div>
                 <!--end::Page title-->
-                
+
                 <!--end::Actions-->
             </div>
             <div class="col-12 mt-3">
-                <div class="col-xl-4">
+                <!--begin::Body-->
 
-                    <!--begin::Card-->
+                @foreach ($school->classrooms as $classroom)
+                    <div class="col-xl-4 mb-3">
 
-                    <div class="card card-custom gutter-b card-stretch">
+                        <!--begin::Card-->
 
-                        <!--begin::Body-->
+                        <div class="card card-custom gutter-b card-stretch">
 
-                        @foreach ($school->classrooms as $classroom)
-                        <div class="card-body">
+                            <!--begin::Body-->
 
-                            <!--begin::Section-->
+                            <div class="card-body">
 
-                            <div class="d-flex align-items-center">
+                                <!--begin::Section-->
 
-                                <!--begin::Pic-->
+                                <div class="d-flex align-items-center">
 
-                                <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle me-5">
+                                    <!--begin::Pic-->
 
-                                    <span
-                                        class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($classroom->name, 0, 1) }}</span>
+                                    <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle me-5">
 
+                                        <span
+                                            class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($classroom->name, 0, 1) }}</span>
+
+
+                                    </div>
+
+                                    <!--end::Pic-->
+
+                                    <!--begin::Info-->
+
+                                    <div class="d-flex flex-column me-auto">
+
+                                        <!--begin: Title-->
+
+                                        <a href="https://class.hummasoft.com/siswa/materi/11/4"
+                                            class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
+
+                                            {{ $classroom->name }}
+                                        </a>
+
+
+                                        <span class="text-muted font-weight-bold">
+                                            {{ $classroom->name }}
+                                        </span>
+
+                                        <!--end::Title-->
+
+                                    </div>
+
+                                    <!--end::Info-->
 
                                 </div>
 
-                                <!--end::Pic-->
+                                <!--end::Section-->
 
-                                <!--begin::Info-->
-
-                                <div class="d-flex flex-column me-auto">
-
-                                    <!--begin: Title-->
-
-                                    <a href="https://class.hummasoft.com/siswa/materi/11/4"
-                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
-
-                                        {{ $classroom->name }}
-                                    </a>
+                                <!--begin::Content-->
 
 
-                                    <span class="text-muted font-weight-bold">
-                                        {{ $classroom->name }}
-                                    </span>
+                                <!--end::Content-->
 
-                                    <!--end::Title-->
+                                <!--begin::Text-->
 
-                                </div>
+                                <p class="mb-7 mt-5">
 
-                                <!--end::Info-->
+                                    {{ $classroom->description }}
+                                </p>
+
+                                <!--end::Text-->
+
+
+                            </div>
+
+                            <!--end::Body-->
+
+                            <!--begin::Footer-->
+
+                            <div class="card-footer d-flex flex-row justify-content-between">
 
                                 <div class="d-flex">
-                                    <a href="{{ route('school.classrooms.edit', $classroom->id) }}"
-                                        class="btn btn-default btn-sm p-1"><i
-                                            class="fonticon-setting fs-2 text-warning"></i></a>
-                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $classroom->id }}">
-                                        <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
-                                </div>
 
-                            </div>
-
-                            <!--end::Section-->
-
-                            <!--begin::Content-->
-
-
-                            <!--end::Content-->
-
-                            <!--begin::Text-->
-
-                            <p class="mb-7 mt-5">
-
-                                {{ $classroom->description }}
-                            </p>
-
-                            <!--end::Text-->
+                                    <div class="d-flex align-items-center me-5">
+                                        <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/communication/com014.svg-->
+                                        <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M16.0173 9H15.3945C14.2833 9 13.263 9.61425 12.7431 10.5963L12.154 11.7091C12.0645 11.8781 12.1072 12.0868 12.2559 12.2071L12.6402 12.5183C13.2631 13.0225 13.7556 13.6691 14.0764 14.4035L14.2321 14.7601C14.2957 14.9058 14.4396 15 14.5987 15H18.6747C19.7297 15 20.4057 13.8774 19.912 12.945L18.6686 10.5963C18.1487 9.61425 17.1285 9 16.0173 9Z"
+                                                    fill="currentColor" />
+                                                <rect opacity="0.3" x="14" y="4" width="4"
+                                                    height="4" rx="2" fill="currentColor" />
+                                                <path
+                                                    d="M4.65486 14.8559C5.40389 13.1224 7.11161 12 9 12C10.8884 12 12.5961 13.1224 13.3451 14.8559L14.793 18.2067C15.3636 19.5271 14.3955 21 12.9571 21H5.04292C3.60453 21 2.63644 19.5271 3.20698 18.2067L4.65486 14.8559Z"
+                                                    fill="currentColor" />
+                                                <rect opacity="0.3" x="6" y="5" width="6"
+                                                    height="6" rx="3" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        <a href="{{ route('admin.showClassrooms', $classroom->id) }}"
+                                            class="fw-bold text-info ml-2">{{ count($classroom->students) }}
+                                            Siswa</a>
 
 
-                        </div>
-                        @endforeach
-
-
-                        <!--end::Body-->
-
-                        <!--begin::Footer-->
-
-                        <div class="card-footer d-flex flex-row justify-content-between">
-
-                            <div class="d-flex">
-
-                                <div class="d-flex align-items-center me-5">
-                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
-                                    <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect opacity="0.5" x="7" y="2" width="14"
-                                                height="16" rx="3" fill="currentColor" />
-                                            <rect x="3" y="6" width="14" height="16"
-                                                rx="3" fill="currentColor" />
-                                        </svg>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <a href="https://class.hummasoft.com/siswa/materi/11/4"
-                                        class="fw-bold text-info ml-2">5 Bab</a>
-
+                                    </div>
 
 
                                 </div>
 
-
+                                <a href="{{ route('admin.showClassrooms', $classroom->id) }}"
+                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                             </div>
 
-                            <a href="#"
-                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                            <!--end::Footer-->
 
                         </div>
 
-                        <!--end::Footer-->
+                        <!--end::Card-->
 
                     </div>
+                @endforeach
 
-                    <!--end::Card-->
 
-                </div>
+                <!--end::Body-->
+
+                <!--begin::Footer-->
+
+
+                <!--end::Footer-->
             </div>
         </div>
     </div>

@@ -30,7 +30,7 @@ class MaterialController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $schoolYear = SchoolYearHelper::get_current_school_year();
         $selectedSchoolYear = 0;
@@ -39,7 +39,8 @@ class MaterialController extends Controller
         }
         $data = [
             'generations' => $this->generationService->handleGetAll(),
-            'materials' =>  $this->service->handleGetPaginate($selectedSchoolYear)
+            'filter' => $request->filter,
+            'materials' =>  $this->service->handleGetPaginate($request, $selectedSchoolYear)
         ];
         return view('dashboard.admin.pages.material.index', $data);
     }

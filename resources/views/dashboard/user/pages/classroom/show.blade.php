@@ -93,14 +93,19 @@
                                                     <thead>
                                                         <tr class="fw-semibold fs-6 text-gray-800">
                                                             <th data-priority="1">No</th>
-                                                            <th class="min-w-50px" data-priority="2">Nama Tugas</th>
-                                                            <th data-priority="3">Nilai</th>
+                                                            <th data-priority="2">Materi</th>
+                                                            <th data-priority="3">SubMateri</th>
+                                                            <th data-priority="4">Tugas</th>
+                                                            <th data-priority="5">Nilai</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($assignments as $assignment)
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ $assignment->assignment->submaterial->material->title }}
+                                                                </td>
+                                                                <td>{{ $assignment->assignment->submaterial->title }}</td>
                                                                 <td>{{ $assignment->assignment->title }}</td>
                                                                 <td>{{ $assignment->point }}</td>
                                                             </tr>
@@ -266,12 +271,12 @@
                                                 <div class="fw-bold mt-5">Point</div>
                                                 <div class="text-gray-600">
                                                     @php
-                                                        $nilai = 0
+                                                        $nilai = 0;
                                                     @endphp
-                                                    @foreach($point as $value)
-                                                    @php
-                                                        $nilai += $value->point
-                                                    @endphp
+                                                    @foreach ($point as $value)
+                                                        @php
+                                                            $nilai += $value->point;
+                                                        @endphp
                                                     @endforeach
                                                     {{ $nilai }}
                                                 </div>

@@ -42,16 +42,71 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="#"
-                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold"
-                                    data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">
-                                    Add Member
-                                </a>
+                                @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                <form id="form-search" action="{{ route('student.rankings') }}">
+                                    <!--begin::Actions-->
+                                    <div class="d-flex align-items-center py-2 py-md-1">
 
-                                <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold"
-                                    data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">
-                                    New Campaign
-                                </a>
+                                        <!--begin::school year-->
+                                        <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
+                                            data-control="select">
+                                            <option value="">Semua Sekolah</option>
+                                            @foreach ($schools as $school)
+                                                <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
+                                                    {{ $school->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::school yeaer-->
+                                        <!--begin::Button-->
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                        <!--end::Button-->
+                                    </div>
+                                </form>
+                                @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <form id="form-search" action="{{ route('teacher.rankings') }}">
+                                    <!--begin::Actions-->
+                                    <div class="d-flex align-items-center py-2 py-md-1">
+
+                                        <!--begin::school year-->
+                                        <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
+                                            data-control="select">
+                                            <option value="">Semua Sekolah</option>
+                                            @foreach ($schools as $school)
+                                                <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
+                                                    {{ $school->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::school yeaer-->
+                                        <!--begin::Button-->
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                        <!--end::Button-->
+                                    </div>
+                                </form>
+                                @else
+                                <form id="form-search" action="{{ route('mentor.rankings') }}">
+                                    <!--begin::Actions-->
+                                    <div class="d-flex align-items-center py-2 py-md-1">
+
+                                        <!--begin::school year-->
+                                        <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
+                                            data-control="select">
+                                            <option value="">Semua Sekolah</option>
+                                            @foreach ($schools as $school)
+                                                <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
+                                                    {{ $school->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::school yeaer-->
+                                        <!--begin::Button-->
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                        <!--end::Button-->
+                                    </div>
+                                </form>
+                                @endif
+
                             </div>
                             <!--end::Actions-->
                         </div>

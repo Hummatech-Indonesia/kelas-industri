@@ -17,6 +17,11 @@ class SubmitAssignmentService
     {
         return $this->repository->get_count_student_assignment($studentId);
     }
+
+    public function handleGetReportStudent() :mixed
+    {
+        return $this->repository->getAll();
+    }
 }
 
 
