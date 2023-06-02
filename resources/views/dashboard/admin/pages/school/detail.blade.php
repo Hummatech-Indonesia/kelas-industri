@@ -260,7 +260,7 @@
                         <!--begin::Title-->
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label fw-bold text-gray-800">Guru</span>
-                            <span class="text-gray-400 mt-1 fw-semibold fs-6">daftar guru di SMKN 1 Kepanjen.</span>
+                            <span class="text-gray-400 mt-1 fw-semibold fs-6">daftar guru di {{$school->name}}.</span>
                         </h3>
                         <!--end::Title-->
                     </div>

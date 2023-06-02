@@ -62,9 +62,12 @@ class AttendanceController extends Controller
      * @return View
      * @throws Exception
      */
-    public function show(Attendance $classroom): View
+    public function show(Attendance $attendance): View
     {
-        return view('tes');
+        $data = [
+            'attendances' => $this->service->getStudentBySubmitAttendance($attendance)
+        ];
+        return view('dashboard.admin.pages.absent.detail', $data);
     }
 
 

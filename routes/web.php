@@ -52,6 +52,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     });
 
     Route::get('/absent', [AttendanceController::class, 'index'])->name('absent');
+    Route::get('/absent/{attendance}', [AttendanceController::class, 'show'])->name('showAbsent');
     Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
     Route::get('/report', [ReportController::class, 'index'])->name('report');
     Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');

@@ -76,6 +76,11 @@ class AttendanceService
         $this->repository->create_submit_attendance($data);
     }
 
+    public function getStudentBySubmitAttendance(Attendance $attendanceId): mixed
+    {
+        return $this->repository->get_student_by_submit_attendance($attendanceId->id);
+    }
+
     public function handleUpdate(AttendanceRequest $request, Attendance $attandance): void
     {
         $this->repository->update($attandance->id, $request->validated());

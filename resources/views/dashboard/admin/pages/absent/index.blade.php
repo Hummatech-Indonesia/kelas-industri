@@ -7,12 +7,12 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Absent Kelas Industri
+                Absent
             </h1>
             <!--end::Title-->
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                daftar absent siswa pada kelas industri
+                daftar absent pada kelas industri
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -46,13 +46,20 @@
                                 <!--begin::Table body-->
                                 <tbody class="fw-semibold text-gray-600">
                                     @foreach ($attendances as $attendance)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$attendance->title}}</td>
-                                        <td>{{$attendance->status}}</td>
-                                        <td>{{$attendance->mentor->name}}</td>
-                                        <td></td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $attendance->title }}</td>
+                                            <td>
+                                                @if ($attendance->status == 'open')
+                                                    <span class="badge badge-light-success">{{ $attendance->status }}</span>
+                                                @else
+                                                    <span class="badge badge-light-danger">{{ $attendance->status }}</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $attendance->mentor->name }}</td>
+                                            <td><a href="{{route('admin.showAbsent', [$attendance->id]) }}"
+                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a></td>
+                                        </tr>
                                     @endforeach
 
                                 </tbody>
