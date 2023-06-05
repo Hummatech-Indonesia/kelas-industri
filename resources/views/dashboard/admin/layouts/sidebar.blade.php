@@ -242,7 +242,7 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div class="menu-item" {{ request()->routeIs('admin.report.*') ? 'show here' : '' }}>
                         <!--begin:Menu link-->
                         <a class="menu-link" href="{{route('admin.report')}}">
                             <span class="menu-icon">
@@ -352,7 +352,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{route('admin.absent')}}">
+                        <a class="menu-link" {{ request()->routeIs('admin.absent') ? 'active' : '' }} href="{{route('admin.absent')}}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen037.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"

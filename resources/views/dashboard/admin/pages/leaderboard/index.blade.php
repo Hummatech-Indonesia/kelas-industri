@@ -64,7 +64,6 @@
                 <!--end::Button-->
         </form>
         @endif
-
     </div>
     </div>
     <div class="content flex-column-fluid" id="kt_content">

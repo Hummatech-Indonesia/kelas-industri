@@ -2,31 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\JournalRequest;
 use App\Models\Journal;
-use App\Services\ClassroomService;
-use App\Services\JournalService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Services\PointService;
+use App\Services\JournalService;
+use App\Services\ClassroomService;
+use App\Http\Requests\JournalRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class JurnalController extends Controller
 {
     //
     private ClassroomService $classroomService;
     private JournalService $journalService;
+    private PointService $pointService;
 
-    public function __construct(ClassroomService $classroomService, JournalService $journalService)
+    public function __construct(ClassroomService $classroomService, JournalService $journalService, PointService $pointService)
     {
         $this->classroomService = $classroomService;
         $this->journalService = $journalService;
+        $this->pointService = $pointService;
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data = [
-                'journals' => $this->journalService->handleGetAll(),
+                'schools' => $this->pointService->handleGetSchool(),
+                'filter' => $request->filter,
+                'journals' => $this->journalService->handleGetJurnalByAdmin($request),
             ];
             return view('dashboard.admin.pages.jurnal.index', $data);
 
