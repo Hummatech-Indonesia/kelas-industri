@@ -20,6 +20,7 @@ class ReportController extends Controller
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         $reports = $this->submitAssignmentService->handleGetReportStudent($currentSchoolYear);
-        return view('dashboard.admin.pages.report.index', compact('reports'));
+        $totalAssignment = $this->submitAssignmentService->handleGetTotalAssignment();
+        return view('dashboard.admin.pages.report.index', compact('reports','totalAssignment'));
     }
 }

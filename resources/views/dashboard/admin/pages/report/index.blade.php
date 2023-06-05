@@ -52,7 +52,10 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$report->student->name}}</td>
                                         <td>{{$report->student->studentSchool->school->name}}</td>
-                                        <td>{{$report->point}}</td>
+                                        @php
+                                            $point = ( $report->point / $totalAssignment[array_search($report->student->studentSchool->studentClassroom->classroom->generation_id,$totalAssignment->pluck('id')->toArray())]->total_assignments)
+                                        @endphp
+                                        <td>{{$point}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

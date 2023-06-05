@@ -20,7 +20,12 @@ class SubmitAssignmentService
 
     public function handleGetReportStudent() :mixed
     {
-        return $this->repository->getAll();
+        return $this->repository->getTotalPoint();
+    }
+
+    public function handleGetTotalAssignment()
+    {
+        return $this->repository->getTotalAssignment();
     }
 }
 
