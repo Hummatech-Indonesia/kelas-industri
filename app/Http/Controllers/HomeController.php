@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use App\Traits\DataSidebar;
 
 class HomeController extends Controller
 {
+    use DataSidebar;
     /**
      * Create a new controller instance.
      *
@@ -23,10 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         if (in_array(auth()->user()->roles->pluck('name')[0], ['admin', 'school'])) {
             return view('dashboard.admin.pages.home');
         }
-
-        return view('dashboard.user.pages.home');
+        $data = $this->GetDataSidebar();
+        return view('dashboard.user.pages.home', $data);
     }
 }

@@ -24,7 +24,9 @@
         >
             <!--begin::Nav-->
             <ul class="nav">
+                @if(auth()->user()->roles->pluck('name')[0] == 'student')
                 <!--begin::Navbar item-->
+                
                 <li class="nav-item py-1">
                     <!--begin::Navbar link-->
                     <a data-bs-toggle="tab" href="#kt_app_sidebar_assignment" class="nav-link py-4 px-1 btn active">
@@ -34,6 +36,7 @@
                     </a>
                     <!--end::Navbar link-->
                 </li>
+                
                 <!--end::Navbar item-->
 
                 <!--begin::Navbar item-->
@@ -46,12 +49,14 @@
                     </a>
                     <!--end::Navbar link-->
                 </li>
+                
                 <!--end::Navbar item-->
+                @endif
 
                 <!--begin::Navbar item-->
                 <li class="nav-item py-1">
                     <!--begin::Navbar link-->
-                    <a data-bs-toggle="tab" href="#kt_app_sidebar_leaderboard" class="nav-link py-4 px-1 btn">
+                    <a data-bs-toggle="tab" href="#kt_app_sidebar_leaderboard" class="nav-link py-4 px-1 btn {{auth()->user()->roles->pluck('name')[0] == 'mentor' ? 'active' : ''}}">
                         <i class="bi bi-bar-chart-fill fs-1"></i>
 
                         <span class="pt-2 fs-9 fs-lg-7 fw-bold">Peringkat</span>
@@ -59,6 +64,7 @@
                     <!--end::Navbar link-->
                 </li>
                 <!--end::Navbar item-->
+                
 
                 <!--begin::Navbar item-->
                 <li class="nav-item py-1">
@@ -95,6 +101,7 @@
             data-kt-scroll-offset="5px"
         >
 
+        @if(auth()->user()->roles->pluck('name')[0] == 'student')
             <!--begin::Tab content-->
             <div class="tab-content px-5 px-lg-10">
                 <!--begin::Tab pane-->
@@ -110,19 +117,41 @@
                         </div>
                         <!--begin::Body-->
                         <div class="card-body text-center">
-                            <!--begin::Illustration-->
-                            <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px" alt=""/>
-                            <!--end::Illustration-->
+                            @forelse ($SidebarAssignment as $assignment)
+                            <div class="d-flex mb-3 flex-stack">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-4">
+                                    <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">C</div>
+                                </div>
+                                <!--end::Symbol-->
 
-                            <!--begin::Title-->
-                            <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
-                            <!--end::Title-->
+                                <!--begin::Section-->
+                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                    <!--begin:Author-->
+                                    <div class="flex-grow-1 me-2">
+                                        <a href="../../pages/user-profile/overview.html" class="text-gray-800 text-hover-primary fs-6 fw-bold">{{$assignment->title}}</a>
 
-                            <!--begin::Desctiption-->
-                            <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                        anda belum memiliki tugas untuk saat ini.
-                                    </span>
-                            <!--end::Desctiption-->
+                                        <span class="text-muted fw-semibold d-block fs-7">{{$assignment->submaterial->title}}</span>
+                                    </div>
+                                    <!--end:Author-->
+                                </div>
+                                <!--end::Section-->
+                            </div>
+                            @empty
+                                <!--begin::Illustration-->
+                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px" alt=""/>
+                                <!--end::Illustration-->
+
+                                <!--begin::Title-->
+                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                <!--end::Title-->
+
+                                <!--begin::Desctiption-->
+                                <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                            anda belum memiliki tugas untuk saat ini.
+                                </span>
+                                <!--end::Desctiption-->
+                            @endforelse  
                         </div>
                         <!--end::Body-->
                     </div>
@@ -131,6 +160,7 @@
                 <!--end::Tab pane-->
             </div>
             <!--end::Tab content-->
+            
             <!--begin::Tab content-->
             <div class="tab-content px-5 px-lg-10">
                 <!--begin::Tab pane-->
@@ -146,10 +176,11 @@
                         </div>
                         <!--begin::Body-->
                         <div class="card-body text-center">
-                            <div class="d-flex flex-stack">
+                            @forelse ($SidebarChallenge as $challenge)
+                            <div class="d-flex mb-3 flex-stack">
                                 <!--begin::Symbol-->
                                 <div class="symbol symbol-40px me-4">
-                                    <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">M</div>
+                                    <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">C</div>
                                 </div>
                                 <!--end::Symbol-->
 
@@ -157,15 +188,29 @@
                                 <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                                     <!--begin:Author-->
                                     <div class="flex-grow-1 me-2">
-                                        <a href="../../pages/user-profile/overview.html" class="text-gray-800 text-hover-primary fs-6 fw-bold">UI/UX Design</a>
+                                        <a href="../../pages/user-profile/overview.html" class="text-gray-800 text-hover-primary fs-6 fw-bold">{{$challenge->title}}</a>
 
-                                        <span class="text-muted fw-semibold d-block fs-7">40+ Courses</span>
+                                        <span class="text-muted fw-semibold d-block fs-7">{{$challenge->difficulty}}</span>
                                     </div>
                                     <!--end:Author-->
                                 </div>
                                 <!--end::Section-->
                             </div>
+                            @empty
+                                <!--begin::Illustration-->
+                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px" alt=""/>
+                                <!--end::Illustration-->
 
+                                <!--begin::Title-->
+                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                <!--end::Title-->
+
+                                <!--begin::Desctiption-->
+                                <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                            anda belum memiliki challenge untuk saat ini.
+                                </span>
+                                <!--end::Desctiption-->
+                            @endforelse
                             <div class="separator separator-dashed my-4"></div>
                         </div>
                         <!--end::Body-->
@@ -175,10 +220,12 @@
                 <!--end::Tab pane-->
             </div>
             <!--end::Tab content-->
+            @endif
+        
             <!--begin::Tab content-->
             <div class="tab-content px-5 px-lg-10">
                 <!--begin::Tab pane-->
-                <div class="tab-pane fade" id="kt_app_sidebar_leaderboard" role="tabpanel">
+                <div class="tab-pane fade {{auth()->user()->roles->pluck('name')[0] == 'mentor' ? 'show active' : ''}}" id="kt_app_sidebar_leaderboard" role="tabpanel">
                     <!--begin::Collections-->
                     <div class="card card-reset card-p-0">
                         <div class="card-header pt-7 mb-5">
@@ -190,7 +237,41 @@
                         </div>
                         <!--begin::Body-->
                         <div class="card-body text-center">
+                            @forelse ($SidebarRank as $rank)
+                                <div class="d-flex mb-3 flex-stack">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-40px me-4">
+                                        <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">C</div>
+                                    </div>
+                                    <!--end::Symbol-->
 
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                        <!--begin:Author-->
+                                        <div class="flex-grow-1 me-2">
+                                            <a href="../../pages/user-profile/overview.html" class="text-gray-800 text-hover-primary fs-6 fw-bold">{{$rank->student->name}}</a>
+
+                                            <span class="text-muted fw-semibold d-block fs-7">{{$rank->point}}</span>
+                                        </div>
+                                        <!--end:Author-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                            @empty
+                                <!--begin::Illustration-->
+                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px" alt=""/>
+                                <!--end::Illustration-->
+
+                                <!--begin::Title-->
+                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                <!--end::Title-->
+
+                                <!--begin::Desctiption-->
+                                <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                            belum ada rank untuk saat ini.
+                                </span>
+                                <!--end::Desctiption-->
+                            @endforelse
                         </div>
                         <!--end::Body-->
                     </div>
@@ -214,7 +295,41 @@
                         </div>
                         <!--begin::Body-->
                         <div class="card-body text-center">
+                            @forelse ($SidebarSchedule as $schedule)
+                            <div class="d-flex mb-3 flex-stack">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-40px me-4">
+                                    <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">C</div>
+                                </div>
+                                <!--end::Symbol-->
 
+                                <!--begin::Section-->
+                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                    <!--begin:Author-->
+                                    <div class="flex-grow-1 me-2">
+                                        <a href="../../pages/user-profile/overview.html" class="text-gray-800 text-hover-primary fs-6 fw-bold">{{$schedule->title}}</a>
+
+                                        <span class="text-muted fw-semibold d-block fs-7">{{$schedule->date}}</span>
+                                    </div>
+                                    <!--end:Author-->
+                                </div>
+                                <!--end::Section-->
+                            </div>
+                            @empty
+                              <!--begin::Illustration-->
+                              <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px" alt=""/>
+                              <!--end::Illustration-->
+
+                              <!--begin::Title-->
+                              <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                              <!--end::Title-->
+
+                              <!--begin::Desctiption-->
+                              <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                          anda belum memiliki jadwal zoom untuk saat ini.
+                              </span>
+                              <!--end::Desctiption-->  
+                            @endforelse
                         </div>
                         <!--end::Body-->
                     </div>
