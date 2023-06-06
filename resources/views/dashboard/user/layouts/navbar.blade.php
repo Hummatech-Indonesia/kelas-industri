@@ -52,7 +52,7 @@
                         </div>
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <a href="{{ route('common.classrooms') }}" class="menu-link"><span
+                            <a href="{{ route('common.classrooms') }}" class="menu-link {{ request()->routeIs('common.classrooms') ? 'active' : '' }}"><span
                                     class="menu-title">Kelas</span></a>
                             <!--end:Menu link-->
                         </div>
@@ -82,17 +82,17 @@
                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
-                                <a href="/mentor/attendance" class="menu-link"><span class="menu-title">Absen</span></a>
+                                <a href="{{ route('mentor.attendance.index') }}" class="menu-link {{ request()->routeIs('mentor.attendance.index') ? 'active' : '' }}"><span class="menu-title">Absen</span></a>
                                 <!--end:Menu link-->
                             </div>
                         @endif
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                <a href="{{ route('mentor.journal.index') }}" class="menu-link">
+                                <a href="{{ route('mentor.journal.index') }}" class="menu-link {{ request()->routeIs('mentor.journal.index') ? 'active' : '' }}">
                                     <span class="menu-title">Jurnal</span></a>
                             @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                <a href="{{ route('teacher.journal.index') }}" class="menu-link">
+                                <a href="{{ route('teacher.journal.index') }}" class="menu-link {{ request()->routeIs('teacher.journal.index') ? 'active' : '' }}">
                                     <span class="menu-title">Jurnal</span></a>
                             @endif
 
@@ -101,13 +101,13 @@
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                <a href="{{ route('mentor.rankings') }}" class="menu-link">
+                                <a href="{{ route('mentor.rankings') }}" class="menu-link {{ request()->routeIs('mentor.rankings') ? 'active' : '' }}">
                                     <span class="menu-title">Peringkat</span></a>
                             @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                <a href="{{ route('teacher.rankings') }}" class="menu-link">
+                                <a href="{{ route('teacher.rankings') }}" class="menu-link {{ request()->routeIs('teacher.rankings') ? 'active' : '' }}">
                                     <span class="menu-title">Peringkat</span></a>
                             @else
-                                <a href="{{ route('student.rankings') }}" class="menu-link">
+                                <a href="{{ route('student.rankings') }}" class="menu-link {{ request()->routeIs('student.rankings') ? 'active' : '' }}">
                                     <span class="menu-title">Peringkat</span></a>
                             @endif
 

@@ -37,10 +37,14 @@ class MaterialController extends Controller
         if($schoolYear){
             $selectedSchoolYear = $schoolYear->id;
         }
+        if($request->filter){
+            $selectedSchoolYear = $request->filter;
+        }
         $data = [
             'generations' => $this->generationService->handleGetAll(),
             'filter' => $request->filter,
-            'materials' =>  $this->service->handleGetPaginate($request, $selectedSchoolYear)
+            'search' => $request->search,
+            'materials' =>  $this->service->handleSearch($request, $selectedSchoolYear)
         ];
         return view('dashboard.admin.pages.material.index', $data);
     }

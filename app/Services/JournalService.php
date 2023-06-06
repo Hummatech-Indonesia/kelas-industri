@@ -7,6 +7,7 @@ use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\JournalRequest;
 use App\Repositories\JournalRepository;
 use App\Repositories\GenerationRepository;
+use Illuminate\Http\Request;
 
 class JournalService
 {
@@ -25,6 +26,11 @@ class JournalService
     public function handleGetAll(): mixed
     {
         return $this->repository->getAll();
+    }
+
+    public function handleGetJurnalByAdmin(Request $request): mixed
+    {
+        return $this->repository->get_journal_by_admin($request);
     }
 
     public function handleGetJournalByUser(): mixed

@@ -7,6 +7,7 @@ use App\Models\Material;
 use App\Models\Classroom;
 use Illuminate\View\View;
 use App\Models\SubMaterial;
+use Illuminate\Http\Request;
 use App\Services\PointService;
 use App\Services\StudentService;
 use App\Services\MaterialService;
@@ -37,10 +38,12 @@ class UserClassroomController extends Controller
 
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
+
         $data = [
-            'classrooms' => $this->classroomService->handleGetClassroomByUser(auth()->id()),
+            'search' => $request->search,
+            'classrooms' => $this->classroomService->handleGetClassroomByUser(auth()->id(), $request),
         ];
         return view('dashboard.user.pages.classroom.index', $data);
     }

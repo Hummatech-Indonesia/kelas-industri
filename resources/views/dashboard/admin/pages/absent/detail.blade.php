@@ -41,6 +41,8 @@
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Kelas</th>
+                                    <th>Sekolah</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -52,6 +54,8 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$attendance->student->name}}</td>
+                                    <td>{{$attendance->student->studentSchool->studentClassroom->classroom->name}}</td>
+                                    <td>{{$attendance->student->studentSchool->school->name}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

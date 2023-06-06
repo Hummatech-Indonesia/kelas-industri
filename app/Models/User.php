@@ -72,6 +72,7 @@ class User extends Authenticatable
         return $this->hasMany(StudentSchool::class, 'school_id');
     }
 
+
     /**
      * one to many relationship
      *

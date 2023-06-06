@@ -39,7 +39,10 @@
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th>No</th>
                                         <th>Nama</th>
+                                        <th>Kelas</th>
                                         <th>Sekolah</th>
+                                        <th>Angkatan</th>
+                                        <th>Tahun Ajaran</th>
                                         <th>Nilai</th>
                                     </tr>
                                     <!--end::Table row-->
@@ -51,7 +54,10 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$report->student->name}}</td>
+                                        <td>{{$report->student->studentSchool->studentClassroom->classroom->name}}</td>
                                         <td>{{$report->student->studentSchool->school->name}}</td>
+                                        <td>{{$report->student->studentSchool->studentClassroom->classroom->generation->generation}}</td>
+                                        <td>{{$report->student->studentSchool->studentClassroom->classroom->generation->schoolYear->school_year}}</td>
                                         @php
                                             $point = ( $report->point / $totalAssignment[array_search($report->student->studentSchool->studentClassroom->classroom->generation_id,$totalAssignment->pluck('id')->toArray())]->total_assignments)
                                         @endphp

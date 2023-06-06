@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ClassroomRequest;
+use Exception;
 use App\Models\Classroom;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Services\StudentService;
+use App\Helpers\SchoolYearHelper;
 use App\Services\ClassroomService;
 use App\Services\GenerationService;
-use App\Services\StudentService;
-use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use App\Http\Requests\ClassroomRequest;
 
 class ClassroomController extends Controller
 {
@@ -32,11 +33,12 @@ class ClassroomController extends Controller
      */
     public function index(): View
     {
-        $classrooms = $this->service->handleGetPaginate(auth()->id());
+        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+        $classrooms = $this->service->handleGetPaginate(auth()->id(), $currentSchoolYear->id);
         $parameters = null;
 
         if (request()->has('search')) {
-            $classrooms = $this->service->handleSearch(request()->search, auth()->id());
+            $classrooms = $this->service->handleSearch(request()->search, auth()->id(), $currentSchoolYear->id);
             $parameters = request()->query();
         }
         $data = [

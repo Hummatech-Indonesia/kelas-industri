@@ -320,8 +320,8 @@
             </div>
             <div class="col-12 mt-3">
                 <!--begin::Body-->
-
-                @foreach ($school->classrooms as $classroom)
+                <div class="row">
+                    @foreach ($school->classrooms as $classroom)
                     <div class="col-xl-4 mb-3">
 
                         <!--begin::Card-->
@@ -441,6 +441,8 @@
 
                     </div>
                 @endforeach
+                </div>
+
 
 
                 <!--end::Body-->

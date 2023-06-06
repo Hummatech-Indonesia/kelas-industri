@@ -22,6 +22,30 @@
 
         <!--begin::Actions-->
         <!--end::Actions-->
+        @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+        <form id="form-search" action="{{ route('admin.journal.index') }}">
+            <!--begin::Actions-->
+            <div class="d-flex align-items-center py-2 py-md-1">
+
+                <!--begin::school year-->
+                <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
+                    data-control="select">
+                    <option value="">Semua Sekolah</option>
+                    @foreach ($schools as $school)
+                        <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
+                            {{ $school->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <!--end::school yeaer-->
+                <!--begin::Button-->
+                <button type="submit" class="btn btn-primary">Cari</button>
+                <!--end::Button-->
+            </div>
+        </form>
+        @else
+        
+        @endif
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -32,7 +56,6 @@
                     <div class="card-body pt-0">
 
                         <!--begin::Table-->
-                        @if ($journals->count() > 0)
                             <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                 <thead>
                                     <!--begin::Table row-->
@@ -78,9 +101,6 @@
                                 </tbody>
                                 <!--end::Table body-->
                             </table>
-                        @else
-                            <x-empty-component title="jurnal" />
-                        @endif
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->

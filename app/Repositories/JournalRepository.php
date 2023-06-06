@@ -3,12 +3,27 @@
 namespace App\Repositories;
 
 use App\Models\Journal;
+use Illuminate\Http\Request;
 
 class JournalRepository extends BaseRepository
 {
     public function __construct(Journal $journal)
     {
         $this->model = $journal;
+    }
+
+    public function get_journal_by_admin(Request $request): mixed
+    {
+        return $this->model->query()
+        ->when($request->filter,function($query) use ($request){
+            return $query
+            ->whereHas('classroom',function($query) use ($request){
+                $query->whereHas('school',function($query) use ($request){
+                    $query->where('id',$request->filter);
+                });
+            });
+        })
+        ->get();
     }
 
     public function get_journal_by_user(): mixed
