@@ -443,7 +443,7 @@
                                                             @if ($challenge->created_by == auth()->user()->id)
                                                                 @if ($students->is_valid == 'not_valid')
                                                                     <form
-                                                                        action="{{ route('teacher.validChallengeTeacher', ['submitChallenge' => $students]) }}"
+                                                                        action="{{ route('mentor.validChallenge', ['submitChallenge' => $students->id]) }}"
                                                                         method="POST">
                                                                         @csrf
                                                                         <button type="submit"

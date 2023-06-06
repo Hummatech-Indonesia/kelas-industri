@@ -185,8 +185,8 @@
 
                                                     <div class="col-lg-9 col-xl-9">
 
-                                                        <a href="{{ asset($submitAssignment->file) }}" class="btn btn-danger btn-sm mt-2"><i
-                                                class="fas fa-file-pdf"></i>File tugas yang sudah anda kirim</a>
+                                                        <a href="{{ Route('student.downloadAssignment', ['submitAssignment' => $submitAssignment->id]) }}" class="btn btn-danger btn-sm mt-2"><i
+                                                class="fas fa-file-pdf"></i>File tugas</a>
 
                                                     </div>
 

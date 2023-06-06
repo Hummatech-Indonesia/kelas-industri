@@ -25,7 +25,7 @@ class PointRepository extends BaseRepository
         ->get();
     }
 
-    public function get_point_student(Request $request)
+    public function get_point_student(Request $request, int $schoolYearId)
     {
         return $this->model->query()
         ->groupBy('student_id')
