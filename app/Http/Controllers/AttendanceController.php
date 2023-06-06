@@ -7,9 +7,12 @@ use App\Models\Attendance;
 use App\Services\AttendanceService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Traits\DataSidebar;
+
 
 class AttendanceController extends Controller
 {
+    use DataSidebar;
     private AttendanceService $service;
 
     public function __construct(AttendanceService $service)
@@ -25,8 +28,15 @@ class AttendanceController extends Controller
     public function index(): View
     {
         if(auth()->user()->roles->pluck('name')[0] == 'mentor'){
-            $attendances = $this->service->handleGetByMentor();
-            return view('dashboard.user.pages.absent.index', compact('attendances'));
+            $data = [
+                'SidebarRank' => $this->RankMockup(),
+                'SidebarSchedule' => $this->ScheduleMockup(),
+                'SidebarAssignment' => $this->AssignmentMockup(),
+                'SidebarChallenge' => $this->ChallengeMockup()
+            ];
+            $data = $this->GetDataSidebar();
+            $data['attendances'] = $this->service->handleGetByMentor();
+            return view('dashboard.user.pages.absent.index', $data);
         }else
         $attendances = $this->service->handleGetByAdmin();
         return view('dashboard.admin.pages.absent.index', compact('attendances'));
@@ -40,7 +50,8 @@ class AttendanceController extends Controller
      */
     public function create(): View
     {
-        return view('dashboard.user.pages.absent.create');
+        $data = $this->GetDataSidebar();
+        return view('dashboard.user.pages.absent.create',$data);
     }
 
     /**
@@ -64,9 +75,8 @@ class AttendanceController extends Controller
      */
     public function show(Attendance $attendance): View
     {
-        $data = [
-            'attendances' => $this->service->getStudentBySubmitAttendance($attendance)
-        ];
+        $data = $this->GetDataSidebar();
+        $data['attendances'] = $this->service->getStudentBySubmitAttendance($attendance);
         return view('dashboard.admin.pages.absent.detail', $data);
     }
 
