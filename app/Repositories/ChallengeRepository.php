@@ -25,36 +25,37 @@ class ChallengeRepository extends BaseRepository
      * @param string $teacherId
      * @return mixed
      */
-    public function get_challenge_by_teacher(string $teacherId): mixed
+    public function get_challenge_by_teacher(string $teacherId, int $schoolYearId, string|null $search, int $limit): mixed
     {
         return $this->model->query()
             ->where('created_by', $teacherId)
-            ->get();
+            ->where('title', 'like', '%'. $search .'%')
+            ->paginate($limit);
     }
 
-    public function get_challenge_by_student(String $classroomId, int $schoolYearId): mixed
+    public function get_challenge_by_student(String $classroomId, int $schoolYearId, string|null $search, int $limit): mixed
     {
         return $this->model->query()
             ->where('classroom_id', $classroomId)
             ->whereRelation('classroom.generation', function ($q) use ($schoolYearId) {
-                return $q->where('school_year_id', $schoolYearId);
+            return $q->where('school_year_id', $schoolYearId);
             })
-            ->get();
+            ->where('title', 'like', '%'. $search .'%')
+            ->paginate($limit);
     }
 
-    public function get_challenge_by_mentor(String $mentorId, int $schoolYearId): mixed
+    public function get_challenge_by_mentor(String $mentorId, int $schoolYearId, string|null $search, int $limit): mixed
     {
         // return $this->model->query()
         // ->where('classroom_id', $classroomId)
         // ->get();
         return $this->model->query()
+        ->where('created_by', $mentorId)
             ->whereRelation('classroom.generation', function ($q) use ($schoolYearId) {
                 $q->where('school_year_id', $schoolYearId);
             })
-            ->whereRelation('classroom.mentorClassrooms', function ($q) use ($mentorId) {
-                $q->where('mentor_id', $mentorId);
-            })
-            ->get();
+            ->where('title', 'like', '%'. $search .'%')
+            ->paginate($limit);
     }
 
     public function updateSubmitChallengeByStudentId($data, int $studentId): void

@@ -242,9 +242,9 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item" {{ request()->routeIs('admin.report.*') ? 'show here' : '' }}>
+                    <div class="menu-item" >
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{route('admin.report')}}">
+                        <a class="menu-link {{ request()->routeIs('admin.report') ? 'active' : '' }}" href="{{route('admin.report')}}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
@@ -262,7 +262,7 @@
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{route('admin.journal.index')}}">
+                        <a class="menu-link {{ request()->routeIs('admin.journal.index') ? 'active' : '' }}" href="{{route('admin.journal.index')}}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x">
@@ -278,7 +278,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ route('admin.rankings') }}">
+                        <a class="menu-link {{ request()->routeIs('admin.rankings') ? 'active' : '' }}" href="{{ route('admin.rankings') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/arrows/arr056.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
@@ -352,7 +352,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" {{ request()->routeIs('admin.absent') ? 'active' : '' }} href="{{route('admin.absent')}}">
+                        <a href="{{route('admin.absent')}}" class="menu-link {{ request()->routeIs('admin.absent') ? 'active' : '' }}" >
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen037.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
@@ -468,9 +468,9 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item {{ request()->routeIs('school.students.*') ? 'show here' : '' }}">
+                    <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ route('school.students.index') }}">
+                        <a class="menu-link {{ request()->routeIs('school.students.index') ? 'active' : '' }}" href="{{ route('school.students.index') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/communication/com014.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
@@ -492,9 +492,9 @@
                             <span class="menu-title">Siswa</span></a>
                         <!--end:Menu link-->
                     </div>
-                    <div class="menu-item" {{ request()->routeIs('school.journal.*') ? 'show here' : '' }}>
+                    <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{route('school.journal.index')}}">
+                        <a class="menu-link {{ request()->routeIs('school.journal.index') ? 'active' : '' }}" href="{{route('school.journal.index')}}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x">
@@ -505,9 +505,9 @@
                             <span class="menu-title">Jurnal</span></a>
                         <!--end:Menu link-->
                     </div>
-                    <div class="menu-item {{ request()->routeIs('school.rankings.*') ? 'show here' : '' }}">
+                    <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ route('school.rankings') }}">
+                        <a class="menu-link {{ request()->routeIs('school.rankings') ? 'active' : '' }}" href="{{ route('school.rankings') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/arrows/arr056.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"

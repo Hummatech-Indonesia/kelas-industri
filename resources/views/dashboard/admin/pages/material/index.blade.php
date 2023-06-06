@@ -31,7 +31,7 @@
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form id="form-search" action="{{route('admin.materials.index')}}">
+            <form id="form-search" action="{{ route('admin.materials.index') }}">
                 <!--begin::Card-->
                 <div class="card mb-7">
                     <!--begin::Card body-->
@@ -55,11 +55,11 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" class="form-control form-control-solid ps-10" name="search"
-                                    value="{{ $materials['search'] ?? ''}}" placeholder="Search">
+                                    value="{{ $search }}" placeholder="Search">
                             </div>
                             <div class="col-lg-4 col-md-12">
-                                <select name="filter" class="form-select form-select-solid me-5"
-                                    data-control="select2" data-placeholder="Select an option">
+                                <select name="filter" class="form-select form-select-solid me-5" data-control="select2"
+                                    data-placeholder="Select an option">
                                     @foreach ($generations as $generation)
                                         <option {{ $filter == $generation->id ? 'selected' : '' }}
                                             value="{{ $generation->id }}">
@@ -213,7 +213,7 @@
             @endforelse
         </div>
         <div class="row">
-            <x-pagination-component :paginator="$materials" route="admin.materials.index" />
+            {{ $materials->appends(request()->query())->links() }}
         </div>
 
         {{--    delete modal --}}

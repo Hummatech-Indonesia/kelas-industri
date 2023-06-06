@@ -38,6 +38,8 @@ class JurnalController extends Controller
 
         } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
             $data = [
+                'schools' => $this->pointService->handleGetSchool(),
+                'filter' => $request->filter,
                 'journals' => $this->journalService->handleGetBySchool()
             ];
             return view('dashboard.admin.pages.jurnal.index', $data);

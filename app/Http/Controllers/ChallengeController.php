@@ -30,20 +30,23 @@ class ChallengeController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $data = [
-                'challenges' => $this->service->handleGetByTeacher(auth()->id()),
+                'search' => $request->search,
+                'challenges' => $this->service->handleGetByTeacher(auth()->id(), $currentSchoolYear->id, $request),
             ];
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             $data = [
-                'challenges' => $this->service->handleGetByMentor(auth()->id(), $currentSchoolYear->id),
+                'search' => $request->search,
+                'challenges' => $this->service->handleGetByMentor(auth()->id(), $currentSchoolYear->id, $request),
             ];
         } elseif (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data = [
-                'challenges' => $this->service->handleGetByStudent(auth()->user()->studentSchool->studentClassroom->classroom_id, $currentSchoolYear->id),
+                'search' => $request->search,
+                'challenges' => $this->service->handleGetByStudent(auth()->user()->studentSchool->studentClassroom->classroom_id, $currentSchoolYear->id, $request),
 
             ];
         }

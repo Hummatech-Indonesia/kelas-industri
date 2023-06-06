@@ -46,14 +46,14 @@ class ClassroomService
         return $this->repository->get_by_student($studentId);
     }
 
-    public function handleGetClassroomByUser(string $userId)
+    public function handleGetClassroomByUser(string $userId, Request $search)
     {
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
-            return $this->repository->get_by_student($userId);
+            return $this->repository->get_by_student($userId, $search->search, 6);
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            return $this->repository->get_by_mentor($userId);
+            return $this->repository->get_by_mentor($userId, $search->search, 6);
         } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            return $this->repository->get_by_teacher($userId);
+            return $this->repository->get_by_teacher($userId, $search->search, 6);
         }
     }
 
@@ -75,9 +75,9 @@ class ClassroomService
      * @param string $schoolId
      * @return mixed
      */
-    public function handleGetPaginate(string $schoolId): mixed
+    public function handleGetPaginate(string $schoolId, int $schoolYearId): mixed
     {
-        return $this->repository->get_paginate_by_school($schoolId, 8);
+        return $this->repository->get_paginate_by_school($schoolId,$schoolYearId, 8);
     }
 
     /**
@@ -87,9 +87,9 @@ class ClassroomService
      * @param string $schoolId
      * @return mixed
      */
-    public function handleSearch(string $search, string $schoolId): mixed
+    public function handleSearch(string $search, string $schoolId, int $schoolYearId): mixed
     {
-        return $this->repository->get_paginate_by_school_search($search, $schoolId, 8);
+        return $this->repository->get_paginate_by_school_search($search, $schoolId, $schoolYearId, 8);
     }
 
     /**

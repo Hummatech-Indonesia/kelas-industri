@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\MaterialRequest;
 use App\Repositories\MaterialRepository;
+use Illuminate\Http\Request;
 
 class MaterialService
 {
@@ -29,10 +30,10 @@ class MaterialService
         return $this->repository->get_paginate_by_school_year($request, $schoolYearId, 6);
     }
 
-    public function handleSearch(string|null $search): mixed
+    public function handleSearch(Request $search,$year): mixed
     {
-        return $this->repository->search_paginate($search, 6);
-    }
+        return $this->repository->search_paginate($search->search,$year, 1);
+    }   
 
     /**
      * handle store

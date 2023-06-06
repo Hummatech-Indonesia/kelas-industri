@@ -11,7 +11,7 @@ class ClassroomRepository extends BaseRepository
 {
 
     private StudentClassroom $studentClassroom;
-    
+
     public function __construct(Classroom $model, StudentClassroom $studentClassroom, MentorClassroom $mentorClassroom, TeacherClassroom $teacherClassroom)
     {
         $this->model = $model;
@@ -20,29 +20,38 @@ class ClassroomRepository extends BaseRepository
         $this->teacherClassroom = $teacherClassroom;
     }
 
-    public function get_by_mentor(string $mentorId)
+    public function get_by_mentor(string $mentorId, string | null $search, int $limit)
     {
         return $this->mentorClassroom->query()
-        ->where('mentor_id', $mentorId)
-        ->get();
+            ->where('mentor_id', $mentorId)
+            ->whereRelation('classroom', function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%');
+            })
+            ->paginate($limit);
     }
 
-    public function get_by_teacher(string $teacherId)
+    public function get_by_teacher(string $teacherId, string | null $search, int $limit)
     {
         return $this->teacherClassroom->query()
-        ->whereRelation('teacherSchool', function($q) use ($teacherId){
-            $q->where('teacher_id', $teacherId);
-        })
-        ->get();
+            ->whereRelation('teacherSchool', function ($q) use ($teacherId) {
+                $q->where('teacher_id', $teacherId);
+            })
+            ->whereRelation('classroom', function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%');
+            })
+            ->paginate($limit);
     }
 
-    public function get_by_student(string $studentId)
+    public function get_by_student(string $studentId, string | null $search, int $limit)
     {
         return $this->studentClassroom->query()
-        ->whereRelation('studentSchool', function($q) use ($studentId){
-            $q->where('student_id', $studentId);
-        })
-        ->get();
+            ->whereRelation('studentSchool', function ($q) use ($studentId) {
+                $q->where('student_id', $studentId);
+            })
+            ->whereRelation('classroom', function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%');
+            })
+            ->paginate($limit);
     }
 
     /**
@@ -71,10 +80,13 @@ class ClassroomRepository extends BaseRepository
      * @param int $limit
      * @return mixed
      */
-    public function get_paginate_by_school(string $schoolId, int $limit): mixed
+    public function get_paginate_by_school(string $schoolId, int $schoolYearId, int $limit): mixed
     {
         return $this->model->query()
             ->where('school_id', $schoolId)
+            ->whereRelation('generation', function ($q) use ($schoolYearId) {
+                return $q->where('school_year_id', $schoolYearId);
+            })
             ->paginate($limit);
     }
 
@@ -86,9 +98,12 @@ class ClassroomRepository extends BaseRepository
      * @param int $limit
      * @return mixed
      */
-    public function get_paginate_by_school_search(string $search, string $schoolId, int $limit): mixed
+    public function get_paginate_by_school_search(string $search, string $schoolId, int $schoolYearId, int $limit): mixed
     {
         return $this->model->query()
+            ->whereRelation('generation', function ($q) use ($schoolYearId) {
+                return $q->where('school_year_id', $schoolYearId);
+            })
             ->where('name', 'like', '%' . $search . '%')
             ->where('school_id', $schoolId)
             ->paginate($limit);

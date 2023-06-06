@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\ChallengeRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Repositories\ChallengeRepository;
 use App\Http\Requests\SubmitChallengeRequest;
-use Illuminate\Support\Facades\Storage;
 
 class ChallengeService
 {
@@ -22,9 +23,9 @@ class ChallengeService
      * @param string $teacherId
      * @return mixed
      */
-    public function handleGetByTeacher(string $teacherId): mixed
+    public function handleGetByTeacher(string $teacherId, int $schoolYearId, Request $search): mixed
     {
-        return $this->repository->get_challenge_by_teacher($teacherId);
+        return $this->repository->get_challenge_by_teacher($teacherId, $schoolYearId, $search->search, 6);
     }
 
     public function handleChallengeByTeacher(string $challengeId): mixed
@@ -32,14 +33,14 @@ class ChallengeService
         return $this->repository->get_student_challenge_by_teacher($challengeId);
     }
 
-    public function handleGetByStudent(String $classroomId, int $schoolYearId): mixed
+    public function handleGetByStudent(String $classroomId, int $schoolYearId, Request $search): mixed
     {
-        return $this->repository->get_challenge_by_student($classroomId, $schoolYearId);
+        return $this->repository->get_challenge_by_student($classroomId, $schoolYearId, $search->search, 6);
     }
 
-    public function handleGetByMentor(String $mentorId, int $schoolYearId): mixed
+    public function handleGetByMentor(String $mentorId, int $schoolYearId, Request $search): mixed
     {
-        return $this->repository->get_challenge_by_mentor($mentorId, $schoolYearId);
+        return $this->repository->get_challenge_by_mentor($mentorId, $schoolYearId, $search->search, 6);
     }
 
     public function handleGetChallengeByMentor(String $challengeId): mixed
