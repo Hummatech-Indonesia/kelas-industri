@@ -247,4 +247,10 @@ class ChallengeController extends Controller
         return Response()->download($zipPath, $zipName);
 
     }
+
+    public function download(SubmitChallenge $submitChallenge){
+        $path = public_path('storage/'.$submitChallenge->file);
+        $name = $submitChallenge->studentSchool->student->name.'.zip';
+        return response()->download($path,$name);
+    }
 }

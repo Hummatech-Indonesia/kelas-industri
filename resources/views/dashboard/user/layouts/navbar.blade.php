@@ -82,17 +82,38 @@
                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
-                                <a href="/mentor/attendance" class="menu-link"><span
-                                        class="menu-title">Absen</span></a>
+                                <a href="/mentor/attendance" class="menu-link"><span class="menu-title">Absen</span></a>
                                 <!--end:Menu link-->
                             </div>
                         @endif
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <a href="#" class="menu-link">
-                                <span class="menu-title">Peringkat</span></a>
+                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                <a href="{{ route('mentor.journal.index') }}" class="menu-link">
+                                    <span class="menu-title">Jurnal</span></a>
+                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <a href="{{ route('teacher.journal.index') }}" class="menu-link">
+                                    <span class="menu-title">Jurnal</span></a>
+                            @endif
+
                             <!--end:Menu link-->
                         </div>
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <!--begin:Menu link-->
+                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                <a href="{{ route('mentor.rankings') }}" class="menu-link">
+                                    <span class="menu-title">Peringkat</span></a>
+                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <a href="{{ route('teacher.rankings') }}" class="menu-link">
+                                    <span class="menu-title">Peringkat</span></a>
+                            @else
+                                <a href="{{ route('student.rankings') }}" class="menu-link">
+                                    <span class="menu-title">Peringkat</span></a>
+                            @endif
+
+                            <!--end:Menu link-->
+                        </div>
+
                     </div>
                     <!--end::Menu-->
                 </div>
@@ -188,8 +209,8 @@
                     <div class="cursor-pointer symbol symbol-30px symbol-md-35px"
                         data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
                         data-kt-menu-placement="bottom-end">
-                        <img class="symbol symbol-circle symbol-30px symbol-md-35px"
-                            src="{{ asset('user-assets/media/avatars/300-1.jpg') }}" alt="user" />
+                        <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
+                            alt="image" />
                     </div>
 
                     <!--begin::User account menu-->
@@ -200,7 +221,8 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="{{ asset('user-assets/media/avatars/300-1.jpg') }}" />
+                                    <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
+                                        alt="image" />
                                 </div>
                                 <!--end::Avatar-->
 
@@ -208,12 +230,12 @@
 
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">
-                                        {{auth()->user()->name}}<span
+                                        {{ auth()->user()->name }}<span
                                             class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                                     </div>
 
                                     <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
-                                        {{auth()->user()->email}}</a>
+                                        {{ auth()->user()->email }}</a>
                                 </div>
                                 <!--end::Username-->
                             </div>
@@ -226,7 +248,7 @@
 
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="account/overview.html" class="menu-link px-5">
+                            <a href="{{ route('profile.index') }}" class="menu-link px-5">
                                 My Profile
                             </a>
                         </div>

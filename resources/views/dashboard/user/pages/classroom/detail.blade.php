@@ -19,7 +19,8 @@
                             <!--begin::Page title-->
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
-                                <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+                                <h1
+                                    class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
                                     {{ $classroom->name }}
                                 </h1>
                                 <!--end::Title-->
@@ -39,9 +40,9 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 <a href="{{ route('student.classrooms') }}"
-               class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                <i class="bi bi-arrow-left me-2"></i> Kembali
-            </a>
+                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                    <i class="bi bi-arrow-left me-2"></i> Kembali
+                                </a>
                                 </a>
 
                             </div>
@@ -92,6 +93,13 @@
                                                             <th data-priority="3">Email</th>
                                                             <th data-priority="4">No Telepon</th>
                                                             <th class="min-w-50px" data-priority="5">Alamat</th>
+
+                                                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                                <th>Aksi</th>
+                                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                                <th>Aksi</th>
+                                                            @else
+                                                            @endif
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -103,6 +111,18 @@
                                                                 <td>{{ $student->studentSchool->student->phone_number }}
                                                                 </td>
                                                                 <td>{{ $student->studentSchool->student->address }}</td>
+                                                                @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                                    <td>
+                                                                        <a href="{{ route('teacher.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
+                                                                    </td>
+                                                                @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                                    <td>
+                                                                        <a href="{{ route('mentor.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
+                                                                    </td>
+                                                                @else
+                                                                @endif
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
@@ -127,7 +147,8 @@
                                         <div class="d-flex flex-center flex-column py-5">
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-100px symbol-circle mb-7">
-                                                <img src="{{ asset('app-assets/media/avatars/300-6.jpg') }}" alt="image">
+                                                <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
+                                                    alt="image" />
                                             </div>
                                             <!--end::Avatar-->
 
@@ -236,8 +257,7 @@
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
-                            class="menu-link px-2">Tentang
+                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
                             Kami</a></li>
 
                     <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
@@ -254,7 +274,7 @@
     </div>
 @endsection
 @section('script')
-<script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $("#kt_datatable_responsive").DataTable({
             responsive: true

@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
+use App\Models\User;
 use App\Models\Material;
-use App\Models\SubMaterial;
-use App\Services\ClassroomService;
-use App\Services\MaterialService;
-use App\Services\StudentService;
-use App\Services\SubMaterialService;
+use App\Models\Classroom;
 use Illuminate\View\View;
+use App\Models\SubMaterial;
+use App\Services\PointService;
+use App\Services\StudentService;
+use App\Services\MaterialService;
+use App\Services\ChallengeService;
+use App\Services\ClassroomService;
+use App\Services\AssignmentService;
+use App\Services\SubMaterialService;
+use App\Services\SubmitChallengeService;
+use App\Services\SubmitAssignmentService;
 
 class UserClassroomController extends Controller
 {
@@ -17,13 +23,17 @@ class UserClassroomController extends Controller
     private StudentService $studentService;
     private MaterialService $materialService;
     private SubMaterialService $subMaterialService;
+    // private AssignmentService $assignmentService;
 
-    public function __construct(ClassroomService $classroomService, StudentService $studentService, MaterialService $materialService, SubMaterialService $subMaterialService)
+    public function __construct(ClassroomService $classroomService, StudentService $studentService, MaterialService $materialService, SubMaterialService $subMaterialService, PointService $pointService, SubmitChallengeService $submitChallengeService, SubmitAssignmentService $submitAssignmentService)
     {
         $this->classroomService = $classroomService;
         $this->studentService = $studentService;
         $this->materialService = $materialService;
         $this->subMaterialService = $subMaterialService;
+        $this->pointService = $pointService;
+        $this->submitChallengeService = $submitChallengeService;
+        $this->submitAssignmentService = $submitAssignmentService;
 
     }
 
@@ -37,6 +47,14 @@ class UserClassroomController extends Controller
 
     public function show(Classroom $classroom): View
     {
+        if(auth()->user()->roles->pluck('name')[0] == 'admin'){
+            $data = [
+                'classroom' => $classroom,
+                'students' => $this->studentService->handleGetBySchool(auth()->id()),
+            ];
+    //        dd($data);
+            return \view ('dashboard.admin.pages.classroom.show', $data);
+        }else
         $data = [
             'classroom' => $classroom,
             'students' => $this->studentService->handleGetBySchool(auth()->id()),
@@ -73,6 +91,7 @@ class UserClassroomController extends Controller
         $data = [
             'classroom' => $classroom,
             'subMaterial' => $submaterial,
+            // 'studentDone' => $this->assignmentService->handleGetStudentDoneSubmit($assignment),
         ];
         return view('dashboard.user.pages.submaterial.detail', $data);
     }
@@ -80,5 +99,17 @@ class UserClassroomController extends Controller
     public function showDocument(SubMaterial $submaterial, string $role): View
     {
         return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role'));
+    }
+
+    public function showStudentDetail(User $student) : View
+    {
+        $data = [
+            'student' => $student,
+            'point' => $this->pointService->handleGetPointByStudent($student->id),
+            'challenges' => $this->submitChallengeService->handleGetCountStudentByChallenge($student->students[0]->id),
+            'assignments' => $this->submitAssignmentService->handleGetCountStudentByAssignment($student->id),
+            'rankings' => $this->pointService->handleGetPoint()
+        ];
+        return view('dashboard.user.pages.classroom.show', $data);
     }
 }

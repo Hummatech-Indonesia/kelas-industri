@@ -6,17 +6,21 @@ use App\Http\Requests\AssignmentRequest;
 use App\Models\Assignment;
 use App\Models\SubMaterial;
 use App\Services\AssignmentService;
+use App\Services\PointService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class AssignmentController extends Controller
 {
     private AssignmentService $service;
+    private PointService $pointService;
 
-    public function __construct(AssignmentService $service)
+    public function __construct(AssignmentService $service, PointService $pointService)
     {
         $this->service = $service;
+        $this->pointService = $pointService;
     }
 
     /**
@@ -104,5 +108,19 @@ class AssignmentController extends Controller
         if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    public function storePoint(Request $request)
+    {
+        $nilai = $request->nilai;
+        $id = $request->id;
+        foreach($id as $index => $item){
+            $student = $this->service->handleShowSubmitAssignment($item);
+            if($student->point == null){
+                $this->pointService->handleCreatePoint(0.5,$student->student_id);
+            }
+            $this->service->storePoint($item ,$nilai[$index]);          
+        }
+        return response()->json($student);
     }
 }

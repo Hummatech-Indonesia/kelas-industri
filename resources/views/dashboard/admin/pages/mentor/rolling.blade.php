@@ -14,7 +14,7 @@
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List mentor beserta kelas yang sedang diampu.
+                List mentor beserta kelas yang sedang diajar.
             </p>
             <!--end::Breadcrumb-->
         </div>

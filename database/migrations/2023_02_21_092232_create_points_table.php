@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('points', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('student_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->integer('point')->default(0);
+            $table->double('point')->default(0);
             $table->timestamps();
         });
     }

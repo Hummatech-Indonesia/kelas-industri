@@ -24,8 +24,13 @@ class AttendanceController extends Controller
      */
     public function index(): View
     {
-        $attendances = $this->service->handleGetByMentor();
-        return view('dashboard.user.pages.absent.index', compact('attendances'));
+        if(auth()->user()->roles->pluck('name')[0] == 'mentor'){
+            $attendances = $this->service->handleGetByMentor();
+            return view('dashboard.user.pages.absent.index', compact('attendances'));
+        }else
+        $attendances = $this->service->handleGetByAdmin();
+        return view('dashboard.admin.pages.absent.index', compact('attendances'));
+
     }
 
     /**
@@ -57,9 +62,12 @@ class AttendanceController extends Controller
      * @return View
      * @throws Exception
      */
-    public function show(Attendance $classroom): View
+    public function show(Attendance $attendance): View
     {
-        return view('tes');
+        $data = [
+            'attendances' => $this->service->getStudentBySubmitAttendance($attendance)
+        ];
+        return view('dashboard.admin.pages.absent.detail', $data);
     }
 
 

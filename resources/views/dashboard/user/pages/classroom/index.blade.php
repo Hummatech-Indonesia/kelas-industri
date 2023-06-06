@@ -165,6 +165,11 @@
                                                     {{ $classroom->classroom->generation->generation }}
                                                     ({{ $classroom->classroom->generation->schoolYear->school_year }})
                                                 </span>
+                                                <span class="text-muted font-weight-bold">
+                                                    @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                    {{$classroom->classroom->school->name}}
+                                                    @endif
+                                                </span>
 
                                                 <!--end::Title-->
 

@@ -14,8 +14,27 @@ class PointService
         $this->repository = $repository;
     }
 
-    public function handleGetPointStudent(){
-        return $this->repository->get_point_stundet();
+    public function handleGetSchool()
+    {
+        return $this->repository->get_school();
     }
 
+    public function handleGetPoint()
+    {
+        return $this->repository->get_point();
+    }
+
+    public function handleGetPointStudent(Request $request){
+        return $this->repository->get_point_student($request);
+    }
+
+    public function handleGetPointByStudent(string $studentId) : mixed
+    {
+        return $this->repository->get_student_by_point($studentId);
+    }
+
+    public function handleCreatePoint($point, $studentId): void
+    {
+        $this->repository->create_point($point, $studentId);
+    }
 }

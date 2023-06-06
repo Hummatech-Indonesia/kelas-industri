@@ -164,7 +164,9 @@
 
                                     </span>
 
-                                    <span class="btn btn-light-danger btn-sm font-weight-bold btn-upper btn-text">73</span>
+                                    <span class="btn btn-light-danger btn-sm font-weight-bold btn-upper btn-text">
+                                        {{ count($school->schoolStudents) }}
+                                    </span>
 
                                 </div>
 
@@ -176,7 +178,9 @@
 
                                     </span>
 
-                                    <span class="btn btn-light-warning btn-sm font-weight-bold btn-upper btn-text">3</span>
+                                    <span class="btn btn-light-warning btn-sm font-weight-bold btn-upper btn-text">
+                                        {{ count($school->teachers) }}
+                                    </span>
 
                                 </div>
 
@@ -188,7 +192,9 @@
 
                                     </span>
 
-                                    <span class="btn btn-light-success btn-sm font-weight-bold btn-upper btn-text">2</span>
+                                    <span class="btn btn-light-success btn-sm font-weight-bold btn-upper btn-text">
+                                        {{ count($school->classrooms) }}
+                                    </span>
 
                                 </div>
 

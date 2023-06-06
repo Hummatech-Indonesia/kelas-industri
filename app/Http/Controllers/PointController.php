@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\View\View;
-use App\Services\PointService;
-use App\Models\SubmitAssignment;
 use App\Helpers\SchoolYearHelper;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\PointController;
 use App\Http\Requests\SubmitAssignmentRequest;
+use App\Models\SubmitAssignment;
+use App\Services\PointService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PointController extends Controller
 {
 
-    private PointService  $services;
+    private PointService $services;
 
     public function __construct(PointService $services)
     {
@@ -26,23 +26,29 @@ class PointController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
-        $data = [
-            'rankings' => $this->services->handleGetPointStudent($currentSchoolYear),
-        ];
-        return view('dashboard.admin.pages.ranking.index', $data);
-    }
-
-    public function storePointAssignment(SubmitAssignmentRequest $request) :RedirectResponse
-    {
-        $data = $request->only('point'); // Ganti 'field1', 'field2', dll. dengan nama field yang ingin Anda tambahkan
-        dd($data);
-        SubmitAssignment::create($data);
-
-    // Kode lain yang diperlukan setelah penambahan data
-
-    return response()->json(['message' => 'Data added successfully']);
+        if (auth()->user()->roles->pluck('name')[0] == 'admin') {
+            $data = [
+                'schools' => $this->services->handleGetSchool(),
+                'filter' => $request->filter,
+                'rankings' => $this->services->handleGetPointStudent($request, $currentSchoolYear),
+            ];
+            return view('dashboard.admin.pages.leaderboard.index', $data);
+        }elseif(auth()->user()->roles->pluck('name')[0] == 'school'){
+            $data = [
+                'schools' => $this->services->handleGetSchool(),
+                'filter' => $request->filter,
+                'rankings' => $this->services->handleGetPointStudent($request, $currentSchoolYear),
+            ];
+            return view('dashboard.admin.pages.leaderboard.index', $data);
+        }else
+            $data = [
+                'schools' => $this->services->handleGetSchool(),
+                'filter' => $request->filter,
+                'rankings' => $this->services->handleGetPointStudent($request, $currentSchoolYear),
+            ];
+        return view('dashboard.user.pages.leaderboard.index', $data);
     }
 }

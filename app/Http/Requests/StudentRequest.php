@@ -16,13 +16,13 @@ class StudentRequest extends BaseRequest
     {
         $request = [
             'name' => 'required|string',
-            'email' => ['required', Rule::unique('users')],
+            'email' => ['required','email', Rule::unique('users')],
             'phone_number' => 'required|max:15',
             'address' => 'required'
         ];
 
         if (request()->routeIs('school.students.update')) {
-            $request['email'] = ['required', Rule::unique('users')->ignore($this->student)];
+            $request['email'] = ['required','email', Rule::unique('users')->ignore($this->student)];
         }
 
         return $request;
@@ -40,6 +40,7 @@ class StudentRequest extends BaseRequest
             'name.string' => 'Nama harus berupa string !',
             'email.required' => 'Email tidak boleh kosong !',
             'email.unique' => 'Email sudah digunakan !',
+            'email.email' => 'Email tidak valid !',
             'phone_number.required' => 'Nomor telepon tidak boleh kosong !',
             'phone_number.max' => 'Nomor telepon maksimal 15 angka !',
             'address.required' => 'Alamat tidak boleh kosong !'

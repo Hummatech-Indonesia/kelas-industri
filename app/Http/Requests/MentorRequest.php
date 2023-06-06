@@ -15,7 +15,7 @@ class MentorRequest extends BaseRequest
     {
         $request = [
             'name' => 'required|string',
-            'email' => ['required', Rule::unique('users')],
+            'email' => ['required','email', Rule::unique('users')],
             'phone_number' => 'required|max:15',
             'address' => 'required',
             'account_number' => 'required',
@@ -23,7 +23,7 @@ class MentorRequest extends BaseRequest
         ];
 
         if (request()->routeIs('admin.mentors.update')) {
-            $request['email'] = ['required', Rule::unique('users')->ignore($this->mentor)];
+            $request['email'] = ['required','email', Rule::unique('users')->ignore($this->mentor)];
         }
 
         return $request;
@@ -41,6 +41,7 @@ class MentorRequest extends BaseRequest
             'name.string' => 'Nama harus berupa string !',
             'email.required' => 'Email tidak boleh kosong !',
             'email.unique' => 'Email sudah digunakan !',
+            'email.email' => 'Email tidal valid !',
             'phone_number.required' => 'Nomor telepon tidak boleh kosong !',
             'phone_number.max' => 'Nomor telepon maksimal 15 angka !',
             'address.required' => 'Alamat tidak boleh kosong !',

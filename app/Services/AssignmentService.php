@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AssignmentRequest;
 use App\Repositories\AssignmentRepository;
 use App\Http\Requests\SubmitAssignmentRequest;
+use App\Models\Assignment;
+use App\Models\SubmitAssignment;
 
 class AssignmentService
 {
@@ -68,9 +70,13 @@ class AssignmentService
     $this->repository->create_submit_assignment($data, $studentId);
 }
 
-public function storePointStudent(): void
-{
-    $this->repository->update();
+    public function storePoint($id, $point): void
+    {
+        $this->repository->storePoint($id,$point);
+    }
+
+    public function handleShowSubmitAssignment($id){
+        return $this->repository->ShowSubmitAssignment($id);
     }
 
     /**
@@ -99,6 +105,11 @@ public function storePointStudent(): void
     public function handleGetStudentSubmitAssignment(string $studentId, string $assignmentId): mixed
     {
         return $this->repository->get_submit_assignment_student($studentId, $assignmentId);
+    }
+
+    public function handleGetStudentDoneSubmit(Assignment $assignment)
+    {
+        return $this->repository->get_student_done_submit($assignmentId);
     }
 
 }

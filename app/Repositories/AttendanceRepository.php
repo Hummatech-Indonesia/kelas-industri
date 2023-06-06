@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\Attendance;
 use App\Models\User;
+use App\Models\Attendance;
 use App\Models\SubmitAttendance;
 
 class AttendanceRepository extends BaseRepository
@@ -30,7 +30,7 @@ class AttendanceRepository extends BaseRepository
             ->orderBy('created_at','desc')
             ->get();
     }
-    public function get_student_attendance_status(string $attendanceId): mixed 
+    public function get_student_attendance_status(string $attendanceId): mixed
     {
         return $this->submitAttendance->query()
             ->where('attendance_id',$attendanceId)
@@ -42,11 +42,19 @@ class AttendanceRepository extends BaseRepository
         $this->submitAttendance->create($data);
     }
 
+    public function get_student_by_submit_attendance(string $attendanceId, ): mixed
+    {
+        return $this->submitAttendance->query()
+        ->where('attendance_id',$attendanceId)
+        ->get();
+    }
+
     public function update_status(string $id): void
     {
         $data = $this->model->query()->findorfail($id);
         $data->status = 'close';
         $data->save();
     }
+
 }
 
