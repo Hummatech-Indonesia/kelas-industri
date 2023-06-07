@@ -152,7 +152,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
 //mentor
 Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->group(function () {
     Route::resources([
-    'challenges' => ChallengeController::class,
+        'challenges' => ChallengeController::class,
         'attendance' => AttendanceController::class,
         'journal' => JurnalController::class,
     ]);
@@ -194,10 +194,10 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 
     Route::get('{classroom}/submitAssignment/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
-    Route::post('{classroom}/storeassignment/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
+    Route::post('{classroom}/storeassignment/{submaterial}/{}', [UserAssignmentController::class, 'store'])->name('storeassignment');
 
     Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
-    Route::post('storeassignment', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
+    Route::post('storeChallenge', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
     Route::get('/absen/{attendance}',[AttendanceController::class,'submit']);
 
     Route::get('/downloadFile/{submitChallenge}',[ChallengeController::class,'download'])->name('downloadChallenge');

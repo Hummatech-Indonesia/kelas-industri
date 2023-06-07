@@ -57,6 +57,17 @@ class ClassroomService
         }
     }
 
+    public function handleGetClassroomByUserJurnal(string $userId)
+    {
+        if (auth()->user()->roles->pluck('name')[0] == 'student') {
+            return $this->repository->get_by_student_jurnal($userId);
+        } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
+            return $this->repository->get_by_mentor_jurnal($userId);
+        } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+            return $this->repository->get_by_teacher_jurnal($userId);
+        }
+    }
+
     /**
      * handle get by school in the current school year
      *

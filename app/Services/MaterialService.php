@@ -32,8 +32,8 @@ class MaterialService
 
     public function handleSearch(Request $search,$year): mixed
     {
-        return $this->repository->search_paginate($search->search,$year, 1);
-    }   
+        return $this->repository->search_paginate($search->search,$year, 6);
+    }
 
     /**
      * handle store

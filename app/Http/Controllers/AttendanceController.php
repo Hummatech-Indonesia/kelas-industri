@@ -27,19 +27,13 @@ class AttendanceController extends Controller
      */
     public function index(): View
     {
+        $data = $this->GetDataSidebar();
         if(auth()->user()->roles->pluck('name')[0] == 'mentor'){
-            $data = [
-                'SidebarRank' => $this->RankMockup(),
-                'SidebarSchedule' => $this->ScheduleMockup(),
-                'SidebarAssignment' => $this->AssignmentMockup(),
-                'SidebarChallenge' => $this->ChallengeMockup()
-            ];
-            $data = $this->GetDataSidebar();
             $data['attendances'] = $this->service->handleGetByMentor();
             return view('dashboard.user.pages.absent.index', $data);
         }else
-        $attendances = $this->service->handleGetByAdmin();
-        return view('dashboard.admin.pages.absent.index', compact('attendances'));
+        $data['attendances'] = $this->service->handleGetByAdmin();
+        return view('dashboard.admin.pages.absent.index', $data);
 
     }
 

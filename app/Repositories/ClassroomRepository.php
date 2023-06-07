@@ -20,6 +20,32 @@ class ClassroomRepository extends BaseRepository
         $this->teacherClassroom = $teacherClassroom;
     }
 
+    public function get_by_mentor_jurnal(string $mentorId)
+    {
+        return $this->mentorClassroom->query()
+        ->where('mentor_id', $mentorId)
+        ->get();
+    }
+
+    public function get_by_teacher_jurnal(string $teacherId)
+    {
+        return $this->teacherClassroom->query()
+        ->whereRelation('teacherSchool', function($q) use ($teacherId){
+            $q->where('teacher_id', $teacherId);
+        })
+        ->get();
+    }
+
+    public function get_by_student_jurnal(string $studentId)
+    {
+        return $this->studentClassroom->query()
+        ->whereRelation('studentSchool', function($q) use ($studentId){
+            $q->where('student_id', $studentId);
+        })
+        ->get();
+    }
+
+
     public function get_by_mentor(string $mentorId, string | null $search, int $limit)
     {
         return $this->mentorClassroom->query()

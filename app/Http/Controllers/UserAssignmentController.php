@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubmitAssignmentRequest;
-use App\Models\Assignment;
+use ZipArchive;
 use App\Models\Classroom;
+use Illuminate\View\View;
+use App\Models\Assignment;
 use App\Models\SubMaterial;
+use App\Traits\DataSidebar;
+use Illuminate\Http\Request;
 use App\Models\SubmitAssignment;
 use App\Services\AssignmentService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use ZipArchive;
+use App\Http\Requests\SubmitAssignmentRequest;
 
 class UserAssignmentController extends Controller
 {
+    use DataSidebar;
     private AssignmentService $assignmentService;
 
     public function __construct(AssignmentService $assignmentService)
@@ -24,24 +26,20 @@ class UserAssignmentController extends Controller
 
     public function index(Classroom $classroom, Assignment $assignment): View
     {
-//        dd($this->assignmentService->handleGetAssignmentStudent($classroom->id, $assignment->id));
-        $data = [
-            'students' => $this->assignmentService->handleGetAssignmentStudent($classroom->id, $assignment->id),
-            'assignment' => $assignment,
-            'classroom' => $classroom
-        ];
-//        dd($data);
+        $data = $this->GetDataSidebar();
+        $data['students'] = $this->assignmentService->handleGetAssignmentStudent($classroom->id, $assignment->id);
+        $data['assignment'] = $assignment;
+        $data['classroom'] = $classroom;
         return \view ('dashboard.user.pages.assignment.index', $data);
     }
 
     public function create(Classroom $classroom, SubMaterial $submaterial, Assignment $assignment): View
     {
-        $data = [
-            'assignment' => $assignment,
-            'classroom' => $classroom,
-            'subMaterial' => $submaterial,
-            'submitAssignment' => $this->assignmentService->handleGetStudentSubmitAssignment(auth()->id(), $assignment->id),
-        ];
+        $data = $this->GetDataSidebar();
+        $data['assignment'] = $assignment;
+        $data['classroom'] = $classroom;
+        $data['subMaterial'] = $submaterial;
+        $data['submitAssignment'] = $this->assignmentService->handleGetStudentSubmitAssignment(auth()->id(), $assignment->id);
         return \view ('dashboard.user.pages.assignment.detail', $data);
 
     }

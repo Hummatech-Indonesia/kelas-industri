@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Journal;
 use Illuminate\View\View;
+use App\Traits\DataSidebar;
+use Illuminate\Http\Request;
 use App\Services\PointService;
 use App\Services\JournalService;
 use App\Services\ClassroomService;
 use App\Http\Requests\JournalRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class JurnalController extends Controller
 {
     //
+    use DataSidebar;
     private ClassroomService $classroomService;
     private JournalService $journalService;
     private PointService $pointService;
@@ -28,25 +30,20 @@ class JurnalController extends Controller
 
     public function index(Request $request)
     {
+        $data = $this->GetDataSidebar();
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
-            $data = [
-                'schools' => $this->pointService->handleGetSchool(),
-                'filter' => $request->filter,
-                'journals' => $this->journalService->handleGetJurnalByAdmin($request),
-            ];
+            $data['schools'] =  $this->pointService->handleGetSchool();
+            $data['filter'] =  $request->filter;
+            $data['journals'] = $this->journalService->handleGetJurnalByAdmin($request);
             return view('dashboard.admin.pages.jurnal.index', $data);
 
         } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
-            $data = [
-                'schools' => $this->pointService->handleGetSchool(),
-                'filter' => $request->filter,
-                'journals' => $this->journalService->handleGetBySchool()
-            ];
+            $data['schools'] =  $this->pointService->handleGetSchool();
+            $data['filter'] =  $request->filter;
+            $data['journals'] = $this->journalService->handleGetBySchool();
             return view('dashboard.admin.pages.jurnal.index', $data);
         } else {
-            $data = [
-                'journals' => $this->journalService->handleGetJournalByUser(),
-            ];
+            $data['journals'] = $this->journalService->handleGetJournalByUser();
             return view('dashboard.user.pages.jurnal.index', $data);
         }
 
@@ -54,9 +51,8 @@ class JurnalController extends Controller
 
     public function create(): View
     {
-        $data = [
-            'classrooms' => $this->classroomService->handleGetClassroomByUser(auth()->id()),
-        ];
+        $data = $this->GetDataSidebar();
+        $data['classrooms'] =  $this->classroomService->handleGetClassroomByUserJurnal(auth()->id());
         return view('dashboard.user.pages.jurnal.create', $data);
     }
 
@@ -76,10 +72,9 @@ class JurnalController extends Controller
 
     public function edit(Journal $journal): View
     {
-        $data = [
-            'journal' => $journal,
-            'classrooms' => $this->classroomService->handleGetClassroomByUser(auth()->id()),
-        ];
+        $data = $this->GetDataSidebar();
+        $data['journal'] = $journal;
+        $data['classrooms'] = $this->classroomService->handleGetClassroomByUserJurnal(auth()->id());
         return view('dashboard.user.pages.jurnal.edit', $data);
     }
 

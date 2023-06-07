@@ -7,6 +7,7 @@ use App\Models\Material;
 use App\Models\Classroom;
 use Illuminate\View\View;
 use App\Models\SubMaterial;
+use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 use App\Services\PointService;
 use App\Services\StudentService;
@@ -20,6 +21,7 @@ use App\Services\SubmitAssignmentService;
 
 class UserClassroomController extends Controller
 {
+    use DataSidebar;
     private ClassroomService $classroomService;
     private StudentService $studentService;
     private MaterialService $materialService;
@@ -40,62 +42,50 @@ class UserClassroomController extends Controller
 
     public function index(Request $request): View
     {
-
-        $data = [
-            'search' => $request->search,
-            'classrooms' => $this->classroomService->handleGetClassroomByUser(auth()->id(), $request),
-        ];
+        $data = $this->GetDataSidebar();
+        $data['search'] = $request->search;
+        $data['classrooms'] = $this->classroomService->handleGetClassroomByUser(auth()->id(), $request);
         return view('dashboard.user.pages.classroom.index', $data);
     }
 
     public function show(Classroom $classroom): View
     {
+        $data = $this->GetDataSidebar();
         if(auth()->user()->roles->pluck('name')[0] == 'admin'){
-            $data = [
-                'classroom' => $classroom,
-                'students' => $this->studentService->handleGetBySchool(auth()->id()),
-            ];
-    //        dd($data);
+            $data['classroom'] = $classroom;
+            $data['students'] = $this->studentService->handleGetBySchool(auth()->id());
             return \view ('dashboard.admin.pages.classroom.show', $data);
         }else
-        $data = [
-            'classroom' => $classroom,
-            'students' => $this->studentService->handleGetBySchool(auth()->id()),
-        ];
-//        dd($data);
+        $data['classroom'] = $classroom;
+        $data['students'] = $this->studentService->handleGetBySchool(auth()->id());
         return \view ('dashboard.user.pages.classroom.detail', $data);
     }
 
     public function materials(Classroom $classroom): View
     {
-        $data = [
-            'classroom' => $classroom,
-            'materials' => $this->materialService->handleByClassroom($classroom->id),
-        ];
-
+        $data = $this->GetDataSidebar();
+        $data['classroom'] = $classroom;
+        $data['materials'] =  $this->materialService->handleByClassroom($classroom->id);
         return \view ('dashboard.user.pages.material.index', $data);
     }
 
     public function showMaterial(Classroom $classroom, Material $material): View
     {
-        $data = [
-            'classroom' => $classroom,
-            'material' => $material,
-            'subMaterials' => $this->subMaterialService->handleGetPaginate($material->id),
-            'parameters' => [
-                'material' => $material->id,
-            ],
+        $data = $this->GetDataSidebar();
+        $data['classroom'] = $classroom;
+        $data['material'] = $material;
+        $data['subMaterials'] =  $this->subMaterialService->handleGetPaginate($material->id);
+        $data['parameters'] = [
+            'material' => $material->id,
         ];
         return view('dashboard.user.pages.submaterial.index', $data);
     }
 
     public function showSubMaterial(Classroom $classroom, SubMaterial $submaterial): View
     {
-        $data = [
-            'classroom' => $classroom,
-            'subMaterial' => $submaterial,
-            // 'studentDone' => $this->assignmentService->handleGetStudentDoneSubmit($assignment),
-        ];
+        $data = $this->GetDataSidebar();
+        $data['classroom'] = $classroom;
+        $data['subMaterial'] = $submaterial;
         return view('dashboard.user.pages.submaterial.detail', $data);
     }
 

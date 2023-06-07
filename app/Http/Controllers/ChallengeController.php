@@ -33,16 +33,20 @@ class ChallengeController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         $data = $this->GetDataSidebar();
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            $data['challenges'] = $this->service->handleGetByTeacher(auth()->id());
+            $data['challenges'] = $this->service->handleGetByTeacher(auth()->id(), $currentSchoolYear->id, $request);
+            $data['search'] = $request->search;
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            $data['challenges'] = $this->service->handleGetByMentor(auth()->id(), $currentSchoolYear->id);
+            $data['challenges'] = $this->service->handleGetByMentor(auth()->id(), $currentSchoolYear->id, $request);
+            $data['search'] = $request->search;
         } elseif (auth()->user()->roles->pluck('name')[0] == 'student') {
-            $data['challenges'] = $this->service->handleGetByStudent(auth()->user()->studentSchool->studentClassroom->classroom_id, $currentSchoolYear->id);
+            $data['challenges'] = $this->service->handleGetByStudent(auth()->user()->studentSchool->studentClassroom->classroom_id, $currentSchoolYear->id, $request);
+            $data['search'] = $request->search;
+
         }
         return view('dashboard.user.pages.challenge.index', $data);
     }
@@ -93,8 +97,7 @@ class ChallengeController extends Controller
     public function storeChallenge(SubmitChallengeRequest $request): RedirectResponse
     {
         $this->service->submitChallenge($request);
-
-        return to_route('student.challenges.index')->with('success', trans('alert.add_success'));
+        return to_route('student.challenges.show', ['challenge' => $request->challenge])->with('success', trans('alert.add_success'));
     }
 
 
@@ -112,15 +115,10 @@ class ChallengeController extends Controller
             $data['student'] =  $this->service->handleChallengeByTeacher($challenge->id);
 
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-
-            $data = [
-                'challenge' => $challenge,
-                'student' => $this->service->handleGetChallengeByMentor($challenge->id)
-            ];
+            $data['challenge'] = $challenge;
+            $data['student'] =  $this->service->handleGetChallengeByMentor($challenge->id);
         } elseif (auth()->user()->roles->pluck('name')[0] == 'student') {
-            $data = [
-                'challenge' => $challenge,
-            ];
+            $data['challenge'] = $challenge;
         }
         return \view ('dashboard.user.pages.challenge.detail', $data);
     }

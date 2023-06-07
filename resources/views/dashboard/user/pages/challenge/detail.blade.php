@@ -144,23 +144,24 @@
 
                                                 <div class="d-flex flex-wrap align-items-center py-2">
 
-                                                    <div class="d-flex align-items-center me-10">
+                                                    <div class="d-flex align-items-center">
 
                                                         <div class="me-5">
 
-                                                            <div class="font-weight-bold mb-2">Dimulai</div>
+                                                            <div class="font-weight-bold mb-2">
+                                                                Dimulai
+                                                            </div>
 
                                                             <span
                                                                 class="badge badge-light-primary text-uppercase font-weight-bold">
 
-
-                                                                {{ $challenge->start_date }}
+                                                                {{ \Carbon\Carbon::parse($challenge->start_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
 
                                                             </span>
 
                                                         </div>
 
-                                                        <div class="">
+                                                        <div class="me-5">
 
                                                             <div class="font-weight-bold mb-2">Berakhir</div>
 
@@ -168,7 +169,7 @@
                                                                 class="badge badge-light-danger text-uppercase font-weight-bold">
 
 
-                                                                {{ $challenge->end_date }}
+                                                                {{ \Carbon\Carbon::parse($challenge->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
 
                                                             </span>
                                                         </div>
@@ -314,40 +315,34 @@
                                         <!--end::Title-->
                                     </div>
                                     <div class="card-body">
-
                                         <table id="kt_datatable_responsive"
                                             class="table table-striped border rounded gy-5 gs-7">
                                             <thead>
                                                 <tr class="fw-semibold fs-6 text-gray-800">
-
-                                                    <th class="min-w-200px" data-priority="1">Judul</th>
-                                                    <th class="min-w-300px">Deskripsi</th>
-
-                                                    <th class="min-w-100px" data-priority="2">Tenggat</th>
-                                                    <th class="min-w-100px" data-priority="3">Status</th>
-                                                    <th class="min-w-100px" data-priority="4">Aksi</th>
-
-
-
+                                                    <th class="min-w-100px" data-priority="1">Judul</th>
+                                                    <th class="min-w-200px">Deskripsi</th>
+                                                    <th class="min-w-100px"data-priority="2">Dimulai</th>
+                                                    <th class="min-w-100px"data-priority="3">Berakhir</th>
+                                                    <th class="min-w-100px"data-priority="4">Status</th>
+                                                    <th class="min-w-100px"data-priority="5">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>
-
                                                         {{ $challenge->title }}
-
                                                     </td>
                                                     <td>
-
                                                         {{ $challenge->description }}
-
                                                     </td>
-
-                                                    <td><span class="badge badge-light-danger">
-
-                                                            {{ $challenge->end_date }}
-
+                                                    <td>
+                                                        <span class="badge badge-light-primary">
+                                                        {{ \Carbon\Carbon::parse($challenge->start_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-light-danger">
+                                                        {{ \Carbon\Carbon::parse($challenge->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
                                                         </span>
                                                     </td>
                                                     <td>
