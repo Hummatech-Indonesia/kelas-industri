@@ -96,13 +96,12 @@ class UserClassroomController extends Controller
 
     public function showStudentDetail(User $student) : View
     {
-        $data = [
-            'student' => $student,
-            'point' => $this->pointService->handleGetPointByStudent($student->id),
-            'challenges' => $this->submitChallengeService->handleGetCountStudentByChallenge($student->students[0]->id),
-            'assignments' => $this->submitAssignmentService->handleGetCountStudentByAssignment($student->id),
-            'rankings' => $this->pointService->handleGetPoint()
-        ];
+        $data = $this->GetDataSidebar();
+        $data['student'] = $student;
+        $data['point'] = $this->pointService->handleGetPointByStudent($student->id);
+        $data['challenges'] = $this->submitChallengeService->handleGetCountStudentByChallenge($student->students[0]->id);
+        $data['assignments'] = $this->submitAssignmentService->handleGetCountStudentByAssignment($student->id);
+        $data['rankings'] = $this->pointService->handleGetPoint();
         return view('dashboard.user.pages.classroom.show', $data);
     }
 }

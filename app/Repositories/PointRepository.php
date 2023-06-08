@@ -71,4 +71,14 @@ class PointRepository extends BaseRepository
         ]);
     }
 
+    public function get_count_point_student(string $studentId)
+    {
+        return $this->model->query()
+        ->where('student_id', $studentId)
+        ->groupBy('student_id')
+        ->selectRaw('student_id, sum(point) as point')
+        ->first();
+    }
+
+
 }

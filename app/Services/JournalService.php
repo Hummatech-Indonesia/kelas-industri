@@ -86,4 +86,10 @@ class JournalService
     public function handleDelete(Journal $journal): bool
     {
         return $this->repository->destroy($journal->id);
-    }}
+    }
+
+    public function handleCountJournalTeacher(string $teacherId) :mixed
+    {
+        return $this->repository->get_count_journal_teacher($teacherId);
+    }
+}

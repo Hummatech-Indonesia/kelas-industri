@@ -130,4 +130,19 @@ class ChallengeRepository extends BaseRepository
             ->get();
     }
 
+    public function get_count_challenge_student()
+    {
+        $classroomId = Auth()->user()->studentSchool->studentClassroom->classroom->id;
+        return $this->model->query()
+        ->where('classroom_id',$classroomId)
+        ->count();
+    }
+
+    public function get_count_challenge_teacher(string $teacherId)
+    {
+        return $this->model->query()
+        ->where('created_by', $teacherId)
+        ->count();
+    }
+
 }

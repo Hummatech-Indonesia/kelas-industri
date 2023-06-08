@@ -40,4 +40,11 @@ class JournalRepository extends BaseRepository
         ->get();
     }
 
+    public function get_count_journal_teacher(string $teacherId) :mixed
+    {
+        return $this->model->query()
+        ->where('created_by', $teacherId)
+        ->count();
+    }
+
 }

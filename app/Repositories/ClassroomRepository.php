@@ -134,4 +134,13 @@ class ClassroomRepository extends BaseRepository
             ->where('school_id', $schoolId)
             ->paginate($limit);
     }
+
+    public function get_count_classroom_teacher(string $teacherId)
+    {
+        return $this->teacherClassroom->query()
+            ->whereRelation('teacherSchool', function ($q) use ($teacherId) {
+                $q->where('teacher_id', $teacherId);
+            })
+            ->count();
+    }
 }

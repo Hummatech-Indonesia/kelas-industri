@@ -64,7 +64,7 @@ class AssignmentRepository extends BaseRepository
     if ($oldFile) {
         Storage::disk('public')->delete($oldFile->file);
     }
-    
+
     $this->submitAssignment->updateOrCreate(
         ['student_id' => $studentId], $data);
     }
@@ -90,4 +90,25 @@ class AssignmentRepository extends BaseRepository
         return $this->submitAssignment->query()
             ->findOrFail($id);
     }
+
+    public function get_count_assignment_student()
+    {
+        $generationId = Auth()->user()->studentSchool->studentClassroom->classroom->generation_id;
+        return $this->model->query()
+        ->whereIn('sub_material_id', function ($query) use ($generationId) {
+        $query->select('id')
+            ->from('sub_materials')
+            ->whereIn('material_id', function ($query) use ($generationId) {
+                $query->select('id')
+                    ->from('materials')
+                    ->whereIn('generation_id', function ($query) use ($generationId) {
+                        $query->select('id')
+                            ->from('generations')
+                            ->where('id', $generationId);
+                    });
+            });
+        })->count();
+    }
+
+    
 }

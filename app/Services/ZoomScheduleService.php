@@ -60,4 +60,9 @@ class ZoomScheduleService
     {
         return $this->repository->destroy($id);
     }
+
+    public function handleGetZoomScheduleStudent()
+    {
+        return $this->repository->get_zoom_schedule_student();
+    }
 }

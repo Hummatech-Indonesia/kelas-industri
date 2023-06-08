@@ -37,4 +37,9 @@ class PointService
     {
         $this->repository->create_point($point, $studentId);
     }
+
+    public function hanleCountPointStudent(string $studentId)
+    {
+        return $this->repository->get_count_point_student($studentId);
+    }
 }

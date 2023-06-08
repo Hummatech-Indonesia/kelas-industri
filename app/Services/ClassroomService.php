@@ -154,4 +154,9 @@ class ClassroomService
             ]);
         }
     }
+
+    public function handleCountClassroomTeacher(string $userId)
+    {
+        return $this->repository->get_count_classroom_teacher($userId);
+    }
 }

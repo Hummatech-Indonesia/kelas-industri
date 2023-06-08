@@ -50,7 +50,7 @@
                 <li class="nav-item py-1">
                     <!--begin::Navbar link-->
                     <a data-bs-toggle="tab" href="#kt_app_sidebar_leaderboard"
-                        class="nav-link py-4 px-1 btn {{ auth()->user()->roles->pluck('name')[0] == 'mentor'? 'active': '' }}">
+                        class="nav-link py-4 px-1 btn {{ auth()->user()->roles->pluck('name')[0] == 'mentor' || auth()->user()->roles->pluck('name')[0] == 'teacher'  ? 'active': '' }}">
                         <i class="bi bi-bar-chart-fill fs-1"></i>
 
                         <span class="pt-2 fs-9 fs-lg-7 fw-bold">Peringkat</span>
@@ -103,7 +103,7 @@
                                 <!--end::Title-->
                             </div>
                             <!--begin::Body-->
-                            <div class="card-body text-center">
+                            <div class="card-body">
                                 @forelse ($SidebarAssignment as $assignment)
                                     <div class="d-flex mb-3 flex-stack">
                                         <!--begin::Symbol-->
@@ -115,7 +115,7 @@
                                         <!--end::Symbol-->
 
                                         <!--begin::Section-->
-                                        <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                        <div class="d-flex flex-row-fluid flex-wrap">
                                             <!--begin:Author-->
                                             <div class="flex-grow-1 me-2">
                                                 <a href="{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'submaterial' => $assignment->sub_material_id]) }}"
@@ -169,7 +169,7 @@
                                 <!--end::Title-->
                             </div>
                             <!--begin::Body-->
-                            <div class="card-body text-center">
+                            <div class="card-body">
                                 @forelse ($SidebarChallenge as $challenge)
                                     <div class="d-flex mb-3 flex-stack">
                                         <!--begin::Symbol-->
@@ -187,7 +187,7 @@
                                                 <a href="{{ route('student.challenges.show', ['challenge' => $challenge->id]) }}"
                                                     class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $challenge->title }}</a>
                                                 <span
-                                                    class="text-muted fw-semibold d-block fs-7">{{ $challenge->difficulty }}</span>
+                                                    class="text-muted fw-semibold d-block fs-7">Kesulitan : {{ $challenge->difficulty }}</span>
                                                 <span
                                                     class="text-muted fw-semibold d-block fs-7">{{ \Carbon\Carbon::parse($challenge->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
                                                 </span>
@@ -226,7 +226,7 @@
             <!--begin::Tab content-->
             <div class="tab-content px-5 px-lg-10">
                 <!--begin::Tab pane-->
-                <div class="tab-pane fade {{ auth()->user()->roles->pluck('name')[0] == 'mentor'? 'show active': '' }}"
+                <div class="tab-pane fade {{ auth()->user()->roles->pluck('name')[0] == 'mentor' || auth()->user()->roles->pluck('name')[0] == 'teacher'  ? 'show active': '' }}"
                     id="kt_app_sidebar_leaderboard" role="tabpanel">
                     <!--begin::Collections-->
                     <div class="card card-reset card-p-0">
@@ -238,7 +238,7 @@
                             <!--end::Title-->
                         </div>
                         <!--begin::Body-->
-                        <div class="card-body text-center">
+                        <div class="card-body">
                             @forelse ($SidebarRank as $key => $rank)
                                 <div class="d-flex mb-3 flex-stack">
                                     <!--begin::Symbol-->
@@ -256,7 +256,9 @@
                                                 src="{{ asset('storage/medal_file/bronze-medal.png') }}"
                                                 alt="">
                                         @else
-                                            {{ $key == 3 ? $loop->iteration : $loop->iteration + $key - 3 }}
+                                        <div class="d-flex justify-content-center items-center" style="width:40px; height:50px; ">
+                                            <p>{{ $loop->iteration }}</p>
+                                        </div>
                                         @endif
 
                                     </div>
@@ -267,19 +269,19 @@
                                         <!--begin:Author-->
                                         <div class="flex-grow-1 me-2">
                                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                <a href="{{ 'ranking' }}"
+                                                <a href="{{ Route('student.rankings') }}"
                                                     class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $rank->student->name }}</a>
                                             @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                <a href="{{ 'ranking' }}"
+                                                <a href="{{ Route('mentor.rankings')  }}"
                                                     class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $rank->student->name }}</a>
                                             @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                <a href="{{ 'ranking' }}"
+                                                <a href="{{ Route('teacher.rankings')  }}"
                                                     class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $rank->student->name }}</a>
                                             @endif
                                             <span
                                             class="text-muted fw-semibold d-block fs-7">{{ $rank->student->studentSchool->school->name }}</span>
                                             <span
-                                                class="text-muted fw-semibold d-block fs-7">{{ $rank->point }}</span>
+                                                class="text-muted fw-semibold d-block fs-7">Point : {{ $rank->point }}</span>
                                         </div>
                                         <!--end:Author-->
                                     </div>
@@ -323,7 +325,7 @@
                             <!--end::Title-->
                         </div>
                         <!--begin::Body-->
-                        <div class="card-body text-center">
+                        <div class="card-body">
                             @forelse ($SidebarSchedule as $schedule)
                                 <div class="d-flex mb-3 flex-stack">
                                     <!--begin::Symbol-->

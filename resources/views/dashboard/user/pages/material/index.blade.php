@@ -64,15 +64,9 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="#"
-                                   class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold"
-                                   data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">
-                                    Add Member
-                                </a>
-
-                                <a href="#" class="btn btn-flex btn-primary h-40px fs-7 fw-bold"
-                                   data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">
-                                    New Campaign
+                                <a href="{{ url()->previous() }}"
+                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                    <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
                             </div>
                             <!--end::Actions-->

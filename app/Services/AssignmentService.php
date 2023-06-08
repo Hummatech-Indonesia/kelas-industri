@@ -112,4 +112,14 @@ class AssignmentService
         return $this->repository->get_student_done_submit($assignmentId);
     }
 
+    public function handleCountAssignmentStudent()
+    {
+        return $this->repository->get_count_assignment_student();
+    }
+
+    public function handleCountAssignmentTeacher(string $teacherId)
+    {
+        return $this->repository->get_count_assignment_teacher($teacherId);
+    }
+
 }

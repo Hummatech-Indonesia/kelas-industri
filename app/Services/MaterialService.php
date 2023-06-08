@@ -68,4 +68,14 @@ class MaterialService
     {
         return $this->repository->destroy($id);
     }
+
+    public function handleCountMaterialStudent(int $schoolYearId) : mixed
+    {
+        return $this->repository->get_count_material_student($schoolYearId);
+    }
+
+    public function handleCountMaterialUser(int $schoolYearId) :mixed
+    {
+        return $this->repository->get_count_material_user($schoolYearId);
+    }
 }

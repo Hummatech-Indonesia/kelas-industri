@@ -102,4 +102,14 @@ class ChallengeService
     {
         return $this->repository->destroy($id);
     }
+
+    public function handleCountChallengeStudent()
+    {
+        return $this->repository->get_count_challenge_student();
+    }
+
+    public function handleCountChallengeTeacher(string $teacherId) :mixed
+    {
+        return $this->repository->get_count_challenge_teacher($teacherId);
+    }
 }

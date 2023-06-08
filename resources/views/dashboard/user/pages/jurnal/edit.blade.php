@@ -16,7 +16,7 @@
                         <!--begin::Toolbar wrapper-->
                         <div id="kt_app_content_container" class="app-container  container-fluid ">
                             @if ($errors->any())
-                                <x-errors-component />
+                                <x-errors-component/>
                             @endif
                             <div class="row">
                                 @if (auth()->user()->roles->pluck('name')[0] == 'mentor')

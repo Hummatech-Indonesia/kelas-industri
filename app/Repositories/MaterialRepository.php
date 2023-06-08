@@ -52,4 +52,11 @@ class MaterialRepository extends BaseRepository
             ->where('generation_id','LIKE','%'.$year.'%')
             ->paginate($limit);
     }
+
+    public function get_count_material_user(int $schoolYear) :mixed
+    {
+        return $this->model->query()
+            ->where('generation_id', $schoolYear)
+            ->count();
+    }
 }

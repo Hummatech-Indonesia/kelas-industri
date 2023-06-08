@@ -184,7 +184,10 @@
                                                                 src="{{ asset('storage/medal_file/bronze-medal.png') }}"
                                                                 alt=""></td>
                                                     @else
-                                                        <td>{{ $key == 3 ? $loop->iteration : $loop->iteration + $key - 3 }}
+                                                        <td>
+                                                            <div class="d-flex justify-content-center items-center" style="width:50px; height:50px; ">
+                                                                <p>{{ $loop->iteration }}</p>
+                                                            </div>
                                                         </td>
                                                     @endif
                                                     <td>{{ $ranking->student->name }}</td>
