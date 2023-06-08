@@ -10,6 +10,9 @@ use App\Services\MaterialService;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
 use App\Services\AssignmentService;
+use App\Services\MentorService;
+use App\Services\SchoolService;
+use App\Services\UserServices;
 use App\Services\ZoomScheduleService;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -22,13 +25,16 @@ class HomeController extends Controller
     private PointService $pointService;
     private ClassroomService $classroomService;
     private JournalService $journalService;
+    private SchoolService $schoolService;
+    private MentorService $mentorService;
+    private UserServices $userService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(AssignmentService $assignmentService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService)
+    public function __construct(UserServices $userService,AssignmentService $assignmentService,MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService)
     {
         $this->middleware('auth');
         $this->assignmentService = $assignmentService;
@@ -38,6 +44,8 @@ class HomeController extends Controller
         $this->zoomScheduleService = $zoomScheduleService;
         $this->classroomService = $classroomService;
         $this->journalService = $journalService;
+        $this->schoolService = $schoolService;
+        $this->userService = $userService;
     }
 
     /**
@@ -48,10 +56,14 @@ class HomeController extends Controller
     public function index()
     {
 
-        if (in_array(auth()->user()->roles->pluck('name')[0], ['admin', 'school'])) {
-            return view('dashboard.admin.pages.home');
-        }
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+        if (auth()->user()->roles->pluck('name')[0] == 'admin') {
+            $data['school'] = count($this->userService->handleGetAllSchool());
+            $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
+            $data['mentor'] = count($this->userService->handleGetAllMentor());
+            $data['student'] = count($this->userService->handleGetAllStudent()); 
+            return view('dashboard.admin.pages.home',$data);
+        }
         $data = $this->GetDataSidebar();
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data['assignment'] = $this->assignmentService->handleCountAssignmentStudent();
@@ -64,6 +76,8 @@ class HomeController extends Controller
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['jurnal'] = $this->journalService->handleCountJournalTeacher(auth()->id());
             $data['challenge'] = $this->challengeService->handleCountChallengeTeacher(auth()->id());
+        } elseif(auth()->user()->roles->pluck('name')[0] == 'school'){
+            
         }
         return view('dashboard.user.pages.home', $data);
     }

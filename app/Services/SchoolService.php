@@ -38,6 +38,10 @@ class SchoolService
         return $this->repository->search_paginate($search, 6);
     }
 
+    public function handleCount(){
+        return $this->repository->getCount();
+    }
+
     /**
      * store school year
      *

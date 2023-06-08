@@ -37,4 +37,11 @@ class SchoolRepository extends  BaseRepository
             ->where('name', 'like', '%'. $search .'%')
             ->paginate($limit);
     }
+
+    public function getCount()
+    {
+        return $this->model->query()
+            ->role('school')
+            ->count();
+    }
 }

@@ -65,6 +65,11 @@ class UserServices
         return $this->repository->get_mentors();
     }
 
+    public function handleGetAllStudent(): mixed
+    {
+        return $this->repository->get_students();
+    }
+
     /**
      * handle get mentors
      *

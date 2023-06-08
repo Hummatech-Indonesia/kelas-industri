@@ -26,6 +26,15 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
+    public function get_students(): mixed
+    {
+        return $this->model->query()
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "student");
+            })
+            ->get();
+    }
+
     /**
      * get teachers by school
      *

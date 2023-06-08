@@ -66,7 +66,7 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah Siswa
+                        Jumlah Siswa 
                     </span>
                 </div>
             </a>
@@ -77,7 +77,7 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah Jurnal
+                        Jumlah jurnal 
                     </span>
                 </div>
             </a>
@@ -91,7 +91,7 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah Sekolah
+                        Jumlah Sekolah {{$school}}
                     </span>
                 </div>
             </a>
@@ -103,7 +103,7 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah Materi
+                        Jumlah Materi {{$material}}
                     </span>
                 </div>
             </a>
@@ -114,18 +114,18 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah Mentor
+                        Jumlah Mentor {{$mentor}}
                     </span>
                 </div>
             </a>
             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                 <div class="card-body d-flex align-items">
                     <span class="w-4 h-4 my-auto fs-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 22a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-6v7L9.5 7.5L7 9V2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4Z"/></svg>
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah Jurnal
+                        Jumlah Siswa {{$student}}
                     </span>
                 </div>
             </a>
