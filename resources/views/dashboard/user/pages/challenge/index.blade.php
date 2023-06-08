@@ -277,7 +277,7 @@
 
                                         <!--begin::Description-->
 
-                                        <div class="mb-5 mt-5 font-weight-bold">
+                                        <div class="mb-10 mt-5 font-weight-bold">
                                             {{ $challenge->description }}
                                         </div>
 

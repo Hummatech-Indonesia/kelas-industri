@@ -92,4 +92,9 @@ class JournalService
     {
         return $this->repository->get_count_journal_teacher($teacherId);
     }
+
+    public function handleCountJournalMentor(string $mentorId) :mixed
+    {
+        return $this->repository->get_count_journal_mentor($mentorId);
+    }
 }

@@ -62,24 +62,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-
+        $data = $this->GetDataSidebar();
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data['school'] = count($this->userService->handleGetAllSchool());
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['mentor'] = count($this->userService->handleGetAllMentor());
-            $data['student'] = count($this->userService->handleGetAllStudent()); 
+            $data['student'] = count($this->userService->handleGetAllStudent());
             return view('dashboard.admin.pages.home',$data);
         }
-        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         if (auth()->user()->roles->pluck('name')[0] == 'school') {
             $data['teacher'] = count($this->teacherService->handleGetBySchool(auth()->id()));
-            $data['classroom'] = count($this->classroomService->handleGetBySchool(auth()->id(),$currentSchoolYear));
+            $data['classroom'] = count($this->classroomService->handleGetBySchool(auth()->id(),$currentSchoolYear->id));
             $data['jurnal'] = count($this->journalService->handleGetBySchool());
-            $data['student'] = count($this->studentService->handleGetBySchool(auth()->id())); 
+            $data['student'] = count($this->studentService->handleGetBySchool(auth()->id()));
             return view('dashboard.admin.pages.home',$data);
         }
-        $data = $this->GetDataSidebar();
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data['assignment'] = $this->assignmentService->handleCountAssignmentStudent();
             $data['challenge'] = $this->challengeService->handleCountChallengeStudent();
@@ -91,6 +89,13 @@ class HomeController extends Controller
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['jurnal'] = $this->journalService->handleCountJournalTeacher(auth()->id());
             $data['challenge'] = $this->challengeService->handleCountChallengeTeacher(auth()->id());
+            $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleTeacher();
+        }elseif(auth()->user()->roles->pluck('name')[0] == 'mentor'){
+            $data['classroom'] = $this->classroomService->handleCountClassroomMentor(auth()->id());
+            $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
+            $data['jurnal'] = $this->journalService->handleCountJournalMentor(auth()->id());
+            $data['challenge'] = $this->challengeService->handleCountChallengeMentor(auth()->id());
+            $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleMentor();
         }
         return view('dashboard.user.pages.home', $data);
     }

@@ -31,14 +31,14 @@ class ClassroomService
         return $this->repository->getAll();
     }
 
-    public function handleGetByTeacher(string $teacherId): mixed
+    public function handleGetByTeacherCreateEdit(string $teacherId): mixed
     {
-        return $this->repository->get_by_teacher($teacherId);
+        return $this->repository->get_by_teacher_create_edit($teacherId);
     }
 
-    public function handleGetByMentor(String $mentorId): mixed
+    public function handleGetByMentorCreateEdit(String $mentorId): mixed
     {
-        return $this->repository->get_by_mentor($mentorId);
+        return $this->repository->get_by_mentor_create_edit($mentorId);
     }
 
     public function handleGetByStudent(String $studentId): mixed
@@ -155,8 +155,13 @@ class ClassroomService
         }
     }
 
-    public function handleCountClassroomTeacher(string $userId)
+    public function handleCountClassroomTeacher(string $teacherId) :mixed
     {
-        return $this->repository->get_count_classroom_teacher($userId);
+        return $this->repository->get_count_classroom_teacher($teacherId);
+    }
+
+    public function handleCountClassroomMentor(string $mentorId) :mixed
+    {
+        return $this->repository->get_count_classroom_mentor($mentorId);
     }
 }

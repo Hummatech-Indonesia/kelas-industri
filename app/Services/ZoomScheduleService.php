@@ -65,4 +65,14 @@ class ZoomScheduleService
     {
         return $this->repository->get_zoom_schedule_student();
     }
+
+    public function handleGetZoomScheduleTeacher()
+    {
+        return $this->repository->get_zoom_schedule_teacher();
+    }
+
+    public function handleGetZoomScheduleMentor()
+    {
+        return $this->repository->get_zoom_schedule_mentor();
+    }
 }

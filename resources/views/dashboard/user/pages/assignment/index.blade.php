@@ -22,7 +22,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    
+                                    Tugas {{$assignment->title}}
                                 </h1>
                                 <!--end::Title-->
 
@@ -59,9 +59,16 @@
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between pt-7">
                                     <!--begin::Title-->
+
                                     <h3 class="card-title align-items-start flex-column">
+                                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher' || (auth()->user()->roles->pluck('name')[0] == 'mentor'))
+                                        <span class="card-label fw-bold text-gray-800">Tugas</span>
+                                        <span class="text-gray-400 mt-1 fw-semibold fs-6">Nilai tugas siswa anda.</span>
+                                        @else
                                         <span class="card-label fw-bold text-gray-800">Tugas</span>
                                         <span class="text-gray-400 mt-1 fw-semibold fs-6">list tugas anda.</span>
+                                        @endif
+
                                     </h3>
 
                                     @if (auth()->user()->roles->pluck('name')[0] == 'teacher')

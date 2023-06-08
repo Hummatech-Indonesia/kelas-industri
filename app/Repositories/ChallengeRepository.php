@@ -145,4 +145,11 @@ class ChallengeRepository extends BaseRepository
         ->count();
     }
 
+    public function get_count_challenge_mentor(string $mentorId)
+    {
+        return $this->model->query()
+        ->where('created_by', $mentorId)
+        ->count();
+    }
+
 }

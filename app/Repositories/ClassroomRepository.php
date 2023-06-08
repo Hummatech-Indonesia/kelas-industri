@@ -45,6 +45,21 @@ class ClassroomRepository extends BaseRepository
         ->get();
     }
 
+    public function get_by_teacher_create_edit(string $teacherId) :mixed
+    {
+        return $this->teacherClassroom->query()
+        ->whereRelation('teacherSchool', function ($q) use ($teacherId) {
+            $q->where('teacher_id', $teacherId);
+        })
+        ->get();
+    }
+
+    public function get_by_mentor_create_edit(string $mentorId) :mixed
+    {
+        return $this->mentorClassroom->query()
+            ->where('mentor_id', $mentorId)
+            ->get();
+    }
 
     public function get_by_mentor(string $mentorId, string | null $search, int $limit)
     {
@@ -135,12 +150,19 @@ class ClassroomRepository extends BaseRepository
             ->paginate($limit);
     }
 
-    public function get_count_classroom_teacher(string $teacherId)
+    public function get_count_classroom_teacher(string $teacherId) :mixed
     {
         return $this->teacherClassroom->query()
             ->whereRelation('teacherSchool', function ($q) use ($teacherId) {
                 $q->where('teacher_id', $teacherId);
             })
+            ->count();
+    }
+
+    public function get_count_classroom_mentor(string $mentorId) :mixed
+    {
+        return $this->mentorClassroom->query()
+            ->where('mentor_id', $mentorId)
             ->count();
     }
 }

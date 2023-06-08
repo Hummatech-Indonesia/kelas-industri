@@ -46,7 +46,7 @@
                         id="#kt_app_header_menu" data-kt-menu="true">
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <a href="http://localhost:8000" class="menu-link"><span
+                            <a href="{{route('home')}}" class="menu-link {{ request()->routeIs('home') ? 'active' : '' }}"><span
                                     class="menu-title">Beranda</span></a>
                             <!--end:Menu link-->
                         </div>

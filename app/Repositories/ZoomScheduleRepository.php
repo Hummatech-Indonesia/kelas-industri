@@ -18,6 +18,26 @@ class ZoomScheduleRepository extends BaseRepository
             return $this->model->query()
             ->where('classroom_id', $classroomId)
             ->where('date', '>', Carbon::now())
-            ->orderBy('date', 'desc')->first();
+            ->orderBy('date', 'desc')
+            ->first();
+    }
+
+    public function get_zoom_schedule_teacher()
+    {
+        $classroomId = Auth()->user()->teacherSchool->teacherClassrooms->pluck('classroom_id')->toArray();
+            return $this->model->query()
+            ->whereIn('classroom_id', $classroomId)
+            ->where('date', '>', Carbon::now())
+            ->orderBy('date', 'desc')
+            ->first();
+    }
+
+    public function get_zoom_schedule_mentor()
+    {
+        return $this->model->query()
+        ->where('mentor_id', Auth()->id())
+        ->where('date', '>', Carbon::now())
+        ->orderBy('date', 'desc')
+        ->first();
     }
 }

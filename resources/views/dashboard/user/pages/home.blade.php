@@ -184,6 +184,18 @@
                             </div>
                         </a>
                     </div>
+                    <div class="row mt-5">
+                        <a href="{{$zoom->link}}" target="blank" class="card hover-elevate-up col shadow-sm parent-hover">
+                            <div class="card-body d-flex align-items">
+                                <span class="w-4 h-4 my-auto fs-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4Z"/></svg>
+                                </span>
+                                <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
+                                    Zoom Yang Akan Datang : {{$zoom->title}}
+                                </span>
+                            </div>
+                        </a>
+                </div>
                     @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
                     <div class="row gap-2 mt-4">
                         <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
@@ -193,7 +205,7 @@
                                 </span>
 
                                 <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                                    Kelas Yang Anda Ajar
+                                    {{$classroom}} Kelas Yang Anda Ajar
                                 </span>
                             </div>
                         </a>
@@ -205,7 +217,7 @@
                                 </span>
 
                                 <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                                    Jumlah Materi
+                                    Jumlah Materi {{$material}}
                                 </span>
                             </div>
                         </a>
@@ -216,7 +228,7 @@
                                 </span>
 
                                 <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                                    Jurnal Yang Anda Buat
+                                    {{$jurnal}} Jurnal Yang Anda Buat
                                 </span>
                             </div>
                         </a>
@@ -227,11 +239,23 @@
                                 </span>
 
                                 <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                                    Tantangan Yang Anda Buat
+                                    {{$challenge}} Tantangan Yang Anda Buat
                                 </span>
                             </div>
                         </a>
                     </div>
+                    <div class="row mt-5">
+                        <a href="{{$zoom->link}}" target="blank" class="card hover-elevate-up col shadow-sm parent-hover">
+                            <div class="card-body d-flex align-items">
+                                <span class="w-4 h-4 my-auto fs-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4Z"/></svg>
+                                </span>
+                                <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
+                                    Zoom Yang Akan Datang : {{$zoom->title}}
+                                </span>
+                            </div>
+                        </a>
+                </div>
                     @endif
 
 

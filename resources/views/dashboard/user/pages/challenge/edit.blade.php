@@ -99,6 +99,8 @@
 
                                         <div class="card-toolbar">
 
+                                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+
                                             <a href="{{ route('teacher.challenges.index') }}"
                                                 class="btn btn-light-primary font-weight-bolder me-2">
 
@@ -107,6 +109,19 @@
                                                 Kembali
 
                                             </a>
+
+                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+
+                                            <a href="{{ route('mentor.challenges.index') }}"
+                                            class="btn btn-light-primary font-weight-bolder me-2">
+
+                                            <i class="ki ki-long-arrow-back icon-sm"></i>
+
+                                            Kembali
+
+                                        </a>
+
+                                            @endif
 
                                             <div class="btn-group">
 
@@ -197,11 +212,10 @@
 
                                                 <div class="col-lg-9 col-xl-9">
 
-                                                    <textarea class="form-control form-control-solid form-control-lg" name="description" type="text"
-                                                        value="{{ old('description') }}" placeholder="" required="" id="" cols="10" rows="5">
-                                                        {{ $challenge->description }}
-                                                    </textarea>
-
+                                                    <textarea class="form-control form-control-solid form-control-lg" rows="5"
+                                                              name="description" type="text" placeholder="deskripsi tantangan"
+                                                              required="">{{$challenge->description}}
+                                                            </textarea>
 
                                                 </div>
 

@@ -60,9 +60,9 @@ class ChallengeController extends Controller
     {
         $data = $this->GetDataSidebar();
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            $data['classrooms'] = $this->classroomService->handleGetByTeacher(auth()->id());
+            $data['classrooms'] = $this->classroomService->handleGetByTeacherCreateEdit(auth()->id());
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            $data['classrooms'] = $this->classroomService->handleGetByMentor(auth()->id());
+            $data['classrooms'] = $this->classroomService->handleGetByMentorCreateEdit(auth()->id());
         }
         return view('dashboard.user.pages.challenge.create', $data);
     }
@@ -88,16 +88,14 @@ class ChallengeController extends Controller
             return to_route('teacher.challenges.index')->with('success', trans('alert.add_success'));
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             $this->service->handleCreate($request);
-
             return to_route('mentor.challenges.index')->with('success', trans('alert.add_success'));
         }
-
     }
 
     public function storeChallenge(SubmitChallengeRequest $request): RedirectResponse
     {
         $this->service->submitChallenge($request);
-        return to_route('student.challenges.show', ['challenge' => $request->challenge])->with('success', trans('alert.add_success'));
+        return to_route('student.challenges.show', ['challenge' => $request->challenge_id])->with('success', trans('alert.add_success'));
     }
 
 
@@ -153,16 +151,13 @@ class ChallengeController extends Controller
      */
     public function edit(Challenge $challenge): View
     {
+        $data = $this->GetDataSidebar();
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            $data = [
-                'challenge' => $challenge,
-                'classrooms' => $this->classroomService->handleGetByTeacher(auth()->id()),
-            ];
+            $data['challenge'] = $challenge;
+            $data['classrooms'] = $this->classroomService->handleGetByTeacherCreateEdit(auth()->id());
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            $data = [
-                'challenge' => $challenge,
-                'classrooms' => $this->classroomService->handleGetByMentor(auth()->id()),
-            ];
+            $data['challenge'] = $challenge;
+            $data['classrooms'] = $this->classroomService->handleGetByMentorCreateEdit(auth()->id());
         }
 //        dd($data);
         return \view ('dashboard.user.pages.challenge.edit', $data);

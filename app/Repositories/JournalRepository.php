@@ -47,4 +47,11 @@ class JournalRepository extends BaseRepository
         ->count();
     }
 
+    public function get_count_journal_mentor(string $mentorId) :mixed
+    {
+        return $this->model->query()
+        ->where('created_by', $mentorId)
+        ->count();
+    }
+
 }
