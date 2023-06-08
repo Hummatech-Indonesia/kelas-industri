@@ -43,7 +43,7 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah Kelas Di Sekolah
+                        Jumlah Kelas Di Sekolah {{$classroom}}
                     </span>
                 </div>
             </a>
@@ -55,7 +55,7 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah Guru
+                        Jumlah Guru {{$teacher}}
                     </span>
                 </div>
             </a>
@@ -66,7 +66,7 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah Siswa 
+                        Jumlah Siswa {{$student}}
                     </span>
                 </div>
             </a>
@@ -77,7 +77,7 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Jumlah jurnal 
+                        Jumlah jurnal {{$jurnal}}
                     </span>
                 </div>
             </a>

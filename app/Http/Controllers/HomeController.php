@@ -6,12 +6,15 @@ use App\Traits\DataSidebar;
 use App\Services\PointService;
 use App\Services\JournalService;
 use App\Helpers\SchoolYearHelper;
+use App\Models\TeacherSchool;
 use App\Services\MaterialService;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
 use App\Services\AssignmentService;
 use App\Services\MentorService;
 use App\Services\SchoolService;
+use App\Services\StudentService;
+use App\Services\TeacherService;
 use App\Services\UserServices;
 use App\Services\ZoomScheduleService;
 use Illuminate\Contracts\Support\Renderable;
@@ -28,13 +31,14 @@ class HomeController extends Controller
     private SchoolService $schoolService;
     private MentorService $mentorService;
     private UserServices $userService;
-
+    private StudentService $studentService;
+    private TeacherService $teacherService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserServices $userService,AssignmentService $assignmentService,MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService)
+    public function __construct(TeacherService $teacherService,StudentService $studentService,UserServices $userService,AssignmentService $assignmentService,MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService)
     {
         $this->middleware('auth');
         $this->assignmentService = $assignmentService;
@@ -46,6 +50,9 @@ class HomeController extends Controller
         $this->journalService = $journalService;
         $this->schoolService = $schoolService;
         $this->userService = $userService;
+        $this->studentService = $studentService;
+        $this->teacherService = $teacherService;
+
     }
 
     /**
@@ -64,6 +71,14 @@ class HomeController extends Controller
             $data['student'] = count($this->userService->handleGetAllStudent()); 
             return view('dashboard.admin.pages.home',$data);
         }
+        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+        if (auth()->user()->roles->pluck('name')[0] == 'school') {
+            $data['teacher'] = count($this->teacherService->handleGetBySchool(auth()->id()));
+            $data['classroom'] = count($this->classroomService->handleGetBySchool(auth()->id(),$currentSchoolYear));
+            $data['jurnal'] = count($this->journalService->handleGetBySchool());
+            $data['student'] = count($this->studentService->handleGetBySchool(auth()->id())); 
+            return view('dashboard.admin.pages.home',$data);
+        }
         $data = $this->GetDataSidebar();
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data['assignment'] = $this->assignmentService->handleCountAssignmentStudent();
@@ -76,8 +91,6 @@ class HomeController extends Controller
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['jurnal'] = $this->journalService->handleCountJournalTeacher(auth()->id());
             $data['challenge'] = $this->challengeService->handleCountChallengeTeacher(auth()->id());
-        } elseif(auth()->user()->roles->pluck('name')[0] == 'school'){
-            
         }
         return view('dashboard.user.pages.home', $data);
     }
