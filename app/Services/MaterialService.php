@@ -78,4 +78,9 @@ class MaterialService
     {
         return $this->repository->get_count_material_user($schoolYearId);
     }
+
+    public function handleCountMaterialAdmin()
+    {
+        return $this->repository->get_count_material_admin();
+    }
 }
