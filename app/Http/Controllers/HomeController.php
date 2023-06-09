@@ -66,7 +66,7 @@ class HomeController extends Controller
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data['school'] = count($this->userService->handleGetAllSchool());
-            $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
+            $data['material'] = $this->materialService->handleCountMaterialAdmin();
             $data['mentor'] = count($this->userService->handleGetAllMentor());
             $data['student'] = count($this->userService->handleGetAllStudent());
             return view('dashboard.admin.pages.home',$data);

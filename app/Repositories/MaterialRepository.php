@@ -59,4 +59,9 @@ class MaterialRepository extends BaseRepository
             ->where('generation_id', $schoolYear)
             ->count();
     }
+
+    public function get_count_material_admin(){
+        return $this->model->query()
+        ->count();
+    }
 }
