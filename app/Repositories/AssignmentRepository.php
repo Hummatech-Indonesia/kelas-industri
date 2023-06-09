@@ -64,9 +64,8 @@ class AssignmentRepository extends BaseRepository
     if ($oldFile) {
         Storage::disk('public')->delete($oldFile->file);
     }
-
     $this->submitAssignment->updateOrCreate(
-        ['student_id' => $studentId], $data);
+        ['student_id' => $studentId, 'assignment_id' => $data['assignment_id']], $data);
     }
 
     public function get_student_done_submit(string $assignmentId)
@@ -110,5 +109,5 @@ class AssignmentRepository extends BaseRepository
         })->count();
     }
 
-    
+
 }

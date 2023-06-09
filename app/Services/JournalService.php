@@ -3,11 +3,12 @@
 namespace App\Services;
 
 use App\Models\Journal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\JournalRequest;
 use App\Repositories\JournalRepository;
 use App\Repositories\GenerationRepository;
-use Illuminate\Http\Request;
 
 class JournalService
 {
@@ -62,7 +63,9 @@ class JournalService
      */
     public function handleCreate(JournalRequest $request): void
     {
-        $this->repository->store($request->validated());
+        $data = $request->validated();
+        $data['date'] = Carbon::now();
+        $this->repository->store($data);
     }
 
     /**

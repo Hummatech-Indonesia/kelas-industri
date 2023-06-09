@@ -56,7 +56,7 @@ class AssignmentService
     public function submitAssignment(SubmitAssignmentRequest $request): void
     {
         $data = $request->validated();
-    $studentId = auth()->id();
+        $studentId = auth()->id();
 
     // Menghapus file lama jika ada
     $oldAssignment = $this->repository->getSubmitAssignmentByStudentId($studentId);

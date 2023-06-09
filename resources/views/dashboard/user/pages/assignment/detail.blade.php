@@ -133,8 +133,9 @@
                                                 <div class="alert alert-warning d-flex align-items-center p-5">
                                                     <!--begin::Icon-->
                                                     <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
-                                                        <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="24" height="24"
-                                                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg
+                                                                width="24" height="24" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path opacity="0.3"
                                                                     d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
                                                                     fill="currentColor"></path>
@@ -153,10 +154,12 @@
                                                         <!--end::Title-->
                                                         <!--begin::Content-->
                                                         <ul>
-                                                            <li>Jika anda mengupload file tugas baru maka file tugas lama akan terhapus.
+                                                            <li>Jika anda mengupload file tugas baru maka file tugas lama
+                                                                akan terhapus.
                                                             </li>
-                                                            <li>File yang tersedia adalah filyang telah dikirim.</li>
-                                                            <li>Jika file belum tersedia maka anda belum mengumpulkan tugas.</li>
+                                                            <li>File yang tersedia adalah file yang telah dikirim.</li>
+                                                            <li>Jika file belum tersedia maka anda belum mengumpulkan tugas.
+                                                            </li>
                                                         </ul>
                                                         <!--end::Content-->
 
@@ -185,9 +188,13 @@
 
                                                     <div class="col-lg-9 col-xl-9">
 
-                                                        <a href="{{ Route('student.downloadAssignment', ['submitAssignment' => $submitAssignment->id]) }}" class="btn btn-danger btn-sm mt-2"><i
-                                                class="fas fa-file-pdf"></i>File tugas</a>
-
+                                                        <a href="{{ Route('student.downloadAssignment', ['submitAssignment' => $submitAssignment->id]) }}"
+                                                            class="btn btn-danger btn-sm mt-2"> <svg
+                                                                xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                height="20" viewBox="0 0 24 24">
+                                                                <path fill="currentColor"
+                                                                    d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m-2 6h-2v2h2v2h-2v2h-2v-2h2v-2h-2v-2h2v-2h-2V8h2v2h2v2Z" />
+                                                            </svg> File Tugas</a>
                                                     </div>
 
                                                 </div>

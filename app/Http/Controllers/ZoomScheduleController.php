@@ -47,7 +47,7 @@ class ZoomScheduleController extends Controller
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
 
-        if (request()->ajax()) return $this->classroomService->handleGetBySchool(request()->school_id, $currentSchoolYear);
+        if (request()->ajax()) return $this->classroomService->handleGetBySchool(request()->school_id, $currentSchoolYear->id);
 
         $data = [
             'schools' => $this->userServices->handleGetAllSchool(),

@@ -50,7 +50,7 @@
                                         <!--begin::school year-->
                                         <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
                                             data-control="select">
-                                            <option value="">Semua Sekolah</option>
+                                            <option value="">Semua Sekolah </option>
                                             @foreach ($schools as $school)
                                                 <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
                                                     {{ $school->name }}

@@ -198,6 +198,7 @@
                     data: {school_id: $(this).val()},
                     success: function (classrooms) {
                         $('#classrooms').html('')
+                        console.log(classrooms)
                         let html = ''
 
                         classrooms.map(classroom => {
@@ -206,6 +207,9 @@
                         })
 
                         $('#classrooms').html(html)
+                    },
+                    error:function(response){
+                        console.log(response.responseText)
                     }
                 })
             })

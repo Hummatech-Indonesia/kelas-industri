@@ -235,6 +235,14 @@
             $('#kt_modal_delete').modal('show')
         })
 
+        $('.btn-delete-teacher').click(function() {
+            const url = "{{ route('teacher.journal.destroy', ':id') }}".replace(':id', $(this).data(
+                'id'))
+            $('#form-delete').attr('action', url)
+
+            $('#kt_modal_delete').modal('show')
+        })
+
         $('.btn-description').click(function() {
             var description = $(this).data('description')
             $('#description').html(description)
