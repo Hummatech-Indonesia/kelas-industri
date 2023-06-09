@@ -6,7 +6,6 @@ use App\Traits\DataSidebar;
 use App\Services\PointService;
 use App\Services\JournalService;
 use App\Helpers\SchoolYearHelper;
-use App\Models\TeacherSchool;
 use App\Services\MaterialService;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
@@ -33,6 +32,7 @@ class HomeController extends Controller
     private UserServices $userService;
     private StudentService $studentService;
     private TeacherService $teacherService;
+    private ZoomScheduleService $zoomScheduleService;
     /**
      * Create a new controller instance.
      *
@@ -90,7 +90,7 @@ class HomeController extends Controller
             $data['jurnal'] = $this->journalService->handleCountJournalTeacher(auth()->id());
             $data['challenge'] = $this->challengeService->handleCountChallengeTeacher(auth()->id());
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleTeacher();
-        }elseif(auth()->user()->roles->pluck('name')[0] == 'mentor'){
+        } elseif(auth()->user()->roles->pluck('name')[0] == 'mentor'){
             $data['classroom'] = $this->classroomService->handleCountClassroomMentor(auth()->id());
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['jurnal'] = $this->journalService->handleCountJournalMentor(auth()->id());

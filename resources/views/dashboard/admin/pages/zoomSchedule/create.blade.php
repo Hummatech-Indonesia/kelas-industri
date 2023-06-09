@@ -197,6 +197,7 @@
                     url: '{{ route('admin.zoomSchedules.create') }}',
                     data: {school_id: $(this).val()},
                     success: function (classrooms) {
+                        $('#classrooms').html('')
                         let html = ''
 
                         classrooms.map(classroom => {
