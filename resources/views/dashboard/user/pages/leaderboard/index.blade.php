@@ -125,13 +125,13 @@
                                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                         <h3 class="card-title align-items-start flex-column">
                                             @php
-                                                $rangking = $rankings->search(function ($rank) {
+                                                $ranking = $rankings->search(function ($rank) {
                                                     return $rank->student_id === auth()->id();
                                                 });
                                                 if($ranking){
-                                                    $ranking += 1
+                                                    $ranking += 1;
                                                 }else{
-                                                    $ranking == 'Anda Belum Memiliki Poin'
+                                                    $ranking == 'Anda Belum Memiliki Poin';
                                                 }
                                             @endphp
 
@@ -145,7 +145,7 @@
                                                             fill="currentColor" />
                                                     </svg>
                                                 </span>{{ auth()->user()->name }}
-                                                Anda Berada Pada Rangking {{$ranking}}
+                                                Anda Berada Pada Ranking {{$ranking}}
                                             </span>
                                         </h3>
                                     @else
