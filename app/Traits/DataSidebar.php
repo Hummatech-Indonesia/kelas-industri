@@ -65,7 +65,7 @@ trait DataSidebar
 
     function getDoneChallenge()
     {
-        return SubmitChallenge::where('student_school_id',auth()->user()->studentSchool->id);
+        return SubmitChallenge::where('student_school_id',auth()->user()->studentSchool)->count();
     }
 
     function ScheduleMockup()
