@@ -80,14 +80,13 @@ class HomeController extends Controller
             return view('dashboard.admin.pages.home',$data);
         }
         $data = $this->GetDataSidebar();
-        
         if ($role == 'student') {
             $data['assignment'] = $this->assignmentService->handleCountAssignmentStudent();
             $data['challenge'] = $this->challengeService->handleCountChallengeStudent();
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['point'] = $this->pointService->hanleCountPointStudent($userId);
             $data['doneAssignment'] = $this->getDoneAssignment($userId);
-            $data['doneChallenge'] = $this->getDoneChallenge($userId);
+            $data['doneChallenge'] = $this->getDoneChallenge();
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleStudent();
         } elseif($role == 'teacher') {
             $data['classroom'] = $this->classroomService->handleCountClassroomTeacher($userId);
