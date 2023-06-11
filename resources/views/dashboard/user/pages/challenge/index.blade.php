@@ -164,20 +164,20 @@
                                                     name="search" value="{{ $search }}" placeholder="Search">
                                             </div>
                                             <div class="col-lg-3 col-md-12 me-2">
-                                                <select name="filter" class="form-select form-select-solid me-5" data-control="select2"
+                                                <select name="status" class="form-select form-select-solid me-5" data-control="select2"
                                                     data-placeholder="Status">
-                                                    <option value="Pilih Status">Status</option>
-                                                    <option value="Sudah Dikerjakan">Sudah Dikerjakan</option>
-                                                    <option value="Belum Dikerjakan">Belum Dikerjakan</option>
+                                                    <option value="-1" {{$status == '-1' ? 'selected' : ''}}>Semua Status</option>
+                                                    <option value="Sudah Dikerjakan" {{$status == 'Sudah Dikerjakan' ? 'selected' : ''}}>Sudah Dikerjakan</option>
+                                                    <option value="Belum Dikerjakan" {{$status == 'Belum Dikerjakan' ? 'selected' : ''}}>Belum Dikerjakan</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-2 col-md-12">
-                                                <select name="filter" class="form-select form-select-solid me-5" data-control="select2"
+                                                <select name="difficulty" class="form-select form-select-solid me-5" data-control="select2"
                                                     data-placeholder="Status">
-                                                    <option value="Pilih Kesulitan">Kesulitan</option>
-                                                    <option value="Mudah">Mudah</option>
-                                                    <option value="Sedang">Sedang</option>
-                                                    <option value="Sulit">Sulit</option>
+                                                    <option value="-1" {{$difficulty == '-1' ? 'selected' : ''}}>Semua Kesulitan</option>
+                                                    <option value="easy"  {{$difficulty == 'easy' ? 'selected' : ''}}>Mudah</option>
+                                                    <option value="medium"  {{$difficulty == 'medium' ? 'selected' : ''}}>Sedang</option>
+                                                    <option value="hard"  {{$difficulty == 'hard' ? 'selected' : ''}}>Sulit</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-2 col-md-12 ms-3">

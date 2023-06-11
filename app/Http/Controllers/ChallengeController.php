@@ -46,6 +46,8 @@ class ChallengeController extends Controller
         } elseif (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data['challenges'] = $this->service->handleGetByStudent(auth()->user()->studentSchool->studentClassroom->classroom_id, $currentSchoolYear->id, $request);
             $data['search'] = $request->search;
+            $data['status'] = $request->status;
+            $data['difficulty'] = $request->difficulty;
 
         }
         return view('dashboard.user.pages.challenge.index', $data);

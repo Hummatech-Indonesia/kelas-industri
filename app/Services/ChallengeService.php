@@ -35,7 +35,7 @@ class ChallengeService
 
     public function handleGetByStudent(String $classroomId, int $schoolYearId, Request $search): mixed
     {
-        return $this->repository->get_challenge_by_student($classroomId, $schoolYearId, $search->search, 6);
+        return $this->repository->get_challenge_by_student($classroomId, $schoolYearId, $search->search,$search->status,$search->difficulty, 6);
     }
 
     public function handleGetByMentor(String $mentorId, int $schoolYearId, Request $search): mixed

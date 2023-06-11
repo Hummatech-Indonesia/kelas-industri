@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Storage;
 class ChallengeRepository extends BaseRepository
 {
     private User $user;
+    private SubmitChallenge $submitChallenge;
+    private Point $point;
 
     public function __construct(Challenge $model, SubmitChallenge $submitChallenge, Point $point)
     {
@@ -33,7 +35,7 @@ class ChallengeRepository extends BaseRepository
             ->paginate($limit);
     }
 
-    public function get_challenge_by_student(String $classroomId, int $schoolYearId, string|null $search, int $limit): mixed
+    public function get_challenge_by_student(String $classroomId, int $schoolYearId, string|null $search,string|null $difficulty,string|null $status, int $limit): mixed
     {
         return $this->model->query()
             ->where('classroom_id', $classroomId)
@@ -41,6 +43,21 @@ class ChallengeRepository extends BaseRepository
             return $q->where('school_year_id', $schoolYearId);
             })
             ->where('title', 'like', '%'. $search .'%')
+            ->when($status != '-1' || !$difficulty,function ($query) use ($status){
+                $userId = auth()->user()->studentSchool->id;
+                $doneChallenge = $this->submitChallenge->query()
+                ->where('student_school_id',$userId)
+                ->pluck('challenge_id')
+                ->toArray();
+                if($status == 'Sudah Dikerjakan'){
+                    $query->WhereIn('id',$doneChallenge);
+                }else if ($status == 'Belum Dikerjakan'){
+                    $query->WhereNotIn('id',$doneChallenge);
+                }
+            })
+            ->when($difficulty != '-1' || !$difficulty,function ($query) use ($difficulty){
+                $query->where('difficulty',$difficulty);
+            })
             ->paginate($limit);
     }
 
