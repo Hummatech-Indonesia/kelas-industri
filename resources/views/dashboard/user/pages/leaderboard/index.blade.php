@@ -128,6 +128,11 @@
                                                 $rangking = $rankings->search(function ($rank) {
                                                     return $rank->student_id === auth()->id();
                                                 });
+                                                if($ranking){
+                                                    $ranking += 1
+                                                }else{
+                                                    $ranking == 'Anda Belum Memiliki Poin'
+                                                }
                                             @endphp
 
                                             <span class="card-label fw-bold text-gray-800"><span
@@ -140,7 +145,7 @@
                                                             fill="currentColor" />
                                                     </svg>
                                                 </span>{{ auth()->user()->name }}
-                                                Anda Berada Pada Rangking {{ $rangking + 1, auth()->id() }}
+                                                Anda Berada Pada Rangking {{$ranking}}
                                             </span>
                                         </h3>
                                     @else
