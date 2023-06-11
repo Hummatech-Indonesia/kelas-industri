@@ -218,11 +218,11 @@
                                                     <div class="m-0">
                                                         <!--begin::Number-->
                                                         <span
-                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">37</span>
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$doneAssignment}}</span>
                                                         <!--end::Number-->
 
                                                         <!--begin::Desc-->
-                                                        <span class="text-gray-500 fw-semibold fs-6">Courses</span>
+                                                        <span class="text-gray-500 fw-semibold fs-6">Tugas Sudah Dikerjakan</span>
                                                         <!--end::Desc-->
                                                     </div>
                                                     <!--end::Stats-->
@@ -248,11 +248,11 @@
                                                     <div class="m-0">
                                                         <!--begin::Number-->
                                                         <span
-                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">6</span>
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$assignment - $doneAssignment}}</span>
                                                         <!--end::Number-->
 
                                                         <!--begin::Desc-->
-                                                        <span class="text-gray-500 fw-semibold fs-6">Certificates</span>
+                                                        <span class="text-gray-500 fw-semibold fs-6">Tugas Belum Dikerjakan</span>
                                                         <!--end::Desc-->
                                                     </div>
                                                     <!--end::Stats-->
@@ -278,11 +278,11 @@
                                                     <div class="m-0">
                                                         <!--begin::Number-->
                                                         <span
-                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">4,7</span>
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$doneChallenge}}</span>
                                                         <!--end::Number-->
 
                                                         <!--begin::Desc-->
-                                                        <span class="text-gray-500 fw-semibold fs-6">Avg. Score</span>
+                                                        <span class="text-gray-500 fw-semibold fs-6">Challenge Sudah Dikerjakan</span>
                                                         <!--end::Desc-->
                                                     </div>
                                                     <!--end::Stats-->
@@ -308,11 +308,11 @@
                                                     <div class="m-0">
                                                         <!--begin::Number-->
                                                         <span
-                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">822</span>
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$challenge - $doneChallenge}}</span>
                                                         <!--end::Number-->
 
                                                         <!--begin::Desc-->
-                                                        <span class="text-gray-500 fw-semibold fs-6">Hours Learned</span>
+                                                        <span class="text-gray-500 fw-semibold fs-6">Challenge Belum Dikerjakan</span>
                                                         <!--end::Desc-->
                                                     </div>
                                                     <!--end::Stats-->

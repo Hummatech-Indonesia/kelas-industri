@@ -6,6 +6,8 @@ use App\Helpers\SchoolYearHelper;
 use App\Models\Assignment;
 use App\Models\Challenge;
 use App\Models\Point;
+use App\Models\SubmitAssignment;
+use App\Models\SubmitChallenge;
 use App\Models\ZoomSchedule;
 use Carbon\Carbon;
 
@@ -32,6 +34,11 @@ trait DataSidebar
         })->orderBy('end_date', 'desc')->take(5)->get();
     }
 
+
+    function getDoneAssignment(string $studentId){
+        return SubmitAssignment::where('student_id',$studentId)->count();
+    }
+
     function RankMockup()
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
@@ -51,6 +58,12 @@ trait DataSidebar
         }
         $classroomId = Auth()->user()->studentSchool->studentClassroom->classroom->id;
         return Challenge::where('classroom_id', $classroomId)->orderBy('end_date', 'desc')->take(5)->get();
+    }
+
+
+    function getDoneChallenge(string $studentId)
+    {
+        return SubmitChallenge::where('student_school_id',$studentId)->count();
     }
 
     function ScheduleMockup()
