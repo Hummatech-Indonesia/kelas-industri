@@ -36,7 +36,7 @@ trait DataSidebar
 
 
     function getDoneAssignment(string $studentId){
-        return SubmitAssignment::where('student_id',$studentId)->count();
+        return SubmitAssignment::where('student_id',auth()->id())->count();
     }
 
     function RankMockup()
@@ -65,7 +65,7 @@ trait DataSidebar
 
     function getDoneChallenge(string $studentId)
     {
-        return SubmitChallenge::where('student_school_id',$studentId)->count();
+        return SubmitChallenge::where('student_school_id',auth()->id())->count();
     }
 
     function ScheduleMockup()
