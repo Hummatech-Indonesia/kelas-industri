@@ -43,7 +43,7 @@ class ChallengeRepository extends BaseRepository
             return $q->where('school_year_id', $schoolYearId);
             })
             ->where('title', 'like', '%'. $search .'%')
-            ->when($status != '-1' || !$difficulty,function ($query) use ($status){
+            ->when($status != '-1' && $status != null,function ($query) use ($status){
                 $userId = auth()->user()->studentSchool->id;
                 $doneChallenge = $this->submitChallenge->query()
                 ->where('student_school_id',$userId)
@@ -55,7 +55,7 @@ class ChallengeRepository extends BaseRepository
                     $query->WhereNotIn('id',$doneChallenge);
                 }
             })
-            ->when($difficulty != '-1' || !$difficulty,function ($query) use ($difficulty){
+            ->when($difficulty != '-1' && $difficulty != null,function ($query) use ($difficulty){
                 $query->where('difficulty',$difficulty);
             })
             ->paginate($limit);
