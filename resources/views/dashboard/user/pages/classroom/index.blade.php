@@ -81,7 +81,7 @@
                                     <!--begin::Compact form-->
                                     <div class="d-flex align-items-center">
                                         <!--begin::Input group-->
-                                        <div class="position-relative col-11">
+                                        <div class="position-relative col-10">
                                             <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                             <span
                                                 class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -100,6 +100,7 @@
                                                 name="search" value="{{$search}}" placeholder="Search">
                                         </div>
                                         <div class="col-lg-2 col-md-12 ms-3">
+                                            <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('common.classrooms') }}" type="button"
                                                 class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
                                         </div>
@@ -120,7 +121,7 @@
                                     <!--begin::Compact form-->
                                     <div class="d-flex align-items-center">
                                         <!--begin::Input group-->
-                                        <div class="position-relative col-11">
+                                        <div class="position-relative col-10">
                                             <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                             <span
                                                 class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -139,6 +140,7 @@
                                                 name="search" value="{{ $search }}" placeholder="Search">
                                         </div>
                                         <div class="col-lg-2 col-md-12 ms-3">
+                                            <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('common.classrooms') }}" type="button"
                                                 class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
                                         </div>
@@ -159,7 +161,7 @@
                                     <!--begin::Compact form-->
                                     <div class="d-flex align-items-center">
                                         <!--begin::Input group-->
-                                        <div class="position-relative col-11">
+                                        <div class="position-relative col-10">
                                             <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                             <span
                                                 class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -178,6 +180,7 @@
                                                 name="search" value="{{ $search}}" placeholder="Search">
                                         </div>
                                         <div class="col-lg-2 col-md-12 ms-3">
+                                            <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('common.classrooms') }}" type="button"
                                                 class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
                                         </div>

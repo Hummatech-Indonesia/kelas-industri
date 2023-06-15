@@ -130,6 +130,26 @@
                 </div>
             </a>
         </div>
+        {{-- <div class="card-body d-flex justify-content-between flex-column pb-1 px-0 mt-10">
+            <!--begin::Statistics-->
+            <div class="px-9 mb-5">
+                <!--begin::Statistics-->
+                <div class="d-flex mb-2">
+                    <span class="fs-4 fw-semibold text-gray-400 me-1">$</span>
+                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">14,094</span>
+                </div>
+                <!--end::Statistics-->
+
+                <!--begin::Description-->
+                <span class="fs-6 fw-semibold text-gray-400">Another $48,346 to Goal</span>
+                <!--end::Description-->
+            </div>
+            <!--end::Statistics-->
+
+            <!--begin::Chart-->
+            <div id="kt_charts_widget_3" class="min-h-auto ps-4 pe-6" style="height: 300px"></div>
+            <!--end::Chart-->
+        </div> --}}
         @endif
 
     </div>

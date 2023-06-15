@@ -81,13 +81,13 @@ class MaterialController extends Controller
      * @param Material $material
      * @return View
      */
-    public function show(Material $material): View
+    public function show(Material $material, Request $request): View
     {
         $data = [
             'material'  => $material,
-            'subMaterials' => $this->subMaterialService->handleGetPaginate($material->id),
+            'subMaterials' => $this->subMaterialService->handleGetPaginate($material->id, $request),
             'parameters' => [
-                'material'  => $material->id
+            'material'  => $material->id
             ]
         ];
         return view('dashboard.admin.pages.submaterial.index', $data);

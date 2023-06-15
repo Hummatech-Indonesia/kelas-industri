@@ -41,8 +41,7 @@
                                         <th>Nama</th>
                                         <th>Kelas</th>
                                         <th>Sekolah</th>
-                                        <th>Angkatan</th>
-                                        <th>Tahun Ajaran</th>
+                                        <th>Angkatan Tahun Ajaran</th>
                                         <th>Nilai</th>
                                     </tr>
                                     <!--end::Table row-->
@@ -56,12 +55,11 @@
                                         <td>{{$report->student->name}}</td>
                                         <td>{{$report->student->studentSchool->studentClassroom->classroom->name}}</td>
                                         <td>{{$report->student->studentSchool->school->name}}</td>
-                                        <td>{{$report->student->studentSchool->studentClassroom->classroom->generation->generation}}</td>
-                                        <td>{{$report->student->studentSchool->studentClassroom->classroom->generation->schoolYear->school_year}}</td>
+                                        <td>{{$report->student->studentSchool->studentClassroom->classroom->generation->generation}} - ({{$report->student->studentSchool->studentClassroom->classroom->generation->schoolYear->school_year}})</td>
                                         @php
                                             $point = ( $report->point / $totalAssignment[array_search($report->student->studentSchool->studentClassroom->classroom->generation_id,$totalAssignment->pluck('id')->toArray())]->total_assignments)
                                         @endphp
-                                        <td>{{$point}}</td>
+                                        <td>{{round($point,1)}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

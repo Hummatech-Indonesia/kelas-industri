@@ -35,7 +35,7 @@ class ChallengeRepository extends BaseRepository
             ->paginate($limit);
     }
 
-    public function get_challenge_by_student(String $classroomId, int $schoolYearId, string|null $search,string|null $difficulty,string|null $status, int $limit): mixed
+    public function get_challenge_by_student(String $classroomId, int $schoolYearId, string|null $search,string|null $status,string|null $difficulty, int $limit): mixed
     {
         return $this->model->query()
             ->where('classroom_id', $classroomId)
@@ -49,9 +49,9 @@ class ChallengeRepository extends BaseRepository
                 ->where('student_school_id',$userId)
                 ->pluck('challenge_id')
                 ->toArray();
-                if($status == 'Sudah Dikerjakan'){
+                if($status == 'Sudah'){
                     $query->WhereIn('id',$doneChallenge);
-                }else if ($status == 'Belum Dikerjakan'){
+                }else if ($status == 'Belum'){
                     $query->WhereNotIn('id',$doneChallenge);
                 }
             })

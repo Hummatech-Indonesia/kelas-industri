@@ -114,6 +114,18 @@ class ClassroomRepository extends BaseRepository
             ->get();
     }
 
+    public function get_teacher_classroom(string $schoolId, int $schoolYearId): mixed
+    {
+        $classroomId = TeacherClassroom::pluck('classroom_id')->toArray();
+        return $this->model->query()
+        ->whereRelation('generation', function ($q) use ($schoolYearId){
+            return $q->where('school_year_id', $schoolYearId);
+        })
+        ->where('school_id', $schoolId)
+            ->whereNotIn('id', $classroomId)
+            ->get();
+    }
+
     /**
      * get_paginate_by_school
      *

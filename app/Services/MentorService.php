@@ -33,6 +33,13 @@ class MentorService
      */
     public function handleStore(Request $request): void
     {
+        $request->validate([
+            'classroom_id' => 'required',
+            'school_id' => 'required'
+        ],[
+            'classroom_id.required' => 'Kelas tidak boleh kosong',
+            'school_id.required' => 'Sekolah tidak boleh kosong'
+        ]);
         $this->repository->store($request->all());
     }
 

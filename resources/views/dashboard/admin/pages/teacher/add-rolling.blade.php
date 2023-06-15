@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Rolling Mentor
+                Rolling Teacher
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman rolling mentor
+                Halaman rolling teacher
             </p>
             <!--end::Breadcrumb-->
         </div>

@@ -39,7 +39,7 @@
                         <!--begin::Compact form-->
                         <div class="d-flex align-items-center">
                             <!--begin::Input group-->
-                            <div class="position-relative col-10">
+                            <div class="position-relative col-lg-6 col-md-12 me-3">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                 <span
                                     class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -56,6 +56,17 @@
                                 <!--end::Svg Icon-->
                                 <input type="text" class="form-control form-control-solid ps-10" name="search"
                                     value="{{ $parameters['search'] ?? '' }}" placeholder="Search">
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <select name="filter" class="form-select form-select-solid me-5" data-control="select2"
+                                    data-placeholder="Select an option">
+                                    {{-- @foreach ($generations as $generation)
+                                        <option {{ $filter == $generation->id ? 'selected' : '' }}
+                                            value="{{ $generation->id }}">
+                                            {{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}
+                                        </option>
+                                    @endforeach --}}
+                                </select>
                             </div>
                             <div class="col-lg-2 col-md-12 ms-3">
                                 <button class="btn btn-primary" id="btn-search">Cari</button>
@@ -207,9 +218,7 @@
             @endforelse
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <x-pagination-component :paginator="$classrooms" :parameters="$parameters" route="school.classrooms.index" />
-            </div>
+            {{ $classrooms->appends(request()->query())->links() }}
         </div>
         <x-delete-modal-component />
     </div>

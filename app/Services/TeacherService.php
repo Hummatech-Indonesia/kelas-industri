@@ -88,10 +88,14 @@ class TeacherService
      */
     public function handleStoreTeacherClassroom(Request $request): void
     {
-        $data = [
-            'teacher_school_id' => $request->teacher_school_id,
-            'classroom_id' => $request->classroom_id
-        ];
+        $data = $request->validate([
+            'classroom_id' => 'required'
+        ],[
+            'required' => 'Kelas tidak boleh kosong'
+        ]);
+        $data['teacher_school_id'] = $request->teacher_school_id;
+        $data['classroom_id'] = $request->classroom_id;
+        
         $this->teacherClassroomRepository->store($data, $data);
     }
 

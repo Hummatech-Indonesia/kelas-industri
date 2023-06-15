@@ -365,6 +365,11 @@
                                             {{ $classroom->name }}
                                         </span>
 
+                                        <span class="text-muted font-weight-bold">
+                                            {{ $classroom->generation->generation }}
+                                            ({{ $classroom->generation->schoolYear->school_year }})
+                                        </span>
+
                                         <!--end::Title-->
 
                                     </div>
@@ -372,28 +377,8 @@
                                     <!--end::Info-->
 
                                 </div>
-
                                 <!--end::Section-->
-
-                                <!--begin::Content-->
-
-
-                                <!--end::Content-->
-
-                                <!--begin::Text-->
-
-                                <p class="mb-7 mt-5">
-
-                                    {{ $classroom->description }}
-                                </p>
-
-                                <!--end::Text-->
-
-
                             </div>
-
-                            <!--end::Body-->
-
                             <!--begin::Footer-->
 
                             <div class="card-footer d-flex flex-row justify-content-between">

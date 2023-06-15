@@ -13,8 +13,10 @@ use Carbon\Carbon;
 
 trait DataSidebar
 {
+
     function AssignmentMockup()
     {
+        $currentDate = date('Y-m-d');
         if(auth()->user()->roles->pluck('name')[0] == 'student'){
             $generationId = Auth()->user()->studentSchool->studentClassroom->classroom->generation_id;
             return Assignment::whereIn('sub_material_id', function ($query) use ($generationId) {
@@ -29,7 +31,11 @@ trait DataSidebar
                                     ->where('id', $generationId);
                             });
                     });
-            })->orderBy('end_date', 'desc')->take(5)->get();
+            })
+            ->where('end_date', '>', $currentDate)
+            ->orderBy('end_date', 'desc')
+            ->take(5)
+            ->get();
         }
         return [];
     }
@@ -53,13 +59,16 @@ trait DataSidebar
 
     function ChallengeMockup()
     {
+        $currentDate = date('Y-m-d');
         if(auth()->user()->roles->pluck('name')[0] == 'student'){
             $classroomId = Auth()->user()->studentSchool->studentClassroom->classroom->id;
-            return Challenge::where('classroom_id', $classroomId)->orderBy('end_date', 'desc')->take(5)->get();
+            return Challenge::where('classroom_id', $classroomId)
+            ->where('end_date', '>', $currentDate)
+            ->orderBy('end_date', 'desc')->take(5)->get();
         }
 
         return [];
-        
+
     }
 
 

@@ -61,20 +61,22 @@ class UserClassroomController extends Controller
         return \view ('dashboard.user.pages.classroom.detail', $data);
     }
 
-    public function materials(Classroom $classroom): View
+    public function materials(Classroom $classroom, Request $request): View
     {
         $data = $this->GetDataSidebar();
         $data['classroom'] = $classroom;
-        $data['materials'] =  $this->materialService->handleByClassroom($classroom->id);
+        $data['materials'] =  $this->materialService->handleByClassroom($classroom->id, $request);
+        $data['search'] = $request->search;
         return \view ('dashboard.user.pages.material.index', $data);
     }
 
-    public function showMaterial(Classroom $classroom, Material $material): View
+    public function showMaterial(Classroom $classroom, Material $material, Request $request): View
     {
         $data = $this->GetDataSidebar();
         $data['classroom'] = $classroom;
         $data['material'] = $material;
-        $data['subMaterials'] =  $this->subMaterialService->handleGetPaginate($material->id);
+        $data['subMaterials'] =  $this->subMaterialService->handleGetPaginate($material->id, $request);
+        $data['search'] = $request->search;
         $data['parameters'] = [
             'material' => $material->id,
         ];

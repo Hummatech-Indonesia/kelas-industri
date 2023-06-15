@@ -171,22 +171,10 @@
                                     data-bs-theme="light">
                                     <!--begin::Title-->
                                     <h3 class="card-title align-items-start flex-column text-white pt-15">
-                                        <span class="fw-bold fs-2x mb-3">My Tasks</span>
+                                        <span class="fw-bold fs-2x mb-3">Tugas dan Challenge</span>
 
                                         <div class="fs-4 text-white">
-                                            <span class="opacity-75">You have</span>
-
-                                            <span class="position-relative d-inline-block">
-                                                <a href="/metronic8/demo1/../demo1/pages/user-profile/projects.html"
-                                                    class="link-white opacity-75-hover fw-bold d-block mb-1">4 tasks</a>
-
-                                                <!--begin::Separator-->
-                                                <span
-                                                    class="position-absolute opacity-50 bottom-0 start-0 border-2 border-body border-bottom w-100"></span>
-                                                <!--end::Separator-->
-                                            </span>
-
-                                            <span class="opacity-75">to comlete</span>
+                                            <span class="opacity-75">Kamu Memiliki</span>
                                         </div>
                                     </h3>
                                     <!--end::Title-->

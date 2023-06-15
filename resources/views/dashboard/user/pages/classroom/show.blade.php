@@ -186,7 +186,7 @@
                                         <div class="d-flex flex-center flex-column py-5">
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-100px symbol-circle mb-7">
-                                                <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
+                                                <img src="{{ $student->photo ? asset('storage/' . $student->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
                                                     alt="image" />
                                             </div>
                                             <!--end::Avatar-->

@@ -64,7 +64,7 @@
                                         <!--begin::Compact form-->
                                         <div class="d-flex align-items-center">
                                             <!--begin::Input group-->
-                                            <div class="position-relative col-11">
+                                            <div class="position-relative col-10">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                                 <span
                                                     class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -84,6 +84,7 @@
                                                     name="search" value="{{ $search }}" placeholder="Search">
                                             </div>
                                             <div class="col-lg-2 col-md-12 ms-3">
+                                                <button type="submit" class="btn btn-primary">Cari</button>
                                                 <a href="{{ route('mentor.challenges.index') }}" type="button"
                                                     class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
                                             </div>
@@ -104,7 +105,7 @@
                                         <!--begin::Compact form-->
                                         <div class="d-flex align-items-center">
                                             <!--begin::Input group-->
-                                            <div class="position-relative col-11">
+                                            <div class="position-relative col-10">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                                 <span
                                                     class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -124,6 +125,7 @@
                                                     name="search" value="{{ $search }}" placeholder="Search">
                                             </div>
                                             <div class="col-lg-2 col-md-12 ms-3">
+                                                <button type="submit" class="btn btn-primary">Cari</button>
                                                 <a href="{{ route('teacher.challenges.index') }}" type="button"
                                                     class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
                                             </div>
@@ -167,17 +169,17 @@
                                                 <select name="status" class="form-select form-select-solid me-5" data-control="select2"
                                                     data-placeholder="Status">
                                                     <option value="-1" {{$status == '-1' ? 'selected' : ''}}>Semua Status</option>
-                                                    <option value="Sudah Dikerjakan" {{$status == 'Sudah Dikerjakan' ? 'selected' : ''}}>Sudah Dikerjakan</option>
-                                                    <option value="Belum Dikerjakan" {{$status == 'Belum Dikerjakan' ? 'selected' : ''}}>Belum Dikerjakan</option>
+                                                    <option value="Sudah" {{$status == 'Sudah' ? 'selected' : ''}}>Sudah Dikerjakan</option>
+                                                    <option value="Belum" {{$status == 'Belum' ? 'selected' : ''}}>Belum Dikerjakan</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-2 col-md-12">
                                                 <select name="difficulty" class="form-select form-select-solid me-5" data-control="select2"
                                                     data-placeholder="Status">
                                                     <option value="-1" {{$difficulty == '-1' ? 'selected' : ''}}>Semua Kesulitan</option>
-                                                    <option value="easy"  {{$difficulty == 'easy' ? 'selected' : ''}}>Mudah</option>
-                                                    <option value="medium"  {{$difficulty == 'medium' ? 'selected' : ''}}>Sedang</option>
-                                                    <option value="hard"  {{$difficulty == 'hard' ? 'selected' : ''}}>Sulit</option>
+                                                    <option value="mudah"  {{$difficulty == 'mudah' ? 'selected' : ''}}>Mudah</option>
+                                                    <option value="sedang"  {{$difficulty == 'sedang' ? 'selected' : ''}}>Sedang</option>
+                                                    <option value="sulit"  {{$difficulty == 'sulit' ? 'selected' : ''}}>Sulit</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-2 col-md-12 ms-3">

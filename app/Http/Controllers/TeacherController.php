@@ -73,7 +73,7 @@ class   TeacherController extends Controller
         }
 
         $data = [
-            'classrooms' => $this->classroomService->handleGetBySchool(auth()->id(), $currentSchoolYear->id),
+            'classrooms' => $this->classroomService->handleGetByTeacherClassroom(auth()->id(), $currentSchoolYear->id),
             'teacher' => $teacher
         ];
         return view('dashboard.admin.pages.teacher.add-rolling', $data);

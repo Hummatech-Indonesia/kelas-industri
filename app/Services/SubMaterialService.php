@@ -20,9 +20,9 @@ class SubMaterialService
      * @param string $materialId
      * @return mixed
      */
-    public function handleGetPaginate(string $materialId): mixed
+    public function handleGetPaginate(string $materialId, $request): mixed
     {
-        return $this->repository->get_paginate_by_material($materialId, 6);
+        return $this->repository->get_paginate_by_material($materialId,$request->search, 6);
     }
 
     /**

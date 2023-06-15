@@ -15,8 +15,8 @@ class MaterialService
         $this->repository = $repository;
     }
 
-    public function handleByClassroom(string $classroomId){
-        return $this->repository->get_by_classroom($classroomId, 6);
+    public function handleByClassroom(string $classroomId, $request){
+        return $this->repository->get_by_classroom($classroomId, $request->search ,6);
     }
 
     /**

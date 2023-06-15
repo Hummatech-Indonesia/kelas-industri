@@ -164,4 +164,9 @@ class ClassroomService
     {
         return $this->repository->get_count_classroom_mentor($mentorId);
     }
+
+    public function handleGetByTeacherClassroom(string $schoolId, int $schoolYearId) :mixed
+    {
+        return $this->repository->get_teacher_classroom($schoolId, $schoolYearId);
+    }
 }
