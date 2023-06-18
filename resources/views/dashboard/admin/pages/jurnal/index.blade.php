@@ -25,11 +25,12 @@
         @if (auth()->user()->roles->pluck('name')[0] == 'admin')
         <form id="form-search" action="{{ route('admin.journal.index') }}">
             <!--begin::Actions-->
+
             <div class="d-flex align-items-center py-2 py-md-1">
 
                 <!--begin::school year-->
-                <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
-                    data-control="select">
+                <select name="filter" class="form-select form-select-solid" placeholder="Select an option"
+                data-control="select2">
                     <option value="">Semua Sekolah</option>
                     @foreach ($schools as $school)
                         <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
@@ -39,12 +40,12 @@
                 </select>
                 <!--end::school yeaer-->
                 <!--begin::Button-->
-                <button type="submit" class="btn btn-primary">Cari</button>
+                <button type="submit" class="btn btn-primary ms-3">Cari</button>
                 <!--end::Button-->
             </div>
         </form>
         @else
-        
+
         @endif
     </div>
     <div class="content flex-column-fluid" id="kt_content">
@@ -62,12 +63,12 @@
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th>No</th>
                                         <th>Pembuat</th>
+                                        <th>Kelas</th>
                                         @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                             <th>Sekolah</th>
                                         @endif
                                         <th>Judul</th>
                                         <th>Tanggal</th>
-                                        <th>Kelas</th>
                                         <th>Deskripsi</th>
                                     </tr>
                                     <!--end::Table row-->
@@ -80,13 +81,13 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $journal->user->name }}</td>
+                                            <td>{{ $journal->classroom->name }}</td>
                                             @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                                 <td>{{ $journal->classroom->school->name }}</td>
                                             @endif
                                             <td>{{ $journal->title }}</td>
                                             <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}
                                             </td>
-                                            <td>{{ $journal->classroom->name }}</td>
                                             <td>
                                                 <svg fill="#474761" type="button"
                                                     data-description="{{ $journal->description }}" class="btn-description"

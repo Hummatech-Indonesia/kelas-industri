@@ -60,7 +60,7 @@ class JurnalController extends Controller
     {
         $this->journalService->handleCreate($request);
         if(auth()->user()->roles->pluck('name')[0] == 'mentor'){
-            return to_route('mentor.journal.index')->with('success', trans('alert.update_success'));
+            return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
         }elseif(auth()->user()->roles->pluck('name')[0] == 'teacher')
         return to_route('teacher.journal.index')->with('success', trans('alert.update_success'));
     }
@@ -82,7 +82,7 @@ class JurnalController extends Controller
     {
         $this->journalService->handleUpdate($request, $journal->id);
         if(auth()->user()->roles->pluck('name')[0] == 'mentor'){
-            return to_route('mentor.journal.index')->with('success', trans('alert.update_success'));
+            return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
         }elseif(auth()->user()->roles->pluck('name')[0] == 'teacher')
         return to_route('teacher.journal.index')->with('success', trans('alert.update_success'));
     }
@@ -90,6 +90,6 @@ class JurnalController extends Controller
     public function destroy(Journal $journal): RedirectResponse
     {
         $this->journalService->handleDelete($journal);
-        return back()->with('success', trans('alert.delete_success'));
+        return back()->with('success', trans('Berhasil Menghapus Jurnal'));
     }
 }

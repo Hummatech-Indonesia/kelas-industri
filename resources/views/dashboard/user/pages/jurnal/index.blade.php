@@ -91,12 +91,12 @@
                                             <thead>
                                                 <!--begin::Table row-->
                                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                                    <th>No</th>
-                                                    <th>Judul</th>
-                                                    <th>Tanggal</th>
-                                                    <th>Kelas</th>
-                                                    <th>Deskripsi</th>
-                                                    <th>Aksi</th>
+                                                    <th data-priority="1">No</th>
+                                                    <th data-priority="2">Judul</th>
+                                                    <th data-priority="3">Tanggal</th>
+                                                    <th data-priority="4">Kelas</th>
+                                                    <th data-priority="5">Deskripsi</th>
+                                                    <th data-priority="6">Aksi</th>
                                                 </tr>
                                                 <!--end::Table row-->
                                             </thead>

@@ -42,10 +42,20 @@ class AttendanceRepository extends BaseRepository
         $this->submitAttendance->create($data);
     }
 
-    public function get_student_by_submit_attendance(string $attendanceId, ): mixed
+    public function get_student_by_submit_attendance(string $attendanceId): mixed
     {
         return $this->submitAttendance->query()
         ->where('attendance_id',$attendanceId)
+        ->get();
+    }
+
+    public function get_student_by_submit_attendance_mentor(string $attendanceId, string $mentorId) :mixed
+    {
+        return $this->submitAttendance->query()
+        ->where('attendance_id', $attendanceId)
+        ->whereRelation('attendance', function ($q) use ($mentorId){
+            $q->where('created_by', $mentorId);
+        })
         ->get();
     }
 

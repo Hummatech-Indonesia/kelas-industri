@@ -98,9 +98,9 @@ class ClassroomService
      * @param string $schoolId
      * @return mixed
      */
-    public function handleSearch(string $search, string $schoolId, int $schoolYearId): mixed
+    public function handleSearch(Request $search, string $schoolId, string $year): mixed
     {
-        return $this->repository->get_paginate_by_school_search($search, $schoolId, $schoolYearId, 8);
+        return $this->repository->get_paginate_by_school_search($search->search, $schoolId, $year, 8);
     }
 
     /**
@@ -168,5 +168,10 @@ class ClassroomService
     public function handleGetByTeacherClassroom(string $schoolId, int $schoolYearId) :mixed
     {
         return $this->repository->get_teacher_classroom($schoolId, $schoolYearId);
+    }
+
+    public function handleGetBySchoolClassroom(string $schoolId):mixed
+    {
+        return $this->repository->get_school_classroom($schoolId);
     }
 }

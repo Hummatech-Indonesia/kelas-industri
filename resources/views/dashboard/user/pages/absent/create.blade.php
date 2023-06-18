@@ -21,90 +21,90 @@
                             @endif
                             <div class="row">
                                 <form action="{{ route('mentor.attendance.store') }}" method="POST" enctype="multipart/form-data">
-        
+
                                     @csrf
                                     <div class="col-12">
                                         <div class="card card-custom card-sticky" id="kt_page_sticky_card">
-        
+
                                             <div class="card-header" style="">
-        
+
                                                 <div class="card-title">
-        
+
                                                     <h3 class="card-label">
-        
+
                                                         Silakan Isi Data Absensi
-        
+
                                                     </h3>
-        
+
                                                 </div>
-        
+
                                                 <div class="card-toolbar">
                                                     @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-        
+
                                                     <a href="{{ route('teacher.challenges.index') }}"
                                                         class="btn btn-light-primary font-weight-bolder me-2">
-        
+
                                                         <i class="ki ki-long-arrow-back icon-sm"></i>
-        
+
                                                         Kembali
-        
+
                                                     </a>
-        
+
                                                     @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-        
-                                                    <a href="{{ route('mentor.challenges.index') }}"
+
+                                                    <a href="{{ route('mentor.attendance.index') }}"
                                                     class="btn btn-light-primary font-weight-bolder me-2">
-        
+
                                                     <i class="ki ki-long-arrow-back icon-sm"></i>
-        
+
                                                     Kembali
-        
+
                                                 </a>
-        
+
                                                     @endif
-        
+
                                                     <div class="btn-group">
-        
+
                                                         <button type="submit" class="btn btn-primary font-weight-bolder">
-        
+
                                                             <i class="ki ki-check icon-sm"></i>
-        
+
                                                             Simpan
-        
+
                                                         </button>
-        
+
                                                     </div>
-        
+
                                                 </div>
-        
+
                                             </div>
-        
+
                                             <div class="card-body">
-        
+
                                                 <div class="row">
                                                     <div class="form-group row mb-3">
-        
+
                                                         <label class="col-xl-3 col-lg-3 col-form-label">Judul</label>
-        
+
                                                         <div class="col-lg-9 col-xl-9">
-        
+
                                                             <input class="form-control form-control-solid form-control-lg"
                                                                 name="title" type="text" value="{{ old('title') }}"
                                                                 placeholder="Masukkan Judul" required="">
-        
+
                                                         </div>
-        
+
                                                     </div>
-        
+
                                                 </div>
-        
+
                                             </div>
-        
+
                                         </div>
                                     </div>
                                 </form>
                             </div>
-        
+
                         </div>
                         <!--end::Toolbar wrapper-->
                     </div>

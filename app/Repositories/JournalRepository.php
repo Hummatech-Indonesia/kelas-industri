@@ -23,6 +23,7 @@ class JournalRepository extends BaseRepository
                 });
             });
         })
+        ->orderBy('date', 'desc')
         ->get();
     }
 

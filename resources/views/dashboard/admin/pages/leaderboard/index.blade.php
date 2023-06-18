@@ -13,7 +13,7 @@
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    <a href="../../index-2.html" class="text-muted text-hover-primary">
+                    <a href="#" class="text-muted text-hover-primary">
                         daftar siswa dengan nilai
                         terbaik. </a>
                 </li>
@@ -29,8 +29,8 @@
             <div class="d-flex align-items-center py-2 py-md-1">
 
                 <!--begin::school year-->
-                <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
-                    data-control="select">
+                <select name="filter" class="form-select form-select-solid" placeholder="Select an option"
+                data-control="select2">
                     <option value="">Semua Sekolah</option>
                     @foreach ($schools as $school)
                         <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
@@ -40,7 +40,7 @@
                 </select>
                 <!--end::school yeaer-->
                 <!--begin::Button-->
-                <button type="submit" class="btn btn-primary">Cari</button>
+                <button type="submit" class="btn btn-primary ms-3">Cari</button>
                 <!--end::Button-->
         </form>
         @else
@@ -70,15 +70,6 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header pt-7">
-                        <!--begin::Title-->
-                        <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bold text-gray-800">Peringkat</span>
-                            <span class="text-gray-400 mt-1 fw-semibold fs-6">Daftar siswa dengan nilai terbaik di kelas
-                                industri.</span>
-                        </h3>
-                        <!--end::Title-->
-                    </div>
                     <div class="card-body">
 
                         <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">

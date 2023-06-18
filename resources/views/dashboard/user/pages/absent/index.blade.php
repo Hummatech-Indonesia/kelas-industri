@@ -88,6 +88,7 @@
                                                     <th data-priority="4">Link</th>
                                                     <th data-priority="5">Status</th>
                                                     <th data-priority="6">Aksi</th>
+                                                    <th data-priority="7">Detail</th>
                                                 </tr>
                                                 <!--end::Table row-->
                                             </thead>
@@ -132,6 +133,13 @@
                                                                     <i class="fonticon-trash-bin fs-2 text-danger"></i>
                                                                 </button>
                                                             </div>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{route('mentor.attendance.show', [$attendance->id])}}">
+                                                                <button class="btn btn-default btn-sm p-1">
+                                                                    <i class="fa fa-eye fs-3 text-muted"></i>
+                                                                </button>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

@@ -34,9 +34,9 @@
                                     <!--begin::Table row-->
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th>No</th>
+                                        <th>Pembuat</th>
                                         <th>Judul</th>
                                         <th>Status</th>
-                                        <th>Pembuat</th>
                                         <th>Details</th>
                                     </tr>
                                     <!--end::Table row-->
@@ -48,6 +48,7 @@
                                     @foreach ($attendances as $attendance)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $attendance->mentor->name }}</td>
                                             <td>{{ $attendance->title }}</td>
                                             <td>
                                                 @if ($attendance->status == 'open')
@@ -56,7 +57,6 @@
                                                     <span class="badge badge-light-danger">{{ $attendance->status }}</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $attendance->mentor->name }}</td>
                                             <td><a href="{{route('admin.showAbsent', [$attendance->id]) }}"
                                                 class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a></td>
                                         </tr>

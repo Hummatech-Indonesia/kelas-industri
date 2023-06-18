@@ -57,7 +57,7 @@ class AttendanceController extends Controller
     public function store(AttendanceRequest $request): RedirectResponse
     {
         $this->service->handleCreate($request);
-        return to_route('mentor.attendance.index')->with('success', trans('alert.create_success'));
+        return to_route('mentor.attendance.index')->with('success', trans('Berhasil Menambah Data Absent'));
     }
 
     /**
@@ -70,8 +70,14 @@ class AttendanceController extends Controller
     public function show(Attendance $attendance): View
     {
         $data = $this->GetDataSidebar();
-        $data['attendances'] = $this->service->getStudentBySubmitAttendance($attendance);
-        return view('dashboard.admin.pages.absent.detail', $data);
+        if(auth()->user()->roles->pluck('name')[0] == 'admin'){
+            $data['attendances'] = $this->service->getStudentBySubmitAttendance($attendance);
+            return view('dashboard.admin.pages.absent.detail', $data);
+        }else{
+            $mentorId = auth()->id();
+            $data['attendances'] = $this->service->getStudentBySubmitAttendanceMentor($attendance, $mentorId);
+            return view('dashboard.user.pages.absent.show', $data);
+        }
     }
 
 
@@ -96,7 +102,7 @@ class AttendanceController extends Controller
     public function update(Attendance $attendance): RedirectResponse
     {
         $this->service->changeStatus($attendance);
-        return to_route('mentor.attendance.index')->with('success', trans('alert.update_success'));
+        return to_route('mentor.attendance.index')->with('success', trans('Berhasil Mengganti Status Absent'));
     }
 
     /**
@@ -108,7 +114,7 @@ class AttendanceController extends Controller
     public function destroy(Attendance $attendance): RedirectResponse
     {
         $this->service->handleDelete($attendance);
-        return back()->with('success', trans('alert.delete_success'));
+        return back()->with('success', trans('Berhasil Mengahapus Absnet'));
     }
 
     /**

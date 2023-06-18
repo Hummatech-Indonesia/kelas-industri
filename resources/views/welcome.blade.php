@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="style/images/favicon.png">
-    <title>Snowlake</title>
+    <title>Kelas Industri</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/plugins.css') }}">
@@ -848,7 +848,7 @@
                 </div>
                 <!--/.row -->
                 <div class="space50"></div>
-                <p class="text-center">© 2020 Snowlake. All rights reserved.</p>
+                <p class="text-center">© 2023 Kelas Industri. All rights reserved.</p>
             </div>
             <!-- /.container -->
         </footer>

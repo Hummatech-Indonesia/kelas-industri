@@ -76,6 +76,11 @@ class AttendanceService
         $this->repository->create_submit_attendance($data);
     }
 
+    public function getStudentBySubmitAttendanceMentor(Attendance $attendance, string $mentorId) :mixed
+    {
+        return $this->repository->get_student_by_submit_attendance_mentor($attendance->id, $mentorId);
+    }
+
     public function getStudentBySubmitAttendance(Attendance $attendanceId): mixed
     {
         return $this->repository->get_student_by_submit_attendance($attendanceId->id);

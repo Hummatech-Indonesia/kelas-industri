@@ -19,7 +19,7 @@ License: For each use you must have a valid license purchased only from above li
 <!-- Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/><!-- /Added by HTTrack -->
 <head>
-    <title>Metronic - The World's #1 Selling Bootstrap Admin Template by Keenthemes</title>
+    <title>Kelas Industri</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>

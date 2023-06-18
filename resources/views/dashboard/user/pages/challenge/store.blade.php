@@ -158,8 +158,7 @@
                                                             <li>File yang tersedia adalah file yang telah dikirim.</li>
                                                             <li>Jika file belum tersedia maka anda belum mengumpulkan
                                                                 tantangan.</li>
-
-
+                                                                <li>File yang diinputkan harus ekstensi rar/zip.</li>
                                                         </ul>
                                                         <!--end::Content-->
 

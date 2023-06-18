@@ -31,19 +31,21 @@ class ClassroomController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
-        $classrooms = $this->service->handleGetPaginate(auth()->id(), $currentSchoolYear->id);
-        $parameters = null;
-
-        if (request()->has('search')) {
-            $classrooms = $this->service->handleSearch(request()->search, auth()->id(), $currentSchoolYear->id);
-            $parameters = request()->query();
+        $schoolYear = SchoolYearHelper::get_current_school_year();
+        $selectedSchoolYear = 0;
+        if($schoolYear){
+            $selectedSchoolYear = $schoolYear->id;
+        }
+        if($request->filter){
+            $selectedSchoolYear = $request->filter;
         }
         $data = [
-            'classrooms' => $classrooms,
-            'parameters' => $parameters
+            'generations' => $this->generationService->handleGetAll(),
+            'filter' => $request->filter,
+            'search' => $request->search,
+            'classrooms' => $this->service->handleSearch($request, auth()->id(), $selectedSchoolYear),
         ];
         return view('dashboard.admin.pages.classroom.index', $data);
     }

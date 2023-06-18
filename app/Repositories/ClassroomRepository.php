@@ -151,13 +151,11 @@ class ClassroomRepository extends BaseRepository
      * @param int $limit
      * @return mixed
      */
-    public function get_paginate_by_school_search(string $search, string $schoolId, int $schoolYearId, int $limit): mixed
+    public function get_paginate_by_school_search(string|null $search, string $schoolId, string $year , int $limit): mixed
     {
         return $this->model->query()
-            ->whereRelation('generation', function ($q) use ($schoolYearId) {
-                return $q->where('school_year_id', $schoolYearId);
-            })
             ->where('name', 'like', '%' . $search . '%')
+            ->where('generation_id','LIKE','%'.$year.'%')
             ->where('school_id', $schoolId)
             ->paginate($limit);
     }
@@ -176,5 +174,12 @@ class ClassroomRepository extends BaseRepository
         return $this->mentorClassroom->query()
             ->where('mentor_id', $mentorId)
             ->count();
+    }
+
+    public function get_school_classroom(string $schoolId):mixed
+    {
+        return $this->model->query()
+            ->where('school_id', $schoolId)
+            ->get();
     }
 }

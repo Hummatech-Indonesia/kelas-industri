@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
 use App\Repositories\SubmitAssignmentRepository;
 
 class SubmitAssignmentService
@@ -18,9 +19,9 @@ class SubmitAssignmentService
         return $this->repository->get_count_student_assignment($studentId);
     }
 
-    public function handleGetReportStudent() :mixed
+    public function handleGetReportStudent(Request $search) :mixed
     {
-        return $this->repository->getTotalPoint();
+        return $this->repository->getTotalPoint($search);
     }
 
     public function handleGetTotalAssignment()
