@@ -23,38 +23,38 @@ class ClassroomRepository extends BaseRepository
     public function get_by_mentor_jurnal(string $mentorId)
     {
         return $this->mentorClassroom->query()
-        ->where('mentor_id', $mentorId)
-        ->get();
+            ->where('mentor_id', $mentorId)
+            ->get();
     }
 
     public function get_by_teacher_jurnal(string $teacherId)
     {
         return $this->teacherClassroom->query()
-        ->whereRelation('teacherSchool', function($q) use ($teacherId){
-            $q->where('teacher_id', $teacherId);
-        })
-        ->get();
+            ->whereRelation('teacherSchool', function ($q) use ($teacherId) {
+                $q->where('teacher_id', $teacherId);
+            })
+            ->get();
     }
 
     public function get_by_student_jurnal(string $studentId)
     {
         return $this->studentClassroom->query()
-        ->whereRelation('studentSchool', function($q) use ($studentId){
-            $q->where('student_id', $studentId);
-        })
-        ->get();
+            ->whereRelation('studentSchool', function ($q) use ($studentId) {
+                $q->where('student_id', $studentId);
+            })
+            ->get();
     }
 
-    public function get_by_teacher_create_edit(string $teacherId) :mixed
+    public function get_by_teacher_create_edit(string $teacherId): mixed
     {
         return $this->teacherClassroom->query()
-        ->whereRelation('teacherSchool', function ($q) use ($teacherId) {
-            $q->where('teacher_id', $teacherId);
-        })
-        ->get();
+            ->whereRelation('teacherSchool', function ($q) use ($teacherId) {
+                $q->where('teacher_id', $teacherId);
+            })
+            ->get();
     }
 
-    public function get_by_mentor_create_edit(string $mentorId) :mixed
+    public function get_by_mentor_create_edit(string $mentorId): mixed
     {
         return $this->mentorClassroom->query()
             ->where('mentor_id', $mentorId)
@@ -118,10 +118,10 @@ class ClassroomRepository extends BaseRepository
     {
         $classroomId = TeacherClassroom::pluck('classroom_id')->toArray();
         return $this->model->query()
-        ->whereRelation('generation', function ($q) use ($schoolYearId){
-            return $q->where('school_year_id', $schoolYearId);
-        })
-        ->where('school_id', $schoolId)
+            ->whereRelation('generation', function ($q) use ($schoolYearId) {
+                return $q->where('school_year_id', $schoolYearId);
+            })
+            ->where('school_id', $schoolId)
             ->whereNotIn('id', $classroomId)
             ->get();
     }
@@ -151,16 +151,16 @@ class ClassroomRepository extends BaseRepository
      * @param int $limit
      * @return mixed
      */
-    public function get_paginate_by_school_search(string|null $search, string $schoolId, string $year , int $limit): mixed
+    public function get_paginate_by_school_search(string | null $search, string $schoolId, string $year, int $limit): mixed
     {
         return $this->model->query()
             ->where('name', 'like', '%' . $search . '%')
-            ->where('generation_id','LIKE','%'.$year.'%')
+            ->where('generation_id', 'LIKE', '%' . $year . '%')
             ->where('school_id', $schoolId)
             ->paginate($limit);
     }
 
-    public function get_count_classroom_teacher(string $teacherId) :mixed
+    public function get_count_classroom_teacher(string $teacherId): mixed
     {
         return $this->teacherClassroom->query()
             ->whereRelation('teacherSchool', function ($q) use ($teacherId) {
@@ -169,17 +169,43 @@ class ClassroomRepository extends BaseRepository
             ->count();
     }
 
-    public function get_count_classroom_mentor(string $mentorId) :mixed
+    public function get_count_classroom_mentor(string $mentorId): mixed
     {
         return $this->mentorClassroom->query()
             ->where('mentor_id', $mentorId)
             ->count();
     }
 
-    public function get_school_classroom(string $schoolId):mixed
+    public function get_school_classroom(string $schoolId): mixed
     {
         return $this->model->query()
             ->where('school_id', $schoolId)
             ->get();
+    }
+
+    public function get_school_classroom_report(string $schoolId, $year):mixed
+    {
+        return $this->model->query()
+            ->where('school_id', $schoolId)
+            ->whereRelation('generation.schoolYear', function ($q) use ($year){
+                $q->where('id', $year);
+            })
+            ->get();
+    }
+
+    public function get_school_classroom_journal(string $schoolId,$year) :mixed
+    {
+        return $this->model->query()
+        ->whereRelation('generation.schoolYear', function ($q) use ($year){
+            $q->where('id', $year);
+        })
+        ->where('school_id', $schoolId)
+        ->get();
+    }
+
+    public function get_student_by_classroom(string $classroomId){
+        return $this->studentClassroom->query()
+        ->where('classroom_id', $classroomId)
+        ->get();
     }
 }

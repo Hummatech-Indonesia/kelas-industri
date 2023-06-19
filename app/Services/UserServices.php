@@ -8,6 +8,7 @@ use App\Http\Requests\TeacherRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserServices
@@ -27,22 +28,35 @@ class UserServices
      * @param User $user
      * @return void
      */
-    public function handleUpdateProfile(ProfileRequest $request, User $user): void
+    public function handleUpdateProfile(ProfileRequest $request, User $user): mixed
     {
         $data = $request->validated();
-
         if ($request->avatar_remove == 1 && Storage::exists('public/' . $user->photo)) {
             Storage::delete('public/' . $user->photo);
             $data['photo'] = null;
         }
 
         if ($request->hasFile('photo')) {
-            if (Storage::exists('public/' . $user->photo)) Storage::delete('public/' . $user->photo);
+            if (Storage::exists('public/' . $user->photo)) {
+                Storage::delete('public/' . $user->photo);
+            }
 
             $data['photo'] = $request->file('photo')->store('user_photo', 'public');
         }
 
+        if (!Hash::check($request->get('current_password'), $user->password)) {
+            return redirect()->back()->with('error', "Kata Sandi Saat Ini Tidak Valid");
+        }
+
+        if (strcmp($request->get('current_password'), $request->get('new_password')) == 0) {
+            return redirect()->back()->with("error", "Kata sandi baru tidak boleh sama dengan kata sandi saat ini Anda.");
+        }
+
+        $user->password = Hash::make($request->get('new_password'));
+        $user->save();
+
         $this->repository->update($user->id, $data);
+        return redirect()->back()->with("success", "Kata sandi telah diperbarui.");
     }
 
     /**

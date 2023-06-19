@@ -43,68 +43,71 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                <form id="form-search" action="{{ route('student.rankings') }}">
-                                    <!--begin::Actions-->
-                                    <div class="d-flex align-items-center py-2 py-md-1">
+                                    <form id="form-search" action="{{ route('student.rankings') }}">
+                                        <!--begin::Actions-->
+                                        <div class="d-flex align-items-center py-2 py-md-1">
 
-                                        <!--begin::school year-->
-                                        <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
-                                            data-control="select">
-                                            <option value="">Semua Sekolah </option>
-                                            @foreach ($schools as $school)
-                                                <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
-                                                    {{ $school->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <!--end::school yeaer-->
-                                        <!--begin::Button-->
-                                        <button type="submit" class="btn btn-primary">Cari</button>
-                                        <!--end::Button-->
-                                    </div>
-                                </form>
+                                            <!--begin::school year-->
+                                            <select name="filter" class="form-select form-select-solid me-5"
+                                                placeholder="Select an option" data-control="select2">
+                                                <option value="">Semua Sekolah </option>
+                                                @foreach ($schools as $school)
+                                                    <option {{ $filter == $school->id ? 'selected' : '' }}
+                                                        value="{{ $school->id }}">
+                                                        {{ $school->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <!--end::school yeaer-->
+                                            <!--begin::Button-->
+                                            <button type="submit" class="btn btn-primary">Cari</button>
+                                            <!--end::Button-->
+                                        </div>
+                                    </form>
                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                <form id="form-search" action="{{ route('teacher.rankings') }}">
-                                    <!--begin::Actions-->
-                                    <div class="d-flex align-items-center py-2 py-md-1">
+                                    <form id="form-search" action="{{ route('teacher.rankings') }}">
+                                        <!--begin::Actions-->
+                                        <div class="d-flex align-items-center py-2 py-md-1">
 
-                                        <!--begin::school year-->
-                                        <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
-                                            data-control="select">
-                                            <option value="">Semua Sekolah</option>
-                                            @foreach ($schools as $school)
-                                                <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
-                                                    {{ $school->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <!--end::school yeaer-->
-                                        <!--begin::Button-->
-                                        <button type="submit" class="btn btn-primary">Cari</button>
-                                        <!--end::Button-->
-                                    </div>
-                                </form>
+                                            <!--begin::school year-->
+                                            <select name="filter" class="form-select form-select-solid me-5"
+                                                placeholder="Select an option" data-control="select2">
+                                                <option value="">Semua Sekolah</option>
+                                                @foreach ($schools as $school)
+                                                    <option {{ $filter == $school->id ? 'selected' : '' }}
+                                                        value="{{ $school->id }}">
+                                                        {{ $school->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <!--end::school yeaer-->
+                                            <!--begin::Button-->
+                                            <button type="submit" class="btn btn-primary">Cari</button>
+                                            <!--end::Button-->
+                                        </div>
+                                    </form>
                                 @else
-                                <form id="form-search" action="{{ route('mentor.rankings') }}">
-                                    <!--begin::Actions-->
-                                    <div class="d-flex align-items-center py-2 py-md-1">
+                                    <form id="form-search" action="{{ route('mentor.rankings') }}">
+                                        <!--begin::Actions-->
+                                        <div class="d-flex align-items-center py-2 py-md-1">
 
-                                        <!--begin::school year-->
-                                        <select name="filter" class="form-select form-select-solid me-5" placeholder="Select an option"
-                                            data-control="select">
-                                            <option value="">Semua Sekolah</option>
-                                            @foreach ($schools as $school)
-                                                <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
-                                                    {{ $school->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <!--end::school yeaer-->
-                                        <!--begin::Button-->
-                                        <button type="submit" class="btn btn-primary">Cari</button>
-                                        <!--end::Button-->
-                                    </div>
-                                </form>
+                                            <!--begin::school year-->
+                                            <select name="filter" class="form-select form-select-solid me-5"
+                                                placeholder="Select an option" data-control="select2">
+                                                <option value="">Semua Sekolah</option>
+                                                @foreach ($schools as $school)
+                                                    <option {{ $filter == $school->id ? 'selected' : '' }}
+                                                        value="{{ $school->id }}">
+                                                        {{ $school->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <!--end::school yeaer-->
+                                            <!--begin::Button-->
+                                            <button type="submit" class="btn btn-primary">Cari</button>
+                                            <!--end::Button-->
+                                        </div>
+                                    </form>
                                 @endif
 
                             </div>
@@ -130,18 +133,25 @@
                                                 });
                                             @endphp
 
-                                            <span class="card-label fw-bold text-gray-800"><span
-                                                    class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none"
+                                            <span class="card-label fw-bold text-gray-800">
+                                                <span class="svg-icon svg-icon-muted svg-icon-2hx">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M14 18V16H10V18L9 20H15L14 18Z" fill="currentColor" />
                                                         <path opacity="0.3"
                                                             d="M20 4H17V3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3V4H4C3.4 4 3 4.4 3 5V9C3 11.2 4.8 13 7 13C8.2 14.2 8.8 14.8 10 16H14C15.2 14.8 15.8 14.2 17 13C19.2 13 21 11.2 21 9V5C21 4.4 20.6 4 20 4ZM5 9V6H7V11C5.9 11 5 10.1 5 9ZM19 9C19 10.1 18.1 11 17 11V6H19V9ZM17 21V22H7V21C7 20.4 7.4 20 8 20H16C16.6 20 17 20.4 17 21ZM10 9C9.4 9 9 8.6 9 8V5C9 4.4 9.4 4 10 4C10.6 4 11 4.4 11 5V8C11 8.6 10.6 9 10 9ZM10 13C9.4 13 9 12.6 9 12V11C9 10.4 9.4 10 10 10C10.6 10 11 10.4 11 11V12C11 12.6 10.6 13 10 13Z"
                                                             fill="currentColor" />
                                                     </svg>
-                                                </span>{{ auth()->user()->name }}
-                                                {{$ranking ? ',Anda Berada Pada Ranking '.($ranking + 1) : ',Anda Belum Memiliki Poin'}}
+                                                </span>
+                                                {{ auth()->user()->name }}
+
+                                                @if (($ranking) == null)
+                                                    Anda Belum Memiliki Point
+                                                @else
+                                                    Anda Berada Pada Ranking {{ $ranking + 1 }}
+                                                @endif
                                             </span>
+
                                         </h3>
                                     @else
                                         <h3 class="card-title align-items-start flex-column">
@@ -185,7 +195,8 @@
                                                                 alt=""></td>
                                                     @else
                                                         <td>
-                                                            <div class="d-flex justify-content-center items-center" style="width:50px; height:50px; ">
+                                                            <div class="d-flex justify-content-center items-center"
+                                                                style="width:50px; height:50px; ">
                                                                 <p>{{ $loop->iteration }}</p>
                                                             </div>
                                                         </td>

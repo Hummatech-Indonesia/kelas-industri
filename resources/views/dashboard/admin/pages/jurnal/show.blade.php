@@ -18,34 +18,16 @@
             </p>
             <!--end::Breadcrumb-->
         </div>
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <a href="{{url()->previous()}}"
+                class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Kembali
+            </a>
+        </div>
         <!--end::Page title-->
 
         <!--begin::Actions-->
         <!--end::Actions-->
-        @if (auth()->user()->roles->pluck('name')[0] == 'admin')
-            <form id="form-search" action="{{ route('admin.journal.index') }}">
-                <!--begin::Actions-->
-
-                <div class="d-flex align-items-center py-2 py-md-1">
-
-                    <!--begin::school year-->
-                    <select name="filter" class="form-select form-select-solid" placeholder="Select an option"
-                        data-control="select2">
-                        <option value="">Semua Sekolah</option>
-                        @foreach ($schools as $school)
-                            <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
-                                {{ $school->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <!--end::school yeaer-->
-                    <!--begin::Button-->
-                    <button type="submit" class="btn btn-primary ms-3">Cari</button>
-                    <!--end::Button-->
-                </div>
-            </form>
-        @else
-        @endif
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -61,16 +43,10 @@
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th>No</th>
-                                    @if (auth()->user()->roles->pluck('name')[0] == 'admin')
-                                    <th>Sekolah</th>
-                                    <th>Details</th>
-                                    @else
                                     <th>Pembuat</th>
-                                    <th>Kelas</th>
                                     <th>Judul</th>
                                     <th>Tanggal</th>
                                     <th>Details</th>
-                                    @endif
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -78,28 +54,12 @@
 
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
-                                @if (auth()->user()->roles->pluck('name')[0] == 'admin')
-                                @foreach ($schools as $school)
+                                @foreach ($journals as $journal)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $school->name }}</td>
-                                        <td><a href="{{ route('admin.journal.show', [$school->id]) }}">
-                                                <button class="btn btn-default btn-sm p-1">
-                                                    <i class="fa fa-eye fs-3 text-muted"></i>
-                                                </button>
-                                            </a>
-                                        </td>
-                                        </tr>
-                                        @endforeach
-                                        @else
-                                        @foreach ($journals as $journal)
-                                        <tr>
-                                            <td>{{ $loop->iteration}}</td>
-                                            <td>{{ $journal->user->name . $journal->user->roles->pluck('name')[0] }}</td>
-                                            <td>{{ $journal->classroom->name}}</td>
-                                            <td>{{ $journal->title }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}
-                                            </td>
+                                        <td>{{ $journal->user->name }}</td>
+                                        <td>{{ $journal->title }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}</td>
                                             <td>
                                                 <svg fill="#474761" type="button"
                                                     data-description="{{ $journal->description }}" class="btn-description"
@@ -109,9 +69,8 @@
                                                         d="M319-250h322v-60H319v60Zm0-170h322v-60H319v60ZM220-80q-24 0-42-18t-18-42v-680q0-24 18-42t42-18h361l219 219v521q0 24-18 42t-42 18H220Zm331-554h189L551-820v186Z" />
                                                 </svg>
                                             </td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
+                                    </tr>
+                                @endforeach
                             </tbody>
                             <!--end::Table body-->
                         </table>

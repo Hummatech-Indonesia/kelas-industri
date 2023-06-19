@@ -194,7 +194,7 @@
         </div>
         <!--end::Footer-->
     </div>
-    <div class="modal fade" tabindex="-1" id="kt_modal_description">
+    <div class="modal fade" tabindex="-1" id="kt_modal_scrollable_2">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -246,7 +246,7 @@
         $('.btn-description').click(function() {
             var description = $(this).data('description')
             $('#description').html(description)
-            $('#kt_modal_description').modal('show')
+            $('#kt_modal_scrollable_2').modal('show')
         });
     </script>
 @endsection

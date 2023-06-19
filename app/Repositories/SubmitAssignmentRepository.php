@@ -24,25 +24,11 @@ class SubmitAssignmentRepository extends BaseRepository
             ->get();
     }
 
-    public function getTotalPoint(Request $search)
+    public function getTotalPoint(string $classroomId) :mixed
     {
         return $this->model->query()
-            ->when($search->school_id, function ($query) use ($search) {
-                return $query->whereRelation('student', function ($q) use ($search) {
-                    $q->whereRelation('studentSchool', function ($q) use ($search) {
-                        $q->where('school_id', $search->school_id);
-                    });
-                });
-            })
-            ->when($search->classroom_id, function ($query) use ($search) {
-                return $query->whereRelation('student.studentSchool.studentClassroom', function ($q) use ($search) {
-                    $q->where('classroom_id', $search->classroom_id);
-                });
-            })
-            ->when($search->school_year, function ($query) use ($search) {
-                return $query->whereRelation('student.studentSchool.studentClassroom.classroom.generation.schoolYear', function ($q) use ($search) {
-                    $q->where('id', $search->school_year);
-                });
+            ->whereRelation('student.studentSchool.classrooms', function ($q) use ($classroomId){
+                $q->where('classroom_id', $classroomId);
             })
             ->groupBy('student_id')
             ->selectRaw('student_id, sum(point) as point')

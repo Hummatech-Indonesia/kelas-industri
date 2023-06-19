@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Journal;
+use App\Models\Classroom;
 use Illuminate\View\View;
+use App\Models\SchoolYear;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 use App\Services\PointService;
 use App\Services\JournalService;
+use App\Helpers\SchoolYearHelper;
 use App\Services\ClassroomService;
 use App\Http\Requests\JournalRequest;
 use Illuminate\Http\RedirectResponse;
@@ -34,9 +38,7 @@ class JurnalController extends Controller
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data['schools'] =  $this->pointService->handleGetSchool();
             $data['filter'] =  $request->filter;
-            $data['journals'] = $this->journalService->handleGetJurnalByAdmin($request);
             return view('dashboard.admin.pages.jurnal.index', $data);
-
         } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
             $data['schools'] =  $this->pointService->handleGetSchool();
             $data['filter'] =  $request->filter;
@@ -65,9 +67,30 @@ class JurnalController extends Controller
         return to_route('teacher.journal.index')->with('success', trans('alert.update_success'));
     }
 
-    public function show()
+    public function show(User $journal, Request $request)
     {
+        $schoolYear = SchoolYearHelper::get_current_school_year();
+        $selectedSchoolYear = 0;
+        if($schoolYear){
+            $selectedSchoolYear = $schoolYear->id;
+        }
+        if($request->school_year){
+            $selectedSchoolYear = $request->school_year;
+        }
+        $data = [
+        'journal' => $journal->id,
+        'schoolYear' => SchoolYear::all(),
+        'schoolYearFilter' => $request->school_year,
+        'classrooms' => $this->classroomService->handleGetSchoolClassrooomJournal($journal->id, $selectedSchoolYear)
+        ];
+        return view('dashboard.admin.pages.jurnal.detail', $data);
+    }
 
+    public function detailJurnal(Classroom $classroom){
+        $data = [
+            'journals' => $this->journalService->handleGetJurnalByAdmin($classroom->id)
+        ];
+        return view('dashboard.admin.pages.jurnal.show', $data);
     }
 
     public function edit(Journal $journal): View

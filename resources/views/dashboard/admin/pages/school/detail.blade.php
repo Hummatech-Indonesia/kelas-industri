@@ -209,7 +209,7 @@
                                     <span class="fw-bolder font-size-h5">
 
                                         <span class="text-dark-50 font-weight-bold">
-                                            {{ count($school->students) }}
+                                            {{ count($school->schoolStudents) }}
                                         </span>
 
                                 </div>

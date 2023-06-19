@@ -15,6 +15,8 @@ class ProfileRequest extends BaseRequest
     public function rules(): array
     {
         return [
+            'current_password' => 'required|string',
+            'new_password' => 'required|confirmed|min:8|string',
             'avatar_remove' => 'nullable',
             'name' => 'required|string',
             'email' => ['required', Rule::unique('users')->ignore($this->user)],

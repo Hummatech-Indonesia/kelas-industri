@@ -55,7 +55,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/absent/{attendance}', [AttendanceController::class, 'show'])->name('showAbsent');
     Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
     Route::get('/report', [ReportController::class, 'index'])->name('report');
+    Route::get('/detailKelas/{school}', [ReportController::class, 'show'])->name('detailKelas');
+    Route::get('/detailSiswa/{classroom}', [ReportController::class, 'detail'])->name('detailSiswa');
     Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
+    Route::get('/detailJurnal/{classroom}',[JurnalController::class,'detailJurnal'])->name('detailJurnal');
 
     Route::resources([
         'schoolYears' => SchoolYearController::class,

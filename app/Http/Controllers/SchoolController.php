@@ -30,7 +30,7 @@ class SchoolController extends Controller
         if (request()->has('search')) {
             $schools = $this->service->handleSearch(request()->search);
             $parameters = request()->query();
-        }
+    }
         $data = [
             'schools' => $schools,
             'parameters' => $parameters

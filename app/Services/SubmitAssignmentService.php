@@ -19,9 +19,9 @@ class SubmitAssignmentService
         return $this->repository->get_count_student_assignment($studentId);
     }
 
-    public function handleGetReportStudent(Request $search) :mixed
+    public function handleGetReportStudent(string $classroomId) :mixed
     {
-        return $this->repository->getTotalPoint($search);
+        return $this->repository->getTotalPoint($classroomId);
     }
 
     public function handleGetTotalAssignment()

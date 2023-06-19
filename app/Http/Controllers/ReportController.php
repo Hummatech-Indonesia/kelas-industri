@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Classroom;
 use App\Models\SchoolYear;
 use Illuminate\Http\Request;
 use App\Services\UserServices;
@@ -26,20 +28,32 @@ class ReportController extends Controller
     public function index(Request $request)
     {
         $schoolYear = SchoolYearHelper::get_current_school_year();
+        $schoolFilter = $request->school_id;
+        $schools = $this->userService->handleGetAllSchool();
+        return view('dashboard.admin.pages.report.index', compact('schools', 'schoolFilter'));
+    }
+
+    public function show(User $school, Request $request)
+    {
+        $schoolYear = SchoolYearHelper::get_current_school_year();
         $selectedSchoolYear = 0;
         if($schoolYear){
             $selectedSchoolYear = $schoolYear->id;
         }
-        if (request()->ajax()) {
-            return $this->classroomService->handleGetBySchoolClassroom($request->schoolId);
+        if($request->school_year){
+            $selectedSchoolYear = $request->school_year;
         }
         $schoolYear = SchoolYear::all();
-        $reports = $this->submitAssignmentService->handleGetReportStudent($request, $selectedSchoolYear);
-        $schoolFilter = $request->school_id;
         $schoolYearFilter = $request->school_year;
-        $classroomFilter = $request->classroom_id;
+        $schools = $school->id;
+        $classrooms = $this->classroomService->handleGetSchoolClassrooomReport($schools, $selectedSchoolYear);
+        return view('dashboard.admin.pages.report.show', compact('schoolYear','classrooms', 'schoolYearFilter', 'schools'));
+
+    }
+
+    public function detail(Classroom $classroom){
+        $reports = $this->submitAssignmentService->handleGetReportStudent($classroom->id);
         $totalAssignment = $this->submitAssignmentService->handleGetTotalAssignment();
-        $schools = $this->userService->handleGetAllSchool();
-        return view('dashboard.admin.pages.report.index', compact('reports','totalAssignment','schools', 'schoolYear', 'schoolFilter', 'schoolYearFilter', 'classroomFilter'));
+        return view('dashboard.admin.pages.report.detail', compact('reports','totalAssignment'));
     }
 }

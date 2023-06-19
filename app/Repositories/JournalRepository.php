@@ -12,17 +12,10 @@ class JournalRepository extends BaseRepository
         $this->model = $journal;
     }
 
-    public function get_journal_by_admin(Request $request): mixed
+    public function get_journal_by_admin(string $classroomId): mixed
     {
         return $this->model->query()
-        ->when($request->filter,function($query) use ($request){
-            return $query
-            ->whereHas('classroom',function($query) use ($request){
-                $query->whereHas('school',function($query) use ($request){
-                    $query->where('id',$request->filter);
-                });
-            });
-        })
+        ->where('classroom_id', $classroomId)
         ->orderBy('date', 'desc')
         ->get();
     }
