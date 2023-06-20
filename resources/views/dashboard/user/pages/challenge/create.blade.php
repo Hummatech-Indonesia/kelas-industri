@@ -143,6 +143,7 @@
 
                                         <div class="row">
 
+                                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                             <div class="form-group row mb-3">
 
                                                 <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
@@ -164,6 +165,7 @@
                                                 </div>
 
                                             </div>
+                                            @endif
 
                                             <div class="form-group row mb-3">
 

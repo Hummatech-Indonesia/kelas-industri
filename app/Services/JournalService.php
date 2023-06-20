@@ -29,9 +29,9 @@ class JournalService
         return $this->repository->getAll();
     }
 
-    public function handleGetJurnalByAdmin(string $classroomId): mixed
+    public function handleGetJurnalByAdminAndSchool(string $classroomId): mixed
     {
-        return $this->repository->get_journal_by_admin($classroomId);
+        return $this->repository->get_journal_by_admin_and_school($classroomId);
     }
 
     public function handleGetJournalByUser(): mixed

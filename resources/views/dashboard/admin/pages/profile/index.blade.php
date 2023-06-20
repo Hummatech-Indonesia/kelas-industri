@@ -191,6 +191,10 @@
 
                             <!--begin::Actions-->
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+                                            data-bs-target="#kt_modal_1">
+                                            Ganti Password
+                                        </button>
 
                                 <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">
                                     Simpan
@@ -207,6 +211,76 @@
 
         </div>
 
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="kt_modal_1">
+        <form action="{{ route('profile.updatePassword', auth()->id()) }}" method="POST"
+            class="form">
+            @method('PATCH')
+            @csrf
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Ganti Password</h3>
+
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
+                                    class="path2"></span></i>
+                        </div>
+                        <!--end::Close-->
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group row mb-3">
+
+                            <label class="col-form-label required fw-semibold fs-6">Password Lama</label>
+
+                            <div class="col-lg-12 col-xl-12">
+
+                                <input class="form-control form-control-solid form-control-lg" name="current_password"
+                                    type="password" value="{{ old('title') }}" placeholder="Password Lama"
+                                    required="">
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row mb-3">
+
+                            <label class="col-form-label required fw-semibold fs-6">Password Baru</label>
+
+                            <div class="col-lg-12 col-xl-12">
+
+                                <input class="form-control form-control-solid form-control-lg" name="new_password"
+                                    type="password" value="{{ old('title') }}" placeholder="Masukkan Password Baru"
+                                    required="">
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row mb-3 ">
+
+                            <label class="col-form-label required fw-semibold fs-6">Konfirmasi Password</label>
+
+                            <div class="col-lg-12 col-xl-12">
+
+                                <input class="form-control form-control-solid form-control-lg"
+                                    name="new_password_confirmation" type="password" value="{{ old('title') }}"
+                                    placeholder="Konfirmasi Password" required="">
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 
 @endsection

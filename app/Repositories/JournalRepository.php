@@ -12,7 +12,7 @@ class JournalRepository extends BaseRepository
         $this->model = $journal;
     }
 
-    public function get_journal_by_admin(string $classroomId): mixed
+    public function get_journal_by_admin_and_school(string $classroomId): mixed
     {
         return $this->model->query()
         ->where('classroom_id', $classroomId)

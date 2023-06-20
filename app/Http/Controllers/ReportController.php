@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Classroom;
 use App\Models\SchoolYear;
+use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 use App\Services\UserServices;
 use App\Helpers\SchoolYearHelper;
@@ -14,6 +15,7 @@ use App\Services\SubmitAssignmentService;
 class ReportController extends Controller
 {
     //
+    use DataSidebar;
     private SubmitAssignmentService $submitAssignmentService;
     private UserServices $userService;
     private ClassroomService $classroomService;
@@ -27,10 +29,18 @@ class ReportController extends Controller
 
     public function index(Request $request)
     {
-        $schoolYear = SchoolYearHelper::get_current_school_year();
-        $schoolFilter = $request->school_id;
-        $schools = $this->userService->handleGetAllSchool();
-        return view('dashboard.admin.pages.report.index', compact('schools', 'schoolFilter'));
+        if (auth()->user()->roles->pluck('name')[0] == 'admin') {
+            $schoolYear = SchoolYearHelper::get_current_school_year();
+            $schoolFilter = $request->school_id;
+            $schools = $this->userService->handleGetAllSchool();
+            return view('dashboard.admin.pages.report.index', compact('schools', 'schoolFilter'));
+        }else{
+            $data = $this->GetDataSidebar();
+            $classroomId = Auth()->user()->teacherSchool->teacherClassroom->classroom->id;
+            $data['reports'] = $this->submitAssignmentService->handleGetReportStudent($classroomId);
+            $data['totalAssignment'] = $this->submitAssignmentService->handleGetTotalAssignment();
+        return view('dashboard.user.pages.raport.index', $data);
+        }
     }
 
     public function show(User $school, Request $request)

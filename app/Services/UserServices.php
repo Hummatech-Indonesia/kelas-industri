@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
+use Exception;
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Requests\MentorRequest;
+use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\TeacherRequest;
-use App\Models\User;
-use App\Repositories\UserRepository;
-use Exception;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserServices
@@ -28,21 +29,27 @@ class UserServices
      * @param User $user
      * @return void
      */
-    public function handleUpdateProfile(ProfileRequest $request, User $user): mixed
+    public function handleUpdateProfile(ProfileRequest $request, User $user): void
     {
         $data = $request->validated();
+
         if ($request->avatar_remove == 1 && Storage::exists('public/' . $user->photo)) {
             Storage::delete('public/' . $user->photo);
             $data['photo'] = null;
         }
 
         if ($request->hasFile('photo')) {
-            if (Storage::exists('public/' . $user->photo)) {
-                Storage::delete('public/' . $user->photo);
-            }
+            if (Storage::exists('public/' . $user->photo)) Storage::delete('public/' . $user->photo);
 
             $data['photo'] = $request->file('photo')->store('user_photo', 'public');
         }
+
+        $this->repository->update($user->id, $data);
+    }
+
+    Public function handleUpdatePassword(ProfileRequest $request , User $user) :mixed
+    {
+        $data = $request->validated();
 
         if (!Hash::check($request->get('current_password'), $user->password)) {
             return redirect()->back()->with('error', "Kata Sandi Saat Ini Tidak Valid");
@@ -57,6 +64,7 @@ class UserServices
 
         $this->repository->update($user->id, $data);
         return redirect()->back()->with("success", "Kata sandi telah diperbarui.");
+
     }
 
     /**

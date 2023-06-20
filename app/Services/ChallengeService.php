@@ -55,9 +55,9 @@ class ChallengeService
         if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             $data['point'] = 2;
         } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+            $data['classroom_id'] = Auth()->user()->teacherSchool->teacherClassroom->classroom->id;
             $data['point'] = 1;
         }
-
         $this->repository->store($data);
     }
 

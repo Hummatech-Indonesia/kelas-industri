@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\BaseRequest;
+use App\Http\Requests\SubmitAssignmentRequest;
+
 class SubmitAssignmentRequest extends BaseRequest
 {
     /**
@@ -17,11 +20,13 @@ class SubmitAssignmentRequest extends BaseRequest
         ];
     }
 
-    public function massage(): array
+    public function messages(): array
     {
         return [
-            'file.required' => 'File tidak boleh kosong !',
-            'file.mimes' => 'File harus format rar/zip !',
+            'file.required' => 'File tidak boleh kosong!',
+            'file.file' => 'File harus dalam format rar atau zip!',
+            'file.mimes' => 'File harus memiliki ekstensi rar atau zip!',
         ];
     }
+
 }

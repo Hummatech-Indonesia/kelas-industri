@@ -19,42 +19,11 @@
                             <!--begin::Page title-->
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
-                                <h1
+                                <h2
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Tugas
-                                </h1>
+                                    Tugas {{$subMaterial->title}}
+                                </h2>
                                 <!--end::Title-->
-
-                                <!--begin::Breadcrumb-->
-                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        <a href="../../index-2.html" class="text-muted text-hover-primary">
-                                            Home </a>
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Utilities </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Search </li>
-                                    <!--end::Item-->
-
-                                </ul>
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->

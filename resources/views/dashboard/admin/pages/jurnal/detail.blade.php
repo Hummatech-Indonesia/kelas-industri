@@ -96,16 +96,6 @@
                                                     </button>
                                                 </a>
                                             </td>
-                                            {{-- <td>{{ $report->student->studentSchool->studentClassroom->classroom->name }}
-                                            </td>
-                                            <td>{{ $report->student->studentSchool->studentClassroom->classroom->generation->generation }}
-                                                -
-                                                ({{ $report->student->studentSchool->studentClassroom->classroom->generation->schoolYear->school_year }})
-                                            </td> --}}
-                                            {{-- @php
-                                                $point = $report->point / $totalAssignment[array_search($report->student->studentSchool->studentClassroom->classroom->generation_id, $totalAssignment->pluck('id')->toArray())]->total_assignments;
-                                            @endphp
-                                            <td>{{ round($point, 1) }}</td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>

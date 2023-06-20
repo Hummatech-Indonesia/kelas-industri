@@ -106,6 +106,16 @@
                         </div>
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
+                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <a href="{{ route('teacher.report') }}"
+                                    class="menu-link {{ request()->routeIs('teacher.report') ? 'active' : '' }}">
+                                    <span class="menu-title">Raport</span></a>
+                            @endif
+
+                            <!--end:Menu link-->
+                        </div>
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                 <a href="{{ route('mentor.rankings') }}"
                                     class="menu-link {{ request()->routeIs('mentor.rankings') ? 'active' : '' }}">
@@ -134,7 +144,7 @@
             <div class="app-navbar flex-shrink-0">
 
                 <!--begin::My apps links-->
-                
+
                 <!--end::My apps links-->
 
                 <!--begin::User menu-->

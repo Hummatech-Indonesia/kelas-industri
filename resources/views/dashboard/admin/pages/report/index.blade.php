@@ -18,44 +18,6 @@
         </div>
     </div>
     <div class="content flex-column-fluid" id="kt_content">
-        <div class="row mb-5">
-            <div class="col">
-                <form id="form-search" action="{{ route('admin.report') }}">
-                    <!--begin::Card-->
-                    <div class="card">
-                        <!--begin::Card body-->
-                        <div class="card-body">
-                            <!--begin::Compact form-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Input group-->
-                                <div class="position-relative col-lg-10 col-md-12 me-2">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                    <select name="school_id" class="form-select form-select-solid me-5 mt-3"
-                                        data-control="select2" data-placeholder="Sekolah" id="schools">
-                                        
-                                        @foreach ($schools as $school)
-                                            <option {{ $schoolFilter == $school->id ? 'selected' : '' }}
-                                                value="{{ $school->id }}">
-                                                {{ $school->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-2 col-md-12 ms-3">
-                                    <button type="submit" class="btn btn-primary">Cari</button>
-                                    <a href="{{ route('admin.report') }}" type="button"
-                                        class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
-                                </div>
-                                <!--end::Input group-->
-                            </div>
-                            <!--end::Compact form-->
-                        </div>
-                        <!--end::Card body-->
-                    </div>
-                    <!--end::Card-->
-                </form>
-            </div>
-
-        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">

@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TeacherSchool extends Model
 {
@@ -31,5 +32,10 @@ class TeacherSchool extends Model
     public function teacherClassrooms(): HasMany
     {
         return $this->hasMany(TeacherClassroom::class);
+    }
+
+    public function teacherClassroom(): HasOne
+    {
+        return $this->hasOne(teacherClassroom::class)->latest();
     }
 }

@@ -134,7 +134,7 @@ class ChallengeController extends Controller
         $submitChallenge = SubmitChallenge::findorfail($id);
         $this->service->handleUpadetValid($submitChallenge->id);
         $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id);
-        return redirect()->back()->with('success', trans('alert.update_success'));
+        return redirect()->back()->with('success', trans('berhasil valid challenge'));
     }
 
     public function validChallengeTeacher($id): RedirectResponse
@@ -142,7 +142,7 @@ class ChallengeController extends Controller
         $submitChallenge = SubmitChallenge::findorfail($id);
         $this->service->handleUpadetValid($submitChallenge->id);
         $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id);
-        return redirect()->back()->with('success', trans('alert.update_success'));
+        return redirect()->back()->with('success', trans('berhasil valid challenge'));
     }
 
     /**

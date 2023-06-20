@@ -18,11 +18,26 @@ class ProfileRequest extends BaseRequest
             'current_password' => 'required|string',
             'new_password' => 'required|confirmed|min:8|string',
             'avatar_remove' => 'nullable',
-            'name' => 'required|string',
-            'email' => ['required', Rule::unique('users')->ignore($this->user)],
+            'name' => 'string',
+            'email' => [ Rule::unique('users')->ignore($this->user)],
             'phone_number' => 'max:15',
             'address' => 'string|nullable',
-            'photo' => 'mimes:png,jpg,jpeg|max:2048'
+            'photo' => 'mimes:png,jpg,jpeg|max:2048',
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'current_password.required' => 'Password lama tidak boleh kosong!',
+            'new_password.required' => 'Password baru tidak boleh kosong!',
+            'new_password.confirmed' => 'Konfirmasi password baru tidak cocok!',
+            'new_password.min' => 'Password baru harus terdiri dari minimal :min karakter!',
+            'email.unique' => 'Email sudah digunakan!',
+            'phone_number.max' => 'Nomor telepon maksimal :max karakter!',
+            'address.string' => 'Alamat harus berupa string!',
+            'photo.mimes' => 'Foto harus dalam format PNG, JPG, atau JPEG!',
+            'photo.max' => 'Ukuran foto tidak boleh melebihi :max kilobita!',
+        ];
+    }
+
 }

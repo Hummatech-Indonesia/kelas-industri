@@ -22,32 +22,48 @@
 
         <!--begin::Actions-->
         <!--end::Actions-->
-        @if (auth()->user()->roles->pluck('name')[0] == 'admin')
-            <form id="form-search" action="{{ route('admin.journal.index') }}">
-                <!--begin::Actions-->
-
-                <div class="d-flex align-items-center py-2 py-md-1">
-
-                    <!--begin::school year-->
-                    <select name="filter" class="form-select form-select-solid" placeholder="Select an option"
-                        data-control="select2">
-                        <option value="">Semua Sekolah</option>
-                        @foreach ($schools as $school)
-                            <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
-                                {{ $school->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <!--end::school yeaer-->
-                    <!--begin::Button-->
-                    <button type="submit" class="btn btn-primary ms-3">Cari</button>
-                    <!--end::Button-->
-                </div>
-            </form>
-        @else
-        @endif
     </div>
     <div class="content flex-column-fluid" id="kt_content">
+        @if (auth()->user()->roles->pluck('name')[0] == 'school')
+        <div class="row mb-5">
+            <div class="col">
+                <form id="form-search" action="{{route('school.journal.index')}}">
+                    <!--begin::Card-->
+                    <div class="card">
+                        <!--begin::Card body-->
+                        <div class="card-body">
+                            <!--begin::Compact form-->
+                            <div class="d-flex align-items-center">
+                                <!--begin::Input group-->
+                                <div class="position-relative col-lg-10 col-md-12 me-2">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                    <select name="school_year" class="form-select form-select-solid me-5 mt-3"
+                                        data-control="select2" data-placeholder="Tahun Ajaran">
+                                        @foreach ($schoolYear as $year)
+                                            <option {{ $schoolYearFilter == $year->id ? 'selected' : '' }}
+                                                value="{{ $year->id }}">
+                                                {{ $year->school_year }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-12 ms-3">
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                    <a href="{{route('school.journal.index')}}" type="button"
+                                        class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Compact form-->
+                        </div>
+                        <!--end::Card body-->
+                    </div>
+                    <!--end::Card-->
+                </form>
+            </div>
+
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -65,10 +81,7 @@
                                     <th>Sekolah</th>
                                     <th>Details</th>
                                     @else
-                                    <th>Pembuat</th>
                                     <th>Kelas</th>
-                                    <th>Judul</th>
-                                    <th>Tanggal</th>
                                     <th>Details</th>
                                     @endif
                                 </tr>
@@ -83,7 +96,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $school->name }}</td>
-                                        <td><a href="{{ route('admin.journal.show', [$school->id]) }}">
+                                        <td>
+                                            <a href="{{ route('admin.journal.show', [$school->id]) }}">
                                                 <button class="btn btn-default btn-sm p-1">
                                                     <i class="fa fa-eye fs-3 text-muted"></i>
                                                 </button>
@@ -92,22 +106,16 @@
                                         </tr>
                                         @endforeach
                                         @else
-                                        @foreach ($journals as $journal)
+                                        @foreach ($classrooms as $classroom)
                                         <tr>
                                             <td>{{ $loop->iteration}}</td>
-                                            <td>{{ $journal->user->name . $journal->user->roles->pluck('name')[0] }}</td>
-                                            <td>{{ $journal->classroom->name}}</td>
-                                            <td>{{ $journal->title }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}
-                                            </td>
+                                            <td>{{$classroom->name }}</td>
                                             <td>
-                                                <svg fill="#474761" type="button"
-                                                    data-description="{{ $journal->description }}" class="btn-description"
-                                                    xmlns="http://www.w3.org/2000/svg" height="30"
-                                                    viewBox="0 -960 960 960" width="30">
-                                                    <path
-                                                        d="M319-250h322v-60H319v60Zm0-170h322v-60H319v60ZM220-80q-24 0-42-18t-18-42v-680q0-24 18-42t42-18h361l219 219v521q0 24-18 42t-42 18H220Zm331-554h189L551-820v186Z" />
-                                                </svg>
+                                                <a href="{{ route('school.detailJurnal', [$classroom->id]) }}">
+                                                    <button class="btn btn-default btn-sm p-1">
+                                                        <i class="fa fa-eye fs-3 text-muted"></i>
+                                                    </button>
+                                                </a>
                                             </td>
                                         </tr>
                                         @endforeach

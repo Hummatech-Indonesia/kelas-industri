@@ -43,6 +43,7 @@ Auth::routes(['login' => true, 'register' => false]);
 Route::prefix('profile')->name('profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'edit'])->name('index');
     Route::patch('/update-profile/{user}', [ProfileController::class, 'update'])->name('update');
+    Route::patch('/update-password/{user}', [ProfileController::class, 'updatePassword'])->name('updatePassword');
 });
 
 //admin
@@ -89,10 +90,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         Route::get('/assignments/{submaterial}/create', [AssignmentController::class, 'create'])->name('createAssignment');
         Route::get('/{submaterial}/view/{role}', [SubMaterialController::class, 'viewMaterial'])->name('viewMaterial');
     });
-
-    // Route::get('/leaderboards', function () {
-    //     return view('dashboard.admin.pages.leaderboard.index');
-    // })->name('leaderboards');
 });
 //end admin
 
@@ -101,6 +98,8 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
     Route::get('/', function () {
         return view('dashboard.admin.layouts.app');
     });
+
+    Route::get('/detailJurnal/{classroom}',[JurnalController::class,'detailJurnal'])->name('detailJurnal');
 
     Route::post('/import-students', [StudentController::class, 'importStudents'])->name('importStudents');
     Route::resources([
@@ -133,12 +132,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
         'challenges' => ChallengeController::class,
         'journal' => JurnalController::class,
     ]);
-//    Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
-//    Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
-//    Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
-//    Route::get('/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
-//    Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
-//    Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+    Route::get('/report', [ReportController::class, 'index'])->name('report');
     Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
     Route::post('/storepoint', [AssignmentController::class, 'storePoint'])->name('storepoint');
     Route::post('validChallengeTeacher/{submitChallenge}', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
@@ -197,7 +191,7 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 
     Route::get('{classroom}/submitAssignment/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
-    Route::post('{classroom}/storeassignment/{submaterial}/{}', [UserAssignmentController::class, 'store'])->name('storeassignment');
+    Route::post('{classroom}/storeassignment/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
 
     Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
     Route::post('storeChallenge', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
@@ -209,19 +203,6 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::resources([
         'challenges' => ChallengeController::class,
     ]);
-
-    // Route::get('/sub-material', function () {
-    //     return view('dashboard.user.pages.material.submaterial');
-    // })->name('submaterial');
-    // Route::get('/sub-material/detail', function () {
-    //     return view('dashboard.user.pages.material.detail');
-    // })->name('submaterial-detail');
-    // Route::get('/challenges', function () {
-    //     return view('dashboard.user.pages.challenge.index');
-    // })->name('challenges');
-    // Route::get('/leaderboards', function () {
-    //     return view('dashboard.user.pages.leaderboard.index');
-    // })->name('leaderboards');
 });
 //end student
 

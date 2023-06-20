@@ -3,6 +3,7 @@
 
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+
         <!--begin::Content wrapper-->
         <div class="d-flex flex-column flex-column-fluid">
 
@@ -10,6 +11,7 @@
             <!--begin::Content-->
             <div id="kt_app_content" class="app-content  flex-column-fluid ">
                 <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-8 ">
+
 
                     <!--begin::Toolbar container-->
                     <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex flex-stack flex-wrap ">
@@ -29,6 +31,11 @@
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     <div class="row">
+                        @if ($errors->any())
+                            <div class="col-12">
+                                <x-errors-component />
+                            </div>
+                        @endif
                         <div class="col-12">
                             <div class="card">
                                 <form id="kt_account_profile_details_form"
@@ -179,6 +186,7 @@
                                             Simpan
                                         </button>
                                     </div>
+                                </form>
                             </div>
                             <!--end::Card body-->
                         </div>
@@ -193,8 +201,7 @@
     <!--end::Content wrapper-->
 
     <div class="modal fade" tabindex="-1" id="kt_modal_1">
-        <form action="{{ route('profile.update', auth()->id()) }}" method="POST"
-            class="form" enctype="multipart/form-data">
+        <form action="{{ route('profile.updatePassword', auth()->id()) }}" method="POST" class="form">
             @method('PATCH')
             @csrf
             <div class="modal-dialog">
@@ -254,8 +261,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </div>

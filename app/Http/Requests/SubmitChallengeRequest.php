@@ -19,11 +19,12 @@ class SubmitChallengeRequest extends BaseRequest
         ];
     }
 
-    public function massage(): array
-    {
-        return [
-            'file.required' => 'File tidak boleh kosong !',
-            'file.mimes' => 'File harus format rar/zip!',
-        ];
-    }
+    public function messages(): array
+{
+    return [
+        'file.required' => 'File tidak boleh kosong!',
+        'file.file' => 'File harus dalam format rar atau zip!',
+        'file.mimes' => 'File harus memiliki ekstensi rar atau zip!',
+    ];
+}
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\View\View;
 use App\Traits\DataSidebar;
+use Illuminate\Http\Request;
 use App\Services\UserServices;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Http\RedirectResponse;
@@ -48,5 +49,12 @@ class ProfileController extends Controller
         $this->services->handleUpdateProfile($request, $user);
 //        dd($user);
         return to_route('profile.index')->with('success', trans('alert.update_success'));
+    }
+
+    public function updatePassword(ProfileRequest $request, User $user): RedirectResponse
+    {
+        $this->services->handleUpdatePassword($request, $user);
+
+        return to_route('profile.index')->with('success', trans('Berhasil Update Password'));
     }
 }
