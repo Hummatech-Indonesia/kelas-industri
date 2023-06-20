@@ -34,10 +34,11 @@ class JurnalController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->GetDataSidebar();
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
-            $data['schools'] = $this->pointService->handleGetSchool();
-            $data['filter'] = $request->filter;
+            $data = [
+                'schools' => $this->pointService->handleGetSchool(),
+                'filter' => $request->filter,
+            ];
             return view('dashboard.admin.pages.jurnal.index', $data);
         } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
             $schoolYear = SchoolYearHelper::get_current_school_year();
@@ -48,11 +49,14 @@ class JurnalController extends Controller
             if ($request->school_year) {
                 $selectedSchoolYear = $request->school_year;
             }
-            $data['schoolYear'] = SchoolYear::all();
-            $data['schoolYearFilter'] = $request->school_year;
-            $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomJournal(auth()->id(), $selectedSchoolYear);
+            $data = [
+                'schoolYear' => SchoolYear::all(),
+                'schoolYearFilter' => $request->school_year,
+                'classrooms' => $this->classroomService->handleGetSchoolClassrooomJournal(auth()->id(), $selectedSchoolYear)
+            ];
             return view('dashboard.admin.pages.jurnal.index', $data);
         } else {
+            $data = $this->GetDataSidebar();
             $data['journals'] = $this->journalService->handleGetJournalByUser();
             return view('dashboard.user.pages.jurnal.index', $data);
         }

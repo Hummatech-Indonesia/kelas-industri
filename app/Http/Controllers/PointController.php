@@ -27,19 +27,24 @@ class PointController extends Controller
      */
     public function index(Request $request): View
     {
-        $data = $this->GetDataSidebar();
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+        
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
-            $data['schools'] = $this->services->handleGetSchool();
-            $data['filter'] = $request->filter;
-            $data['rankings'] = $this->services->handleGetPointStudent($request, $currentSchoolYear->id);
+            $data = [
+                'schools' => $this->services->handleGetSchool(),
+                'filter' => $request->filter,
+                'rankings' => $this->services->handleGetPointStudent($request, $currentSchoolYear->id),
+            ];
             return view('dashboard.admin.pages.leaderboard.index', $data);
         } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
-            $data['schools'] = $this->services->handleGetSchool();
-            $data['filter'] = $request->filter;
-            $data['rankings'] = $this->services->handleGetPointStudent($request, $currentSchoolYear->id);
+            $data = [
+                'schools' => $this->services->handleGetSchool(),
+                'filter' => $request->filter,
+                'rankings' => $this->services->handleGetPointStudent($request, $currentSchoolYear->id)
+            ];
             return view('dashboard.admin.pages.leaderboard.index', $data);
         } else {
+            $data = $this->GetDataSidebar();
             $data['schools'] = $this->services->handleGetSchool();
             $data['filter'] = $request->filter;
             $data['rankings'] = $this->services->handleGetPointStudent($request, $currentSchoolYear->id);
