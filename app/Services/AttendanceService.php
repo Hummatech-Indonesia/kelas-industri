@@ -33,7 +33,7 @@ class AttendanceService
 
     public function handleGetByAdmin(): mixed
     {
-        return $this->repository->getAll();
+        return $this->repository->get_all();
     }
 
     public function handleCreate(AttendanceRequest $request): void

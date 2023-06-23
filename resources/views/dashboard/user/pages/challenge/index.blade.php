@@ -297,7 +297,7 @@
 
                                         <!--begin::Description-->
 
-                                        <div class="mb-10 mt-5 font-weight-bold">
+                                        <div class="mb-10 mt-5 font-weight-bold" style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
                                             {{ $challenge->description }}
                                         </div>
 

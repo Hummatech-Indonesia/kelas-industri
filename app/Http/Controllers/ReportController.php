@@ -29,18 +29,18 @@ class ReportController extends Controller
 
     public function index(Request $request)
     {
-        if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $schoolYear = SchoolYearHelper::get_current_school_year();
             $schoolFilter = $request->school_id;
             $schools = $this->userService->handleGetAllSchool();
             return view('dashboard.admin.pages.report.index', compact('schools', 'schoolFilter'));
-        }else{
-            $data = $this->GetDataSidebar();
-            $classroomId = Auth()->user()->teacherSchool->teacherClassroom->classroom->id;
-            $data['reports'] = $this->submitAssignmentService->handleGetReportStudent($classroomId);
-            $data['totalAssignment'] = $this->submitAssignmentService->handleGetTotalAssignment();
+    }
+
+    public function showStudent(Classroom $classroom)
+    {
+        $data = $this->GetDataSidebar();
+        $data['reports'] = $this->submitAssignmentService->handleGetReportStudent($classroom->id);
+        $data['totalAssignment'] = $this->submitAssignmentService->handleGetTotalAssignment();
         return view('dashboard.user.pages.raport.index', $data);
-        }
     }
 
     public function show(User $school, Request $request)
@@ -65,5 +65,22 @@ class ReportController extends Controller
         $reports = $this->submitAssignmentService->handleGetReportStudent($classroom->id);
         $totalAssignment = $this->submitAssignmentService->handleGetTotalAssignment();
         return view('dashboard.admin.pages.report.detail', compact('reports','totalAssignment'));
+    }
+
+    public function showClassroom(Request $request){
+        $schoolYear = SchoolYearHelper::get_current_school_year();
+        $data = $this->GetDataSidebar();
+        $selectedSchoolYear = 0;
+        if ($schoolYear) {
+            $selectedSchoolYear = $schoolYear->id;
+        }
+        if ($request->school_year) {
+            $selectedSchoolYear = $request->school_year;
+        }
+        $schools = (auth()->user()->teacherSchool->school_id);
+        $data['schoolYear'] = SchoolYear::all();
+        $data['schoolYearFilter'] = $selectedSchoolYear;
+        $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomReport($schools, $selectedSchoolYear);
+        return view('dashboard.user.pages.raport.showClassroom', $data);
     }
 }

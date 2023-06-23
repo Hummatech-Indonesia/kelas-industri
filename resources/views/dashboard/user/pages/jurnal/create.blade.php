@@ -98,7 +98,7 @@
 
                                                         <select name="classroom_id" class="form-select form-select-solid"
                                                             data-control="select2" data-placeholder="Pilih kelas">
-                                                            <option value=""></option>
+                                                            
                                                             @foreach ($classrooms as $classroom)
                                                                 <option
                                                                     {{ old('classroom_id') == $classroom->classroom_id ? 'selected' : '' }}

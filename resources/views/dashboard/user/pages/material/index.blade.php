@@ -123,7 +123,7 @@
                     <div class="row">
                         <div class="row">
                             @forelse($materials as $material)
-                                <div class="col-xl-4 mb-3">
+                                <div class="col-xl-4 mb-5">
 
                                     <!--begin::Card-->
 
@@ -184,7 +184,7 @@
 
                                             <!--begin::Text-->
 
-                                            <p class="mb-7 mt-5">
+                                            <p class="mb-7 mt-5" style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
 
                                                 {{ $material->description }}
                                             </p>

@@ -36,6 +36,7 @@
                                         <th>No</th>
                                         <th>Pembuat</th>
                                         <th>Judul</th>
+                                        <th>Tanggal</th>
                                         <th>Status</th>
                                         <th>Details</th>
                                     </tr>
@@ -50,6 +51,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $attendance->mentor->name }}</td>
                                             <td>{{ $attendance->title }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($attendance->created_at)->locale('id')->isoFormat('D MMMM YYYY') }}
                                             <td>
                                                 @if ($attendance->status == 'open')
                                                     <span class="badge badge-light-success">{{ $attendance->status }}</span>

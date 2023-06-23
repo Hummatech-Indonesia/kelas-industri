@@ -54,7 +54,7 @@
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             <a href="{{ route('common.classrooms') }}"
-                                class="menu-link {{ request()->routeIs('common.classrooms') || request()->routeIs('common.classrooms') ? 'active' : '' }}"><span
+                                class="menu-link {{ request()->routeIs('common.classrooms') || request()->routeIs('common.classrooms') || request()->routeIs('common.showClassrooms') || request()->routeIs('mentor.showStudentDetail') || request()->routeIs('common.materials') || request()->routeIs('common.showMaterial') || request()->routeIs('common.showSubMaterial') || request()->routeIs('common.showDocument') || request()->routeIs('teacher.showStudentDetail') || request()->routeIs('teacher.showAssignment') || request()->routeIs('mentor.showAssignment') || request()->routeIs('student.submitAssignment') ? 'active' : '' }}"><span
                                     class="menu-title">Kelas</span></a>
                             <!--end:Menu link-->
                         </div>
@@ -68,15 +68,15 @@
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                 <a href="{{ route('teacher.challenges.index') }}"
-                                    class="menu-link {{ request()->routeIs('teacher.challenges.index') ? 'active' : '' }}"><span
+                                    class="menu-link {{ request()->routeIs('teacher.challenges.*') ? 'active' : '' }}"><span
                                         class="menu-title">Tantangan</span></a>
                             @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                 <a href="{{ route('mentor.challenges.index') }}"
-                                    class="menu-link {{ request()->routeIs('mentor.challenges.index') ? 'active' : '' }}"><span
+                                    class="menu-link {{ request()->routeIs('mentor.challenges.*') ? 'active' : '' }}"><span
                                         class="menu-title">Tantangan</span></a>
                             @elseif (auth()->user()->roles->pluck('name')[0] == 'student')
                                 <a href="{{ route('student.challenges.index') }}"
-                                    class="menu-link {{ request()->routeIs('student.challenges.index') ? 'active' : '' }}"><span
+                                    class="menu-link {{ request()->routeIs('student.challenges.*') || request()->routeIs('student.submitChallenge') ? 'active' : '' }}"><span
                                         class="menu-title">Tantangan</span></a>
                             @endif
                             <!--end:Menu link-->
@@ -85,7 +85,7 @@
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
                                 <a href="{{ route('mentor.attendance.index') }}"
-                                    class="menu-link {{ request()->routeIs('mentor.attendance.index') ? 'active' : '' }}"><span
+                                    class="menu-link {{ request()->routeIs('mentor.attendance.*') ? 'active' : '' }}"><span
                                         class="menu-title">Absen</span></a>
                                 <!--end:Menu link-->
                             </div>
@@ -94,11 +94,11 @@
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                 <a href="{{ route('mentor.journal.index') }}"
-                                    class="menu-link {{ request()->routeIs('mentor.journal.index') ? 'active' : '' }}">
+                                    class="menu-link {{ request()->routeIs('mentor.journal.*') ? 'active' : '' }}">
                                     <span class="menu-title">Jurnal</span></a>
                             @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                 <a href="{{ route('teacher.journal.index') }}"
-                                    class="menu-link {{ request()->routeIs('teacher.journal.index') ? 'active' : '' }}">
+                                    class="menu-link {{ request()->routeIs('teacher.journal.*') ? 'active' : '' }}">
                                     <span class="menu-title">Jurnal</span></a>
                             @endif
 
@@ -107,8 +107,8 @@
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                <a href="{{ route('teacher.report') }}"
-                                    class="menu-link {{ request()->routeIs('teacher.report') ? 'active' : '' }}">
+                                <a href="{{ route('teacher.showClassroom') }}"
+                                    class="menu-link {{ request()->routeIs('teacher.report') || request()->routeIs('teacher.showClassroom') || request()->routeIs('teacher.showStudentReport') ? 'active' : '' }}">
                                     <span class="menu-title">Raport</span></a>
                             @endif
 
@@ -119,11 +119,11 @@
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                 <a href="{{ route('mentor.exam.index') }}"
-                                    class="menu-link {{ request()->routeIs('mentor.exam.index') ? 'active' : '' }}">
+                                    class="menu-link {{ request()->routeIs('mentor.exam.index') || request()->routeIs('mentor.showStudent') ? 'active' : '' }}">
                                     <span class="menu-title">Ujian</span></a>
-                            @elseif (auth()->user()->roles->pluck('name')[0] =='teacher')
-                            <a href="{{ route('teacher.exam.index') }}"
-                                    class="menu-link {{ request()->routeIs('teacher.exam.index') ? 'active' : '' }}">
+                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <a href="{{ route('teacher.exam.index') }}"
+                                    class="menu-link {{ request()->routeIs('teacher.exam.index') || request()->routeIs('teacher.showStudent') ? 'active' : '' }}">
                                     <span class="menu-title">Ujian</span></a>
                             @endif
 
@@ -229,7 +229,8 @@
                         data-kt-menu="true" data-kt-element="theme-mode-menu">
                         <!--begin::Menu item-->
                         <div class="menu-item px-3 my-0">
-                            <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="light">
+                            <a href="#" class="menu-link px-3 py-2" data-kt-element="mode"
+                                data-kt-value="light">
                                 <span class="menu-icon" data-kt-element="icon">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen060.svg-->
                                     <span class="svg-icon svg-icon-3"><svg width="24" height="24"
@@ -274,7 +275,8 @@
 
                         <!--begin::Menu item-->
                         <div class="menu-item px-3 my-0">
-                            <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="dark">
+                            <a href="#" class="menu-link px-3 py-2" data-kt-element="mode"
+                                data-kt-value="dark">
                                 <span class="menu-icon" data-kt-element="icon">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen061.svg-->
                                     <span class="svg-icon svg-icon-3"><svg width="24" height="24"
@@ -304,7 +306,8 @@
 
                         <!--begin::Menu item-->
                         <div class="menu-item px-3 my-0">
-                            <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="system">
+                            <a href="#" class="menu-link px-3 py-2" data-kt-element="mode"
+                                data-kt-value="system">
                                 <span class="menu-icon" data-kt-element="icon">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen062.svg-->
                                     <span class="svg-icon svg-icon-3"><svg width="24" height="24"
@@ -330,7 +333,8 @@
                     <!--begin::Menu wrapper-->
                     <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
                         <span class="text-muted fs-8 fw-semibold lh-1 mb-1">{{ auth()->user()->name }}</span>
-                        <span class="text-white fs-8 fw-bold lh-1">{{ auth()->user()->roles->pluck('name')[0] }}</span>
+                        <span
+                            class="text-white fs-8 fw-bold lh-1">{{ auth()->user()->roles->pluck('name')[0] }}</span>
                     </div>
 
                     <div class="cursor-pointer symbol symbol-30px symbol-md-35px"

@@ -64,10 +64,20 @@ class ExamController extends Controller
             if ($request->school_year) {
                 $selectedSchoolYear = $request->school_year;
             }
-            $data['schoolYear'] = SchoolYear::all();
-            $data['schoolYearFilter'] = $request->school_year;
-            $data['classrooms'] = $this->classroomService->handleGetClassroomByUserJurnal(auth()->id());
-            return view('dashboard.user.pages.exam.index', $data, );
+            if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+                $schools = (auth()->user()->teacherSchool->school_id);
+                $data['schoolYear'] = SchoolYear::all();
+                $data['schoolYearFilter'] = $request->school_year;
+                $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomReport($schools, $selectedSchoolYear);
+                return view('dashboard.user.pages.exam.index', $data, );
+            } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
+                $schools = (auth()->user()->mentorClassrooms[0]->classroom->school_id);
+                $data['schoolYear'] = SchoolYear::all();
+                $data['schoolYearFilter'] = $request->school_year;
+                $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomReport($schools, $selectedSchoolYear);
+                return view('dashboard.user.pages.exam.index', $data, );
+            }
+
         }
     }
 

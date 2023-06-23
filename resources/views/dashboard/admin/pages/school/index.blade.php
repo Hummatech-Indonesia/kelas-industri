@@ -73,7 +73,7 @@
         </div>
         <div class="row">
             @forelse($schools as $school)
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-5">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-5 mb-5">
 
                     <!--begin::Card-->
 

@@ -22,7 +22,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Raport
+                                    Rapot
                                 </h1>
                                 <!--end::Title-->
 
@@ -39,7 +39,7 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        List nilai siswa pada kelas anda.
+                                        pilih kelas yang ingin anda lihat rapotnya.
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -53,11 +53,6 @@
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{ url()->previous() }}" class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                    <i class="bi bi-arrow-left me-2"></i> Kembali
-                                </a>
-                            </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <!--end::Actions-->
@@ -66,9 +61,43 @@
                     </div>
                     <!--end::Toolbar container-->
                 </div>
-
                 <!--begin::Content container-->
                 <div id="kt_content" class="app-container  container-fluid ">
+                    <div class="row">
+                        <form action="{{ route('teacher.showClassroom') }}">
+                            <!--begin::Card-->
+                            <div class="card mb-7">
+                                <!--begin::Card body-->
+                                <div class="card-body">
+                                    <!--begin::Compact form-->
+                                    <div class="d-flex align-items-center">
+                                        <!--begin::Input group-->
+                                        <div class="position-relative col-10">
+                                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                            <select name="school_year" class="form-select form-select-solid"
+                                                data-control="select2" data-placeholder="Tahun Ajaran">
+                                                @foreach ($schoolYear as $year)
+                                                    <option {{ $schoolYearFilter == $year->id ? 'selected' : '' }}
+                                                        value="{{ $year->id }}">
+                                                        {{ $year->school_year }}</option>
+                                                @endforeach
+                                            </select>
+                                            <!--end::Svg Icon-->
+                                        </div>
+                                        <div class="col-lg-2 col-md-12 ms-3">
+                                            <button type="submit" class="btn btn-primary">Cari</button>
+                                            <a href="{{ route('teacher.showClassroom') }}" type="button"
+                                                class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Compact form-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Card-->
+                        </form>
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -77,16 +106,15 @@
                                 <div class="card-body pt-0">
 
                                     <!--begin::Table-->
-                                    @if ($reports->count() > 0)
+                                    @if ($classrooms->count() > 0)
                                         <table id="kt_datatable_responsive"
                                             class="table table-striped border rounded gy-5 gs-7">
                                             <thead>
                                                 <!--begin::Table row-->
                                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                                     <th data-priority="1">No</th>
-                                                    <th data-priority="2">Nama</th>
-                                                    <th data-priority="3">Nilai</th>
-
+                                                    <th data-priority="2">Kelas</th>
+                                                    <th data-priority="3">Detail</th>
                                                 </tr>
                                                 <!--end::Table row-->
                                             </thead>
@@ -94,21 +122,24 @@
 
                                             <!--begin::Table body-->
                                             <tbody class="fw-semibold text-gray-600">
-                                                @foreach ($reports as $report)
+                                                @foreach ($classrooms as $classroom)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $report->student->name }}</td>
-                                                        @php
-                                                            $point = $report->point / $totalAssignment[array_search($report->student->studentSchool->studentClassroom->classroom->generation_id, $totalAssignment->pluck('id')->toArray())]->total_assignments;
-                                                        @endphp
-                                                        <td>{{ round($point, 1) }}</td>
+                                                        <td>{{ $classroom->name }}</td>
+                                                        <td>
+                                                            <a href="{{ route('teacher.showStudentReport', [$classroom->id]) }}">
+                                                                <button class="btn btn-default btn-sm p-1">
+                                                                    <i class="fa fa-eye fs-3 text-muted"></i>
+                                                                </button>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                             <!--end::Table body-->
                                         </table>
                                     @else
-                                        <x-empty-component title="raport" />
+                                        <x-empty-component title="ujian" />
                                     @endif
                                     <!--end::Table-->
                                 </div>

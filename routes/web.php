@@ -154,6 +154,8 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
         'exam' => ExamController::class,
     ]);
     Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
+    Route::get('/showStudentReport/{classroom}', [ReportController::class, 'showStudent'])->name('showStudentReport');
+    Route::get('/showClassroom', [ReportController::class, 'showClassroom'])->name('showClassroom');
     Route::get('/report', [ReportController::class, 'index'])->name('report');
     Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
     Route::post('/storepoint', [AssignmentController::class, 'storePoint'])->name('storepoint');

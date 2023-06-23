@@ -170,7 +170,7 @@
                         <!--end::Title-->
                     </div>
                     <div class="card-body">
-
+                        @if ($subMaterial->assignments->count() > 0)
                         <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                             <thead>
                             <tr class="fw-semibold fs-6 text-gray-800">
@@ -183,7 +183,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($subMaterial->assignments as $assignment)
+                            @foreach($subMaterial->assignments as $assignment)
                                 <tr>
                                     <td>{{ $assignment->title }}</td>
                                     <td>{{ $assignment->description }}</td>
@@ -208,11 +208,13 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @empty
-                                <x-empty-component title="tugas"/>
-                            @endforelse
+                            @endforeach
                             </tbody>
                         </table>
+                        @else
+                        <x-empty-component title="tugas"/>
+                        @endif
+
                     </div>
                 </div>
             </div>

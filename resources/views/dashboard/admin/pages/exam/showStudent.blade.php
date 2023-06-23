@@ -5,22 +5,38 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Report
+                Ujian
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                daftar nilai rata-rata siswa pada kelas industri
+                daftar nilai ujian siswa pada kelas industri
             </p>
             <!--end::Breadcrumb-->
         </div>
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{route('admin.showClassroom', [$students[0]->studentSchool->school_id])}}"
-                class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                <i class="bi bi-arrow-left me-2"></i> Kembali
-            </a>
+            @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                @if (isset($students[0]))
+                    <a href="{{ route('admin.showClassroom', [$students[0]->studentSchool->school_id]) }}"
+                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                    </a>
+                @else
+                    <a href="{{ url()->previous() }}"
+                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                    </a>
+                @endif
+            @else
+                <a href="{{ route('school.exam.index') }}"
+                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                    <i class="bi bi-arrow-left me-2"></i> Kembali
+                </a>
+            @endif
+
+
         </div>
     </div>
     <div class="content flex-column-fluid" id="kt_content">

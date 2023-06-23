@@ -131,7 +131,7 @@
 
                                                 <div class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
 
-                                                    <div style="width: 45vw">
+                                                    <div style="width: 45;" >
 
                                                         {{ $subMaterial->description }}
                                                     </div>
@@ -162,17 +162,10 @@
                                         <span class="card-label fw-bold text-gray-800">Tugas</span>
                                         <span class="text-gray-400 mt-1 fw-semibold fs-6">list tugas anda.</span>
                                     </h3>
-
-                                    {{-- <div class="my-lg-0 my-1">
-
-                                        <a href="{{ route('admin.submaterials.createAssignment', ['submaterial' => $subMaterial->id]) }}"
-                                           class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Tambah Tugas</a>
-
-                                    </div> --}}
-                                    <!--end::Title-->
                                 </div>
-                                <div class="card-body">
 
+                                <div class="card-body">
+                                    @if ($subMaterial->assignments->count() > 0)
                                     <table id="kt_datatable_responsive"
                                         class="table table-striped border rounded gy-5 gs-7">
                                         <thead>
@@ -186,7 +179,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse($subMaterial->assignments as $assignment)
+                                            @foreach($subMaterial->assignments as $assignment)
                                                 <tr>
                                                     <td>{{ $assignment->title }}</td>
                                                     <td>{{ $assignment->description }}</td>
@@ -247,23 +240,14 @@
                                                             @endif
                                                         @endif
                                                     </td>
-
-                                                    {{-- <td>
-                                                    <div class="d-flex">
-                                                        <a href="{{ route('admin.assignments.edit', $assignment->id) }}"
-                                                           class="btn btn-default btn-sm p-1"><i
-                                                                class="fonticon-setting fs-2 text-warning"></i></a>
-                                                        <button class="btn btn-default btn-sm p-1 btn-delete"
-                                                                data-id="{{ $assignment->id }}"><i
-                                                                class="fonticon-trash-bin fs-2 text-danger"></i></button>
-                                                    </div>
-                                                </td> --}}
                                                 </tr>
-                                            @empty
-                                                <x-empty-component title="tugas" />
-                                            @endforelse
+                                            @endforeach
+
                                         </tbody>
                                     </table>
+                                    @else
+                                    <x-empty-component title="tugas" />
+                                    @endif
                                 </div>
                             </div>
                         </div>

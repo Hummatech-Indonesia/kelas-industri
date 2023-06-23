@@ -50,12 +50,14 @@ class UserClassroomController extends Controller
 
     public function show(Classroom $classroom): View
     {
-        $data = $this->GetDataSidebar();
         if(auth()->user()->roles->pluck('name')[0] == 'admin'){
-            $data['classroom'] = $classroom;
-            $data['students'] = $this->studentService->handleGetBySchool(auth()->id());
+            $data = [
+                'students' => $this->studentService->handleGetBySchool(auth()->id()),
+                'classroom' => $classroom,
+            ];
             return \view ('dashboard.admin.pages.classroom.show', $data);
         }else
+        $data = $this->GetDataSidebar();
         $data['classroom'] = $classroom;
         $data['students'] = $this->studentService->handleGetBySchool(auth()->id());
         return \view ('dashboard.user.pages.classroom.detail', $data);

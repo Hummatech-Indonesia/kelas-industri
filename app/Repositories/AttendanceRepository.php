@@ -17,6 +17,12 @@ class AttendanceRepository extends BaseRepository
         $this->submitAttendance = $submitAttendance;
     }
 
+    public function get_all()
+    {
+        return $this->model->query()
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
     /**
      * get challenge by teacher
      *

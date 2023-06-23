@@ -22,7 +22,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Niali Ujian
+                                    Nilai Ujian
                                 </h1>
                                 <!--end::Title-->
 
@@ -64,7 +64,11 @@
                 <!--begin::Content container-->
                 <div id="kt_content" class="app-container  container-fluid ">
                     <div class="row">
-                        <form id="form-search" action="{{ route('mentor.exam.index') }}">
+                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                        <form action="{{ route('mentor.exam.index') }}">
+                        @elseif(auth()->user()->roles->pluck('name')[0] == 'teacher')
+                        <form action="{{ route('teacher.exam.index') }}">
+                        @endif
                             <!--begin::Card-->
                             <div class="card mb-7">
                                 <!--begin::Card body-->
@@ -86,8 +90,13 @@
                                         </div>
                                         <div class="col-lg-2 col-md-12 ms-3">
                                             <button type="submit" class="btn btn-primary">Cari</button>
+                                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                             <a href="{{ route('mentor.exam.index') }}" type="button"
                                                 class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                            <a href="{{ route('teacher.exam.index') }}" type="button"
+                                                class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                                            @endif
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -125,16 +134,16 @@
                                                 @foreach ($classrooms as $classroom)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $classroom->classroom->name }}</td>
+                                                        <td>{{ $classroom->name }}</td>
                                                         <td>
-                                                            @if (auth()->user()->roles->pluck('name') == 'mentor')
-                                                            <a href="{{ route('mentor.showStudent', [$classroom->classroom_id]) }}">
+                                                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                            <a href="{{ route('mentor.showStudent', [$classroom->id]) }}">
                                                                 <button class="btn btn-default btn-sm p-1">
                                                                     <i class="fa fa-eye fs-3 text-muted"></i>
                                                                 </button>
                                                             </a>
-                                                            @else
-                                                            <a href="{{ route('teacher.showStudent', [$classroom->classroom_id]) }}">
+                                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                            <a href="{{ route('teacher.showStudent', [$classroom->id]) }}">
                                                                 <button class="btn btn-default btn-sm p-1">
                                                                     <i class="fa fa-eye fs-3 text-muted"></i>
                                                                 </button>
