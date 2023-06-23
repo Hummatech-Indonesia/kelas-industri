@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\MentorRequest;
-use App\Models\MentorClassroom;
-use App\Models\User;
-use App\Services\ClassroomService;
-use App\Services\MentorService;
-use App\Services\UserServices;
-use App\Traits\YajraTable;
 use Exception;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use function request;
+use Illuminate\View\View;
+use App\Traits\YajraTable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
-use function request;
+use App\Services\UserServices;
+use App\Models\MentorClassroom;
+use App\Services\MentorService;
+use App\Helpers\SchoolYearHelper;
+use App\Services\ClassroomService;
+use App\Http\Requests\MentorRequest;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\UserPasswordRequest;
 
 class MentorController extends Controller
 {
@@ -103,7 +104,6 @@ class MentorController extends Controller
     public function actionRollingMentor(Request $request): RedirectResponse
     {
         $this->mentorService->handleStore($request);
-
         return back()->with('success', trans('alert.add_success'));
     }
 
@@ -192,5 +192,20 @@ class MentorController extends Controller
         if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    public function ChangePasswordMentor(User $mentor): view
+    {
+        $data = [
+            'mentor' => $mentor,
+        ];
+        return view('dashboard.admin.pages.mentor.changePassword', $data);
+    }
+
+    public function updatePasswordMentor(UserPasswordRequest $request, User $mentor): RedirectResponse
+    {
+        $this->userService->handleChangePassword($request, $mentor->id);
+
+        return to_route('admin.mentors.index')->with('success', trans('alert.update_success'));
     }
 }

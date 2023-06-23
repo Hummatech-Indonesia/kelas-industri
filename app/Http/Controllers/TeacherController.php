@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\TeacherRequest;
-use App\Models\MentorClassroom;
-use App\Models\TeacherClassroom;
 use App\Models\User;
-use App\Services\ClassroomService;
-use App\Services\TeacherService;
-use App\Services\UserServices;
+use Illuminate\View\View;
 use App\Traits\YajraTable;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
+use App\Services\UserServices;
+use App\Models\MentorClassroom;
+use App\Models\TeacherClassroom;
+use App\Services\TeacherService;
+use App\Helpers\SchoolYearHelper;
+use App\Services\ClassroomService;
+use App\Http\Requests\TeacherRequest;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\UserPasswordRequest;
 
 class   TeacherController extends Controller
 {
@@ -177,5 +178,20 @@ class   TeacherController extends Controller
         if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    public function ChangePasswordTeacher(User $teacher): view
+    {
+        $data = [
+            'teacher' => $teacher,
+        ];
+        return view('dashboard.admin.pages.teacher.changePassword', $data);
+    }
+
+    public function updatePasswordGuru(UserPasswordRequest $request, User $teacher): RedirectResponse
+    {
+        $this->userServices->handleChangePassword($request, $teacher->id);
+
+        return to_route('school.teachers.index')->with('success', trans('alert.update_success'));
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Challenge;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MentorController;
@@ -59,7 +59,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/detailKelas/{school}', [ReportController::class, 'show'])->name('detailKelas');
     Route::get('/detailSiswa/{classroom}', [ReportController::class, 'detail'])->name('detailSiswa');
     Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
-    Route::get('/detailJurnal/{classroom}',[JurnalController::class,'detailJurnal'])->name('detailJurnal');
+    Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
 
     Route::resources([
         'schoolYears' => SchoolYearController::class,
@@ -72,7 +72,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'zoomSchedules' => ZoomScheduleController::class,
         'journal' => JurnalController::class,
         'attendance' => AttendanceController::class,
+        'exam' => ExamController::class,
     ]);
+
+    Route::get('/showClassroom/{school}', [ExamController::class, 'showClassroom'])->name('showClassroom');
+    Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
+    Route::get('/showEvaluation/{student}', [ExamController::class, 'showEvaluation'])->name('showEvaluation');
 
     Route::prefix('rolling-mentor')->name('rollingMentor.')->group(function () {
         Route::get('/', [MentorController::class, 'rollingMentor'])->name('index');
@@ -90,6 +95,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         Route::get('/assignments/{submaterial}/create', [AssignmentController::class, 'create'])->name('createAssignment');
         Route::get('/{submaterial}/view/{role}', [SubMaterialController::class, 'viewMaterial'])->name('viewMaterial');
     });
+
+    //changepwmentor
+    Route::get('/gantiPasswordMentor/{mentor}', [MentorController::class, 'ChangePasswordMentor'])->name('gantiPasswordMentor');
+    Route::patch('/updatePasswordMentor/{mentor}', [MentorController::class, 'updatePasswordMentor'])->name('updatePasswordMentor');
+    //changepwsteacher
+    Route::get('/gantiPasswordGuru/{teacher}', [TeacherController::class, 'ChangePasswordTeacher'])->name('gantiPasswordGuru');
+    Route::patch('/updatePasswordGuru/{teacher}', [TeacherController::class, 'updatePasswordGuru'])->name('updatePasswordGuru');
 });
 //end admin
 
@@ -99,15 +111,17 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
         return view('dashboard.admin.layouts.app');
     });
 
-    Route::get('/detailJurnal/{classroom}',[JurnalController::class,'detailJurnal'])->name('detailJurnal');
-
+    Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
     Route::post('/import-students', [StudentController::class, 'importStudents'])->name('importStudents');
     Route::resources([
         'classrooms' => ClassroomController::class,
         'students' => StudentController::class,
         'teachers' => TeacherController::class,
         'journal' => JurnalController::class,
+        'exam' => ExamController::class,
     ]);
+
+    Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
 
     Route::prefix('rolling-teacher')->name('rollingTeacher.')->group(function () {
         Route::get('/', [TeacherController::class, 'rollingTeacher'])->name('index');
@@ -122,6 +136,12 @@ Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->g
     });
 
     Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
+    //changepwstudent
+    Route::get('/gantiPassword/{student}', [StudentController::class, 'ChangePassword'])->name('gantiPassword');
+    Route::patch('/updatePassword/{student}', [StudentController::class, 'updatePassword'])->name('updatePassword');
+    //changepwsteacher
+    Route::get('/gantiPasswordGuru/{teacher}', [TeacherController::class, 'ChangePasswordTeacher'])->name('gantiPasswordGuru');
+    Route::patch('/updatePasswordGuru/{teacher}', [TeacherController::class, 'updatePasswordGuru'])->name('updatePasswordGuru');
 
 });
 //end schools
@@ -131,18 +151,20 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::resources([
         'challenges' => ChallengeController::class,
         'journal' => JurnalController::class,
+        'exam' => ExamController::class,
     ]);
+    Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
     Route::get('/report', [ReportController::class, 'index'])->name('report');
     Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
     Route::post('/storepoint', [AssignmentController::class, 'storePoint'])->name('storepoint');
     Route::post('validChallengeTeacher/{submitChallenge}', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
     Route::post('storePointAssignment/{submitAssingnment}', [PointController::class, 'storePointAssignment'])->name('storePointAssignment');
-    Route::get('downloadAllFile/{classroom}/{assignment}',[UserAssignmentController::class,'downloadAll'])->name('downloadAll');
-    Route::get('downloadFile/{submitAssignment}',[UserAssignmentController::class,'download'])->name('downloadAssignment');
+    Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
+    Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
     Route::get('/showStudentDetail/{student}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
     Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
-    Route::get('/downloadAllFile/{challenge}',[ChallengeController::class,'downloadAll'])->name('downloadAllFile');
-    Route::get('/downloadFileChallenge/{submitChallenge}',[ChallengeController::class,'download'])->name('downloadFileChallenge');
+    Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
+    Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
 });
 //end teacher
 
@@ -152,16 +174,20 @@ Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->g
         'challenges' => ChallengeController::class,
         'attendance' => AttendanceController::class,
         'journal' => JurnalController::class,
+        'exam' => ExamController::class,
     ]);
+
+    Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
+
     Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
     Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
     Route::get('/showStudentDetail/{student}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
     Route::post('validChallenge/{submitChallenge}', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
-    Route::get('/downloadAllFile/{challenge}',[ChallengeController::class,'downloadAll'])->name('downloadAllFile');
-    Route::get('/downloadFileChallenge/{submitChallenge}',[ChallengeController::class,'download'])->name('downloadFileChallenge');
-    Route::get('downloadAllFile/{classroom}/{assignment}',[UserAssignmentController::class,'downloadAll'])->name('downloadAll');
-    Route::get('downloadFile/{submitAssignment}',[UserAssignmentController::class,'download'])->name('downloadAssignment');
+    Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
+    Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
+    Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
+    Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
 });
 //end mentor
 
@@ -195,10 +221,10 @@ Route::prefix('student')->name('student.')->group(function () {
 
     Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
     Route::post('storeChallenge', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
-    Route::get('/absen/{attendance}',[AttendanceController::class,'submit']);
+    Route::get('/absen/{attendance}', [AttendanceController::class, 'submit']);
 
-    Route::get('/downloadFile/{submitChallenge}',[ChallengeController::class,'download'])->name('downloadChallenge');
-    Route::get('downloadFile/{submitAssignment}',[UserAssignmentController::class,'download'])->name('downloadAssignment');
+    Route::get('/downloadFile/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadChallenge');
+    Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
 
     Route::resources([
         'challenges' => ChallengeController::class,

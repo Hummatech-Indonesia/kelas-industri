@@ -184,4 +184,9 @@ class ClassroomService
     {
         return $this->repository->get_school_classroom_journal($schoolId, $year);
     }
+
+    public function handleGetStudent(string $classroomId) :mixed
+    {
+        return $this->repository->get_student_by_classroom($classroomId);
+    }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Exam;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StudentClassroom extends Model
 {
@@ -20,6 +22,16 @@ class StudentClassroom extends Model
     public function studentSchool(): BelongsTo
     {
         return $this->belongsTo(StudentSchool::class);
+    }
+
+    /**
+     * Get the user that owns the StudentClassroom
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function exam(): HasOne
+    {
+        return $this->HasOne(Exam::class,'student_classroom_id');
     }
 
     /**

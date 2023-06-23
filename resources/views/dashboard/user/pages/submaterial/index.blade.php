@@ -161,7 +161,7 @@
 
                                         <!--begin::Text-->
 
-                                        <p class="mb-7 mt-5">
+                                        <p class="mb-7 mt-5" style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
 
                                             {{ $subMaterial->description }}
                                         </p>

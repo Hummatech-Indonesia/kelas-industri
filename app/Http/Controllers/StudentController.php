@@ -2,27 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StudentRequest;
-use App\Imports\StudentImport;
-use App\Models\User;
-use App\Services\StudentService;
-use App\Traits\YajraTable;
 use Exception;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Models\User;
 use Illuminate\View\View;
+use App\Traits\YajraTable;
+use Illuminate\Http\Response;
+use App\Imports\StudentImport;
+use App\Services\UserServices;
+use App\Services\StudentService;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\StudentRequest;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\UserPasswordRequest;
+use App\Http\Requests\StudentPasswordRequest;
 
 class StudentController extends Controller
 {
     use YajraTable;
 
     private StudentService $studentService;
+    private UserServices $userService;
 
-    public function __construct(StudentService $studentService)
+    public function __construct(StudentService $studentService, UserServices $userService)
     {
         $this->studentService = $studentService;
+        $this->userService = $userService;
     }
 
     /**
@@ -33,7 +37,9 @@ class StudentController extends Controller
      */
     public function index(): mixed
     {
-        if (request()->ajax()) return $this->StudentMockup($this->studentService->handleGetBySchool(auth()->id()));
+        if (request()->ajax()) {
+            return $this->StudentMockup($this->studentService->handleGetBySchool(auth()->id()));
+        }
 
         return view('dashboard.admin.pages.student.index');
     }
@@ -108,7 +114,9 @@ class StudentController extends Controller
     {
         $data = $this->studentService->handleDelete($student);
 
-        if (!$data) return back()->with('error', trans('alert.delete_constrained'));
+        if (!$data) {
+            return back()->with('error', trans('alert.delete_constrained'));
+        }
 
         return back()->with('success', trans('alert.delete_success'));
     }
@@ -134,8 +142,25 @@ class StudentController extends Controller
      */
     public function rollingStudent(): mixed
     {
-        if (request()->ajax()) return $this->RollingStudentMockup($this->studentService->handleGetBySchool(auth()->id()));
+        if (request()->ajax()) {
+            return $this->RollingStudentMockup($this->studentService->handleGetBySchool(auth()->id()));
+        }
 
         return view('dashboard.admin.pages.student.rolling');
+    }
+
+    public function ChangePassword(User $student): view
+    {
+        $data = [
+            'student' => $student,
+        ];
+        return view('dashboard.admin.pages.student.changePassword', $data);
+    }
+
+    public function updatePassword(UserPasswordRequest $request, User $student): RedirectResponse
+    {
+        $this->userService->handleChangePassword($request, $student->id);
+
+        return to_route('school.students.index')->with('success', trans('alert.update_success'));
     }
 }

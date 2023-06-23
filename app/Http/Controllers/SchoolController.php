@@ -94,7 +94,6 @@ class SchoolController extends Controller
     public function update(SchoolRequest $request, User $school): RedirectResponse
     {
         $this->service->handleUpdate($request, $school);
-
         return to_route('admin.schools.index')->with('success', trans('alert.update_success'));
     }
 

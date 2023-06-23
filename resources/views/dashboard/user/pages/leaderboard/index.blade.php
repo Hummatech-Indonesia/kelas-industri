@@ -70,7 +70,7 @@
                                         <div class="d-flex align-items-center py-2 py-md-1">
 
                                             <!--begin::school year-->
-                                            <select name="filter" class="form-select form-select-solid me-5"
+                                            <select name="filter" class="form-select form-select-solid"
                                                 placeholder="Select an option" data-control="select2">
                                                 <option value="">Semua Sekolah</option>
                                                 @foreach ($schools as $school)
@@ -82,7 +82,7 @@
                                             </select>
                                             <!--end::school yeaer-->
                                             <!--begin::Button-->
-                                            <button type="submit" class="btn btn-primary">Cari</button>
+                                            <button type="submit" class="btn btn-primary ms-3">Cari</button>
                                             <!--end::Button-->
                                         </div>
                                     </form>
@@ -92,7 +92,7 @@
                                         <div class="d-flex align-items-center py-2 py-md-1">
 
                                             <!--begin::school year-->
-                                            <select name="filter" class="form-select form-select-solid me-5"
+                                            <select name="filter" class="form-select form-select-solid"
                                                 placeholder="Select an option" data-control="select2">
                                                 <option value="">Semua Sekolah</option>
                                                 @foreach ($schools as $school)
@@ -104,7 +104,7 @@
                                             </select>
                                             <!--end::school yeaer-->
                                             <!--begin::Button-->
-                                            <button type="submit" class="btn btn-primary">Cari</button>
+                                            <button type="submit" class="btn btn-primary ms-3">Cari</button>
                                             <!--end::Button-->
                                         </div>
                                     </form>
@@ -123,11 +123,11 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
+                                @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                 <div class="card-header">
                                     <!--begin::Title-->
-                                    @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                        <h3 class="card-title align-items-start flex-column">
-                                            @php
+                                    <h3 class="card-title align-items-start flex-column">
+                                        @php
                                                 $ranking = $rankings->search(function ($rank) {
                                                     return $rank->student_id === auth()->id();
                                                 });
@@ -151,63 +151,57 @@
                                                     Anda Berada Pada Ranking {{ $ranking + 1 }}
                                                 @endif
                                             </span>
-
                                         </h3>
-                                    @else
-                                        <h3 class="card-title align-items-start flex-column">
-                                            <span class="card-label fw-bold text-gray-800">Peringkat</span>
-                                            <span class="text-gray-400 mt-1 fw-semibold fs-6">Daftar siswa dengan nilai
-                                                terbaik di kelas
-                                                industri.</span>
-                                        </h3>
+                                        <!--end::Title-->
+                                    </div>
                                     @endif
-                                    {{-- @dd($rankings->search) --}}
-                                    </h3>
-                                    <!--end::Title-->
-                                </div>
-                                <div class="card-body">
+                                    <div class="card-body">
+                                @if($rankings->count() > 0)
+                                <table id="kt_datatable_responsive"
+                                class="table table-striped border rounded gy-5 gs-7">
+                                <thead>
+                                    <tr class="fw-semibold fs-6 text-gray-800">
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Sekolah</th>
+                                        <th>Point</th>
 
-                                    <table id="kt_datatable_responsive"
-                                        class="table table-striped border rounded gy-5 gs-7">
-                                        <thead>
-                                            <tr class="fw-semibold fs-6 text-gray-800">
-                                                <th>No</th>
-                                                <th>Nama</th>
-                                                <th>Sekolah</th>
-                                                <th>Point</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($rankings as $key => $ranking)
+                                        <tr>
+                                            @if ($key == 0)
+                                                <td><img width="50px"
+                                                        src="{{ asset('storage/medal_file/gold-medal.png') }}"
+                                                        alt=""></td>
+                                            @elseif ($key == 1)
+                                                <td><img width="50px"
+                                                        src="{{ asset('storage/medal_file/silver-medal.png') }}"
+                                                        alt=""></td>
+                                            @elseif ($key == 2)
+                                                <td><img width="50px"
+                                                        src="{{ asset('storage/medal_file/bronze-medal.png') }}"
+                                                        alt=""></td>
+                                            @else
+                                                <td>
+                                                    <div class="d-flex justify-content-center items-center"
+                                                        style="width:50px; height:50px; ">
+                                                        <p>{{ $loop->iteration }}</p>
+                                                    </div>
+                                                </td>
+                                            @endif
+                                            <td>{{ $ranking->student->name }}</td>
+                                            <td>{{ $ranking->student->studentSchool->school->name }}</td>
+                                            <td>{{ $ranking->point }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                                @else
+                                <x-empty-component title="ranking" />
+                                @endif
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($rankings as $key => $ranking)
-                                                <tr>
-                                                    @if ($key == 0)
-                                                        <td><img width="50px"
-                                                                src="{{ asset('storage/medal_file/gold-medal.png') }}"
-                                                                alt=""></td>
-                                                    @elseif ($key == 1)
-                                                        <td><img width="50px"
-                                                                src="{{ asset('storage/medal_file/silver-medal.png') }}"
-                                                                alt=""></td>
-                                                    @elseif ($key == 2)
-                                                        <td><img width="50px"
-                                                                src="{{ asset('storage/medal_file/bronze-medal.png') }}"
-                                                                alt=""></td>
-                                                    @else
-                                                        <td>
-                                                            <div class="d-flex justify-content-center items-center"
-                                                                style="width:50px; height:50px; ">
-                                                                <p>{{ $loop->iteration }}</p>
-                                                            </div>
-                                                        </td>
-                                                    @endif
-                                                    <td>{{ $ranking->student->name }}</td>
-                                                    <td>{{ $ranking->student->studentSchool->school->name }}</td>
-                                                    <td>{{ $ranking->point }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>

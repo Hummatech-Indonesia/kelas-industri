@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
-use App\Http\Requests\TeacherRequest;
 use App\Models\User;
-use App\Repositories\TeacherClassroomRepository;
-use App\Repositories\TeacherRepository;
-use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use App\Repositories\UserRepository;
+use App\Http\Requests\TeacherRequest;
+use App\Repositories\TeacherRepository;
+use App\Http\Requests\UserPasswordRequest;
+use App\Repositories\TeacherClassroomRepository;
 
 class TeacherService
 {
@@ -95,7 +96,7 @@ class TeacherService
         ]);
         $data['teacher_school_id'] = $request->teacher_school_id;
         $data['classroom_id'] = $request->classroom_id;
-        
+
         $this->teacherClassroomRepository->store($data, $data);
     }
 

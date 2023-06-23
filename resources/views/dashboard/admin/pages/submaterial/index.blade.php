@@ -83,7 +83,6 @@
                 <div class="col-xl-4 mb-3">
 
                     <!--begin::Card-->
-
                     <div class="card card-custom gutter-b card-stretch">
 
                         <!--begin::Body-->
@@ -153,7 +152,7 @@
 
                             <!--begin::Text-->
 
-                            <p class="mb-7 mt-5">
+                            <p class="mb-7 mt-5" style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
 
                                 {{ $subMaterial->description }}
                             </p>

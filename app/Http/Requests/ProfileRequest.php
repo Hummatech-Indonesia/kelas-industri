@@ -15,8 +15,6 @@ class ProfileRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'current_password' => 'required|string',
-            'new_password' => 'required|confirmed|min:8|string',
             'avatar_remove' => 'nullable',
             'name' => 'string',
             'email' => [ Rule::unique('users')->ignore($this->user)],
@@ -28,10 +26,6 @@ class ProfileRequest extends BaseRequest
     public function messages(): array
     {
         return [
-            'current_password.required' => 'Password lama tidak boleh kosong!',
-            'new_password.required' => 'Password baru tidak boleh kosong!',
-            'new_password.confirmed' => 'Konfirmasi password baru tidak cocok!',
-            'new_password.min' => 'Password baru harus terdiri dari minimal :min karakter!',
             'email.unique' => 'Email sudah digunakan!',
             'phone_number.max' => 'Nomor telepon maksimal :max karakter!',
             'address.string' => 'Alamat harus berupa string!',

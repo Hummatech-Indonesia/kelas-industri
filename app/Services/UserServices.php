@@ -10,7 +10,9 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\TeacherRequest;
+use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UserPasswordRequest;
 
 class UserServices
 {
@@ -47,7 +49,7 @@ class UserServices
         $this->repository->update($user->id, $data);
     }
 
-    Public function handleUpdatePassword(ProfileRequest $request , User $user) :mixed
+    Public function handleUpdatePassword(PasswordRequest $request , User $user) :mixed
     {
         $data = $request->validated();
 
@@ -194,4 +196,14 @@ class UserServices
     {
         return $this->repository->destroy($mentor->id);
     }
+
+    public function handleChangePassword(UserPasswordRequest $request, string $id): void
+    {
+        $data = $request->validated();
+
+        $this->repository->update($id, [
+            'password' => bcrypt($data['password']),
+        ]);
+    }
+
 }

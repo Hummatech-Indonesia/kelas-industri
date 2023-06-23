@@ -58,7 +58,7 @@
                                     value="{{ $parameters['search'] ?? '' }}" placeholder="Search">
                             </div>
                             <div class="col-lg-2 col-md-12 ms-3">
-                                <button class="btn btn-primary ms-3" id="btn-search">Cari</button>
+                                <button class="btn btn-primary" id="btn-search">Cari</button>
                                 <a href="{{ route('admin.schools.index') }}" type="button"
                                 class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
                             </div>

@@ -30,6 +30,8 @@ class Classroom extends Model
         return $this->hasMany(StudentClassroom::class);
     }
 
+    
+
     /**
      * one to many relationship
      *

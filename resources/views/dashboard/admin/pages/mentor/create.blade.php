@@ -49,7 +49,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('school.classrooms.index') }}"
+                                <a href="{{ route('admin.mentors.index') }}"
                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>

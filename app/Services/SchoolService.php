@@ -70,11 +70,9 @@ class SchoolService
         $data = $request->validated();
         if($request->hasFile('photo')){
             Storage::delete('public/' . $school->photo);
-
             $data['photo'] = $request->file('photo')->store('school-logo', 'public');
         }
-        $data['password'] = bcrypt('password');
-
+        $data['password'] = bcrypt($data['password']);
         $this->repository->update($school->id, $data);
     }
 

@@ -2,11 +2,14 @@
 
 namespace App\Services;
 
+use App\Http\Requests\UserPasswordRequest;
 use App\Http\Requests\StudentRequest;
+use App\Models\StudentSchool;
 use App\Models\User;
 use App\Repositories\StudentRepository;
 use App\Repositories\UserRepository;
 use Exception;
+use Illuminate\Http\Request;
 
 class StudentService
 {
@@ -48,7 +51,7 @@ class StudentService
 
         $data = [
             'student_id' => $user->id,
-            'school_id' => auth()->id()
+            'school_id' => auth()->id(),
         ];
 
         $this->repository->store($data);

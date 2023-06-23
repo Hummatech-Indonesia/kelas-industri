@@ -50,7 +50,7 @@
                                 <th>No Telepon</th>
                                 <th>No Rekening</th>
                                 <th>Bank</th>
-                                <th class="text-end min-w-70px">Aksi</th>
+                                <th>Aksi</th>
                             </tr>
                             <!--end::Table row-->
                             </thead>

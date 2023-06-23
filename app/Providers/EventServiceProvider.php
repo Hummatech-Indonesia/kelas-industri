@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Exam;
 use App\Models\User;
 use App\Models\Journal;
 use App\Models\Material;
@@ -10,6 +11,7 @@ use App\Models\Classroom;
 use App\Models\Assignment;
 use App\Models\Attendance;
 use App\Models\SubMaterial;
+use App\Observers\ExamObserver;
 use App\Observers\UserObserver;
 use App\Observers\JournalObserver;
 use App\Observers\MaterialObserver;
@@ -50,6 +52,7 @@ class EventServiceProvider extends ServiceProvider
         Challenge::observe(ChallengeObserver::class);
         Attendance::observe(AttendanceObserver::class);
         Journal::observe(JournalObserver::class);
+        Exam::observe(ExamObserver::class);
     }
 
     /**

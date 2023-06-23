@@ -16,7 +16,7 @@
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('home')}}">
+                    <a class="menu-link" href="{{ route('home') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen008.svg-->
@@ -241,9 +241,10 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item" >
+                    <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('admin.report') ? 'active' : '' }}" href="{{route('admin.report')}}">
+                        <a class="menu-link {{ request()->routeIs('admin.report') ? 'active' : '' }}"
+                            href="{{ route('admin.report') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
@@ -261,11 +262,45 @@
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('admin.journal.index') ? 'active' : '' }}" href="{{route('admin.journal.index')}}">
+                        <a class="menu-link {{ request()->routeIs('admin.exam.*') ? 'active' : '' }}"
+                            href="{{ route('admin.exam.index') }}">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
+
+                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-06-08-055059/core/html/src/media/icons/duotune/general/gen005.svg-->
+                                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3"
+                                                d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"
+                                                fill="currentColor" />
+                                            <rect x="7" y="17" width="6" height="2"
+                                                rx="1" fill="currentColor" />
+                                            <rect x="7" y="12" width="10" height="2"
+                                                rx="1" fill="currentColor" />
+                                            <rect x="7" y="7" width="6" height="2"
+                                                rx="1" fill="currentColor" />
+                                            <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                <!--end::Svg Icon-->
+                            </span>
+                            <span class="menu-title">Ujian</span></a>
+                        <!--end:Menu link-->
+                    </div>
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{ request()->routeIs('admin.journal.index') ? 'active' : '' }}"
+                            href="{{ route('admin.journal.index') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x">
-                                    <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M140-80q-24 0-42-18t-18-42v-620h60v620h620v60H140Zm120-120q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h560q24 0 42 18t18 42v560q0 24-18 42t-42 18H260Zm287-342 93-57 93 57v-278H547v278Z"/></svg>
+                                    <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="48"
+                                        viewBox="0 -960 960 960" width="48">
+                                        <path
+                                            d="M140-80q-24 0-42-18t-18-42v-620h60v620h620v60H140Zm120-120q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h560q24 0 42 18t18 42v560q0 24-18 42t-42 18H260Zm287-342 93-57 93 57v-278H547v278Z" />
+                                    </svg>
                                 </span>
                                 <!--end::Svg Icon-->
                             </span>
@@ -277,7 +312,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('admin.rankings') ? 'active' : '' }}" href="{{ route('admin.rankings') }}">
+                        <a class="menu-link {{ request()->routeIs('admin.rankings') ? 'active' : '' }}"
+                            href="{{ route('admin.rankings') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/arrows/arr056.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
@@ -351,7 +387,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a href="{{route('admin.absent')}}" class="menu-link {{ request()->routeIs('admin.absent') ? 'active' : '' }}" >
+                        <a href="{{ route('admin.absent') }}"
+                            class="menu-link {{ request()->routeIs('admin.absent') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen037.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
@@ -469,7 +506,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('school.students.index') ? 'active' : '' }}" href="{{ route('school.students.index') }}">
+                        <a class="menu-link {{ request()->routeIs('school.students.index') ? 'active' : '' }}"
+                            href="{{ route('school.students.index') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/communication/com014.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
@@ -493,11 +531,45 @@
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('school.journal.index') ? 'active' : '' }}" href="{{route('school.journal.index')}}">
+                        <a class="menu-link {{ request()->routeIs('school.exam.*') ? 'active' : '' }}"
+                            href="{{ route('school.exam.index') }}">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
+
+                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-06-08-055059/core/html/src/media/icons/duotune/general/gen005.svg-->
+                                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3"
+                                                d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"
+                                                fill="currentColor" />
+                                            <rect x="7" y="17" width="6" height="2"
+                                                rx="1" fill="currentColor" />
+                                            <rect x="7" y="12" width="10" height="2"
+                                                rx="1" fill="currentColor" />
+                                            <rect x="7" y="7" width="6" height="2"
+                                                rx="1" fill="currentColor" />
+                                            <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                <!--end::Svg Icon-->
+                            </span>
+                            <span class="menu-title">Ujian</span></a>
+                        <!--end:Menu link-->
+                    </div>
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{ request()->routeIs('school.journal.index') ? 'active' : '' }}"
+                            href="{{ route('school.journal.index') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x">
-                                    <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M140-80q-24 0-42-18t-18-42v-620h60v620h620v60H140Zm120-120q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h560q24 0 42 18t18 42v560q0 24-18 42t-42 18H260Zm287-342 93-57 93 57v-278H547v278Z"/></svg>
+                                    <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="48"
+                                        viewBox="0 -960 960 960" width="48">
+                                        <path
+                                            d="M140-80q-24 0-42-18t-18-42v-620h60v620h620v60H140Zm120-120q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h560q24 0 42 18t18 42v560q0 24-18 42t-42 18H260Zm287-342 93-57 93 57v-278H547v278Z" />
+                                    </svg>
                                 </span>
                                 <!--end::Svg Icon-->
                             </span>
@@ -506,7 +578,8 @@
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('school.rankings') ? 'active' : '' }}" href="{{ route('school.rankings') }}">
+                        <a class="menu-link {{ request()->routeIs('school.rankings') ? 'active' : '' }}"
+                            href="{{ route('school.rankings') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/arrows/arr056.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"

@@ -34,7 +34,6 @@ License: For each use you must have a valid license purchased only from above li
     <link href="{{ asset('app-assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('app-assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <!--end::Global Stylesheets Bundle-->
-
     {{--    Plugin Stylesheets --}}
     <link href="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
           type="text/css"/>
@@ -45,6 +44,7 @@ https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
 " rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="{{ asset('app-assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
     <style>
         #pdfviewer {

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Services\UserServices;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\PasswordRequest;
 
 class ProfileController extends Controller
 {
@@ -51,7 +52,7 @@ class ProfileController extends Controller
         return to_route('profile.index')->with('success', trans('alert.update_success'));
     }
 
-    public function updatePassword(ProfileRequest $request, User $user): RedirectResponse
+    public function updatePassword(PasswordRequest $request, User $user): RedirectResponse
     {
         $this->services->handleUpdatePassword($request, $user);
 

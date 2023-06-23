@@ -219,44 +219,86 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="form-group row mb-3">
+                        <div class="row">
+                            <div class="fv-row" data-kt-password-meter="true">
+                                <label class="col-xl-5 col-lg-5 col-form-label required fw-semibold fs-6">Password Lama</label>
+                                <div class="form-group row mb-3">
+                                    <div class="col-lg-12 col-xl-12">
+                                        <div class="position-relative mb-3">
+                                            <input class="form-control form-control-lg form-control-solid"
+                                                type="password" placeholder="masukkan password lama" name="current_password" autocomplete="off" />
 
-                            <label class="col-form-label required fw-semibold fs-6">Password Lama</label>
+                                            <!--begin::Visibility toggle-->
+                                            <span
+                                                class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                data-kt-password-meter-control="visibility">
+                                                <i class="fa-solid fa-eye-slash fs-3"><span
+                                                    class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span><span class="path4"></span></i>
+                                                <i class="fa-solid fa-eye d-none fs-3"><span
+                                                    class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></i>
 
-                            <div class="col-lg-12 col-xl-12">
-
-                                <input class="form-control form-control-solid form-control-lg" name="current_password"
-                                    type="password" value="{{ old('title') }}" placeholder="Password Lama"
-                                    required="">
-
+                                            </span>
+                                            <!--end::Visibility toggle-->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
-                        <div class="form-group row mb-3">
+                        <div class="row">
+                            <div class="fv-row" data-kt-password-meter="true">
+                                <label class="col-xl-5 col-lg-5 col-form-label required fw-semibold fs-6">Password Baru</label>
+                                <div class="form-group row mb-3">
+                                    <div class="col-lg-12 col-xl-12">
+                                        <div class="position-relative mb-3">
+                                            <input class="form-control form-control-lg form-control-solid"
+                                                type="password" placeholder="masukkan password baru" name="new_password" autocomplete="off" />
 
-                            <label class="col-form-label required fw-semibold fs-6">Password Baru</label>
+                                            <!--begin::Visibility toggle-->
+                                            <span
+                                                class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                data-kt-password-meter-control="visibility">
+                                                <i class="fa-solid fa-eye-slash fs-3"><span
+                                                    class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span><span class="path4"></span></i>
+                                                <i class="fa-solid fa-eye d-none fs-3"><span
+                                                    class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></i>
 
-                            <div class="col-lg-12 col-xl-12">
-
-                                <input class="form-control form-control-solid form-control-lg" name="new_password"
-                                    type="password" value="{{ old('title') }}" placeholder="Masukkan Password Baru"
-                                    required="">
-
+                                            </span>
+                                            <!--end::Visibility toggle-->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
-                        <div class="form-group row mb-3 ">
+                        <div class="row">
+                            <div class="fv-row" data-kt-password-meter="true">
+                                <label class="col-xl-5 col-lg-5 col-form-label required fw-semibold fs-6">Konfirmasi Password Baru</label>
+                                <div class="form-group row mb-3">
+                                    <div class="col-lg-12 col-xl-12">
+                                        <div class="position-relative mb-3">
+                                            <input class="form-control form-control-lg form-control-solid"
+                                                type="password" placeholder="konfirmasi password baru" name="new_password_confirmation" autocomplete="off" />
 
-                            <label class="col-form-label required fw-semibold fs-6">Konfirmasi Password</label>
+                                            <!--begin::Visibility toggle-->
+                                            <span
+                                                class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                data-kt-password-meter-control="visibility">
+                                                <i class="fa-solid fa-eye-slash fs-3"><span
+                                                    class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span><span class="path4"></span></i>
+                                                <i class="fa-solid fa-eye d-none fs-3"><span
+                                                    class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></i>
 
-                            <div class="col-lg-12 col-xl-12">
-
-                                <input class="form-control form-control-solid form-control-lg"
-                                    name="new_password_confirmation" type="password" value="{{ old('title') }}"
-                                    placeholder="Konfirmasi Password" required="">
-
+                                            </span>
+                                            <!--end::Visibility toggle-->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
 
