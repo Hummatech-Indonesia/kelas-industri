@@ -16,7 +16,7 @@
                 <!--begin:Menu item-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{ route('home') }}">
+                    <a class="menu-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen008.svg-->
@@ -247,7 +247,7 @@
                             href="{{ route('admin.report') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
-                                <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
+                                <span class="svg-icon svg-icon-muted svg-icon-2qx"><svg width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path opacity="0.3"
                                             d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22Z"
@@ -268,7 +268,7 @@
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
 
                                     <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-06-08-055059/core/html/src/media/icons/duotune/general/gen005.svg-->
-                                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                                    <span class="svg-icon svg-icon-muted svg-icon-2qx">
                                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path opacity="0.3"
@@ -295,13 +295,12 @@
                             href="{{ route('admin.journal.index') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
-                                <span class="svg-icon svg-icon-muted svg-icon-2x">
-                                    <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="48"
-                                        viewBox="0 -960 960 960" width="48">
-                                        <path
-                                            d="M140-80q-24 0-42-18t-18-42v-620h60v620h620v60H140Zm120-120q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h560q24 0 42 18t18 42v560q0 24-18 42t-42 18H260Zm287-342 93-57 93 57v-278H547v278Z" />
+                                <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.3" d="M18 22C19.7 22 21 20.7 21 19C21 18.5 20.9 18.1 20.7 17.7L15.3 6.30005C15.1 5.90005 15 5.5 15 5C15 3.3 16.3 2 18 2H6C4.3 2 3 3.3 3 5C3 5.5 3.1 5.90005 3.3 6.30005L8.7 17.7C8.9 18.1 9 18.5 9 19C9 20.7 7.7 22 6 22H18Z" fill="currentColor"/>
+                                    <path d="M18 2C19.7 2 21 3.3 21 5H9C9 3.3 7.7 2 6 2H18Z" fill="currentColor"/>
+                                    <path d="M9 19C9 20.7 7.7 22 6 22C4.3 22 3 20.7 3 19H9Z" fill="currentColor"/>
                                     </svg>
-                                </span>
+                                    </span>
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-title">Jurnal</span></a>
@@ -564,13 +563,12 @@
                             href="{{ route('school.journal.index') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
-                                <span class="svg-icon svg-icon-muted svg-icon-2x">
-                                    <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="48"
-                                        viewBox="0 -960 960 960" width="48">
-                                        <path
-                                            d="M140-80q-24 0-42-18t-18-42v-620h60v620h620v60H140Zm120-120q-24 0-42-18t-18-42v-560q0-24 18-42t42-18h560q24 0 42 18t18 42v560q0 24-18 42t-42 18H260Zm287-342 93-57 93 57v-278H547v278Z" />
+                                <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.3" d="M18 22C19.7 22 21 20.7 21 19C21 18.5 20.9 18.1 20.7 17.7L15.3 6.30005C15.1 5.90005 15 5.5 15 5C15 3.3 16.3 2 18 2H6C4.3 2 3 3.3 3 5C3 5.5 3.1 5.90005 3.3 6.30005L8.7 17.7C8.9 18.1 9 18.5 9 19C9 20.7 7.7 22 6 22H18Z" fill="currentColor"/>
+                                    <path d="M18 2C19.7 2 21 3.3 21 5H9C9 3.3 7.7 2 6 2H18Z" fill="currentColor"/>
+                                    <path d="M9 19C9 20.7 7.7 22 6 22C4.3 22 3 20.7 3 19H9Z" fill="currentColor"/>
                                     </svg>
-                                </span>
+                                    </span>
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-title">Jurnal</span></a>
