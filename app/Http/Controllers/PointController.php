@@ -28,7 +28,7 @@ class PointController extends Controller
     public function index(Request $request): View
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
-        
+
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data = [
                 'schools' => $this->services->handleGetSchool(),

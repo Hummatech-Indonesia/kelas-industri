@@ -81,7 +81,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @if ($rankings->count() > 0)
+                        @if ($rankings->count() > 0 )
                             <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                 <thead>
                                     <tr class="fw-semibold fs-6 text-gray-800">

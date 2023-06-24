@@ -180,7 +180,7 @@
                                     </a>
                                     <!--end:Menu link-->
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.materials.*') || request()->routeIs('admin.submaterials.*')  && !request()->routeIs('admin.materials.create') ? 'active' : '' }}"
+                                    <a class="menu-link {{ request()->routeIs('admin.materials.index') || request()->routeIs('admin.submaterials.*') ? 'active' : '' }}"
                                         href="{{ route('admin.materials.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">List Materi</span>

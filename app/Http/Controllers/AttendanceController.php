@@ -27,8 +27,8 @@ class AttendanceController extends Controller
      */
     public function index(): View
     {
-        $data = $this->GetDataSidebar();
         if(auth()->user()->roles->pluck('name')[0] == 'mentor'){
+            $data = $this->GetDataSidebar();
             $data['attendances'] = $this->service->handleGetByMentor();
             return view('dashboard.user.pages.absent.index', $data);
         }else
