@@ -54,7 +54,7 @@
                                 <!--end::Breadcrumb-->
                             </div>
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                @if (auth()->user()->roles->pluck('name') == 'mentor')
+                                @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                 <a href="{{ route('mentor.exam.index') }}"
                                     class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali

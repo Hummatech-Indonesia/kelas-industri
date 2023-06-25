@@ -1,5 +1,9 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
+@php
+    use Carbon\Carbon;
+@endphp
+
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
         <!--begin::Page title-->
@@ -187,9 +191,9 @@
                                 <tr>
                                     <td>{{ $assignment->title }}</td>
                                     <td>{{ $assignment->description }}</td>
-                                    <td><span class="badge badge-light-primary">{{ $assignment->start_date }}</span>
+                                    <td><span class="badge badge-light-primary">{{ \Carbon\Carbon::parse($assignment->start_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
                                     </td>
-                                    <td><span class="badge badge-light-danger">{{ $assignment->end_date }}</span></td>
+                                    <td><span class="badge badge-light-danger">{{ \Carbon\Carbon::parse($assignment->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</td>
                                     <td>
                                         @if(strtotime(now()) <= strtotime($assignment->end_date))
                                             <span class="badge badge-light-success">Tersedia</span>

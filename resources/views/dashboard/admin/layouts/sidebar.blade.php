@@ -180,7 +180,7 @@
                                     </a>
                                     <!--end:Menu link-->
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.materials.index') || request()->routeIs('admin.submaterials.*') ? 'active' : '' }}"
+                                    <a class="menu-link {{ request()->routeIs('admin.materials.index') || request()->routeIs('admin.submaterials.*') || request()->routeIs('admin.materials.show') ? 'active' : '' }}"
                                         href="{{ route('admin.materials.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">List Materi</span>
@@ -224,7 +224,7 @@
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">List Mentor</span>
                                     </a>
-                                    <!--end:Menu link-->
+                                    <!--end:Menu link--
                                     <!--begin:Menu link-->
                                     <a class="menu-link {{ request()->routeIs('admin.rollingMentor.*') ? 'active' : '' }}"
                                         href="{{ route('admin.rollingMentor.index') }}">

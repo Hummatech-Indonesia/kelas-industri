@@ -75,8 +75,8 @@
                                             class="table table-striped border rounded gy-5 gs-7">
                                             <thead>
                                                 <tr class="fw-semibold fs-6 text-gray-800">
-                                                    <th class="min-w-100px" data-priority="1">Judul</th>
-                                                    <th class="min-w-200px">Deskripsi</th>
+                                                    <th class="min-w-300px" data-priority="1">Judul</th>
+                                                    <th class="min-w-300px">Deskripsi</th>
                                                     <th class="min-w-100px"data-priority="2">Dimulai</th>
                                                     <th class="min-w-100px"data-priority="3">Berakhir</th>
                                                     <th class="min-w-100px"data-priority="4">Status</th>
