@@ -80,7 +80,7 @@ class ReportController extends Controller
         $schools = (auth()->user()->teacherSchool->school_id);
         $data['schoolYear'] = SchoolYear::all();
         $data['schoolYearFilter'] = $selectedSchoolYear;
-        $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomReport($schools, $selectedSchoolYear);
+        $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomTeacher(auth()->id(),$schools, $selectedSchoolYear);
         return view('dashboard.user.pages.raport.showClassroom', $data);
     }
 }

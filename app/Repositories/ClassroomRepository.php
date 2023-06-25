@@ -193,6 +193,31 @@ class ClassroomRepository extends BaseRepository
             ->get();
     }
 
+    public function get_school_classroom_mentor(string $mentorId, $year):mixed
+    {
+        return $this->mentorClassroom->query()
+                    ->where('mentor_id', $mentorId)
+                    ->whereRelation('classroom.generation.schoolYear', function ($q) use ($year){
+                        $q->where('id', $year);
+                    })
+                    ->get();
+    }
+
+    public function get_school_classroom_teacher(string $teacherId,string $schoolId, $year):mixed
+    {
+        return $this->teacherClassroom->query()
+                    ->whereRelation('teacherSchool', function ($q) use ($teacherId){
+                        $q->where('teacher_id', $teacherId);
+                    })
+                    ->whereRelation('teacherSchool', function ($q) use ($schoolId){
+                        $q->where('school_id', $schoolId);
+                    })
+                    ->whereRelation('classroom.generation.schoolYear', function ($q) use ($year){
+                        $q->where('id', $year);
+                    })
+                    ->get();
+    }
+
     public function get_school_classroom_journal(string $schoolId,$year) :mixed
     {
         return $this->model->query()

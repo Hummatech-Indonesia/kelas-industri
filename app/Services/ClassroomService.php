@@ -189,4 +189,14 @@ class ClassroomService
     {
         return $this->repository->get_student_by_classroom($classroomId);
     }
+
+    public function handleGetSchoolClassrooomMentor(string $mentorId, $year) :mixed
+    {
+        return $this->repository->get_school_classroom_mentor($mentorId, $year);
+    }
+
+    public function handleGetSchoolClassrooomTeacher(string $teacherId, string $schoolId, $year) :mixed
+    {
+        return $this->repository->get_school_classroom_teacher($teacherId, $schoolId, $year);
+    }
 }

@@ -134,10 +134,10 @@
                                                 @foreach ($classrooms as $classroom)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $classroom->name }}</td>
+                                                        <td>{{ $classroom->classroom->name }}</td>
                                                         <td>
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                            <a href="{{ route('mentor.showStudent', [$classroom->id]) }}">
+                                                            <a href="{{ route('mentor.showStudent', [$classroom->classroom->id]) }}">
                                                                 <button class="btn btn-default btn-sm p-1">
                                                                     <i class="fa fa-eye fs-3 text-muted"></i>
                                                                 </button>
