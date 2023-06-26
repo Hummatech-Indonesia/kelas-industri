@@ -41,10 +41,25 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{ url()->previous() }}"
-                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                    <i class="bi bi-arrow-left me-2"></i> Kembali
-                                </a>
+                                @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                            <a href="{{route('mentor.challenges.index')}}"
+                                                class="btn btn-light-primary font-weight-bolder me-2">
+                                                <i class="bi bi-arrow-left me-2"></i>
+                                                Kembali
+                                            </a>
+                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                            <a href="{{route('teacher.challenges.index')}}"
+                                                class="btn btn-light-primary font-weight-bolder me-2">
+                                                <i class="bi bi-arrow-left me-2"></i>
+                                                Kembali
+                                            </a>
+                                            @else
+                                            <a href="{{route('student.challenges.index')}}"
+                                                class="btn btn-light-primary font-weight-bolder me-2">
+                                                <i class="bi bi-arrow-left me-2"></i>
+                                                Kembali
+                                            </a>
+                                            @endif
                             </div>
                             <!--end::Actions-->
                         </div>

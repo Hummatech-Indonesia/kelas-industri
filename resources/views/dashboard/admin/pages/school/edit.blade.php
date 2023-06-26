@@ -167,7 +167,7 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <input class="form-control form-control-solid form-control-lg" name="password_confirmation" type="password" value="" placeholder="password" required="">
+                                        <input class="form-control form-control-solid form-control-lg" name="password_confirmation" type="password" value="" placeholder="password">
 
                                     </div>
 

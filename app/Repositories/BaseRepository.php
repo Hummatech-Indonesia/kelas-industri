@@ -76,7 +76,7 @@ abstract class BaseRepository implements BaseInterface
     public function destroy(mixed $id): mixed
     {
         $destroy = $this->show($id);
-
+        
         try {
             $destroy = $destroy->delete($id);
         } catch (QueryException $e) {

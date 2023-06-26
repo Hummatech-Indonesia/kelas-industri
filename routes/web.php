@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MentorController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
@@ -34,9 +36,7 @@ use App\Http\Controllers\UserAssignmentController;
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);
 
 Auth::routes(['login' => true, 'register' => false]);
 

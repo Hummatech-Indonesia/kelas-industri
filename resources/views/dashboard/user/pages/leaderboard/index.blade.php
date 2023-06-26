@@ -41,76 +41,6 @@
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
-                            <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                    <form id="form-search" action="{{ route('student.rankings') }}">
-                                        <!--begin::Actions-->
-                                        <div class="d-flex align-items-center py-2 py-md-1">
-
-                                            <!--begin::school year-->
-                                            <select name="filter" class="form-select form-select-solid me-5"
-                                                placeholder="Select an option" data-control="select2">
-                                                <option value="">Semua Sekolah </option>
-                                                @foreach ($schools as $school)
-                                                    <option {{ $filter == $school->id ? 'selected' : '' }}
-                                                        value="{{ $school->id }}">
-                                                        {{ $school->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            <!--end::school yeaer-->
-                                            <!--begin::Button-->
-                                            <button type="submit" class="btn btn-primary">Cari</button>
-                                            <!--end::Button-->
-                                        </div>
-                                    </form>
-                                @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                    <form id="form-search" action="{{ route('teacher.rankings') }}">
-                                        <!--begin::Actions-->
-                                        <div class="d-flex align-items-center py-2 py-md-1">
-
-                                            <!--begin::school year-->
-                                            <select name="filter" class="form-select form-select-solid"
-                                                placeholder="Select an option" data-control="select2">
-                                                <option value="">Semua Sekolah</option>
-                                                @foreach ($schools as $school)
-                                                    <option {{ $filter == $school->id ? 'selected' : '' }}
-                                                        value="{{ $school->id }}">
-                                                        {{ $school->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            <!--end::school yeaer-->
-                                            <!--begin::Button-->
-                                            <button type="submit" class="btn btn-primary ms-3">Cari</button>
-                                            <!--end::Button-->
-                                        </div>
-                                    </form>
-                                @else
-                                    <form id="form-search" action="{{ route('mentor.rankings') }}">
-                                        <!--begin::Actions-->
-                                        <div class="d-flex align-items-center py-2 py-md-1">
-
-                                            <!--begin::school year-->
-                                            <select name="filter" class="form-select form-select-solid"
-                                                placeholder="Select an option" data-control="select2">
-                                                <option value="">Semua Sekolah</option>
-                                                @foreach ($schools as $school)
-                                                    <option {{ $filter == $school->id ? 'selected' : '' }}
-                                                        value="{{ $school->id }}">
-                                                        {{ $school->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            <!--end::school yeaer-->
-                                            <!--begin::Button-->
-                                            <button type="submit" class="btn btn-primary ms-3">Cari</button>
-                                            <!--end::Button-->
-                                        </div>
-                                    </form>
-                                @endif
-
-                            </div>
                             <!--end::Actions-->
                         </div>
                         <!--end::Toolbar wrapper-->
@@ -119,7 +49,66 @@
                 </div>
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
-
+                    <div class="row">
+                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                            <form id="form-search" action="{{ route('mentor.rankings') }}">
+                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <form id="form-search" action="{{ route('teacher.rankings') }}">
+                                @else
+                                <form id="form-search" action="{{ route('student.rankings') }}">
+                        @endif
+                        <!--begin::Card-->
+                        <div class="card mb-7">
+                            <!--begin::Card body-->
+                            <div class="card-body">
+                                <!--begin::Compact form-->
+                                <div class="d-flex align-items-center">
+                                    <!--begin::Input group-->
+                                    <div class="position-relative col-lg-6 col-md-12 me-3">
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                        <!--end::Svg Icon-->
+                                            <select name="filter" class="form-select form-select-solid" placeholder="Select an option"
+                                                data-control="select2">
+                                                <option value="">Semua Sekolah</option>
+                                                @foreach ($schools as $school)
+                                                    <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
+                                                        {{ $school->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <select name="school_year" class="form-select form-select-solid"
+                                                    data-control="select2" data-placeholder="Tahun Ajaran">
+                                                    @foreach ($schoolYear as $year)
+                                                        <option {{ $schoolYearFilter == $year->id ? 'selected' : '' }}
+                                                            value="{{ $year->id }}">
+                                                            {{ $year->school_year }}</option>
+                                                    @endforeach
+                                                </select>
+                                    </div>
+                                    <div class="col-lg-2 col-md-12 ms-3">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                            <a href="{{ route('mentor.rankings') }}" type="button"
+                                                class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                        @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                            <a href="{{ route('teacher.rankings') }}" type="button"
+                                                class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                        @else
+                                        <a href="{{ route('student.rankings') }}" type="button"
+                                        class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                        @endif
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Compact form-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Card-->
+                        </form>
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -144,11 +133,10 @@
                                                     </svg>
                                                 </span>
                                                 {{ auth()->user()->name }}
-
-                                                @if (($ranking) == null)
-                                                    Anda Belum Memiliki Point
+                                                @if ($ranking !== false)
+                                                Anda Berada Pada Ranking {{ $ranking + 1 }}
                                                 @else
-                                                    Anda Berada Pada Ranking {{ $ranking + 1 }}
+                                                Anda Belum Memiliki Point
                                                 @endif
                                             </span>
                                         </h3>

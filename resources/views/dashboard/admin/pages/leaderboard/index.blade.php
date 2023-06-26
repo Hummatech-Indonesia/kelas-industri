@@ -22,7 +22,7 @@
             </ul>
             <!--end::Breadcrumb-->
         </div>
-        @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+        {{-- @if (auth()->user()->roles->pluck('name')[0] == 'admin')
             <form id="form-search" action="{{ route('admin.rankings') }}">
                 <!--begin::Actions-->
                 <div class="d-flex align-items-center py-2 py-md-1">
@@ -73,15 +73,69 @@
                     <button type="submit" class="btn btn-primary">Cari</button>
                     <!--end::Button-->
             </form>
-        @endif
-    </div>
+        @endif --}}
     </div>
     <div class="content flex-column-fluid" id="kt_content">
+        <div class="row">
+            @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                <form id="form-search" action="{{ route('admin.rankings') }}">
+                @else
+                    <form id="form-search" action="{{ route('school.rankings') }}">
+            @endif
+            <!--begin::Card-->
+            <div class="card mb-7">
+                <!--begin::Card body-->
+                <div class="card-body">
+                    <!--begin::Compact form-->
+                    <div class="d-flex align-items-center">
+                        <!--begin::Input group-->
+                        <div class="position-relative col-lg-6 col-md-12 me-3">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                            <!--end::Svg Icon-->
+                                <select name="filter" class="form-select form-select-solid" placeholder="Select an option"
+                                    data-control="select2">
+                                    <option value="">Semua Sekolah</option>
+                                    @foreach ($schools as $school)
+                                        <option {{ $filter == $school->id ? 'selected' : '' }} value="{{ $school->id }}">
+                                            {{ $school->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <select name="school_year" class="form-select form-select-solid"
+                                        data-control="select2" data-placeholder="Tahun Ajaran">
+                                        @foreach ($schoolYear as $year)
+                                            <option {{ $schoolYearFilter == $year->id ? 'selected' : '' }}
+                                                value="{{ $year->id }}">
+                                                {{ $year->school_year }}</option>
+                                        @endforeach
+                                    </select>
+                        </div>
+                        <div class="col-lg-2 col-md-12 ms-3">
+                            <button type="submit" class="btn btn-primary">Cari</button>
+                            @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                                <a href="{{ route('admin.rankings') }}" type="button"
+                                    class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                            @else
+                                <a href="{{ route('school.rankings') }}" type="button"
+                                    class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                            @endif
+                        </div>
+                        <!--end::Input group-->
+                    </div>
+                    <!--end::Compact form-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            </form>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @if ($rankings->count() > 0 )
+                        @if ($rankings->count() > 0)
                             <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                 <thead>
                                     <tr class="fw-semibold fs-6 text-gray-800">

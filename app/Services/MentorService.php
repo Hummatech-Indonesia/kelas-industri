@@ -14,6 +14,11 @@ class MentorService
         $this->repository = $repository;
     }
 
+    public function handleGetAll()
+    {
+        return $this->repository->getAll();
+    }
+
     /**
      * handle get mentor classrooms
      *
