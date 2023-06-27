@@ -62,9 +62,9 @@
                                     <!--begin::Card body-->
                                     <div class="card-body">
                                         <!--begin::Compact form-->
-                                        <div class="d-flex align-items-center">
+                                        <div class="searching align-items-center">
                                             <!--begin::Input group-->
-                                            <div class="position-relative col-10">
+                                            <div class="position-relative col-md-12 col-lg-10 me-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                                 <span
                                                     class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -83,7 +83,7 @@
                                                 <input type="text" class="form-control form-control-solid ps-10"
                                                     name="search" value="{{ $search }}" placeholder="Search">
                                             </div>
-                                            <div class="col-lg-2 col-md-12 ms-3">
+                                            <div class="col-lg-2 col-md-12">
                                                 <button type="submit" class="btn btn-primary">Cari</button>
                                                 <a href="{{ route('mentor.challenges.index') }}" type="button"
                                                     class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
@@ -103,9 +103,9 @@
                                     <!--begin::Card body-->
                                     <div class="card-body">
                                         <!--begin::Compact form-->
-                                        <div class="d-flex align-items-center">
+                                        <div class="searching align-items-center">
                                             <!--begin::Input group-->
-                                            <div class="position-relative col-10">
+                                            <div class="position-relative col-md-12 col-lg-10 me-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                                 <span
                                                     class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -124,7 +124,7 @@
                                                 <input type="text" class="form-control form-control-solid ps-10"
                                                     name="search" value="{{ $search }}" placeholder="Search">
                                             </div>
-                                            <div class="col-lg-2 col-md-12 ms-3">
+                                            <div class="col-lg-2 col-md-12">
                                                 <button type="submit" class="btn btn-primary">Cari</button>
                                                 <a href="{{ route('teacher.challenges.index') }}" type="button"
                                                     class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
@@ -144,7 +144,7 @@
                                     <!--begin::Card body-->
                                     <div class="card-body">
                                         <!--begin::Compact form-->
-                                        <div class="d-flex align-items-center">
+                                        <div class="searching align-items-center">
                                             <!--begin::Input group-->
                                             <div class="position-relative col-lg-5 col-md-12 me-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
@@ -165,7 +165,7 @@
                                                 <input type="text" class="form-control form-control-solid ps-10"
                                                     name="search" value="{{ $search }}" placeholder="Search">
                                             </div>
-                                            <div class="col-lg-3 col-md-12 me-2">
+                                            <div class="position-relative col-lg-3 col-md-12 me-2">
                                                 <select name="status" class="form-select form-select-solid me-5" data-control="select2"
                                                     data-placeholder="Status">
                                                     <option value="-1" {{$status == '-1' ? 'selected' : ''}}>Semua Status</option>
@@ -173,7 +173,7 @@
                                                     <option value="Belum" {{$status == 'Belum' ? 'selected' : ''}}>Belum Dikerjakan</option>
                                                 </select>
                                             </div>
-                                            <div class="col-lg-2 col-md-12">
+                                            <div class="position-relative col-lg-2 col-md-12 me-2">
                                                 <select name="difficulty" class="form-select form-select-solid me-5" data-control="select2"
                                                     data-placeholder="Status">
                                                     <option value="-1" {{$difficulty == '-1' ? 'selected' : ''}}>Semua Kesulitan</option>
@@ -182,7 +182,7 @@
                                                     <option value="sulit"  {{$difficulty == 'sulit' ? 'selected' : ''}}>Sulit</option>
                                                 </select>
                                             </div>
-                                            <div class="col-lg-2 col-md-12 ms-3">
+                                            <div class="col-lg-2 col-md-12">
                                                 <button type="submit" class="btn btn-primary">Cari</button>
                                                 <a href="{{ route('student.challenges.index') }}" type="button"
                                                     class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
@@ -433,6 +433,20 @@
             <x-delete-modal-component />
             <!--end::Footer-->
         </div>
+    @endsection
+    @section('css')
+        <Style>
+            @media (max-width:639px){
+                .position-relative{
+                    margin-bottom: 10px;
+                }
+            }
+            @media (min-width:640px){
+                .searching{
+                    display: flex;
+                }
+            }
+        </Style>
     @endsection
     @section('script')
         <script>

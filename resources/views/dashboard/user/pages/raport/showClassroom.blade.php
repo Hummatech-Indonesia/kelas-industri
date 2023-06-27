@@ -70,9 +70,9 @@
                                 <!--begin::Card body-->
                                 <div class="card-body">
                                     <!--begin::Compact form-->
-                                    <div class="d-flex align-items-center">
+                                    <div class="searching align-items-center">
                                         <!--begin::Input group-->
-                                        <div class="position-relative col-10">
+                                        <div class="position-relative col-md-12 col-lg-10 me-2">
                                             <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                             <select name="school_year" class="form-select form-select-solid"
                                                 data-control="select2" data-placeholder="Tahun Ajaran">
@@ -84,7 +84,7 @@
                                             </select>
                                             <!--end::Svg Icon-->
                                         </div>
-                                        <div class="col-lg-2 col-md-12 ms-3">
+                                        <div class="col-lg-2 col-md-12">
                                             <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('teacher.showClassroom') }}" type="button"
                                                 class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
@@ -125,9 +125,9 @@
                                                 @foreach ($classrooms as $classroom)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $classroom->name }}</td>
+                                                        <td>{{ $classroom->classroom->name }}</td>
                                                         <td>
-                                                            <a href="{{ route('teacher.showStudentReport', [$classroom->id]) }}">
+                                                            <a href="{{ route('teacher.showStudentReport', [$classroom->classroom->id]) }}">
                                                                 <button class="btn btn-default btn-sm p-1">
                                                                     <i class="fa fa-eye fs-3 text-muted"></i>
                                                                 </button>
@@ -188,6 +188,20 @@
     {{--    Update Status --}}
     {{--    end Update Statusl --}}
 @endsection
+@section('css')
+        <Style>
+            @media (max-width:639px){
+                .position-relative{
+                    margin-bottom: 10px;
+                }
+            }
+            @media (min-width:640px){
+                .searching{
+                    display: flex;
+                }
+            }
+        </Style>
+    @endsection
 @section('script')
     <script>
         $("#kt_datatable_responsive").DataTable({

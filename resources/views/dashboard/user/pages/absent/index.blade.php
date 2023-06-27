@@ -67,7 +67,7 @@
                     <!--end::Toolbar container-->
                 </div>
                 <!--begin::Content container-->
-                <div id="kt_app_content_container" class="app-container  container-fluid ">
+                <div id="kt_content" class="app-container  container-fluid ">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -77,10 +77,10 @@
 
                                     <!--begin::Table-->
                                     @if ($attendances->count() > 0)
-                                        <table id="kt_datatable_responsive"
-                                            class="table table-striped border rounded gy-5 gs-7">
-                                            <thead>
-                                                <!--begin::Table row-->
+                                    <table id="kt_datatable_responsive"
+                                    class="table table-striped border rounded gy-5 gs-7">
+                                    <thead>
+                                            <!--begin::Table row-->
                                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                                     <th data-priority="1">No</th>
                                                     <th data-priority="2">Judul</th>
@@ -226,10 +226,13 @@
     {{--    end Update Statusl --}}
 @endsection
 @section('script')
+<script>
+    $("#kt_datatable_responsive").DataTable({
+        responsive: true
+    });
+</script>
+<script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
-        $("#kt_datatable_responsive").DataTable({
-            responsive: true
-        });
         $('.btn-delete').click(function() {
             const url = "{{ route('mentor.attendance.destroy', ':id') }}".replace(':id', $(this).data(
                 'id'))
@@ -244,7 +247,6 @@
 
             $('#kt_modal_update').modal('show')
         })
-
 
         $(document).ready(function() {
             $('.clipboard-link').click(function() {

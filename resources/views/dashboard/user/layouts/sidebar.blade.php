@@ -108,7 +108,7 @@
                                     <div class="d-flex mb-3 flex-stack">
                                         <!--begin::Symbol-->
                                         <div class="symbol symbol-40px me-4">
-                                            <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">
+                                            <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
                                                 {{ substr($assignment->title, 0, 1) }}
                                             </div>
                                         </div>
@@ -174,7 +174,7 @@
                                     <div class="d-flex mb-3 flex-stack">
                                         <!--begin::Symbol-->
                                         <div class="symbol symbol-40px me-4">
-                                            <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">
+                                            <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
                                                 {{ substr($challenge->title, 0, 1) }}
                                             </div>
                                         </div>
@@ -330,7 +330,7 @@
                                 <div class="d-flex mb-3 flex-stack">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
-                                        <div class="symbol-label fs-2 fw-semibold bg-danger text-inverse-danger">{{ substr($schedule->title, 0, 1) }}
+                                        <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">{{ substr($schedule->title, 0, 1) }}
                                         </div>
                                     </div>
                                     <!--end::Symbol-->

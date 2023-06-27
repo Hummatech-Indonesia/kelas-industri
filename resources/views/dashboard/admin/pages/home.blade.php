@@ -29,13 +29,13 @@
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <div class="col-12">
+            <div class="col-md-3">
                 <h3>Selamat datang, {{ auth()->user()->name }}</h3>
             </div>
 
         </div>
         @if (auth()->user()->roles->pluck('name')[0] == 'school')
-        <div class="row gap-2 mt-4">
+        <div class="covercard row gap-2 mt-4">
             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                 <div class="card-body d-flex align-items">
                     <span class="w-4 h-4 my-auto fs-1">
@@ -83,7 +83,7 @@
             </a>
         </div>
         @elseif (auth()->user()->roles->pluck('name')[0] == 'admin')
-        <div class="row gap-2 mt-4">
+        <div class="covercard row gap-2 mt-4">
             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                 <div class="card-body d-flex align-items">
                     <span class="w-4 h-4 my-auto fs-1">
@@ -155,3 +155,18 @@
     </div>
 
 @endsection
+@section('css')
+        <Style>
+            @media (max-width:639px){
+                .covercard{
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr))
+                }
+            }
+            @media (min-width:640px){
+                .searching{
+                    display: flex;
+                }
+            }
+        </Style>
+    @endsection

@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                        <div class="row gap-2 mt-4">
+                        <div class="covercard row gap-2 mt-4">
                             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <span class="w-4 h-4 my-auto fs-1">
@@ -318,7 +318,7 @@
                             </div>
                         </div>
                     @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                        <div class="row gap-2 mt-4">
+                        <div class="covercard row gap-2 mt-4">
                             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <span class="w-4 h-4 my-auto fs-1">
@@ -401,7 +401,7 @@
                             @endif
                         </div>
                     @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                        <div class="row gap-2 mt-4">
+                        <div class="covercard row gap-2 mt-4">
                             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <span class="w-4 h-4 my-auto fs-1">
@@ -528,3 +528,18 @@
         <!--end::Footer-->
     </div>
 @endsection
+@section('css')
+        <Style>
+            @media (max-width:639px){
+                .covercard{
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr))
+                }
+            }
+            @media (min-width:640px){
+                .searching{
+                    display: flex;
+                }
+            }
+        </Style>
+    @endsection

@@ -1,5 +1,4 @@
 @extends('dashboard.user.layouts.app')
-
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <!--begin::Content wrapper-->
@@ -62,9 +61,9 @@
                             <!--begin::Card body-->
                             <div class="card-body">
                                 <!--begin::Compact form-->
-                                <div class="d-flex align-items-center">
+                                <div class="searching align-items-center">
                                     <!--begin::Input group-->
-                                    <div class="position-relative col-lg-6 col-md-12 me-3">
+                                    <div class="position-relative col-lg-6 col-md-12 me-2">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                         <!--end::Svg Icon-->
                                             <select name="filter" class="form-select form-select-solid" placeholder="Select an option"
@@ -77,7 +76,7 @@
                                                 @endforeach
                                             </select>
                                     </div>
-                                    <div class="col-lg-4 col-md-12">
+                                    <div class="position-relative col-lg-4 col-md-12 me-2">
                                         <select name="school_year" class="form-select form-select-solid"
                                                     data-control="select2" data-placeholder="Tahun Ajaran">
                                                     @foreach ($schoolYear as $year)
@@ -87,7 +86,7 @@
                                                     @endforeach
                                                 </select>
                                     </div>
-                                    <div class="col-lg-2 col-md-12 ms-3">
+                                    <div class="col-lg-2 col-md-12">
                                         <button type="submit" class="btn btn-primary">Cari</button>
                                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                             <a href="{{ route('mentor.rankings') }}" type="button"
@@ -97,7 +96,7 @@
                                                 class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
                                         @else
                                         <a href="{{ route('student.rankings') }}" type="button"
-                                        class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                        class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
                                         @endif
                                     </div>
                                     <!--end::Input group-->
@@ -237,4 +236,18 @@
                 responsive: true
             });
         </script>
+    @endsection
+    @section('css')
+        <Style>
+            @media (max-width:639px){
+                .position-relative{
+                    margin-bottom: 10px;
+                }
+            }
+            @media (min-width:640px){
+                .searching{
+                    display: flex;
+                }
+            }
+        </Style>
     @endsection

@@ -222,11 +222,13 @@
     {{--    end Update Statusl --}}
 @endsection
 @section('script')
-    <script>
-        $("#kt_datatable_responsive").DataTable({
+<script>
+    $("#kt_datatable_responsive").DataTable({
             responsive: true
         });
-
+</script>
+<script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script>
         $('.btn-delete').click(function() {
             const url = "{{ route('mentor.journal.destroy', ':id') }}".replace(':id', $(this).data(
                 'id'))

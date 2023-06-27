@@ -53,6 +53,7 @@ https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
             background: #eee;
         }
     </style>
+    @yield('css')
     {{--    End Plugin Stylesheets --}}
 </head>
 <!--end::Head-->

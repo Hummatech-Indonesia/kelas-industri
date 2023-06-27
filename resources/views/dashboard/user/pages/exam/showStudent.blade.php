@@ -172,6 +172,7 @@
     {{--    end Update Statusl --}}
 @endsection
 @section('script')
+<script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $("#kt_datatable_responsive").DataTable({
             responsive: true

@@ -37,7 +37,7 @@
                     <!--begin::Card body-->
                     <div class="card-body">
                         <!--begin::Compact form-->
-                        <div class="d-flex align-items-center">
+                        <div class="searching align-items-center">
                             <!--begin::Input group-->
                             <div class="position-relative col-lg-6 col-md-12 me-3">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
@@ -57,7 +57,7 @@
                                 <input type="text" class="form-control form-control-solid ps-10" name="search"
                                     value="{{ $search }}" placeholder="Search">
                             </div>
-                            <div class="col-lg-4 col-md-12">
+                            <div class="position-relative col-lg-4 col-md-12 me-2">
                                 <select name="filter" class="form-select form-select-solid me-5" data-control="select2"
                                     data-placeholder="Select an option">
                                     @foreach ($generations as $generation)
@@ -68,7 +68,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-2 col-md-12 ms-3">
+                            <div class="col-lg-2 col-md-12">
                                 <button type="submit" class="btn btn-primary">Cari</button>
                                 <a href="{{ route('admin.materials.index') }}" type="button"
                                     class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
@@ -228,3 +228,17 @@
         });
     </script>
 @endsection
+@section('css')
+        <Style>
+            @media (max-width:639px){
+                .position-relative{
+                    margin-bottom: 10px;
+                }
+            }
+            @media (min-width:640px){
+                .searching{
+                    display: flex;
+                }
+            }
+        </Style>
+    @endsection
