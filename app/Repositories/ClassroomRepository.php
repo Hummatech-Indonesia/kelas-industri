@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Classroom;
+use App\Models\Generation;
 use App\Models\MentorClassroom;
 use App\Models\StudentClassroom;
 use App\Models\TeacherClassroom;
@@ -12,12 +13,13 @@ class ClassroomRepository extends BaseRepository
 
     private StudentClassroom $studentClassroom;
 
-    public function __construct(Classroom $model, StudentClassroom $studentClassroom, MentorClassroom $mentorClassroom, TeacherClassroom $teacherClassroom)
+    public function __construct(Classroom $model, StudentClassroom $studentClassroom, MentorClassroom $mentorClassroom, TeacherClassroom $teacherClassroom, Generation $generation)
     {
         $this->model = $model;
         $this->studentClassroom = $studentClassroom;
         $this->mentorClassroom = $mentorClassroom;
         $this->teacherClassroom = $teacherClassroom;
+        $this->generation = $generation;
     }
 
     public function get_by_mentor_jurnal(string $mentorId)
@@ -151,11 +153,24 @@ class ClassroomRepository extends BaseRepository
      * @param int $limit
      * @return mixed
      */
-    public function get_paginate_by_school_search(string | null $search, string $schoolId, string $year, int $limit): mixed
+    public function get_paginate_by_school_search(string | null $search,string|null $generation,string|null $filter, string $schoolId, string $year, int $limit): mixed
     {
         return $this->model->query()
             ->where('name', 'like', '%' . $search . '%')
-            ->where('generation_id', 'LIKE', '%' . $year . '%')
+            ->when(!$generation,function($q) use ($year){
+                $q->whereRelation('generation', function ($q) use ($year) {
+                    return $q->where('school_year_id', $year);
+                });
+            })
+            ->when($generation,function($q) use ($generation){
+                return $q->where('generation_id',$generation);
+            })
+            ->when($filter,function($q) use ($filter){
+                $q->whereRelation('generation', function ($q) use ($filter){
+                    return $q->where('school_year_id',$filter);
+                });
+            })
+            ->orderBy('name', 'ASC')
             ->where('school_id', $schoolId)
             ->paginate($limit);
     }

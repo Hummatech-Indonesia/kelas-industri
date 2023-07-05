@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\JournalRequest;
-use App\Models\Classroom;
-use App\Models\Journal;
-use App\Models\SchoolYear;
 use App\Models\User;
-use App\Services\ClassroomService;
-use App\Services\JournalService;
-use App\Services\PointService;
-use App\Traits\DataSidebar;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Models\Journal;
+use App\Models\Classroom;
 use Illuminate\View\View;
+use App\Models\SchoolYear;
+use App\Traits\DataSidebar;
+use Illuminate\Http\Request;
+use App\Services\PointService;
+use App\Services\JournalService;
+use App\Helpers\SchoolYearHelper;
+use App\Services\ClassroomService;
+use App\Services\SchoolYearService;
+use App\Http\Requests\JournalRequest;
+use Illuminate\Http\RedirectResponse;
 
 class JurnalController extends Controller
 {
@@ -23,12 +24,14 @@ class JurnalController extends Controller
     private ClassroomService $classroomService;
     private JournalService $journalService;
     private PointService $pointService;
+    private SchoolYearService $schoolYearService;
 
-    public function __construct(ClassroomService $classroomService, JournalService $journalService, PointService $pointService)
+    public function __construct(ClassroomService $classroomService, JournalService $journalService, PointService $pointService, SchoolYearService $schoolYearService)
     {
         $this->classroomService = $classroomService;
         $this->journalService = $journalService;
         $this->pointService = $pointService;
+        $this->schoolYearService = $schoolYearService;
 
     }
 
@@ -50,14 +53,15 @@ class JurnalController extends Controller
                 $selectedSchoolYear = $request->school_year;
             }
             $data = [
-                'schoolYear' => SchoolYear::all(),
-                'schoolYearFilter' => $request->school_year,
+                'schoolYear' => $this->schoolYearService->handleGetAll(),
+                'schoolYearFilter' => $selectedSchoolYear,
                 'classrooms' => $this->classroomService->handleGetSchoolClassrooomJournal(auth()->id(), $selectedSchoolYear)
             ];
             return view('dashboard.admin.pages.jurnal.index', $data);
         } else {
             $data = $this->GetDataSidebar();
-            $data['journals'] = $this->journalService->handleGetJournalByUser();
+            $schoolYear = SchoolYearHelper::get_current_school_year();
+            $data['journals'] = $this->journalService->handleGetJournalByUser($schoolYear->id);
             return view('dashboard.user.pages.jurnal.index', $data);
         }
 
@@ -93,8 +97,8 @@ class JurnalController extends Controller
         }
         $data = [
             'journal' => $journal->id,
-            'schoolYear' => SchoolYear::all(),
-            'schoolYearFilter' => $request->school_year,
+            'schoolYear' => $this->schoolYearService->handleGetAll(),
+            'schoolYearFilter' => $selectedSchoolYear,
             'classrooms' => $this->classroomService->handleGetSchoolClassrooomJournal($journal->id, $selectedSchoolYear),
         ];
         return view('dashboard.admin.pages.jurnal.detail', $data);

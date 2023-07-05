@@ -10,6 +10,7 @@ use App\Services\StudentService;
 use App\Helpers\SchoolYearHelper;
 use App\Services\ClassroomService;
 use App\Services\GenerationService;
+use App\Services\SchoolYearService;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ClassroomRequest;
 
@@ -18,12 +19,14 @@ class ClassroomController extends Controller
     private ClassroomService $service;
     private GenerationService $generationService;
     private StudentService $studentService;
+    private SchoolYearService $schoolYearService;
 
-    public function __construct(ClassroomService $service, GenerationService $generationService, StudentService $studentService)
+    public function __construct(ClassroomService $service, GenerationService $generationService, StudentService $studentService, SchoolYearService $schoolYearService)
     {
         $this->service = $service;
         $this->generationService = $generationService;
         $this->studentService = $studentService;
+        $this->schoolYearService = $schoolYearService;
     }
 
     /**
@@ -31,7 +34,7 @@ class ClassroomController extends Controller
      *
      * @return View
      */
-    public function index(Request $request): View
+    public function index(Request $request): mixed
     {
         $schoolYear = SchoolYearHelper::get_current_school_year();
         $selectedSchoolYear = 0;
@@ -39,11 +42,15 @@ class ClassroomController extends Controller
             $selectedSchoolYear = $schoolYear->id;
         }
         if($request->filter){
-            $selectedSchoolYear = $request->filter;
+            $filter = $request->filter;
+        }else{
+            $filter = $selectedSchoolYear;
         }
+        if (request()->ajax()) return $this->generationService->handleGetBySchoolYear($request->school_year_id,$selectedSchoolYear);
         $data = [
+            'school_years' => $this->schoolYearService->handleGetAll(),
             'generations' => $this->generationService->handleGetAll(),
-            'filter' => $request->filter,
+            'filter' => $filter,
             'search' => $request->search,
             'classrooms' => $this->service->handleSearch($request, auth()->id(), $selectedSchoolYear),
         ];

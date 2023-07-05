@@ -39,9 +39,10 @@ class PointRepository extends BaseRepository
                 });
             });
         })
-        ->whereHas('student.studentSchool.studentClassroom.classroom.generation.schoolYear', function ($query) use ($schoolYearId) {
-            $query->where('id', $schoolYearId);
-        })
+        // ->whereHas('student.studentSchool.studentClassroom.classroom.generation.schoolYear', function ($query) use ($schoolYearId) {
+        //     $query->where('id', $schoolYearId);
+        // })
+        ->where('school_year_id', $schoolYearId)
         ->selectRaw('student_id, sum(point) as point')
         ->orderBy('point', 'desc')
         ->get();
@@ -63,11 +64,12 @@ class PointRepository extends BaseRepository
         ->get();
     }
 
-    public function create_point($point, string $studentId): void
+    public function create_point($point, string $studentId, int $schoolYearId): void
     {
         $this->model->create([
             'student_id' => $studentId,
             'point' => $point,
+            'school_year_id' => $schoolYearId,
         ]);
     }
 

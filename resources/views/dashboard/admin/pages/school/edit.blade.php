@@ -163,12 +163,31 @@
                                 </div>
                                 <div class="form-group row mb-3">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Konfirmasi Password</label>
+                                    <div class="fv-row" data-kt-password-meter="true">
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Konfirmasi Password</label>
+                                            <div class="col-lg-9 col-xl-9">
+                                                <div class="position-relative">
+                                                    <input class="form-control form-control-lg form-control-solid"
+                                                        type="password" placeholder="password"
+                                                        name="password_confirmation" autocomplete="off" required="" />
 
-                                    <div class="col-lg-9 col-xl-9">
+                                                    <!--begin::Visibility toggle-->
+                                                    <span
+                                                        class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                        data-kt-password-meter-control="visibility">
+                                                        <i class="fa-solid fa-eye-slash fs-3"><span
+                                                                class="path1"></span><span class="path2"></span><span
+                                                                class="path3"></span><span class="path4"></span></i>
+                                                        <i class="fa-solid fa-eye d-none fs-3"><span
+                                                                class="path1"></span><span class="path2"></span><span
+                                                                class="path3"></span></i>
 
-                                        <input class="form-control form-control-solid form-control-lg" name="password_confirmation" type="password" value="" placeholder="password">
-
+                                                    </span>
+                                                    <!--end::Visibility toggle-->
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>

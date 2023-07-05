@@ -48,7 +48,7 @@
                                 <th>Judul</th>
                                 <th>Tanggal</th>
                                 <th>Link</th>
-                                <th class="text-end min-w-70px">Aksi</th>
+                                <th>Aksi</th>
                             </tr>
                             <!--end::Table row-->
                             </thead>

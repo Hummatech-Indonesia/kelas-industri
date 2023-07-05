@@ -12,7 +12,7 @@ class Point extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id', 'point'];
+    protected $fillable = ['student_id', 'point','school_year_id'];
 
     public function student() :BelongsTo
     {

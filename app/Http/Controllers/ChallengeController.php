@@ -2,30 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\ChallengeRequest;
-use App\Http\Requests\SubmitChallengeRequest;
+use ZipArchive;
 use App\Models\Challenge;
-use App\Models\SubmitChallenge;
-use App\Services\ChallengeService;
-use App\Services\ClassroomService;
+use Illuminate\View\View;
 use App\Traits\DataSidebar;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use ZipArchive;
+use App\Models\SubmitChallenge;
+use App\Helpers\SchoolYearHelper;
+use App\Services\ChallengeService;
+use App\Services\ClassroomService;
+use App\Services\SchoolYearService;
+use Illuminate\Http\RedirectResponse;
 
-use Illuminate\View\View;
+use App\Http\Requests\ChallengeRequest;
+use App\Http\Requests\SubmitChallengeRequest;
 
 class ChallengeController extends Controller
 {
     use DataSidebar;
     private ChallengeService $service;
+    private SchoolYearService $schoolYearService;
 
-    public function __construct(ChallengeService $service, ClassroomService $classroomService)
+    public function __construct(ChallengeService $service, ClassroomService $classroomService, SchoolYearService $schoolYearService)
     {
         $this->service = $service;
         $this->classroomService = $classroomService;
+        $this->schoolYearService = $schoolYearService;
     }
 
     /**
@@ -131,17 +134,19 @@ class ChallengeController extends Controller
      */
     public function validChallenge($id): RedirectResponse
     {
+        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         $submitChallenge = SubmitChallenge::findorfail($id);
         $this->service->handleUpadetValid($submitChallenge->id);
-        $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id);
+        $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id, $currentSchoolYear->id);
         return redirect()->back()->with('success', trans('berhasil valid challenge'));
     }
 
     public function validChallengeTeacher($id): RedirectResponse
     {
+        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         $submitChallenge = SubmitChallenge::findorfail($id);
         $this->service->handleUpadetValid($submitChallenge->id);
-        $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id);
+        $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id, $currentSchoolYear->id);
         return redirect()->back()->with('success', trans('berhasil valid challenge'));
     }
 

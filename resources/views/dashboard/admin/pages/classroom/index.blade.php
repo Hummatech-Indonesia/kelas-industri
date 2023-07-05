@@ -38,7 +38,7 @@
                         <!--begin::Card body-->
                         <div class="card-body">
                             <!--begin::Compact form-->
-                            <div class="d-flex align-items-center">
+                            <div class="searching align-items-center">
                                 <!--begin::Input group-->
                                 <div class="position-relative col-lg-6 col-md-12 me-3">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
@@ -59,18 +59,24 @@
                                     <input type="text" class="form-control form-control-solid ps-10" name="search"
                                         value="{{ $search }}" placeholder="Search">
                                 </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <select name="filter" class="form-select form-select-solid me-5" data-control="select2"
-                                        data-placeholder="Select an option">
-                                        @foreach ($generations as $generation)
-                                            <option {{ $filter == $generation->id ? 'selected' : '' }}
-                                                value="{{ $generation->id }}">
-                                                {{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}
+                                <div class="position-relative col-lg-2 col-md-12 me-3">
+                                    <select name="filter" class="form-select form-select-solid" data-control="select2"
+                                        data-placeholder="Select an option" id="schoolYear">
+                                        @foreach ($school_years as $school_year)
+                                            <option {{ $filter == $school_year->id ? 'selected' : '' }}
+                                                value="{{ $school_year->id }}">
+                                                {{ $school_year->school_year }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-lg-2 col-md-12 ms-3">
+                                <div class="position-relative col-lg-2 col-md-12 me-3">
+                                    <select name="generation_id" class="form-select form-select-solid me-5"
+                                        data-control="select2" data-placeholder="Select an option" id="generations">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-12">
                                     <button class="btn btn-primary" id="btn-search">Cari</button>
                                     <a href="{{ route('school.classrooms.index') }}" type="button"
                                         class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
@@ -190,8 +196,8 @@
                                             <path
                                                 d="M4.65486 14.8559C5.40389 13.1224 7.11161 12 9 12C10.8884 12 12.5961 13.1224 13.3451 14.8559L14.793 18.2067C15.3636 19.5271 14.3955 21 12.9571 21H5.04292C3.60453 21 2.63644 19.5271 3.20698 18.2067L4.65486 14.8559Z"
                                                 fill="currentColor" />
-                                            <rect opacity="0.3" x="6" y="5" width="6" height="6"
-                                                rx="3" fill="currentColor" />
+                                            <rect opacity="0.3" x="6" y="5" width="6"
+                                                height="6" rx="3" fill="currentColor" />
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
@@ -226,6 +232,21 @@
         <x-delete-modal-component />
     </div>
 @endsection
+@section('css')
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
+            }
+        }
+    </Style>
+@endsection
 @section('script')
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -243,5 +264,42 @@
                     ':id', $("input[name='search']").val())
             })
         });
+
+        getGenertation($('#schoolYear').val())
+
+        function getGenertation(schoolYear) {
+            $.ajax({
+                method: 'GET',
+                url: '{{ route('school.classrooms.index') }}',
+                data: {
+                    school_year_id: schoolYear
+                },
+                success: function(generations) {
+                    $('#generations').html('')
+                    console.log(generations)
+                    let html = '<option value=""></option>'
+
+                    generations.map(generation => {
+                        if (generation.id == "{{ request()->generation_id }}") {
+                            html +=
+                                `<option selected value="${generation.id}">${generation.generation}</option>`
+                        } else {
+                            html +=
+                                `<option value="${generation.id}">${generation.generation}</option>`
+                        }
+                    })
+
+                    $('#generations').html(html)
+                },
+                error: function(response) {
+                    console.log(response.responseText)
+                }
+            })
+        }
+
+
+        $('#schoolYear').change(function() {
+            getGenertation($(this).val())
+        })
     </script>
 @endsection

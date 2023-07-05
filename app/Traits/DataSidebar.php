@@ -41,16 +41,16 @@ trait DataSidebar
     }
 
 
-    function getDoneAssignment(string $studentId){
-        return SubmitAssignment::where('student_id',$studentId)->count();
+    function getDoneAssignment(string $studentId, string $year){
+        return SubmitAssignment::where('student_id',$studentId)->whereRelation('assignment.submaterial.material.generation',function($query) use ($year){
+            $query->where('school_year_id',$year);
+        })->count();
     }
 
     function RankMockup()
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
-        return Point::whereHas('student.studentSchool.studentClassroom.classroom.generation.schoolYear', function ($query) use ($currentSchoolYear) {
-            $query->where('id', $currentSchoolYear->id);
-        })
+        return Point::where('school_year_id', $currentSchoolYear->id)
             ->groupBy('student_id')
             ->selectRaw('student_id, sum(point) as point')
             ->orderBy('point', 'desc')

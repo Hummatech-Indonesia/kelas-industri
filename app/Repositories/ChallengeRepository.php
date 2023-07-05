@@ -30,6 +30,9 @@ class ChallengeRepository extends BaseRepository
     public function get_challenge_by_teacher(string $teacherId, int $schoolYearId, string|null $search, int $limit): mixed
     {
         return $this->model->query()
+        ->whereRelation('classroom.generation', function ($q) use ($schoolYearId) {
+            return $q->where('school_year_id', $schoolYearId);
+            })
             ->where('created_by', $teacherId)
             ->where('title', 'like', '%'. $search .'%')
             ->paginate($limit);
@@ -108,11 +111,12 @@ class ChallengeRepository extends BaseRepository
         ]);
     }
 
-    public function create_point_challenge(int $point, string $studentId): void
+    public function create_point_challenge(int $point, string $studentId, int $schoolYearId): void
     {
         $this->point->create([
             'student_id' => $studentId,
             'point' => $point,
+            'school_year_id' => $schoolYearId,
         ]);
     }
 

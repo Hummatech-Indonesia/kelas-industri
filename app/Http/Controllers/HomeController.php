@@ -85,7 +85,7 @@ class HomeController extends Controller
             $data['challenge'] = $this->challengeService->handleCountChallengeStudent();
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['point'] = $this->pointService->hanleCountPointStudent($userId);
-            $data['doneAssignment'] = $this->getDoneAssignment($userId);
+            $data['doneAssignment'] = $this->getDoneAssignment($userId,$currentSchoolYear->id);
             $data['doneChallenge'] = $this->getDoneChallenge();
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleStudent();
         } elseif($role == 'teacher') {

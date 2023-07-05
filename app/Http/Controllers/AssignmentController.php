@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\AssignmentRequest;
 use App\Models\Assignment;
 use App\Models\SubMaterial;
@@ -11,7 +12,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
-
 
 class AssignmentController extends Controller
 {
@@ -43,7 +43,7 @@ class AssignmentController extends Controller
     public function create(SubMaterial $submaterial): View
     {
         $data = [
-            'submaterial' => $submaterial
+            'submaterial' => $submaterial,
         ];
         return view('dashboard.admin.pages.assignment.create', $data);
     }
@@ -106,7 +106,9 @@ class AssignmentController extends Controller
     {
         $data = $this->service->handleDelete($assignment->id);
 
-        if (!$data) return back()->with('error', trans('alert.delete_constrained'));
+        if (!$data) {
+            return back()->with('error', trans('alert.delete_constrained'));
+        }
 
         return back()->with('success', trans('alert.delete_success'));
     }
@@ -115,12 +117,14 @@ class AssignmentController extends Controller
     {
         $nilai = $request->nilai;
         $id = $request->id;
-        foreach($id as $index => $item){
+        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+
+        foreach ($id as $index => $item) {
             $student = $this->service->handleShowSubmitAssignment($item);
-            if($student->point == null){
-                $this->pointService->handleCreatePoint(0.5,$student->student_id);
+            if ($student->point == null) {
+                $this->pointService->handleCreatePoint(0.5, $student->student_id, $currentSchoolYear->id);
             }
-            $this->service->storePoint($item ,$nilai[$index]);          
+            $this->service->storePoint($item, $nilai[$index]);
         }
         return response()->json($student);
     }

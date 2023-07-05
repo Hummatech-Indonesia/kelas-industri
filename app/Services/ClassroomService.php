@@ -100,7 +100,7 @@ class ClassroomService
      */
     public function handleSearch(Request $search, string $schoolId, string $year): mixed
     {
-        return $this->repository->get_paginate_by_school_search($search->search, $schoolId, $year, 8);
+        return $this->repository->get_paginate_by_school_search($search->search,$search->generation_id,$search->filter, $schoolId, $year, 3);
     }
 
     /**

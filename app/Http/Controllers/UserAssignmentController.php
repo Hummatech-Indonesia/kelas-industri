@@ -10,6 +10,7 @@ use App\Models\SubMaterial;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 use App\Models\SubmitAssignment;
+use App\Helpers\SchoolYearHelper;
 use App\Services\AssignmentService;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\SubmitAssignmentRequest;
@@ -30,7 +31,7 @@ class UserAssignmentController extends Controller
         $data['students'] = $this->assignmentService->handleGetAssignmentStudent($classroom->id, $assignment->id);
         $data['assignment'] = $assignment;
         $data['classroom'] = $classroom;
-        return \view ('dashboard.user.pages.assignment.index', $data);
+        return view ('dashboard.user.pages.assignment.index', $data);
     }
 
     public function create(Classroom $classroom, SubMaterial $submaterial, Assignment $assignment): View

@@ -20,10 +20,13 @@ class JournalRepository extends BaseRepository
         ->get();
     }
 
-    public function get_journal_by_user(): mixed
+    public function get_journal_by_user(int $schoolYearId): mixed
     {
         return $this->model->query()
         ->where('created_by', auth()->id())
+        ->whereRelation('classroom.generation.schoolYear', function ($q) use ($schoolYearId){
+            $q->where('id', $schoolYearId);
+        })
         ->get();
     }
 

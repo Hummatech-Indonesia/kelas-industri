@@ -69,4 +69,11 @@ class GenerationService
     {
         return $this->repository->destroy($id);
     }
+
+    public function handleGetBySchoolYear(string|null $schoolYearId,$selectedYear){
+        if($schoolYearId){
+            return $this->repository->get_by_school_year($schoolYearId);
+        }
+        return $this->repository->get_by_school_year($selectedYear);
+    }
 }

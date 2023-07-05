@@ -24,4 +24,11 @@ class GenerationRepository extends BaseRepository
             ->where('school_year_id', $schoolYear)
             ->paginate($limit);
     }
+
+    public function get_by_school_year(string|null $schoolYearId)
+    {
+        return $this->model->query()
+        ->where('school_year_id', $schoolYearId)
+        ->get();
+    }
 }

@@ -66,9 +66,9 @@ class ChallengeService
         $this->repository->update_challenge_valid($id);
     }
 
-    public function handleCreatePoint($point, $studentId): void
+    public function handleCreatePoint($point, $studentId, $schoolYearId): void
     {
-        $this->repository->create_point_challenge($point, $studentId);
+        $this->repository->create_point_challenge($point, $studentId, $schoolYearId);
     }
 
     public function submitChallenge(SubmitChallengeRequest $request): void

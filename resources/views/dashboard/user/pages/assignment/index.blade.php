@@ -128,11 +128,13 @@
                                                         </td>
                                                         @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                             @if ($student->submitAssignment->point)
-                                                                <td><input type="text"
+                                                                <td>
+                                                                    <input type="text"
                                                                         data-id="{{ $student->submitAssignment->id }}"
                                                                         value="{{ $student->submitAssignment->point }}"
                                                                         class="form-control form-control-solid input-nilai form-control-lg"
-                                                                        placeholder="Nilai"></td>
+                                                                        placeholder="Nilai">
+                                                                    </td>
                                                             @else
                                                                 <td>
                                                                     <input type="text"
@@ -220,10 +222,11 @@
             $('.input-nilai').each(function() {
                 var nilai = $(this).val();
                 var id = $(this).data('id');
+                var year = $(this).data('id');
                 if (nilai !== '') {
                     arr_nilai.push(nilai);
-                    arr_id.push(id)
-                }
+                    arr_id.push(id);
+                };
             });
             $.ajaxSetup({
                 headers: {
@@ -235,8 +238,9 @@
                 type: 'POST',
                 data: {
                     nilai: arr_nilai,
-                    id: arr_id
+                    id: arr_id,
                 },
+
                 success: function(response) {
                     Swal.fire({
                         title: 'Berhasil!',

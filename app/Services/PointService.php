@@ -24,18 +24,19 @@ class PointService
         return $this->repository->get_point();
     }
 
-    public function handleGetPointStudent(Request $request, int $schoolYearId){
+    public function handleGetPointStudent(Request $request, int $schoolYearId)
+    {
         return $this->repository->get_point_student($request, $schoolYearId);
     }
 
-    public function handleGetPointByStudent(string $studentId) : mixed
+    public function handleGetPointByStudent(string $studentId): mixed
     {
         return $this->repository->get_student_by_point($studentId);
     }
 
-    public function handleCreatePoint($point, $studentId): void
+    public function handleCreatePoint($point, $studentId, $schoolYearId): mixed
     {
-        $this->repository->create_point($point, $studentId);
+        return $this->repository->create_point($point, $studentId, $schoolYearId);
     }
 
     public function hanleCountPointStudent(string $studentId)

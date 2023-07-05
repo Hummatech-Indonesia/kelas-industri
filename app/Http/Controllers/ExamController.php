@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\ExamRequest;
-use App\Models\Classroom;
 use App\Models\Exam;
-use App\Models\SchoolYear;
-use App\Models\StudentClassroom;
 use App\Models\User;
-use App\Services\ClassroomService;
-use App\Services\ExamService;
-use App\Services\UserServices;
+use App\Models\Classroom;
+use Illuminate\View\View;
+use App\Models\SchoolYear;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use App\Services\ExamService;
+use App\Services\UserServices;
+use App\Models\StudentClassroom;
+use App\Helpers\SchoolYearHelper;
+use App\Http\Requests\ExamRequest;
+use App\Services\ClassroomService;
+use App\Services\SchoolYearService;
 
 class ExamController extends Controller
 {
@@ -22,12 +23,14 @@ class ExamController extends Controller
     private ClassroomService $classroomService;
     private ExamService $examService;
     private UserServices $userService;
+    private SchoolYearService $schoolYearService;
 
-    public function __construct(ClassroomService $classroomService, ExamService $examService, UserServices $userService)
+    public function __construct(ClassroomService $classroomService, ExamService $examService, UserServices $userService, SchoolYearService $schoolYearService)
     {
         $this->classroomService = $classroomService;
         $this->examService = $examService;
         $this->userService = $userService;
+        $this->schoolYearService = $schoolYearService;
     }
     /**
      * Display a listing of the resource.
@@ -49,8 +52,8 @@ class ExamController extends Controller
                 $selectedSchoolYear = $request->school_year;
             }
             $data = [
-                'schoolYear' => SchoolYear::all(),
-                'schoolYearFilter' => $request->school_year,
+                'schoolYear' => $this->schoolYearService->handleGetAll(),
+                'schoolYearFilter' => $selectedSchoolYear,
                 'classrooms' => $this->classroomService->handleGetSchoolClassrooomJournal(auth()->id(), $selectedSchoolYear),
             ];
             return view('dashboard.admin.pages.exam.index', $data);
@@ -66,14 +69,14 @@ class ExamController extends Controller
             }
             if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
                 $schools = (auth()->user()->teacherSchool->school_id);
-                $data['schoolYear'] = SchoolYear::all();
-                $data['schoolYearFilter'] = $request->school_year;
+                $data['schoolYear'] = $this->schoolYearService->handleGetAll();
+                $data['schoolYearFilter'] = $selectedSchoolYear;
                 $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomTeacher(auth()->id(),$schools, $selectedSchoolYear);
                 return view('dashboard.user.pages.exam.index', $data, );
             } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
                 $schools = (auth()->user()->mentorClassrooms[0]->classroom->school_id);
-                $data['schoolYear'] = SchoolYear::all();
-                $data['schoolYearFilter'] = $request->school_year;
+                $data['schoolYear'] = $this->schoolYearService->handleGetAll();
+                $data['schoolYearFilter'] = $selectedSchoolYear;
                 $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomMentor(auth()->id(), $selectedSchoolYear);
                 return view('dashboard.user.pages.exam.index', $data, );
             }
@@ -91,8 +94,8 @@ class ExamController extends Controller
         if ($request->school_year) {
             $selectedSchoolYear = $request->school_year;
         }
-        $schoolYear = SchoolYear::all();
-        $schoolYearFilter = $request->school_year;
+        $schoolYear = $this->schoolYearService->handleGetAll();
+        $schoolYearFilter = $selectedSchoolYear;
         $schools = $school->id;
         $classrooms = $this->classroomService->handleGetSchoolClassrooomReport($schools, $selectedSchoolYear);
         return view('dashboard.admin.pages.exam.showClassroom', compact('schoolYear', 'classrooms', 'schoolYearFilter', 'schools'));

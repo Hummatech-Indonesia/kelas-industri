@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Services\UserServices;
 use App\Helpers\SchoolYearHelper;
 use App\Services\ClassroomService;
+use App\Services\SchoolYearService;
 use App\Services\SubmitAssignmentService;
 
 class ReportController extends Controller
@@ -19,12 +20,14 @@ class ReportController extends Controller
     private SubmitAssignmentService $submitAssignmentService;
     private UserServices $userService;
     private ClassroomService $classroomService;
+    private SchoolYearService $schoolYearService;
 
-    public function __construct(SubmitAssignmentService $submitAssignmentService, UserServices $userService, ClassroomService $classroomService)
+    public function __construct(SubmitAssignmentService $submitAssignmentService, UserServices $userService, ClassroomService $classroomService, SchoolYearService $schoolYearService)
     {
         $this->submitAssignmentService = $submitAssignmentService;
         $this->userService = $userService;
         $this->classroomService = $classroomService;
+        $this->schoolYearService = $schoolYearService;
     }
 
     public function index(Request $request)
@@ -53,8 +56,8 @@ class ReportController extends Controller
         if($request->school_year){
             $selectedSchoolYear = $request->school_year;
         }
-        $schoolYear = SchoolYear::all();
-        $schoolYearFilter = $request->school_year;
+        $schoolYear = $this->schoolYearService->handleGetAll();
+        $schoolYearFilter = $selectedSchoolYear;
         $schools = $school->id;
         $classrooms = $this->classroomService->handleGetSchoolClassrooomReport($schools, $selectedSchoolYear);
         return view('dashboard.admin.pages.report.show', compact('schoolYear','classrooms', 'schoolYearFilter', 'schools'));
