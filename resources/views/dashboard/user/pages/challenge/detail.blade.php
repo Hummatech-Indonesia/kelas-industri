@@ -42,24 +42,64 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                            <a href="{{route('mentor.challenges.index')}}"
-                                                class="btn btn-light-primary font-weight-bolder me-2">
-                                                <i class="bi bi-arrow-left me-2"></i>
-                                                Kembali
-                                            </a>
-                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                            <a href="{{route('teacher.challenges.index')}}"
-                                                class="btn btn-light-primary font-weight-bolder me-2">
-                                                <i class="bi bi-arrow-left me-2"></i>
-                                                Kembali
-                                            </a>
-                                            @else
-                                            <a href="{{route('student.challenges.index')}}"
-                                                class="btn btn-light-primary font-weight-bolder me-2">
-                                                <i class="bi bi-arrow-left me-2"></i>
-                                                Kembali
-                                            </a>
-                                            @endif
+                                    @if (count($student) > 0)
+                                        <a href="{{ Route('mentor.downloadAllFile', ['challenge' => $challenge->id]) }}"
+                                            class="btn btn-dark fw-bold btn-sm">
+                                            <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
+                                                        fill="currentColor" />
+                                                    <path opacity="0.3"
+                                                        d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                                        fill="currentColor" />
+                                                    <path
+                                                        d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                                        fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                            Download File Semua Siswa
+                                        </a>
+                                    @else
+                                    @endif
+                                    <a href="{{ route('mentor.challenges.index') }}"
+                                        class="btn btn-light-primary font-weight-bolder me-2">
+                                        <i class="bi bi-arrow-left me-2"></i>
+                                        Kembali
+                                    </a>
+                                @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                    @if (count($student) > 0)
+                                        <a href="{{ Route('teacher.downloadAllFile', ['challenge' => $challenge->id]) }}"
+                                            class="btn btn-dark fw-bold btn-sm">
+                                            <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
+                                                        fill="currentColor" />
+                                                    <path opacity="0.3"
+                                                        d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                                        fill="currentColor" />
+                                                    <path
+                                                        d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                                        fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                            Download File Semua Siswa
+                                        </a>
+                                    @else
+                                    @endif
+                                    <a href="{{ route('teacher.challenges.index') }}"
+                                        class="btn btn-light-primary font-weight-bolder me-1">
+                                        <i class="bi bi-arrow-left me-2"></i>
+                                        Kembali
+                                    </a>
+                                @else
+                                    <a href="{{ route('student.challenges.index') }}"
+                                        class="btn btn-light-primary font-weight-bolder me-2">
+                                        <i class="bi bi-arrow-left me-2"></i>
+                                        Kembali
+                                    </a>
+                                @endif
                             </div>
                             <!--end::Actions-->
                         </div>
@@ -108,12 +148,12 @@
                                                     </td>
                                                     <td>
                                                         <span class="badge badge-light-primary">
-                                                        {{ \Carbon\Carbon::parse($challenge->start_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
+                                                            {{ \Carbon\Carbon::parse($challenge->start_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
                                                         </span>
                                                     </td>
                                                     <td>
                                                         <span class="badge badge-light-danger">
-                                                        {{ \Carbon\Carbon::parse($challenge->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
+                                                            {{ \Carbon\Carbon::parse($challenge->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
                                                         </span>
                                                     </td>
                                                     <td>
@@ -158,15 +198,6 @@
                                             <span class="text-gray-400 mt-1 fw-semibold fs-6">Siswa Yang Telah Mengumpulkan
                                                 Tantangan.</span>
                                         </h3>
-
-                                        @if (count($student) > 0)
-                                            <a href="{{ Route('mentor.downloadAllFile', ['challenge' => $challenge->id]) }}"
-                                                class="btn btn-success btn-sm mb-5"><i class="fas fa-file-excel"></i>
-                                                Download File Semua Siswa
-                                            </a>
-                                        @else
-                                        @endif
-
                                         <!--end::Title-->
                                     </div>
 
@@ -195,8 +226,22 @@
                                                         </td>
                                                         <td>
                                                             <a href="{{ Route('mentor.downloadFileChallenge', ['submitChallenge' => $students->id]) }}"
-                                                                target="_blank" class="btn btn-danger btn-sm"><i
-                                                                    class="fas fa-file-pdf"></i>Download</a>
+                                                                target="_blank" class="btn btn-danger btn-sm">
+                                                                <span class="svg-icon svg-icon-muted svg-icon-4">
+                                                                    <svg width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path opacity="0.3"
+                                                                            d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
+                                                                            fill="currentColor" />
+                                                                        <path opacity="0.3"
+                                                                            d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                                                            fill="currentColor" />
+                                                                        <path
+                                                                            d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                                                            fill="currentColor" />
+                                                                    </svg>
+                                                                </span>Download</a>
                                                         </td>
                                                         <td>
                                                             @if ($students->is_valid == 'not_valid')
@@ -213,6 +258,8 @@
                                                                         method="POST">
                                                                         @csrf
                                                                         <button type="submit"
+                                                                            id="kt_docs_sweetalert_html"
+                                                                            data-nama="{{ $students->studentSchool->student->name }}"
                                                                             class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
                                                                             Valid
                                                                         </button>
@@ -221,7 +268,7 @@
                                                                     -
                                                                 @endif
                                                             @else
-                                                            -
+                                                                -
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -242,13 +289,6 @@
                                             <span class="text-gray-400 mt-1 fw-semibold fs-6">Siswa Yang Telah Mengumpulkan
                                                 Tantangan.</span>
                                         </h3>
-                                        @if (count($student) > 0)
-                                            <a href="{{ Route('teacher.downloadAllFile', ['challenge' => $challenge->id]) }}"
-                                                class="btn btn-success btn-sm mb-5"><i class="fas fa-file-excel"></i>
-                                                Download File Semua Siswa
-                                            @else
-                                        @endif
-                                        </a>
                                         <!--end::Title-->
                                     </div>
                                     <div class="card-body">
@@ -274,10 +314,23 @@
                                                             {{ $students->studentSchool->student->name }}
                                                         </td>
                                                         <td>
-
                                                             <a href="{{ Route('teacher.downloadFileChallenge', ['submitChallenge' => $students->id]) }}"
-                                                                target="_blank" class="btn btn-danger btn-sm"><i
-                                                                    class="fas fa-file-pdf"></i>Download</a>
+                                                                target="_blank" class="btn btn-danger btn-sm">
+                                                                <span class="svg-icon svg-icon-muted svg-icon-4">
+                                                                    <svg width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path opacity="0.3"
+                                                                            d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
+                                                                            fill="currentColor" />
+                                                                        <path opacity="0.3"
+                                                                            d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                                                            fill="currentColor" />
+                                                                        <path
+                                                                            d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                                                            fill="currentColor" />
+                                                                    </svg>
+                                                                </span>Download</a>
                                                         </td>
 
                                                         <td>
@@ -291,11 +344,13 @@
                                                         <td>
                                                             @if ($challenge->created_by == auth()->user()->id)
                                                                 @if ($students->is_valid == 'not_valid')
-                                                                    <form
+                                                                    <form id="form-validate"
                                                                         action="{{ route('teacher.validChallengeTeacher', ['submitChallenge' => $students]) }}"
                                                                         method="POST">
                                                                         @csrf
-                                                                        <button type="submit"
+                                                                        <button type="button"
+                                                                            id="kt_docs_sweetalert_html"
+                                                                            data-nama="{{ $students->studentSchool->student->name }}"
                                                                             class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
                                                                             Valid
                                                                         </button>
@@ -304,7 +359,7 @@
                                                                     -
                                                                 @endif
                                                             @else
-                                                            -
+                                                                -
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -361,5 +416,27 @@
             $("#kt_datatable_responsive").DataTable({
                 responsive: true
             });
+        </script>
+        <script>
+            $('#kt_docs_sweetalert_html').click(function(e) {
+                e.preventDefault();
+                var nama = $(this).attr('data-nama');
+
+                Swal.fire({
+                    html: "Apakah Anda Yakin Challenge Dari Siswa " + nama + "",
+                    icon: "info",
+                    buttonsStyling: false,
+                    showCancelButton: true,
+                    confirmButtonText: "Ok, got it!",
+                    cancelButtonText: 'Nope, cancel it',
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: 'btn btn-danger'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed)
+                        $('#form-validate').submit()
+                });
+            })
         </script>
     @endsection

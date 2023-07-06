@@ -198,15 +198,6 @@
                                         <div id="kt_user_view_details" class="collapse show">
                                             <div class="pb-5 fs-6">
                                                 <!--begin::Details item-->
-                                                <div class="fw-bold mt-5">Nomor Rekening</div>
-                                                <div class="text-gray-600">
-                                                    {{ $classroom->teacherClassroom->teacherSchool->teacher->account_number ? $classroom->teacherClassroom->teacherSchool->teacher->account_number : '-' }}
-                                                    (
-                                                    {{ $classroom->teacherClassroom->teacherSchool->teacher->bank ? $classroom->teacherClassroom->teacherSchool->teacher->bank : '-' }}
-                                                    )
-                                                </div>
-                                                <!--begin::Details item-->
-                                                <!--begin::Details item-->
                                                 <div class="fw-bold mt-5">Email</div>
                                                 <div class="text-gray-600"><a href="#"
                                                         class="text-gray-600 text-hover-primary">{{ $classroom->teacherClassroom->teacherSchool->teacher->email ? $classroom->teacherClassroom->teacherSchool->teacher->email : '-' }}</a>

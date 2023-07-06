@@ -159,17 +159,23 @@ class ChallengeRepository extends BaseRepository
         ->count();
     }
 
-    public function get_count_challenge_teacher(string $teacherId)
+    public function get_count_challenge_teacher(string $teacherId, string $schoolYearId)
     {
         return $this->model->query()
         ->where('created_by', $teacherId)
+        ->whereRelation('classroom.generation', function ($q) use ($schoolYearId){
+            return $q->where('school_year_id', $schoolYearId);
+        })
         ->count();
     }
 
-    public function get_count_challenge_mentor(string $mentorId)
+    public function get_count_challenge_mentor(string $mentorId, string $schoolYearId)
     {
         return $this->model->query()
         ->where('created_by', $mentorId)
+        ->whereRelation('classroom.generation', function ($q) use ($schoolYearId){
+            return $q->where('school_year_id', $schoolYearId);
+        })
         ->count();
     }
 

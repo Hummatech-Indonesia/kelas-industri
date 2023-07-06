@@ -72,9 +72,12 @@ trait DataSidebar
     }
 
 
-    function getDoneChallenge()
+    function getDoneChallenge($year)
     {
-        return SubmitChallenge::where('student_school_id',auth()->user()->studentSchool->id)->count();
+        return SubmitChallenge::where('student_school_id',auth()->user()->studentSchool->id)
+        ->whereRelation('challenge.classroom.generation',function($query) use ($year){
+        $query->where('school_year_id',$year);
+        })->count();
     }
 
     function ScheduleMockup()

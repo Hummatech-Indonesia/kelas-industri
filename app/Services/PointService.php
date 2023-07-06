@@ -24,9 +24,9 @@ class PointService
         return $this->repository->get_point();
     }
 
-    public function handleGetPointStudent(Request $request, int $schoolYearId)
+    public function handleGetPointStudent(Request $request)
     {
-        return $this->repository->get_point_student($request, $schoolYearId);
+        return $this->repository->get_point_student($request);
     }
 
     public function handleGetPointByStudent(string $studentId): mixed

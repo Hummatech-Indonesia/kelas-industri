@@ -23,8 +23,8 @@
             <!--end::Mobile toggle-->
 
             <!--begin::Logo image-->
-            <a href="index-2.html">
-                <img alt="Logo" src="{{ asset('user-assets/media/logos/demo31.svg') }}" class="h-30px" />
+            <a href="{{route('home')}}">
+                <img alt="Logo" src="{{ asset('storage/logo_file/Logo-Kelas-Industri.png') }}" class="h-50px" />
             </a>
             <!--end::Logo image-->
         </div>

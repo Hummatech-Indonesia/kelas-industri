@@ -25,7 +25,7 @@ class PointRepository extends BaseRepository
         ->get();
     }
 
-    public function get_point_student(Request $request, int $schoolYearId)
+    public function get_point_student(Request $request)
     {
         return $this->model->query()
         ->groupBy('student_id')
@@ -39,10 +39,6 @@ class PointRepository extends BaseRepository
                 });
             });
         })
-        // ->whereHas('student.studentSchool.studentClassroom.classroom.generation.schoolYear', function ($query) use ($schoolYearId) {
-        //     $query->where('id', $schoolYearId);
-        // })
-        ->where('school_year_id', $schoolYearId)
         ->selectRaw('student_id, sum(point) as point')
         ->orderBy('point', 'desc')
         ->get();

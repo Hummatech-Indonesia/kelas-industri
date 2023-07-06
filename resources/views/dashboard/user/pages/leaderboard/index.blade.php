@@ -63,7 +63,7 @@
                                 <!--begin::Compact form-->
                                 <div class="searching align-items-center">
                                     <!--begin::Input group-->
-                                    <div class="position-relative col-lg-6 col-md-12 me-2">
+                                    <div class="position-relative col-lg-10 col-md-12 me-2">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                         <!--end::Svg Icon-->
                                             <select name="filter" class="form-select form-select-solid" placeholder="Select an option"
@@ -75,16 +75,6 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                    </div>
-                                    <div class="position-relative col-lg-4 col-md-12 me-2">
-                                        <select name="school_year" class="form-select form-select-solid"
-                                                    data-control="select2" data-placeholder="Tahun Ajaran">
-                                                    @foreach ($schoolYear as $year)
-                                                        <option {{ $schoolYearFilter == $year->id ? 'selected' : '' }}
-                                                            value="{{ $year->id }}">
-                                                            {{ $year->school_year }}</option>
-                                                    @endforeach
-                                                </select>
                                     </div>
                                     <div class="col-lg-2 col-md-12">
                                         <button type="submit" class="btn btn-primary">Cari</button>

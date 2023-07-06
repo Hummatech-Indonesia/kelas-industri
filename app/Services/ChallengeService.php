@@ -108,13 +108,13 @@ class ChallengeService
         return $this->repository->get_count_challenge_student();
     }
 
-    public function handleCountChallengeTeacher(string $teacherId) :mixed
+    public function handleCountChallengeTeacher(string $teacherId, string $schoolYearId) :mixed
     {
-        return $this->repository->get_count_challenge_teacher($teacherId);
+        return $this->repository->get_count_challenge_teacher($teacherId, $schoolYearId);
     }
 
-    public function handleCountChallengeMentor(string $mentorId) :mixed
+    public function handleCountChallengeMentor(string $mentorId, string $schoolYearId) :mixed
     {
-        return $this->repository->get_count_challenge_mentor($mentorId);
+        return $this->repository->get_count_challenge_mentor($mentorId, $schoolYearId);
     }
 }

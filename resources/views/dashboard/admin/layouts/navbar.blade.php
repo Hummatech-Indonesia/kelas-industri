@@ -20,9 +20,9 @@
             <!--end::Aside  toggle-->
 
             <!--begin::Logo-->
-            <a href="index-2.html">
-                <img alt="Logo" src="{{ asset('app-assets/media/logos/default-small.svg') }}"
-                    class="h-25px h-lg-30px" />
+            <a href="{{route('home')}}">
+                <img alt="Logo" src="{{ asset('storage/logo_file/Logo-Kelas-Industri.png') }}"
+                    class="h-40px h-lg-50px" />
             </a>
             <!--end::Logo-->
 

@@ -40,10 +40,24 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                @if (auth()->user()->roles->pluck('name')[0] == 'teacher' )
+                                <a href="{{ Route('teacher.downloadAll', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                    class="btn-flex btn btn-dark fw-bold btn-sm"
+                                    id="btn-download-all">
+                                    <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor"/>
+                                        <path opacity="0.3" d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z" fill="currentColor"/>
+                                        <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z" fill="currentColor"/>
+                                        </svg>
+                                        </span>
+                                    Download Semua File
+                                </a>
+                                @endif
                                 <a href="{{ url()->previous() }}"
                                     class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
+
                             </div>
                             <!--end::Actions-->
                         </div>
@@ -77,16 +91,17 @@
                                                 class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
                                                 Nilai
                                             </button>
-                                            <a href="{{ Route('teacher.downloadAll', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
-                                                class="btn btn-sm btn-success font-weight-bolder text-uppercase"
-                                                id="btn-download-all">
-                                                Download Semua File
-                                            </a>
                                         </div>
                                     @else
                                         <a href="{{ Route('mentor.downloadAll', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
-                                            class="btn btn-sm btn-success font-weight-bolder text-uppercase mb-5"
+                                            class="btn-flex btn btn-dark fw-bold btn-sm"
                                             id="btn-download-all">
+                                            <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor"/>
+                                                <path opacity="0.3" d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z" fill="currentColor"/>
+                                                <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z" fill="currentColor"/>
+                                                </svg>
+                                                </span>
                                             Download Semua File
                                         </a>
                                     @endif
@@ -117,13 +132,26 @@
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                                 <a href="{{ Route('teacher.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
                                                                     target="_blank"
-                                                                    class="btn btn-danger btn-sm btn-download"><i
-                                                                        class="fas fa-file-pdf"></i>Download </a>
+                                                                    class="btn btn-danger btn-sm btn-download">
+                                                                    <span class="svg-icon svg-icon-muted svg-icon-4">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor"/>
+                                                                        <path opacity="0.3" d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z" fill="currentColor"/>
+                                                                        <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z" fill="currentColor"/>
+                                                                        </svg>
+                                                                        </span>
+                                                                        Download </a>
                                                             @else
                                                                 <a href="{{ Route('mentor.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
                                                                     target="_blank"
-                                                                    class="btn btn-danger btn-sm btn-download"><i
-                                                                        class="fas fa-file-pdf"></i>Download </a>
+                                                                    class="btn btn-danger btn-sm btn-download">
+                                                                    <span class="svg-icon svg-icon-muted svg-icon-4">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor"/>
+                                                                        <path opacity="0.3" d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z" fill="currentColor"/>
+                                                                        <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z" fill="currentColor"/>
+                                                                        </svg>
+                                                                        </span> Download </a>
                                                             @endif
                                                         </td>
                                                         @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
@@ -208,14 +236,12 @@
     </div>
 @endsection
 @section('script')
-    <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $("#kt_datatable_responsive").DataTable({
-            responsive: true,
-            // pageLength: 1
-        });
-
-
+                responsive: true
+            });
+    </script>
+    <script>
         function BeriNilai() {
             var arr_nilai = [];
             var arr_id = [];
