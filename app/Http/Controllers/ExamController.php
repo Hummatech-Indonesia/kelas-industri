@@ -139,7 +139,7 @@ class ExamController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.admin.pages.exam.create');
     }
 
     /**

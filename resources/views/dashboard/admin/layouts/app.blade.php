@@ -24,7 +24,7 @@ License: For each use you must have a valid license purchased only from above li
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
+    <link rel="shortcut icon" href="{{asset('app-assets/logo_file/Logo-Kelas-Industri.png')}}"/>
 
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>

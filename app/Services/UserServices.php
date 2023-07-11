@@ -206,4 +206,9 @@ class UserServices
         ]);
     }
 
+    public function handleCreatePoint($point, $studentId) :mixed
+    {
+        return $this->repository->create_point($point, $studentId);
+    }
+
 }

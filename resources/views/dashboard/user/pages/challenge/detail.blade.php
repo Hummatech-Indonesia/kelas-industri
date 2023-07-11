@@ -423,12 +423,12 @@
                 var nama = $(this).attr('data-nama');
 
                 Swal.fire({
-                    html: "Apakah Anda Yakin Challenge Dari Siswa " + nama + "",
+                    html: "Apakah Anda Yakin Challenge Dari Siswa " + nama + "Valid",
                     icon: "info",
                     buttonsStyling: false,
                     showCancelButton: true,
-                    confirmButtonText: "Ok, got it!",
-                    cancelButtonText: 'Nope, cancel it',
+                    confirmButtonText: "Iya, Benar!",
+                    cancelButtonText: 'Batal',
                     customClass: {
                         confirmButton: "btn btn-primary",
                         cancelButton: 'btn btn-danger'

@@ -14,11 +14,12 @@ class ChallengeRepository extends BaseRepository
     private SubmitChallenge $submitChallenge;
     private Point $point;
 
-    public function __construct(Challenge $model, SubmitChallenge $submitChallenge, Point $point)
+    public function __construct(Challenge $model, SubmitChallenge $submitChallenge, Point $point, User $user)
     {
         $this->model = $model;
         $this->submitChallenge = $submitChallenge;
         $this->point = $point;
+        $this->user = $user;
     }
 
     /**
@@ -111,13 +112,11 @@ class ChallengeRepository extends BaseRepository
         ]);
     }
 
-    public function create_point_challenge(int $point, string $studentId, int $schoolYearId): void
+    public function create_point_challenge(int $point, string $studentId): void
     {
-        $this->point->create([
-            'student_id' => $studentId,
-            'point' => $point,
-            'school_year_id' => $schoolYearId,
-        ]);
+        $data = $this->user->query()->findorfail($studentId);
+        $data->point += $point;
+        $data->save();
     }
 
     public function get_submit_challenge_student(string $studentId, string $challengeId): mixed

@@ -20,10 +20,11 @@
             <!--end::Aside  toggle-->
 
             <!--begin::Logo-->
-            <a href="{{route('home')}}">
-                <img alt="Logo" src="{{ asset('storage/logo_file/Logo-Kelas-Industri.png') }}"
+            <a href="{{ route('home') }}">
+                <img alt="Logo" src="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}"
                     class="h-40px h-lg-50px" />
             </a>
+
             <!--end::Logo-->
 
             <!--begin::Nav-->

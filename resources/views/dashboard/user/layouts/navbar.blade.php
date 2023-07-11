@@ -24,7 +24,7 @@
 
             <!--begin::Logo image-->
             <a href="{{route('home')}}">
-                <img alt="Logo" src="{{ asset('storage/logo_file/Logo-Kelas-Industri.png') }}" class="h-50px" />
+                <img alt="Logo" src="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" class="h-50px" />
             </a>
             <!--end::Logo image-->
         </div>
@@ -58,12 +58,7 @@
                                     class="menu-title">Kelas</span></a>
                             <!--end:Menu link-->
                         </div>
-                        {{-- <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                            <!--begin:Menu link-->
-                            <a href="{{ route('student.materials') }}" class="menu-link"><span
-                                    class="menu-title">Materi</span></a>
-                            <!--end:Menu link-->
-                        </div> --}}
+
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
@@ -81,15 +76,25 @@
                             @endif
                             <!--end:Menu link-->
                         </div>
-                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <!--begin:Menu link-->
+                            @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                <a href="{{ route('student.rewards.index') }}"
+                                    class="menu-link {{ request()->routeIs('student.rewards.index') ? 'active' : '' }}">
+                                    <span class="menu-title">Hadiah</span></a>
+                            @endif
+
+                            <!--end:Menu link-->
+                        </div>
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                 <!--begin:Menu link-->
                                 <a href="{{ route('mentor.attendance.index') }}"
                                     class="menu-link {{ request()->routeIs('mentor.attendance.*') ? 'active' : '' }}"><span
                                         class="menu-title">Absen</span></a>
+                                        @endif
                                 <!--end:Menu link-->
                             </div>
-                        @endif
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
@@ -132,20 +137,32 @@
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                <a href="{{ route('mentor.rankings') }}"
-                                    class="menu-link {{ request()->routeIs('mentor.rankings') ? 'active' : '' }}">
-                                    <span class="menu-title">Peringkat</span></a>
+                                <a href="{{ route('mentor.saleries.index') }}"
+                                    class="menu-link {{ request()->routeIs('mentor.saleries.*') ? 'active' : '' }}">
+                                    <span class="menu-title">Gaji</span></a>
                             @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                <a href="{{ route('teacher.rankings') }}"
-                                    class="menu-link {{ request()->routeIs('teacher.rankings') ? 'active' : '' }}">
-                                    <span class="menu-title">Peringkat</span></a>
-                            @else
-                                <a href="{{ route('student.rankings') }}"
-                                    class="menu-link {{ request()->routeIs('student.rankings') ? 'active' : '' }}">
-                                    <span class="menu-title">Peringkat</span></a>
+                                <a href="{{ route('teacher.saleries.index') }}"
+                                    class="menu-link {{ request()->routeIs('teacher.saleries.*') ? 'active' : '' }}">
+                                    <span class="menu-title">Gaji</span></a>
                             @endif
 
                             <!--end:Menu link-->
+                        </div>
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                    <a href="{{ route('mentor.rankings') }}"
+                                        class="menu-link {{ request()->routeIs('mentor.rankings') ? 'active' : '' }}">
+                                        <span class="menu-title">Peringkat</span></a>
+                                @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                    <a href="{{ route('teacher.rankings') }}"
+                                        class="menu-link {{ request()->routeIs('teacher.rankings') ? 'active' : '' }}">
+                                        <span class="menu-title">Peringkat</span></a>
+                                @else
+                                    <a href="{{ route('student.rankings') }}"
+                                        class="menu-link {{ request()->routeIs('student.rankings') ? 'active' : '' }}">
+                                        <span class="menu-title">Peringkat</span></a>
+                                @endif
+
                         </div>
 
                     </div>

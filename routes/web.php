@@ -8,6 +8,8 @@ use App\Http\Controllers\PointController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RewardController;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
@@ -21,6 +23,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\SubMaterialController;
+use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\UserAssignmentController;
@@ -73,7 +76,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'journal' => JurnalController::class,
         'attendance' => AttendanceController::class,
         'exam' => ExamController::class,
+        'saleries' => SalaryController::class,
+        'rewards' => RewardController::class,
     ]);
+
+    Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
+    Route::get('create', [SalaryController::class, 'createTeacher'])->name('createSaleriesTeacher');
+    Route::get('edit/{salery}', [SalaryController::class, 'editTeacher'])->name('editSaleriesTeacher');
+    Route::post('store', [SalaryController::class, 'storeTeacher'])->name('storeSaleriesTeacher');
+    Route::patch('update/{salery}', [SalaryController::class, 'updateTeacher'])->name('updateSaleriesTeacher');
+    Route::delete('delete/{salery}', [SalaryController::class, 'destroyTeacher'])->name('deleteSaleriesTeacher');
+    Route::post('getTeacherBySchool', [SalaryController::class, 'getTeacherBySchool'])->name('getTeacherBySchool');
 
     Route::get('/showClassroom/{school}', [ExamController::class, 'showClassroom'])->name('showClassroom');
     Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
@@ -152,6 +165,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
         'challenges' => ChallengeController::class,
         'journal' => JurnalController::class,
         'exam' => ExamController::class,
+        'saleries' => SalaryController::class,
     ]);
     Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
     Route::get('/showStudentReport/{classroom}', [ReportController::class, 'showStudent'])->name('showStudentReport');
@@ -177,6 +191,7 @@ Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->g
         'attendance' => AttendanceController::class,
         'journal' => JurnalController::class,
         'exam' => ExamController::class,
+        'saleries' => SalaryController::class,
     ]);
 
     Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
@@ -229,7 +244,9 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
 
     Route::resources([
+        'submitRewards' => SubmitRewardController::class,
         'challenges' => ChallengeController::class,
+        'rewards' => RewardController::class,
     ]);
 });
 //end student

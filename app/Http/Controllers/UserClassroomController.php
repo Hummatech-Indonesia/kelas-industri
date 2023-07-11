@@ -11,6 +11,7 @@ use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 use App\Services\PointService;
 use App\Services\StudentService;
+use App\Helpers\SchoolYearHelper;
 use App\Services\MaterialService;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
@@ -100,10 +101,11 @@ class UserClassroomController extends Controller
 
     public function showStudentDetail(User $student) : View
     {
+        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         $data = $this->GetDataSidebar();
         $data['student'] = $student;
         $data['point'] = $this->pointService->handleGetPointByStudent($student->id);
-        $data['challenges'] = $this->submitChallengeService->handleGetCountStudentByChallenge($student->students[0]->id);
+        $data['challenges'] = $this->submitChallengeService->handleGetCountStudentByChallenge($student->students[0]->id, $currentSchoolYear->id);
         $data['assignments'] = $this->submitAssignmentService->handleGetCountStudentByAssignment($student->id);
         $data['rankings'] = $this->pointService->handleGetPoint();
         return view('dashboard.user.pages.classroom.show', $data);

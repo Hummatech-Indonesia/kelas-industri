@@ -47,7 +47,7 @@ class StudentSchool extends Model
      */
     public function school(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'school_id');
+    return $this->belongsTo(User::class, 'school_id');
     }
 
 }

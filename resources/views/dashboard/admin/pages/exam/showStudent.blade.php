@@ -37,18 +37,32 @@
             @endif
 
 
+            <a href="{{ route('admin.exam.create') }}" class="btn btn-dark fw-bold">
+                Tambah </a>
         </div>
+
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <div class="col-12">
-                <div class="card">
+            <div class="card ">
+                <div class="card-header card-header-stretch">
+                    <h3 class="card-title">Ujian</h3>
+                    <div class="card-toolbar">
+                        <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_7">UTS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_8">UAS</a>
+                            </li>
 
-                    <!--begin::Card body-->
-                    <div class="card-body pt-0">
-
-                        <!--begin::Table-->
-                        @if ($students->count() > 0)
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="kt_tab_pane_7" role="tabpanel">
+                            @if ($students->count() > 0)
                             <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                 <thead>
                                     <!--begin::Table row-->
@@ -109,9 +123,11 @@
                         @else
                             <x-empty-component title="report" />
                         @endif
-                        <!--end::Table-->
+                        </div>
+                        <div class="tab-pane fade" id="kt_tab_pane_8" role="tabpanel">
+                            ...
+                        </div>
                     </div>
-                    <!--end::Card body-->
                 </div>
             </div>
         </div>

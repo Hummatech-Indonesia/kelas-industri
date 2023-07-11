@@ -13,9 +13,9 @@ class SubmitChallengeService
         $this->repository = $repository;
     }
 
-    public function handleGetCountStudentByChallenge(string $studentId) :mixed
+    public function handleGetCountStudentByChallenge(string $studentId, int $schoolYear) :mixed
     {
-        return $this->repository->get_count_student_challenge($studentId);
+        return $this->repository->get_count_student_challenge($studentId, $schoolYear);
     }
 }
 

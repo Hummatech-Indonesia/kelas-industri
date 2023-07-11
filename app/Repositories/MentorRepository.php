@@ -41,7 +41,7 @@ class MentorRepository extends BaseRepository
 
     public function student_have_mentor(string $mentorId): bool
     {
-        
+
         $check = $this->model->query()
         ->where('classroom_id',auth()->user()->students[0]->classrooms[0]->classroom_id)
         ->where('mentor_id',$mentorId)

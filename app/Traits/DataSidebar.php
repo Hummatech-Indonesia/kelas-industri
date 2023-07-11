@@ -2,14 +2,15 @@
 
 namespace App\Traits;
 
-use App\Helpers\SchoolYearHelper;
-use App\Models\Assignment;
-use App\Models\Challenge;
-use App\Models\Point;
-use App\Models\SubmitAssignment;
-use App\Models\SubmitChallenge;
-use App\Models\ZoomSchedule;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Point;
+use App\Models\Challenge;
+use App\Models\Assignment;
+use App\Models\ZoomSchedule;
+use App\Models\SubmitChallenge;
+use App\Models\SubmitAssignment;
+use App\Helpers\SchoolYearHelper;
 
 trait DataSidebar
 {
@@ -49,10 +50,8 @@ trait DataSidebar
 
     function RankMockup()
     {
-        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
-        return Point::where('school_year_id', $currentSchoolYear->id)
-            ->groupBy('student_id')
-            ->selectRaw('student_id, sum(point) as point')
+        return User::role('student')
+            ->whereHas('studentSchool.school')
             ->orderBy('point', 'desc')
             ->get();
     }

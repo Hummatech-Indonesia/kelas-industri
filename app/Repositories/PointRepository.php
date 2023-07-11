@@ -10,10 +10,10 @@ class PointRepository extends BaseRepository
 {
     private Point $point;
     private User $school;
-    public function __construct(Point $point,User $school)
+    public function __construct(Point $point,User $user)
     {
         $this->model = $point;
-        $this->school = $school;
+        $this->user = $user;
     }
 
     public function get_point()
@@ -27,35 +27,32 @@ class PointRepository extends BaseRepository
 
     public function get_point_student(Request $request)
     {
-        return $this->model->query()
-        ->groupBy('student_id')
+        return $this->user->query()
+        ->role('student')
+        ->whereHas('studentSchool.school')
+        ->orderBy('point', 'desc')
         ->when($request->filter,function($query) use ($request){
             return $query
-            ->whereHas('student',function($query) use ($request){
-                $query->whereHas('studentSchool',function($query) use ($request){
+                ->whereHas('studentSchool',function($query) use ($request){
                     $query->whereHas('school',function($query) use ($request){
                         $query->where('id',$request->filter);
                     });
                 });
-            });
         })
-        ->selectRaw('student_id, sum(point) as point')
-        ->orderBy('point', 'desc')
         ->get();
     }
 
     public function get_student_by_point(string $studentId) : mixed
     {
-        return $this->model->query()
-        ->where('student_id', $studentId)
-        ->groupBy('student_id')
-        ->selectRaw('student_id, sum(point) as point')
+        return $this->user->query()
+        ->where('id', $studentId)
+        ->select('point')
         ->get();
     }
 
     public function get_school() :mixed
     {
-    return $this->school->query()
+    return $this->user->query()
         ->role('school')
         ->get();
     }
@@ -71,10 +68,9 @@ class PointRepository extends BaseRepository
 
     public function get_count_point_student(string $studentId)
     {
-        return $this->model->query()
-        ->where('student_id', $studentId)
-        ->groupBy('student_id')
-        ->selectRaw('student_id, sum(point) as point')
+        return $this->user->query()
+        ->where('id', $studentId)
+        ->select('point')
         ->first();
     }
 

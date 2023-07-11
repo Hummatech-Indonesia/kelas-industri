@@ -87,7 +87,7 @@
 
                                     @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                         <div class="my-lg-0 my-1">
-                                            <button onclick="BeriNilai()"
+                                            <button onclick="BeriNilai()" id="kt_docs_sweetalert_html"
                                                 class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
                                                 Nilai
                                             </button>

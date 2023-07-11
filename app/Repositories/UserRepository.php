@@ -64,4 +64,11 @@ class UserRepository extends BaseRepository
             })
             ->get();
     }
+
+    public function create_point($point, string $studentId) :void
+    {
+        $data = $this->model->query()->findorfail($studentId);
+        $data->point += $point;
+        $data->save();
+    }
 }

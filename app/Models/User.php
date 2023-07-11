@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Point;
+use App\Models\Salary;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -64,14 +65,28 @@ class User extends Authenticatable
      */
     public function studentSchool(): HasOne
     {
-        return $this->hasOne(StudentSchool::class, 'student_id');
+        return $this->hasOne(StudentSchool::class, 'student_id')->latest();
     }
 
+    /**
+     * one to many relationship
+     *
+     * @return HasMany
+     */
     public function studentSchools(): HasMany
     {
         return $this->hasMany(StudentSchool::class, 'school_id');
     }
 
+/**
+     * one to many relationship
+     *
+     * @return HasMany
+     */
+    public function userSalarys(): HasMany
+    {
+        return $this->hasMany(Salary::class, 'user_id');
+    }
 
     /**
      * one to many relationship
@@ -93,26 +108,51 @@ class User extends Authenticatable
         return $this->hasOne(TeacherSchool::class, 'teacher_id');
     }
 
+    /**
+     * one to many relationship
+     *
+     * @return HasMany
+     */
     public function teachers(): HasMany
     {
         return $this->hasMany(TeacherSchool::class, 'school_id');
     }
 
+    /**
+     * one to many relationship
+     *
+     * @return HasMany
+     */
     public function students(): HasMany
     {
         return $this->hasMany(StudentSchool::class, 'student_id');
     }
 
+    /**
+     * one to many relationship
+     *
+     * @return HasMany
+     */
     public function schoolStudents(): HasMany
     {
         return $this->hasMany(StudentSchool::class, 'school_id');
     }
 
+    /**
+     * one to many relationship
+     *
+     * @return HasMany
+     */
     public function classrooms(): HasMany
     {
         return $this->hasMany(Classroom::class, 'school_id');
     }
 
+    /**
+     * one to many relationship
+     *
+     * @return HasMany
+     */
     public function submitAssignments(): HasMany
     {
         return $this->hasMany(SubmitAssignment::class, 'student_id');

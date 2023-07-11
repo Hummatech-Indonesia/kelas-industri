@@ -245,15 +245,15 @@
                                     <div class="symbol symbol-40px me-4">
                                         @if ($key == 0)
                                             <img width="50px"
-                                                src="{{ asset('storage/medal_file/gold-medal.png') }}"
+                                                src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
                                                 alt="">
                                         @elseif ($key == 1)
                                             <img width="50px"
-                                                src="{{ asset('storage/medal_file/silver-medal.png') }}"
+                                                src="{{ asset('app-assets/medal_file/silver-medal.png') }}"
                                                 alt="">
                                         @elseif ($key == 2)
                                             <img width="50px"
-                                                src="{{ asset('storage/medal_file/bronze-medal.png') }}"
+                                                src="{{ asset('app-assets/medal_file/bronze-medal.png') }}"
                                                 alt="">
                                         @else
                                         <div class="d-flex justify-content-center items-center" style="width:40px; height:50px; ">
@@ -270,16 +270,16 @@
                                         <div class="flex-grow-1 me-2">
                                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                                 <a href="{{ Route('student.rankings') }}"
-                                                    class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $rank->student->name }}</a>
+                                                    class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $rank->name }}</a>
                                             @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                 <a href="{{ Route('mentor.rankings')  }}"
-                                                    class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $rank->student->name }}</a>
+                                                    class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $rank->name }}</a>
                                             @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                 <a href="{{ Route('teacher.rankings')  }}"
-                                                    class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $rank->student->name }}</a>
+                                                    class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $rank->name }}</a>
                                             @endif
                                             <span
-                                            class="text-muted fw-semibold d-block fs-7">{{ $rank->student->studentSchool->school->name }}</span>
+                                            class="text-muted fw-semibold d-block fs-7">{{ $rank->studentSchool->school->name }}</span>
                                             <span
                                                 class="text-muted fw-semibold d-block fs-7">Point : {{ $rank->point }}</span>
                                         </div>

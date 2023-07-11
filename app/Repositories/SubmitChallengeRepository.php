@@ -11,11 +11,14 @@ class SubmitChallengeRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function get_count_student_challenge (string $studentId) :mixed
+    public function get_count_student_challenge (string $studentId, int $schoolYear) :mixed
     {
         return $this->model->query()
         ->where('student_school_id', $studentId)
         ->where('is_valid', 'valid')
+        ->whereRelation('challenge.classroom.generation.schoolYear', function ($q) use ($schoolYear){
+            $q->where('id', $schoolYear);
+        })
         ->get();
     }
 

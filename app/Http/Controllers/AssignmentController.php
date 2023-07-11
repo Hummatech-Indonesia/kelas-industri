@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\AssignmentRequest;
+use Illuminate\View\View;
 use App\Models\Assignment;
 use App\Models\SubMaterial;
-use App\Services\AssignmentService;
-use App\Services\PointService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
+use App\Services\PointService;
+use App\Services\UserServices;
+use App\Helpers\SchoolYearHelper;
+use App\Services\AssignmentService;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\AssignmentRequest;
 
 class AssignmentController extends Controller
 {
     private AssignmentService $service;
     private PointService $pointService;
+    private UserServices $userService;
 
-    public function __construct(AssignmentService $service, PointService $pointService)
+    public function __construct(AssignmentService $service, PointService $pointService, UserServices $userService)
     {
         $this->service = $service;
         $this->pointService = $pointService;
+        $this->userService = $userService;
     }
 
     /**
@@ -117,12 +120,11 @@ class AssignmentController extends Controller
     {
         $nilai = $request->nilai;
         $id = $request->id;
-        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
 
         foreach ($id as $index => $item) {
             $student = $this->service->handleShowSubmitAssignment($item);
             if ($student->point == null) {
-                $this->pointService->handleCreatePoint(0.5, $student->student_id, $currentSchoolYear->id);
+                $this->userService->handleCreatePoint(0.5, $student->student_id);
             }
             $this->service->storePoint($item, $nilai[$index]);
         }

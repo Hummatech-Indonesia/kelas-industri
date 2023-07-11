@@ -107,7 +107,7 @@
                                     <h3 class="card-title align-items-start flex-column">
                                         @php
                                                 $ranking = $rankings->search(function ($rank) {
-                                                    return $rank->student_id === auth()->id();
+                                                    return $rank->id === auth()->id();
                                                 });
                                             @endphp
 
@@ -150,15 +150,15 @@
                                         <tr>
                                             @if ($key == 0)
                                                 <td><img width="50px"
-                                                        src="{{ asset('storage/medal_file/gold-medal.png') }}"
+                                                        src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
                                                         alt=""></td>
                                             @elseif ($key == 1)
                                                 <td><img width="50px"
-                                                        src="{{ asset('storage/medal_file/silver-medal.png') }}"
+                                                        src="{{ asset('app-assets/medal_file/silver-medal.png') }}"
                                                         alt=""></td>
                                             @elseif ($key == 2)
                                                 <td><img width="50px"
-                                                        src="{{ asset('storage/medal_file/bronze-medal.png') }}"
+                                                        src="{{ asset('app-assets/medal_file/bronze-medal.png') }}"
                                                         alt=""></td>
                                             @else
                                                 <td>
@@ -168,8 +168,8 @@
                                                     </div>
                                                 </td>
                                             @endif
-                                            <td>{{ $ranking->student->name }}</td>
-                                            <td>{{ $ranking->student->studentSchool->school->name }}</td>
+                                            <td>{{ $ranking->name }}</td>
+                                            <td>{{ $ranking->studentSchool->school->name }}</td>
                                             <td>{{ $ranking->point }}</td>
                                         </tr>
                                     @endforeach

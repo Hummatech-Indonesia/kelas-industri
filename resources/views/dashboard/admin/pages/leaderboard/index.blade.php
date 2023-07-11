@@ -86,7 +86,7 @@
             <div class="card mb-7">
                 <!--begin::Card body-->
                 <div class="card-body">
-                    <!--begin::Compact form-->  
+                    <!--begin::Compact form-->
                     <div class="d-flex align-items-center">
                         <!--begin::Input group-->
                         <div class="position-relative col-lg-10 col-md-12 me-3">
@@ -141,15 +141,15 @@
                                         <tr>
                                             @if ($key == 0)
                                                 <td><img width="50px"
-                                                        src="{{ asset('storage/medal_file/gold-medal.png') }}"
+                                                        src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
                                                         alt=""></td>
                                             @elseif ($key == 1)
                                                 <td><img width="50px"
-                                                        src="{{ asset('storage/medal_file/silver-medal.png') }}"
+                                                        src="{{ asset('app-assets/medal_file/silver-medal.png') }}"
                                                         alt=""></td>
                                             @elseif ($key == 2)
                                                 <td><img width="50px"
-                                                        src="{{ asset('storage/medal_file/bronze-medal.png') }}"
+                                                        src="{{ asset('app-assets/medal_file/bronze-medal.png') }}"
                                                         alt=""></td>
                                             @else
                                                 <td>
