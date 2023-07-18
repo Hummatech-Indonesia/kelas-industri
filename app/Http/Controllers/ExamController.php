@@ -104,21 +104,28 @@ class ExamController extends Controller
     public function showStudent(Classroom $classroom): view
     {
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
-            $classroom = StudentClassroom::where('classroom_id', $classroom->id)->get();
+            $classrooms = StudentClassroom::where('classroom_id', $classroom->id)->get();
             $data = [
-                'students' => $classroom,
+            'examUTS' => $this->examService->handleGetStudentByExamUTS($classroom->id),
+            'examUAS' => $this->examService->handleGetStudentByExamUAS($classroom->id),
+            'classroom' => $classroom,
+            'students' => $classrooms
             ];
             return view('dashboard.admin.pages.exam.showStudent', $data);
         } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
-            $classroom = StudentClassroom::where('classroom_id', $classroom->id)->get();
+            $classrooms = StudentClassroom::where('classroom_id', $classroom->id)->get();
             $data = [
-                'students' => $classroom,
+                'examUTS' => $this->examService->handleGetStudentByExamUTS($classroom->id),
+                'examUAS' => $this->examService->handleGetStudentByExamUAS($classroom->id),
+                'students' => $classrooms,
             ];
             return view('dashboard.admin.pages.exam.showStudent', $data);
         } else {
             $data = $this->GetDataSidebar();
-            $classroom = StudentClassroom::where('classroom_id', $classroom->id)->get();
-            $data['students'] = $classroom;
+            $classrooms = StudentClassroom::where('classroom_id', $classroom->id)->get();
+            $data['students'] = $classrooms;
+            $data['examUTS'] = $this->examService->handleGetStudentByExamUTS($classroom->id);
+            $data['examUAS'] = $this->examService->handleGetStudentByExamUAS($classroom->id);
             return view('dashboard.user.pages.exam.showStudent', $data);
         }
 
@@ -139,7 +146,21 @@ class ExamController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admin.pages.exam.create');
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createExam(Classroom $classroom)
+    {
+        $data = [
+            'students' => $this->classroomService->handleGetStudent($classroom->id),
+            'classroom' => $classroom
+        ];
+        return view('dashboard.admin.pages.exam.create', $data);
     }
 
     /**
@@ -202,6 +223,9 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
-        //
+        $data = $this->examService->handleDelete($exam->id);
+        if(!$data) return back()->with('error', trans('alert.delete_constrained'));
+
+        return back()->with('success', trans('alert.delete_success'));
     }
 }

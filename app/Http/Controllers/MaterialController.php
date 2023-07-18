@@ -2,35 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\MaterialRequest;
 use App\Models\Material;
-use App\Services\GenerationService;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Helpers\SchoolYearHelper;
 use App\Services\MaterialService;
+use App\Services\GenerationService;
+use App\Services\SchoolYearService;
 use App\Services\SubMaterialService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use App\Http\Requests\MaterialRequest;
 
 class MaterialController extends Controller
 {
     private MaterialService $service;
     private GenerationService $generationService;
     private SubMaterialService $subMaterialService;
+    private SchoolYearService $schoolYearService;
 
-    public function __construct(MaterialService $service, GenerationService $generationService, SubMaterialService $subMaterialService)
+    public function __construct(MaterialService $service, GenerationService $generationService, SubMaterialService $subMaterialService, SchoolYearService $schoolYearService)
     {
         $this->service = $service;
         $this->generationService = $generationService;
         $this->subMaterialService = $subMaterialService;
+        $this->schoolYearService = $schoolYearService;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @return mixed
      */
-    public function index(Request $request): View
+    public function index(Request $request): mixed
     {
         $schoolYear = SchoolYearHelper::get_current_school_year();
         $selectedSchoolYear = 0;
@@ -38,11 +41,15 @@ class MaterialController extends Controller
             $selectedSchoolYear = $schoolYear->id;
         }
         if($request->filter){
-            $selectedSchoolYear = $request->filter;
+            $filter = $request->filter;
+        }else{
+            $filter = $selectedSchoolYear;
         }
+        if (request()->ajax()) return $this->generationService->handleGetBySchoolYear($request->school_year_id,$selectedSchoolYear);
         $data = [
+            'school_years' => $this->schoolYearService->handleGetAll(),
             'generations' => $this->generationService->handleGetAll(),
-            'filter' => $request->filter,
+            'filter' => $filter,
             'search' => $request->search,
             'materials' =>  $this->service->handleSearch($request, $selectedSchoolYear)
         ];

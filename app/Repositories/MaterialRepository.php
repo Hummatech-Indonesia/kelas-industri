@@ -46,11 +46,23 @@ class MaterialRepository extends BaseRepository
             ->paginate($limit);
     }
 
-    public function search_paginate(string|null $search,string $year, int $limit): mixed
+    public function search_paginate(string | null $search,string|null $generation,string|null $filter,string $year, int $limit): mixed
     {
         return $this->model->query()
+        ->when(!$generation,function($q) use ($year){
+            $q->whereRelation('generation', function ($q) use ($year) {
+                return $q->where('school_year_id', $year);
+            });
+        })
+        ->when($generation,function($q) use ($generation){
+            return $q->where('generation_id',$generation);
+        })
+        ->when($filter,function($q) use ($filter){
+            $q->whereRelation('generation', function ($q) use ($filter){
+                return $q->where('school_year_id',$filter);
+            });
+        })
             ->where('title', 'like', '%'. $search .'%')
-            ->where('generation_id','LIKE','%'.$year.'%')
             ->paginate($limit);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reward;
 use App\Traits\DataSidebar;
+use Illuminate\Http\Request;
 use App\Services\RewardService;
 use App\Http\Requests\RewardRequest;
 
@@ -20,7 +21,7 @@ class RewardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data = [
@@ -29,7 +30,15 @@ class RewardController extends Controller
             return view('dashboard.admin.pages.reward.index', $data);
         }else{
             $data = $this->GetDataSidebar();
-            $data['rewards'] = $this->rewardService->handleGetAll();
+            $reward = $this->rewardService->handleGetPaginate();
+            $parameters = null;
+
+            if (request()->has('search')) {
+                $reward = $this->rewardService->handleSearch(request()->search);
+                $parameters = request()->query();
+        }
+            $data['rewards'] = $reward;
+            $data['parameters'] = $parameters;
             return view('dashboard.user.pages.reward.index', $data);
         }
 
@@ -55,6 +64,7 @@ class RewardController extends Controller
     public function store(RewardRequest $request)
     {
         $this->rewardService->handleCreate($request);
+
         return to_route('admin.rewards.index')->with('success', trans('alert.add_success'));
     }
 
@@ -112,4 +122,14 @@ class RewardController extends Controller
 
         return back()->with('success', trans('alert.delete_success'));
     }
+
+    public function historyReward(Request $request)
+    {
+        $data = $this->GetDataSidebar();
+        $data['search'] = $request->search;
+        $data['rewards'] = $this->rewardService->handleRewardByStudent(auth()->id(), $request);
+        return view('dashboard.user.pages.reward.detail', $data);
+    }
+
+
 }

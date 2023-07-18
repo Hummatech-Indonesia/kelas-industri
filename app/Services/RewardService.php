@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Models\Reward;
+use Illuminate\Http\Request;
 use App\Services\RewardService;
 use App\Http\Requests\RewardRequest;
 use App\Repositories\RewardRepository;
@@ -39,6 +40,11 @@ class RewardService
         return $this->repository->get_paginate(6);
     }
 
+    public function handleGetAllWithSearch(string|null $search): mixed
+    {
+        return $this->repository->get_all_search_paginate($search, 6);
+    }
+
     /**
      * handle search
      *
@@ -63,6 +69,7 @@ class RewardService
     public function handleCreate(RewardRequest $request): void
     {
         $data = $request->validated();
+
         $data['photo'] = $request->file('photo')->store('reward_file', 'public');
 
         $salary = $this->repository->store($data);
@@ -97,5 +104,10 @@ class RewardService
             $delete = Storage::delete('public/' . $reward->photo);
         }
         return $this->repository->destroy($reward->id);
+    }
+
+    public function handleRewardByStudent($studentId, Request $search)
+    {
+        return $this->repository->get_reward_by_student($studentId,$search->search, 6);
     }
 }

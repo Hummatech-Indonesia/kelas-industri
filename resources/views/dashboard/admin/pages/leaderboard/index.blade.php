@@ -159,8 +159,8 @@
                                                     </div>
                                                 </td>
                                             @endif
-                                            <td>{{ $ranking->student->name }}</td>
-                                            <td>{{ $ranking->student->studentSchool->school->name }}</td>
+                                            <td>{{ $ranking->name }}</td>
+                                            <td>{{ $ranking->studentSchool->school->name }}</td>
                                             <td>{{ $ranking->point }}</td>
                                         </tr>
                                     @endforeach

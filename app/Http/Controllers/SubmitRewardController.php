@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reward;
 use App\Models\SubmitReward;
-use App\Services\SubmitRewardService;
 use Illuminate\Http\Request;
+use App\Services\SubmitRewardService;
+use App\Http\Requests\SubmitRewardRequest;
 
 class SubmitRewardController extends Controller
 {
@@ -23,7 +25,10 @@ class SubmitRewardController extends Controller
      */
     public function index()
     {
-        //
+        $data =  [
+            'submitRewards' => $this->service->handleGetAll()
+        ];
+        return view('dashboard.admin.pages.reward.submitReward', $data);
     }
 
     /**
@@ -44,15 +49,7 @@ class SubmitRewardController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request;
-        $data['reward_id'] = $request->reward_id;
-        $data['user_id'] = auth()->id();
-        $data['phone_number'] = $request->phone_number;
-        $data['address'] = $request->address;
-        dd($data);
-        $this->service->handleCreate($data);
 
-        // return to_route('school.teachers.index')->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -98,5 +95,24 @@ class SubmitRewardController extends Controller
     public function destroy(SubmitReward $submitReward)
     {
         //
+    }
+
+    public function submitReward(Reward $reward, SubmitRewardRequest $request)
+    {
+        if($reward->point > auth()->user()->point || $reward->amount <= 0){
+            return back()->with('error', trans('alert.submit_failed'));
+        }else{
+
+        $this->service->handleCreate($reward, $request);
+
+            return to_route('student.rewards.index')->with('success', trans('alert.submit_success'));
+        };
+    }
+
+    public function validStatus(SubmitReward $submitReward)
+    {
+        $this->service->handleUpadetValid($submitReward->id);
+
+        return redirect()->back()->with('success', trans('alert.valid_success'));
     }
 }

@@ -275,7 +275,7 @@
 
                                         <div class="d-flex">
                                             {{-- masih salah --}}
-                                            <a href="{{ route('common.showClassrooms', $classroom->classroom->id) }}"
+                                            <a href="{{ route('common.showClassrooms', $classroom->classroom->id)}}"
                                                 class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                         </div>

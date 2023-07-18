@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\DataSidebar;
-use App\Services\PointService;
-use App\Services\JournalService;
 use App\Helpers\SchoolYearHelper;
-use App\Services\MaterialService;
+use App\Models\SubmitAttendance;
+use App\Services\AssignmentService;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
-use App\Services\AssignmentService;
+use App\Services\JournalService;
+use App\Services\MaterialService;
 use App\Services\MentorService;
+use App\Services\PointService;
 use App\Services\SchoolService;
 use App\Services\StudentService;
 use App\Services\TeacherService;
 use App\Services\UserServices;
 use App\Services\ZoomScheduleService;
+use App\Traits\DataSidebar;
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
@@ -38,7 +40,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(TeacherService $teacherService,StudentService $studentService,UserServices $userService,AssignmentService $assignmentService,MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService)
+    public function __construct(TeacherService $teacherService, StudentService $studentService, UserServices $userService, AssignmentService $assignmentService, MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService)
     {
         $this->middleware('auth');
         $this->assignmentService = $assignmentService;
@@ -64,20 +66,20 @@ class HomeController extends Controller
     {
         $role = auth()->user()->roles->pluck('name')[0];
         $userId = auth()->id();
-        if($role == 'admin') {
+        if ($role == 'admin') {
             $data['school'] = count($this->userService->handleGetAllSchool());
             $data['material'] = $this->materialService->handleCountMaterialAdmin();
             $data['mentor'] = count($this->userService->handleGetAllMentor());
             $data['student'] = count($this->userService->handleGetAllStudent());
-            return view('dashboard.admin.pages.home',$data);
+            return view('dashboard.admin.pages.home', $data, compact('dataTanggal', 'dataMasuk'));
         }
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         if ($role == 'school') {
             $data['teacher'] = count($this->teacherService->handleGetBySchool($userId));
-            $data['classroom'] = count($this->classroomService->handleGetBySchool($userId,$currentSchoolYear->id));
+            $data['classroom'] = count($this->classroomService->handleGetBySchool($userId, $currentSchoolYear->id));
             $data['jurnal'] = count($this->journalService->handleGetBySchool());
             $data['student'] = count($this->studentService->handleGetBySchool($userId));
-            return view('dashboard.admin.pages.home',$data);
+            return view('dashboard.admin.pages.home', $data);
         }
         $data = $this->GetDataSidebar();
         if ($role == 'student') {
@@ -85,16 +87,16 @@ class HomeController extends Controller
             $data['challenge'] = $this->challengeService->handleCountChallengeStudent();
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['point'] = $this->pointService->hanleCountPointStudent($userId);
-            $data['doneAssignment'] = $this->getDoneAssignment($userId,$currentSchoolYear->id);
+            $data['doneAssignment'] = $this->getDoneAssignment($userId, $currentSchoolYear->id);
             $data['doneChallenge'] = $this->getDoneChallenge($currentSchoolYear->id);
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleStudent();
-        } elseif($role == 'teacher') {
+        } elseif ($role == 'teacher') {
             $data['classroom'] = $this->classroomService->handleCountClassroomTeacher($userId);
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['jurnal'] = $this->journalService->handleCountJournalTeacher($userId);
-            $data['challenge'] = $this->challengeService->handleCountChallengeTeacher($userId,$currentSchoolYear->id);
+            $data['challenge'] = $this->challengeService->handleCountChallengeTeacher($userId, $currentSchoolYear->id);
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleTeacher();
-        } elseif($role == 'mentor'){
+        } elseif ($role == 'mentor') {
             $data['classroom'] = $this->classroomService->handleCountClassroomMentor($userId);
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['jurnal'] = $this->journalService->handleCountJournalMentor($userId);

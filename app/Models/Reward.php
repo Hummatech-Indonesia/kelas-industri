@@ -14,6 +14,6 @@ class Reward extends Model
     protected $table = 'rewards';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['reward_name','point','photo'];
+    protected $fillable = ['reward_name','point','photo','amount'];
 
 }

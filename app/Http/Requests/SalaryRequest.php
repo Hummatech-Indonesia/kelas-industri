@@ -14,7 +14,6 @@ class SalaryRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
             'payday' => 'required',
             'salary_amount' => 'required',
             'photo' => 'mimes:png,jpg,jpeg|max:2048',

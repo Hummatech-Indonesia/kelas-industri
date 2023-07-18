@@ -17,6 +17,7 @@ class RewardRequest extends FormRequest
         return [
             'reward_name' => 'required',
             'point' => 'required',
+            'amount' => 'required',
             'photo' => 'mimes:png,jpg,jpeg|max:2048',
         ];
     }
@@ -32,6 +33,7 @@ class RewardRequest extends FormRequest
         return [
             'reward_name.required' => 'Nama Hadiah tidak boleh kosong!',
             'point.required' => 'Point tidak boleh kosong!',
+            'amount.required' => 'Jumlah Hadiah tidak boleh kosong!',
             'photo.mimes' => 'Foto harus dalam format PNG, JPG, atau JPEG!',
             'photo.max' => 'Ukuran foto tidak boleh melebihi :max kilobita!',
         ];

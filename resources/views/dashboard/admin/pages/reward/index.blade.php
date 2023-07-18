@@ -48,6 +48,7 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Point</th>
+                                    <th>Jumlah Hadiah</th>
                                     <th>Foto</th>
                                     <th>Aksi</th>
 
@@ -63,6 +64,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $reward->reward_name }}</td>
                                         <td>{{ $reward->point }}</td>
+                                        <td>{{ $reward->amount }}</td>
                                         <td>
                                             <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="30"
                                                 viewBox="0 0 24 24" data-photo="{{ asset('storage/' . $reward->photo) }}"

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('address');
             $table->string('phone_number', 15)->nullable();
+            $table->enum('status', ['active', 'not_active']);
             $table->timestamps();
         });
     }

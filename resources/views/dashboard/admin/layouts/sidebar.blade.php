@@ -282,7 +282,7 @@
                         <!--end:Menu sub-->
                     </div>
                     <div data-kt-menu-trigger="click"
-                        class="menu-item {{ request()->routeIs('admin.rewards.*') ? 'show here' : '' }}menu-accordion">
+                        class="menu-item {{ request()->routeIs('admin.rewards.*') || request()->routeIs('admin.submitRewards.index') ? 'show here' : '' }}menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -316,6 +316,13 @@
                                         href="{{ route('admin.rewards.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">List Hadiah</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link {{ request()->routeIs('admin.submitRewards.index') ? 'active' : '' }}"
+                                        href="{{ route('admin.submitRewards.index') }}">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                        <span class="menu-title">List Hadiah Yang Telah Ditukar</span>
                                     </a>
                                     <!--end:Menu link-->
                                 </div>

@@ -79,10 +79,9 @@ class SalaryService
      */
     public function handleCreate(SalaryRequest $request): void
     {
-        $data = $request->user_id;
         $data = $request->validated();
+        $data['user_id'] = $request->user_id;
         $data['photo'] = $request->file('photo')->store('salary_file', 'public');
-
         $salary = $this->repository->store($data);
     }
 

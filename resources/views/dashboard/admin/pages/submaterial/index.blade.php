@@ -113,14 +113,14 @@
                                     <!--begin: Title-->
 
                                     <a href="https://class.hummasoft.com/siswa/materi/11/4"
-                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
+                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
 
                                         {{ $subMaterial->title }}
                                     </a>
 
 
 
-                                    <span class="text-muted font-weight-bold">
+                                    <span class="text-muted font-weight-bold" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
 
                                         {{ $material->title }}
                                     </span>

@@ -80,7 +80,7 @@
                             <!--begin:Menu link-->
                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                 <a href="{{ route('student.rewards.index') }}"
-                                    class="menu-link {{ request()->routeIs('student.rewards.index') ? 'active' : '' }}">
+                                    class="menu-link {{ request()->routeIs('student.rewards.index') || request()->routeIs('student.historyReward') ? 'active' : '' }}">
                                     <span class="menu-title">Hadiah</span></a>
                             @endif
 

@@ -57,15 +57,21 @@
                                 <input type="text" class="form-control form-control-solid ps-10" name="search"
                                     value="{{ $search }}" placeholder="Search">
                             </div>
-                            <div class="position-relative col-lg-4 col-md-12 me-2">
-                                <select name="filter" class="form-select form-select-solid me-5" data-control="select2"
-                                    data-placeholder="Select an option">
-                                    @foreach ($generations as $generation)
-                                        <option {{ $filter == $generation->id ? 'selected' : '' }}
-                                            value="{{ $generation->id }}">
-                                            {{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}
+                            <div class="position-relative col-lg-2 col-md-12 me-3">
+                                <select name="filter" class="form-select form-select-solid" data-control="select2"
+                                    data-placeholder="Select an option" id="schoolYear">
+                                    @foreach ($school_years as $school_year)
+                                        <option {{ $filter == $school_year->id ? 'selected' : '' }}
+                                            value="{{ $school_year->id }}">
+                                            {{ $school_year->school_year }}
                                         </option>
                                     @endforeach
+                                </select>
+                            </div>
+                            <div class="position-relative col-lg-2 col-md-12 me-3">
+                                <select name="generation_id" class="form-select form-select-solid me-5"
+                                    data-control="select2" data-placeholder="Select an option" id="generations">
+                                    <option value=""></option>
                                 </select>
                             </div>
                             <div class="col-lg-2 col-md-12">
@@ -118,15 +124,19 @@
                                     <!--begin: Title-->
 
                                     <a href="https://class.hummasoft.com/siswa/materi/11/4"
-                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
+                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
 
                                         {{ $material->title }}
                                     </a>
 
+                                    <span class="text-muted font-weight-bold" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
+                                        {{ $material->title }}
+                                    </span>
 
 
-                                    <span class="text-muted font-weight-bold">
-                                        {{ $material->generation->generation }}
+
+                                    <span class="text-muted font-weight-bold" >
+                                        {{ $material->generation->generation }} ({{$material->generation->schoolYear->school_year}})
                                     </span>
 
                                     <!--end::Title-->
@@ -226,6 +236,44 @@
                 $('#kt_modal_delete').modal('show')
             })
         });
+
+        getGenertation($('#schoolYear').val())
+
+        function getGenertation(schoolYear) {
+            $.ajax({
+                method: 'GET',
+                url: '{{ route('admin.materials.index') }}',
+                data: {
+                    school_year_id: schoolYear
+                },
+                success: function(generations) {
+                    $('#generations').html('')
+                    console.log(generations)
+                    let html = '<option value=""></option>'
+
+                    generations.map(generation => {
+                        if (generation.id == "{{ request()->generation_id }}") {
+                            html +=
+                                `<option selected value="${generation.id}">${generation.generation}</option>`
+                        } else {
+                            html +=
+                                `<option value="${generation.id}">${generation.generation}</option>`
+                        }
+                    })
+
+                    $('#generations').html(html)    
+                },
+                error: function(response) {
+                    console.log(response.responseText)
+                }
+            })
+        }
+
+
+        $('#schoolYear').change(function() {
+            getGenertation($(this).val())
+        })
+
     </script>
 @endsection
 @section('css')

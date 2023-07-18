@@ -57,4 +57,14 @@ class ExamService
     {
         return $this->repository->destroy($id);
     }
+
+    public function handleGetStudentByExamUTS(string $classroomId)
+    {
+        return $this->repository->get_student_by_exam_uts($classroomId);
+    }
+
+    public function handleGetStudentByExamUAS(string $classroomId)
+    {
+        return $this->repository->get_student_by_exam_uas($classroomId);
+    }
 }

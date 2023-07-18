@@ -105,6 +105,7 @@
                                                     <tbody>
                                                         @foreach ($classroom->students as $student)
                                                             <tr>
+
                                                                 <td>{{ $loop->iteration }}</td>
                                                                 <td>{{ $student->studentSchool->student->name }}</td>
                                                                 <td>{{ $student->studentSchool->student->email }}</td>
@@ -113,12 +114,12 @@
                                                                 <td>{{ $student->studentSchool->student->address }}</td>
                                                                 @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                                     <td>
-                                                                        <a href="{{ route('teacher.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                                        <a href="{{ route('teacher.showStudentDetail',[$student->studentSchool->student->id,$student->classroom->generation_id]) }}"
                                                                             class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
                                                                     </td>
                                                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                                     <td>
-                                                                        <a href="{{ route('mentor.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                                        <a href="{{ route('mentor.showStudentDetail', [$student->studentSchool->student->id,$student->classroom->generation_id]) }}"
                                                                             class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
                                                                     </td>
                                                                 @else

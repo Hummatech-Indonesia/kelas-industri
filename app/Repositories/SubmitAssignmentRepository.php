@@ -16,11 +16,14 @@ class SubmitAssignmentRepository extends BaseRepository
         $this->generation = $generation;
     }
 
-    public function get_count_student_assignment(string $studentId): mixed
+    public function get_count_student_assignment(string $studentId, int $generationId): mixed
     {
         return $this->model->query()
             ->where('student_id', $studentId)
             ->whereNotNull('point')
+            ->whereRelation('assignment.submaterial.material', function ($q) use ($generationId){
+                $q->where('generation_id', $generationId);
+            })
             ->get();
     }
 

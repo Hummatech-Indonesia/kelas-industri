@@ -1,32 +1,31 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ExamController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PointController;
+use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\JurnalController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MentorController;
+use App\Http\Controllers\PointController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\ChallengeController;
-use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\AssignmentController;
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\SubmitRewardController;
-use App\Http\Controllers\ZoomScheduleController;
-use App\Http\Controllers\UserClassroomController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserAssignmentController;
+use App\Http\Controllers\UserClassroomController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ZoomScheduleController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +77,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'exam' => ExamController::class,
         'saleries' => SalaryController::class,
         'rewards' => RewardController::class,
+        'submitRewards' => SubmitRewardController::class,
     ]);
 
     Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
@@ -104,10 +104,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         Route::get('/{material}/create', [SubMaterialController::class, 'create'])->name('createSubmaterial');
         Route::get('/{material}/{subMaterial}', [SubMaterialController::class, 'edit'])->name('editSubmaterial');
     });
+
     Route::name('submaterials.')->prefix('submaterials')->group(function () {
         Route::get('/assignments/{submaterial}/create', [AssignmentController::class, 'create'])->name('createAssignment');
         Route::get('/{submaterial}/view/{role}', [SubMaterialController::class, 'viewMaterial'])->name('viewMaterial');
     });
+
+    Route::patch('validStatus/{submitReward}', [SubmitRewardController::class, 'validStatus'])->name('validStatus');
+
+    Route::get('createExam/{classroom}', [ExamController::class, 'createExam'])->name('createExam');
 
     //changepwmentor
     Route::get('/gantiPasswordMentor/{mentor}', [MentorController::class, 'ChangePasswordMentor'])->name('gantiPasswordMentor');
@@ -177,7 +182,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::post('storePointAssignment/{submitAssingnment}', [PointController::class, 'storePointAssignment'])->name('storePointAssignment');
     Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
     Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
-    Route::get('/showStudentDetail/{student}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
+    Route::get('/showStudentDetail/{student}/{generation}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
     Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
     Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
     Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
@@ -198,7 +203,7 @@ Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->g
 
     Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
     Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
-    Route::get('/showStudentDetail/{student}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
+    Route::get('/showStudentDetail/{student}/{generation}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
     Route::post('validChallenge/{submitChallenge}', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
     Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
@@ -242,6 +247,9 @@ Route::prefix('student')->name('student.')->group(function () {
 
     Route::get('/downloadFile/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadChallenge');
     Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
+
+    Route::post('submitReward/{reward}', [SubmitRewardController::class, 'submitReward'])->name('submitReward');
+    Route::get('historyReward', [RewardController::class, 'historyReward'])->name('historyReward');
 
     Route::resources([
         'submitRewards' => SubmitRewardController::class,

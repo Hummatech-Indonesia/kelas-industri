@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Tambah Bukti Gaji
+                Edit Bukti Gaji
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman Bukti Gaji
+                Halaman Edit Bukti Gaji
             </p>
             <!--end::Breadcrumb-->
         </div>

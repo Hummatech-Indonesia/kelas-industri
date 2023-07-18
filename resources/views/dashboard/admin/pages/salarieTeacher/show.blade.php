@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Tambah Bukti Gaji
+                Edit Bukti Gaji
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman Bukti Gaji
+                Halaman Edit Bukti Gaji
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -31,7 +31,7 @@
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
             <form action="{{ route('admin.updateSaleriesTeacher', $salery->id) }}" method="POST" enctype="multipart/form-data">
-                @method("POST")
+                @method("PATCH")
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -77,39 +77,6 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <div class="form-group row">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama Sekolah</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <select name="school_id" class="form-select form-select-solid me-5 mt-3"
-                                                data-control="select2" data-placeholder="Select an option" id="schools">
-                                            <option value=""></option>
-                                            @foreach($schools as $school)
-                                                <option
-                                                    {{ (old('school_id') == $school->id) ? 'selected' : '' }} value="{{ $school->id }}">{{ $school->name }}</option>
-                                            @endforeach
-                                        </select>
-
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama Guru</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-                                        <select name="user_id" class="form-select form-select-solid me-5 mt-3"
-                                                data-control="select2" data-placeholder="Select an option"
-                                                id="teachers">
-                                            <option value=""></option>
-                                        </select>
-
-                                    </div>
-
-                                </div>
                                 <div class="form-group row mb-3">
 
                                     <label class="col-xl-3 col-lg-3 col-form-label">Jumlah Gaji</label>
@@ -144,7 +111,7 @@
 
                                         <input class="form-control form-control-solid form-control-lg" name="photo"
                                                type="file" value="{{ $salery->photo }}" placeholder="johndoe@gmail.com"
-                                               required="">
+                                               >
 
                                     </div>
 

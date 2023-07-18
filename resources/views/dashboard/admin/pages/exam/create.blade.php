@@ -52,7 +52,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="#" class="btn btn-light-primary font-weight-bolder me-2">
+                                <a href="{{ url()->previous() }}" class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
 
@@ -80,10 +80,25 @@
 
                             <div class="row">
 
-                                {{-- <input type="hidden" name="student_classroom_id"
-                                    value="{{ $student->studentSchool->studentClassroom->id }}">
+                                <div class="form-group row mb-3">
 
-                                <input type="hidden" name="classroom_id" value="{{$student->studentSchool->studentClassroom->classroom_id}}"> --}}
+                                    <input type="hidden" name="classroom_id" value="{{$classroom->id}}">
+
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama Siswa</label>
+
+                                    <div class="col-lg-9 col-xl-9">
+
+                                        <select name="student_classroom_id" class="form-select form-select-solid me-5"
+                                                data-control="select2" data-placeholder="Select an option">
+                                            @foreach($students as $student)
+                                                <option
+                                                    {{ (old('student_classroom_id') == $student->id) ? 'selected' : '' }} value="{{ $student->id }}">{{ $student->studentSchool->student->name }}</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+
+                                </div>
 
                                 <div class="form-group row mb-3">
 

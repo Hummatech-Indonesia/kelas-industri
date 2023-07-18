@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Material;
 use App\Models\Classroom;
 use Illuminate\View\View;
+use App\Models\Generation;
 use App\Models\SubMaterial;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
@@ -99,14 +100,15 @@ class UserClassroomController extends Controller
         return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role'));
     }
 
-    public function showStudentDetail(User $student) : View
+    public function showStudentDetail(User $student, Generation $generation) : View
     {
+
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         $data = $this->GetDataSidebar();
         $data['student'] = $student;
         $data['point'] = $this->pointService->handleGetPointByStudent($student->id);
-        $data['challenges'] = $this->submitChallengeService->handleGetCountStudentByChallenge($student->students[0]->id, $currentSchoolYear->id);
-        $data['assignments'] = $this->submitAssignmentService->handleGetCountStudentByAssignment($student->id);
+        $data['assignments'] = $this->submitAssignmentService->handleGetCountStudentByAssignment($student->id,$generation->id);
+        $data['challenges'] = $this->submitChallengeService->handleGetCountStudentByChallenge($student->id, $generation->id);
         $data['rankings'] = $this->pointService->handleGetPoint();
         return view('dashboard.user.pages.classroom.show', $data);
     }

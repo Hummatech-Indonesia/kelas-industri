@@ -13,4 +13,11 @@ class SubmitRewardRepository extends BaseRepository
         $this->model = $model;
     }
 
+    public function update_reward_valid($submitRewardId)
+    {
+        $this->model->findorfail($submitRewardId)->update([
+            'status' => 'active',
+        ]);
+    }
+
 }

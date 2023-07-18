@@ -423,7 +423,7 @@
                 var nama = $(this).attr('data-nama');
 
                 Swal.fire({
-                    html: "Apakah Anda Yakin Challenge Dari Siswa " + nama + "Valid",
+                    html: "Apakah Anda Yakin Challenge Dari Siswa " + nama + " Valid",
                     icon: "info",
                     buttonsStyling: false,
                     showCancelButton: true,

@@ -178,7 +178,7 @@
                         <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                             <thead>
                             <tr class="fw-semibold fs-6 text-gray-800">
-                                <th class="min-w-300px" data-priority="1">Judul</th>
+                                <th class="min-w-100px" data-priority="1">Judul</th>
                                 <th class="min-w-300px">Deskripsi</th>
                                 <th class="min-w-100px" data-priority="2">Mulai</th>
                                 <th class="min-w-100px" data-priority="3">Tenggat</th>
@@ -232,6 +232,8 @@
         $("#kt_datatable_responsive").DataTable({
             responsive: true
         });
+    </script>
+    <script>
         $('.btn-delete').click(function () {
             const url = "{{ route('admin.assignments.destroy', ':id') }}".replace(':id', $(this).data('id'))
             $('#form-delete').attr('action', url)

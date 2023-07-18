@@ -166,7 +166,8 @@ class SalaryController extends Controller
      */
     public function updateTeacher(SalaryRequest $request, Salary $salery)
     {
-        $this->salaryService->handleUpdateTeacher($request, $salery);
+        
+        $this->salaryService->handleUpdate($request, $salery);
         return to_route('admin.saleriesTeacher')->with('success', trans('alert.update_success'));
     }
 

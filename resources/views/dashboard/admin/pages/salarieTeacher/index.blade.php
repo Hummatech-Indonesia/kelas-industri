@@ -17,7 +17,7 @@
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List gaji guru pada kelas industrialized
+                List gaji guru pada kelas industri
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -63,7 +63,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $salary->user->name }}</td>
-                                        <td>{{ Carbon::parse($salary->payday)->locale('id')->isoFormat('MMMM') }}</td>
+                                        <td>{{ Carbon::parse($salary->payday)->locale('id')->isoFormat('MMMM YYYY') }}</td>
                                         <td>Rp {{ number_format(floatval($salary->salary_amount), 0, ',', '.') }}</td>
                                         <td>
                                             <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="30"

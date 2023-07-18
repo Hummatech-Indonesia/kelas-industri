@@ -39,27 +39,19 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        List hadiah pada kelas industri.
+                                        List hadiah anda pada kelas industri.
                                     </li>
                                     <!--end::Item-->
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            <a href="{{route('student.historyReward')}}" class="btn btn-light-primary font-weight-bolder me-2 btn-sm">
-
-                                <span class="svg-icon svg-icon-2"><svg width="10" height="21" viewBox="0 0 14 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path opacity="0.3" d="M12 6.20001V1.20001H2V6.20001C2 6.50001 2.1 6.70001 2.3 6.90001L5.6 10.2L2.3 13.5C2.1 13.7 2 13.9 2 14.2V19.2H12V14.2C12 13.9 11.9 13.7 11.7 13.5L8.4 10.2L11.7 6.90001C11.9 6.70001 12 6.50001 12 6.20001Z" fill="currentColor"/>
-                                    <path d="M13 2.20001H1C0.4 2.20001 0 1.80001 0 1.20001C0 0.600012 0.4 0.200012 1 0.200012H13C13.6 0.200012 14 0.600012 14 1.20001C14 1.80001 13.6 2.20001 13 2.20001ZM13 18.2H10V16.2L7.7 13.9C7.3 13.5 6.7 13.5 6.3 13.9L4 16.2V18.2H1C0.4 18.2 0 18.6 0 19.2C0 19.8 0.4 20.2 1 20.2H13C13.6 20.2 14 19.8 14 19.2C14 18.6 13.6 18.2 13 18.2ZM4.4 6.20001L6.3 8.10001C6.7 8.50001 7.3 8.50001 7.7 8.10001L9.6 6.20001H4.4Z" fill="currentColor"/>
-                                    </svg>
-                                    </span>
-
-                                History Hadiah Anda
-
-                            </a>
-
-                            <!--end::Page title-->
-                            <!--begin::Actions-->
                             <!--end::Actions-->
+
+                            <a href="{{ route('student.rewards.index') }}"
+                                            class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                            <i class="bi bi-arrow-left me-2"></i> Kembali
+                                        </a>
+                            
                         </div>
                         <!--end::Toolbar wrapper-->
                     </div>
@@ -68,7 +60,7 @@
                 <!--begin::Content container-->
                 <div id="kt_content" class="app-container  container-fluid ">
                     <div class="row">
-                        <form action="{{ route('student.rewards.index') }}">
+                        <form action="{{ route('student.historyReward') }}">
                             <!--begin::Card-->
                             <div class="card mb-7">
                                 <!--begin::Card body-->
@@ -92,11 +84,11 @@
                                             </span>
                                             <!--end::Svg Icon-->
                                             <input type="text" class="form-control form-control-solid ps-10"
-                                                name="search" value="{{ $parameters['search'] ?? '' }}" placeholder="cari">
+                                                name="search" value="{{$search}}" placeholder="cari">
                                         </div>
                                         <div class="col-lg-2 col-md-12 ms-3">
                                             <button type="submit" class="btn btn-primary">Cari</button>
-                                            <a href="{{ route('student.rewards.index')}}"
+                                            <a href="{{ route('student.historyReward')}}"
                                                 type="button" class="btn btn-light text-light"><i
                                                     class="fonticon-repeat"></i></a>
                                         </div>
@@ -120,7 +112,7 @@
                                             href="/metronic8/demo1/assets/media/stock/600x600/img-39.jpg">
                                             <!--begin::Image-->
                                             <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-7"
-                                                style="height: 266px;background-image:url('{{ asset('storage/' . $reward->photo) }}')">
+                                                style="height: 266px;background-image:url('{{ asset('storage/' . $reward->reward->photo) }}')">
                                             </div>
 
                                             <!--end::Image-->
@@ -138,9 +130,7 @@
                                             <!--begin::Title-->
                                             <div class="text-start">
                                                 <span
-                                                    class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-4 d-block">{{ $reward->reward_name }}</span>
-                                                <span class="text-gray-400 mt-1 fw-bold fs-6">Jumlah Point :
-                                                    {{ $reward->point }}</span>
+                                                    class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-4 d-block">{{ $reward->reward->reward_name }}</span>
                                             </div>
                                             <!--end::Title-->
                                             <!--begin::Total-->
@@ -152,24 +142,15 @@
                                         <!--begin::Link-->
                                         {{-- <input type="hidden" name="" id="reward" value="{{ $reward->id }}"> --}}
                                         {{-- {{ (Auth::user()->point < $reward->point) ? "" : "btn-tukar" }} --}}
-                                        <form action="{{route('student.submitRewards.store')}}" method="post">
-                                            @if ($reward->amount > 0)
-                                            <button class="btn btn-sm btn-primary flex-shrink-0 me-2 btn-tukar" type="button"
-                                            data-id="{{ $reward->id }}">
-                                            Tukar
-                                        </button>
-                                            @else
-                                            <button disabled class="btn btn-sm btn-primary flex-shrink-0 me-2 btn-tukar" type="button"
-                                            data-id="{{ $reward->id }}">
-                                            Habis
-                                        </button>
-                                            @endif
-                                        </form>
+                                        @if ($reward->status == 'active')
+                                        <span class="btn btn-sm btn-success flex-shrink-0 me-2">Sudah Kirim</span>
+                                        @else
+                                        <span class="btn btn-sm btn-danger flex-shrink-0 me-2">Belum Dikrim</span>
+
+                                        @endif
                                         <!--end::Link-->
 
                                         <!--begin::Link-->
-                                        <button class="btn btn-sm btn-light flex-shrink-0">
-                                            Stok Hadiah : {{$reward->amount}} </button>
                                         <!--end::Link-->
                                     </div>
                                     <!--end::Footer-->
@@ -181,10 +162,7 @@
                         <!--end::Body-->
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-
-                            <x-pagination-component :paginator="$rewards" :parameters="$parameters" route="student.rewards.index" />
-                        </div>
+                        {{ $rewards->appends(request()->query())->links() }}
                     </div>
                 </div>
                 <!--end::Content container-->

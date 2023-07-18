@@ -101,6 +101,18 @@
                                 </div>
                                 <div class="form-group row mb-3">
 
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Jumlah Hadiah</label>
+
+                                    <div class="col-lg-9 col-xl-9">
+
+                                        <input class="form-control form-control-solid form-control-lg" name="amount"
+                                            type="number" value="{{ old('amount') }}" placeholder="10" required="">
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group row mb-3">
+
                                     <label class="col-xl-3 col-lg-3 col-form-label">Foto Hadiah</label>
 
                                     <div class="col-lg-9 col-xl-9">

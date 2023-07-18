@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('rewards', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('reward_name');
+            $table->integer('amount');
             $table->double('point');
             $table->text('photo')->nullable();
             $table->timestamps();
