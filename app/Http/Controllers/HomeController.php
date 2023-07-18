@@ -71,7 +71,7 @@ class HomeController extends Controller
             $data['material'] = $this->materialService->handleCountMaterialAdmin();
             $data['mentor'] = count($this->userService->handleGetAllMentor());
             $data['student'] = count($this->userService->handleGetAllStudent());
-            return view('dashboard.admin.pages.home', $data, compact('dataTanggal', 'dataMasuk'));
+            return view('dashboard.admin.pages.home', $data);
         }
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         if ($role == 'school') {
