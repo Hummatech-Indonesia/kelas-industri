@@ -117,7 +117,7 @@
                                     <div class="card-body text-center pb-5">
                                         <!--begin::Overlay-->
                                         <a class="d-block overlay" data-fslightbox="lightbox-hot-sales"
-                                            href="/metronic8/demo1/assets/media/stock/600x600/img-39.jpg">
+                                            href="">
                                             <!--begin::Image-->
                                             <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-7"
                                                 style="height: 266px;background-image:url('{{ asset('storage/' . $reward->photo) }}')">
