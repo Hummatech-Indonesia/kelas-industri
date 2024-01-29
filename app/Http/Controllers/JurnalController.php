@@ -15,6 +15,7 @@ use App\Helpers\SchoolYearHelper;
 use App\Services\ClassroomService;
 use App\Services\SchoolYearService;
 use App\Http\Requests\JournalRequest;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 
 class JurnalController extends Controller
@@ -76,6 +77,7 @@ class JurnalController extends Controller
 
     public function store(JournalRequest $request): RedirectResponse
     {
+        if (Carbon::now()->format('l') == "Saturday" || "Monday") return redirect()->back()->with('error', trans('Tidak bisa mengisi jurnal, dikarenakan hari ini sabtu!'));
         $this->journalService->handleCreate($request);
         if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
