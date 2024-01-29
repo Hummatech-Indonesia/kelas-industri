@@ -167,4 +167,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Point::class, 'student_id');
     }
+
+    /**
+     * journals
+     *
+     * @return HasMany
+     */
+    public function journals(): HasMany
+    {
+        return $this->hasMany(Journal::class, 'created_by');
+    }
 }

@@ -274,6 +274,8 @@
                                     <th>Email</th>
                                     <th>No Telepon</th>
                                     <th>Alamat</th>
+                                    <th>Total Jurnal</th>
+                                    <th>Total Belum dinilai</th>
                                     <th>Bank</th>
                                 </tr>
                             </thead>
@@ -285,6 +287,8 @@
                                         <td>{{ $teacher->teacher->email }}</td>
                                         <td>{{ $teacher->teacher->phone_number }}</td>
                                         <td>{{ $teacher->teacher->address }}</td>
+                                        <td>{{ count($teacher->teacher->journals) }}</td>
+                                        <td>0</td>
                                         <td>{{ $teacher->teacher->bank }}</td>
                                     </tr>
                                 @endforeach

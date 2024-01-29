@@ -69,7 +69,6 @@ class SchoolController extends Controller
      */
     public function show(User $school): View
     {
-        // dd($school);
         return view('dashboard.admin.pages.school.detail', compact('school'));
     }
 
