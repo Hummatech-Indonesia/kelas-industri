@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\JournalRequest;
 use App\Repositories\JournalRepository;
+use Illuminate\Support\Facades\Storage;
 use App\Repositories\GenerationRepository;
 
 class JournalService
@@ -66,10 +67,12 @@ class JournalService
         if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             $data = $request->validated();
             $data['date'] = Carbon::now();
+            $data['photo'] = $request->file('photo')->store('journal_file', 'public');
             $this->repository->store($data);
         } else if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $data = $request->validated();
             $data['date'] = Carbon::now();
+            $data['photo'] = $request->file('photo')->store('journal_file', 'public');
             $data['classroom_id'] = Auth()->user()->teacherSchool->teacherClassroom->classroom->id;
             $this->repository->store($data);
         }
@@ -82,9 +85,14 @@ class JournalService
      * @param int $id
      * @return void
      */
-    public function handleUpdate(JournalRequest $request, string $id): void
+    public function handleUpdate(JournalRequest $request, Journal $journal): void
     {
-        $this->repository->update($id, $request->validated());
+        $data = $request->validated();
+        if($request->hasFile('photo')){
+            Storage::delete('public/' . $journal->photo);
+            $data['photo'] = $request->file('photo')->store('journal_file', 'public');
+        }
+        $this->repository->update($journal->id, $data);
     }
 
     /**
@@ -95,6 +103,7 @@ class JournalService
      */
     public function handleDelete(Journal $journal): bool
     {
+        Storage::delete('public/' . $journal->photo);
         return $this->repository->destroy($journal->id);
     }
 

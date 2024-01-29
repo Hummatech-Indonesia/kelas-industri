@@ -20,7 +20,7 @@ class Journal extends Model
 
     protected $guarded = [];
 
-    protected $fillable = ['id','title', 'date', 'description','classroom_id', 'created_by'];
+    protected $fillable = ['id','title', 'photo', 'date', 'description','classroom_id', 'created_by'];
 
 
     public function classroom():BelongsTo

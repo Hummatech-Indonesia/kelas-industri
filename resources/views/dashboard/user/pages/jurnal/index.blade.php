@@ -93,10 +93,11 @@
                                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                                     <th data-priority="1">No</th>
                                                     <th data-priority="2">Judul</th>
-                                                    <th data-priority="3">Tanggal</th>
-                                                    <th data-priority="4">Kelas</th>
-                                                    <th data-priority="5">Deskripsi</th>
-                                                    <th data-priority="6">Aksi</th>
+                                                    <th data-priority="3">Foto</th>
+                                                    <th data-priority="4">Tanggal</th>
+                                                    <th data-priority="5">Kelas</th>
+                                                    <th data-priority="6">Deskripsi</th>
+                                                    <th data-priority="7">Aksi</th>
                                                 </tr>
                                                 <!--end::Table row-->
                                             </thead>
@@ -108,11 +109,12 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $journal->title }}</td>
+                                                        <td><svg type="button" class="btn-photo" data-photo="{{ asset('storage/' . $journal->photo) }}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M8.5 13.498l2.5 3.006l3.5-4.506l4.5 6H5m16 1v-14a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z" fill="#474761"/></svg>  </td>
                                                         <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}
                                                         </td>
                                                         <td>
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                            {{ $journal->classroom->name }} - {{ $journal->classroom->school->name }}   
+                                                            {{ $journal->classroom->name }} - {{ $journal->classroom->school->name }}
                                                             @else
                                                             {{ $journal->classroom->name }}
                                                             @endif
@@ -223,6 +225,29 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" id="modal_photo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Foto Jurnal</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960"
+                            width="30">
+                            <path
+                                d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+                        </svg>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <div class="modal-body">
+                    <img id="photo" alt="" width="100%" srcset="">
+                </div>
+            </div>
+        </div>
+    </div>
     <x-delete-modal-component />
     {{--    Update Status --}}
     {{--    end Update Statusl --}}
@@ -255,6 +280,12 @@
             var description = $(this).data('description')
             $('#description').html(description)
             $('#kt_modal_scrollable_2').modal('show')
+        });
+
+        $('.btn-photo').click(function() {
+            var photo = $(this).data('photo')
+            $('#photo').attr('src', photo);
+            $('#modal_photo').modal('show')
         });
     </script>
 @endsection

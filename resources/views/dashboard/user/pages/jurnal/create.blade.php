@@ -89,6 +89,19 @@
                                                     </div>
 
                                                 </div>
+                                                <div class="form-group row mb-3">
+
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
+
+                                                    <div class="col-lg-9 col-xl-9">
+
+                                                        <input class="form-control form-control-solid form-control-lg"
+                                                            name="photo" type="file"
+                                                            placeholder="Masukkan Foto">
+
+                                                    </div>
+
+                                                </div>
 
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                 <div class="form-group row mb-3">
