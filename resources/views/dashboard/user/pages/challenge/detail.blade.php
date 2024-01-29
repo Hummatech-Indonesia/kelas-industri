@@ -111,6 +111,83 @@
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
 
                     <div class="row">
+                        <div class="col-12">
+
+                            <div class="card card-custom gutter-b">
+            
+                                <div class="card-body">
+            
+                                    <div class="d-flex">
+            
+                                        <!--begin: Pic-->
+            
+                                        <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3 me-5">
+            
+            
+                                            <div class="symbol symbol-50 symbol-lg-120 symbol-primary ">
+            
+                                                <span
+                                                    class="font-size-h3 symbol-label font-weight-boldest">{{ substr($challenge->title, 0, 1) }}</span>
+            
+                                            </div>
+            
+                                        </div>
+            
+                                        <!--end: Pic-->
+            
+            
+                                        <!--begin: Info-->
+            
+                                        <div class="flex-grow-1">
+            
+                                            <!--begin: Title-->
+            
+                                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+            
+                                                <div class="mr-3">
+            
+                                                    <!--begin::Name-->
+            
+                                                    <span class="d-flex align-items-center text-dark h4 font-weight-bold mr-3">
+            
+                                                    {{ $challenge->title }}
+            
+                                                </span>
+                                                </div>            
+                                            </div>
+            
+                                            <!--end: Title-->
+            
+            
+                                            <!--begin: Content-->
+            
+                                            <div class="d-flex align-items-center flex-wrap justify-content-between">
+            
+                                                <div class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
+            
+                                                    <div style="width: 45vw">
+            
+                                                        {!! $challenge->description !!}
+                                                    </div>
+            
+                                                </div>
+            
+                                            </div>
+            
+                                            <!--end: Content-->
+            
+                                        </div>
+            
+                                        <!--end: Info-->
+            
+                                    </div>
+            
+            
+                                </div>
+            
+                            </div>
+            
+                        </div>
                         @if (auth()->user()->roles->pluck('name')[0] == 'student')
 
                             <div class="col-12 mt-5">
@@ -144,7 +221,7 @@
                                                         {{ $challenge->title }}
                                                     </td>
                                                     <td>
-                                                        {{ $challenge->description }}
+                                                        {!! $challenge->description !!}
                                                     </td>
                                                     <td>
                                                         <span class="badge badge-light-primary">
@@ -157,29 +234,36 @@
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        @if (strtotime(now()) <= strtotime($challenge->end_date))
+                                                        @if ($tanggal < $challenge->start_date)
+                                                            <span class="badge badge-light-warning">Akan dibuka</span>
+                                                        @elseif($tanggal < $challenge->end_date)
                                                             <span class="badge badge-light-success">Tersedia</span>
                                                         @else
                                                             <span class="badge badge-light-danger">Ditutup</span>
                                                         @endif
+
                                                     </td>
                                                     <td>
-
-                                                        @if (strtotime(now()) <= strtotime($challenge->end_date))
+                                                        @if ($tanggal < $challenge->start_date)
+                                                            <button
+                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">-</button>
+                                                        @elseif ($tanggal < $challenge->end_date)
                                                             @if ($challenge->studentSubmitChallenge)
                                                                 @if ($challenge->studentSubmitChallenge->is_valid == 'valid')
                                                                     <button
                                                                         class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">-</button>
                                                                 @elseif ($challenge->studentSubmitChallenge->is_valid == 'not_valid')
                                                                     <a href="{{ route('student.submitChallenge', ['challenge' => $challenge->id]) }}"
-                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
+                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Edit
+                                                                        Challenge</a>
                                                                 @endif
                                                             @else
                                                                 <a href="{{ route('student.submitChallenge', ['challenge' => $challenge->id]) }}"
                                                                     class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan</a>
                                                             @endif
                                                         @else
-                                                            <span class="badge badge-light-danger">Ditutup</span>
+                                                            <a href="{{ route('student.submitChallenge', ['challenge' => $challenge->id]) }}"
+                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -208,11 +292,12 @@
                                             <thead>
                                                 <tr class="fw-semibold fs-6 text-gray-800">
 
-                                                    <th>No</th>
+                                                   <th>No</th>
                                                     <th class="min-w-200px" data-priority="1">Nama Siswa</th>
-                                                    <th class="min-w-100px" data-priority="2">File</th>
+                                                    <th data-priority="2">File</th>
                                                     <th class="min-w-100px" data-priority="3">Status</th>
-                                                    <th class="min-w-100px" data-priority="4">Aksi</th>
+                                                    <th class="min-w-100px" data-priority="4">Persen</th>
+                                                    <th data-priority="5">Aksi</th>
 
                                                 </tr>
                                             </thead>
@@ -251,19 +336,30 @@
                                                             @endif
                                                         </td>
                                                         <td>
+                                                            @if ($students->is_valid == 'not_valid')
+                                                                <select name="persen"
+                                                                    class="form-select form-select-solid"
+                                                                    id="persen-{{ $students->id }}">
+                                                                    <option value="0">0%</option>
+                                                                    <option value="25">25%</option>
+                                                                    <option value="50">50%</option>
+                                                                    <option value="75">75%</option>
+                                                                    <option value="100">100%</option>
+                                                                </select>
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
+
+                                                        <td>
                                                             @if ($challenge->created_by == auth()->user()->id)
                                                                 @if ($students->is_valid == 'not_valid')
-                                                                    <form
-                                                                        action="{{ route('mentor.validChallenge', ['submitChallenge' => $students->id]) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        <button type="submit"
-                                                                            id="kt_docs_sweetalert_html"
-                                                                            data-nama="{{ $students->studentSchool->student->name }}"
-                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
-                                                                            Valid
-                                                                        </button>
-                                                                    </form>
+                                                                    <button type="button"
+                                                                        data-nama="{{ $students->studentSchool->student->name }}"
+                                                                        data-id="{{ $students->id }}"
+                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto kt_docs_sweetalert_html">
+                                                                        Valid
+                                                                    </button>
                                                                 @else
                                                                     -
                                                                 @endif
@@ -299,11 +395,10 @@
                                                 <tr class="fw-semibold fs-6 text-gray-800">
                                                     <th>No</th>
                                                     <th class="min-w-200px" data-priority="1">Nama Siswa</th>
-                                                    <th class="min-w-100px" data-priority="2">File</th>
+                                                    <th data-priority="2">File</th>
                                                     <th class="min-w-100px" data-priority="3">Status</th>
-                                                    <th class="min-w-100px" data-priority="4">Aksi</th>
-
-
+                                                    <th class="min-w-100px" data-priority="4">Persen</th>
+                                                    <th data-priority="5">Aksi</th>
                                                 </tr>
                                             </thead>
                                             @foreach ($student as $students)
@@ -332,7 +427,6 @@
                                                                     </svg>
                                                                 </span>Download</a>
                                                         </td>
-
                                                         <td>
                                                             @if ($students->is_valid == 'not_valid')
                                                                 <span class="badge badge-light-danger">Not Valid</span>
@@ -340,21 +434,34 @@
                                                                 <span class="badge badge-light-success">Valid</span>
                                                             @endif
                                                         </td>
-
                                                         <td>
                                                             @if ($challenge->created_by == auth()->user()->id)
                                                                 @if ($students->is_valid == 'not_valid')
-                                                                    <form id="form-validate"
-                                                                        action="{{ route('teacher.validChallengeTeacher', ['submitChallenge' => $students]) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        <button type="button"
-                                                                            id="kt_docs_sweetalert_html"
-                                                                            data-nama="{{ $students->studentSchool->student->name }}"
-                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
-                                                                            Valid
-                                                                        </button>
-                                                                    </form>
+                                                                    <select name="persen"
+                                                                        class="form-select form-select-solid"
+                                                                        id="persenTeacher-{{ $students->id }}">
+                                                                        <option value="0">0%</option>
+                                                                        <option value="25">25%</option>
+                                                                        <option value="50">50%</option>
+                                                                        <option value="75">75%</option>
+                                                                        <option value="100">100%</option>
+                                                                    </select>
+                                                                @else
+                                                                    -
+                                                                @endif
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($challenge->created_by == auth()->user()->id)
+                                                                @if ($students->is_valid == 'not_valid')
+                                                                    <button type="button"
+                                                                        data-nama="{{ $students->studentSchool->student->name }}"
+                                                                        data-id="{{ $students->id }}"
+                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto kt_docs_sweetalert_html_teacher">
+                                                                        Valid
+                                                                    </button>
                                                                 @else
                                                                     -
                                                                 @endif
@@ -411,19 +518,21 @@
         </div>
     @endsection
     @section('script')
-        <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
         <script>
             $("#kt_datatable_responsive").DataTable({
                 responsive: true
             });
         </script>
         <script>
-            $('#kt_docs_sweetalert_html').click(function(e) {
-                e.preventDefault();
-                var nama = $(this).attr('data-nama');
+            $('.kt_docs_sweetalert_html_teacher').click(function() {
+                var nama = $(this).data('nama');
+                var id = $(this).data('id');
+                var persen = parseFloat($('#persenTeacher-' + id).val());
 
                 Swal.fire({
-                    html: "Apakah Anda Yakin Challenge Dari Siswa " + nama + " Valid",
+                    html: "Apakah Anda Yakin Challenge Dari Siswa " + nama + " Valid dengan persentase " +
+                        persen + "%?",
                     icon: "info",
                     buttonsStyling: false,
                     showCancelButton: true,
@@ -435,8 +544,67 @@
                     }
                 }).then((result) => {
                     if (result.isConfirmed)
-                        $('#form-validate').submit()
+                        $.ajax({
+                            url: "/teacher/validChallengeTeacher/" + id,
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                persen: persen,
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Data Berhasil Dinilai',
+                                    text: 'Berhasil Mengvalidasi Challenge',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.reload();
+                                });
+                            }
+                        })
                 });
             })
+
+            $('.kt_docs_sweetalert_html').click(function(e) {
+                var nama = $(this).data('nama');
+                var id = $(this).data('id');
+                var persen = parseFloat($('#persen-' + id).val());
+
+                Swal.fire({
+                    html: "Apakah Anda Yakin Challenge Dari Siswa " + nama + " Valid dengan persentase " +
+                        persen + "%?",
+                    icon: "info",
+                    buttonsStyling: false,
+                    showCancelButton: true,
+                    confirmButtonText: "Iya, Benar!",
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: 'btn btn-danger'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/mentor/validChallenge/" + id,
+                            type: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                persen: persen,
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Data Berhasil Dinilai',
+                                    text: 'Berhasil Mengvalidasi Challenge',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.reload();
+                                });
+                            }
+                        });
+                    }
+                });
+            });
         </script>
     @endsection
+

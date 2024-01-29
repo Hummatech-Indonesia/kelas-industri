@@ -23,7 +23,7 @@
             <!--end::Mobile toggle-->
 
             <!--begin::Logo image-->
-            <a href="{{route('home')}}">
+            <a href="{{ route('home') }}">
                 <img alt="Logo" src="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" class="h-50px" />
             </a>
             <!--end::Logo image-->
@@ -86,85 +86,92 @@
 
                             <!--end:Menu link-->
                         </div>
-                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                                @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
                                 <a href="{{ route('mentor.attendance.index') }}"
                                     class="menu-link {{ request()->routeIs('mentor.attendance.*') ? 'active' : '' }}"><span
                                         class="menu-title">Absen</span></a>
-                                        @endif
                                 <!--end:Menu link-->
                             </div>
-                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                            <!--begin:Menu link-->
-                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                        @endif
+                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <!--begin:Menu link-->
                                 <a href="{{ route('mentor.journal.index') }}"
                                     class="menu-link {{ request()->routeIs('mentor.journal.*') ? 'active' : '' }}">
                                     <span class="menu-title">Jurnal</span></a>
-                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            </div>
+                        @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <a href="{{ route('teacher.journal.index') }}"
                                     class="menu-link {{ request()->routeIs('teacher.journal.*') ? 'active' : '' }}">
                                     <span class="menu-title">Jurnal</span></a>
-                            @endif
 
-                            <!--end:Menu link-->
-                        </div>
-                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                            <!--begin:Menu link-->
-                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <!--end:Menu link-->
+                            </div>
+                        @endif
+                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <!--begin:Menu link-->
                                 <a href="{{ route('teacher.showClassroom') }}"
                                     class="menu-link {{ request()->routeIs('teacher.report') || request()->routeIs('teacher.showClassroom') || request()->routeIs('teacher.showStudentReport') ? 'active' : '' }}">
                                     <span class="menu-title">Raport</span></a>
-                            @endif
 
-                            <!--end:Menu link-->
-                        </div>
+                                <!--end:Menu link-->
+                            </div>
+                        @endif
 
-                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                            <!--begin:Menu link-->
-                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <!--begin:Menu link-->
                                 <a href="{{ route('mentor.exam.index') }}"
                                     class="menu-link {{ request()->routeIs('mentor.exam.index') || request()->routeIs('mentor.showStudent') ? 'active' : '' }}">
                                     <span class="menu-title">Ujian</span></a>
-                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            </div>
+                        @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <a href="{{ route('teacher.exam.index') }}"
                                     class="menu-link {{ request()->routeIs('teacher.exam.index') || request()->routeIs('teacher.showStudent') ? 'active' : '' }}">
                                     <span class="menu-title">Ujian</span></a>
-                            @endif
-
+                            </div>
                             <!--end:Menu link-->
-                        </div>
-                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                            <!--begin:Menu link-->
-                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                        @endif
+                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <!--begin:Menu link-->
                                 <a href="{{ route('mentor.saleries.index') }}"
                                     class="menu-link {{ request()->routeIs('mentor.saleries.*') ? 'active' : '' }}">
                                     <span class="menu-title">Gaji</span></a>
-                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            </div>
+                        @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <a href="{{ route('teacher.saleries.index') }}"
                                     class="menu-link {{ request()->routeIs('teacher.saleries.*') ? 'active' : '' }}">
                                     <span class="menu-title">Gaji</span></a>
-                            @endif
 
-                            <!--end:Menu link-->
-                        </div>
-                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                    <a href="{{ route('mentor.rankings') }}"
-                                        class="menu-link {{ request()->routeIs('mentor.rankings') ? 'active' : '' }}">
-                                        <span class="menu-title">Peringkat</span></a>
-                                @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                    <a href="{{ route('teacher.rankings') }}"
-                                        class="menu-link {{ request()->routeIs('teacher.rankings') ? 'active' : '' }}">
-                                        <span class="menu-title">Peringkat</span></a>
-                                @else
-                                    <a href="{{ route('student.rankings') }}"
-                                        class="menu-link {{ request()->routeIs('student.rankings') ? 'active' : '' }}">
-                                        <span class="menu-title">Peringkat</span></a>
-                                @endif
-
-                        </div>
-
+                                <!--end:Menu link-->
+                            </div>
+                        @endif
+                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <a href="{{ route('mentor.rankings') }}"
+                                    class="menu-link {{ request()->routeIs('mentor.rankings') ? 'active' : '' }}">
+                                    <span class="menu-title">Peringkat</span></a>
+                            </div>
+                        @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <a href="{{ route('teacher.rankings') }}"
+                                    class="menu-link {{ request()->routeIs('teacher.rankings') ? 'active' : '' }}">
+                                    <span class="menu-title">Peringkat</span></a>
+                            </div>
+                        @else
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <a href="{{ route('student.rankings') }}"
+                                    class="menu-link {{ request()->routeIs('student.rankings') ? 'active' : '' }}">
+                                    <span class="menu-title">Peringkat</span></a>
+                            </div>
+                        @endif
                     </div>
                     <!--end::Menu-->
                 </div>
@@ -188,8 +195,9 @@
                         data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent"
                         data-kt-menu-placement="bottom-end">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen060.svg-->
-                        <span class="svg-icon theme-light-show svg-icon-2"><svg width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <span class="svg-icon text-muted fw-bold theme-light-show svg-icon-2"><svg width="24"
+                                height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M11.9905 5.62598C10.7293 5.62574 9.49646 5.9995 8.44775 6.69997C7.39903 7.40045 6.58159 8.39619 6.09881 9.56126C5.61603 10.7263 5.48958 12.0084 5.73547 13.2453C5.98135 14.4823 6.58852 15.6185 7.48019 16.5104C8.37186 17.4022 9.50798 18.0096 10.7449 18.2557C11.9818 18.5019 13.2639 18.3757 14.429 17.8931C15.5942 17.4106 16.5901 16.5933 17.2908 15.5448C17.9915 14.4962 18.3655 13.2634 18.3655 12.0023C18.3637 10.3119 17.6916 8.69129 16.4964 7.49593C15.3013 6.30056 13.6808 5.62806 11.9905 5.62598Z"
                                     fill="currentColor" />
@@ -349,9 +357,9 @@
                 <div class="app-navbar-item ms-3 ms-md-6" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
                     <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
-                        <span class="text-muted fs-8 fw-semibold lh-1 mb-1">{{ auth()->user()->name }}</span>
+                        <span class="text-muted fs-7 fw-semibold lh-1 mb-2">{{ auth()->user()->name }}</span>
                         <span
-                            class="text-white fs-8 fw-bold lh-1">{{ auth()->user()->roles->pluck('name')[0] }}</span>
+                            class="fs-8 badge badge-light-success">{{ auth()->user()->roles->pluck('name')[0] }}</span>
                     </div>
 
                     <div class="cursor-pointer symbol symbol-30px symbol-md-35px"
@@ -377,12 +385,13 @@
                                 <!--begin::Username-->
 
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bold d-flex align-items-center fs-5">
-                                        {{ auth()->user()->name }}<span
-                                            class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ auth()->user()->roles->pluck('name')[0] }}</span>
-                                    </div>
+                                    <div class="fw-bold fs-5"
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+                                        {{ auth()->user()->name }}
 
-                                    <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
+                                    </div>
+                                    <a href="#" class="fw-semibold text-muted text-hover-primary fs-7"
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
                                         {{ auth()->user()->email }}</a>
                                 </div>
                                 <!--end::Username-->

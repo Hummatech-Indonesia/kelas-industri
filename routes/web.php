@@ -24,6 +24,7 @@ use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ZoomScheduleController;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,8 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/', [WelcomeController::class, 'index'])->name('landingPage');
+Route::get('/gallery', [WelcomeController::class, 'gallery'])->name('gallery');
 
 Auth::routes(['login' => true, 'register' => false]);
 
@@ -78,6 +80,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'saleries' => SalaryController::class,
         'rewards' => RewardController::class,
         'submitRewards' => SubmitRewardController::class,
+        'gallerys' => GalleryController::class,
     ]);
 
     Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
@@ -219,13 +222,13 @@ Route::name('common.')->group(function () {
     Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
     Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
     Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
-    Route::get('{classroom}/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
+    Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 });
 //end mentor, student, teacher
 
 //student
-Route::prefix('student')->name('student.')->group(function () {
+Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
     Route::get('/', function () {
         return view('dashboard.user.pages.material.index');
     });
@@ -238,15 +241,15 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
     Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 
-    Route::get('{classroom}/submitAssignment/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
-    Route::post('{classroom}/storeassignment/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
+    Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
+    Route::post('{classroom}/storeassignment/{material}/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
 
     Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
     Route::post('storeChallenge', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
     Route::get('/absen/{attendance}', [AttendanceController::class, 'submit']);
 
-    Route::get('/downloadFile/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadChallenge');
-    Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
+    Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadChallenge');
+    Route::get('downloadFileAssignment/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
 
     Route::post('submitReward/{reward}', [SubmitRewardController::class, 'submitReward'])->name('submitReward');
     Route::get('historyReward', [RewardController::class, 'historyReward'])->name('historyReward');

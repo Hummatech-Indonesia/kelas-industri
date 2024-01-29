@@ -29,7 +29,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="../../index-2.html" class="text-muted text-hover-primary">
+                                        <a href="#" class="text-muted text-hover-primary">
                                             Home </a>
                                     </li>
                                     <!--end::Item-->
@@ -170,10 +170,10 @@
                                     style="background-image:url('{{ asset('app-assets/media/svg/shapes/wave-bg-purple.svg') }}"
                                     data-bs-theme="light">
                                     <!--begin::Title-->
-                                    <h3 class="card-title align-items-start flex-column text-white pt-15">
+                                    <h3 class="card-title align-items-start flex-column text-gray-700 fw-bolder pt-15">
                                         <span class="fw-bold fs-2x mb-3">Tugas dan Challenge</span>
 
-                                        <div class="fs-4 text-white">
+                                        <div class="fs-4">
                                             <span class="opacity-75">Kamu Memiliki</span>
                                         </div>
                                     </h3>
@@ -189,7 +189,7 @@
                                         <!--begin::Row-->
                                         <div class="row g-3 g-lg-6">
                                             <!--begin::Col-->
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <!--begin::Items-->
                                                 <div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
                                                     <!--begin::Symbol-->
@@ -206,7 +206,7 @@
                                                     <div class="m-0">
                                                         <!--begin::Number-->
                                                         <span
-                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$doneAssignment}}</span>
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$sudah}}</span>
                                                         <!--end::Number-->
 
                                                         <!--begin::Desc-->
@@ -219,7 +219,7 @@
                                             </div>
                                             <!--end::Col-->
                                             <!--begin::Col-->
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <!--begin::Items-->
                                                 <div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
                                                     <!--begin::Symbol-->
@@ -236,7 +236,7 @@
                                                     <div class="m-0">
                                                         <!--begin::Number-->
                                                         <span
-                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$assignment - $doneAssignment}}</span>
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$belum}}</span>
                                                         <!--end::Number-->
 
                                                         <!--begin::Desc-->
@@ -248,8 +248,33 @@
                                                 <!--end::Items-->
                                             </div>
                                             <!--end::Col-->
+                                            <div class="col-4">
+                                                <!--begin::Items-->
+                                                <div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
+                                                    <!--begin::Symbol-->
+                                                    <div class="symbol symbol-30px me-5 mb-8 text-primary">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M17 7V5h2v10.8l2 2V5a2 2 0 0 0-2-2h-4.18C14.25 1.44 12.53.64 11 1.2c-.86.3-1.5.96-1.82 1.8H6.2l4 4H17m-5-4c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1m2.2 8l-2-2H17v2h-2.8M2.39 1.73L1.11 3L3 4.9V19a2 2 0 0 0 2 2h14.1l1.74 1.73l1.27-1.27L2.39 1.73M5 19V6.89L7.11 9H7v2h2.11l2 2H7v2h6.11l4 4H5Z"/></svg>
+                                                    </div>
+                                                    <!--end::Symbol-->
+
+                                                    <!--begin::Stats-->
+                                                    <div class="m-0">
+                                                        <!--begin::Number-->
+                                                        <span
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$tidak}}</span>
+                                                        <!--end::Number-->
+
+                                                        <!--begin::Desc-->
+                                                        <span class="text-gray-500 fw-semibold fs-6">Tugas Yang Tidak Dikerjakan</span>
+                                                        <!--end::Desc-->
+                                                    </div>
+                                                    <!--end::Stats-->
+                                                </div>
+                                                <!--end::Items-->
+                                            </div>
+                                            <!--end::Col-->
                                             <!--begin::Col-->
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <!--begin::Items-->
                                                 <div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
                                                     <!--begin::Symbol-->
@@ -266,7 +291,7 @@
                                                     <div class="m-0">
                                                         <!--begin::Number-->
                                                         <span
-                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$doneChallenge}}</span>
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$sudahChallenge}}</span>
                                                         <!--end::Number-->
 
                                                         <!--begin::Desc-->
@@ -279,7 +304,33 @@
                                             </div>
                                             <!--end::Col-->
                                             <!--begin::Col-->
-                                            <div class="col-6">
+                                            <div class="col-4">
+                                                <!--begin::Items-->
+                                                <div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
+                                                    <!--begin::Symbol-->
+                                                    <div class="symbol symbol-30px me-5 mb-8 text-primary">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M13.04 19.61a2.682 2.682 0 0 0-2.54-1.81c-1.5 0-2.7 1.2-2.7 2.7V22H4a2 2 0 0 1-2-2v-3.8h1.5c1.5 0 2.7-1.2 2.7-2.7S5 10.8 3.5 10.8H2V7c0-1.1.9-2 2-2h4V3.5a2.5 2.5 0 0 1 5 0V5h4a2 2 0 0 1 2 2v4h1.5a2.5 2.5 0 0 1 2.5 2.5c0 .32-.06.62-.17.89A5.991 5.991 0 0 0 19 13c-3.31 0-6 2.69-6 6c0 .2 0 .41.04.61M15 18v2h8v-2h-8Z"/></svg>
+                                                    </div>
+                                                    <!--end::Symbol-->
+
+                                                    <!--begin::Stats-->
+                                                    <div class="m-0">
+                                                        <!--begin::Number-->
+                                                        <span
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$belumChallenge}}</span>
+                                                        <!--end::Number-->
+
+                                                        <!--begin::Desc-->
+                                                        <span class="text-gray-500 fw-semibold fs-6">Challenge Belum Dikerjakan</span>
+                                                        <!--end::Desc-->
+                                                    </div>
+                                                    <!--end::Stats-->
+                                                </div>
+                                                <!--end::Items-->
+                                            </div>
+                                            <!--end::Col-->
+                                            <!--begin::Col-->
+                                            <div class="col-4">
                                                 <!--begin::Items-->
                                                 <div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
                                                     <!--begin::Symbol-->
@@ -296,11 +347,11 @@
                                                     <div class="m-0">
                                                         <!--begin::Number-->
                                                         <span
-                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$challenge - $doneChallenge}}</span>
+                                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{$tidakChallenge}}</span>
                                                         <!--end::Number-->
 
                                                         <!--begin::Desc-->
-                                                        <span class="text-gray-500 fw-semibold fs-6">Challenge Belum Dikerjakan</span>
+                                                        <span class="text-gray-500 fw-semibold fs-6">Challenge Yang Tidak Dikerjakan</span>
                                                         <!--end::Desc-->
                                                     </div>
                                                     <!--end::Stats-->
@@ -308,7 +359,6 @@
                                                 <!--end::Items-->
                                             </div>
                                             <!--end::Col-->
-
                                         </div>
                                         <!--end::Row-->
                                     </div>
@@ -503,22 +553,22 @@
                 <!--begin::Copyright-->
                 <div class="text-dark order-2 order-md-1">
                     <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
-                    <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
+                    <a href="#" class="text-gray-800 text-hover-primary">Kelas
                         Industri</a>
                 </div>
                 <!--end::Copyright-->
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Syarat
                             & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->

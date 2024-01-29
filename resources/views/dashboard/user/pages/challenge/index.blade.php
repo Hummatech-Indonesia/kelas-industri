@@ -277,11 +277,22 @@
 
                                                 <div class="d-flex flex-column mr-auto">
 
-                                                    <a href="https://class.hummasoft.com/siswa/challenge/9"
-                                                        class="text-dark text-hover-primary font-size-h4 font-weight-bolder mb-1">
-
-                                                        {{ $challenge->title }}
-                                                    </a>
+                                                    @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                                        <a href="{{ route('student.challenges.show', $challenge->id) }}"
+                                                            class="text-dark text-hover-primary font-size-h4 font-weight-bolder mb-1">
+                                                            {{ $challenge->title }}
+                                                        </a>
+                                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                        <a href="{{ route('teacher.challenges.show', $challenge->id) }}"
+                                                            class="text-dark text-hover-primary font-size-h4 font-weight-bolder mb-1">
+                                                            {{ $challenge->title }}
+                                                        </a>
+                                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                        <a href="{{ route('mentor.challenges.show', $challenge->id) }}"
+                                                            class="text-dark text-hover-primary font-size-h4 font-weight-bolder mb-1">
+                                                            {{ $challenge->title }}
+                                                        </a>
+                                                    @endif
 
                                                 </div>
 
@@ -296,13 +307,13 @@
                                         <!--end::Info-->
                                         <div class="mt-3 font-weight-bold">
                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                {{$challenge->classroom->name}}
+                                                {{$challenge->classroom->name}} - {{ $challenge->classroom->school->name }}
                                         @endif
                                         </div>
                                         <!--begin::Description-->
 
                                         <div class="mb-10 mt-5 font-weight-bold" style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
-                                            {{ $challenge->description }}
+                                            {!! Str::limit($challenge->description, 20, '...') !!}
                                         </div>
 
                                         <!--end::Description-->

@@ -123,7 +123,10 @@
                                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                                     <th data-priority="1">No</th>
                                                     <th data-priority="2">Kelas</th>
-                                                    <th data-priority="3">Detail</th>
+                                                    @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                    <th data-priority="3">Sekolah</th>
+                                                    @endif
+                                                    <th data-priority="4">Detail</th>
                                                 </tr>
                                                 <!--end::Table row-->
                                             </thead>
@@ -135,6 +138,9 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $classroom->classroom->name }}</td>
+                                                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                        <td>{{ $classroom->classroom->school->name }}</td>
+                                                        @endif
                                                         <td>
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                             <a href="{{ route('mentor.showStudent', [$classroom->classroom->id]) }}">

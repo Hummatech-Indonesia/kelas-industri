@@ -111,13 +111,7 @@
 
                     <!--begin::Text-->
                     <div class="text-gray-600 fs-base text-center fw-semibold">
-                        In this kind of post, <a href="#" class="opacity-75-hover text-primary me-1">the
-                            blogger</a>
-
-                        introduces a person they’ve interviewed <br /> and provides some background information about
-
-                        <a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>
-                        and their <br /> work following this is a transcript of the interview.
+                        Meningkatkan skill guru dan siswa dengan program kelas berbasis industri
                     </div>
                     <!--end::Text-->
                 </div>
@@ -244,11 +238,11 @@
 
                             <!--begin::Links-->
                             <div class="d-flex fw-semibold text-primary fs-base gap-5">
-                                <a href="../../../pages/team.html" target="_blank">Kebijakan Pribadi</a>
+                                <a href="" >Kebijakan Pribadi</a>
 
-                                <a href="../../../pages/pricing/column.html" target="_blank">Syarat & Ketentuan</a>
+                                <a href="">Syarat & Ketentuan</a>
 
-                                <a href="../../../pages/contact.html" target="_blank">Kontak Kami</a>
+                                <a href="">Kontak Kami</a>
                             </div>
                             <!--end::Links-->
                         </div>

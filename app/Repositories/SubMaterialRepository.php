@@ -27,12 +27,14 @@ class SubMaterialRepository extends BaseRepository
                 ->where('material_id', $materialId)
                 ->orderBy($order['key'], $order['value'])
                 ->where('title', 'LIKE', '%'. $search .'%')
+                ->orderBy('created_at', 'ASC')
                 ->paginate($limit);
         }
         return $this->model->query()
             ->with('assignments')
             ->where('material_id', $materialId)
             ->where('title', 'LIKE', '%'. $search .'%')
+            ->orderBy('created_at', 'ASC')
             ->paginate($limit);
     }
 }

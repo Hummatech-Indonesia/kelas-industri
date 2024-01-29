@@ -1,4 +1,9 @@
 @extends('dashboard.admin.layouts.app')
+<style>
+        .ck-content * {
+            color: black !important
+        }
+    </style>
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -96,8 +101,8 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <textarea class="form-control form-control-solid form-control-lg" rows="5" name="description" type="text"
-                                            placeholder="deskripsi tugas" required="">{{ old('description') }}</textarea>
+                                        <textarea id="kt_docs_ckeditor_classic" rows="5" name="description" type="text"
+                                            placeholder="deskripsi tugas">{{ old('description') }}</textarea>
 
                                     </div>
 
@@ -152,13 +157,25 @@
         </div>
     </div>
 @endsection
+<script src="{{ asset('app-assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
 @section('script')
     <script>
         $(document).ready(function() {
+            ClassicEditor
+                .create(document.querySelector('#kt_docs_ckeditor_classic'))
+                .then(editor => {
+                    console.log(editor);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
             const datepicker = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"));
             datepicker.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
             const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
             datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
+
         })
     </script>
+
 @endsection

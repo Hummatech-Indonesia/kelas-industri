@@ -113,7 +113,7 @@
                                         {{ $school->name }}
                                     </a>
 
-                                    <span class="text-muted font-weight-bold">
+                                    <span class="text-muted font-weight-bold" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
                                         {{ $school->address }}
                                     </span>
 

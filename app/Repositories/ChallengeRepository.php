@@ -36,6 +36,7 @@ class ChallengeRepository extends BaseRepository
             })
             ->where('created_by', $teacherId)
             ->where('title', 'like', '%'. $search .'%')
+            ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }
 
@@ -62,6 +63,7 @@ class ChallengeRepository extends BaseRepository
             ->when($difficulty != '-1' && $difficulty != null,function ($query) use ($difficulty){
                 $query->where('difficulty',$difficulty);
             })
+            ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }
 
@@ -76,6 +78,7 @@ class ChallengeRepository extends BaseRepository
                 $q->where('school_year_id', $schoolYearId);
             })
             ->where('title', 'like', '%'. $search .'%')
+            ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }
 
@@ -112,7 +115,7 @@ class ChallengeRepository extends BaseRepository
         ]);
     }
 
-    public function create_point_challenge(int $point, string $studentId): void
+    public function create_point_challenge(float $point, string $studentId): void
     {
         $data = $this->user->query()->findorfail($studentId);
         $data->point += $point;

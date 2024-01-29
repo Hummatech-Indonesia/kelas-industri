@@ -40,7 +40,7 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{ url()->previous() }}"
+                                <a href="{{route('common.showMaterial', ['classroom' => $classroom, 'material' => $material])}}"
                                     class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
@@ -182,7 +182,7 @@
                                             @foreach($subMaterial->assignments as $assignment)
                                                 <tr>
                                                     <td>{{ $assignment->title }}</td>
-                                                    <td>{{ $assignment->description }}</td>
+                                                    <td>{!! $assignment->description !!}</td>
                                                     <td><span
                                                             class="badge badge-light-primary">{{ \Carbon\Carbon::parse($assignment->start_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
                                                     </td>
@@ -200,7 +200,7 @@
                                                         @if (strtotime(now()) <= strtotime($assignment->end_date))
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                                                 @if ($assignment->StudentSubmitAssignment == null)
-                                                                    <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
+                                                                    <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
                                                                         class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan
                                                                     </a>
                                                                 @else
@@ -209,14 +209,14 @@
                                                                             $assignment->StudentSubmitAssignment[
                                                                                 array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
                                                                             ]->point === null)
-                                                                            <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
-                                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan
+                                                                            <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
+                                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Edit Tugas
                                                                             </a>
                                                                         @else
                                                                             <span class="badge badge-light-danger">-</span>
                                                                         @endif
                                                                     @else
-                                                                        <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
+                                                                        <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
                                                                             class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Kumpulkan
                                                                         </a>
                                                                     @endif
@@ -236,7 +236,9 @@
                                                                 <a href="{{ route('mentor.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
                                                                     class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
                                                             @else
-                                                                <span class="badge badge-light-danger">Ditutup</span>
+                                                                <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
+                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat
+                                                            </a>
                                                             @endif
                                                         @endif
                                                     </td>
@@ -275,13 +277,13 @@
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->

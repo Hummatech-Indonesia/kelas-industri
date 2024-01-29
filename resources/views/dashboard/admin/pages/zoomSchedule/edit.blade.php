@@ -110,6 +110,7 @@
                                     </div>
 
                                 </div>
+                                <input type="hidden" name="classroom_id" id="classroom_id" value="{{ $zoomSchedule->classroom_id }}">
                                 <div class="form-group row mb-3">
 
                                     <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
@@ -189,25 +190,30 @@
 @section('script')
     <script>
 
-        function getClassrooms(schoolId) {
+         function getClassrooms(schoolId, classroom_id) {
+            console.log(classroom_id);
             $.ajax({
                 method: 'GET',
                 url: '{{ route('admin.zoomSchedules.create') }}',
-                data: {school_id: schoolId},
-                success: function (classrooms) {
+                data: {
+                    school_id: schoolId,
+                    classroom_id: classroom_id
+                },
+                success: function(classrooms) {
                     let html = ''
 
                     classrooms.map(classroom => {
-                        html += `<option
-                                    ({{ $zoomSchedule->classroom_id }} == ${classroom.id}) ? 'selected' : '' value="${classroom.id}">${classroom.name}</option>`
+                        let selected = (classroom_id === classroom.id) ? 'selected' : '';
+                        html +=
+                        `<option ${selected} value="${classroom.id}">${classroom.name}</option>`;
                     })
 
-                    $('#classrooms').html(html)
+                    $('#classrooms').html(html);
                 }
-            })
+            });
         }
 
-        getClassrooms($('#schools').val())
+        getClassrooms($('#schools').val(), $('#classroom_id').val());
 
         $(document).ready(function () {
             const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));

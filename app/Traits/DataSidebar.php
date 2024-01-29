@@ -17,7 +17,8 @@ trait DataSidebar
 
     function AssignmentMockup()
     {
-        $currentDate = date('Y-m-d');
+        if (auth()->check()) {
+           $currentDate = date('Y-m-d');
         if(auth()->user()->roles->pluck('name')[0] == 'student'){
             $generationId = Auth()->user()->studentSchool->studentClassroom->classroom->generation_id;
             return Assignment::whereIn('sub_material_id', function ($query) use ($generationId) {
@@ -34,54 +35,78 @@ trait DataSidebar
                     });
             })
             ->where('end_date', '>', $currentDate)
+            ->orderBy('title', 'ASC')
             ->orderBy('end_date', 'desc')
             ->take(5)
             ->get();
         }
-        return [];
+        return []; 
+        }else{
+            return view('auth.login');
+        }
+        
     }
 
-
-    function getDoneAssignment(string $studentId, string $year){
-        return SubmitAssignment::where('student_id',$studentId)->whereRelation('assignment.submaterial.material.generation',function($query) use ($year){
-            $query->where('school_year_id',$year);
-        })->count();
-    }
 
     function RankMockup()
     {
-        return User::role('student')
+        if (auth()->check()) {
+            if(auth()->user()->roles->pluck('name')[0] == 'student'){
+            return User::role('student')
+                ->whereHas('studentSchool.school')
+                ->whereRelation('studentSchool', function ($q){
+                    $q->where('school_id', auth()->user()->studentSchool->school_id);
+                })
+                ->orderBy('point', 'desc')
+                ->take(10)
+                ->get();
+        }elseif(auth()->user()->roles->pluck('name')[0] == 'teacher'){
+            return User::role('student')
+                ->whereHas('studentSchool.school')
+                ->whereRelation('studentSchool', function ($q){
+                    $q->where('school_id', auth()->user()->teacherSchool->school_id);
+                })
+                ->orderBy('point', 'desc')
+                ->take(10)
+                ->get();
+        }else{
+            return User::role('student')
             ->whereHas('studentSchool.school')
             ->orderBy('point', 'desc')
+            ->take(10)
             ->get();
+        }
+        }else{
+            return view('auth.login');
+        }
+        
     }
 
     function ChallengeMockup()
     {
-        $currentDate = date('Y-m-d');
+        if (auth()->check()) {
+         $currentDate = date('Y-m-d');
         if(auth()->user()->roles->pluck('name')[0] == 'student'){
             $classroomId = Auth()->user()->studentSchool->studentClassroom->classroom->id;
             return Challenge::where('classroom_id', $classroomId)
             ->where('end_date', '>', $currentDate)
-            ->orderBy('end_date', 'desc')->take(5)->get();
+            ->orderBy('title', 'ASC')
+            ->orderBy('end_date', 'desc')
+            ->take(5)
+            ->get();
         }
 
         return [];
-
-    }
-
-
-    function getDoneChallenge($year)
-    {
-        return SubmitChallenge::where('student_school_id',auth()->user()->studentSchool->id)
-        ->whereRelation('challenge.classroom.generation',function($query) use ($year){
-        $query->where('school_year_id',$year);
-        })->count();
+   
+        }else{
+           return view('auth.login'); 
+        }
     }
 
     function ScheduleMockup()
     {
-        $role = auth()->user()->roles->pluck('name')[0];
+     if (auth()->check()) {
+      $role = auth()->user()->roles->pluck('name')[0];
         if ($role == 'mentor') {
             return ZoomSchedule::where('mentor_id', Auth()->id())->where('date', '>', Carbon::now())->orderBy('date', 'desc')->take(5)->get();
         } else if ($role == 'student') {
@@ -90,7 +115,11 @@ trait DataSidebar
         } else if ($role == 'teacher') {
             $classroomId = Auth()->user()->teacherSchool->teacherClassrooms->pluck('classroom_id')->toArray();
             return ZoomSchedule::whereIn('classroom_id', $classroomId)->where('date', '>', Carbon::now())->orderBy('date', 'desc')->take(5)->get();
-        }
+        }    
+     }else{
+         return view('auth.login'); 
+     }
+     
     }
 
     function GetDataSidebar()

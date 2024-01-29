@@ -165,13 +165,19 @@
                 const viewport = page.getViewport({
                     scale
                 });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+                // Set dimensions to Canvas
+                var resolution =  2 ; // for example
+                
+                // canvas.height = viewport.height;
+                // canvas.width = viewport.width;
+                canvas.height = resolution*viewport.height; //actual size
+                canvas.width = resolution*viewport.width;
 
                 // Render PDF page into canvas context
                 var renderContext = {
                     canvasContext: ctx,
-                    viewport: viewport
+                    viewport: viewport,
+                    transform: [resolution, 0, 0, resolution, 0, 0] // force it bigger size
                 };
                 var renderTask = page.render(renderContext);
 

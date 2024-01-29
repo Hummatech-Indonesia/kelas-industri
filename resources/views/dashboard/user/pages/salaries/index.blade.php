@@ -22,7 +22,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Jurnal
+                                    Gaji
                                 </h1>
                                 <!--end::Title-->
 
@@ -39,7 +39,7 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        List jurnal pada kelas industri.
+                                        List Gaji anda pada kelas industri.
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->

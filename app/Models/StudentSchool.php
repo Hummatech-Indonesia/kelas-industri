@@ -37,7 +37,7 @@ class StudentSchool extends Model
 
     public function studentClassroom(): HasOne
     {
-        return $this->hasOne(studentClassroom::class)->latest();
+        return $this->hasOne(StudentClassroom::class)->latest();
     }
 
     /**

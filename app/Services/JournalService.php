@@ -63,9 +63,16 @@ class JournalService
      */
     public function handleCreate(JournalRequest $request): void
     {
-        $data = $request->validated();
-        $data['date'] = Carbon::now();
-        $this->repository->store($data);
+        if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
+            $data = $request->validated();
+            $data['date'] = Carbon::now();
+            $this->repository->store($data);
+        } else if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+            $data = $request->validated();
+            $data['date'] = Carbon::now();
+            $data['classroom_id'] = Auth()->user()->teacherSchool->teacherClassroom->classroom->id;
+            $this->repository->store($data);
+        }
     }
 
     /**

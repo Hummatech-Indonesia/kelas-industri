@@ -29,7 +29,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="../../index-2.html" class="text-muted text-hover-primary">
+                                        <a href="#" class="text-muted text-hover-primary">
                                             Home </a>
                                     </li>
                                     <!--end::Item-->
@@ -59,7 +59,27 @@
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
-
+                            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                @if ($submitChallenge)
+                                <a href="{{ Route('student.downloadChallenge', ['submitChallenge' => $submitChallenge->id]) }}"
+                                    class="btn btn-dark fw-bold btn-sm">
+                                    <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
+                                                fill="currentColor" />
+                                            <path opacity="0.3"
+                                                d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                                fill="currentColor" />
+                                            <path
+                                                d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                                fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                    Download File Challenge Anda
+                                </a>
+                                @endif
+                            </div>
                             <!--end::Actions-->
                         </div>
                         <!--end::Toolbar wrapper-->
@@ -74,7 +94,7 @@
                     @endif
                     <div class="row">
 
-                        <form action="{{ route('student.storeChallenge') }}" method="POST" enctype="multipart/form-data">
+                        <form action="" id="form-store" method="POST" enctype="multipart/form-data">
 
                             @csrf
 
@@ -98,7 +118,7 @@
 
                                         <div class="card-toolbar">
 
-                                            <a href="{{ url()->previous() }}"
+                                            <a href="{{ route('student.challenges.show', ['challenge' => $challenge]) }}"
                                                 class="btn btn-light-primary font-weight-bolder me-2">
 
                                                 <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -106,7 +126,8 @@
                                                 Kembali
 
                                             </a>
-
+                                            
+                                            @if ($challenge->end_date > now())
                                             <div class="btn-group">
 
                                                 <button type="submit" class="btn btn-primary font-weight-bolder">
@@ -118,6 +139,7 @@
                                                 </button>
 
                                             </div>
+                                            @endif
 
                                         </div>
 
@@ -126,7 +148,38 @@
                                     <div class="card-body">
 
                                         <div class="row">
+                                            @if ($challenge->end_date > now())
+                                            <div class="form-grup row mb-3">
 
+                                                    <div class="alert alert-danger d-flex align-items-center p-5">
+                                                        <!--begin::Icon-->
+                                                        <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
+                                                            <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"/>
+                                                                <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor"/>
+                                                                <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor"/>
+                                                                </svg>
+                                                                </span>
+                                                        </span>
+                                                        <!--end::Icon-->
+
+                                                        <!--begin::Wrapper-->
+                                                        <div class="d-flex flex-column">
+                                                            <!--begin::Title-->
+                                                            <h4 class="mb-1 text-dark">Peringatan</h4>
+                                                            <!--end::Title-->
+                                                            <!--begin::Content-->
+                                                            <ul>
+                                                                <li>
+                                                                    Pastikan Challenge Anda Sudah Ada Dengan MenDownloadnya Jika Sudah Ada Maka Bisa DiDownload Jika Tidak Maka Inputkan Kembali Challenge Anda
+                                                                </li>
+                                                            </ul>
+                                                            <!--end::Content-->
+
+                                                        </div>
+                                                        <!--end::Wrapper-->
+                                                    </div>
+                                            </div>
                                             <div class="form-grup row mb-3">
                                                 <div class="alert alert-warning d-flex align-items-center p-5">
                                                     <!--begin::Icon-->
@@ -158,7 +211,7 @@
                                                             <li>File yang tersedia adalah file yang telah dikirim.</li>
                                                             <li>Jika file belum tersedia maka anda belum mengumpulkan
                                                                 tantangan.</li>
-                                                                <li>File yang diinputkan harus ekstensi rar/zip.</li>
+                                                                <li>File yang diinputkan harus ekstensi rar/zip atau png, jpg, jpeg.</li>
                                                         </ul>
                                                         <!--end::Content-->
 
@@ -180,21 +233,27 @@
                                                 </div>
 
                                             </div>
-                                            @if ($submitChallenge)
-                                                <div class="form-group row mb-3">
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                    role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                                    aria-valuemax="100" style="width: 0%"></div>
+                                            </div>
+                                            @else
+                                            <div class="col-12 text-center">
+                                                <!--begin::Illustration-->
+                                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px" alt=""/>
+                                                <!--end::Illustration-->
 
-                                                    <label class="col-xl-3 col-lg-3 col-form-label"></label>
+                                                <!--begin::Title-->
+                                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Challenge Sudah Ditutup</h4>
+                                                <!--end::Title-->
 
-                                                    <div class="col-lg-9 col-xl-9">
-
-                                                        <a href="{{ Route('student.downloadChallenge', ['submitChallenge' => $submitChallenge->id]) }}"
-                                                            class="btn btn-danger btn-sm">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m-2 6h-2v2h2v2h-2v2h-2v-2h2v-2h-2v-2h2v-2h-2V8h2v2h2v2Z"/></svg> File Tantangan
-                                                            </a>
-
-                                                    </div>
-
-                                                </div>
+                                                <!--begin::Desctiption-->
+                                                <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                                                                    Challenge sudah ditutup, anda bisa download tugas anda jika tersedia, jika tidak berarti anda belum mengumpulkan
+                                                                                </span>
+                                                <!--end::Desctiption-->
+                                            </div>
                                             @endif
                                         </div>
 
@@ -220,20 +279,20 @@
                 <!--begin::Copyright-->
                 <div class="text-dark order-2 order-md-1">
                     <span class="text-muted fw-semibold me-1">{{ \Carbon\Carbon::now()->format('Y') }}©</span>
-                    <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
+                    <a href="#" class="text-gray-800 text-hover-primary">Kelas
                         Industri</a>
                 </div>
                 <!--end::Copyright-->
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
@@ -242,4 +301,59 @@
         </div>
         <!--end::Footer-->
     </div>
+@endsection
+@section('script')
+<script>
+    function updateProgressBar(percentage, colorClass) {
+        const progressBar = $(".progress-bar");
+        progressBar.attr("aria-valuenow", percentage);
+        progressBar.css("width", percentage + "%");
+        progressBar.removeClass("bg-success bg-danger");
+        progressBar.addClass(colorClass);
+    }
+
+    $('#form-store').submit(function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: "/student/storeChallenge",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            xhr: function() {
+                const xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(evt) {
+                    if (evt.lengthComputable) {
+                        const percentComplete = (evt.loaded / evt.total) * 100;
+                        updateProgressBar(percentComplete, "bg-info");
+                    }
+                }, false);
+                return xhr;
+            },
+            success: function(response) {
+                updateProgressBar(100, "bg-success");
+                Swal.fire({
+                    title: 'Berhasil!',
+                    icon: 'success',
+                    text: 'Berhasil Mengirim Challenge',
+
+                }).then(function(){
+                    location.reload();
+                });
+            },
+            error: function(response) {
+                updateProgressBar(100, "bg-danger");
+                Swal.fire({
+                    title: 'Error!',
+                    icon: 'error',
+                    text: 'Extension Challenge Anda Tidak Cocok!',
+                }).then(function() {
+                    location.reload();
+                });
+            }
+        });
+    });
+</script>
 @endsection

@@ -15,7 +15,7 @@ class SubmitAssignmentRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'file' => 'required|file|mimes:rar,zip',
+            'file' => 'required|file|mimes:rar,zip,png,jpg,jpeg',
             'assignment_id' => 'required',
         ];
     }
@@ -25,7 +25,7 @@ class SubmitAssignmentRequest extends BaseRequest
         return [
             'file.required' => 'File tidak boleh kosong!',
             'file.file' => 'File harus dalam format rar atau zip!',
-            'file.mimes' => 'File harus memiliki ekstensi rar atau zip!',
+            'file.mimes' => 'File harus memiliki ekstensi rar, zip atau PNG, JPG, dan JPEG!',
         ];
     }
 

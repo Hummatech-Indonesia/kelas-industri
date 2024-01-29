@@ -110,7 +110,13 @@
                                                         <td>{{ $journal->title }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}
                                                         </td>
-                                                        <td>{{ $journal->classroom->name }}</td>
+                                                        <td>
+                                                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                            {{ $journal->classroom->name }} - {{ $journal->classroom->school->name }}   
+                                                            @else
+                                                            {{ $journal->classroom->name }}
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             <svg fill="#474761" type="button"
                                                                 data-description="{{ $journal->description }}"

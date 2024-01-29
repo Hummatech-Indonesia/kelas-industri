@@ -17,6 +17,10 @@ class Assignment extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = ['id', 'sub_material_id', 'title', 'description', 'start_date', 'end_date'];
+    
+    protected $casts = [
+        'id' => 'string',
+    ];
 
     /**
      * many to one relationship

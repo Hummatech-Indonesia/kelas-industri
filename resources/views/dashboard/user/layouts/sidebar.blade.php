@@ -118,7 +118,7 @@
                                         <div class="d-flex flex-row-fluid flex-wrap">
                                             <!--begin:Author-->
                                             <div class="flex-grow-1 me-2">
-                                                <a href="{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'submaterial' => $assignment->sub_material_id]) }}"
+                                                <a href="{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id,'material' => $assignment->submaterial->material->id, 'submaterial' => $assignment->sub_material_id]) }}"
                                                     class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $assignment->title }}</a>
                                                 <span
                                                     class="text-muted fw-semibold d-block fs-">{{ $assignment->submaterial->title }}</span>

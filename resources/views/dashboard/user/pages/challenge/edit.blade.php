@@ -1,5 +1,9 @@
 @extends('dashboard.user.layouts.app')
-
+<style>
+        .ck-content * {
+            color: black !important
+        }
+    </style>
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <!--begin::Content wrapper-->
@@ -152,11 +156,11 @@
 
                                                     <select name="classroom_id" class="form-select form-select-solid me-5"
                                                         data-control="select2" data-placeholder="Select an option">
-                                                        @foreach ($classrooms as $classroom)
-                                                            <option
-                                                                {{ old('classroom_id') == $classroom->classroom->id ? 'selected' : '' }}
-                                                                value="{{ $classroom->classroom->id }}">
-                                                                {{ $classroom->classroom->name }}
+                                                       @foreach ($classrooms as $classroom)
+                                                            <option value="{{ $classroom->classroom->id }}"
+                                                                {{ $challenge->classroom_id == $classroom->classroom_id ? 'selected' : '' }}>
+                                                                {{ $classroom->classroom->name }} -
+                                                                {{ $classroom->classroom->school->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -214,10 +218,9 @@
 
                                                 <div class="col-lg-9 col-xl-9">
 
-                                                    <textarea class="form-control form-control-solid form-control-lg" rows="5"
-                                                              name="description" type="text" placeholder="deskripsi tantangan"
-                                                              required="">{{$challenge->description}}
-                                                            </textarea>
+                                                    <textarea id="kt_docs_ckeditor_classic" rows="5" name="description" type="text" placeholder="deskripsi tugas">
+                                                        {!! $challenge->description !!}
+                                                        </textarea>
 
                                                 </div>
 
@@ -318,4 +321,24 @@
         </div>
         <!--end::Footer-->
     </div>
+@endsection
+<script src="{{ asset('app-assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
+@section('script')
+    <script>
+        ClassicEditor
+                .create(document.querySelector('#kt_docs_ckeditor_classic'))
+                .then(editor => {
+                    console.log(editor);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        $(document).ready(function() {
+            const datepicker = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"));
+            datepicker.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
+            const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
+            datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
+        })
+    </script>
 @endsection

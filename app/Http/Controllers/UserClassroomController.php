@@ -87,10 +87,11 @@ class UserClassroomController extends Controller
         return view('dashboard.user.pages.submaterial.index', $data);
     }
 
-    public function showSubMaterial(Classroom $classroom, SubMaterial $submaterial): View
+    public function showSubMaterial(Classroom $classroom, Material $material, SubMaterial $submaterial): View
     {
         $data = $this->GetDataSidebar();
         $data['classroom'] = $classroom;
+        $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
         return view('dashboard.user.pages.submaterial.detail', $data);
     }

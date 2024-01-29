@@ -90,6 +90,7 @@
 
                                                 </div>
 
+                                                @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                 <div class="form-group row mb-3">
 
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
@@ -100,9 +101,9 @@
                                                             data-control="select2" data-placeholder="Select an option">
                                                             @foreach ($classrooms as $classroom)
                                                                 <option
-                                                                    {{ old('classroom_id') == $classroom->classroom_id ? 'selected' : '' }}
+                                                                {{ $journal->classroom_id == $classroom->classroom_id ? 'selected' : '' }}
                                                                     value="{{ $classroom->classroom_id }}">
-                                                                    {{ $classroom->classroom->name }}
+                                                                    {{ $classroom->classroom->name }} - {{ $classroom->classroom->school->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -110,6 +111,7 @@
                                                     </div>
 
                                                 </div>
+                                                @endif
 
                                                 <div class="form-group row mb-3">
 

@@ -130,7 +130,7 @@
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
             @forelse($generations as $generation)
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-5">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-5 mb-5">
 
                 <!--begin::Card-->
 

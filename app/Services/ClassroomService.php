@@ -49,7 +49,7 @@ class ClassroomService
     public function handleGetClassroomByUser(string $userId, Request $search)
     {
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
-            return $this->repository->get_by_student($userId, 6);
+            return $this->repository->get_by_student($userId, $search->search, 6);
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             return $this->repository->get_by_mentor($userId, $search->search, 6);
         } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {

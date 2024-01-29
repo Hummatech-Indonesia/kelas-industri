@@ -25,12 +25,11 @@
                                     Materi
                                 </h1>
                                 <!--end::Title-->
-
                                 <!--begin::Breadcrumb-->
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="../../index-2.html" class="text-muted text-hover-primary">
+                                        <a href="#" class="text-muted text-hover-primary">
                                             Home </a>
                                     </li>
                                     <!--end::Item-->
@@ -63,7 +62,7 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{ url()->previous() }}"
+                                <a href="{{route('common.classrooms') }}"
                                     class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
@@ -155,7 +154,7 @@
 
                                                     <!--begin: Title-->
 
-                                                    <a href="https://class.hummasoft.com/siswa/materi/11/4"
+                                                    <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
                                                         class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
 
                                                         {{ $material->title }}
@@ -258,21 +257,21 @@
                 <!--begin::Copyright-->
                 <div class="text-dark order-2 order-md-1">
                     <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
-                    <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
+                    <a href="#"class="text-gray-800 text-hover-primary">Kelas
                         Industri</a>
                 </div>
                 <!--end::Copyright-->
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                    <li class="menu-item"><a href="#"
                             class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->

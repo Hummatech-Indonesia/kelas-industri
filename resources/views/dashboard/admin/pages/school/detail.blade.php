@@ -273,7 +273,7 @@
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>No Telepon</th>
-                                    <th>No Rekening</th>
+                                    <th>Alamat</th>
                                     <th>Bank</th>
                                 </tr>
                             </thead>

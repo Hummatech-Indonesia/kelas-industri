@@ -123,7 +123,7 @@
 
                                     <!--begin: Title-->
 
-                                    <a href="https://class.hummasoft.com/siswa/materi/11/4"
+                                    <a href="{{ route('admin.materials.show', $material->id) }}"
                                         class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
 
                                         {{ $material->title }}

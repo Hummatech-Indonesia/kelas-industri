@@ -70,13 +70,6 @@
                                                 <th data-priority="3">Email</th>
                                                 <th data-priority="4">No Telepon</th>
                                                 <th class="min-w-50px" data-priority="5">Alamat</th>
-
-                                                @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                    <th>Aksi</th>
-                                                @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                    <th>Aksi</th>
-                                                @else
-                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>

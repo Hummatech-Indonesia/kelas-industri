@@ -41,7 +41,7 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{ url()->previous() }}"
+                                <a href="{{route('common.materials', ['classroom' => $classroom])}}"
                                     class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
@@ -132,8 +132,8 @@
 
                                                 <!--begin: Title-->
 
-                                                <a href="https://class.hummasoft.com/siswa/materi/11/4"
-                                                   class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
+                                                <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
+                                                   class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1" style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
 
                                                     {{ $subMaterial->title }}
                                                 </a>
@@ -193,7 +193,7 @@
                                                     </svg>
                                                 </span>
                                                 <!--end::Svg Icon-->
-                                                <a href="https://class.hummasoft.com/siswa/materi/11/4"
+                                                <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
                                                    class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }}
                                                     Tugas</a>
 
@@ -203,7 +203,7 @@
 
                                         </div>
 
-                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'submaterial' => $subMaterial->id]) }}"
+                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                     </div>
@@ -220,6 +220,9 @@
                         @endforelse
                     </div>
 
+                    <div class="row">
+                        {{ $subMaterials->links() }}
+                    </div>
                 </div>
                 <!--end::Content container-->
             </div>
@@ -235,20 +238,20 @@
                 <!--begin::Copyright-->
                 <div class="text-dark order-2 order-md-1">
                     <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
-                    <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
+                    <a href="#" class="text-gray-800 text-hover-primary">Kelas
                         Industri</a>
                 </div>
                 <!--end::Copyright-->
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                    <li class="menu-item"><a href="#"
                                              class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                    <li class="menu-item"><a href="#"
                                              class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->

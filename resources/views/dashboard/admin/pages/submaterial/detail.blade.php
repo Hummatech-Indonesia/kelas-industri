@@ -190,7 +190,7 @@
                             @foreach($subMaterial->assignments as $assignment)
                                 <tr>
                                     <td>{{ $assignment->title }}</td>
-                                    <td>{{ $assignment->description }}</td>
+                                    <td>{!! $assignment->description !!}</td>
                                     <td><span class="badge badge-light-primary">{{ \Carbon\Carbon::parse($assignment->start_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
                                     </td>
                                     <td><span class="badge badge-light-danger">{{ \Carbon\Carbon::parse($assignment->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</td>

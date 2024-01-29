@@ -252,7 +252,7 @@
                                     {{ auth()->user()->name }}
                                 </div>
 
-                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
+                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7" style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
                                     {{ auth()->user()->email }} </a>
                             </div>
                             <!--end::Username-->

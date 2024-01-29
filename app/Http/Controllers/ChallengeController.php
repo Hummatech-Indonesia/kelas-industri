@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use ZipArchive;
+use Carbon\Carbon;
 use App\Models\Challenge;
 use Illuminate\View\View;
 use App\Traits\DataSidebar;
@@ -14,7 +15,7 @@ use App\Services\ChallengeService;
 use App\Services\ClassroomService;
 use App\Services\SchoolYearService;
 use Illuminate\Http\RedirectResponse;
-
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ChallengeRequest;
 use App\Http\Requests\SubmitChallengeRequest;
 
@@ -123,32 +124,49 @@ class ChallengeController extends Controller
         } elseif (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data['challenge'] = $challenge;
         }
-        return \view ('dashboard.user.pages.challenge.detail', $data);
+        $tanggal = Carbon::now()->format('Y-m-d H:i:s');
+        return \view('dashboard.user.pages.challenge.detail', $data ,compact('tanggal'));
+    }
+
+        /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function validChallenge(Request $request,$id): JsonResponse
+    {
+
+    $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+    $submitChallenge = SubmitChallenge::findOrFail($id);
+    $persen = floatval($request->persen);
+
+    $poin = floatval($submitChallenge->challenge->point) * ($persen / 100.0);
+    // return response()->json($poin, 200);
+    $this->service->handleUpadetValid($submitChallenge->id);
+    $this->service->handleCreatePoint($poin, $submitChallenge->studentSchool->student->id);
+        return response()->json();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function validChallenge($id): RedirectResponse
+
+    public function validChallengeTeacher(Request $request, $id): JsonResponse
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         $submitChallenge = SubmitChallenge::findorfail($id);
+        $persen = floatval($request->persen);
+
+        $point = floatval($submitChallenge->challenge->point) * ($persen / 100.0);
         $this->service->handleUpadetValid($submitChallenge->id);
-        $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id, $currentSchoolYear->id);
-        return redirect()->back()->with('success', trans('berhasil valid challenge'));
+        $this->service->handleCreatePoint($point, $submitChallenge->studentSchool->student->id);
+        return response()->json();
     }
 
-    public function validChallengeTeacher($id): RedirectResponse
-    {
-        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
-        $submitChallenge = SubmitChallenge::findorfail($id);
-        $this->service->handleUpadetValid($submitChallenge->id);
-        $this->service->handleCreatePoint( $submitChallenge->challenge->point, $submitChallenge->studentSchool->student->id, $currentSchoolYear->id);
-        return redirect()->back()->with('success', trans('berhasil valid challenge'));
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -225,22 +243,49 @@ class ChallengeController extends Controller
         $zip = new ZipArchive;
         if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
 
+            $filesToAdd = [];
+
             foreach ($file as $file) {
-                if (file_exists(storage_path('app/public/' . $file->file))) {
-                    $zip->addFile(storage_path('app/public/' . $file->file), $file->studentSchool->student->name.'.zip');
+                $filePath = storage_path('app/public/' . $file->file);
+                $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+                if (file_exists($filePath)) {
+                    $filesToAdd[] = [
+                        'path' => $filePath,
+                        'name' => $file->studentSchool->student->name . '.' . $extension,
+                    ];
                 }
             }
 
-            $zip->close();
+            if (!empty($filesToAdd)) {
+                foreach ($filesToAdd as $fileToAdd) {
+                    $zip->addFile($fileToAdd['path'], $fileToAdd['name']);
+                }
+                $zip->close();
+
+                return response()->download($zipPath, $zipName);
+            } else {
+                $errorMessage = "File Challenge Siswa Tidak Ditemukan Silahkan Untuk Memberitahu Agar Mengisi Ulang Challenge.";
+            }
+
+            return redirect()->back()->with('error', $errorMessage);
         }
 
-        return Response()->download($zipPath, $zipName);
-
     }
+    
 
-    public function download(SubmitChallenge $submitChallenge){
-        $path = public_path('storage/'.$submitChallenge->file);
-        $name = $submitChallenge->studentSchool->student->name.'.zip';
-        return response()->download($path,$name);
+    public function download(SubmitChallenge $submitChallenge)
+    {
+        if (file_exists('storage/' . $submitChallenge->file)) {
+            $extension = pathinfo(storage_path('storage/' . $submitChallenge->file), PATHINFO_EXTENSION);
+            $path = public_path('storage/' . $submitChallenge->file);
+            $name = $submitChallenge->studentSchool->student->name . '.' . $extension;
+            return response()->download($path, $name);
+        } else {
+            if (auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor') {
+                return redirect()->back()->with('error', ' Challenge Siswa Tidak Ada, Silahkan Memberitahu Untuk Mengisi Ulang Challenge.');
+            } else {
+                return redirect()->back()->with('error', 'Challenge Anda Tidak Tersedia, Silahkan Input Kembali Challenge Anda .');
+            }
+        }
     }
 }

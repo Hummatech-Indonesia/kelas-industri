@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-lg-2 col-md-12 ms-3">
                                 <button type="submit" class="btn btn-primary">Cari</button>
-                                <a href="{{ route('admin.submaterials.index') }}" type="button"
+                                <a href="{{ route('admin.materials.show', $material->id) }}" type="button"
                                     class="btn btn-light text-light"><i class="fonticon-repeat"></i>
                                 </a>
                             </div>
@@ -112,8 +112,8 @@
 
                                     <!--begin: Title-->
 
-                                    <a href="https://class.hummasoft.com/siswa/materi/11/4"
-                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
+                                    <a href="{{ route('admin.submaterials.show', $subMaterial->id) }}"
+                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1" style="text-overflow: ellipsis;overflow: hidden ;max-width: 130px ;white-space: nowrap">
 
                                         {{ $subMaterial->title }}
                                     </a>
@@ -182,7 +182,7 @@
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
-                                    <a href="https://class.hummasoft.com/siswa/materi/11/4"
+                                    <a href="{{ route('admin.submaterials.show', $subMaterial->id) }}"
                                         class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }} Tugas</a>
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\SchoolYearHelper;
 use App\Models\SubmitAttendance;
+use App\Models\Challenge;
+use App\Models\Assignment;
 use App\Services\AssignmentService;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
@@ -85,11 +87,56 @@ class HomeController extends Controller
         if ($role == 'student') {
             $data['assignment'] = $this->assignmentService->handleCountAssignmentStudent();
             $data['challenge'] = $this->challengeService->handleCountChallengeStudent();
-            $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
+            $data['material'] = $this->materialService->handleCountMaterialUser();
             $data['point'] = $this->pointService->hanleCountPointStudent($userId);
-            $data['doneAssignment'] = $this->getDoneAssignment($userId, $currentSchoolYear->id);
-            $data['doneChallenge'] = $this->getDoneChallenge($currentSchoolYear->id);
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleStudent();
+            
+            $assignments = Assignment::with('StudentSubmitAssignment')->whereRelation('submaterial.material', function ($query) {
+                $query->where('generation_id', Auth()->user()->studentSchool->studentClassroom->classroom->generation_id);
+            })->get();
+
+            $belumDikerjakan = [];
+            $tidakDikerjakan = [];
+            $sudahDikerjakan = [];
+
+            foreach ($assignments as $assignment) {
+                $submitAssignments = $assignment->StudentSubmitAssignment->where('student_id',auth()->id());
+                if (count($submitAssignments)) {
+                    array_push($sudahDikerjakan, $submitAssignments);
+                } elseif ($assignment->end_date < now() || $submitAssignments == null) {
+                    array_push($tidakDikerjakan, $submitAssignments);
+                } elseif ($assignment->end_date > now() || $submitAssignments == null) {
+                    array_push($belumDikerjakan, $submitAssignments);
+                }
+            }
+
+            $data['sudah'] = count($sudahDikerjakan);
+            $data['belum'] = count($belumDikerjakan);
+            $data['tidak'] = count($tidakDikerjakan);
+
+            $challenges = Challenge::with('StudentChallenge')->where('classroom_id', Auth()->user()->studentSchool->studentClassroom->classroom_id)->whereRelation('classroom', function ($query) {
+                $query->where('generation_id', Auth()->user()->studentSchool->studentClassroom->classroom->generation_id);
+            })->get();
+
+            $challengeBelumDikerjakan = [];
+            $challengeTidakDikerjakan = [];
+            $challengeSudahDikerjakan = [];
+
+            foreach ($challenges as $challenge) {
+                $submitChallenges = $challenge->StudentChallenge->where('student_school_id', auth()->user()->studentSchool->id);
+                if (count($submitChallenges)) {
+                    array_push($challengeSudahDikerjakan, $submitChallenges);
+                } elseif ($challenge->end_date < now() || $submitChallenges == null) {
+                    array_push($challengeTidakDikerjakan, $submitChallenges);
+                } elseif ($challenge->end_date > now() || $submitChallenges == null) {
+                    array_push($challengeBelumDikerjakan, $submitChallenges);
+                }
+            }
+
+            $data['sudahChallenge'] = count($challengeSudahDikerjakan);
+            $data['belumChallenge'] = count($challengeBelumDikerjakan);
+            $data['tidakChallenge'] = count($challengeTidakDikerjakan);
+            
         } elseif ($role == 'teacher') {
             $data['classroom'] = $this->classroomService->handleCountClassroomTeacher($userId);
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);

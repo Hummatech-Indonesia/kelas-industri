@@ -79,9 +79,9 @@ class MaterialService
         return $this->repository->get_count_material_student($schoolYearId);
     }
 
-    public function handleCountMaterialUser(int $schoolYearId) :mixed
+    public function handleCountMaterialUser()
     {
-        return $this->repository->get_count_material_user($schoolYearId);
+        return $this->repository->get_count_material_user();
     }
 
     public function handleCountMaterialAdmin()

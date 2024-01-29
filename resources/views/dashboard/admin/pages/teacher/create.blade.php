@@ -112,7 +112,7 @@
                                         <input class="form-control form-control-solid form-control-lg"
                                                name="phone_number"
                                                type="text" value="{{ old('phone_number') }}" placeholder="087xxxxxxxxx"
-                                               required="">
+                                               >
 
                                     </div>
 
@@ -127,7 +127,7 @@
                                                name="account_number"
                                                type="text" value="{{ old('account_number') }}"
                                                placeholder="117-129-x-xxx"
-                                               required="">
+                                               >
 
                                     </div>
 
@@ -142,7 +142,7 @@
                                                name="bank"
                                                type="text" value="{{ old('bank') }}"
                                                placeholder="Mandiri"
-                                               required="">
+                                               >
 
                                     </div>
 
@@ -157,7 +157,7 @@
                                                   name="address"
                                                   type="text"
                                                   placeholder="Jl. Soekarno Hatta No 9"
-                                                  required="">{{ old('address') }}</textarea>
+                                                  >{{ old('address') }}</textarea>
 
                                     </div>
 
