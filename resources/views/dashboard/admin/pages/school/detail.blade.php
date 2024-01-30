@@ -288,7 +288,13 @@
                                         <td>{{ $teacher->teacher->phone_number }}</td>
                                         <td>{{ $teacher->teacher->address }}</td>
                                         <td>{{ count($teacher->teacher->journals) }}</td>
-                                        <td>0</td>
+                                        @php
+                                            $total = 0;
+                                            foreach ($teacher->teacher->teacherSchool->teacherClassroom->classroom->students as $student) {
+                                                if ($student->studentSchool->student->submitAssignment()->whereNull('point')->exists()) $total++;
+                                            }
+                                        @endphp
+                                        <td>{{ $total }}</td>
                                         <td>{{ $teacher->teacher->bank }}</td>
                                     </tr>
                                 @endforeach
