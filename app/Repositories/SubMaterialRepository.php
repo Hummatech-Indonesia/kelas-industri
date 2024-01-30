@@ -37,4 +37,19 @@ class SubMaterialRepository extends BaseRepository
             ->orderBy('created_at', 'ASC')
             ->paginate($limit);
     }
+
+    /**
+     * getListSubMaterials
+     *
+     * @param  mixed $createdBy
+     * @return mixed
+     */
+    public function getListSubMaterials(string $createdBy): mixed
+{
+    return $this->model->query()
+        ->where('created_at', '>' , $createdBy)
+        ->limit(4)
+        ->get();
+}
+
 }

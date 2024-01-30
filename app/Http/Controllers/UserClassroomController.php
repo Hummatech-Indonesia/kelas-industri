@@ -46,7 +46,7 @@ class UserClassroomController extends Controller
     {
         $data = $this->GetDataSidebar();
         $data['search'] = $request->search;
-        $data['classrooms'] = $this->classroomService->handleGetClassroomByUser(auth()->id(), $request);
+        $data['classrooms'] = $this->classroomService->handleGetClassroomByUser(auth()->user()->id, $request);
         return view('dashboard.user.pages.classroom.index', $data);
     }
 
@@ -54,7 +54,7 @@ class UserClassroomController extends Controller
     {
         if(auth()->user()->roles->pluck('name')[0] == 'admin'){
             $data = [
-                'students' => $this->studentService->handleGetBySchool(auth()->id()),
+                'students' => $this->studentService->handleGetBySchool(auth()->user()->id),
                 'classroom' => $classroom,
             ];
             return \view ('dashboard.admin.pages.classroom.show', $data);
@@ -98,7 +98,8 @@ class UserClassroomController extends Controller
 
     public function showDocument(SubMaterial $submaterial, string $role): View
     {
-        return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role'));
+        $listSubMaterials = $this->subMaterialService->handleListSubMaterials($submaterial->created_at);
+        return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role','listSubMaterials'));
     }
 
     public function showStudentDetail(User $student, Generation $generation) : View

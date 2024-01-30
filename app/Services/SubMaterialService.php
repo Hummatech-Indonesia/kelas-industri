@@ -40,6 +40,11 @@ class SubMaterialService
         $this->repository->store($data);
     }
 
+    public function handleListSubMaterials(string $createdBy): mixed
+    {
+        return $this->repository->getListSubMaterials($createdBy);
+    }
+
     /**
      * handle update
      *
