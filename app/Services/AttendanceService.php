@@ -7,14 +7,17 @@ use App\Http\Requests\SubmitAttendanceRequest;
 use App\Models\Attendance;
 use App\Repositories\AttendanceRepository;
 use App\Repositories\MentorRepository;
+use App\Repositories\PointRepository;
 
 class AttendanceService
 {
     private AttendanceRepository $repository;
     private MentorRepository $mentorRepository;
+    private PointRepository $pointRepository;
 
-    public function __construct(AttendanceRepository $repository,MentorRepository $mentorRepository)
+    public function __construct(AttendanceRepository $repository,MentorRepository $mentorRepository, PointRepository $pointRepository)
     {
+        $this->pointRepository = $pointRepository;
         $this->repository = $repository;
         $this->mentorRepository = $mentorRepository;
     }
@@ -71,6 +74,10 @@ class AttendanceService
 
     public function submitAttendance(Attendance $attendance): void
     {
+        $oldPoint = $this->pointRepository->get_by_student(auth()->user()->id);
+        $dataPoint['point'] = ($oldPoint) ? (int) $oldPoint->point + 1 : 1;
+        $dataPoint['student_id'] = auth()->user()->id;
+        $this->pointRepository->update_or_create_point($dataPoint);
         $data['student_id'] = auth()->id();
         $data['attendance_id'] = $attendance->id;
         $this->repository->create_submit_attendance($data);

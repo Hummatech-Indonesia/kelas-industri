@@ -16,6 +16,19 @@ class PointRepository extends BaseRepository
         $this->user = $user;
     }
 
+    public function update_or_create_point(array $data)
+    {
+        return $this->model->query()
+            ->updateOrCreate(['student_id' => $data['student_id']], $data);
+    }
+
+    public function get_by_student(string $studentId)
+    {
+        return $this->model->query()
+            ->where('student_id', $studentId)
+            ->first();
+    }
+
     public function get_point()
     {
         return $this->model->query()
