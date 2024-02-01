@@ -96,6 +96,10 @@ class UserClassroomController extends Controller
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
 
+        if(auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor'){
+            return view('dashboard.user.pages.submaterial.detail', $data);
+        }
+
         if ($order == 1) {
             return view('dashboard.user.pages.submaterial.detail', $data);
         }
