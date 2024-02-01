@@ -71,4 +71,42 @@ class UserRepository extends BaseRepository
         $data->point += $point;
         $data->save();
     }
+
+    /**
+     * store
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function store(array $data): mixed
+    {
+        return $this->model->query()
+            ->create($data);
+    }
+
+    /**
+     * get_user_nonactive
+     *
+     * @return mixed
+     */
+    public function get_user_nonactive(): mixed
+    {
+        return $this->model->query()
+        ->where('status', 'nonactive')
+        ->latest()
+        ->get();
+    }
+
+    /**
+     * getWhere
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function getWhere(array $data): mixed
+    {
+        return $this->model->query()
+            ->where('email', $data['email'])
+            ->first();
+    }
 }

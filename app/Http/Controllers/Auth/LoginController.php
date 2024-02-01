@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\LoginRequest;
+use App\Services\LoginService;
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -28,13 +31,26 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+
+    private LoginService $loginService;
+    private UserRepository $user;
+
+    public function __construct(LoginService $loginService, UserRepository $user)
     {
-        $this->middleware('guest')->except('logout');
+        $this->loginService = $loginService;
+        $this->user = $user;
+    }
+
+    /**
+     * Handle user login.
+     *
+     * This function is responsible for handling user login requests.
+     *
+     * @param \App\Http\Requests\Auth\LoginRequest $request The incoming login request.
+     * @return \Illuminate\Http\JsonResponse Returns a JSON response.
+     */
+    public function login(LoginRequest $request)
+    {
+        return $this->loginService->handleLogin($request, $this->user);
     }
 }

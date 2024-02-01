@@ -28,4 +28,17 @@ class StudentRepository extends BaseRepository
             ->where('school_id', $schoolId)
             ->get();
     }
+
+    /**
+     * store
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function store(array $data): mixed
+    {
+        return $this->model->query()
+            ->create($data);
+    }
+
 }

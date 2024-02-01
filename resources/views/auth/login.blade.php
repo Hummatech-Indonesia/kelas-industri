@@ -28,7 +28,7 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{asset('app-assets/logo_file/Logo-Kelas-Industri.png')}}" />
+    <link rel="shortcut icon" href="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" />
 
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
@@ -37,8 +37,13 @@
 
 
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="{{ asset('app-assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('app-assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('user-assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('user-assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle-->
+
+    {{--    Plugin Stylesheets --}}
+    <link href="{{ asset('user-assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
+        type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 </head>
 <!--end::Head-->
@@ -105,7 +110,7 @@
 
                     <!--begin::Title-->
                     <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">
-                        Kelas Industri
+                        Kelas Industri Hummatech
                     </h1>
                     <!--end::Title-->
 
@@ -169,24 +174,26 @@
                                     <div class="form-group row mb-3">
                                         <div class="col-lg-12 col-xl-12">
                                             <div class="position-relative mb-3">
-                                                <input type="password" placeholder="Password" name="password" autocomplete="off"
-                                        class="form-control bg-transparent @error('password') is-invalid @enderror" />
-                                    <span
-                                        class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
-                                        data-kt-password-meter-control="visibility">
-                                        <i class="fa-solid fa-eye-slash fs-3"><span class="path1"></span><span
-                                                class="path2"></span><span class="path3"></span><span
-                                                class="path4"></span></i>
-                                        <i class="fa-solid fa-eye d-none fs-3"><span class="path1"></span><span
-                                                class="path2"></span><span class="path3"></span></i>
+                                                <input type="password" placeholder="Password" name="password"
+                                                    autocomplete="off"
+                                                    class="form-control bg-transparent @error('password') is-invalid @enderror" />
+                                                <span
+                                                    class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                    data-kt-password-meter-control="visibility">
+                                                    <i class="fa-solid fa-eye-slash fs-3"><span
+                                                            class="path1"></span><span class="path2"></span><span
+                                                            class="path3"></span><span class="path4"></span></i>
+                                                    <i class="fa-solid fa-eye d-none fs-3"><span
+                                                            class="path1"></span><span class="path2"></span><span
+                                                            class="path3"></span></i>
 
-                                    </span>
-                                    <!--end::Password-->
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                                </span>
+                                                <!--end::Password-->
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -219,34 +226,18 @@
                                 <!--end::Submit button-->
 
                                 <!--begin::Sign up-->
-                                {{--                            <div class="text-gray-500 text-center fw-semibold fs-6"> --}}
-                                {{--                                Not a Member yet? --}}
-
-                                {{--                                <a href="sign-up.html" class="link-primary"> --}}
-                                {{--                                    Sign up --}}
-                                {{--                                </a> --}}
-                                {{--                            </div> --}}
+                                <div class="text-gray-500 text-center fw-semibold fs-6">
+                                    Belum Mempunyai Akun?
+                                    <a href="{{ route('register') }}" class="link-primary">
+                                        Register
+                                    </a>
+                                </div>
                                 <!--end::Sign up-->
                             </form>
                             <!--end::Form-->
 
                         </div>
                         <!--end::Wrapper-->
-
-                        <!--begin::Footer-->
-                        <div class=" d-flex flex-stack">
-
-                            <!--begin::Links-->
-                            <div class="d-flex fw-semibold text-primary fs-base gap-5">
-                                <a href="" >Kebijakan Pribadi</a>
-
-                                <a href="">Syarat & Ketentuan</a>
-
-                                <a href="">Kontak Kami</a>
-                            </div>
-                            <!--end::Links-->
-                        </div>
-                        <!--end::Footer-->
                     </div>
                     <!--end::Content-->
                 </div>
@@ -267,6 +258,40 @@
     </script>
 
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="{{ asset('user-assets/plugins/global/plugins.bundle.js') }}"></script>
+    <script src="{{ asset('user-assets/js/scripts.bundle.js') }}"></script>
+    <!--end::Global Javascript Bundle-->
+
+    <!--begin::Custom Javascript(used for this page only)-->
+    <script src="{{ asset('app-assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('app-assets/js/custom/widgets.js') }}"></script>
+    <script src="{{ asset('app-assets/js/custom/apps/chat/chat.js') }}"></script>
+    <script src="{{ asset('app-assets/js/custom/utilities/modals/create-app.js') }}"></script>
+    <script src="{{ asset('app-assets/js/custom/utilities/modals/create-campaign.js') }}"></script>
+    <script src="{{ asset('app-assets/js/custom/utilities/modals/users-search.js') }}"></script>
+    <!--end::Custom Javascript-->
+
+    {{-- Plugin Javascript --}}
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                text: "{{ Session::get('error') }}",
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok!",
+                customClass: {
+                    confirmButton: "btn btn-danger"
+                }
+            });
+        </script>
+    @endif
+
+
+
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script src="../../../assets/plugins/global/plugins.bundle.js"></script>
     <script src="../../../assets/js/scripts.bundle.js"></script>
     <!--end::Global Javascript Bundle-->
@@ -276,6 +301,8 @@
     <script src="../../../assets/js/custom/authentication/sign-in/general.js"></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
+
+
 
 </body>
 <!--end::Body-->

@@ -1,32 +1,33 @@
 <?php
 
-use App\Http\Controllers\AssignmentController;
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\ChallengeController;
-use App\Http\Controllers\ClassroomController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
-use App\Http\Controllers\GenerationController;
-use App\Http\Controllers\JurnalController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\MentorController;
 use App\Http\Controllers\PointController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JurnalController;
+use App\Http\Controllers\MentorController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ApprovalController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\GenerationController;
+use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\SubmitRewardController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\UserAssignmentController;
-use App\Http\Controllers\UserClassroomController;
-use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ZoomScheduleController;
-use App\Http\Controllers\GalleryController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserClassroomController;
+use App\Http\Controllers\UserAssignmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index'])->name('landingPage');
 Route::get('/gallery', [WelcomeController::class, 'gallery'])->name('gallery');
 
-Auth::routes(['login' => true, 'register' => false]);
+Auth::routes(['login' => true, 'register' => true]);
 
 Route::prefix('profile')->name('profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'edit'])->name('index');
@@ -64,6 +65,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/detailSiswa/{classroom}', [ReportController::class, 'detail'])->name('detailSiswa');
     Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
     Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
+
+    Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
+    Route::patch('approve-student/{user}', [ApprovalController::class, 'approve']);
 
     Route::resources([
         'schoolYears' => SchoolYearController::class,
