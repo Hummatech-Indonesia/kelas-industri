@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Requests\LoginRequest;
 use App\Repositories\UserRepository;
 
 class LoginService
@@ -18,9 +17,25 @@ class LoginService
         $data['email'] = $request->email;
         $user = $user->getWhere($data);
 
-        if($user->status == 'nonactive')
-        {
-            return redirect()->back()->with('error', 'Anda tidak dapat login sekarang, tunggu admin mengkonfirmasi akun anda');
+        $role = $user->roles->pluck('name')[0];
+
+        if ($role == 'student') {
+            if ($user->status == 'active') {
+                if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+                    return redirect()->route('home')->with('success', 'Berhasil Login.');
+                } else {
+                    return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
+                }
+            }else{
+                return redirect()->back()->with('error', 'Anda tidak dapat login sekarang, tunggu admin mengkonfirmasi akun anda');
+            }
+        }
+        if ($role == 'admin' || $role == 'school' || $role == 'teacher' || $role == 'mentor') {
+            if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+                return redirect()->route('home')->with('success', 'Berhasil Login.');
+            } else {
+                return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
+            }
         }
     }
 }
