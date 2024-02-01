@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\SubMaterialRequest;
+use App\Models\SubMaterial;
 use App\Repositories\SubMaterialRepository;
 
 class SubMaterialService
@@ -22,7 +23,7 @@ class SubMaterialService
      */
     public function handleGetPaginate(string $materialId, $request): mixed
     {
-        return $this->repository->get_paginate_by_material($materialId,$request->search, 6);
+        return $this->repository->get_paginate_by_material($materialId, $request->search, 6);
     }
 
     /**
@@ -37,12 +38,21 @@ class SubMaterialService
         $data['teacher_file'] = $request->file('teacher_file')->store('teacher_file', 'public');
         $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
 
+        $existingMaterial = SubMaterial::where('material_id', $data['material_id'])->exists();
+
+        if ($existingMaterial) {
+            $lastOrder = SubMaterial::where('material_id', $data['material_id'])->max('order');
+            $data['order'] = $lastOrder + 1;
+        } else {
+            $data['order'] = 1;
+        }
+
         $this->repository->store($data);
     }
 
-    public function handleListSubMaterials(string $createdBy): mixed
+    public function handleListSubMaterials(string $createdBy, string $materialId): mixed
     {
-        return $this->repository->getListSubMaterials($createdBy);
+        return $this->repository->getListSubMaterials($createdBy, $materialId);
     }
 
     /**
@@ -55,10 +65,10 @@ class SubMaterialService
     public function handleUpdate(SubMaterialRequest $request, string $id): void
     {
         $data = $request->validated();
-        if($request->hasFile('teacher_file')){
+        if ($request->hasFile('teacher_file')) {
             $data['teacher_file'] = $request->file('teacher_file')->store('teacher_file', 'public');
         }
-        if($request->hasFile('student_file')){
+        if ($request->hasFile('student_file')) {
             $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
         }
         $this->repository->update($id, $data);

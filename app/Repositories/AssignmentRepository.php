@@ -109,5 +109,47 @@ class AssignmentRepository extends BaseRepository
         })->count();
     }
 
+    /**
+     * count_assignments
+     *
+     * @param  mixed $previousOrder
+     * @return int
+     */
+    public function count_assignments(int $previousOrder): int
+    {
+        return $this->model->query()
+        ->whereRelation('submaterial', 'order', $previousOrder)
+        ->count();
+    }
+
+    /**
+     * count_student_assignments
+     *
+     * @param  mixed $previousOrder
+     * @return int
+     */
+    public function count_student_assignments(int $previousOrder): int
+    {
+        return $this->model->query()
+        ->whereRelation('submaterial', 'order', $previousOrder)
+        ->whereHas('StudentSubmitAssignment', function ($query) {
+            $query->where('student_id', auth()->user()->studentSchool->student_id);
+        })
+        ->count();
+    }
+
+    /**
+     * count_assignment_materials
+     *
+     * @param  mixed $submaterial
+     * @return int
+     */
+    public function count_assignment_materials(string $submaterial): int
+    {
+        return $this->model->query()
+        ->where('sub_material_id', $submaterial)
+        ->count();
+    }
+
 
 }

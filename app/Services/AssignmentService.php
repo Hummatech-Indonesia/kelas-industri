@@ -122,4 +122,37 @@ class AssignmentService
         return $this->repository->get_count_assignment_teacher($teacherId);
     }
 
+    /**
+     * countAssignments
+     *
+     * @param  mixed $previousOrder
+     * @return int
+     */
+    public function countAssignments(int $previousOrder): int
+    {
+        return $this->repository->count_assignments($previousOrder);
+    }
+
+    /**
+     * countStudentAssignments
+     *
+     * @param  mixed $previousOrder
+     * @return int
+     */
+    public function countStudentAssignments(int $previousOrder): int
+    {
+        return $this->repository->count_student_assignments($previousOrder);
+    }
+
+    /**
+     * countAssignmentByMaterial
+     *
+     * @param  mixed $subMaterial
+     * @return int
+     */
+    public function countAssignmentByMaterial(string $subMaterial): int
+    {
+        return $this->repository->count_assignment_materials($subMaterial);
+    }
+
 }

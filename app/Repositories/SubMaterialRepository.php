@@ -44,10 +44,11 @@ class SubMaterialRepository extends BaseRepository
      * @param  mixed $createdBy
      * @return mixed
      */
-    public function getListSubMaterials(string $createdBy): mixed
+    public function getListSubMaterials(string $createdBy, string $materialId): mixed
 {
     return $this->model->query()
         ->where('created_at', '>' , $createdBy)
+        ->where('material_id', $materialId)
         ->limit(4)
         ->get();
 }
