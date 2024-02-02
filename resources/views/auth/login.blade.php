@@ -177,21 +177,17 @@
                                                 <input type="password" placeholder="Password" name="password"
                                                     autocomplete="off"
                                                     class="form-control bg-transparent @error('password') is-invalid @enderror" />
-                                                <span
-                                                    class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
-                                                    data-kt-password-meter-control="visibility">
-                                                    <i class="fa-solid fa-eye-slash fs-3"><span
-                                                            class="path1"></span><span class="path2"></span><span
-                                                            class="path3"></span><span class="path4"></span></i>
-                                                    <i class="fa-solid fa-eye d-none fs-3"><span
-                                                            class="path1"></span><span class="path2"></span><span
-                                                            class="path3"></span></i>
-
-                                                </span>
-                                                <!--end::Password-->
-                                                @error('password')
+                                                    @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @else
+                                                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                        data-kt-password-meter-control="visibility">
+                                                        <i class="fa-solid fa-eye-slash fs-3"><span class="path1"></span><span class="path2"></span><span
+                                                                class="path3"></span><span class="path4"></span></i>
+                                                        <i class="fa-solid fa-eye d-none fs-3"><span class="path1"></span><span class="path2"></span><span
+                                                                class="path3"></span></i>
                                                     </span>
                                                 @enderror
                                             </div>
