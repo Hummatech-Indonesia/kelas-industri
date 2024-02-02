@@ -14,6 +14,7 @@ use App\Providers\RouteServiceProvider;
 use App\Repositories\StudentRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Repositories\StudentClassroomRepository;
 
 class RegisterController extends Controller
 {
@@ -41,17 +42,19 @@ class RegisterController extends Controller
     private RegisterService $service;
     private UserRepository $user;
     private StudentRepository $student;
+    private StudentClassroomRepository $studentClassroom;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserServices $userService, RegisterService $service, UserRepository $user, StudentRepository $student)
+    public function __construct(UserServices $userService, RegisterService $service, UserRepository $user, StudentRepository $student, StudentClassroomRepository $classroom)
     {
         $this->userService = $userService;
         $this->service = $service;
         $this->user = $user;
         $this->student = $student;
+        $this->classroom = $classroom;
         $this->middleware('guest');
     }
 
@@ -76,7 +79,7 @@ class RegisterController extends Controller
 
      public function register(RegisterRequest $request)
      {
-         $this->service->handleRegistration($request, $this->user, $this->student);
+         $this->service->handleRegistration($request, $this->user, $this->student, $this->classroom);
 
          return redirect()->back()->with('success', trans('alert.add_success'));
      }

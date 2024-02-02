@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SchoolRequest;
 use App\Models\User;
-use App\Services\SchoolService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Services\UserServices;
+use App\Services\SchoolService;
+use App\Http\Requests\SchoolRequest;
+use Illuminate\Http\RedirectResponse;
 
 class SchoolController extends Controller
 {
     private SchoolService $service;
+    private UserServices $userService;
 
-    public function __construct(SchoolService $service)
+    public function __construct(SchoolService $service, UserServices $userService)
     {
         $this->service = $service;
+        $this->userService = $userService;
     }
 
     /**
@@ -111,5 +114,12 @@ class SchoolController extends Controller
         }
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    public function school()
+    {
+        if (request()->ajax()) {
+            return $this->userService->handleGetAllSchool();
+        }
     }
 }

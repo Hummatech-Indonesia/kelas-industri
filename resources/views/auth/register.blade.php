@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <!--begin::Head-->
@@ -272,15 +271,25 @@
 
                                 <div class="mb-5">
                                     <label for="exampleFormControlInput1"
-                                        class="required form-label @error('school_id') is-invalid @enderror">Asal
-                                        Sekolah</label>
-                                    <select name="school_id" class="form-select form-select-solid"
-                                        data-placeholder="Select an option">
-                                        @foreach ($schools as $school)
-                                            <option value="{{ $school->id }}">{{ $school->name }}</option>
-                                        @endforeach
+                                        class="required form-label @error('school_id') is-invalid @enderror">Sekolah</label>
+                                    <select class="form-select form-select-solid" name="school_id"
+                                        data-control="select2" id="select-school" data-placeholder="Select an option">
                                     </select>
                                     @error('school_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-5">
+                                    <label for="exampleFormControlInput1"
+                                        class="required form-label @error('classroom_id') is-invalid @enderror">Kelas</label>
+                                    <select class="form-select form-select-solid" name="classroom_id"
+                                        data-control="select2" id="select-classroom" data-placeholder="Select an option">
+
+                                    </select>
+                                    @error('classroom_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -372,6 +381,49 @@
             });
         </script>
     @endif
+
+    <script>
+        $(document).ready(function() {
+            getSchool();
+
+            $('#select-school').change(function() {
+                getClassroom();
+            });
+
+            function getSchool() {
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('all-school') }}",
+                    success: function(response) {
+                        $.each(response, function(index, item) {
+                            var option = '<option value="' + item.id + '">' + item.name +
+                                '</option>';
+                            $('#select-school').append(option);
+                        });
+                        getClassroom();
+                    }
+                });
+            }
+
+            function getClassroom() {
+                $.ajax({
+                    url: "{{ route('classroomBySchool') }}",
+                    type: 'GET',
+                    data: {
+                        schoolId: $('#select-school').val()
+                    },
+                    success: function(response) {
+                        $('#select-classroom').html('');
+                        $.each(response, function(index, item) {
+                            var option = '<option value="' + item.id + '">' + item.name +
+                                '</option>';
+                            $('#select-classroom').append(option);
+                        });
+                    }
+                });
+            }
+        });
+    </script>
 
     <!--begin::Javascript-->
     <script src="{{ asset('app-assets/js/scripts.bundle.js') }}"></script>

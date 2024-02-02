@@ -6,6 +6,7 @@ use App\Repositories\UserRepository;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
 use App\Repositories\StudentRepository;
+use App\Repositories\StudentClassroomRepository;
 
 class RegisterService
 {
@@ -17,7 +18,7 @@ class RegisterService
      * @param  UserInterface $user
      * @return void
      */
-    public function handleRegistration(RegisterRequest $request, UserRepository $user, StudentRepository $student)
+    public function handleRegistration(RegisterRequest $request, UserRepository $user, StudentRepository $student, StudentClassroomRepository $classroom)
     {
 
         $data = $request->validated();
@@ -29,10 +30,17 @@ class RegisterService
 
         $users->assignRole('student');
 
-        $student->store([
+        $school = $student->store([
             'student_id' => $users->id,
             'school_id' => $data['school_id'],
         ]);
+
+        $classroom->store([
+            'student_school_id' => $school->id,
+            'classroom_id' => $data['classroom_id'],
+        ]);
+
+
 
     }
 

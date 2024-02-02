@@ -34,6 +34,7 @@ class StudentImport implements ToCollection, WithHeadingRow
                     'email' => $row['email'],
                     'phone_number' => $row['no_telepon'],
                     'address' => $row['alamat'],
+                    'status' => 'active',
                     'password' => bcrypt('password')
                 ]);
 

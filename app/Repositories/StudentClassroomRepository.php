@@ -23,4 +23,16 @@ class StudentClassroomRepository extends BaseRepository
             ->where('classroom_id', $classroomId)
             ->delete();
     }
+
+    /**
+     * store
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function store(array $data): mixed
+    {
+        return $this->model->query()
+            ->create($data);
+    }
 }

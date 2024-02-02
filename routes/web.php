@@ -51,6 +51,9 @@ Route::prefix('profile')->name('profile.')->group(function () {
     Route::patch('/update-password/{user}', [ProfileController::class, 'updatePassword'])->name('updatePassword');
 });
 
+Route::get('all-school', [SchoolController::class, 'school'])->name('all-school');
+Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name('classroomBySchool');
+
 //admin
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', function () {

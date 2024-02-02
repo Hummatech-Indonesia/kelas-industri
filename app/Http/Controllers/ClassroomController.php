@@ -156,4 +156,11 @@ class ClassroomController extends Controller
 
         return back()->with('success', trans('alert.add_success'));
     }
+
+    public function classroom(Request $request)
+    {
+        if (request()->ajax()) {
+            return $this->service->handleGetBySchoolClassroom($request->schoolId);
+        }
+    }
 }

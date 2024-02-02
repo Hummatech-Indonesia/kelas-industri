@@ -44,6 +44,7 @@ class StudentService
     public function handleCreate(StudentRequest $request): void
     {
         $data = $request->validated();
+        $data['status'] = 'active';
         $data['password'] = bcrypt('password');
 
         $user = $this->userRepository->store($data);
