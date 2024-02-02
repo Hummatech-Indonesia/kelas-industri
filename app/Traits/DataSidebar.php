@@ -40,11 +40,12 @@ trait DataSidebar
             ->take(5)
             ->get();
         }
-        return []; 
+        return [];
         }else{
+            auth()->logout();
             return view('auth.login');
         }
-        
+
     }
 
 
@@ -79,7 +80,7 @@ trait DataSidebar
         }else{
             return view('auth.login');
         }
-        
+
     }
 
     function ChallengeMockup()
@@ -97,9 +98,9 @@ trait DataSidebar
         }
 
         return [];
-   
+
         }else{
-           return view('auth.login'); 
+           return view('auth.login');
         }
     }
 
@@ -115,11 +116,11 @@ trait DataSidebar
         } else if ($role == 'teacher') {
             $classroomId = Auth()->user()->teacherSchool->teacherClassrooms->pluck('classroom_id')->toArray();
             return ZoomSchedule::whereIn('classroom_id', $classroomId)->where('date', '>', Carbon::now())->orderBy('date', 'desc')->take(5)->get();
-        }    
+        }
      }else{
-         return view('auth.login'); 
+         return view('auth.login');
      }
-     
+
     }
 
     function GetDataSidebar()

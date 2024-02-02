@@ -49,6 +49,7 @@ class SubMaterialRepository extends BaseRepository
     return $this->model->query()
         ->where('created_at', '>' , $createdBy)
         ->where('material_id', $materialId)
+        ->oldest()
         ->limit(4)
         ->get();
 }

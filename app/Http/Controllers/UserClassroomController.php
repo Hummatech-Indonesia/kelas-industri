@@ -96,7 +96,7 @@ class UserClassroomController extends Controller
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
 
-        if(auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor'){
+        if (auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor') {
             return view('dashboard.user.pages.submaterial.detail', $data);
         }
 
@@ -123,10 +123,42 @@ class UserClassroomController extends Controller
         return redirect()->route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id])->with('error', 'Anda Belum Menyelesaikan Semua Tugas Dari Materi Sebelumnya');
     }
 
-    public function showDocument(SubMaterial $submaterial, string $role): View
+    public function showDocument(SubMaterial $submaterial, string $role)
     {
-        $listSubMaterials = $this->subMaterialService->handleListSubMaterials($submaterial->created_at, $submaterial->material->id);
-        return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials'));
+        if (auth()->check()) {
+            $order = $submaterial->order;
+            $listSubMaterials = $this->subMaterialService->handleListSubMaterials($submaterial->created_at, $submaterial->material->id);
+
+            if (auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor') {
+                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials'));
+            }
+
+            if ($order == 1) {
+                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials'));
+            }
+
+            $previousOrder = $order - 1;
+
+            $countAssignmentByMaterial = $this->assignmentService->countAssignmentByMaterial($submaterial->id);
+
+            if ($countAssignmentByMaterial == 0) {
+                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials'));
+            }
+
+            $countAssignment = $this->assignmentService->countAssignments($previousOrder);
+
+            $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousOrder);
+
+            if ($countAssignment == $countStudentAssignment) {
+                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials'));
+            }
+
+            return redirect()->back()->with('error', 'Anda Belum Menyelesaikan Semua Tugas Dari Materi Sebelumnya');
+
+        } else {
+            auth()->logout();
+            return view('auth.login');
+        }
     }
 
     public function showStudentDetail(User $student, Generation $generation): View
