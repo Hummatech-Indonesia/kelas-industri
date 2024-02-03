@@ -39,20 +39,19 @@ class ChallengeController extends Controller
      */
     public function index(Request $request): View
     {
-        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+        // $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         $data = $this->GetDataSidebar();
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            $data['challenges'] = $this->service->handleGetByTeacher(auth()->id(), $currentSchoolYear->id, $request);
+            $data['challenges'] = $this->service->handleGetByTeacher(auth()->id(), $request);
             $data['search'] = $request->search;
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            $data['challenges'] = $this->service->handleGetByMentor(auth()->id(), $currentSchoolYear->id, $request);
+            $data['challenges'] = $this->service->handleGetByMentor(auth()->id(), $request);
             $data['search'] = $request->search;
         } elseif (auth()->user()->roles->pluck('name')[0] == 'student') {
-            $data['challenges'] = $this->service->handleGetByStudent(auth()->user()->studentSchool->studentClassroom->classroom_id, $currentSchoolYear->id, $request);
+            $data['challenges'] = $this->service->handleGetByStudent(auth()->user()->studentSchool->studentClassroom->classroom_id, $request);
             $data['search'] = $request->search;
             $data['status'] = $request->status;
             $data['difficulty'] = $request->difficulty;
-
         }
         return view('dashboard.user.pages.challenge.index', $data);
     }
@@ -271,7 +270,7 @@ class ChallengeController extends Controller
         }
 
     }
-    
+
 
     public function download(SubmitChallenge $submitChallenge)
     {

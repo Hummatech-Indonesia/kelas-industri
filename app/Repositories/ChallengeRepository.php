@@ -28,56 +28,44 @@ class ChallengeRepository extends BaseRepository
      * @param string $teacherId
      * @return mixed
      */
-    public function get_challenge_by_teacher(string $teacherId, int $schoolYearId, string|null $search, int $limit): mixed
+    public function get_challenge_by_teacher(string $teacherId, string | null $search, int $limit): mixed
     {
         return $this->model->query()
-        ->whereRelation('classroom.generation', function ($q) use ($schoolYearId) {
-            return $q->where('school_year_id', $schoolYearId);
-            })
             ->where('created_by', $teacherId)
-            ->where('title', 'like', '%'. $search .'%')
+            ->where('title', 'like', '%' . $search . '%')
             ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }
 
-    public function get_challenge_by_student(String $classroomId, int $schoolYearId, string|null $search,string|null $status,string|null $difficulty, int $limit): mixed
+    public function get_challenge_by_student(String $classroomId, string | null $search, string | null $status, string | null $difficulty, int $limit): mixed
     {
         return $this->model->query()
             ->where('classroom_id', $classroomId)
-            ->whereRelation('classroom.generation', function ($q) use ($schoolYearId) {
-            return $q->where('school_year_id', $schoolYearId);
-            })
-            ->where('title', 'like', '%'. $search .'%')
-            ->when($status != '-1' && $status != null,function ($query) use ($status){
+            ->where('title', 'like', '%' . $search . '%')
+            ->when($status != '-1' && $status != null, function ($query) use ($status) {
                 $userId = auth()->user()->studentSchool->id;
                 $doneChallenge = $this->submitChallenge->query()
-                ->where('student_school_id',$userId)
-                ->pluck('challenge_id')
-                ->toArray();
-                if($status == 'Sudah'){
-                    $query->WhereIn('id',$doneChallenge);
-                }else if ($status == 'Belum'){
-                    $query->WhereNotIn('id',$doneChallenge);
+                    ->where('student_school_id', $userId)
+                    ->pluck('challenge_id')
+                    ->toArray();
+                if ($status == 'Sudah') {
+                    $query->WhereIn('id', $doneChallenge);
+                } else if ($status == 'Belum') {
+                    $query->WhereNotIn('id', $doneChallenge);
                 }
             })
-            ->when($difficulty != '-1' && $difficulty != null,function ($query) use ($difficulty){
-                $query->where('difficulty',$difficulty);
+            ->when($difficulty != '-1' && $difficulty != null, function ($query) use ($difficulty) {
+                $query->where('difficulty', $difficulty);
             })
             ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }
 
-    public function get_challenge_by_mentor(String $mentorId, int $schoolYearId, string|null $search, int $limit): mixed
+    public function get_challenge_by_mentor(String $mentorId, string | null $search, int $limit): mixed
     {
-        // return $this->model->query()
-        // ->where('classroom_id', $classroomId)
-        // ->get();
         return $this->model->query()
-        ->where('created_by', $mentorId)
-            ->whereRelation('classroom.generation', function ($q) use ($schoolYearId) {
-                $q->where('school_year_id', $schoolYearId);
-            })
-            ->where('title', 'like', '%'. $search .'%')
+            ->where('created_by', $mentorId)
+            ->where('title', 'like', '%' . $search . '%')
             ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }
@@ -157,28 +145,28 @@ class ChallengeRepository extends BaseRepository
     {
         $classroomId = Auth()->user()->studentSchool->studentClassroom->classroom->id;
         return $this->model->query()
-        ->where('classroom_id',$classroomId)
-        ->count();
+            ->where('classroom_id', $classroomId)
+            ->count();
     }
 
     public function get_count_challenge_teacher(string $teacherId, string $schoolYearId)
     {
         return $this->model->query()
-        ->where('created_by', $teacherId)
-        ->whereRelation('classroom.generation', function ($q) use ($schoolYearId){
-            return $q->where('school_year_id', $schoolYearId);
-        })
-        ->count();
+            ->where('created_by', $teacherId)
+            ->whereRelation('classroom.generation', function ($q) use ($schoolYearId) {
+                return $q->where('school_year_id', $schoolYearId);
+            })
+            ->count();
     }
 
     public function get_count_challenge_mentor(string $mentorId, string $schoolYearId)
     {
         return $this->model->query()
-        ->where('created_by', $mentorId)
-        ->whereRelation('classroom.generation', function ($q) use ($schoolYearId){
-            return $q->where('school_year_id', $schoolYearId);
-        })
-        ->count();
+            ->where('created_by', $mentorId)
+            ->whereRelation('classroom.generation', function ($q) use ($schoolYearId) {
+                return $q->where('school_year_id', $schoolYearId);
+            })
+            ->count();
     }
 
 }

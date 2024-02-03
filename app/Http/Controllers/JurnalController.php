@@ -61,8 +61,8 @@ class JurnalController extends Controller
             return view('dashboard.admin.pages.jurnal.index', $data);
         } else {
             $data = $this->GetDataSidebar();
-            $schoolYear = SchoolYearHelper::get_current_school_year();
-            $data['journals'] = $this->journalService->handleGetJournalByUser($schoolYear->id);
+            // $schoolYear = SchoolYearHelper::get_current_school_year();
+            $data['journals'] = $this->journalService->handleGetJournalByUser();
             return view('dashboard.user.pages.jurnal.index', $data);
         }
 

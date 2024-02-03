@@ -35,9 +35,9 @@ class JournalService
         return $this->repository->get_journal_by_admin_and_school($classroomId);
     }
 
-    public function handleGetJournalByUser($schoolYearId): mixed
+    public function handleGetJournalByUser(): mixed
     {
-        return $this->repository->get_journal_by_user($schoolYearId);
+        return $this->repository->get_journal_by_user();
     }
 
     public function handleGetBySchool(): mixed

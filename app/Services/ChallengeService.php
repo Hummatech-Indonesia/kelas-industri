@@ -23,9 +23,9 @@ class ChallengeService
      * @param string $teacherId
      * @return mixed
      */
-    public function handleGetByTeacher(string $teacherId, int $schoolYearId, Request $search): mixed
+    public function handleGetByTeacher(string $teacherId, Request $search): mixed
     {
-        return $this->repository->get_challenge_by_teacher($teacherId, $schoolYearId, $search->search, 6);
+        return $this->repository->get_challenge_by_teacher($teacherId, $search->search, 6);
     }
 
     public function handleChallengeByTeacher(string $challengeId): mixed
@@ -33,14 +33,14 @@ class ChallengeService
         return $this->repository->get_student_challenge_by_teacher($challengeId);
     }
 
-    public function handleGetByStudent(String $classroomId, int $schoolYearId, Request $search): mixed
+    public function handleGetByStudent(String $classroomId, Request $search): mixed
     {
-        return $this->repository->get_challenge_by_student($classroomId, $schoolYearId, $search->search,$search->status,$search->difficulty, 6);
+        return $this->repository->get_challenge_by_student($classroomId, $search->search,$search->status,$search->difficulty, 6);
     }
 
-    public function handleGetByMentor(String $mentorId, int $schoolYearId, Request $search): mixed
+    public function handleGetByMentor(String $mentorId, Request $search): mixed
     {
-        return $this->repository->get_challenge_by_mentor($mentorId, $schoolYearId, $search->search, 6);
+        return $this->repository->get_challenge_by_mentor($mentorId, $search->search, 6);
     }
 
     public function handleGetChallengeByMentor(String $challengeId): mixed
