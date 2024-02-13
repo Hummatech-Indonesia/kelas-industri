@@ -128,9 +128,9 @@ class AssignmentService
      * @param  mixed $previousOrder
      * @return int
      */
-    public function countAssignments(int $previousOrder): int
+    public function countAssignments(string $previousSubmaterialId, int $previousOrder): int
     {
-        return $this->repository->count_assignments($previousOrder);
+        return $this->repository->count_assignments($previousSubmaterialId, $previousOrder);
     }
 
     /**
@@ -139,9 +139,9 @@ class AssignmentService
      * @param  mixed $previousOrder
      * @return int
      */
-    public function countStudentAssignments(int $previousOrder): int
+    public function countStudentAssignments(string $previousSubmaterialId, int $previousOrder): int
     {
-        return $this->repository->count_student_assignments($previousOrder);
+        return $this->repository->count_student_assignments($previousSubmaterialId, $previousOrder);
     }
 
     /**

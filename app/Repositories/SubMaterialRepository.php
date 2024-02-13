@@ -54,4 +54,13 @@ class SubMaterialRepository extends BaseRepository
         ->get();
 }
 
+public function getPreviousSubmaterial(string $materialId, int $previousOrder): mixed
+{
+    return $this->model->query()
+    ->where('material_id', $materialId)
+    ->where('order', $previousOrder)
+    ->select('id')
+    ->first();
+}
+
 }

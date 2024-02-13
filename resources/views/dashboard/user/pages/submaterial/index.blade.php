@@ -12,8 +12,7 @@
                 <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-8 ">
 
                     <!--begin::Toolbar container-->
-                    <div id="kt_app_toolbar_container"
-                         class="app-container  container-fluid d-flex flex-stack flex-wrap ">
+                    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex flex-stack flex-wrap ">
                         <!--begin::Toolbar wrapper-->
                         <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
 
@@ -41,7 +40,7 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{route('common.materials', ['classroom' => $classroom])}}"
+                                <a href="{{ route('common.materials', ['classroom' => $classroom]) }}"
                                     class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
@@ -49,14 +48,52 @@
                             <!--end::Actions-->
                         </div>
                         <!--end::Toolbar wrapper-->
+                        <div class="alert alert-warning d-flex align-items-center p-5 w-100 mt-5">
+                            <!--begin::Icon-->
+                            <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
+                                <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                            fill="currentColor" />
+                                        <rect x="11" y="14" width="7" height="2" rx="1"
+                                            transform="rotate(-90 11 14)" fill="currentColor" />
+                                        <rect x="11" y="17" width="2" height="2" rx="1"
+                                            transform="rotate(-90 11 17)" fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                            <!--end::Icon-->
+
+                            <!--begin::Wrapper-->
+                            <div class="d-flex flex-column">
+                                <!--begin::Title-->
+                                <h4 class="mb-1 text-dark">Informasi</h4>
+                                <!--end::Title-->
+                                <!--begin::Content-->
+                                <ul>
+                                    <li>
+                                        Jika kamu tidak bisa memilih materi yang ingin kamu pelajari kerjakanlah materi
+                                        sebelumnya agar dapat membuka materi yang ingin anda pilih
+                                    </li>
+                                    <li>Selesaikan semua tugas dari materi sebelumnya agar dapat membuka materi selanjutnya.
+                                    </li>
+                                </ul>
+                                <!--end::Content-->
+
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
                     </div>
                     <!--end::Toolbar container-->
                 </div>
+
+
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
 
                     <div class="row">
-                        <form action="{{route('common.showMaterial',['material' => $material, 'classroom' => $classroom])}}">
+                        <form
+                            action="{{ route('common.showMaterial', ['material' => $material, 'classroom' => $classroom]) }}">
                             <!--begin::Card-->
                             <div class="card mb-7">
                                 <!--begin::Card body-->
@@ -71,8 +108,8 @@
                                                     width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                          height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                          fill="currentColor"></rect>
+                                                        height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                                        fill="currentColor"></rect>
                                                     <path
                                                         d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
                                                         fill="currentColor"></path>
@@ -80,12 +117,13 @@
                                             </span>
                                             <!--end::Svg Icon-->
                                             <input type="text" class="form-control form-control-solid ps-10"
-                                                   name="search" value="{{$search}}" placeholder="Cari">
+                                                name="search" value="{{ $search }}" placeholder="Cari">
                                         </div>
                                         <div class="col-lg-2 col-md-12">
                                             <button type="submit" class="btn btn-primary">Cari</button>
-                                            <a href="{{route('common.showMaterial',['material' => $material, 'classroom' => $classroom])}}" type="button"
-                                                class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                                            <a href="{{ route('common.showMaterial', ['material' => $material, 'classroom' => $classroom]) }}"
+                                                type="button" class="btn btn-light text-light"><i
+                                                    class="fonticon-repeat"></i></a>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -133,7 +171,8 @@
                                                 <!--begin: Title-->
 
                                                 <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
-                                                   class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1" style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+                                                    class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
+                                                    style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
 
                                                     {{ $subMaterial->title }}
                                                 </a>
@@ -161,7 +200,8 @@
 
                                         <!--begin::Text-->
 
-                                        <p class="mb-7 mt-5" style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                        <p class="mb-7 mt-5"
+                                            style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
 
                                             {{ $subMaterial->description }}
                                         </p>
@@ -182,19 +222,17 @@
                                             <div class="d-flex align-items-center me-5">
                                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
                                                 <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24"
-                                                                                                        height="24"
-                                                                                                        viewBox="0 0 24 24"
-                                                                                                        fill="none"
-                                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <rect opacity="0.5" x="7" y="2" width="14"
-                                                              height="16" rx="3" fill="currentColor"/>
-                                                        <rect x="3" y="6" width="14" height="16"
-                                                              rx="3" fill="currentColor"/>
+                                                        height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <rect opacity="0.5" x="7" y="2" width="14" height="16"
+                                                            rx="3" fill="currentColor" />
+                                                        <rect x="3" y="6" width="14" height="16" rx="3"
+                                                            fill="currentColor" />
                                                     </svg>
                                                 </span>
                                                 <!--end::Svg Icon-->
                                                 <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
-                                                   class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }}
+                                                    class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }}
                                                     Tugas</a>
 
 
@@ -204,7 +242,7 @@
                                         </div>
 
                                         <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
-                                           class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                     </div>
 
@@ -216,7 +254,7 @@
 
                             </div>
                         @empty
-                            <x-empty-component title="bab"/>
+                            <x-empty-component title="bab" />
                         @endforelse
                     </div>
 
@@ -248,11 +286,9 @@
                     <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="#"
-                                             class="menu-link px-2">Syarat & Ketentuan</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="#"
-                                             class="menu-link px-2">Kebijakan Privasi</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>
@@ -262,16 +298,17 @@
     </div>
 @endsection
 @section('css')
-        <Style>
-            @media (max-width:639px){
-                .position-relative{
-                    margin-bottom: 10px;
-                }
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
             }
-            @media (min-width:640px){
-                .searching{
-                    display: flex;
-                }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
             }
-        </Style>
-    @endsection
+        }
+    </Style>
+@endsection

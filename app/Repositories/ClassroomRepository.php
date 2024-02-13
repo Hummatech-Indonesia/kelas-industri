@@ -153,15 +153,10 @@ class ClassroomRepository extends BaseRepository
      * @param int $limit
      * @return mixed
      */
-    public function get_paginate_by_school_search(string | null $search,string|null $generation,string|null $filter, string $schoolId, string $year, int $limit): mixed
+    public function get_paginate_by_school_search(string | null $search,string|null $generation,string|null $filter, string $schoolId, int $limit): mixed
     {
         return $this->model->query()
             ->where('name', 'like', '%' . $search . '%')
-            ->when(!$generation,function($q) use ($year){
-                $q->whereRelation('generation', function ($q) use ($year) {
-                    return $q->where('school_year_id', $year);
-                });
-            })
             ->when($generation,function($q) use ($generation){
                 return $q->where('generation_id',$generation);
             })

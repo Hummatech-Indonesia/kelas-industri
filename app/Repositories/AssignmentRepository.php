@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
 use App\Models\Assignment;
 use App\Models\StudentClassroom;
 use App\Models\SubmitAssignment;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class AssignmentRepository extends BaseRepository
@@ -45,10 +45,9 @@ class AssignmentRepository extends BaseRepository
     }
 
     public function getSubmitAssignmentByStudentId($studentId)
-{
-    return $this->submitAssignment->where('student_id', $studentId)->first();
-}
-
+    {
+        return $this->submitAssignment->where('student_id', $studentId)->first();
+    }
 
     public function get_submit_assignment_student(string $studentId, string $assignmentId): mixed
     {
@@ -60,24 +59,24 @@ class AssignmentRepository extends BaseRepository
     public function create_submit_assignment(array $data, string $studentId): void
     {
 
-    $oldFile = $this->submitAssignment->where('student_id', $studentId)->first();
-    if ($oldFile) {
-        Storage::disk('public')->delete($oldFile->file);
-    }
-    $this->submitAssignment->updateOrCreate(
-        ['student_id' => $studentId, 'assignment_id' => $data['assignment_id']], $data);
+        $oldFile = $this->submitAssignment->where('student_id', $studentId)->first();
+        if ($oldFile) {
+            Storage::disk('public')->delete($oldFile->file);
+        }
+        $this->submitAssignment->updateOrCreate(
+            ['student_id' => $studentId, 'assignment_id' => $data['assignment_id']], $data);
     }
 
     public function get_student_done_submit(string $assignmentId)
     {
         return $this->submitAssignment->query()
-            ->where('assignment_id',$assignmentId)
+            ->where('assignment_id', $assignmentId)
             ->whereNotNull('point')
             ->pluck('student_id')
             ->toArray();
     }
 
-    public function storePoint(int $id , int $point):void
+    public function storePoint(int $id, int $point): void
     {
         $data = $this->submitAssignment->query()
             ->findorfail($id);
@@ -85,7 +84,8 @@ class AssignmentRepository extends BaseRepository
         $data->save();
     }
 
-    public function showSubmitAssignment($id){
+    public function showSubmitAssignment($id)
+    {
         return $this->submitAssignment->query()
             ->findOrFail($id);
     }
@@ -94,19 +94,19 @@ class AssignmentRepository extends BaseRepository
     {
         $generationId = Auth()->user()->studentSchool->studentClassroom->classroom->generation_id;
         return $this->model->query()
-        ->whereIn('sub_material_id', function ($query) use ($generationId) {
-        $query->select('id')
-            ->from('sub_materials')
-            ->whereIn('material_id', function ($query) use ($generationId) {
+            ->whereIn('sub_material_id', function ($query) use ($generationId) {
                 $query->select('id')
-                    ->from('materials')
-                    ->whereIn('generation_id', function ($query) use ($generationId) {
+                    ->from('sub_materials')
+                    ->whereIn('material_id', function ($query) use ($generationId) {
                         $query->select('id')
-                            ->from('generations')
-                            ->where('id', $generationId);
+                            ->from('materials')
+                            ->whereIn('generation_id', function ($query) use ($generationId) {
+                                $query->select('id')
+                                    ->from('generations')
+                                    ->where('id', $generationId);
+                            });
                     });
-            });
-        })->count();
+            })->count();
     }
 
     /**
@@ -115,11 +115,12 @@ class AssignmentRepository extends BaseRepository
      * @param  mixed $previousOrder
      * @return int
      */
-    public function count_assignments(int $previousOrder): int
+    public function count_assignments(string $previousSubmaterial, int $previousOrder): int
     {
         return $this->model->query()
-        ->whereRelation('submaterial', 'order', $previousOrder)
-        ->count();
+            ->whereRelation('submaterial', 'order', $previousOrder)
+            ->where('sub_material_id', $previousSubmaterial)
+            ->count();
     }
 
     /**
@@ -128,14 +129,15 @@ class AssignmentRepository extends BaseRepository
      * @param  mixed $previousOrder
      * @return int
      */
-    public function count_student_assignments(int $previousOrder): int
+    public function count_student_assignments(string $previousSubmaterialId, int $previousOrder): int
     {
         return $this->model->query()
-        ->whereRelation('submaterial', 'order', $previousOrder)
-        ->whereHas('StudentSubmitAssignment', function ($query) {
-            $query->where('student_id', auth()->user()->studentSchool->student_id);
-        })
-        ->count();
+            ->where('sub_material_id', $previousSubmaterialId)
+            ->whereRelation('submaterial', 'order', $previousOrder)
+            ->whereHas('StudentSubmitAssignment', function ($query) {
+                $query->where('student_id', auth()->user()->studentSchool->student_id);
+            })
+            ->count();
     }
 
     /**
@@ -147,9 +149,8 @@ class AssignmentRepository extends BaseRepository
     public function count_assignment_materials(string $submaterial): int
     {
         return $this->model->query()
-        ->where('sub_material_id', $submaterial)
-        ->count();
+            ->where('sub_material_id', $submaterial)
+            ->count();
     }
-
 
 }

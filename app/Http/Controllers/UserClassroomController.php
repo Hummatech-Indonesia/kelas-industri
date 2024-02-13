@@ -106,21 +106,23 @@ class UserClassroomController extends Controller
 
         $previousOrder = $order - 1;
 
+        $previousSubmaterial = $this->submaterialService->handlePreviousSubmaterial($submaterial->material->id, $previousOrder);
+
         $countAssignmentByMaterial = $this->assignmentService->countAssignmentByMaterial($submaterial->id);
 
         if ($countAssignmentByMaterial == 0) {
             return view('dashboard.user.pages.submaterial.detail', $data);
         }
 
-        $countAssignment = $this->assignmentService->countAssignments($previousOrder);
+        $countAssignment = $this->assignmentService->countAssignments($previousSubmaterial, $previousOrder);
 
-        $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousOrder);
+        $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubmaterial, $previousOrder);
 
         if ($countAssignment == $countStudentAssignment) {
             return view('dashboard.user.pages.submaterial.detail', $data);
         }
 
-        return redirect()->route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id])->with('error', 'Anda Belum Menyelesaikan Semua Tugas Dari Materi Sebelumnya');
+        return redirect()->route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id])->with('error', 'Tugas masih belum bisa diakses, anda belum menyelesaikan semua tugas dari materi sebelumnya');
     }
 
     public function showDocument(SubMaterial $submaterial, string $role)
@@ -153,7 +155,7 @@ class UserClassroomController extends Controller
                 return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials'));
             }
 
-            return redirect()->back()->with('error', 'Anda Belum Menyelesaikan Semua Tugas Dari Materi Sebelumnya');
+            return redirect()->back()->with('error', 'Tugas masih belum bisa diakses, anda belum menyelesaikan semua tugas dari materi sebelumnya');
 
         } else {
             auth()->logout();

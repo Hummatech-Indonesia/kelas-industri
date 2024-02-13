@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MentorController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\CertifyController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
@@ -88,6 +90,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'rewards' => RewardController::class,
         'submitRewards' => SubmitRewardController::class,
         'gallerys' => GalleryController::class,
+        'news' => NewsController::class,
     ]);
 
     Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
@@ -266,6 +269,7 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
         'challenges' => ChallengeController::class,
         'rewards' => RewardController::class,
     ]);
+    Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
 });
 //end student
 

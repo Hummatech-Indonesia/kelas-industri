@@ -55,6 +55,11 @@ class SubMaterialService
         return $this->repository->getListSubMaterials($createdBy, $materialId);
     }
 
+    public function handlePreviousSubmaterial(string $materialId, int $previousOrder): mixed
+    {
+        return $this->repository->getPreviousSubmaterial($materialId, $previousOrder);
+    }
+
     /**
      * handle update
      *

@@ -52,7 +52,7 @@ class ClassroomController extends Controller
             'generations' => $this->generationService->handleGetAll(),
             'filter' => $filter,
             'search' => $request->search,
-            'classrooms' => $this->service->handleSearch($request, auth()->id(), $selectedSchoolYear),
+            'classrooms' => $this->service->handleSearch($request, auth()->id()),
         ];
         return view('dashboard.admin.pages.classroom.index', $data);
     }

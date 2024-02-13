@@ -61,11 +61,19 @@
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
-                            <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{route('common.classrooms') }}"
-                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                    <i class="bi bi-arrow-left me-2"></i> Kembali
-                                </a>
+                            <div class="d-flex justify-content-end">
+                                <div class="d-flex align-items-center me-4">
+                                    <a href="{{ route('student.print-certify') }}"
+                                        class="btn btn-primary h-40px fs-7 fw-bold">
+                                        Download Sertifikat
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <a href="{{ route('common.classrooms') }}"
+                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                                    </a>
+                                </div>
                             </div>
                             <!--end::Actions-->
                         </div>
@@ -183,7 +191,8 @@
 
                                             <!--begin::Text-->
 
-                                            <p class="mb-7 mt-5" style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                            <p class="mb-7 mt-5"
+                                                style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
 
                                                 {{ $material->description }}
                                             </p>
@@ -206,11 +215,10 @@
                                                     <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24"
                                                             height="24" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
-                                                            <rect opacity="0.5" x="7" y="2"
-                                                                width="14" height="16" rx="3"
+                                                            <rect opacity="0.5" x="7" y="2" width="14" height="16"
+                                                                rx="3" fill="currentColor" />
+                                                            <rect x="3" y="6" width="14" height="16" rx="3"
                                                                 fill="currentColor" />
-                                                            <rect x="3" y="6" width="14"
-                                                                height="16" rx="3" fill="currentColor" />
                                                         </svg>
                                                     </span>
                                                     <!--end::Svg Icon-->
@@ -264,15 +272,12 @@
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Tentang
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Syarat & Ketentuan</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Kebijakan Privasi</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>
@@ -282,16 +287,17 @@
     </div>
 @endsection
 @section('css')
-        <Style>
-            @media (max-width:639px){
-                .position-relative{
-                    margin-bottom: 10px;
-                }
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
             }
-            @media (min-width:640px){
-                .searching{
-                    display: flex;
-                }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
             }
-        </Style>
-    @endsection
+        }
+    </Style>
+@endsection
