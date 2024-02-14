@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{asset('app-assets/logo_file/Logo-Kelas-Industri.png')}}">
+    <link rel="shortcut icon" href="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}">
     <title>Kelas Industri</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/bootstrap.min.css') }}">
@@ -19,29 +19,32 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/type/type.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/color/blue.css') }}">
-        <Style>
-            @media (max-width:639px){
-                #logo{
-                    width:60px;
-                }
-                #logo-2{
-                    width:90px;
-                }
+    <Style>
+        @media (max-width:639px) {
+            #logo {
+                width: 60px;
             }
-            @media (min-width:640px){
-                #logo{
-                    width:80px;
-                }
+
+            #logo-2 {
+                width: 90px;
             }
-        </Style>
+        }
+
+        @media (min-width:640px) {
+            #logo {
+                width: 80px;
+            }
+        }
+    </Style>
 </head>
 
 <body>
     <div class="content-wrapper">
         <nav class="navbar absolute transparent navbar-expand-lg nav-uppercase" id="navbar-example2">
             <div class="container flex-row justify-content-center">
-                <div class="navbar-brand"><a href="/"> <img id="logo" src="{{asset('app-assets/logo_file/Logo-Kelas-Industri.png')}}"
-                         alt="" /></a></div>
+                <div class="navbar-brand"><a href="/"> <img id="logo"
+                            src="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" alt="" /></a>
+                </div>
                 <div class="navbar-other ml-auto order-lg-3">
                     <ul class="navbar-nav flex-row align-items-center" data-sm-skip="true">
                         <li class="nav-item">
@@ -62,8 +65,8 @@
                 <!-- /.navbar-other -->
                 <div class="navbar-collapse offcanvas-nav">
                     <div class="offcanvas-header d-lg-none d-xl-none">
-                        <a href=""><img id="logo-2" src="{{asset('app-assets/logo_file/Logo-Kelas-Industri.png')}}"
-                                srcset=""
+                        <a href=""><img id="logo-2"
+                                src="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" srcset=""
                                 alt="" /></a>
                         <button class="plain offcanvas-close offcanvas-nav-close"><i class="jam jam-close"></i></button>
                     </div>
@@ -72,7 +75,8 @@
                             <!--/.dropdown-menu -->
                         </li>
                         <li class="dropdown">
-                            <a class="nav-link" data-bs-spy="scroll" data-bs-target="#navbar-example2" href="#scrollspyHeading1">Kerjasama</a>
+                            <a class="nav-link" data-bs-spy="scroll" data-bs-target="#navbar-example2"
+                                href="#scrollspyHeading1">Kerjasama</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#3">Informasi</a>
@@ -83,9 +87,13 @@
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#5">LMS</a>
                         </li>
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#6">Daftar</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#6">Daftar<a>
                         </li>
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{route('gallery')}}">Gallery</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+                                href="{{ route('news') }}">Berita</a>
+                        </li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+                                href="{{ route('gallery') }}">Gallery</a>
                         </li>
                     </ul>
                     <!-- /.navbar-nav -->
@@ -208,7 +216,8 @@
                                 data-textAlign="['left','left','left','center']"
                                 data-whitespace="['normal','normal','normal','normal']"
                                 data-frames='[{"delay":1500,"speed":1200,"frame":"0","from":"x:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
-                                data-responsive="on" data-responsive_offset="on" style="z-index: 9;">Meningkatkan skill guru dan siswa dengan program kelas berbasis Industri.
+                                data-responsive="on" data-responsive_offset="on" style="z-index: 9;">Meningkatkan
+                                skill guru dan siswa dengan program kelas berbasis Industri.
 
                             </div>
                             <!-- /.tp-caption -->
@@ -242,11 +251,12 @@
             <!-- /.rev_slider_wrapper -->
         </div>
         <!-- /.wrapper -->
-        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
+            data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
             <div class="wrapper white-wrapper" id="scrollspyHeading1">
                 <div class="container inner pt-100">
                     <h2 class="title-color color-gray text-center"> Kelas Industri Hummatech</h2>
-                    <h2 class="display-3 text-center">Statistik Program Kelas industri  </h2>
+                    <h2 class="display-3 text-center">Statistik Program Kelas industri </h2>
                     <div class="space40"></div>
                     <div class="row text-center gutter-60 ">
                         <div class="col-md-6 col-lg-3">
@@ -254,7 +264,9 @@
                                     class="icofont-university"></i>
                             </div>
                             <h5>Sekolah</h5>
-                            <p>Total <span style="font-weight: 600; color:black; font-size:16px;">{{ $school }}</span> Sekolah Yang Tergabung Dalam Kelas Industri
+                            <p>Total <span
+                                    style="font-weight: 600; color:black; font-size:16px;">{{ $school }}</span>
+                                Sekolah Yang Tergabung Dalam Kelas Industri
                             </p>
                         </div>
                         <!--/column -->
@@ -264,7 +276,9 @@
                                 "></i>
                             </div>
                             <h5>Materi</h5>
-                            <p>Terdapat <span style="font-weight: 600; color:black; font-size:16px;">{{ $material }}</span> Materi Yang Tersedia Pada Kelas Industri
+                            <p>Terdapat <span
+                                    style="font-weight: 600; color:black; font-size:16px;">{{ $material }}</span>
+                                Materi Yang Tersedia Pada Kelas Industri
                             </p>
                         </div>
                         <!--/column -->
@@ -273,14 +287,19 @@
                             <div class="icon icon-blob icon-blob-green color-green mb-20"> <i
                                     class="icofont-black-board"></i> </div>
                             <h5>Kelas</h5>
-                            <p>Ada <span style="font-weight: 600; color:black; font-size:16px;">{{ $classroom }}</span> Kelas Yang Terdaftar Pada Kelas Industri.
+                            <p>Ada <span
+                                    style="font-weight: 600; color:black; font-size:16px;">{{ $classroom }}</span>
+                                Kelas Yang Terdaftar Pada Kelas Industri.
                             </p>
                         </div>
                         <!--/column -->
                         <div class="col-md-6 col-lg-3">
-                            <div class="icon icon-blob icon-blob-purple color-purple mb-20"><i class="icofont-group-students"></i> </div>
+                            <div class="icon icon-blob icon-blob-purple color-purple mb-20"><i
+                                    class="icofont-group-students"></i> </div>
                             <h5>Siswa</h5>
-                            <p>Total <span style="font-weight: 600; color:black; font-size:16px;">{{ $student }}</span> Siswa Yang Telah Bergabung Dalam Kelas Industri
+                            <p>Total <span
+                                    style="font-weight: 600; color:black; font-size:16px;">{{ $student }}</span>
+                                Siswa Yang Telah Bergabung Dalam Kelas Industri
                             </p>
                         </div>
                         <!--/column -->
@@ -298,14 +317,19 @@
                         <div class="space50 d-none d-md-block d-lg-none"></div>
                         <div class="col-lg-6 pl-60 pl-md-15">
                             <h2 class="title-color color-gray">Manfaat Kelas Industri?</h2>
-                            <h3 class="display-3">Program Kelas industri didesain untuk meningkatkan kemampuan siswa </h3>
+                            <h3 class="display-3">Program Kelas industri didesain untuk meningkatkan kemampuan siswa
+                            </h3>
                             <div class="space20"></div>
-                            <p>Materi Kelas industri akan di pelajari selama 3 tahun , dan diawali dengan kelas x dan xi dan xxi dengan ini materi akan lebih maksimal diterima. adapun Kelas Industri yang telah tersedia saat ini adalah</p>
+                            <p>Materi Kelas industri akan di pelajari selama 3 tahun , dan diawali dengan kelas x dan xi
+                                dan xxi dengan ini materi akan lebih maksimal diterima. adapun Kelas Industri yang telah
+                                tersedia saat ini adalah</p>
                             <ul class="icon-list bullet-default">
-                                <li><i class="icofont-verification-check"></i>PPLG (Pengembangan Perangkat Lunak dan Game)</li>
+                                <li><i class="icofont-verification-check"></i>PPLG (Pengembangan Perangkat Lunak dan
+                                    Game)</li>
                                 <li><i class="icofont-verification-check"></i>DKV (Desain Komunikasi Visual).</li>
                                 <li><i class="icofont-verification-check"></i>GAME (Pengembangan Game).</li>
-                                <li><i class="icofont-verification-check"></i>TJKT (Teknik Jaringan Komputer dan Telekomunikasi).</li>
+                                <li><i class="icofont-verification-check"></i>TJKT (Teknik Jaringan Komputer dan
+                                    Telekomunikasi).</li>
                             </ul>
                         </div>
                         <!--/column -->
@@ -323,7 +347,8 @@
                         <div class="space50 d-none d-md-block d-lg-none"></div>
                         <div class="col-lg-6 pr-60 pr-md-15">
                             <h2 class="title-color color-gray">Manfaat Sekolah</h2>
-                            <h3 class="display-3">Manfaat yang akan didapatkan sekolah ketika mengikuti kelas industri.</h3>
+                            <h3 class="display-3">Manfaat yang akan didapatkan sekolah ketika mengikuti kelas industri.
+                            </h3>
                             <div class="space30"></div>
                             <div class="d-flex flex-row justify-content-center">
                                 <div>
@@ -332,18 +357,21 @@
                                 </div>
                                 <div>
                                     <h5>Mitra Industri</h5>
-                                    <p class="mb-0">Memiliki kerjasama dengan CV. Hummatech Technology dan menjadikan mitra industri.</p>
+                                    <p class="mb-0">Memiliki kerjasama dengan CV. Hummatech Technology dan menjadikan
+                                        mitra industri.</p>
                                 </div>
                             </div>
                             <div class="space30"></div>
                             <div class="d-flex flex-row justify-content-center">
                                 <div>
                                     <span class="icon icon-blob icon-blob-teal color-teal mr-25"><i
-                                            class="jam jam-search-folder"></i><span class="step bg-teal">2</span></span>
+                                            class="jam jam-search-folder"></i><span
+                                            class="step bg-teal">2</span></span>
                                 </div>
                                 <div>
                                     <h5>Business Center</h5>
-                                    <p class="mb-0">Mengaktifkan Bussiness Center Sekolah dibidang pengembangan perangkat lunak.</p>
+                                    <p class="mb-0">Mengaktifkan Bussiness Center Sekolah dibidang pengembangan
+                                        perangkat lunak.</p>
                                 </div>
                             </div>
                             <div class="space30"></div>
@@ -357,11 +385,12 @@
                                     <p class="mb-0">Menambah poin akreditasi sekolah.</p>
                                 </div>
                             </div>
-                             <div class="space30"></div>
+                            <div class="space30"></div>
                             <div class="d-flex flex-row justify-content-left">
                                 <div>
                                     <span class="icon icon-blob icon-blob-green color-green mr-25"><i
-                                            class="icofont-black-board"></i><span class="step bg-yellow">4</span></span>
+                                            class="icofont-black-board"></i><span
+                                            class="step bg-yellow">4</span></span>
                                 </div>
                                 <div>
                                     <h5>Kerja</h5>
@@ -386,12 +415,16 @@
                             <h2 class="title-color color-gray">Teknologi</h2>
                             <h3 class="display-3">Kelas Industri meggunakan sistem LMS sendiri</h3>
                             <div class="space20"></div>
-                            <p>Menggunakan smart classroom sebagai pendukung dalam meningkatkan daya serap dalam proses kegiatan belajar mengajar (KBM)..</p>
+                            <p>Menggunakan smart classroom sebagai pendukung dalam meningkatkan daya serap dalam proses
+                                kegiatan belajar mengajar (KBM)..</p>
                             <ul class="icon-list bullet-default">
-                                <li><i class="icofont-verification-check"></i>Melakukan sinkronisasi kurikulum berbasis industri.</li>
+                                <li><i class="icofont-verification-check"></i>Melakukan sinkronisasi kurikulum berbasis
+                                    industri.</li>
                                 <li><i class="icofont-verification-check"></i>Menerima guru magang.</li>
-                                <li><i class="icofont-verification-check"></i>Menerima siswa magang / Praktik Kerja Lapangan (PKL).</li>
-                                <li><i class="icofont-verification-check"></i>Mengadakan rekruitmen kerja untuk lulusan SMK jurusan rekayasa perangkat lunak.</li>
+                                <li><i class="icofont-verification-check"></i>Menerima siswa magang / Praktik Kerja
+                                    Lapangan (PKL).</li>
+                                <li><i class="icofont-verification-check"></i>Mengadakan rekruitmen kerja untuk lulusan
+                                    SMK jurusan rekayasa perangkat lunak.</li>
                             </ul>
                         </div>
                         <!--/column -->
@@ -424,9 +457,12 @@
                         <div class="row">
                             <div class="col-lg-5 pr-50 pr-md-15">
                                 <h2 class="title-color color-gray">Join Kelas industri?</h2>
-                                <h3 class="display-3">Kami membuka kerja sama kelas industri kepada sekolah yang membutuhkan.</h3>
+                                <h3 class="display-3">Kami membuka kerja sama kelas industri kepada sekolah yang
+                                    membutuhkan.</h3>
                                 <div class="space20"></div>
-                                <p>Untuk Paket Kelas inudstri ada 2 paket yaitu paket basic dan profesional yang dimana tiap paket kelas industri sudah disesuaikan dengan kebutuhan dari siswa sampai dengan materi yang disampaikan.</p>
+                                <p>Untuk Paket Kelas inudstri ada 2 paket yaitu paket basic dan profesional yang dimana
+                                    tiap paket kelas industri sudah disesuaikan dengan kebutuhan dari siswa sampai
+                                    dengan materi yang disampaikan.</p>
                             </div>
                             <!--/column -->
                             <div class="space70 d-none d-md-block d-lg-none"></div>
@@ -437,7 +473,7 @@
                                         <div class="col-md-6 popular">
                                             <div class="pricing panel box bg-white shadow">
                                                 <div class="panel-heading">
-                                                   
+
                                                     <h4 class="panel-title mb-0">Paket Basic</h4>
                                                 </div>
                                                 <!--/.panel-heading -->
@@ -458,13 +494,13 @@
                                                         <tr>
                                                             <td> Kelas Tambahan</td>
                                                         </tr>
-                                                         <tr>
+                                                        <tr>
                                                             <td> Guru Tersertifikasi</td>
                                                         </tr>
                                                         <tr>
                                                             <td> Label Lab Menarik</td>
                                                         </tr>
-                                                         <tr>
+                                                        <tr>
                                                             <td> Kunjungan awal dan akhir Semester.</td>
                                                         </tr>
                                                         <tr>
@@ -473,8 +509,8 @@
                                                     </table>
                                                 </div>
                                                 <!--/.panel-body -->
-                                                <div class="panel-footer"> <a href="https://wa.me/6282132560566" class="btn"
-                                                        role="button">Hubungi Kami</a></div>
+                                                <div class="panel-footer"> <a href="https://wa.me/6282132560566"
+                                                        class="btn" role="button">Hubungi Kami</a></div>
                                             </div>
                                             <!--/.pricing -->
                                         </div>
@@ -482,7 +518,7 @@
                                         <div class="col-md-6">
                                             <div class="pricing panel box bg-white shadow">
                                                 <div class="panel-heading">
-                                        
+
                                                     <h4 class="panel-title mb-0">Paket Profesiional</h4>
                                                 </div>
                                                 <!--/.panel-heading -->
@@ -503,7 +539,7 @@
                                                         <tr>
                                                             <td> Kelas Tambahan</td>
                                                         </tr>
-                                                         <tr>
+                                                        <tr>
                                                             <td> Guru Tersertifikasi</td>
                                                         </tr>
                                                         <tr>
@@ -524,8 +560,8 @@
                                                     </table>
                                                 </div>
                                                 <!--/.panel-body -->
-                                                <div class="panel-footer"> <a href="https://wa.me/6282132560566" class="btn"
-                                                        role="button">Hubungi Kami</a></div>
+                                                <div class="panel-footer"> <a href="https://wa.me/6282132560566"
+                                                        class="btn" role="button">Hubungi Kami</a></div>
                                             </div>
                                             <!--/.pricing -->
                                         </div>
@@ -551,9 +587,12 @@
                             <div class="space10 d-md-none"></div>
                             <div class="col-lg-6 pl-60 pl-md-15">
                                 <h2 class="title-color color-gray">Ingin tahu lebih banyak?</h2>
-                                <h3 class="display-3">Butuh informasi lebih banyak dan proposal lengkap dari kelas industri?</h3>
+                                <h3 class="display-3">Butuh informasi lebih banyak dan proposal lengkap dari kelas
+                                    industri?</h3>
                                 <div class="space20"></div>
-                                <p>Silahkan Hubungi kami pada nomor yang tertera dan undang kami kesekolah anda untuk menjelaskan program kelas industri kami disekolah anda, akan kami jelaskan secara detail.</p>
+                                <p>Silahkan Hubungi kami pada nomor yang tertera dan undang kami kesekolah anda untuk
+                                    menjelaskan program kelas industri kami disekolah anda, akan kami jelaskan secara
+                                    detail.</p>
                                 <div class="space10"></div>
                                 <a href="https://wa.me/6282132560566" class="btn btn-default">Hubungi kami</a>
                             </div>
@@ -569,12 +608,13 @@
                         <div class="row text-center">
                             <div class="col-lg-8 offset-lg-2">
                                 <h2 class="title-color color-gray">KELAS INDUSTRI HUMMATECH</h2>
-                                <h3 class="display-3">Upgrade Materi dan Skill Di Industri untuk meningkatkan Persentase kerja anak didik anda<br
-                                        class="d-none d-xl-block" /> Sejatinya Teknologi IT Terus Berkembang.</h3>
+                                <h3 class="display-3">Upgrade Materi dan Skill Di Industri untuk meningkatkan
+                                    Persentase kerja anak didik anda<br class="d-none d-xl-block" /> Sejatinya
+                                    Teknologi IT Terus Berkembang.</h3>
                             </div>
                             <!-- /column -->
                         </div>
-                        <!-- /.row 
+                        <!-- /.row
                         <div class="space30"></div>
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
@@ -588,23 +628,24 @@
                                     </div>
                                 </form>
                             </div>
-                           
+
                         </div>
                         row -->
                     </div>
                     <!-- /.container -->
                     <figure style="margin-bottom:-3px;"><img
-                            src="{{ asset('landing_kelas_industri/style/images/art/rocket1.png') }}" alt="" />
+                            src="{{ asset('landing_kelas_industri/style/images/art/rocket1.png') }}"
+                            alt="" />
                     </figure>
                 </div>
                 <!-- /.wrapper -->
                 <footer class="white-wrapper">
                     <div class="container inner">
                         <div class="row">
-                            
+
                             <!-- /column -->
                             <div class="col-md-6 col-lg-3">
-                                 <!-- /.widget -->
+                                <!-- /.widget -->
                                 <div class="widget">
                                     <h3 class="widget-title">Sosial Media</h3>
                                     <ul class="social social-mute social-s ml-auto">
@@ -623,9 +664,9 @@
                                     <h3 class="widget-title">Alamat Kantor</h3>
                                     <address>Perum permata regency 1 blok 10 no 28 ngijo karangploso</address>
                                     +62 821 3256 0566
-                                    
+
                                 </div>
-                               
+
                             </div>
                             <!-- /column -->
                             <div class="col-md-6 col-lg-3">
@@ -633,25 +674,29 @@
                                     <h3 class="widget-title">Tentang Perusahaan</h3>
                                     <ul class="list-unstyled">
                                         <li><a href="https://hummasoft.com/" class="nocolor">Hummatech</a></li>
-                                        <li><a href="https://hummasoft.com/kelas-industri/" class="nocolor">Kelas Industri</a></li>
-                                        <li><a href="https://hummasoft.com/course-category/web-development/" class="nocolor">E Learning</a></li>
+                                        <li><a href="https://hummasoft.com/kelas-industri/" class="nocolor">Kelas
+                                                Industri</a></li>
+                                        <li><a href="https://hummasoft.com/course-category/web-development/"
+                                                class="nocolor">E Learning</a></li>
                                         <li><a href="https://hummasoft.com/pkl/" class="nocolor">Magang / PKL</a></li>
                                     </ul>
                                 </div>
-                               
+
                             </div>
                             <!-- /column -->
-                            
+
                             <!-- /column -->
                             <div class="col-md-6 col-lg-3">
-  
+
                                 <!-- /.widget -->
                                 <div class="widget">
                                     <h3 class="widget-title">Need Help?</h3>
                                     <ul class="list-unstyled">
                                         <li><a href="https://wa.me/6282132560566" class="nocolor">Proposal</a></li>
-                                        <li><a href="https://wa.me/6282132560566" class="nocolor">Kerjasama Industri</a></li>
-                                        <li><a href="https://wa.me/6282132560566" class="nocolor">Hubungi Kami</a></li>
+                                        <li><a href="https://wa.me/6282132560566" class="nocolor">Kerjasama
+                                                Industri</a></li>
+                                        <li><a href="https://wa.me/6282132560566" class="nocolor">Hubungi Kami</a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <!-- /.widget -->

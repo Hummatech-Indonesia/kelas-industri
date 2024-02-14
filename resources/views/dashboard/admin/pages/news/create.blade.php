@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Edit Gambar Gallery
+                Tambah Berita
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman Edit Gallery
+                Halaman Tambah Berita
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -25,13 +25,13 @@
         </div>
         <!--end::Actions-->
     </div>
-    @if($errors->any())
-        <x-errors-component/>
+    @if ($errors->any())
+        <x-errors-component />
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('admin.gallerys.update', $gallery->id) }}" method="POST" enctype="multipart/form-data">
-                @method('PATCH')
+            <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data">
+                @method('POST')
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -42,7 +42,7 @@
 
                                 <h3 class="card-label">
 
-                                    Silakan Isi Data Tambah Gallery
+                                    Silakan Isi Data Berita
 
                                 </h3>
 
@@ -50,8 +50,8 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('admin.gallerys.index') }}"
-                                   class="btn btn-light-primary font-weight-bolder me-2">
+                                <a href="{{ route('admin.news.index') }}"
+                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
 
@@ -79,11 +79,37 @@
                             <div class="row">
                                 <div class="form-group row mb-5">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Gallery</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Judul Berita</label>
 
                                     <div class="col-lg-9 col-xl-9">
+
+                                        <input class="form-control form-control-solid form-control-lg" name="title"
+                                            placeholder="Masukkan Judul Berita" type="text" value=""
+                                            required="">
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group row mb-5">
+
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Foto Berita</label>
+
+                                    <div class="col-lg-9 col-xl-9">
+
                                         <input class="form-control form-control-solid form-control-lg" name="photo"
-                                               type="file" value="">
+                                            type="file" value="" required="">
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group row mb-5">
+
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Tanggal Berita</label>
+
+                                    <div class="col-lg-9 col-xl-9">
+
+                                        <input class="form-control form-control-solid form-control-lg" type="date"
+                                            value="" name="date" required="">
 
                                     </div>
 
@@ -94,8 +120,7 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <textarea id="kt_docs_ckeditor_classic" rows="5" name="description" type="text"
-                                            placeholder="deskripsi tugas">{{$gallery->description}}</textarea>
+                                        <textarea id="kt_docs_ckeditor_classic" rows="5" name="description" type="text" placeholder="deskripsi tugas">{{ old('description') }}</textarea>
 
                                     </div>
 

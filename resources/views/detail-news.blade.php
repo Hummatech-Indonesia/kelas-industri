@@ -20,6 +20,9 @@
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
+    @php
+        use Carbon\Carbon;
+    @endphp
     <style>
         @import url('https://fonts.cdnfonts.com/css/fontawesome');
 
@@ -101,6 +104,15 @@
             #logo {
                 width: 80px;
             }
+        }
+
+        body>div.content-wrapper.white-wrapper>div.wrapper.light-wrapper>div>div>div.col-lg-8>nav>div.d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between>div:nth-child(2)>ul {
+            display: flex;
+        }
+
+        .overlay.overlay1 {
+            width: auto;
+            height: 254px;
         }
     </style>
 </head>
@@ -213,33 +225,173 @@
             <!-- /.widget -->
         </div>
         <!--/.modal -->
-        <div class="wrapper white-wrapper">
-            <div class="container inner pt-0">
-                <!-- /.basic-slider -->
-                <div class="grid grid-view">
-
-                    <div class="tz-gallery">
-                        <h3 class="display-3 text-center">Gallery Kelas Industri</h3>
-                        <div class="row">
-                            @foreach ($gallerys as $gallery)
-                                <div class="col-sm-12 col-md-4">
-                                    <a class="lightbox" href="{{ asset('storage/' . $gallery->photo) }}">
-                                        <img src="{{ asset('storage/' . $gallery->photo) }}"
-                                            alt="{!! $gallery->description !!}">
-                                    </a>
+        <div class="wrapper light-wrapper">
+            <div class="container inner">
+                <h2 class="justify-content-center d-flex">Berita </h2>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="blog classic-view">
+                            <div class="post">
+                                <figure class="rounded d-flex justify-content-center"><img style="width: 80%"
+                                        src="{{ asset('storage/' . $slug->photo) }}" alt=""></figure>
+                                <div class="space40"></div>
+                                <div class="post-content">
+                                    <div class="category text-center"><a href="#"
+                                            class="badge badge-pill bg-hibiscus">Concept</a></div>
+                                    <h2 class="post-title text-center"><a
+                                            href="blog-post.html">{{ $slug->title }}</a></h2>
+                                    <div class="meta text-center"><span class="date"><i
+                                                class="jam jam-clock"></i>{{ Carbon::parse($slug->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span><span
+                                            class="author"></div>
+                                    <p>{{ $slug->description }}</p>
                                 </div>
-                            @endforeach
-                            <!-- /.item -->
+                                <!-- /.post-content -->
+                            </div>
+                            <!-- /.post -->
                         </div>
-                        <!-- /.row -->
+                        <!-- /.pagination -->
+                        <div class="row">
+                            <div class="col-lg-10 offset-lg-1">
+                                <h3 class="mb-30">You Might Also Like</h3>
+                                <div class="grid-view">
+                                    <div class="carousel owl-carousel owl-loaded owl-drag" data-margin="30"
+                                        data-dots="true" data-autoplay="false" data-autoplay-timeout="5000"
+                                        data-responsive="{&quot;0&quot;:{&quot;items&quot;: &quot;1&quot;}, &quot;768&quot;:{&quot;items&quot;: &quot;2&quot;}, &quot;992&quot;:{&quot;items&quot;: &quot;3&quot;}}">
+
+                                        <!-- /.item -->
+
+                                        <!-- /.item -->
+
+                                        <!-- /.item -->
+
+                                        <!-- /.item -->
+
+                                        <!-- /.item -->
+                                        <div class="owl-stage-outer">
+                                            <div class="owl-stage"
+                                                style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1625px;">
+                                                <div class="owl-item active"
+                                                    style="width: 295px; margin-right: 30px;">
+                                                    <div class="item">
+                                                        <figure class="overlay overlay1 rounded mb-30"><a
+                                                                href="#"><span class="bg"></span> <img
+                                                                    src="style/images/art/b1.jpg" alt=""></a>
+                                                            <figcaption>
+                                                                <h5 class="from-top mb-0">Read More</h5>
+                                                            </figcaption>
+                                                        </figure>
+                                                        <div class="category"><a href="#"
+                                                                class="badge badge-pill bg-purple">Concept</a></div>
+                                                        <h2 class="post-title"><a href="blog-post.html">Ligula
+                                                                tristique quis risus eget urna mollis ornare
+                                                                porttitor</a></h2>
+                                                        <div class="meta mb-0"><span class="date"><i
+                                                                    class="jam jam-clock"></i>5 Jul 2018</span><span
+                                                                class="comments"><i class="jam jam-message-alt"></i><a
+                                                                    href="#">3 Comments</a></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-item active"
+                                                    style="width: 295px; margin-right: 30px;">
+                                                    <div class="item">
+                                                        <figure class="overlay overlay1 rounded mb-30"><a
+                                                                href="#"><span class="bg"></span> <img
+                                                                    src="style/images/art/b2.jpg" alt=""></a>
+                                                            <figcaption>
+                                                                <h5 class="from-top mb-0">Read More</h5>
+                                                            </figcaption>
+                                                        </figure>
+                                                        <div class="category"><a href="#"
+                                                                class="badge badge-pill bg-meander">Business</a></div>
+                                                        <h2 class="post-title"><a href="blog-post.html">Nullam id
+                                                                dolor elit id nibh pharetra augue venenatis</a></h2>
+                                                        <div class="meta mb-0"><span class="date"><i
+                                                                    class="jam jam-clock"></i>18 Jun 2018</span><span
+                                                                class="comments"><i class="jam jam-message-alt"></i><a
+                                                                    href="#">5 Comments</a></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-item active"
+                                                    style="width: 295px; margin-right: 30px;">
+                                                    <div class="item">
+                                                        <figure class="overlay overlay1 rounded mb-30"><a
+                                                                href="#"><span class="bg"></span> <img
+                                                                    src="style/images/art/b3.jpg" alt=""></a>
+                                                            <figcaption>
+                                                                <h5 class="from-top mb-0">Read More</h5>
+                                                            </figcaption>
+                                                        </figure>
+                                                        <div class="category"><a href="#"
+                                                                class="badge badge-pill bg-pink">Design</a></div>
+                                                        <h2 class="post-title"><a href="blog-post.html">Ultricies
+                                                                fusce porta elit pharetra augue faucibus</a></h2>
+                                                        <div class="meta mb-0"><span class="date"><i
+                                                                    class="jam jam-clock"></i>14 May 2018</span><span
+                                                                class="comments"><i class="jam jam-message-alt"></i><a
+                                                                    href="#">7 Comments</a></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-item" style="width: 295px; margin-right: 30px;">
+                                                    <div class="item">
+                                                        <figure class="overlay overlay1 rounded mb-30"><a
+                                                                href="#"><span class="bg"></span> <img
+                                                                    src="style/images/art/b4.jpg" alt=""></a>
+                                                            <figcaption>
+                                                                <h5 class="from-top mb-0">Read More</h5>
+                                                            </figcaption>
+                                                        </figure>
+                                                        <div class="category"><a href="#"
+                                                                class="badge badge-pill bg-violet">Ideas</a></div>
+                                                        <h2 class="post-title"><a href="blog-post.html">Morbi leo
+                                                                risus porta eget metus est non commodolacus</a></h2>
+                                                        <div class="meta mb-0"><span class="date"><i
+                                                                    class="jam jam-clock"></i>9 Apr 2018</span><span
+                                                                class="comments"><i class="jam jam-message-alt"></i><a
+                                                                    href="#">4 Comments</a></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-item" style="width: 295px; margin-right: 30px;">
+                                                    <div class="item">
+                                                        <figure class="overlay overlay1 rounded mb-30"><a
+                                                                href="#"><span class="bg"></span> <img
+                                                                    src="style/images/art/b5.jpg" alt=""></a>
+                                                            <figcaption>
+                                                                <h5 class="from-top mb-0">Read More</h5>
+                                                            </figcaption>
+                                                        </figure>
+                                                        <div class="category"><a href="#"
+                                                                class="badge badge-pill bg-green">Workspace</a></div>
+                                                        <h2 class="post-title"><a href="blog-post.html">Mollis
+                                                                adipiscing lorem quis mollis eget lacinia faucibus</a>
+                                                        </h2>
+                                                        <div class="meta mb-0"><span class="date"><i
+                                                                    class="jam jam-clock"></i>23 Feb 2018</span><span
+                                                                class="comments"><i class="jam jam-message-alt"></i><a
+                                                                    href="#">8 Comments</a></span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="owl-nav disabled"><button type="button" role="presentation"
+                                                class="owl-prev"><span aria-label="Previous">‹</span></button><button
+                                                type="button" role="presentation" class="owl-next"><span
+                                                    aria-label="Next">›</span></button></div>
+                                        <div class="owl-dots"><button role="button"
+                                                class="owl-dot active"><span></span></button><button role="button"
+                                                class="owl-dot"><span></span></button><button role="button"
+                                                class="owl-dot"><span></span></button></div>
+                                    </div>
+                                    <!-- /.owl-carousel -->
+                                </div>
+                                <!-- /.grid-view -->
+                            </div>
+                            <!-- /column -->
+                        </div>
+                        <!-- /.pagination -->
                     </div>
-                    <!-- /.tiles -->
+                    <!--/column -->
                 </div>
-                <!-- /.grid -->
-                <div class="row justify-content-center">
-                    {{ $gallerys->appends(request()->query())->links() }}
-                </div>
-                <!-- /.pagination -->
+                <!--/.row -->
             </div>
             <!-- /.container -->
         </div>

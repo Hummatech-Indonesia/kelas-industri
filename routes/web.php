@@ -44,6 +44,8 @@ use App\Http\Controllers\UserAssignmentController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('landingPage');
 Route::get('/gallery', [WelcomeController::class, 'gallery'])->name('gallery');
+Route::get('/news', [WelcomeController::class, 'news'])->name('news');
+Route::get('/news/{slug}', [WelcomeController::class, 'detail'])->name('detail-news');
 
 Auth::routes(['login' => true, 'register' => true]);
 

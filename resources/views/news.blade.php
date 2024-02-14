@@ -20,6 +20,9 @@
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
+    @php
+        use Carbon\Carbon;
+    @endphp
     <style>
         @import url('https://fonts.cdnfonts.com/css/fontawesome');
 
@@ -101,6 +104,15 @@
             #logo {
                 width: 80px;
             }
+        }
+
+        body>div.content-wrapper.white-wrapper>div.wrapper.light-wrapper>div>div>div.col-lg-8>nav>div.d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between>div:nth-child(2)>ul {
+            display: flex;
+        }
+
+        .overlay.overlay1 {
+            width: auto;
+            height: 254px;
         }
     </style>
 </head>
@@ -213,33 +225,138 @@
             <!-- /.widget -->
         </div>
         <!--/.modal -->
-        <div class="wrapper white-wrapper">
-            <div class="container inner pt-0">
-                <!-- /.basic-slider -->
-                <div class="grid grid-view">
-
-                    <div class="tz-gallery">
-                        <h3 class="display-3 text-center">Gallery Kelas Industri</h3>
-                        <div class="row">
-                            @foreach ($gallerys as $gallery)
-                                <div class="col-sm-12 col-md-4">
-                                    <a class="lightbox" href="{{ asset('storage/' . $gallery->photo) }}">
-                                        <img src="{{ asset('storage/' . $gallery->photo) }}"
-                                            alt="{!! $gallery->description !!}">
-                                    </a>
+        <div class="wrapper light-wrapper">
+            <div class="container inner">
+                <h2 class="justify-content-center d-flex">Berita </h2>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="blog classic-view">
+                            <div class="post">
+                                <div class="box bg-white shadow p-3">
+                                    <figure class="overlay overlay1 rounded"><a href="blog-post.html"><span
+                                                class="bg"></span><img width="100%" src=""
+                                                alt=""></a>
+                                        <figcaption>
+                                            <h5 class="from-top mb-0">Read More</h5>
+                                        </figcaption>
+                                    </figure>
+                                    <div class="space40"></div>
+                                    <div class="post-content">
+                                        <div class="category text-center"><a href="#"
+                                                class="badge badge-pill bg-hibiscus">Concept</a></div>
+                                        <h2 class="post-title text-center"><a href="blog-post.html">adadas</a></h2>
+                                        <div class="meta text-center"><span class="date"><i
+                                                    class="jam jam-clock"></i>adsadsad</span><span class="author">
+                                        </div>
+                                        <p>svsvc</p>
+                                    </div>
                                 </div>
-                            @endforeach
-                            <!-- /.item -->
+                                <!-- /.post-content -->
+                            </div>
+                            <!-- /.post -->
                         </div>
-                        <!-- /.row -->
+                        <!-- /.pagination -->
+                        <div class="blog grid grid-view">
+                            <div class="row isotope" style="position: relative; height: 2400px;">
+                                @forelse ($newss as $news)
+                                    <div class="item post grid-sizer col-md-6"
+                                        style="position: absolute; left: 0%; top: 0px;">
+                                        <div class="box bg-white shadow p-3">
+                                            <figure class="overlay overlay1 rounded"><a
+                                                    href="{{ route('detail-news', $news->slug) }}"><span
+                                                        class="bg"></span> <img
+                                                        src={{ asset('storage/' . $news->photo) }} alt=""></a>
+                                                <figcaption>
+                                                    <h5 class="from-top mb-0">Read More</h5>
+                                                </figcaption>
+                                            </figure>
+                                            <div class="category"><a href="#"
+                                                    class="badge badge-pill bg-purple">Concept</a></div>
+                                            <h2 class="post-title"><a
+                                                    href="{{ route('detail-news', $news->slug) }}">{{ $news->title }}</a>
+                                            </h2>
+                                            <div class="post-content">
+                                                <p>{{ $news->description }}</p>
+                                            </div>
+                                            <!-- /.post-content -->
+                                            <div class="meta mb-0"><span class="date"><i
+                                                        class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                @endforelse
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.blog -->
+                        {{ $newss->links('pagination::bootstrap-5') }}
+                        <!-- /.pagination -->
                     </div>
-                    <!-- /.tiles -->
+                    <!--/column -->
+                    <div class="space30 d-none d-md-block d-lg-none"></div>
+                    <aside class="col-lg-4 sidebar">
+                        <!-- /.widget -->
+                        <div class="sidebox widget">
+                            <h3 class="widget-title">Berita Lainnya</h3>
+                            <ul class="image-list">
+                                <li>
+                                    <figure class="rounded"><a href="blog-post.html"><img
+                                                src="style/images/art/a1.jpg" alt=""></a></figure>
+                                    <div class="post-content">
+                                        <h6 class="post-title"> <a href="blog-post.html">Magna Mollis Ultricies
+                                                Mauris</a> </h6>
+                                        <div class="meta"><span class="date"><i class="jam jam-clock"></i>12 Nov
+                                                2017</span><span class="comments"><i
+                                                    class="jam jam-message-alt"></i><a href="#">4</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <figure class="rounded"> <a href="blog-post.html"><img
+                                                src="style/images/art/a2.jpg" alt=""></a></figure>
+                                    <div class="post-content">
+                                        <h6 class="post-title"> <a href="blog-post.html">Ornare Nullam Risus
+                                                Cursus</a> </h6>
+                                        <div class="meta"><span class="date"><i class="jam jam-clock"></i>12 Nov
+                                                2017</span><span class="comments"><i
+                                                    class="jam jam-message-alt"></i><a href="#">4</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <figure class="rounded"><a href="blog-post.html"><img
+                                                src="style/images/art/a3.jpg" alt=""></a></figure>
+                                    <div class="post-content">
+                                        <h6 class="post-title"> <a href="blog-post.html">Euismod Nullam Fusce</a>
+                                        </h6>
+                                        <div class="meta"><span class="date"><i class="jam jam-clock"></i>12 Nov
+                                                2017</span><span class="comments"><i
+                                                    class="jam jam-message-alt"></i><a href="#">4</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- /.image-list -->
+                        </div>
+                        <!-- /.widget -->
+                        <div class="sidebox widget">
+                            <h3 class="widget-title">Tags</h3>
+                            <ul class="list-unstyled tag-list">
+                                <li><a href="#" class="btn btn-s">Still Life</a></li>
+                                <li><a href="#" class="btn btn-s">Urban</a></li>
+                                <li><a href="#" class="btn btn-s">Nature</a></li>
+                                <li><a href="#" class="btn btn-s">Landscape</a></li>
+                                <li><a href="#" class="btn btn-s">Macro</a></li>
+                                <li><a href="#" class="btn btn-s">Fun</a></li>
+                                <li><a href="#" class="btn btn-s">Workshop</a></li>
+                                <li><a href="#" class="btn btn-s">Photography</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+                    <!-- /column .sidebar -->
                 </div>
-                <!-- /.grid -->
-                <div class="row justify-content-center">
-                    {{ $gallerys->appends(request()->query())->links() }}
-                </div>
-                <!-- /.pagination -->
+                <!--/.row -->
             </div>
             <!-- /.container -->
         </div>

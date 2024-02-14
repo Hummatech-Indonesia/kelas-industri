@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Exam;
+use App\Models\News;
 use App\Models\User;
 use App\Models\Reward;
 use App\Models\Salary;
@@ -14,6 +15,7 @@ use App\Models\Assignment;
 use App\Models\Attendance;
 use App\Models\SubMaterial;
 use App\Observers\ExamObserver;
+use App\Observers\NewsObserver;
 use App\Observers\UserObserver;
 use App\Observers\RewardObserver;
 use App\Observers\SalaryObserver;
@@ -59,6 +61,7 @@ class EventServiceProvider extends ServiceProvider
         Exam::observe(ExamObserver::class);
         Salary::observe(SalaryObserver::class);
         Reward::observe(RewardObserver::class);
+        News::observe(NewsObserver::class);
     }
 
     /**

@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use Illuminate\Http\Request;
+use App\Services\NewsService;
+use App\Http\Requests\NewsRequest;
 
 class NewsController extends Controller
 {
+    public function __construct(NewsService $newsService)
+    {
+        $this->newsService = $newsService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('dashboard.admin.pages.news.index');
+        $newss = $this->newsService->handleGetPaginate();
+        return view('dashboard.admin.pages.news.index', compact('newss'));
     }
 
     /**
@@ -23,7 +31,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.admin.pages.news.create');
     }
 
     /**
@@ -32,9 +40,10 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
-        //
+        $this->newsService->handleCreate($request);
+        return to_route('admin.news.index')->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -54,9 +63,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
-        //
+        return view('dashboard.admin.pages.news.edit', compact('news'));
     }
 
     /**
@@ -66,9 +75,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(NewsRequest $request, News $news)
     {
-        //
+        $this->newsService->handleUpdate($request, $news);
+        return to_route('admin.news.index')->with('success', trans('alert.update_success'));
     }
 
     /**
@@ -77,8 +87,14 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(News $news)
     {
-        //
+        $data = $this->newsService->handleDelete($news);
+
+        if (!$data) {
+            return back()->with('error', trans('alert.delete_constrained'));
+        }
+
+        return back()->with('success', trans('alert.delete_success'));
     }
 }
