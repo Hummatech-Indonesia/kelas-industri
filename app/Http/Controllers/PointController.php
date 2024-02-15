@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Services\PointService;
 use App\Helpers\SchoolYearHelper;
 use App\Services\SchoolYearService;
-use App\Http\Controllers\PointController;
+// use App\Http\Controllers\PointController;
 
 class PointController extends Controller
 {

@@ -170,7 +170,7 @@
                                         <div class="mb-5">
                                             <label for="exampleFormControlInput1"
                                                 class="required form-label">Nama</label>
-                                            <input type="text" name="name"
+                                            <input type="text" name="name" value="{{old('name')}}"
                                                 class="form-control form-control-solid @error('name') is-invalid @enderror"
                                                 placeholder="Masukkan nama" />
                                             @error('name')
@@ -185,7 +185,7 @@
                                             <!--begin::Email-->
                                             <label for="exampleFormControlInput1"
                                                 class="required form-label">Email</label>
-                                            <input type="email" name="email"
+                                            <input type="email" name="email" value="{{old('email')}}"
                                                 class="form-control form-control-solid @error('email') is-invalid @enderror"
                                                 placeholder="Masukkan Email" />
                                             @error('email')
@@ -203,7 +203,7 @@
                                         <div class="mb-5">
                                             <label for="exampleFormControlInput1"
                                                 class="required form-label">NISN</label>
-                                            <input type="number" name="national_student_id"
+                                            <input type="number" name="national_student_id" value="{{old('national_student_id')}}"
                                                 class="form-control form-control-solid @error('national_student_id') is-invalid @enderror"
                                                 placeholder="Masukkan NISN" />
                                             @error('national_student_id')
@@ -217,7 +217,7 @@
                                         <div class="mb-5">
                                             <label for="exampleFormControlInput1" class="required form-label">Tanggal
                                                 Lahir</label>
-                                            <input type="date" name="date_birth"
+                                            <input type="date" name="date_birth" value="{{old('date_birth')}}"
                                                 class="form-control form-control-solid @error('date_birth') is-invalid @enderror"
                                                 placeholder="Example input" />
                                             @error('date_birth')
@@ -260,7 +260,7 @@
 
                                 <div class="form-floating mb-5">
                                     <textarea class="form-control @error('address') is-invalid @enderror" placeholder="Leave a comment here"
-                                        id="floatingTextarea2" name="address" style="height: 100px"></textarea>
+                                        id="floatingTextarea2" name="address" style="height: 100px">{{old('address')}}</textarea>
                                     <label for="floatingTextarea2">Alamat</label>
                                     @error('address')
                                         <span class="invalid-feedback" role="alert">
@@ -272,7 +272,7 @@
                                 <div class="mb-5">
                                     <label for="exampleFormControlInput1"
                                         class="required form-label @error('school_id') is-invalid @enderror">Sekolah</label>
-                                    <select class="form-select form-select-solid" name="school_id"
+                                    <select class="form-select form-select-solid" name="school_id" value="{{old('school_id')}}"
                                         data-control="select2" id="select-school" data-placeholder="Select an option">
                                     </select>
                                     @error('school_id')
@@ -285,7 +285,7 @@
                                 <div class="mb-5">
                                     <label for="exampleFormControlInput1"
                                         class="required form-label @error('classroom_id') is-invalid @enderror">Kelas</label>
-                                    <select class="form-select form-select-solid" name="classroom_id"
+                                    <select class="form-select form-select-solid" name="classroom_id" value="{{old('classroom_id')}}"
                                         data-control="select2" id="select-classroom" data-placeholder="Select an option">
 
                                     </select>
@@ -298,7 +298,7 @@
 
                                 <div class="form-floating mb-10">
                                     <textarea class="form-control @error('motivation') is-invalid @enderror" placeholder="Leave a comment here"
-                                        id="floatingTextarea2" name="motivation" style="height: 100px"></textarea>
+                                        id="floatingTextarea2" name="motivation" style="height: 100px">{{old('motivation')}}</textarea>
                                     <label for="floatingTextarea2">Motivasi Mengikuti Kelas Industri</label>
                                     @error('motivation')
                                         <span class="invalid-feedback" role="alert">
