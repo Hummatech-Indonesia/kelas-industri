@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ApprovalRequest;
 use App\Models\User;
 use App\Services\UserServices;
 use App\Repositories\UserRepository;
@@ -35,5 +36,14 @@ class ApprovalController extends Controller
         $this->userRepository->update($user->id, ['status' => 'active']);
 
         return redirect()->back()->with('success', 'Berhasil Menyetujui Siswa ' . $user->name);
+    }
+
+    public function approveAll(ApprovalRequest $request)
+    {
+        // dd($request->all());
+        // $request->validated();
+        $data['status'] = 'active';
+        $this->service->storeUserActiveAll($request['select'], $data);
+        return redirect()->back();
     }
 }

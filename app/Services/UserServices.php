@@ -213,7 +213,11 @@ class UserServices
 
     public function handleUserNonActive(Request $search): mixed
     {
-        return $this->repository->get_user_nonactive($search->search, 6);
+        return $this->repository->get_user_nonactive($search->search, 5);
     }
 
+    public function storeUserActiveAll(array $siswaId, array $status): mixed
+    {
+        return $this->repository->update_user_active_all($siswaId, $status);
+    }
 }

@@ -36,8 +36,8 @@
                         <!--begin::Search Form-->
                         <div class="row">
                             <div class="col-lg-6 col-xl-6 col-md-6 col-sm-12">
-                                <button class="btn btn-primary btn-sm" onclick="deleteRow();">
-                                    Aproval data siswa
+                                <button class="btn btn-primary btn-sm" id="btn-accept-siswa">
+                                    Terima data siswa yang anda pilih
                                 </button>
                             </div>
                             <div class="col-lg-6 col-xl-6 col-md-6 col-sm-12 d-flex align-items-center justify-content-end">
@@ -71,7 +71,7 @@
                                         <!--begin::Table row-->
                                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                             <th>
-                                                <input type="checkbox" class="select-all">
+                                                <input type="checkbox" class="select-all" id="select-all">
                                             </th>
                                             <th>No</th>
                                             <th>Nama</th>
@@ -89,7 +89,8 @@
                                         @foreach ($users as $user)
                                             <tr>
                                                 <td>
-                                                    <input type="checkbox" class="select">
+                                                    <input type="checkbox" class="select" name="status[]"
+                                                        value="{{ $user->id }}">
                                                 </td>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $user->name }}</td>
@@ -169,7 +170,8 @@
                             <h4 class="modal-title" id="exampleModalLabel1">
                                 Verifikasi Akun
                             </h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <h6>Apakah anda yakin ingin menyetujui verifikasi akun ini?</h6>
@@ -261,11 +263,65 @@
                     });
                 });
             });
+        </script>
+        <script>
+            $(document).ready(function() {
+                var selectedValues = [];
 
-            function deleteRow() {
-                document.querySelectorAll('#table .select:checked').forEach(e => {
-                    e.parentNode.parentNode.remove()
+                $(".select").change(function() {
+                    selectedValues = [];
+                    $(".select:checked").each(function() {
+                        selectedValues.push($(this).val());
+                    });
                 });
-            }
+
+                $("#btn-accept-siswa").click(function() {
+                    Swal.fire({
+                        title: 'Apakah anda yakin?',
+                        text: 'Anda akan menerima semua siswa. Tindakan ini tidak bisa dibatalkan.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Iya!',
+                        cancelButtonText: 'Tidak, batal!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                url: '{{ route('admin.approveStudentAll') }}',
+                                method: 'PATCH',
+                                data: {
+                                    select: selectedValues,
+                                },
+                                success: function(response) {
+                                    console.log(response.message);
+                                    window.location.reload();
+                                },
+                                error: function(error) {
+                                    console.error('Error:', error);
+                                    // Handle error jika diperlukan
+                                }
+                            });
+                            window.location.reload();
+                        }
+                    });
+                });
+
+
+                // Trigger change event of individual checkboxes when "Select All" is clicked
+                $("#select-all").change(function() {
+                    $(".select").prop("checked", $(this).prop("checked")).change();
+                });
+
+                $(".select").change(function() {
+                    if (!$(this).prop("checked")) {
+                        $("#select-all").prop("checked", false);
+                    }
+                });
+            });
         </script>
     @endsection

@@ -74,6 +74,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
 
     Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
+    Route::patch('approve-student-all', [ApprovalController::class, 'approveAll'])->name('approveStudentAll');
     Route::patch('approve-student/{user}', [ApprovalController::class, 'approve']);
 
     Route::resources([

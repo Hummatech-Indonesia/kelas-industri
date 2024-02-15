@@ -111,4 +111,11 @@ class UserRepository extends BaseRepository
             ->where('email', $data['email'])
             ->first();
     }
+
+    public function update_user_active_all(array $userId, array $status): mixed
+    {
+        return $this->model->query()
+            ->whereIn('id', $userId)
+            ->update($status);
+    }
 }
