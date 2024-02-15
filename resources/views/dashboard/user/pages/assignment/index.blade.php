@@ -109,80 +109,100 @@
                         </div>
                     </div>
                 @endif
-                    <!--begin::Content container-->
+                <!--begin::Content container-->
 
-                    <div id="kt_app_content_container" class="app-container  container-fluid ">
+                <div id="kt_app_content_container" class="app-container  container-fluid ">
 
-                        <div class="row">
-                            <div class="col-12 mt-5">
-                                <div class="card">
-                                    <div class="card-header d-flex justify-content-between pt-7">
-                                        <!--begin::Title-->
+                    <div class="row">
+                        <div class="col-12 mt-5">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between pt-7">
+                                    <!--begin::Title-->
 
-                                        <h3 class="card-title align-items-start flex-column">
-                                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher' ||
-                                                    auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                <span class="card-label fw-bold text-gray-800">Tugas</span>
-                                                <span class="text-gray-400 mt-1 fw-semibold fs-6">Nilai tugas siswa
-                                                    anda.</span>
-                                            @else
-                                                <span class="card-label fw-bold text-gray-800">Tugas</span>
-                                                <span class="text-gray-400 mt-1 fw-semibold fs-6">list tugas anda.</span>
-                                            @endif
+                                    <h3 class="card-title align-items-start flex-column">
+                                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                            <span class="card-label fw-bold text-gray-800">Tugas</span>
+                                            <span class="text-gray-400 mt-1 fw-semibold fs-6">Nilai tugas siswa
+                                                anda.</span>
+                                        @else
+                                            <span class="card-label fw-bold text-gray-800">Tugas</span>
+                                            <span class="text-gray-400 mt-1 fw-semibold fs-6">list tugas anda.</span>
+                                        @endif
 
-                                        </h3>
+                                    </h3>
 
-                                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                            @if($status == true)
+                                    @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                        @if ($status == true)
                                             <div class="my-lg-0 my-1">
                                                 <button onclick="BeriNilai()" id="kt_docs_sweetalert_html"
                                                     class="btn btn-sm btn-primary font-weight-bolder text-uppercase">Simpan
                                                     Nilai
                                                 </button>
                                             </div>
-                                            @endif
-
-                                        @else
-                                            <a href="{{ Route('mentor.downloadAll', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
-                                                class="btn-flex btn btn-dark fw-bold btn-sm" id="btn-download-all">
-                                                <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
-                                                            fill="currentColor" />
-                                                        <path opacity="0.3"
-                                                            d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                Download Semua File
-                                            </a>
                                         @endif
-                                        <!--end::Title-->
-                                    </div>
-                                    <div class="card-body">
+                                    @else
+                                        <a href="{{ Route('mentor.downloadAll', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                            class="btn-flex btn btn-dark fw-bold btn-sm" id="btn-download-all">
+                                            <span class="svg-icon svg-icon-muted svg-icon-1"><svg width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
+                                                        fill="currentColor" />
+                                                    <path opacity="0.3"
+                                                        d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                                        fill="currentColor" />
+                                                    <path
+                                                        d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                                        fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                            Download Semua File
+                                        </a>
+                                    @endif
+                                    <!--end::Title-->
+                                </div>
+                                <div class="card-body">
 
-                                        <table id="kt_datatable_responsive"
-                                            class="table table-striped border rounded gy-5 gs-7">
-                                            <thead>
-                                                <tr class="fw-semibold fs-6 text-gray-800">
-                                                    <th data-priority="1">No</th>
-                                                    <th class="min-w-200px" data-priority="2">Nama</th>
-                                                    <th class="min-w-100px" data-priority="3">File</th>
-                                                    <th data-priority="4">Nilai</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse($students as $student)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $student->name }}</td>
-                                                        @if ($student->submitAssignment)
-                                                            <td>
-                                                                @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                    <table id="kt_datatable_responsive"
+                                        class="table table-striped border rounded gy-5 gs-7">
+                                        <thead>
+                                            <tr class="fw-semibold fs-6 text-gray-800">
+                                                <th data-priority="1">No</th>
+                                                <th class="min-w-200px" data-priority="2">Nama</th>
+                                                <th class="min-w-100px" data-priority="3">File</th>
+                                                <th data-priority="4">Nilai</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse($students as $student)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $student->name }}</td>
+                                                    @if ($student->submitAssignment)
+                                                        <td>
+                                                            @php
+                                                                $filePath = explode('/', $student->submitAssignment->file);
+                                                                $fileName = end($filePath);
+                                                                $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+                                                            @endphp
+                                                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                                @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg']))
+                                                                    <button class="btn btn-primary btn-sm btn-img"
+                                                                        data-file="{{ asset('storage/' . $student->submitAssignment->file) }}">
+                                                                        <span
+                                                                            class="svg-icon svg-icon-muted svg-icon-4"><svg
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                <path opacity="0.3"
+                                                                                    d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z"
+                                                                                    fill="currentColor" />
+                                                                                <path
+                                                                                    d="M19.1 10C18.7 9.60001 18.1 9.60001 17.7 10L10.7 17H2V19C2 19.6 2.4 20 3 20H21C21.6 20 22 19.6 22 19V12.9L19.1 10Z"
+                                                                                    fill="currentColor" />
+                                                                            </svg>
+                                                                        </span> Gambar</button>
+                                                                @else
                                                                     <a href="{{ Route('teacher.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
                                                                         target="_blank"
                                                                         class="btn btn-danger btn-sm btn-download">
@@ -202,6 +222,24 @@
                                                                             </svg>
                                                                         </span>
                                                                         Download </a>
+                                                                @endif
+                                                            @else
+                                                                @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg']))
+                                                                    <button class="btn btn-primary btn-sm btn-img"
+                                                                        data-file="{{ asset('storage/' . $student->submitAssignment->file) }}">
+                                                                        <span
+                                                                            class="svg-icon svg-icon-muted svg-icon-4"><svg
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                <path opacity="0.3"
+                                                                                    d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z"
+                                                                                    fill="currentColor" />
+                                                                                <path
+                                                                                    d="M19.1 10C18.7 9.60001 18.1 9.60001 17.7 10L10.7 17H2V19C2 19.6 2.4 20 3 20H21C21.6 20 22 19.6 22 19V12.9L19.1 10Z"
+                                                                                    fill="currentColor" />
+                                                                            </svg>
+                                                                        </span> Gambar</button>
                                                                 @else
                                                                     <a href="{{ Route('mentor.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
                                                                         target="_blank"
@@ -222,52 +260,53 @@
                                                                             </svg>
                                                                         </span> Download </a>
                                                                 @endif
-                                                            </td>
-                                                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                                @if ($student->submitAssignment->point)
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            data-id="{{ $student->submitAssignment->id }}"
-                                                                            value="{{ $student->submitAssignment->point }}"
-                                                                            class="form-control form-control-solid input-nilai form-control-lg"
-                                                                            placeholder="Nilai">
-                                                                    </td>
-                                                                @else
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            data-id="{{ $student->submitAssignment->id }}"
-                                                                            value=""
-                                                                            class="form-control form-control-solid input-nilai form-control-lg"
-                                                                            placeholder="Nilai">
-                                                                    </td>
-                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                            @if ($student->submitAssignment->point)
+                                                                <td>
+                                                                    <input type="text"
+                                                                        data-id="{{ $student->submitAssignment->id }}"
+                                                                        value="{{ $student->submitAssignment->point }}"
+                                                                        class="form-control form-control-solid input-nilai form-control-lg"
+                                                                        placeholder="Nilai">
+                                                                </td>
                                                             @else
-                                                                @if ($student->submitAssignment->point)
-                                                                    <td>{{ $student->submitAssignment->point }}</td>
-                                                                @else
-                                                                    <td>
-                                                                        -
-                                                                    </td>
-                                                                @endif
+                                                                <td>
+                                                                    <input type="text"
+                                                                        data-id="{{ $student->submitAssignment->id }}"
+                                                                        value=""
+                                                                        class="form-control form-control-solid input-nilai form-control-lg"
+                                                                        placeholder="Nilai">
+                                                                </td>
                                                             @endif
                                                         @else
-                                                            <td>-</td>
-                                                            <td>-</td>
+                                                            @if ($student->submitAssignment->point)
+                                                                <td>{{ $student->submitAssignment->point }}</td>
+                                                            @else
+                                                                <td>
+                                                                    -
+                                                                </td>
+                                                            @endif
                                                         @endif
+                                                    @else
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    @endif
 
-                                                    </tr>
-                                                @empty
-                                                    <x-empty-component title="tugas" />
-                                                @endforelse
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                </tr>
+                                            @empty
+                                                <x-empty-component title="tugas" />
+                                            @endforelse
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!--end::Content container-->
+
+                </div>
+                <!--end::Content container-->
             </div>
             <!--end::Content-->
         </div>
@@ -303,6 +342,29 @@
             <!--end::Footer container-->
         </div>
         <!--end::Footer-->
+    </div>
+    <div class="modal fade" tabindex="-1" id="kt_modal_photo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Detail Jawaban</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960"
+                            width="30">
+                            <path
+                                d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+                        </svg>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <div class="modal-body row">
+                    <img src="" id="photo" class="col-12" alt="">
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('script')
@@ -362,5 +424,11 @@
         if (downloadButtons.length === 0) {
             $("#btn-download-all").remove();
         }
+
+        $('.btn-img').click(function() {
+            var photo = $(this).data('file');
+            $('#photo').attr('src', photo);
+            $('#kt_modal_photo').modal('show');
+        });
     </script>
 @endsection

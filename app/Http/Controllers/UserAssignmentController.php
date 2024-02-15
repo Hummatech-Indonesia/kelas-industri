@@ -38,7 +38,7 @@ class UserAssignmentController extends Controller
                 $data['status'] = true;
             }
         }
-        return view ('dashboard.user.pages.assignment.index', $data);
+        return view('dashboard.user.pages.assignment.index', $data);
     }
 
     public function create(Classroom $classroom, Material $material, SubMaterial $submaterial, Assignment $assignment): View
@@ -49,7 +49,7 @@ class UserAssignmentController extends Controller
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
         $data['submitAssignment'] = $this->assignmentService->handleGetStudentSubmitAssignment(auth()->id(), $assignment->id);
-        return \view ('dashboard.user.pages.assignment.detail', $data);
+        return view('dashboard.user.pages.assignment.detail', $data);
 
     }
 
