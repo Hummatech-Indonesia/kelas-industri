@@ -65,7 +65,7 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
-    public function create_point($point, string $studentId) :void
+    public function create_point($point, string $studentId): void
     {
         $data = $this->model->query()->findorfail($studentId);
         $data->point += $point;
@@ -89,12 +89,14 @@ class UserRepository extends BaseRepository
      *
      * @return mixed
      */
-    public function get_user_nonactive(): mixed
+    public function get_user_nonactive(string | null $search, int $limit): mixed
     {
         return $this->model->query()
-        ->where('status', 'nonactive')
-        ->latest()
-        ->get();
+            ->where('status', 'nonactive')
+            ->latest()
+            ->where('name', 'like', '%' . $search . '%')
+            ->orderBy('created_at', 'DESC')
+            ->paginate($limit);
     }
 
     /**

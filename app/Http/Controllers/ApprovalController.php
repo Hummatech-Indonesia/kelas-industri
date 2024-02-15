@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\UserServices;
 use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 
 class ApprovalController extends Controller
 {
@@ -17,9 +18,9 @@ class ApprovalController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function studentRegistration()
+    public function studentRegistration(Request $request)
     {
-        $users = $this->service->handleUserNonActive();
+        $users = $this->service->handleUserNonActive($request);
         return view('dashboard.admin.pages.approval.index', compact('users'));
     }
 

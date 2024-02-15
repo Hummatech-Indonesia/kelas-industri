@@ -211,9 +211,9 @@ class UserServices
         return $this->repository->create_point($point, $studentId);
     }
 
-    public function handleUserNonActive(): mixed
+    public function handleUserNonActive(Request $search): mixed
     {
-        return $this->repository->get_user_nonactive();
+        return $this->repository->get_user_nonactive($search->search, 6);
     }
 
 }
