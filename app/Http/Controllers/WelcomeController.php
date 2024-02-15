@@ -46,6 +46,7 @@ class WelcomeController extends Controller
     {
         $data = [
             'newss' => $this->newsService->handleGetPaginate(),
+            'news_random_old' => $this->newsService->handleGetRandomOld(3),
         ];
         return view('news', $data);
     }
@@ -54,6 +55,7 @@ class WelcomeController extends Controller
     {
         $data = [
             'newss' => $this->newsService->handleGetPaginate(),
+            'news_random' => $this->newsService->handleGetRandom(10),
             'slug' => $this->newsService->handleGetBySlug($slug),
         ];
         return view('detail-news', $data);

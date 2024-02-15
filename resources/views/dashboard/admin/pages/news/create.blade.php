@@ -84,7 +84,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="title"
-                                            placeholder="Masukkan Judul Berita" type="text" value=""
+                                            placeholder="Masukkan Judul Berita" type="text" value="{{ old('title') }}"
                                             required="">
 
                                     </div>
@@ -109,7 +109,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" type="date"
-                                            value="" name="date" required="">
+                                            value="{{ old('date') }}" name="date" required="">
 
                                     </div>
 

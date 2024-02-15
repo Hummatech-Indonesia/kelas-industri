@@ -106,13 +106,33 @@
             }
         }
 
-        body>div.content-wrapper.white-wrapper>div.wrapper.light-wrapper>div>div>div.col-lg-8>nav>div.d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between>div:nth-child(2)>ul {
-            display: flex;
+        body>div.content-wrapper.white-wrapper>div.wrapper.light-wrapper>div.container.inner>nav>div.d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between>div:nth-child(2)>ul {
+            display: flex !important;
         }
 
         .overlay.overlay1 {
             width: auto;
-            height: 254px;
+            height: 220px;
+            margin-bottom: 15px;
+        }
+
+        .img-figure {
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .post-title {
+            word-wrap: break-word;
+            height: 60px;
+        }
+
+        .box {
+            height: 400px;
+            margin-bottom: 30px;
+        }
+
+        .berita-utama {
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -227,12 +247,12 @@
         <!--/.modal -->
         <div class="wrapper light-wrapper">
             <div class="container inner">
-                <h2 class="justify-content-center d-flex">Berita </h2>
-                <div class="row">
-                    <div class="col-lg-8">
+                <h2 class="justify-content-start d-flex" style="font-weight: 500; font-size: 30px; margin-bottom: 20px;">Berita</h2>
+                <div class="row berita-utama">
+                    <div class="col-lg-8 col-md-12">
                         <div class="blog classic-view">
                             <div class="post">
-                                <div class="box bg-white shadow p-3">
+                                <div class="box-primary bg-white shadow p-3">
                                     <figure class="overlay overlay1 rounded"><a href="blog-post.html"><span
                                                 class="bg"></span><img width="100%" src=""
                                                 alt=""></a>
@@ -242,240 +262,194 @@
                                     </figure>
                                     <div class="space40"></div>
                                     <div class="post-content">
-                                        <div class="category text-center"><a href="#"
-                                                class="badge badge-pill bg-hibiscus">Concept</a></div>
-                                        <h2 class="post-title text-center"><a href="blog-post.html">adadas</a></h2>
-                                        <div class="meta text-center"><span class="date"><i
-                                                    class="jam jam-clock"></i>adsadsad</span><span class="author">
+                                        <h2 class="post-title text-center mb-1"><a href="blog-post.html">adadas</a>
+                                        </h2>
+                                        <div class="meta text-center mt-1"><span class="date"><i
+                                                    class="jam jam-clock"></i></span>
                                         </div>
-                                        <p>svsvc</p>
                                     </div>
                                 </div>
                                 <!-- /.post-content -->
                             </div>
                             <!-- /.post -->
                         </div>
-                        <!-- /.pagination -->
-                        <div class="blog grid grid-view">
-                            <div class="row isotope" style="position: relative; height: 2400px;">
-                                @forelse ($newss as $news)
-                                    <div class="item post grid-sizer col-md-6"
-                                        style="position: absolute; left: 0%; top: 0px;">
-                                        <div class="box bg-white shadow p-3">
-                                            <figure class="overlay overlay1 rounded"><a
-                                                    href="{{ route('detail-news', $news->slug) }}"><span
-                                                        class="bg"></span> <img
-                                                        src={{ asset('storage/' . $news->photo) }} alt=""></a>
-                                                <figcaption>
-                                                    <h5 class="from-top mb-0">Read More</h5>
-                                                </figcaption>
-                                            </figure>
-                                            <div class="category"><a href="#"
-                                                    class="badge badge-pill bg-purple">Concept</a></div>
-                                            <h2 class="post-title"><a
-                                                    href="{{ route('detail-news', $news->slug) }}">{{ $news->title }}</a>
-                                            </h2>
-                                            <div class="post-content">
-                                                <p>{{ $news->description }}</p>
-                                            </div>
-                                            <!-- /.post-content -->
-                                            <div class="meta mb-0"><span class="date"><i
-                                                        class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @empty
-                                @endforelse
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                        <!-- /.blog -->
-                        {{ $newss->links('pagination::bootstrap-5') }}
-                        <!-- /.pagination -->
                     </div>
-                    <!--/column -->
-                    <div class="space30 d-none d-md-block d-lg-none"></div>
-                    <aside class="col-lg-4 sidebar">
+                    <aside class="col-lg-4 col-md-12 sidebar">
                         <!-- /.widget -->
                         <div class="sidebox widget">
                             <h3 class="widget-title">Berita Lainnya</h3>
                             <ul class="image-list">
-                                <li>
-                                    <figure class="rounded"><a href="blog-post.html"><img
-                                                src="style/images/art/a1.jpg" alt=""></a></figure>
-                                    <div class="post-content">
-                                        <h6 class="post-title"> <a href="blog-post.html">Magna Mollis Ultricies
-                                                Mauris</a> </h6>
-                                        <div class="meta"><span class="date"><i class="jam jam-clock"></i>12 Nov
-                                                2017</span><span class="comments"><i
-                                                    class="jam jam-message-alt"></i><a href="#">4</a></span>
+                                @forelse ($news_random_old as $news)
+                                    <li>
+                                        <figure class="rounded"><a href="{{ route('detail-news', $news->slug) }}"><img
+                                                    src="{{ asset('storage/' . $news->photo) }}" alt=""></a></figure>
+                                        <div class="post-content">
+                                            <h6 class="post-title"> <a href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 50) }}</a> </h6>
+                                            <div class="meta"><span class="date"><i class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <figure class="rounded"> <a href="blog-post.html"><img
-                                                src="style/images/art/a2.jpg" alt=""></a></figure>
-                                    <div class="post-content">
-                                        <h6 class="post-title"> <a href="blog-post.html">Ornare Nullam Risus
-                                                Cursus</a> </h6>
-                                        <div class="meta"><span class="date"><i class="jam jam-clock"></i>12 Nov
-                                                2017</span><span class="comments"><i
-                                                    class="jam jam-message-alt"></i><a href="#">4</a></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <figure class="rounded"><a href="blog-post.html"><img
-                                                src="style/images/art/a3.jpg" alt=""></a></figure>
-                                    <div class="post-content">
-                                        <h6 class="post-title"> <a href="blog-post.html">Euismod Nullam Fusce</a>
-                                        </h6>
-                                        <div class="meta"><span class="date"><i class="jam jam-clock"></i>12 Nov
-                                                2017</span><span class="comments"><i
-                                                    class="jam jam-message-alt"></i><a href="#">4</a></span>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @empty
+                                @endforelse
                             </ul>
                             <!-- /.image-list -->
                         </div>
-                        <!-- /.widget -->
-                        <div class="sidebox widget">
-                            <h3 class="widget-title">Tags</h3>
-                            <ul class="list-unstyled tag-list">
-                                <li><a href="#" class="btn btn-s">Still Life</a></li>
-                                <li><a href="#" class="btn btn-s">Urban</a></li>
-                                <li><a href="#" class="btn btn-s">Nature</a></li>
-                                <li><a href="#" class="btn btn-s">Landscape</a></li>
-                                <li><a href="#" class="btn btn-s">Macro</a></li>
-                                <li><a href="#" class="btn btn-s">Fun</a></li>
-                                <li><a href="#" class="btn btn-s">Workshop</a></li>
-                                <li><a href="#" class="btn btn-s">Photography</a></li>
-                            </ul>
-                        </div>
                     </aside>
-                    <!-- /column .sidebar -->
+
                 </div>
-                <!--/.row -->
+                <h1>Rekomendasi Berita</h1>
+                <div class="row g-4 mb-5">
+                    @forelse ($newss as $news)
+                        <div class="col-lg-4">
+                            <div class="item post">
+                                <div class="box bg-white shadow p-3">
+                                    <figure class="overlay overlay1 rounded"><a
+                                            href="{{ route('detail-news', $news->slug) }}"><span
+                                                class="bg"></span> <img class="img-figure"
+                                                src="{{ asset('storage/' . $news->photo) }}" alt=""></a>
+                                        <figcaption>
+                                            <h5 class="from-top mb-0">Read More</h5>
+                                        </figcaption>
+                                    </figure>
+                                    <h3 class="post-title"><a
+                                            href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 50) }}</a>
+                                    </h3>
+                                    <div class="meta mb-0 mt-1"><span class="date"><i
+                                                class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                    @endforelse
+                </div>
+                {{ $newss->links('pagination::bootstrap-5') }}
             </div>
+            <!--/column -->
+            <div class="space30 d-none d-md-block d-lg-none"></div>
             <!-- /.container -->
+            <figure style="margin-bottom:-3px;"><img
+                    src="{{ asset('landing_kelas_industri/style/images/art/rocket1.png') }}" alt="" />
+            </figure>
+            <!-- /.wrapper -->
+            <footer class="white-wrapper">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- /column -->
+                        <div class="col-md-6 col-lg-3">
+                            <!-- /.widget -->
+                            <div class="widget">
+                                <h3 class="widget-title">Sosial Media</h3>
+                                <ul class="social social-mute social-s ml-auto">
+                                    <li><a href="#"><i class="jam jam-twitter"></i></a></li>
+                                    <li><a href="#"><i class="jam jam-facebook"></i></a></li>
+                                    <li><a href="#"><i class="jam jam-instagram"></i></a></li>
+                                    <li><a href="#"><i class="jam jam-vimeo"></i></a></li>
+                                    <li><a href="#"><i class="jam jam-youtube"></i></a></li>
+                                </ul>
+                            </div>
+                            <!-- /.widget -->
+                        </div>
+                        <!-- /column -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="widget">
+                                <h3 class="widget-title">Alamat Kantor</h3>
+                                <address>Perum permata regency 1 blok 10 no 28 ngijo karangploso</address>
+                                +62 821 3256 0566
+
+                            </div>
+
+                        </div>
+                        <!-- /column -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="widget">
+                                <h3 class="widget-title">Tentang Perusahaan</h3>
+                                <ul class="list-unstyled">
+                                    <li><a href="https://hummasoft.com/" class="nocolor">Hummasoft</a></li>
+                                    <li><a href="https://hummasoft.com/kelas-industri/" class="nocolor">Kelas
+                                            Industri</a>
+                                    </li>
+                                    <li><a href="https://hummasoft.com/course-category/web-development/"
+                                            class="nocolor">E
+                                            Learning</a></li>
+                                    <li><a href="https://hummasoft.com/pkl/" class="nocolor">Magang / PKL</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <!-- /column -->
+
+                        <!-- /column -->
+                        <div class="col-md-6 col-lg-3">
+
+                            <!-- /.widget -->
+                            <div class="widget">
+                                <h3 class="widget-title">Need Help?</h3>
+                                <ul class="list-unstyled">
+                                    <li><a href="https://wa.me/6282132560566" class="nocolor">Proposal</a></li>
+                                    <li><a href="https://wa.me/6282132560566" class="nocolor">Kerjasama Industri</a>
+                                    </li>
+                                    <li><a href="https://wa.me/6282132560566" class="nocolor">Hubungi Kami</a></li>
+                                </ul>
+                            </div>
+                            <!-- /.widget -->
+                        </div>
+                        <!-- /column -->
+                    </div>
+                    <!--/.row -->
+                    <div class="space50"></div>
+                    <p class="text-center">© 2023 Kelas Industri. All rights reserved.</p>
+                </div>
+                <!-- /.container -->
+            </footer>
         </div>
-        <!-- /.wrapper -->
-        <footer class="white-wrapper">
-            <div class="container">
-                <div class="row">
 
-                    <!-- /column -->
-                    <div class="col-md-6 col-lg-3">
-                        <!-- /.widget -->
-                        <div class="widget">
-                            <h3 class="widget-title">Sosial Media</h3>
-                            <ul class="social social-mute social-s ml-auto">
-                                <li><a href="#"><i class="jam jam-twitter"></i></a></li>
-                                <li><a href="#"><i class="jam jam-facebook"></i></a></li>
-                                <li><a href="#"><i class="jam jam-instagram"></i></a></li>
-                                <li><a href="#"><i class="jam jam-vimeo"></i></a></li>
-                                <li><a href="#"><i class="jam jam-youtube"></i></a></li>
-                            </ul>
-                        </div>
-                        <!-- /.widget -->
-                    </div>
-                    <!-- /column -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="widget">
-                            <h3 class="widget-title">Alamat Kantor</h3>
-                            <address>Perum permata regency 1 blok 10 no 28 ngijo karangploso</address>
-                            +62 821 3256 0566
-
-                        </div>
-
-                    </div>
-                    <!-- /column -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="widget">
-                            <h3 class="widget-title">Tentang Perusahaan</h3>
-                            <ul class="list-unstyled">
-                                <li><a href="https://hummasoft.com/" class="nocolor">Hummasoft</a></li>
-                                <li><a href="https://hummasoft.com/kelas-industri/" class="nocolor">Kelas Industri</a>
-                                </li>
-                                <li><a href="https://hummasoft.com/course-category/web-development/" class="nocolor">E
-                                        Learning</a></li>
-                                <li><a href="https://hummasoft.com/pkl/" class="nocolor">Magang / PKL</a></li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <!-- /column -->
-
-                    <!-- /column -->
-                    <div class="col-md-6 col-lg-3">
-
-                        <!-- /.widget -->
-                        <div class="widget">
-                            <h3 class="widget-title">Need Help?</h3>
-                            <ul class="list-unstyled">
-                                <li><a href="https://wa.me/6282132560566" class="nocolor">Proposal</a></li>
-                                <li><a href="https://wa.me/6282132560566" class="nocolor">Kerjasama Industri</a></li>
-                                <li><a href="https://wa.me/6282132560566" class="nocolor">Hubungi Kami</a></li>
-                            </ul>
-                        </div>
-                        <!-- /.widget -->
-                    </div>
-                    <!-- /column -->
-                </div>
-                <!--/.row -->
-                <div class="space50"></div>
-                <p class="text-center">© 2023 Kelas Industri. All rights reserved.</p>
-            </div>
-            <!-- /.container -->
-        </footer>
-    </div>
-
-    <!-- /.content-wrapper -->
-    <div id="options-nav"></div>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script data-cfasync="false"
-        src="{{ asset('landing_kelas_industri/demos.elemisthemes.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js') }}">
-    </script>
-    <script src="{{ asset('landing_kelas_industri/style/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('landing_kelas_industri/style/js/popper.min.js') }}"></script>
-    <script src="{{ asset('landing_kelas_industri/style/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('landing_kelas_industri/style/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
-    <script src="{{ asset('landing_kelas_industri/style/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
-    <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.actions.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.carousel.min.js') }}">
-    </script>
-    <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.kenburn.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.layeranimation.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.migration.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.navigation.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.parallax.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.slideanims.min.js') }}">
-    </script>
-    <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.video.min.js') }}">
-    </script>
-    <script src="{{ asset('landing_kelas_industri/style/js/plugins.js') }}"></script>
-    <script src="{{ asset('landing_kelas_industri/style/js/scripts.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
-    <script>
-        baguetteBox.run('.tz-gallery', {
-            captions: function(element) {
-                return element.getElementsByTagName('img')[0].alt;
-            }
-        });
-    </script>
+        <!-- /.content-wrapper -->
+        <div id="options-nav"></div>
+        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+        <script data-cfasync="false"
+            src="{{ asset('landing_kelas_industri/demos.elemisthemes.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js') }}">
+        </script>
+        <script src="{{ asset('landing_kelas_industri/style/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('landing_kelas_industri/style/js/popper.min.js') }}"></script>
+        <script src="{{ asset('landing_kelas_industri/style/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('landing_kelas_industri/style/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
+        <script src="{{ asset('landing_kelas_industri/style/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
+        <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.actions.min.js') }}">
+        </script>
+        <script
+            src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.carousel.min.js') }}">
+        </script>
+        <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.kenburn.min.js') }}">
+        </script>
+        <script
+            src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.layeranimation.min.js') }}">
+        </script>
+        <script
+            src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.migration.min.js') }}">
+        </script>
+        <script
+            src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.navigation.min.js') }}">
+        </script>
+        <script
+            src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.parallax.min.js') }}">
+        </script>
+        <script
+            src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.slideanims.min.js') }}">
+        </script>
+        <script src="{{ asset('landing_kelas_industri/style/revolution/js/extensions/revolution.extension.video.min.js') }}">
+        </script>
+        <script src="{{ asset('landing_kelas_industri/style/js/plugins.js') }}"></script>
+        <script src="{{ asset('landing_kelas_industri/style/js/scripts.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+        <script>
+            baguetteBox.run('.tz-gallery', {
+                captions: function(element) {
+                    return element.getElementsByTagName('img')[0].alt;
+                }
+            });
+        </script>
 </body>
 
 </html>

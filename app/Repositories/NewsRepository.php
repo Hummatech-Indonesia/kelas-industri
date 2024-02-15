@@ -32,5 +32,21 @@ class NewsRepository extends BaseRepository
             ->where('slug', $slug)
             ->first();
     }
+    public function getRandom(): mixed
+    {
+        return $this->model->query()
+            ->inRandomOrder()
+            ->limit(10)
+            ->get();
+    }
+    public function getRandomOld(): mixed
+    {
+        $fourDaysAgo = now()->subDays(4);
 
+        return $this->model->query()
+            ->where('created_at', '<=', $fourDaysAgo)
+            ->inRandomOrder()
+            ->limit(3)
+            ->get();
+    }
 }
