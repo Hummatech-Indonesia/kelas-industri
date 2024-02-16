@@ -19,21 +19,21 @@ class SubMaterialRepository extends BaseRepository
      * @param array|null $order
      * @return mixed
      */
-    public function get_paginate_by_material(string $materialId,string|null $search, int $limit, array $order = null): mixed
+    public function get_paginate_by_material(string $materialId, string | null $search, int $limit, array $order = null): mixed
     {
-        if($order){
+        if ($order) {
             return $this->model->query()
                 ->with('assignments')
                 ->where('material_id', $materialId)
                 ->orderBy($order['key'], $order['value'])
-                ->where('title', 'LIKE', '%'. $search .'%')
+                ->where('title', 'LIKE', '%' . $search . '%')
                 ->orderBy('created_at', 'ASC')
                 ->paginate($limit);
         }
         return $this->model->query()
             ->with('assignments')
             ->where('material_id', $materialId)
-            ->where('title', 'LIKE', '%'. $search .'%')
+            ->where('title', 'LIKE', '%' . $search . '%')
             ->orderBy('created_at', 'ASC')
             ->paginate($limit);
     }
@@ -45,22 +45,22 @@ class SubMaterialRepository extends BaseRepository
      * @return mixed
      */
     public function getListSubMaterials(string $createdBy, string $materialId): mixed
-{
-    return $this->model->query()
-        ->where('created_at', '>' , $createdBy)
-        ->where('material_id', $materialId)
-        ->oldest()
-        ->limit(4)
-        ->get();
-}
+    {
+        return $this->model->query()
+            ->where('created_at', '>', $createdBy)
+            ->where('material_id', $materialId)
+            ->oldest()
+            ->limit(4)
+            ->get();
+    }
 
-public function getPreviousSubmaterial(string $materialId, int $previousOrder): mixed
-{
-    return $this->model->query()
-    ->where('material_id', $materialId)
-    ->where('order', $previousOrder)
-    ->select('id')
-    ->first();
-}
+    public function getPreviousSubmaterial(string $materialId, int $previousOrder): mixed
+    {
+        return $this->model->query()
+            ->where('material_id', $materialId)
+            ->where('order', $previousOrder)
+            ->select('id')
+            ->first();
+    }
 
 }

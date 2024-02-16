@@ -134,7 +134,8 @@
         .berita-utama {
             margin-bottom: 30px;
         }
-        .img-figure-utama{
+
+        .img-figure-utama {
             height: 800px;
         }
     </style>
@@ -250,21 +251,25 @@
         <!--/.modal -->
         <div class="wrapper light-wrapper">
             <div class="container inner">
-                <h2 class="justify-content-start d-flex" style="font-weight: 500; font-size: 30px; margin-bottom: 20px;">Berita</h2>
+                <h2 class="justify-content-start d-flex"
+                    style="font-weight: 500; font-size: 30px; margin-bottom: 20px;">Berita</h2>
                 <div class="row berita-utama">
                     <div class="col-lg-8 col-md-12">
                         <div class="blog classic-view">
                             <div class="post">
                                 <div class="box-primary bg-white shadow p-3">
-                                    <figure class="overlay overlay1 rounded" style="height: 400px;"><a href="{{ route('detail-news', $berita_utama->slug) }}">
-                                        <img width="100%" src="{{ asset('storage/' . $berita_utama->photo) }}" alt=""></a>
+                                    <figure class="overlay overlay1 rounded" style="height: 400px;"><a
+                                            href="{{ route('detail-news', $berita_utama->slug) }}">
+                                            <img width="100%" src="{{ asset('storage/' . $berita_utama->photo) }}"
+                                                alt=""></a>
                                         <figcaption>
                                             <h5 class="from-top mb-0">Read More</h5>
                                         </figcaption>
                                     </figure>
                                     <div class="space20"></div>
                                     <div class="post-content">
-                                        <h2 class="post-title text-center mb-1"><a href="{{ route('detail-news', $berita_utama->slug) }}">{{ Str::limit($berita_utama->title, 50, '...') }}</a>
+                                        <h2 class="post-title text-center mb-1"><a
+                                                href="{{ route('detail-news', $berita_utama->slug) }}">{{ Str::limit($berita_utama->title, 100, '...') }}</a>
                                         </h2>
                                         <div class="meta text-center mt-1"><span class="date"><i
                                                     class="jam jam-clock"></i>{{ Carbon::parse($berita_utama->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
@@ -283,16 +288,21 @@
                             <ul class="image-list">
                                 @forelse ($news_random_old as $news)
                                     <li>
-                                        <figure class="rounded"><a href="{{ route('detail-news', $news->slug) }}"><img
-                                                    src="{{ asset('storage/' . $news->photo) }}" alt=""></a></figure>
+                                        <figure class="rounded"><a
+                                                href="{{ route('detail-news', $news->slug) }}"><img
+                                                    src="{{ asset('storage/' . $news->photo) }}" alt=""></a>
+                                        </figure>
                                         <div class="post-content">
-                                            <h6 class="post-title"> <a href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 50) }}</a> </h6>
-                                            <div class="meta"><span class="date"><i class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                            <h6 class="post-title"> <a
+                                                    href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 50) }}</a>
+                                            </h6>
+                                            <div class="meta"><span class="date"><i
+                                                        class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
                                             </div>
                                         </div>
                                     </li>
                                 @empty
-                                Berita Kosong
+                                    Berita Kosong
                                 @endforelse
                             </ul>
                             <!-- /.image-list -->
@@ -314,14 +324,15 @@
                                             <h5 class="from-top mb-0">Read More</h5>
                                         </figcaption>
                                     </figure>
-                                    <h3 class="post-title"><a
-                                            href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 50) }}</a>
+                                    <h3 class="post-title mt-2"><a
+                                            href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 45) }}</a>
                                     </h3>
                                     <div class="meta mb-0 mt-1"><span class="date"><i
                                                 class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     @empty
                     @endforelse
