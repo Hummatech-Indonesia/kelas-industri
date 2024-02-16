@@ -63,7 +63,7 @@
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <div class="d-flex align-items-center me-4">
-                                    <a href="{{ route('student.print-certify') }}"
+                                    <a href="{{ route('certify') }}"
                                         class="btn btn-primary h-40px fs-7 fw-bold">
                                         Download Sertifikat
                                     </a>
