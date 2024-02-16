@@ -48,8 +48,8 @@ class NewsService
         return $this->repository->getRandom(10);
     }
 
-    public function handleGetRandomOld(): mixed{
-        return $this->repository->getRandomOld(3);
+    public function handleGetNewNews(): mixed{
+        return $this->repository->getNewNews(5);
     }
 
     public function handleGetBySlug(string $slug): mixed

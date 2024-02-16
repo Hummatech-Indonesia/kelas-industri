@@ -123,7 +123,9 @@
                                                         data-date_birth="{{ \Carbon\Carbon::parse($user->date_birth)->locale('id')->isoFormat('D MMMM YYYY') }}"
                                                         data-gender = "{{ $user->gender == 'male' ? 'Laki - laki' : 'Perempuan' }}"
                                                         data-address = "{{ $user->address }}"
-                                                        data-motivation = "{{ $user->motivation }}"><svg width="20"
+                                                        data-motivation = "{{ $user->motivation }}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Detail Data"><svg width="20"
                                                             height="20" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path

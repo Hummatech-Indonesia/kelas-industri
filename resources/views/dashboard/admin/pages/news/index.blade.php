@@ -69,11 +69,12 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex justify-content-start flex-column">
-                                            @if ($news->status == 'On')
-                                                <div class="badge bg-success text-white">{{ $news->status }}</div>
-                                            @else
-                                                <div class="badge bg-danger text-white">{{ $news->status }}</div>
-                                            @endif
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckDisabled" {{ $news->status == 'On' ? 'checked' : '' }}>
+                                                <label class="form-check-label"
+                                                    for="flexSwitchCheckDisabled">{{ $news->status }}</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -103,16 +104,22 @@
                                         <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-detail btn-sm me-1"
                                             data-photo="{{ asset('storage/' . $news->photo) }}"
                                             data-title="{{ $news->title }}" data-description="{{ $news->description }}"
-                                            data-date="{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}">
+                                            data-date="{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip"
+                                            data-bs-title="Lihat Detail">
                                             <i class="fa fa-eye fs-3 text-primary"></i>
                                         </div>
 
                                         <a href="{{ route('admin.news.edit', $news->id) }}"
-                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data">
                                             <i class="fonticon-setting fs-2 text-warning"></i> </a>
 
                                         <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-delete"
-                                            data-id="{{ $news->id }}">
+                                            data-id="{{ $news->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data">
                                             <i class="fonticon-trash-bin fs-2 text-danger"></i>
                                         </div>
                                     </div>
@@ -175,7 +182,7 @@
                     <div class="text-gray-900 fw-bold fs-3 mb-3" id="title">
 
                     </div>
-                    <p id="description">
+                    <p id="description" style="word-break: break-word;">
 
                     </p>
                     <img src="" id="photo" class="col-12" alt="">

@@ -293,9 +293,9 @@
                     <aside class="col-lg-4 col-md-12 sidebar">
                         <!-- /.widget -->
                         <div class="sidebox widget">
-                            <h3 class="widget-title">Berita Lainnya</h3>
+                            <h3 class="widget-title">Berita Terbaru</h3>
                             <ul class="image-list">
-                                @forelse ($news_random_old as $news)
+                                @forelse ($new_news as $news)
                                     <li>
                                         <figure class="rounded"><a
                                                 href="{{ route('detail-news', $news->slug) }}"><img
@@ -323,7 +323,7 @@
                     </aside>
 
                 </div>
-                <h1>Rekomendasi Berita</h1>
+                <h1>Berita Lainnya</h1>
                 <div class="row g-4 mb-5">
                     @forelse ($newss as $news)
                         <div class="col-lg-4">

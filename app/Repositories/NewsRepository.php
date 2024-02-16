@@ -46,14 +46,10 @@ class NewsRepository extends BaseRepository
             ->first();
     }
 
-    public function getRandomOld(): mixed
+    public function getNewNews(): mixed
     {
-        $fourDaysAgo = now()->subDays(4);
-
         return $this->model->query()
-            ->where('created_at', '<=', $fourDaysAgo)
-            ->inRandomOrder()
-            ->limit(3)
+            ->limit(5)
             ->get();
     }
 }

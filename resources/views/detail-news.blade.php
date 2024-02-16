@@ -129,14 +129,16 @@
             line-height: 1.2;
         }
 
-        .overlay.overlay1  {
+        .overlay.overlay1 {
             height: 250px;
             margin-bottom: 20px;
         }
-        .owl-item{
+
+        .owl-item {
             height: 400px;
         }
-        .img-figure{
+
+        .img-figure {
             height: 250px;
             object-fit: cover;
         }
@@ -263,7 +265,8 @@
                                                 class="jam jam-clock"></i>{{ Carbon::parse($slug->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
                                     </div>
                                 </div>
-                                <figure class="rounded d-flex justify-content-center"><img style="width: 80%; height: 500px; object-fit: cover;"
+                                <figure class="rounded d-flex justify-content-center"><img
+                                        style="width: 80%; height: 500px; object-fit: cover;"
                                         src="{{ asset('storage/' . $slug->photo) }}" alt=""></figure>
                                 <div class="space40"></div>
                                 <div class="post-content">
@@ -276,7 +279,7 @@
                         </div>
                         <!-- /.pagination -->
                         <div class="row">
-                            <div class="col-lg-10 offset-lg-1">
+                            <div class="col-lg-12">
                                 <h3 class="mb-30">Berita Lainnya</h3>
                                 <div class="grid-view">
                                     <div class="carousel owl-carousel owl-loaded owl-drag" data-margin="30"
@@ -284,30 +287,28 @@
                                         data-responsive="{&quot;0&quot;:{&quot;items&quot;: &quot;1&quot;}, &quot;768&quot;:{&quot;items&quot;: &quot;2&quot;}, &quot;992&quot;:{&quot;items&quot;: &quot;3&quot;}}">
                                         <div class="owl-stage-outer">
                                             <div class="owl-stage"
-                                                style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1625px;">
+                                                style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: auto;">
                                                 @forelse ($news_random as $news)
-                                                <div class="owl-item"
-                                                style="width: 295px; margin-right: 30px;">
-                                                <div class="box bg-white shadow p-3">
-                                                    <figure class="overlay overlay1 rounded"><a
-                                                            href="{{ route('detail-news', $news->slug) }}"><span
-                                                                class="bg"></span> <img class="img-figure"
-                                                                src={{ asset('storage/' . $news->photo) }}
-                                                                alt=""></a>
-                                                        <figcaption>
-                                                            <h5 class="from-top mb-0">Read More</h5>
-                                                        </figcaption>
-                                                    </figure>
-                                                    <h2 class="post-title"><a
-                                                            href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 35) }}</a>
-                                                    </h2>
-                                                    <div class="meta mb-0 mt-1"><span class="date"><i
-                                                                class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                                    <div class="owl-item" style="width: 295px; margin-right: 30px; height: 450px;">
+                                                        <div class="box bg-white shadow p-3">
+                                                            <figure class="overlay overlay1 rounded"><a
+                                                                    href="{{ route('detail-news', $news->slug) }}"><span
+                                                                        class="bg"></span> <img class="img-figure"
+                                                                        src={{ asset('storage/' . $news->photo) }}
+                                                                        alt=""></a>
+                                                                <figcaption>
+                                                                    <h5 class="from-top mb-0">Read More</h5>
+                                                                </figcaption>
+                                                            </figure>
+                                                            <h2 class="post-title"><a
+                                                                    href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 25) }}</a>
+                                                            </h2>
+                                                            <div class="meta mb-0 mt-1"><span class="date"><i
+                                                                        class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
                                                 @empty
-                                                    
                                                 @endforelse
                                             </div>
                                         </div>

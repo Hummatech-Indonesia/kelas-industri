@@ -47,7 +47,8 @@
                                             <td>{{ $school->name }}</td>
                                             <td>
                                             <a href="{{route('admin.detailKelas', [$school->id])}}">
-                                                    <button class="btn btn-default btn-sm p-1">
+                                                    <button class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-custom-class="custom-tooltip" data-bs-title="Detail Data">
                                                         <i class="fa fa-eye fs-3 text-muted"></i>
                                                     </button>
                                                 </a>

@@ -48,7 +48,8 @@
                                 <div class="col-lg-2 col-md-12 ms-3">
                                     <button type="submit" class="btn btn-primary">Cari</button>
                                     <a href="{{ route('admin.showClassroom',  [$schools]) }}" type="button"
-                                        class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                        class="btn btn-light text-light ms-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                 </div>
                                 <!--end::Input group-->
                             </div>

@@ -69,9 +69,12 @@
                                         </td>
                                             <td>{!! $gallery->description !!}</td>
                                             <td><a href="{{ route('admin.gallerys.edit', [$gallery->id]) }}"
-                                                class="btn btn-default btn-sm p-1"><i
+                                                class="btn btn-default btn-sm p-1"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data"><i
                                                     class="fonticon-setting fs-2 text-warning"></i></a>
-                                            <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{$gallery->id}}">
+                                            <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{$gallery->id}}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data">
                                                 <i class="fonticon-trash-bin fs-2 text-danger"></i></button></td>
                                         </tr>
                                         @endforeach
