@@ -257,25 +257,34 @@
                     <div class="col-lg-8 col-md-12">
                         <div class="blog classic-view">
                             <div class="post">
-                                <div class="box-primary bg-white shadow p-3">
-                                    <figure class="overlay overlay1 rounded" style="height: 400px;"><a
-                                            href="{{ route('detail-news', $berita_utama->slug) }}">
-                                            <img width="100%" src="{{ asset('storage/' . $berita_utama->photo) }}"
-                                                alt=""></a>
-                                        <figcaption>
-                                            <h5 class="from-top mb-0">Read More</h5>
-                                        </figcaption>
-                                    </figure>
-                                    <div class="space20"></div>
-                                    <div class="post-content">
-                                        <h2 class="post-title text-center mb-1"><a
-                                                href="{{ route('detail-news', $berita_utama->slug) }}">{{ Str::limit($berita_utama->title, 100, '...') }}</a>
-                                        </h2>
-                                        <div class="meta text-center mt-1"><span class="date"><i
-                                                    class="jam jam-clock"></i>{{ Carbon::parse($berita_utama->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                @if ($primary_news)
+                                    <div class="box-primary bg-white shadow p-3">
+                                        <figure class="overlay overlay1 rounded" style="height: 400px;"><a
+                                                href="{{ route('detail-news', $primary_news->slug) }}">
+                                                <img width="100%"
+                                                    src="{{ asset('storage/' . $primary_news->photo) }}"
+                                                    alt=""></a>
+                                            <figcaption>
+                                                <h5 class="from-top mb-0">Read More</h5>
+                                            </figcaption>
+                                        </figure>
+                                        <div class="space20"></div>
+                                        <div class="post-content">
+                                            <h2 class="post-title text-center mb-1"><a
+                                                    href="{{ route('detail-news', $primary_news->slug) }}">{{ Str::limit($primary_news->title, 50, '...') }}</a>
+                                            </h2>
+                                            <div class="meta text-center mt-1"><span class="date"><i
+                                                        class="jam jam-clock"></i>{{ Carbon::parse($primary_news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                            </div>
                                         </div>
                                     </div>
+                                @else
+                                <div class="col-lg-12 text-center">
+                                    <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 300px;"
+                                                        alt="" />
+                                <h2>Belum Ada Yang di Set Menjadi Berita Utama</h2>
                                 </div>
+                                @endif
                                 <!-- /.post-content -->
                             </div>
                             <!-- /.post -->
@@ -302,7 +311,11 @@
                                         </div>
                                     </li>
                                 @empty
-                                    Berita Kosong
+                                <div class="col-lg-12 text-center">
+                                    <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 250px;"
+                                                        alt="" />
+                                    <h4>Belum ada berita yang di create 4 hari yang lalu</h4>
+                                </div>
                                 @endforelse
                             </ul>
                             <!-- /.image-list -->
@@ -325,7 +338,7 @@
                                         </figcaption>
                                     </figure>
                                     <h3 class="post-title mt-2"><a
-                                            href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 45) }}</a>
+                                            href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 50) }}</a>
                                     </h3>
                                     <div class="meta mb-0 mt-1"><span class="date"><i
                                                 class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
@@ -335,6 +348,11 @@
 
                         </div>
                     @empty
+                    <div class="col-lg-12 text-center">
+                        <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 300px;"
+                                            alt="" />
+                        <h4>Belum ada berita yang tersedia</h4>
+                    </div>
                     @endforelse
                 </div>
                 {{ $newss->links('pagination::bootstrap-5') }}

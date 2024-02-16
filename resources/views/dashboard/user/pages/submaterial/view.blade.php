@@ -69,7 +69,7 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach ($listSubMaterials as $listSubMaterial)
-                                <div class="col-3">
+                                <div class="col-lg-3 col-md-6 col-12">
                                     <div class="d-flex align-items-center bg-light-primary rounded p-5">
                                         <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/keenthemes/metronic/docs/core/html/src/media/icons/duotune/abstract/abs027.svg-->
                                         <span class="svg-icon svg-icon-2x svg-icon-primary me-3"><svg width="24"

@@ -39,7 +39,7 @@ class NewsRepository extends BaseRepository
             ->limit(10)
             ->get();
     }
-    public function getBeritaUtama(): mixed
+    public function getPrimaryNews(): mixed
     {
         return $this->model->query()
             ->where('status', '=', 'On')
