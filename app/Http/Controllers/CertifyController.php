@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 
 class CertifyController extends Controller
@@ -14,7 +15,7 @@ class CertifyController extends Controller
      */
     public function certify(Request $request)
     {
-        $img = ImageManager::gd()->read('Java Front.png');
+        $img = ImageManager::gd()->read('templateSertifikat.png');
         // use callback to define details
         $text = 'sertifikat'; // Original text
         $text = strtoupper($text);
@@ -56,13 +57,13 @@ class CertifyController extends Controller
             $font->align('center');
             $font->valign('top');
         });
-        $img->text('Mohammad Arif', 975, 550, function ($font) {
+        $img->text(auth()->user()->name, 975, 550, function ($font) {
             $font->file('fonts/Pinyon_Script/PinyonScript-Regular.ttf');
             $font->size(140);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text('Dari SMKN 1 Kepanjen', 1000, 720, function ($font) {
+        $img->text('Dari ' . auth()->user()->studentSchool->school->name, 1000, 720, function ($font) {
             $font->file('fonts/open-sans/OpenSans-Bold.ttf');
             $font->size(34);
             $font->align('center');
@@ -100,11 +101,15 @@ class CertifyController extends Controller
         $qrcode = ImageManager::gd()->read('qr.jpg')->resize(130, 130);
         $img->place($qrcode, 'bottom-right', 200, 170);
 
+        // Membuat direktori jika belum ada
+        $directory = storage_path('app/public/sertifikat');
+        File::makeDirectory($directory, $mode = 0777, true, true);
+
         // Simpan gambar
-        $imgPath = storage_path('app/public/sertifikat/sertifikat.png');
+        $imgPath = $directory . '/sertifikat.png';
         $img->save($imgPath);
 
-// Return response download
+        // Return response download
         return response()->download($imgPath, 'sertifikat.png');
     }
 }
