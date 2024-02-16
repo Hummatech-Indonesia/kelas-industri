@@ -270,6 +270,25 @@
         </script>
         <script>
             $(document).ready(function() {
+                // Check if any checkboxes are selected and toggle the button visibility
+                function toggleAcceptButton() {
+                    let selectedCheckboxes = $(".select:checked").length;
+                    if (selectedCheckboxes > 0) {
+                        $("#btn-accept-siswa").show();
+                    } else {
+                        $("#btn-accept-siswa").hide();
+                    }
+                }
+
+                // Initial check to set the correct visibility of the button
+                toggleAcceptButton();
+
+                // Event listener to toggle the button visibility on checkbox change
+                $(".select").change(toggleAcceptButton);
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
                 var selectedValues = [];
 
                 $(".select").change(function() {
