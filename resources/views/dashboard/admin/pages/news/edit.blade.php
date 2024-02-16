@@ -124,6 +124,18 @@
                                     </div>
 
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Status Berita</label>
+                                    <div class="col-lg-9 col-xl-9">
+                                        <select class="form-select form-select-solid form-select-lg mb-5" name="status">
+                                            <option disabled selected>Status Berita</option>
+                                            <option value="Aktif" {{ $news->status == 'Aktif' ? 'selected' : '' }}>Aktif
+                                            </option>
+                                            <option value="Tidak Aktif"
+                                                {{ $news->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

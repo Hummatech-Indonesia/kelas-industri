@@ -57,6 +57,11 @@ class NewsService
         return $this->repository->get_by_slug($slug);
     }
 
+    public function handleGetUtama(): mixed
+    {
+        return $this->repository->getBeritaUtama();
+    }
+
     /**
      * handle search
      *

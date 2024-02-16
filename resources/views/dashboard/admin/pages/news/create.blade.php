@@ -114,7 +114,7 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row mb-5">
 
                                     <label class="col-xl-3 col-lg-3 col-form-label">Deskripsi</label>
 

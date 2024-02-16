@@ -113,7 +113,7 @@
         .overlay.overlay1 {
             width: auto;
             height: 220px;
-            margin-bottom: 15px;
+            margin-bottom: 2px;
         }
 
         .img-figure {
@@ -133,6 +133,9 @@
 
         .berita-utama {
             margin-bottom: 30px;
+        }
+        .img-figure-utama{
+            height: 800px;
         }
     </style>
 </head>
@@ -253,19 +256,18 @@
                         <div class="blog classic-view">
                             <div class="post">
                                 <div class="box-primary bg-white shadow p-3">
-                                    <figure class="overlay overlay1 rounded"><a href="blog-post.html"><span
-                                                class="bg"></span><img width="100%" src=""
-                                                alt=""></a>
+                                    <figure class="overlay overlay1 rounded" style="height: 400px;"><a href="{{ route('detail-news', $berita_utama->slug) }}">
+                                        <img width="100%" src="{{ asset('storage/' . $berita_utama->photo) }}" alt=""></a>
                                         <figcaption>
                                             <h5 class="from-top mb-0">Read More</h5>
                                         </figcaption>
                                     </figure>
-                                    <div class="space40"></div>
+                                    <div class="space20"></div>
                                     <div class="post-content">
-                                        <h2 class="post-title text-center mb-1"><a href="blog-post.html">adadas</a>
+                                        <h2 class="post-title text-center mb-1"><a href="{{ route('detail-news', $berita_utama->slug) }}">{{ Str::limit($berita_utama->title, 50, '...') }}</a>
                                         </h2>
                                         <div class="meta text-center mt-1"><span class="date"><i
-                                                    class="jam jam-clock"></i></span>
+                                                    class="jam jam-clock"></i>{{ Carbon::parse($berita_utama->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -290,6 +292,7 @@
                                         </div>
                                     </li>
                                 @empty
+                                Berita Kosong
                                 @endforelse
                             </ul>
                             <!-- /.image-list -->

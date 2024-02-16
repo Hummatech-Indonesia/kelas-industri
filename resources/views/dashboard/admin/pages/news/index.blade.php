@@ -43,6 +43,7 @@
                     <thead>
                         <tr class="fw-bold text-muted">
                             <th class="min-w-50px">No</th>
+                            <th class="min-w-150px">Status Utama</th>
                             <th class="min-w-200px">Judul Berita</th>
                             <th class="min-w-150px">Deskripsi</th>
                             <th class="min-w-150px">Tanggal</th>
@@ -68,12 +69,22 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex justify-content-start flex-column">
+                                            @if ($news->status == 'Aktif')
+                                                <div class="badge bg-success text-white">{{ $news->status }}</div>
+                                            @else
+                                                <div class="badge bg-danger text-white">{{ $news->status }}</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex justify-content-start flex-column">
                                             <div class="text-gray-900 fw-bold fs-7">{{ $news->title }}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-
                                 <td style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
                                     <span class="text-gray-900 fw-bold fs-7">{{ $news->description }}</span>
                                 </td>

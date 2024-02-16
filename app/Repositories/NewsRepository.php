@@ -39,6 +39,13 @@ class NewsRepository extends BaseRepository
             ->limit(10)
             ->get();
     }
+    public function getBeritaUtama(): mixed
+    {
+        return $this->model->query()
+            ->where('status', '=', 'Aktif')
+            ->first();
+    }
+
     public function getRandomOld(): mixed
     {
         $fourDaysAgo = now()->subDays(4);
