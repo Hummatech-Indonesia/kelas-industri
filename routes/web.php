@@ -76,7 +76,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
     Route::patch('approve-student-all', [ApprovalController::class, 'approveAll'])->name('approveStudentAll');
-    // Route::get('studentRegistration/approveStudentAllFilters', [ApprovalController::class, 'filterBySchool'])->name('studentRegistrationFilter');
     Route::patch('approve-student/{user}', [ApprovalController::class, 'approve']);
 
     Route::resources([
