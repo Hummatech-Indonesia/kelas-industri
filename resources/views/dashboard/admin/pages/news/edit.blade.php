@@ -113,7 +113,7 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row mb-5">
 
                                     <label class="col-xl-3 col-lg-3 col-form-label">Deskripsi</label>
 
@@ -129,10 +129,10 @@
                                     <div class="col-lg-9 col-xl-9">
                                         <select class="form-select form-select-solid form-select-lg mb-5" name="status">
                                             <option disabled selected>Status Berita</option>
-                                            <option value="Aktif" {{ $news->status == 'Aktif' ? 'selected' : '' }}>Aktif
+                                            <option value="On" {{ $news->status == 'On' ? 'selected' : '' }}>On
                                             </option>
-                                            <option value="Tidak Aktif"
-                                                {{ $news->status == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                                            <option value="Off"
+                                                {{ $news->status == 'Off' ? 'selected' : '' }}>Off</option>
                                         </select>
                                     </div>
                                 </div>

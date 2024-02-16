@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\StatusRule;
+use App\Rules\NewsUniqueRule;
 
 class NewsRequest extends FormRequest
 {
@@ -19,6 +21,7 @@ class NewsRequest extends FormRequest
             'date' => 'required',
             'photo' => 'mimes:png,jpg,jpeg|max:2048',
             'description' => 'required',
+            'status' => ['nullable', new StatusRule, new NewsUniqueRule],
         ];
     }
 

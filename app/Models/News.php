@@ -15,7 +15,7 @@ class News extends Model
     public $keyType = 'char';
     protected $table = 'news';
     protected $primaryKey = 'id';
-    protected $fillable = ['title', 'photo', 'description', 'date'];
+    protected $fillable = ['title', 'photo', 'description', 'date', 'status'];
 
     public function sluggable(): array
     {

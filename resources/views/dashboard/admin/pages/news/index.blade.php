@@ -69,7 +69,7 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex justify-content-start flex-column">
-                                            @if ($news->status == 'Aktif')
+                                            @if ($news->status == 'On')
                                                 <div class="badge bg-success text-white">{{ $news->status }}</div>
                                             @else
                                                 <div class="badge bg-danger text-white">{{ $news->status }}</div>

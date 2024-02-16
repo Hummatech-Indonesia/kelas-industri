@@ -9,6 +9,8 @@ use App\Http\Requests\NewsRequest;
 
 class NewsController extends Controller
 {
+    private NewsService $newsService;
+
     public function __construct(NewsService $newsService)
     {
         $this->newsService = $newsService;
@@ -77,6 +79,7 @@ class NewsController extends Controller
      */
     public function update(NewsRequest $request, News $news)
     {
+        // dd($news->all());
         $this->newsService->handleUpdate($request, $news);
         return to_route('admin.news.index')->with('success', trans('alert.update_success'));
     }

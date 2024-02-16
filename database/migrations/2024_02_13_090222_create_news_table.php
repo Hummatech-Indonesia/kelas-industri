@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
-            $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Tidak Aktif');
+            $table->enum('status', ['On', 'Off'])->default('Off');
             $table->text('description');
             $table->date('date');
             $table->text('photo');

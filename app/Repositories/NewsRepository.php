@@ -42,7 +42,7 @@ class NewsRepository extends BaseRepository
     public function getBeritaUtama(): mixed
     {
         return $this->model->query()
-            ->where('status', '=', 'Aktif')
+            ->where('status', '=', 'On')
             ->first();
     }
 
