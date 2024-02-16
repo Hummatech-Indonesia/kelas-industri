@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Http\Request;
+use Svg\Tag\Rect;
 
 class UserRepository extends BaseRepository
 {
@@ -89,12 +91,17 @@ class UserRepository extends BaseRepository
      *
      * @return mixed
      */
-    public function get_user_nonactive(string | null $search, int $limit): mixed
+    public function get_user_nonactive(Request $request, int $limit): mixed
     {
         return $this->model->query()
+            ->when($request->classroom_id, function ($q) use ($request) {
+            return $q->whereRelation('studentSchool.studentClassroom', function ($q) use ($request) {
+                    return $q->where('classroom_id', $request->classroom_id);
+                });
+            })
             ->where('status', 'nonactive')
             ->latest()
-            ->where('name', 'like', '%' . $search . '%')
+            ->where('name', 'like', '%' . $request->search . '%')
             ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }

@@ -287,7 +287,6 @@
                                         class="required form-label @error('classroom_id') is-invalid @enderror">Kelas</label>
                                     <select class="form-select form-select-solid" name="classroom_id" value="{{old('classroom_id')}}"
                                         data-control="select2" id="select-classroom" data-placeholder="Select an option">
-
                                     </select>
                                     @error('classroom_id')
                                         <span class="invalid-feedback" role="alert">

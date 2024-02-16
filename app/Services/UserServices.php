@@ -13,6 +13,7 @@ use App\Http\Requests\TeacherRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UserPasswordRequest;
+use App\Repositories\ClassroomRepository;
 
 class UserServices
 {
@@ -49,7 +50,7 @@ class UserServices
         $this->repository->update($user->id, $data);
     }
 
-    Public function handleUpdatePassword(PasswordRequest $request , User $user) :mixed
+    public function handleUpdatePassword(PasswordRequest $request, User $user): mixed
     {
         $data = $request->validated();
 
@@ -66,7 +67,6 @@ class UserServices
 
         $this->repository->update($user->id, $data);
         return redirect()->back()->with("success", "Kata sandi telah diperbarui.");
-
     }
 
     /**
@@ -206,18 +206,19 @@ class UserServices
         ]);
     }
 
-    public function handleCreatePoint($point, $studentId) :mixed
+    public function handleCreatePoint($point, $studentId): mixed
     {
         return $this->repository->create_point($point, $studentId);
     }
 
-    public function handleUserNonActive(Request $search): mixed
+    public function handleUserNonActive(Request $request): mixed
     {
-        return $this->repository->get_user_nonactive($search->search, 5);
+        return $this->repository->get_user_nonactive($request, 5);
     }
 
     public function storeUserActiveAll(array $siswaId, array $status): mixed
     {
         return $this->repository->update_user_active_all($siswaId, $status);
     }
+
 }

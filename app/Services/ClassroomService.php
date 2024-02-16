@@ -199,4 +199,9 @@ class ClassroomService
     {
         return $this->repository->get_school_classroom_teacher($teacherId, $schoolId, $year);
     }
+
+    public function getUsersBySchoolId(string $schoolId): mixed
+    {
+        return $this->repository->get_student_by_classroom($schoolId);
+    }
 }
