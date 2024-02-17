@@ -225,7 +225,7 @@
                                 <div class="text-gray-500 text-center fw-semibold fs-6">
                                     Belum Mempunyai Akun?
                                     <a href="{{ route('register') }}" class="link-primary">
-                                        Register
+                                        Daftar
                                     </a>
                                 </div>
                                 <!--end::Sign up-->

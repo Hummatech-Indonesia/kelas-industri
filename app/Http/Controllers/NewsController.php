@@ -102,27 +102,38 @@ class NewsController extends Controller
     }
 
     /**
- * Update the status of the specified news item.
- *
- * @param  \Illuminate\Http\Request  $request
- * @param  \App\Models\News  $news
- * @return \Illuminate\Http\Response
- */
-public function updateStatus(Request $request, News $news)
-{
-    $validatedData = $request->validate([
-        'status' => 'required|in:On,Off',
-    ]);
+     * Update the status of the specified news item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\News  $news
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStatus(Request $request, News $news)
+    {
+        if (!$request->has('status')) {
+            $request->merge(['status' => 'Off']);
+        }
+        // dd($request);
+        $validatedData = $request->validate([
+            'status' => 'required|in:On,Off',
+        ]);
 
-    $status = $validatedData['status'];
+        $status = $validatedData['status'];
 
-    if ($status === 'On') {
-        // Turn off other News items since only one can be 'On'
-        News::where('status', 'On')->update(['status' => 'Off']);
+        if ($status === 'On') {
+            News::where('status', 'On')->where('id', '!=', $news->id)->update(['status' => 'Off']);
+        } elseif ($status === 'Off') {
+            if ($news->status === 'On' || News::where('status', 'On')->count() > 1) {
+                $news->update(['status' => 'Off']);
+            } else {
+                return back()->with('error', trans('alert.status_cannot_be_off'));
+            }
+        }
+
+        if ($news->update(['status' => $status])) {
+            return back()->with('success', trans('alert.update_success'));
+        } else {
+            return back()->with('error', trans('alert.update_fail'));
+        }
     }
-
-    $news->update(['status' => $status]);
-
-    return back()->with('success', trans('alert.update_success'));
-}
 }
