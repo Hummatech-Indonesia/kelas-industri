@@ -69,12 +69,21 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex justify-content-start flex-column">
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckDisabled" {{ $news->status == 'On' ? 'checked' : '' }}>
-                                                <label class="form-check-label"
-                                                    for="flexSwitchCheckDisabled">{{ $news->status }}</label>
-                                            </div>
+                                            <form method="POST" action="{{ route('admin.updateStatusNews', $news->id) }}"
+                                                onchange="this.submit()">
+                                                @csrf
+                                                @method('PATCH')
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        name="status" id="flexSwitchCheck{{ $news->id }}"
+                                                        {{ $news->status == 'On' ? 'checked' : '' }}
+                                                        value="{{ $news->status == 'On' ? 'Off' : 'On' }}">
+                                                    <label class="form-check-label"
+                                                        for="flexSwitchCheck{{ $news->id }}">
+                                                        {{ $news->status == 'Off' ? 'Off' : 'On' }}
+                                                    </label>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
@@ -89,7 +98,6 @@
                                 <td style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
                                     <span class="text-gray-900 fw-bold fs-7">{{ $news->description }}</span>
                                 </td>
-
                                 <td>
                                     <span
                                         class="text-gray-900 fw-bold fs-7">{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
@@ -106,8 +114,7 @@
                                             data-title="{{ $news->title }}" data-description="{{ $news->description }}"
                                             data-date="{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}"
                                             data-bs-toggle="tooltip" data-bs-placement="top"
-                                            data-bs-custom-class="custom-tooltip"
-                                            data-bs-title="Lihat Detail">
+                                            data-bs-custom-class="custom-tooltip" data-bs-title="Lihat Detail">
                                             <i class="fa fa-eye fs-3 text-primary"></i>
                                         </div>
 

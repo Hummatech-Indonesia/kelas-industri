@@ -100,4 +100,29 @@ class NewsController extends Controller
 
         return back()->with('success', trans('alert.delete_success'));
     }
+
+    /**
+ * Update the status of the specified news item.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  \App\Models\News  $news
+ * @return \Illuminate\Http\Response
+ */
+public function updateStatus(Request $request, News $news)
+{
+    $validatedData = $request->validate([
+        'status' => 'required|in:On,Off',
+    ]);
+
+    $status = $validatedData['status'];
+
+    if ($status === 'On') {
+        // Turn off other News items since only one can be 'On'
+        News::where('status', 'On')->update(['status' => 'Off']);
+    }
+
+    $news->update(['status' => $status]);
+
+    return back()->with('success', trans('alert.update_success'));
+}
 }

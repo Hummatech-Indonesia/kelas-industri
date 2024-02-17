@@ -303,7 +303,7 @@
                                         </figure>
                                         <div class="post-content">
                                             <h6 class="post-title"> <a
-                                                    href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 50) }}</a>
+                                                    href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 35) }}</a>
                                             </h6>
                                             <div class="meta"><span class="date"><i
                                                         class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
@@ -314,7 +314,7 @@
                                 <div class="col-lg-12 text-center">
                                     <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 250px;"
                                                         alt="" />
-                                    <h4>Belum ada berita yang di create 4 hari yang lalu</h4>
+                                    <h4>Belum ada berita yang tersedia</h4>
                                 </div>
                                 @endforelse
                             </ul>
@@ -338,7 +338,7 @@
                                         </figcaption>
                                     </figure>
                                     <h3 class="post-title mt-2"><a
-                                            href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 50) }}</a>
+                                            href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 35) }}</a>
                                     </h3>
                                     <div class="meta mb-0 mt-1"><span class="date"><i
                                                 class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>

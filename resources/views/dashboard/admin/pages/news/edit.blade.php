@@ -124,20 +124,7 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Status Berita</label>
-                                    <div class="col-lg-9 col-xl-9">
-                                        <select class="form-select form-select-solid form-select-lg mb-5" name="status">
-                                            <option disabled selected>Status Berita</option>
-                                            <option value="On" {{ $news->status == 'On' ? 'selected' : '' }}>On
-                                            </option>
-                                            <option value="Off"
-                                                {{ $news->status == 'Off' ? 'selected' : '' }}>Off</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
-
                         </div>
 
                     </div>

@@ -6,6 +6,7 @@ use App\Http\Requests\NewsRequest;
 use App\Models\News;
 use App\Repositories\NewsRepository;
 use App\Services\NewsService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class NewsService

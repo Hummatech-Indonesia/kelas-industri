@@ -24,7 +24,7 @@ class NewsRepository extends BaseRepository
         return $this->model->query()
             ->latest()
             ->paginate($limit);
-    }
+    }   
 
     public function get_by_slug(string $slug): mixed
     {
@@ -49,6 +49,7 @@ class NewsRepository extends BaseRepository
     public function getNewNews(): mixed
     {
         return $this->model->query()
+            ->latest()
             ->limit(5)
             ->get();
     }

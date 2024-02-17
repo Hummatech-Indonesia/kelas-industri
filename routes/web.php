@@ -96,7 +96,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         'gallerys' => GalleryController::class,
         'news' => NewsController::class,
     ]);
-
+    Route::patch('updateStatusNews/{news}', [NewsController::class, 'updateStatus'])->name('updateStatusNews');
     Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
     Route::get('create', [SalaryController::class, 'createTeacher'])->name('createSaleriesTeacher');
     Route::get('edit/{salery}', [SalaryController::class, 'editTeacher'])->name('editSaleriesTeacher');

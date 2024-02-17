@@ -54,10 +54,10 @@
                         </li>
                         @auth
                             <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('home') }}"
-                                    class="btn btn-default m-0">Home</a></li>
+                                    class="btn btn-default m-0">Beranda</a></li>
                         @else
                             <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('login') }}"
-                                    class="btn btn-default m-0">login</a></li>
+                                    class="btn btn-default m-0">Masuk</a></li>
                         @endauth
                     </ul>
                     <!-- /.navbar-nav -->
@@ -93,7 +93,7 @@
                                 href="{{ route('news') }}">Berita</a>
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
-                                href="{{ route('gallery') }}">Gallery</a>
+                                href="{{ route('gallery') }}">Galeri</a>
                         </li>
                     </ul>
                     <!-- /.navbar-nav -->
