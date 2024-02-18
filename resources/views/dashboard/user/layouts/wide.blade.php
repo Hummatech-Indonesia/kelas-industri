@@ -30,6 +30,7 @@
         type="text/css" />
 
     {{--    End Plugin Stylesheets --}}
+    @yield('style')
 </head>
 <!--end::Head-->
 

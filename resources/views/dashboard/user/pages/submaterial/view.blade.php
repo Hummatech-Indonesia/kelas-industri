@@ -1,4 +1,12 @@
 @extends('dashboard.user.layouts.wide')
+@section('style')
+    <style>
+        .buttonHover:hover {
+            background-color: #009ef7;
+            color: white !important
+        }
+    </style>
+@endsection
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -64,39 +72,80 @@
             </div>
             @empty($listSubMaterials->count())
                 <!-- Tidak ada konten -->
+                <div class="d-flex justify-content-between align-items-center container-fluid app-container">
+                    <div class="d-flex justify-content-start align-items-center">
+                        <div class="prev-sub-materials">
+                            @foreach ($prevSubMaterials as $prevSubMaterial)
+                                <a @if (auth()->user()->roles->pluck('name')[0] == 'student') href="{{ route('common.showDocument', [$prevSubMaterial->id, 'student']) }}"
+                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                    href="{{ route('common.showDocument', [$prevSubMaterial->id, 'teacher']) }}"
+                                    @else
+                                    href="{{ route('common.showDocument', [$prevSubMaterial->id, 'mentor']) }}" @endif
+                                    class="text-end align-items-center" style="width: 210px">
+                                    <div class="d-flex justify-content-between align-items-center px-3 py-2 rounded buttonHover"
+                                        style="border: 1px solid #6e6e6e">
+                                        <svg class="buttonHover" xmlns="http://www.w3.org/2000/svg" width="32"
+                                            height="32" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="m7.85 13l2.85 2.85q.3.3.288.7t-.288.7q-.3.3-.712.313t-.713-.288L4.7 12.7q-.3-.3-.3-.7t.3-.7l4.575-4.575q.3-.3.713-.287t.712.312q.275.3.288.7t-.288.7L7.85 11H19q.425 0 .713.288T20 12q0 .425-.288.713T19 13z" />
+                                        </svg>
+                                        <div class="d-flex flex-column text-dark  ms-2 buttonHover">
+                                            <span class="fs-9 text-gray-800">{{ $prevSubMaterial->title }} - Sebelumnya</span>
+                                            <span class="fs-7">{{ $prevSubMaterial->material->title }}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
             @else
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            @foreach ($listSubMaterials as $listSubMaterial)
-                                <div class="col-lg-3 col-md-6 col-12">
-                                    <div class="d-flex align-items-center bg-light-primary rounded p-5">
-                                        <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/keenthemes/metronic/docs/core/html/src/media/icons/duotune/abstract/abs027.svg-->
-                                        <span class="svg-icon svg-icon-2x svg-icon-primary me-3"><svg width="24"
-                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path opacity="0.3"
-                                                    d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z"
-                                                    fill="currentColor" />
-                                                <path
-                                                    d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--begin::Title-->
-                                        <div class="flex-grow-1">
-                                            <a @if (auth()->user()->roles->pluck('name')[0] == 'student') href="{{ route('common.showDocument', [$listSubMaterial->id, 'student']) }}"
+                <div class="d-flex justify-content-between align-items-center container-fluid app-container">
+                    <div class="d-flex justify-content-end align-items-center color-gray-700 next-sub-materials">
+                        @foreach ($prevSubMaterials as $prevSubMaterial)
+                            <a @if (auth()->user()->roles->pluck('name')[0] == 'student') href="{{ route('common.showDocument', [$prevSubMaterial->id, 'student']) }}"
+                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                    href="{{ route('common.showDocument', [$prevSubMaterial->id, 'teacher']) }}"
+                                    @else
+                                    href="{{ route('common.showDocument', [$prevSubMaterial->id, 'mentor']) }}" @endif
+                                class="text-end align-items-center" style="width: 210px">
+                                <div class="d-flex justify-content-between align-items-center px-3 py-2 rounded buttonHover"
+                                    style="border: 1px solid #6e6e6e">
+                                    <svg class="buttonHover" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="m7.85 13l2.85 2.85q.3.3.288.7t-.288.7q-.3.3-.712.313t-.713-.288L4.7 12.7q-.3-.3-.3-.7t.3-.7l4.575-4.575q.3-.3.713-.287t.712.312q.275.3.288.7t-.288.7L7.85 11H19q.425 0 .713.288T20 12q0 .425-.288.713T19 13z" />
+                                    </svg>
+                                    <div class="d-flex flex-column text-dark  ms-2 buttonHover">
+                                        <span class="fs-9 text-gray-800">{{ $prevSubMaterial->title }} - Sebelumnya</span>
+                                        <span class="fs-7">{{ $prevSubMaterial->material->title }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                    <div class="d-flex justify-content-end align-items-center color-gray-700 next-sub-materials">
+                        @foreach ($listSubMaterials as $listSubMaterial)
+                            <a @if (auth()->user()->roles->pluck('name')[0] == 'student') href="{{ route('common.showDocument', [$listSubMaterial->id, 'student']) }}"
                                     @elseif (auth()->user()->roles->pluck('name')[0] == 'student')
                                     href="{{ route('common.showDocument', [$listSubMaterial->id, 'teacher']) }}"
                                     @else
                                     href="{{ route('common.showDocument', [$listSubMaterial->id, 'mentor']) }}" @endif
-                                                class="card-label">{{ $listSubMaterial->title }}</a>
-                                        </div>
-                                        <!--end::Title-->
+                                class="align-items-center" style="width: 210px">
+                                <div class="d-flex justify-content-between align-items-center px-3 py-2 rounded buttonHover"
+                                    style="border: 1px solid #6e6e6e">
+                                    <div class="d-flex flex-column text-dark  me-2">
+                                        <span class="fs-9 text-gray-800">Selanjutnya - {{ $listSubMaterial->title }}</span>
+                                        <span class="fs-7">{{ $listSubMaterial->material->title }}</span>
                                     </div>
+                                    <svg class="buttonHover" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M16.15 13H5q-.425 0-.712-.288T4 12q0-.425.288-.712T5 11h11.15L13.3 8.15q-.3-.3-.288-.7t.288-.7q.3-.3.713-.312t.712.287L19.3 11.3q.15.15.213.325t.062.375q0 .2-.062.375t-.213.325l-4.575 4.575q-.3.3-.712.288t-.713-.313q-.275-.3-.288-.7t.288-.7z" />
+                                    </svg>
                                 </div>
-                            @endforeach
-                        </div>
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             @endempty

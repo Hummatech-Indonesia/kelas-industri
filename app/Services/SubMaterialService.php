@@ -50,9 +50,14 @@ class SubMaterialService
         $this->repository->store($data);
     }
 
-    public function handleListSubMaterials(string $createdBy, string $materialId): mixed
+    public function handleListSubMaterials(string $order, string $materialId): mixed
     {
-        return $this->repository->getListSubMaterials($createdBy, $materialId);
+        return $this->repository->getListSubMaterials($order, $materialId);
+    }
+
+    public function handlePrevSubmaterial(string $order, string $materialId): mixed
+    {
+        return $this->repository->getPrevSubMaterials($order, $materialId);
     }
 
     public function handlePreviousSubmaterial(string $materialId, int $previousOrder): mixed
