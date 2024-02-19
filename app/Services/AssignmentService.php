@@ -155,4 +155,14 @@ class AssignmentService
         return $this->repository->count_assignment_materials($subMaterial);
     }
 
+    public function handleAssignmentByMaterialCertify(string $material): int
+    {
+        return $this->repository->countAssignmentByMaterialCertify($material);
+    }
+
+    public function countAssignmentsByMaterial(string $material): int
+    {
+        return $this->repository->countAssignmentsMaterial($material);
+    }
+
 }

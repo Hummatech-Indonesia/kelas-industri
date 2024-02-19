@@ -2,14 +2,12 @@
 
 namespace App\Services;
 
+use App\Http\Requests\JournalRequest;
 use App\Models\Journal;
+use App\Repositories\JournalRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\JournalRequest;
-use App\Repositories\JournalRepository;
 use Illuminate\Support\Facades\Storage;
-use App\Repositories\GenerationRepository;
 
 class JournalService
 {
@@ -64,13 +62,12 @@ class JournalService
      */
     public function handleCreate(JournalRequest $request): void
     {
+        $data = $request->validated();
         if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            $data = $request->validated();
             $data['date'] = Carbon::now();
             $data['photo'] = $request->file('photo')->store('journal_file', 'public');
             $this->repository->store($data);
         } else if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            $data = $request->validated();
             $data['date'] = Carbon::now();
             $data['photo'] = $request->file('photo')->store('journal_file', 'public');
             $data['classroom_id'] = Auth()->user()->teacherSchool->teacherClassroom->classroom->id;
@@ -88,7 +85,7 @@ class JournalService
     public function handleUpdate(JournalRequest $request, Journal $journal): void
     {
         $data = $request->validated();
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             Storage::delete('public/' . $journal->photo);
             $data['photo'] = $request->file('photo')->store('journal_file', 'public');
         }
@@ -107,12 +104,12 @@ class JournalService
         return $this->repository->destroy($journal->id);
     }
 
-    public function handleCountJournalTeacher(string $teacherId) :mixed
+    public function handleCountJournalTeacher(string $teacherId): mixed
     {
         return $this->repository->get_count_journal_teacher($teacherId);
     }
 
-    public function handleCountJournalMentor(string $mentorId) :mixed
+    public function handleCountJournalMentor(string $mentorId): mixed
     {
         return $this->repository->get_count_journal_mentor($mentorId);
     }

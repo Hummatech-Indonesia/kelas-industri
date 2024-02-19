@@ -25,4 +25,5 @@ return [
     'delete_failed' => 'Gagal menghapus data',
     'import_success' => 'Berhasil mengimport data',
     'valid_success' => 'Berhasil mengganti status',
+    'status_cannot_be_off' => ''
 ];

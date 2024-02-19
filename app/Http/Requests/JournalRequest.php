@@ -15,10 +15,10 @@ class JournalRequest extends BaseRequest
     {
         return [
             'title' => 'required',
-            'date' => 'required',
+            'date' => 'nullable',
             'photo' => 'required|mimes:png,jpg,jpeg|max:2048',
             'description' => 'required',
-            'classroom_id' => 'required',
+            'classroom_id' => 'nullable',
             'created_by' => 'required'
         ];
     }
@@ -32,7 +32,7 @@ class JournalRequest extends BaseRequest
     {
         return [
             'title.required' => 'Judul tidak boleh kosong !',
-            'date.requireed' => 'Tanggal tidak boleh kosong !',
+            'date.required' => 'Tanggal tidak boleh kosong !',
             'description.required' => 'Deskripsi tidak boleh kosong !',
             'classroom_id.string' => 'Kelas tidak boleh kosong !',
             'created_by.string' => 'Pembuat tidak boleh kosong !',

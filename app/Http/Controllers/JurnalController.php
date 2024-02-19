@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Journal;
-use App\Models\Classroom;
-use Illuminate\View\View;
-use App\Models\SchoolYear;
-use App\Traits\DataSidebar;
-use Illuminate\Http\Request;
-use App\Services\PointService;
-use App\Services\JournalService;
 use App\Helpers\SchoolYearHelper;
-use App\Services\ClassroomService;
-use App\Services\SchoolYearService;
 use App\Http\Requests\JournalRequest;
+use App\Models\Classroom;
+use App\Models\Journal;
+use App\Models\User;
+use App\Services\ClassroomService;
+use App\Services\JournalService;
+use App\Services\PointService;
+use App\Services\SchoolYearService;
+use App\Traits\DataSidebar;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class JurnalController extends Controller
 {
@@ -56,7 +55,7 @@ class JurnalController extends Controller
             $data = [
                 'schoolYear' => $this->schoolYearService->handleGetAll(),
                 'schoolYearFilter' => $selectedSchoolYear,
-                'classrooms' => $this->classroomService->handleGetSchoolClassrooomJournal(auth()->id(), $selectedSchoolYear)
+                'classrooms' => $this->classroomService->handleGetSchoolClassrooomJournal(auth()->id(), $selectedSchoolYear),
             ];
             return view('dashboard.admin.pages.jurnal.index', $data);
         } else {
@@ -77,14 +76,18 @@ class JurnalController extends Controller
 
     public function store(JournalRequest $request): RedirectResponse
     {
-        if (Carbon::now()->format('l') == "Saturday" && auth()->user()->roles->pluck('name')[0] == 'teacher') return redirect()->back()->with('error', trans('Tidak bisa mengisi jurnal, dikarenakan hari ini sabtu!'));
-        $this->journalService->handleCreate($request);
-        if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
-        } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            return to_route('teacher.journal.index')->with('success', trans('alert.update_success'));
+        if ($request->photo != null) {
+            if (Carbon::now()->format('l') == "Saturday" && auth()->user()->roles->pluck('name')[0] == 'teacher') {
+                return redirect()->back()->with('error', trans('Tidak bisa mengisi jurnal, dikarenakan hari ini sabtu!'));
+            }
+            $this->journalService->handleCreate($request);
+            if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
+                return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
+            } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+                return to_route('teacher.journal.index')->with('success', trans('alert.update_success'));
+            }
         }
-
+        return redirect()->back();
     }
 
     public function show(User $journal, Request $request)

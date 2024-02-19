@@ -153,4 +153,21 @@ class AssignmentRepository extends BaseRepository
             ->count();
     }
 
+    public function countAssignmentByMaterialCertify(string $material): int
+    {
+        return $this->model->query()
+            ->whereRelation('submaterial.material', 'id', $material)
+            ->count();
+    }
+
+    public function countAssignmentsMaterial(string $material): int
+    {
+        return $this->model->query()
+            ->whereRelation('submaterial.material', 'id', $material)
+            ->whereHas('StudentSubmitAssignment', function ($query) {
+                $query->where('student_id', auth()->user()->studentSchool->student_id);
+            })
+            ->count();
+    }
+
 }

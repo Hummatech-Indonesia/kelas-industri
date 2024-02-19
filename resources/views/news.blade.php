@@ -279,11 +279,11 @@
                                         </div>
                                     </div>
                                 @else
-                                <div class="col-lg-12 text-center">
-                                    <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 300px;"
-                                                        alt="" />
-                                <h2>Belum Ada Yang di Set Menjadi Berita Utama</h2>
-                                </div>
+                                    <div class="col-lg-12 text-center">
+                                        <img src="{{ asset('user-assets/media/misc/no-data.png') }}"
+                                            style="width: 300px;" alt="" />
+                                        <h2>Belum Ada Yang di Set Menjadi Berita Utama</h2>
+                                    </div>
                                 @endif
                                 <!-- /.post-content -->
                             </div>
@@ -311,11 +311,11 @@
                                         </div>
                                     </li>
                                 @empty
-                                <div class="col-lg-12 text-center">
-                                    <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 250px;"
-                                                        alt="" />
-                                    <h4>Belum ada berita yang tersedia</h4>
-                                </div>
+                                    <div class="col-lg-12 text-center">
+                                        <img src="{{ asset('user-assets/media/misc/no-data.png') }}"
+                                            style="width: 250px;" alt="" />
+                                        <h4>Belum ada berita yang tersedia</h4>
+                                    </div>
                                 @endforelse
                             </ul>
                             <!-- /.image-list -->
@@ -348,11 +348,11 @@
 
                         </div>
                     @empty
-                    <div class="col-lg-12 text-center">
-                        <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 300px;"
-                                            alt="" />
-                        <h4>Belum ada berita yang tersedia</h4>
-                    </div>
+                        <div class="col-lg-12 text-center">
+                            <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 300px;"
+                                alt="" />
+                            <h4>Belum ada berita yang tersedia</h4>
+                        </div>
                     @endforelse
                 </div>
                 {{ $newss->links('pagination::bootstrap-5') }}
@@ -366,6 +366,11 @@
             <!-- /.wrapper -->
             <footer class="white-wrapper">
                 <div class="container">
+                    <div class="visible-print text-center">
+                        {!! QrCode::size(100)->generate('https://class.hummatech.com/') !!}
+
+                        <p>Scan me to return to the original page.</p>
+                    </div>
                     <div class="row">
 
                         <!-- /column -->
