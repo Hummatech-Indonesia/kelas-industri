@@ -11,7 +11,6 @@
             </h1>
             <!--end::Title-->
 
-
             <!--begin::Breadcrumb-->
             <p class="text-muted">
                 List kelas di sekolah anda.
@@ -113,8 +112,6 @@
 
                                     <span
                                         class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($classroom->name, 0, 1) }}</span>
-
-
                                 </div>
 
                                 <!--end::Pic-->
@@ -149,9 +146,13 @@
 
                                 <div class="d-flex">
                                     <a href="{{ route('school.classrooms.edit', $classroom->id) }}"
-                                        class="btn btn-default btn-sm p-1"><i
+                                        class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip"
+                                        data-bs-title="Edit"><i
                                             class="fonticon-setting fs-2 text-warning"></i></a>
-                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $classroom->id }}">
+                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $classroom->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip"
+                                        data-bs-title="Hapus Data">
                                         <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
                                 </div>
 

@@ -174,7 +174,7 @@
                                     <div class="form-group row mb-3">
                                         <div class="col-lg-12 col-xl-12">
                                             <div class="position-relative mb-3">
-                                                <input type="password" placeholder="Password" name="password"
+                                                <input type="password" placeholder="Kata Sandi" name="password"
                                                     autocomplete="off"
                                                     class="form-control bg-transparent @error('password') is-invalid @enderror" />
                                                     @error('password')

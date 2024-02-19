@@ -49,7 +49,8 @@
                                     <div class="col-lg-2 col-md-12 ms-3">
                                         <button type="submit" class="btn btn-primary">Cari</button>
                                         <a href="{{ route('school.journal.index') }}" type="button"
-                                            class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                            class="btn btn-light text-light ms-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang"><i class="fonticon-repeat"></i></a>
                                     </div>
                                     <!--end::Input group-->
                                 </div>
@@ -80,7 +81,7 @@
                                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                             <th>No</th>
                                             <th>Sekolah</th>
-                                            <th>Details</th>
+                                            <th>Detail</th>
                                         </tr>
                                         <!--end::Table row-->
                                     </thead>
@@ -117,7 +118,7 @@
                                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                             <th>No</th>
                                             <th>Kelas</th>
-                                            <th>Details</th>
+                                            <th>Detail</th>
                                         </tr>
                                         <!--end::Table row-->
                                     </thead>
@@ -131,7 +132,8 @@
                                                 <td>{{ $classroom->name }}</td>
                                                 <td>
                                                     <a href="{{ route('school.detailJurnal', [$classroom->id]) }}">
-                                                        <button class="btn btn-default btn-sm p-1">
+                                                        <button class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip" data-bs-title="Detail Data">
                                                             <i class="fa fa-eye fs-3 text-muted"></i>
                                                         </button>
                                                     </a>

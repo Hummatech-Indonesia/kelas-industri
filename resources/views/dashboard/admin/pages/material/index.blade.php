@@ -59,7 +59,7 @@
                             </div>
                             <div class="position-relative col-lg-2 col-md-12 me-3">
                                 <select name="filter" class="form-select form-select-solid" data-control="select2"
-                                    data-placeholder="Select an option" id="schoolYear">
+                                    data-placeholder="Pilih Angkatan" id="schoolYear">
                                     @foreach ($school_years as $school_year)
                                         <option {{ $filter == $school_year->id ? 'selected' : '' }}
                                             value="{{ $school_year->id }}">
@@ -77,7 +77,9 @@
                             <div class="col-lg-2 col-md-12">
                                 <button type="submit" class="btn btn-primary">Cari</button>
                                 <a href="{{ route('admin.materials.index') }}" type="button"
-                                    class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                    class="btn btn-light text-light ms-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-bs-title="Muat Ulang"><i class="fonticon-repeat"></i></a>
                             </div>
                             <!--end::Input group-->
                         </div>

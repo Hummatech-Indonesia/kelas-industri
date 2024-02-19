@@ -47,7 +47,7 @@
                                     <th>Foto</th>
                                     <th>Judul</th>
                                     <th>Tanggal</th>
-                                    <th>Details</th>
+                                    <th>Detail</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>

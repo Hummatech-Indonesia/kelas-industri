@@ -30,7 +30,15 @@
             <!--begin::Nav-->
             <div class="ms-5 ms-md-10">
                 <!--begin::Toggle-->
-                <span class="badge badge-light-primary p-3">Login : {{ auth()->user()->roles->pluck('name')[0] }}</span>
+                <span class="badge badge-light-primary p-3">Masuk : @php
+                    if (auth()->user()->roles->pluck('name')[0] == 'admin') {
+                        echo 'Admin';
+                    } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
+                        echo 'Sekolah';
+                    }else{
+                        echo 'Mentor';
+                    }
+                @endphp</span>
                 <!--end::Toggle-->
             </div>
             <!--end::Nav-->
@@ -148,7 +156,7 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-title">
-                                Light
+                                Terang
                             </span>
                         </a>
                     </div>
@@ -178,7 +186,7 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-title">
-                                Dark
+                                Gelap
                             </span>
                         </a>
                     </div>
@@ -199,7 +207,7 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-title">
-                                System
+                                Sistem
                             </span>
                         </a>
                     </div>
@@ -219,7 +227,13 @@
                     <!--begin::Name-->
                     <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
                         <span class="text-muted fs-8 fw-semibold lh-1 mb-1">{{ auth()->user()->name }}</span>
-                        <span class="text-white fs-8 fw-bold lh-1">{{ auth()->user()->roles->pluck('name')[0] }}</span>
+                        <span class="text-white fs-8 fw-bold lh-1">@php
+                            if (auth()->user()->roles->pluck('name')[0] == 'admin') {
+                                echo 'Admin';
+                            }elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
+                                echo 'Sekolah';
+                            }
+                        @endphp</span>
                     </div>
                     <!--end::Name-->
 
@@ -267,7 +281,7 @@
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
                         <a href="{{ route('profile.index') }}" class="menu-link px-5">
-                            My Profile
+                            Profil Saya
                         </a>
                     </div>
                     <!--end::Menu item-->
@@ -277,7 +291,7 @@
                         <a href="{{ route('logout') }}" class="menu-link px-5"
                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            Sign Out
+                            Keluar
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf

@@ -106,10 +106,12 @@
                             <button type="submit" class="btn btn-primary">Cari</button>
                             @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                 <a href="{{ route('admin.rankings') }}" type="button"
-                                    class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                    class="btn btn-light text-light ms-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang"><i class="fonticon-repeat"></i></a>
                             @else
                                 <a href="{{ route('school.rankings') }}" type="button"
-                                    class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                    class="btn btn-light text-light ms-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang"><i class="fonticon-repeat"></i></a>
                             @endif
                         </div>
                         <!--end::Input group-->
@@ -132,7 +134,7 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Sekolah</th>
-                                        <th>Point</th>
+                                        <th>Poin</th>
 
                                     </tr>
                                 </thead>
@@ -167,7 +169,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <x-empty-component title="ranking" />
+                            <x-empty-component title="peringkat" />
                         @endif
                     </div>
                 </div>

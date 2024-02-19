@@ -17,7 +17,7 @@
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                Approval data siswa
+                Penerimaan data siswa
             </p>
             <!--end::Breadcrumb-->
         </div>

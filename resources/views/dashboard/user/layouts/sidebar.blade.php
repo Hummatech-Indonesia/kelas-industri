@@ -281,7 +281,7 @@
                                             <span
                                             class="text-muted fw-semibold d-block fs-7">{{ $rank->studentSchool->school->name }}</span>
                                             <span
-                                                class="text-muted fw-semibold d-block fs-7">Point : {{ $rank->point }}</span>
+                                                class="text-muted fw-semibold d-block fs-7">Poin : {{ $rank->point }}</span>
                                         </div>
                                         <!--end:Author-->
                                     </div>
@@ -299,7 +299,7 @@
 
                                 <!--begin::Desctiption-->
                                 <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                    belum ada rank untuk saat ini.
+                                    belum ada Peringkat untuk saat ini.
                                 </span>
                                 <!--end::Desctiption-->
                             @endforelse

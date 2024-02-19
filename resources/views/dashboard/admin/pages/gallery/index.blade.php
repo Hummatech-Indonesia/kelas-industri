@@ -10,14 +10,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Gallery Kelas Industri
+                Galeri Kelas Industri
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List Gallety pada kelas industri
+                List Galeri pada kelas industri
             </p>
             <!--end::Breadcrumb-->
         </div>

@@ -56,6 +56,7 @@
 
                     <!--begin::Table body-->
                     <tbody>
+                        {{-- @dd($newss) --}}
                         @forelse ($newss as $news)
                             <tr>
                                 <td>
@@ -134,7 +135,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6">
+                                <td colspan="7">
                                     <div class="col-12 text-center">
                                         <!--begin::Illustration-->
                                         <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
@@ -147,7 +148,7 @@
 
                                         <!--begin::Desctiption-->
                                         <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                            anda belum memiliki untuk saat ini.
+                                            anda belum memiliki berita untuk saat ini.
                                         </span>
                                         <!--end::Desctiption-->
                                     </div>
@@ -158,7 +159,7 @@
                     <!--end::Table body-->
                 </table>
                 <!--end::Table-->
-                {{ $newss->links('pagination::bootstrap-5') }}
+                {{-- {{ $newss->links() }} --}}
             </div>
             <!--end::Table container-->
         </div>

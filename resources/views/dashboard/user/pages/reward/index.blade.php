@@ -97,7 +97,8 @@
                                         <div class="col-lg-2 col-md-12 ms-3">
                                             <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('student.rewards.index')}}"
-                                                type="button" class="btn btn-light text-light"><i
+                                                type="button" class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i
                                                     class="fonticon-repeat"></i></a>
                                         </div>
                                         <!--end::Input group-->

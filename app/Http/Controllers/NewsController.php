@@ -22,7 +22,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $newss = $this->newsService->handleGetPaginate();
+        $newss = $this->newsService->handleGetPaginateAdmin();
         return view('dashboard.admin.pages.news.index', compact('newss'));
     }
 

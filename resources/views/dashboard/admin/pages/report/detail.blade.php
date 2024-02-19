@@ -5,7 +5,7 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Report
+                Laporan
             </h1>
             <!--end::Title-->
 
@@ -60,7 +60,7 @@
                                 <!--end::Table body-->
                             </table>
                         @else
-                            <x-empty-component title="report" />
+                            <x-empty-component title="laporan" />
                         @endif
                         <!--end::Table-->
                     </div>

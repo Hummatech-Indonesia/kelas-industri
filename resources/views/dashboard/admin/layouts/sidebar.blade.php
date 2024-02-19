@@ -574,7 +574,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                             </span>
-                            <span class="menu-title">Gallery</span></a>
+                            <span class="menu-title">Galeri</span></a>
                         <!--end:Menu link-->
                     </div>
                 @endif

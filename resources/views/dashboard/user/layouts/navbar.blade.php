@@ -292,7 +292,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <span class="menu-title">
-                                    Light
+                                    Terang
                                 </span>
                             </a>
                         </div>
@@ -323,7 +323,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <span class="menu-title">
-                                    Dark
+                                    Gelap
                                 </span>
                             </a>
                         </div>
@@ -345,7 +345,7 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <span class="menu-title">
-                                    System
+                                    Sistem
                                 </span>
                             </a>
                         </div>
@@ -359,7 +359,15 @@
                     <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
                         <span class="text-muted fs-7 fw-semibold lh-1 mb-2">{{ auth()->user()->name }}</span>
                         <span
-                            class="fs-8 badge badge-light-success">{{ auth()->user()->roles->pluck('name')[0] }}</span>
+                                class="fs-8 badge badge-light-success">@php
+                                    if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+                                        echo 'Guru';
+                                    } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
+                                        echo 'Mentor';
+                                    }else{
+                                        echo 'Siswa';
+                                    }
+                                @endphp</span>
                     </div>
 
                     <div class="cursor-pointer symbol symbol-30px symbol-md-35px"
@@ -406,7 +414,7 @@
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
                             <a href="{{ route('profile.index') }}" class="menu-link px-5">
-                                My Profile
+                                Profil Saya
                             </a>
                         </div>
                         <!--end::Menu item-->
@@ -423,7 +431,7 @@
                             <a href="{{ route('logout') }}" class="menu-link px-5"
                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                Sign Out
+                                Keluar
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf

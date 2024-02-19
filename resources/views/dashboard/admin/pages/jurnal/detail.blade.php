@@ -79,7 +79,7 @@
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th data-priority="1">No</th>
                                         <th data-priority="2">Kelas</th>
-                                        <th data-priority="3">Details</th>
+                                        <th data-priority="3">Detail</th>
                                     </tr>
                                     <!--end::Table row-->
                                 </thead>
@@ -93,7 +93,9 @@
                                             <td>{{ $classroom->name }}</td>
                                             <td>
                                             <a href="{{route('admin.detailJurnal', [$classroom->id])}}">
-                                                    <button class="btn btn-default btn-sm p-1">
+                                                    <button class="btn btn-default btn-sm p-1"  data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-custom-class="custom-tooltip"
+                                                    data-bs-title="Detail Data">
                                                         <i class="fa fa-eye fs-3 text-muted"></i>
                                                     </button>
                                                 </a>
@@ -104,7 +106,7 @@
                                 <!--end::Table body-->
                             </table>
                         @else
-                            <x-empty-component title="report" />
+                            <x-empty-component title="jurnal" />
                         @endif
                         <!--end::Table-->
                     </div>

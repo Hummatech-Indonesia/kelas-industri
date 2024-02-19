@@ -5,7 +5,7 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Report
+                Laporan
             </h1>
             <!--end::Title-->
 
@@ -33,7 +33,7 @@
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th data-priority="1">No</th>
                                         <th data-priority="2">Sekolah</th>
-                                        <th data-priority="3">Details</th>
+                                        <th data-priority="3">Detail</th>
                                     </tr>
                                     <!--end::Table row-->
                                 </thead>
@@ -59,7 +59,7 @@
                                 <!--end::Table body-->
                             </table>
                         @else
-                            <x-empty-component title="report" />
+                            <x-empty-component title="laporan" />
                         @endif
                         <!--end::Table-->
                     </div>

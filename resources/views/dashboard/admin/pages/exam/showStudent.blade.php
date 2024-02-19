@@ -112,7 +112,7 @@
                                     <!--end::Table body-->
                                 </table>
                             @else
-                                <x-empty-component title="report" />
+                                <x-empty-component title="ujian" />
                             @endif
                         </div>
                         <div class="tab-pane fade" id="kt_tab_pane_8" role="tabpanel">
@@ -165,7 +165,7 @@
                                     <!--end::Table body-->
                                 </table>
                             @else
-                                <x-empty-component title="report" />
+                                <x-empty-component title="ujian" />
                             @endif
                         </div>
                     </div>

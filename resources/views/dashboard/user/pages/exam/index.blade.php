@@ -92,10 +92,12 @@
                                             <button type="submit" class="btn btn-primary">Cari</button>
                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                             <a href="{{ route('mentor.exam.index') }}" type="button"
-                                                class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                             @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                             <a href="{{ route('teacher.exam.index') }}" type="button"
-                                                class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                             @endif
                                         </div>
                                         <!--end::Input group-->

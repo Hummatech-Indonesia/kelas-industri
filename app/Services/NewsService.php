@@ -38,15 +38,20 @@ class NewsService
     {
         return $this->repository->get_paginate(6);
     }
+    public function handleGetPaginateAdmin():mixed
+    {
+        return $this->repository->get_paginate_admin();
+    }
 
-    /**
+    /**news
      * Handle fetching a random news item
      *
      * @return News|null
      */
-    public function handleGetRandom(): mixed
+    public function handleGetRandom(string $slug): mixed
     {
-        return $this->repository->getRandom(10);
+        // dd($slug);
+        return $this->repository->getRandom($slug);
     }
 
     public function handleGetNewNews(): mixed{

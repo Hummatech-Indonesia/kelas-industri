@@ -24,40 +24,6 @@
                                     Beranda
                                 </h1>
                                 <!--end::Title-->
-
-                                <!--begin::Breadcrumb-->
-                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        <a href="#" class="text-muted text-hover-primary">
-                                            Home </a>
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Utilities
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Search
-                                    </li>
-                                    <!--end::Item-->
-
-                                </ul>
-                                <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
@@ -71,9 +37,8 @@
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1>Selamat Datang, {{ auth()->user()->name }}
-                                ({{ auth()->user()->roles->pluck('name')[0] }}
-                                )</h1>
+                            <h1>Selamat Datang, {{ auth()->user()->name }} (@if(auth()->user()->roles->pluck('name')[0] == 'student') Siswa 
+                                @else Guru @endif)</h1>
                         </div>
                     </div>
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
@@ -81,7 +46,7 @@
                             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <span class="w-4 h-4 my-auto fs-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" 
                                             viewBox="0 0 24 24">
                                             <path fill="currentColor"
                                                 d="m19 2l-5 4.5v11l5-4.5V2M6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5c.1 0 .15-.07.25-.07c1.35-.65 3.3-1.09 4.75-1.09c1.95 0 4.05.4 5.5 1.5c1.35-.85 3.8-1.5 5.5-1.5c1.65 0 3.35.31 4.75 1.06c.1.05.15.03.25.03c.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5c-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5Z" />
@@ -171,7 +136,7 @@
                                     data-bs-theme="light">
                                     <!--begin::Title-->
                                     <h3 class="card-title align-items-start flex-column text-gray-700 fw-bolder pt-15">
-                                        <span class="fw-bold fs-2x mb-3">Tugas dan Challenge</span>
+                                        <span class="fw-bold fs-2x mb-3">Tugas dan Tantangan</span>
 
                                         <div class="fs-4">
                                             <span class="opacity-75">Kamu Memiliki</span>

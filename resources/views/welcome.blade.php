@@ -228,7 +228,7 @@
                                     data-textAlign="['left','left','left','center']"
                                     data-frames='[{"delay":2000,"speed":1200,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
                                     data-responsive="on" data-responsive_offset="on" style="z-index: 9;"
-                                    href="{{ route('home') }}">Home
+                                    href="{{ route('home') }}">Beranda
                                 </a>
                             @else
                                 <a class="tp-caption btn btn-l btn-default" data-x="['left','left','left','center']"
@@ -237,7 +237,7 @@
                                     data-textAlign="['left','left','left','center']"
                                     data-frames='[{"delay":2000,"speed":1200,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
                                     data-responsive="on" data-responsive_offset="on" style="z-index: 9;"
-                                    href="{{ route('login') }}">Login
+                                    href="{{ route('login') }}">Masuk
                                 </a>
                             @endauth
 
@@ -690,7 +690,7 @@
 
                                 <!-- /.widget -->
                                 <div class="widget">
-                                    <h3 class="widget-title">Need Help?</h3>
+                                    <h3 class="widget-title">Butuh Bantuan?</h3>
                                     <ul class="list-unstyled">
                                         <li><a href="https://wa.me/6282132560566" class="nocolor">Proposal</a></li>
                                         <li><a href="https://wa.me/6282132560566" class="nocolor">Kerjasama

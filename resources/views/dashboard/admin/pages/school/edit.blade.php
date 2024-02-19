@@ -136,11 +136,11 @@
 
                                     <div class="fv-row" data-kt-password-meter="true">
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">Password Baru</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Kata Sandi Baru</label>
                                             <div class="col-lg-9 col-xl-9">
                                                 <div class="position-relative">
                                                     <input class="form-control form-control-lg form-control-solid"
-                                                        type="password" placeholder="password" name="password" autocomplete="off" />
+                                                        type="password" placeholder="Kata Sandi Baru" name="password" autocomplete="off" />
 
                                                     <!--begin::Visibility toggle-->
                                                     <span
@@ -165,11 +165,11 @@
 
                                     <div class="fv-row" data-kt-password-meter="true">
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">Konfirmasi Password</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Konfirmasi Kata Sandi</label>
                                             <div class="col-lg-9 col-xl-9">
                                                 <div class="position-relative">
                                                     <input class="form-control form-control-lg form-control-solid"
-                                                        type="password" placeholder="password"
+                                                        type="password" placeholder="Konfirmasi Kata Sandi"
                                                         name="password_confirmation" autocomplete="off" required="" />
 
                                                     <!--begin::Visibility toggle-->

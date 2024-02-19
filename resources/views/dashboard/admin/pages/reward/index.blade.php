@@ -86,7 +86,7 @@
                             <!--end::Table body-->
                         </table>
                         @else
-                                <x-empty-component title="reward" />
+                                <x-empty-component title="Hadiah" />
                             @endif
                         <!--end::Table-->
                     </div>

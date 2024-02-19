@@ -64,9 +64,10 @@
                                     value="" placeholder="Search">
                             </div>
                             <div class="col-lg-2 col-md-12 ms-3">
-                                <button type="submit" class="btn btn-primary">Cari</button>
+                                <button type="submit" class="btn btn-primary me-2">Cari</button>
                                 <a href="{{ route('admin.materials.show', $material->id) }}" type="button"
-                                    class="btn btn-light text-light"><i class="fonticon-repeat"></i>
+                                    class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang"><i class="fonticon-repeat"></i>
                                 </a>
                             </div>
                             <!--end::Input group-->

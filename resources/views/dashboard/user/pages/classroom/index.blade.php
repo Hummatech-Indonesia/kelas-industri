@@ -25,40 +25,6 @@
                                     Kelas
                                 </h1>
                                 <!--end::Title-->
-
-                                <!--begin::Breadcrumb-->
-                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        <a href="#" class="text-muted text-hover-primary">
-                                            Home </a>
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Utilities
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Search
-                                    </li>
-                                    <!--end::Item-->
-
-                                </ul>
-                                <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
@@ -102,7 +68,8 @@
                                         <div class="col-lg-2 col-md-12">
                                             <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('common.classrooms') }}" type="button"
-                                                class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -142,7 +109,8 @@
                                         <div class="col-lg-2 col-md-12">
                                             <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('common.classrooms') }}" type="button"
-                                                class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -182,7 +150,8 @@
                                         <div class="col-lg-2 col-md-12">
                                             <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('common.classrooms') }}" type="button"
-                                                class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
