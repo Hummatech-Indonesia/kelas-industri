@@ -19,7 +19,7 @@ class ProfileRequest extends BaseRequest
             'name' => 'string',
             'email' => [ Rule::unique('users')->ignore($this->user)],
             'phone_number' => 'max:15',
-            'account_number' => 'required',
+            'account_number' => 'nullable|interger',
             'address' => 'string|nullable',
             'photo' => 'mimes:png,jpg,jpeg|max:2048',
         ];
