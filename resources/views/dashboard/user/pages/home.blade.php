@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1>Selamat Datang, {{ auth()->user()->name }} (@if(auth()->user()->roles->pluck('name')[0] == 'student') Siswa 
-                                @else Guru @endif)</h1>
+                                @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') Mentor @else Guru @endif)</h1>
                         </div>
                     </div>
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')

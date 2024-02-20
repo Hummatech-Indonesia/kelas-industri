@@ -142,6 +142,25 @@
                                         </div>
                                         <!--end::Input group-->
 
+                                        @if (auth()->user()->hasAnyRole(['mentor', 'teacher']))
+                                            <!--begin::Input group-->
+                                            <div class="row mb-6">
+                                                <!--begin::Label-->
+                                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nomor
+                                                    Rekening</label>
+                                                <!--end::Label-->
+
+                                                <!--begin::Col-->
+                                                <div class="col-lg-8 fv-row">
+                                                    <input type="text" name="account_number"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="083848xxxxxx" value="{{ $user->account_number }}" />
+                                                </div>
+                                                <!--end::Col-->
+                                            </div>
+                                            <!--end::Input group-->
+                                        @endif
+
                                         <!--begin::Input group-->
                                         <div class="row mb-6">
                                             <!--begin::Label-->
@@ -221,23 +240,24 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="fv-row" data-kt-password-meter="true">
-                                <label class="col-xl-5 col-lg-5 col-form-label required fw-semibold fs-6">Password Lama</label>
+                                <label class="col-xl-5 col-lg-5 col-form-label required fw-semibold fs-6">Password
+                                    Lama</label>
                                 <div class="form-group row mb-3">
                                     <div class="col-lg-12 col-xl-12">
                                         <div class="position-relative mb-3">
-                                            <input class="form-control form-control-lg form-control-solid"
-                                                type="password" placeholder="masukkan password lama" name="current_password" autocomplete="off" />
+                                            <input class="form-control form-control-lg form-control-solid" type="password"
+                                                placeholder="masukkan password lama" name="current_password"
+                                                autocomplete="off" />
 
                                             <!--begin::Visibility toggle-->
                                             <span
                                                 class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                                                 data-kt-password-meter-control="visibility">
-                                                <i class="fa-solid fa-eye-slash fs-3"><span
-                                                    class="path1"></span><span class="path2"></span><span
-                                                    class="path3"></span><span class="path4"></span></i>
-                                                <i class="fa-solid fa-eye d-none fs-3"><span
-                                                    class="path1"></span><span class="path2"></span><span
-                                                    class="path3"></span></i>
+                                                <i class="fa-solid fa-eye-slash fs-3"><span class="path1"></span><span
+                                                        class="path2"></span><span class="path3"></span><span
+                                                        class="path4"></span></i>
+                                                <i class="fa-solid fa-eye d-none fs-3"><span class="path1"></span><span
+                                                        class="path2"></span><span class="path3"></span></i>
 
                                             </span>
                                             <!--end::Visibility toggle-->
@@ -248,23 +268,24 @@
                         </div>
                         <div class="row">
                             <div class="fv-row" data-kt-password-meter="true">
-                                <label class="col-xl-5 col-lg-5 col-form-label required fw-semibold fs-6">Password Baru</label>
+                                <label class="col-xl-5 col-lg-5 col-form-label required fw-semibold fs-6">Password
+                                    Baru</label>
                                 <div class="form-group row mb-3">
                                     <div class="col-lg-12 col-xl-12">
                                         <div class="position-relative mb-3">
-                                            <input class="form-control form-control-lg form-control-solid"
-                                                type="password" placeholder="masukkan password baru" name="new_password" autocomplete="off" />
+                                            <input class="form-control form-control-lg form-control-solid" type="password"
+                                                placeholder="masukkan password baru" name="new_password"
+                                                autocomplete="off" />
 
                                             <!--begin::Visibility toggle-->
                                             <span
                                                 class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                                                 data-kt-password-meter-control="visibility">
-                                                <i class="fa-solid fa-eye-slash fs-3"><span
-                                                    class="path1"></span><span class="path2"></span><span
-                                                    class="path3"></span><span class="path4"></span></i>
-                                                <i class="fa-solid fa-eye d-none fs-3"><span
-                                                    class="path1"></span><span class="path2"></span><span
-                                                    class="path3"></span></i>
+                                                <i class="fa-solid fa-eye-slash fs-3"><span class="path1"></span><span
+                                                        class="path2"></span><span class="path3"></span><span
+                                                        class="path4"></span></i>
+                                                <i class="fa-solid fa-eye d-none fs-3"><span class="path1"></span><span
+                                                        class="path2"></span><span class="path3"></span></i>
 
                                             </span>
                                             <!--end::Visibility toggle-->
@@ -275,23 +296,24 @@
                         </div>
                         <div class="row">
                             <div class="fv-row" data-kt-password-meter="true">
-                                <label class="col-xl-5 col-lg-5 col-form-label required fw-semibold fs-6">Konfirmasi Password Baru</label>
+                                <label class="col-xl-5 col-lg-5 col-form-label required fw-semibold fs-6">Konfirmasi
+                                    Password Baru</label>
                                 <div class="form-group row mb-3">
                                     <div class="col-lg-12 col-xl-12">
                                         <div class="position-relative mb-3">
-                                            <input class="form-control form-control-lg form-control-solid"
-                                                type="password" placeholder="konfirmasi password baru" name="new_password_confirmation" autocomplete="off" />
+                                            <input class="form-control form-control-lg form-control-solid" type="password"
+                                                placeholder="konfirmasi password baru" name="new_password_confirmation"
+                                                autocomplete="off" />
 
                                             <!--begin::Visibility toggle-->
                                             <span
                                                 class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                                                 data-kt-password-meter-control="visibility">
-                                                <i class="fa-solid fa-eye-slash fs-3"><span
-                                                    class="path1"></span><span class="path2"></span><span
-                                                    class="path3"></span><span class="path4"></span></i>
-                                                <i class="fa-solid fa-eye d-none fs-3"><span
-                                                    class="path1"></span><span class="path2"></span><span
-                                                    class="path3"></span></i>
+                                                <i class="fa-solid fa-eye-slash fs-3"><span class="path1"></span><span
+                                                        class="path2"></span><span class="path3"></span><span
+                                                        class="path4"></span></i>
+                                                <i class="fa-solid fa-eye d-none fs-3"><span class="path1"></span><span
+                                                        class="path2"></span><span class="path3"></span></i>
 
                                             </span>
                                             <!--end::Visibility toggle-->
