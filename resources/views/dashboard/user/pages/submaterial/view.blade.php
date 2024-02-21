@@ -100,8 +100,8 @@
                     </div>
                 </div>
             @else
-                <div class="d-flex justify-content-between align-items-center container-fluid app-container">
-                    <div class="d-flex justify-content-end align-items-center color-gray-700 next-sub-materials">
+                <div class="row row-cols-2 align-items-center container-fluid app-container">
+                    <div class="d-flex justify-content-start align-items-center color-gray-700 next-sub-materials">
                         @foreach ($prevSubMaterials as $prevSubMaterial)
                             <a @if (auth()->user()->roles->pluck('name')[0] == 'student') href="{{ route('common.showDocument', [$prevSubMaterial->id, 'student']) }}"
                                     @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')

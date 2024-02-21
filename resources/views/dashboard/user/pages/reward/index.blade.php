@@ -45,15 +45,21 @@
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            <a href="{{route('student.historyReward')}}" class="btn btn-light-primary font-weight-bolder me-2 btn-sm">
+                            <a href="{{ route('student.historyReward') }}"
+                                class="btn btn-light-primary font-weight-bolder me-2 btn-sm">
 
-                                <span class="svg-icon svg-icon-2"><svg width="10" height="21" viewBox="0 0 14 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path opacity="0.3" d="M12 6.20001V1.20001H2V6.20001C2 6.50001 2.1 6.70001 2.3 6.90001L5.6 10.2L2.3 13.5C2.1 13.7 2 13.9 2 14.2V19.2H12V14.2C12 13.9 11.9 13.7 11.7 13.5L8.4 10.2L11.7 6.90001C11.9 6.70001 12 6.50001 12 6.20001Z" fill="currentColor"/>
-                                    <path d="M13 2.20001H1C0.4 2.20001 0 1.80001 0 1.20001C0 0.600012 0.4 0.200012 1 0.200012H13C13.6 0.200012 14 0.600012 14 1.20001C14 1.80001 13.6 2.20001 13 2.20001ZM13 18.2H10V16.2L7.7 13.9C7.3 13.5 6.7 13.5 6.3 13.9L4 16.2V18.2H1C0.4 18.2 0 18.6 0 19.2C0 19.8 0.4 20.2 1 20.2H13C13.6 20.2 14 19.8 14 19.2C14 18.6 13.6 18.2 13 18.2ZM4.4 6.20001L6.3 8.10001C6.7 8.50001 7.3 8.50001 7.7 8.10001L9.6 6.20001H4.4Z" fill="currentColor"/>
+                                <span class="svg-icon svg-icon-2"><svg width="10" height="21" viewBox="0 0 14 21"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.3"
+                                            d="M12 6.20001V1.20001H2V6.20001C2 6.50001 2.1 6.70001 2.3 6.90001L5.6 10.2L2.3 13.5C2.1 13.7 2 13.9 2 14.2V19.2H12V14.2C12 13.9 11.9 13.7 11.7 13.5L8.4 10.2L11.7 6.90001C11.9 6.70001 12 6.50001 12 6.20001Z"
+                                            fill="currentColor" />
+                                        <path
+                                            d="M13 2.20001H1C0.4 2.20001 0 1.80001 0 1.20001C0 0.600012 0.4 0.200012 1 0.200012H13C13.6 0.200012 14 0.600012 14 1.20001C14 1.80001 13.6 2.20001 13 2.20001ZM13 18.2H10V16.2L7.7 13.9C7.3 13.5 6.7 13.5 6.3 13.9L4 16.2V18.2H1C0.4 18.2 0 18.6 0 19.2C0 19.8 0.4 20.2 1 20.2H13C13.6 20.2 14 19.8 14 19.2C14 18.6 13.6 18.2 13 18.2ZM4.4 6.20001L6.3 8.10001C6.7 8.50001 7.3 8.50001 7.7 8.10001L9.6 6.20001H4.4Z"
+                                            fill="currentColor" />
                                     </svg>
-                                    </span>
+                                </span>
 
-                                History Hadiah Anda
+                                Riwayat Penukaran Anda
 
                             </a>
 
@@ -113,67 +119,65 @@
                     <div class="row">
                         @forelse($rewards as $reward)
                             <div class="col-4">
-                                <div class="card card-flush h-xl-100">
-                                    <!--begin::Body-->
-                                    <div class="card-body text-center pb-5">
-                                        <!--begin::Overlay-->
-                                        <a class="d-block overlay" data-fslightbox="lightbox-hot-sales"
-                                            href="">
-                                            <!--begin::Image-->
-                                            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-7"
-                                                style="height: 266px;background-image:url('{{ asset('storage/' . $reward->photo) }}')">
-                                            </div>
+                                <div class="position-relative">
+                                    <div class="card card-flush h-xl-100">
+                                        <!--begin::Badge-->
+                                        <span class="position-absolute top-0 end-0 badge bg-primary">{{ $reward->point }}
+                                            point</span>
+                                        <!--end::Badge-->
 
-                                            <!--end::Image-->
-                                            <!--begin::Action-->
-                                            <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
-                                                <i class="ki-duotone ki-eye fs-3x text-white"><span
-                                                        class="path1"></span><span class="path2"></span><span
-                                                        class="path3"></span></i>
+                                        <!--begin::Body-->
+                                        <div class="card-body text-center pb-5">
+                                            <!--begin::Overlay-->
+                                            <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="#">
+                                                <!--begin::Image-->
+                                                <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-7"
+                                                    style="height: 266px;background-image:url('{{ asset('storage/' . $reward->photo) }}')">
+                                                </div>
+                                                <!--end::Image-->
+                                                <!--begin::Action-->
+                                                <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+                                                    <i class="ki-duotone ki-eye fs-3x text-white"><span
+                                                            class="path1"></span><span class="path2"></span><span
+                                                            class="path3"></span></i>
+                                                </div>
+                                                <!--end::Action-->
+                                            </a>
+                                            <!--end::Overlay-->
+                                            <!--begin::Info-->
+                                            <div class="d-flex align-items-end flex-stack mb-1">
+                                                <!--begin::Title-->
+                                                <div class="text-start">
+                                                    <span
+                                                        class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-4 d-block">{{ $reward->reward_name }}</span>
+                                                    {{-- <span class="text-gray-400 mt-1 fw-bold fs-6">Jumlah Point :
+                                                        {{ $reward->point }}</span> --}}
+                                                </div>
+                                                <!--end::Title-->
                                             </div>
-                                            <!--end::Action-->
-                                        </a>
-                                        <!--end::Overlay-->
-                                        <!--begin::Info-->
-                                        <div class="d-flex align-items-end flex-stack mb-1">
-                                            <!--begin::Title-->
-                                            <div class="text-start">
-                                                <span
-                                                    class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-4 d-block">{{ $reward->reward_name }}</span>
-                                                <span class="text-gray-400 mt-1 fw-bold fs-6">Jumlah Point :
-                                                    {{ $reward->point }}</span>
-                                            </div>
-                                            <!--end::Title-->
-                                            <!--begin::Total-->
-                                            <!--end::Total-->
+                                            <!--end::Info-->
                                         </div>
-                                        <!--end::Info-->
+                                        <!--begin::Footer-->
+                                        <div class="card-footer d-flex flex-stack pt-0">
+                                            <!--begin::Link-->
+                                            <form action="{{ route('student.submitRewards.store') }}" method="post">
+                                                @if ($reward->amount > 0)
+                                                    <button class="btn btn-sm btn-primary flex-shrink-0 me-2 btn-tukar"
+                                                        type="button" data-id="{{ $reward->id }}">Tukar</button>
+                                                @else
+                                                    <button disabled
+                                                        class="btn btn-sm btn-primary flex-shrink-0 me-2 btn-tukar"
+                                                        type="button" data-id="{{ $reward->id }}">Habis</button>
+                                                @endif
+                                            </form>
+                                            <!--end::Link-->
+                                            <!--begin::Link-->
+                                            <button class="btn btn-sm btn-light flex-shrink-0">Stok Hadiah :
+                                                {{ $reward->amount }}</button>
+                                            <!--end::Link-->
+                                        </div>
+                                        <!--end::Footer-->
                                     </div>
-                                    <div class="card-footer d-flex flex-stack pt-0">
-                                        <!--begin::Link-->
-                                        {{-- <input type="hidden" name="" id="reward" value="{{ $reward->id }}"> --}}
-                                        {{-- {{ (Auth::user()->point < $reward->point) ? "" : "btn-tukar" }} --}}
-                                        <form action="{{route('student.submitRewards.store')}}" method="post">
-                                            @if ($reward->amount > 0)
-                                            <button class="btn btn-sm btn-primary flex-shrink-0 me-2 btn-tukar" type="button"
-                                            data-id="{{ $reward->id }}">
-                                            Tukar
-                                        </button>
-                                            @else
-                                            <button disabled class="btn btn-sm btn-primary flex-shrink-0 me-2 btn-tukar" type="button"
-                                            data-id="{{ $reward->id }}">
-                                            Habis
-                                        </button>
-                                            @endif
-                                        </form>
-                                        <!--end::Link-->
-
-                                        <!--begin::Link-->
-                                        <button class="btn btn-sm btn-light flex-shrink-0">
-                                            Stok Hadiah : {{$reward->amount}} </button>
-                                        <!--end::Link-->
-                                    </div>
-                                    <!--end::Footer-->
                                 </div>
                             </div>
                         @empty
@@ -209,7 +213,8 @@
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
+                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
+                            class="menu-link px-2">Tentang
                             Kami</a></li>
 
                     <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
@@ -238,21 +243,21 @@
 
             $('#kt_modal_bidding').modal('show')
         })
-
     </script>
     <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 @endsection
 @section('css')
-        <Style>
-            @media (max-width:639px){
-                .position-relative{
-                    margin-bottom: 10px;
-                }
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
             }
-            @media (min-width:640px){
-                .searching{
-                    display: flex;
-                }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
             }
-        </Style>
-    @endsection
+        }
+    </Style>
+@endsection
