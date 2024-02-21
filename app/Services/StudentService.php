@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Repositories\StudentRepository;
 use App\Repositories\UserRepository;
 use Exception;
-use Illuminate\Http\Request;
 
 class StudentService
 {

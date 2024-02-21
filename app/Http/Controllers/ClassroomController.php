@@ -12,6 +12,7 @@ use App\Services\ClassroomService;
 use App\Services\GenerationService;
 use App\Services\SchoolYearService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Pagination\Paginator;
 use App\Http\Requests\ClassroomRequest;
 
 class ClassroomController extends Controller
@@ -92,6 +93,7 @@ class ClassroomController extends Controller
      */
     public function show(Classroom $classroom): View
     {
+        
         $data = [
             'classroom' => $classroom,
             'students' => $this->studentService->handleGetBySchool(auth()->id())

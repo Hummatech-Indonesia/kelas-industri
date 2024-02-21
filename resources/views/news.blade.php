@@ -259,7 +259,7 @@
                             <div class="post">
                                 @if ($primary_news)
                                     <div class="box-primary bg-white shadow p-3">
-                                        <figure class="overlay overlay1 rounded" style="height: 400px;"><a
+                                        <figure class="overlay overlay1 rounded" style="height: 350px;"><a
                                                 href="{{ route('detail-news', $primary_news->slug) }}">
                                                 <img width="100%"
                                                     src="{{ asset('storage/' . $primary_news->photo) }}"
@@ -268,13 +268,13 @@
                                                 <h5 class="from-top mb-0">Read More</h5>
                                             </figcaption>
                                         </figure>
-                                        <div class="space20"></div>
-                                        <div class="post-content">
-                                            <h2 class="post-title text-center mb-1"><a
-                                                    href="{{ route('detail-news', $primary_news->slug) }}">{{ Str::limit($primary_news->title, 50, '...') }}</a>
-                                            </h2>
-                                            <div class="meta text-center mt-1"><span class="date"><i
-                                                        class="jam jam-clock"></i>{{ Carbon::parse($primary_news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                        <div class="space10"></div>
+                                        <div class="post-content text-center">
+                                            <span class="post-title text-center mb-1"><a 
+                                                    href="{{ route('detail-news', $primary_news->slug) }}" style="font-weight: 500; font-size: 25px; width: max-content;">{{ Str::limit($primary_news->title, 50, '...') }}</a>
+                                            </span>
+                                            <div class="text-center mt-1" style="display: flex; align-items: center; justify-content: center;"><i
+                                                class="jam jam-clock"></i><span class="date ms-2">{{ Carbon::parse($primary_news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -299,14 +299,14 @@
                                     <li>
                                         <figure class="rounded"><a
                                                 href="{{ route('detail-news', $news->slug) }}"><img
-                                                    src="{{ asset('storage/' . $news->photo) }}" alt=""></a>
+                                                    src="{{ asset('storage/' . $news->photo) }}" alt="foto "></a>
                                         </figure>
                                         <div class="post-content">
-                                            <h6 class="post-title"> <a
-                                                    href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 35) }}</a>
-                                            </h6>
-                                            <div class="meta"><span class="date"><i
-                                                        class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                            <span style="font-weight: 500;">
+                                                <a href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 35) }}</a>
+                                            </span>
+                                            <div class="meta">
+                                                <span class="date"><i class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
                                             </div>
                                         </div>
                                     </li>

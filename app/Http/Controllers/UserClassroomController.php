@@ -14,6 +14,7 @@ use App\Services\MaterialService;
 use App\Services\PointService;
 use App\Services\StudentService;
 use App\Services\SubMaterialService;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Services\SubmitAssignmentService;
 use App\Services\SubmitChallengeService;
 use App\Traits\DataSidebar;
@@ -51,20 +52,22 @@ class UserClassroomController extends Controller
 
     public function show(Classroom $classroom): View
     {
+        $students = $this->studentService->handleGetBySchool($classroom->id);
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data = [
-                'students' => $this->studentService->handleGetBySchool(auth()->user()->id),
+                'students' => $students,
                 'classroom' => $classroom,
             ];
-            return \view('dashboard.admin.pages.classroom.show', $data);
+            return view('dashboard.admin.pages.classroom.show', $data);
         } else {
             $data = $this->GetDataSidebar();
         }
 
         $data['classroom'] = $classroom;
-        $data['students'] = $this->studentService->handleGetBySchool(auth()->id());
-        return \view('dashboard.user.pages.classroom.detail', $data);
+        $data['students'] = $students;
+        return view('dashboard.user.pages.classroom.detail', $data);
     }
+
 
     public function materials(Classroom $classroom, Request $request): View
     {
@@ -159,7 +162,6 @@ class UserClassroomController extends Controller
             }
 
             return redirect()->back()->with('error', 'Materi belum bisa diakses, anda belum menyelesaikan semua tugas dari materi sebelumnya');
-
         } else {
             auth()->logout();
             return view('auth.login');

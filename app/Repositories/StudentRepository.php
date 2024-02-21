@@ -2,15 +2,20 @@
 
 namespace App\Repositories;
 
+use App\Models\StudentClassroom;
 use App\Models\StudentSchool;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class StudentRepository extends BaseRepository
 {
     private User $userModel;
+    private StudentClassroom $modeClass;
 
-    public function __construct(StudentSchool $model, User $userModel)
+    public function __construct(StudentSchool $model, User $userModel , StudentClassroom $ModelClass)
     {
+        $this->modeClass = $ModelClass;
         $this->model = $model;
         $this->userModel = $userModel;
     }
@@ -21,14 +26,12 @@ class StudentRepository extends BaseRepository
      * @param string $schoolId
      * @return mixed
      */
-    public function get_by_school(string $schoolId): mixed
+    public function get_by_school(string $schoolId)
     {
-        return $this->model->query()
-            ->with('student')
-            ->where('school_id', $schoolId)
-            ->whereRelation('student', 'status', 'active')
-            ->get();
+        return $this->modeClass->query()
+            ->where('classroom_id', $schoolId)->paginate(6);    
     }
+
 
     /**
      * store
@@ -41,5 +44,4 @@ class StudentRepository extends BaseRepository
         return $this->model->query()
             ->create($data);
     }
-
 }

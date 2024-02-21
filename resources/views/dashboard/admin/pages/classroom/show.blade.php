@@ -38,7 +38,7 @@
                     <x-errors-component />
                 </div>
             @endif
-            <div class="col-8">
+            <div class="col-9">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -59,28 +59,27 @@
                                 <!--end::Title-->
                             </div>
                             <div class="card-body">
-
                                 @if (count($classroom->students) > 0)
-                                    <table id="kt_datatable_responsive"
-                                        class="table table-striped border rounded gy-5 gs-7">
-                                        <thead>
+                                    <table class="table rounded">
+                                        <thead class="p-2">
                                             <tr class="fw-semibold fs-6 text-gray-800">
-                                                <th data-priority="1">No</th>
-                                                <th class="min-w-50px" data-priority="2">Nama</th>
+                                                <th class="rounded" data-priority="1">No</th>
+                                                <th class="min-w-100px" data-priority="2">Nama</th>
                                                 <th data-priority="3">Email</th>
                                                 <th data-priority="4">No Telepon</th>
-                                                <th class="min-w-50px" data-priority="5">Alamat</th>
+                                                <th class="min-w-100px" data-priority="5">Alamat</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @foreach ($classroom->students as $student)
+                                        <tbody class="p-3">
+                                            @foreach ($students as $student)
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td scope="col">{{ $loop->iteration }}</td>
                                                     <td>{{ $student->studentSchool->student->name }}</td>
                                                     <td>{{ $student->studentSchool->student->email }}</td>
                                                     <td>{{ $student->studentSchool->student->phone_number }}
                                                     </td>
-                                                    <td>{{ $student->studentSchool->student->address }}</td>
+                                                    <td style="word-break: break-word;">
+                                                        {{ $student->studentSchool->student->address }}</td>
                                                     @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                         <td>
                                                             <a href="{{ route('teacher.showStudentDetail', $student->studentSchool->student->id) }}"
@@ -91,12 +90,12 @@
                                                             <a href="{{ route('mentor.showStudentDetail', $student->studentSchool->student->id) }}"
                                                                 class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
                                                         </td>
-                                                    @else
                                                     @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    {{ $students->links('pagination::bootstrap-5') }}
                                 @else
                                     <x-empty-component title="siswa" />
                                 @endif
@@ -105,7 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <div class="card mb-5 mb-xl-8">
                     <!--begin::Card body-->
                     <div class="card-body">
@@ -207,9 +206,4 @@
     </div>
 @endsection
 @section('script')
-    <script>
-        $("#kt_datatable_responsive").DataTable({
-            responsive: true
-        });
-    </script>
 @endsection
