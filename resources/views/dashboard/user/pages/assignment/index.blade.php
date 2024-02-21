@@ -377,15 +377,27 @@
         function BeriNilai() {
             var arr_nilai = [];
             var arr_id = [];
+            var isAnyFilled = false; // Flag to track if any input is filled
+
             $('.input-nilai').each(function() {
                 var nilai = $(this).val();
                 var id = $(this).data('id');
-                var year = $(this).data('id');
                 if (nilai !== '') {
                     arr_nilai.push(nilai);
                     arr_id.push(id);
-                };
+                    isAnyFilled = true; // Set flag if any input is filled
+                }
             });
+
+            if (!isAnyFilled) {
+                Swal.fire({
+                    title: 'Peringatan!',
+                    icon: 'warning',
+                    text: 'Minimal satu input nilai harus diisi.'
+                });
+                return; // Stop execution if no input is filled
+            }
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
