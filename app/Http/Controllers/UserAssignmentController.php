@@ -26,10 +26,10 @@ class UserAssignmentController extends Controller
         $this->assignmentService = $assignmentService;
     }
 
-    public function index(Classroom $classroom, Assignment $assignment): View
+    public function index(Request $request, Classroom $classroom, Assignment $assignment): View
     {
         $data = $this->GetDataSidebar();
-        $data['students'] = $this->assignmentService->handleGetAssignmentStudent($classroom->id, $assignment->id);
+        $data['students'] = $this->assignmentService->handleGetAssignmentStudent($classroom->id, $assignment->id, $request);
         $data['assignment'] = $assignment;
         $data['classroom'] = $classroom;
         $data ['status'] = false;

@@ -162,9 +162,21 @@
                                     <!--end::Title-->
                                 </div>
                                 <div class="card-body">
-
-                                    <table id="kt_datatable_responsive"
-                                        class="table table-striped border rounded gy-5 gs-7">
+                                    <form
+                                        action="{{ route('teacher.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                        method="get" class="row g-3 align-items-center mb-3">
+                                        <div class="col-auto ms-auto">
+                                            <input type="text" class="form-control form-control-solid form-control-sm"
+                                                name="search" placeholder="Cari siswa...."
+                                                value="{{ request('search') }}">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button class="btn btn-primary btn-sm" type="submit" id="btn-search">
+                                                <i class="bi bi-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <table id="" class="table table-striped border rounded gy-5 gs-7">
                                         <thead>
                                             <tr class="fw-semibold fs-6 text-gray-800">
                                                 <th data-priority="1">No</th>
@@ -300,6 +312,9 @@
                                             @endforelse
                                         </tbody>
                                     </table>
+                                    {{-- paginate --}}
+                                    {{ $students->links('pagination::bootstrap-5') }}
+                                    {{-- endpaginate --}}
                                 </div>
                             </div>
                         </div>

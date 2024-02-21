@@ -154,6 +154,8 @@
                             <div class="col-xl-4 mb-3">
 
                                 <!--begin::Card-->
+                                            ->whereRelation('submaterial', 'order', $previousOrder)
+                                            ->whereHas('StudentSubmitAssignment', function ($query) {
 
                                 <div class="card card-custom gutter-b card-stretch">
 
