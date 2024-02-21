@@ -8,6 +8,8 @@ use App\Repositories\AssignmentRepository;
 use App\Http\Requests\SubmitAssignmentRequest;
 use App\Models\Assignment;
 use App\Models\SubmitAssignment;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
 
 class AssignmentService
 {
@@ -16,7 +18,6 @@ class AssignmentService
     public function __construct(AssignmentRepository $repository)
     {
         $this->repository = $repository;
-
     }
 
     /**
@@ -37,9 +38,9 @@ class AssignmentService
      * @param string $assignmentId
      * @return mixed
      */
-    public function handleGetAssignmentStudent(string $classroomId, string $assignmentId): mixed
+    public function handleGetAssignmentStudent(string $classroomId, string $assignmentId, Request $request): mixed
     {
-        return $this->repository->get_assignment_student($classroomId, $assignmentId);
+        return $this->repository->get_assignment_student($classroomId, $assignmentId, $request, 10);
     }
 
     /**
@@ -53,29 +54,39 @@ class AssignmentService
         $this->repository->store($request->validated());
     }
 
-    public function submitAssignment(SubmitAssignmentRequest $request): void
+    public function submitAssignment(SubmitAssignmentRequest $request): mixed
     {
         $data = $request->validated();
         $studentId = auth()->id();
 
-    // Menghapus file lama jika ada
-    $oldAssignment = $this->repository->getSubmitAssignmentByStudentId($studentId);
-    if ($oldAssignment) {
-        Storage::disk('public')->delete($oldAssignment->file);
+        // Deleting old file if it exists
+        $oldAssignment = $this->repository->getSubmitAssignmentByStudentId($studentId);
+        if ($oldAssignment && Storage::disk('public')->exists($oldAssignment->file)) {
+            Storage::disk('public')->delete($oldAssignment->file);
+        }
+
+        // Save new file
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            $data['file'] = $request->file('file')->store('assignment_file', 'public');
+            if (!Storage::disk('public')->exists($data['file'])) {
+                return redirect()->back()->with('error', 'gambar gagal tersimpan, silahkan masukan kembali');
+            }
+        } else {
+            return redirect()->back()->with('error', 'gambar gagal tersimpan, silahkan masukan kembali');
+        }
+
+        $data['student_id'] = $studentId;
+        return $this->repository->create_submit_assignment($data, $studentId);
     }
 
-    // Simpan file baru
-    $data['file'] = $request->file('file')->store('assignment_file', 'public');
-    $data['student_id'] = $studentId;
-    $this->repository->create_submit_assignment($data, $studentId);
-}
 
     public function storePoint($id, $point): void
     {
-        $this->repository->storePoint($id,$point);
+        $this->repository->storePoint($id, $point);
     }
 
-    public function handleShowSubmitAssignment($id){
+    public function handleShowSubmitAssignment($id)
+    {
         return $this->repository->ShowSubmitAssignment($id);
     }
 
@@ -164,5 +175,4 @@ class AssignmentService
     {
         return $this->repository->countAssignmentsMaterial($material);
     }
-
 }
