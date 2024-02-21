@@ -40,7 +40,7 @@ class NewsService
     }
     public function handleGetPaginateAdmin():mixed
     {
-        return $this->repository->get_paginate_admin();
+        return $this->repository->get_paginate_admin(6);
     }
 
     /**news

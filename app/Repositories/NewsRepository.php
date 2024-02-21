@@ -28,10 +28,10 @@ class NewsRepository extends BaseRepository
             ->latest()
             ->paginate($limit);
     }
-    public function get_paginate_admin(): mixed
+    public function get_paginate_admin(int $limit): mixed
     {
         return $this->model->query()
-            ->get();
+            ->paginate($limit);
             
     }
     public function get_by_slug(string $slug): mixed

@@ -63,7 +63,8 @@
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex justify-content-start flex-column">
                                             <div class="text-gray-900 fw-bold fs-7">
-                                                {{ $loop->iteration }}</div>
+                                                {{ ($newss->currentPage() - 1) * $newss->perPage() + $loop->iteration }}
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -159,7 +160,7 @@
                     <!--end::Table body-->
                 </table>
                 <!--end::Table-->
-                {{-- {{ $newss->links() }} --}}
+                {{ $newss->links('pagination::bootstrap-5') }}
             </div>
             <!--end::Table container-->
         </div>
