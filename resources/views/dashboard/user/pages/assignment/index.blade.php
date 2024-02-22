@@ -446,9 +446,10 @@
             });
         }
 
-        var downloadButtons = $(".btn-download");
+        var hasPhoto = $(".btn-img").length > 0;
+        var hasFiles = $(".btn-file").length > 0;
 
-        if (downloadButtons.length === 0) {
+        if (!hasPhoto && !hasFiles) {
             $("#btn-download-all").remove();
         }
 
