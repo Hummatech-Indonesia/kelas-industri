@@ -261,6 +261,7 @@
                                     <th>Alamat</th>
                                     <th>Total Jurnal</th>
                                     <th>Total Belum dinilai</th>
+                                    <th>No Rekening</th>
                                     <th>Bank</th>
                                 </tr>
                             </thead>
@@ -280,6 +281,7 @@
                                             }
                                         @endphp
                                         <td>{{ $total }}</td>
+                                        <td>{{ $teacher->teacher->account_number }}</td>
                                         <td>{{ $teacher->teacher->bank }}</td>
                                     </tr>
                                 @endforeach
