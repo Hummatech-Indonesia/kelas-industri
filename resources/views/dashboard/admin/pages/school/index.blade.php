@@ -37,9 +37,9 @@
                     <!--begin::Card body-->
                     <div class="card-body">
                         <!--begin::Compact form-->
-                        <div class="searching align-items-center">
+                        <div class="searching align-items-center row">
                             <!--begin::Input group-->
-                            <div class="position-relative col-lg-10 col-md-12 me-2">
+                            <div class="col-lg-10 col-md-8 col-6">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                 <span
                                     class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -57,7 +57,7 @@
                                 <input type="text" class="form-control form-control-solid ps-10" name="search"
                                     value="{{ $parameters['search'] ?? '' }}" placeholder="Search">
                             </div>
-                            <div class="col-lg-2 col-md-12">
+                            <div class="col-lg-2 col-md-4 col-6">
                                 <button class="btn btn-primary" id="btn-search">Cari</button>
                                 <a href="{{ route('admin.schools.index') }}" type="button"
                                 class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
