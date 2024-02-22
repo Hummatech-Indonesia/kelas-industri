@@ -19,7 +19,8 @@ class ProfileRequest extends BaseRequest
             'name' => 'string',
             'email' => [ Rule::unique('users')->ignore($this->user)],
             'phone_number' => 'max:15',
-            'account_number' => 'nullable|interger',
+            'account_number' => 'nullable',
+            'bank' => 'string|nullable',
             'address' => 'string|nullable',
             'photo' => 'mimes:png,jpg,jpeg|max:2048',
         ];
@@ -32,7 +33,7 @@ class ProfileRequest extends BaseRequest
             'address.string' => 'Alamat harus berupa string!',
             'photo.mimes' => 'Foto harus dalam format PNG, JPG, atau JPEG!',
             'photo.max' => 'Ukuran foto tidak boleh melebihi :max kilobita!',
-            'account_number.required' => 'Bank tidak boleh kosong !',
+            'bank.string' => 'Nama Bank harus string !',
         ];
     }
 
