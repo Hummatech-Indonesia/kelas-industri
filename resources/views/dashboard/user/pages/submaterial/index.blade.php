@@ -41,7 +41,9 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 <div class="d-flex align-items-center me-4">
-                                    <form action="{{ route('certify', ['material' => $material->id, 'classroom' => $classroom->id]) }}" method="get">
+                                    <form
+                                        action="{{ route('certify', ['material' => $material->id, 'classroom' => $classroom->id]) }}"
+                                        method="get">
                                         <button class="btn btn-primary h-40px fs-7 fw-bold">
                                             Download Sertifikat
                                         </button>
@@ -134,9 +136,9 @@
                                         <div class="col-lg-2 col-md-12">
                                             <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('common.showMaterial', ['material' => $material, 'classroom' => $classroom]) }}"
-                                                type="button" class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i
-                                                    class="fonticon-repeat"></i></a>
+                                                type="button" class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -150,127 +152,530 @@
 
 
                     <div class="row">
-                        @forelse($subMaterials as $subMaterial)
-                            <div class="col-xl-4 mb-3">
+                        @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                            {{-- @dd($subMaterialsInfo) --}}
+                            @forelse($subMaterialsInfo as $infos)
+                                {{-- @dd($infos) --}}
+                                @if ($infos['isFirst'] == true)
+                                    <div class="col-xl-4 mb-3">
 
-                                <!--begin::Card-->
-                                            ->whereRelation('submaterial', 'order', $previousOrder)
-                                            ->whereHas('StudentSubmitAssignment', function ($query) {
+                                        <!--begin::Card-->
 
-                                <div class="card card-custom gutter-b card-stretch">
+                                        <div class="card card-custom gutter-b card-stretch">
 
-                                    <!--begin::Body-->
+                                            <!--begin::Body-->
 
-                                    <div class="card-body">
+                                            <div class="card-body">
 
-                                        <!--begin::Section-->
+                                                <!--begin::Section-->
 
-                                        <div class="d-flex align-items-center">
+                                                <div class="d-flex align-items-center">
 
-                                            <!--begin::Pic-->
+                                                    <!--begin::Pic-->
 
-                                            <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
+                                                    <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
 
-                                                <span
-                                                    class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($subMaterial->title, 0, 1) }}</span>
+                                                        <span
+                                                            class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($infos['subMaterial']->title, 0, 1) }}</span>
 
+
+                                                    </div>
+
+                                                    <!--end::Pic-->
+
+                                                    <!--begin::Info-->
+
+                                                    <div class="d-flex flex-column me-auto">
+
+                                                        <!--begin: Title-->
+
+                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
+                                                            style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+
+                                                            {{ $infos['subMaterial']->title }}
+                                                        </a>
+
+
+                                                        <span class="text-muted font-weight-bold">
+
+                                                            {{ $material->title }}
+                                                        </span>
+
+                                                        <!--end::Title-->
+
+                                                    </div>
+
+                                                    <!--end::Info-->
+
+                                                </div>
+                                                <!--end::Section-->
+                                                <!--begin::Content-->
+                                                <!--end::Content-->
+                                                <!--begin::Text-->
+                                                <p class="mb-7 mt-5"
+                                                    style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                                    {{ $infos['subMaterial']->description }}
+                                                </p>
+                                                <!--end::Text-->
+                                            </div>
+                                            <!--end::Body-->
+                                            <!--begin::Footer-->
+                                            <div class="card-footer d-flex flex-row justify-content-between">
+                                                <div class="d-flex">
+                                                    <div class="d-flex align-items-center me-5">
+                                                        <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
+                                                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                width="24" height="24" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <rect opacity="0.5" x="7" y="2" width="14"
+                                                                    height="16" rx="3" fill="currentColor" />
+                                                                <rect x="3" y="6" width="14" height="16"
+                                                                    rx="3" fill="currentColor" />
+                                                            </svg>
+                                                        </span>
+                                                        <!--end::Svg Icon-->
+                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            class="fw-bold text-info ml-2">{{ count($infos['subMaterial']->assignments) }}
+                                                            Tugas</a>
+
+
+                                                    </div>
+
+
+                                                </div>
+
+                                                <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                             </div>
 
-                                            <!--end::Pic-->
-
-                                            <!--begin::Info-->
-
-                                            <div class="d-flex flex-column me-auto">
-
-                                                <!--begin: Title-->
-
-                                                <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
-                                                    class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
-                                                    style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
-
-                                                    {{ $subMaterial->title }}
-                                                </a>
-
-
-                                                <span class="text-muted font-weight-bold">
-
-                                                    {{ $material->title }}
-                                                </span>
-
-                                                <!--end::Title-->
-
-                                            </div>
-
-                                            <!--end::Info-->
+                                            <!--end::Footer-->
 
                                         </div>
 
-                                        <!--end::Section-->
-
-                                        <!--begin::Content-->
-
-
-                                        <!--end::Content-->
-
-                                        <!--begin::Text-->
-
-                                        <p class="mb-7 mt-5"
-                                            style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
-
-                                            {{ $subMaterial->description }}
-                                        </p>
-
-                                        <!--end::Text-->
-
+                                        <!--end::Card-->
 
                                     </div>
+                                @elseif ($infos['isFirst'] == false)
+                                    @if ($infos['countAssignment'] == $infos['countStudentAssignment'])
+                                        <div class="col-xl-4 mb-3">
 
-                                    <!--end::Body-->
+                                            <!--begin::Card-->
 
-                                    <!--begin::Footer-->
+                                            <div class="card card-custom gutter-b card-stretch">
 
-                                    <div class="card-footer d-flex flex-row justify-content-between">
+                                                <!--begin::Body-->
 
-                                        <div class="d-flex">
+                                                <div class="card-body">
 
-                                            <div class="d-flex align-items-center me-5">
-                                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
-                                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <rect opacity="0.5" x="7" y="2" width="14" height="16"
-                                                            rx="3" fill="currentColor" />
-                                                        <rect x="3" y="6" width="14" height="16" rx="3"
-                                                            fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->
-                                                <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
-                                                    class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }}
-                                                    Tugas</a>
+                                                    <!--begin::Section-->
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <!--begin::Pic-->
+
+                                                        <div
+                                                            class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
+
+                                                            <span
+                                                                class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($infos['subMaterial']->title, 0, 1) }}</span>
+
+
+                                                        </div>
+
+                                                        <!--end::Pic-->
+
+                                                        <!--begin::Info-->
+
+                                                        <div class="d-flex flex-column me-auto">
+
+                                                            <!--begin: Title-->
+
+                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                                class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
+                                                                style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+
+                                                                {{ $infos['subMaterial']->title }}
+                                                            </a>
+
+
+                                                            <span class="text-muted font-weight-bold">
+
+                                                                {{ $material->title }}
+                                                            </span>
+
+                                                            <!--end::Title-->
+
+                                                        </div>
+
+                                                        <!--end::Info-->
+
+                                                    </div>
+                                                    <!--end::Section-->
+                                                    <!--begin::Content-->
+                                                    <!--end::Content-->
+                                                    <!--begin::Text-->
+                                                    <p class="mb-7 mt-5"
+                                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                                        {{ $infos['subMaterial']->description }}
+                                                    </p>
+                                                    <!--end::Text-->
+                                                </div>
+                                                <!--end::Body-->
+                                                <!--begin::Footer-->
+                                                <div class="card-footer d-flex flex-row justify-content-between">
+                                                    <div class="d-flex">
+                                                        <div class="d-flex align-items-center me-5">
+                                                            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
+                                                            <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                    width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <rect opacity="0.5" x="7" y="2" width="14"
+                                                                        height="16" rx="3"
+                                                                        fill="currentColor" />
+                                                                    <rect x="3" y="6" width="14" height="16"
+                                                                        rx="3" fill="currentColor" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->
+                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                                class="fw-bold text-info ml-2">{{ count($infos['subMaterial']->assignments) }}
+                                                                Tugas</a>
+
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                        class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+
+                                                </div>
+
+                                                <!--end::Footer-->
+
+                                            </div>
+
+                                            <!--end::Card-->
+
+                                        </div>
+                                    @else
+                                        <div class="col-xl-4 mb-3 card-disabled">
+
+                                            <!--begin::Card-->
+
+                                            <div class="card card-custom gutter-b card-stretch">
+
+                                                <!--begin::Body-->
+
+                                                <div class="card-body">
+
+                                                    <!--begin::Section-->
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <!--begin::Pic-->
+
+                                                        <div
+                                                            class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
+
+                                                            <span
+                                                                class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($infos['subMaterial']->title, 0, 1) }}</span>
+
+
+                                                        </div>
+
+                                                        <!--end::Pic-->
+
+                                                        <!--begin::Info-->
+
+                                                        <div class="d-flex flex-column me-auto">
+
+                                                            <!--begin: Title-->
+
+                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                                class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
+                                                                style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+
+                                                                {{ $infos['subMaterial']->title }}
+                                                            </a>
+
+
+                                                            <span class="text-muted font-weight-bold">
+
+                                                                {{ $material->title }}
+                                                            </span>
+
+                                                            <!--end::Title-->
+
+                                                        </div>
+
+                                                        <!--end::Info-->
+
+                                                    </div>
+                                                    <!--end::Section-->
+                                                    <!--begin::Content-->
+                                                    <!--end::Content-->
+                                                    <!--begin::Text-->
+                                                    <p class="mb-7 mt-5"
+                                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                                        {{ $infos['subMaterial']->description }}
+                                                    </p>
+                                                    <!--end::Text-->
+                                                </div>
+                                                <!--end::Body-->
+                                                <!--begin::Footer-->
+                                                <div class="card-footer d-flex flex-row justify-content-between">
+                                                    <div class="d-flex">
+                                                        <div class="d-flex align-items-center me-5">
+                                                            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
+                                                            <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                    width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <rect opacity="0.5" x="7" y="2" width="14"
+                                                                        height="16" rx="3"
+                                                                        fill="currentColor" />
+                                                                    <rect x="3" y="6" width="14" height="16"
+                                                                        rx="3" fill="currentColor" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->
+                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                                class="fw-bold text-info ml-2">{{ count($infos['subMaterial']->assignments) }}
+                                                                Tugas</a>
+
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                        class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+
+                                                </div>
+
+                                                <!--end::Footer-->
+
+                                            </div>
+
+                                            <!--end::Card-->
+
+                                        </div>
+                                    @endif
+                                @elseif ($infos['isEnabled'])
+                                    <div class="col-xl-4 mb-3 card-disabled">
+
+                                        <!--begin::Card-->
+
+                                        <div class="card card-custom gutter-b card-stretch">
+
+                                            <!--begin::Body-->
+
+                                            <div class="card-body">
+
+                                                <!--begin::Section-->
+
+                                                <div class="d-flex align-items-center">
+
+                                                    <!--begin::Pic-->
+
+                                                    <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
+
+                                                        <span
+                                                            class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($infos['subMaterial']->title, 0, 1) }}</span>
+
+
+                                                    </div>
+
+                                                    <!--end::Pic-->
+
+                                                    <!--begin::Info-->
+
+                                                    <div class="d-flex flex-column me-auto">
+
+                                                        <!--begin: Title-->
+
+                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
+                                                            style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+
+                                                            {{ $infos['subMaterial']->title }}
+                                                        </a>
+
+
+                                                        <span class="text-muted font-weight-bold">
+
+                                                            {{ $material->title }}
+                                                        </span>
+
+                                                        <!--end::Title-->
+
+                                                    </div>
+
+                                                    <!--end::Info-->
+
+                                                </div>
+                                                <!--end::Section-->
+                                                <!--begin::Content-->
+                                                <!--end::Content-->
+                                                <!--begin::Text-->
+                                                <p class="mb-7 mt-5"
+                                                    style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                                    {{ $infos['subMaterial']->description }}
+                                                </p>
+                                                <!--end::Text-->
+                                            </div>
+                                            <!--end::Body-->
+                                            <!--begin::Footer-->
+                                            <div class="card-footer d-flex flex-row justify-content-between">
+                                                <div class="d-flex">
+                                                    <div class="d-flex align-items-center me-5">
+                                                        <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
+                                                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                width="24" height="24" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <rect opacity="0.5" x="7" y="2" width="14"
+                                                                    height="16" rx="3" fill="currentColor" />
+                                                                <rect x="3" y="6" width="14" height="16"
+                                                                    rx="3" fill="currentColor" />
+                                                            </svg>
+                                                        </span>
+                                                        <!--end::Svg Icon-->
+                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            class="fw-bold text-info ml-2">{{ count($infos['subMaterial']->assignments) }}
+                                                            Tugas</a>
+
+
+                                                    </div>
+
+
+                                                </div>
+
+                                                <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+
+                                            </div>
+
+                                            <!--end::Footer-->
+
+                                        </div>
+
+                                        <!--end::Card-->
+
+                                    </div>
+                                @endif
+                            @empty
+                                <x-empty-component title="bab" />
+                            @endforelse
+                        @else
+                            @forelse($subMaterials as $subMaterial)
+                                <div class="col-xl-4 mb-3">
+
+                                    <!--begin::Card-->
+
+                                    <div class="card card-custom gutter-b card-stretch">
+
+                                        <!--begin::Body-->
+
+                                        <div class="card-body">
+
+                                            <!--begin::Section-->
+
+                                            <div class="d-flex align-items-center">
+
+                                                <!--begin::Pic-->
+
+                                                <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
+
+                                                    <span
+                                                        class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($subMaterial->title, 0, 1) }}</span>
+
+
+                                                </div>
+
+                                                <!--end::Pic-->
+
+                                                <!--begin::Info-->
+
+                                                <div class="d-flex flex-column me-auto">
+
+                                                    <!--begin: Title-->
+
+                                                    <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
+                                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
+                                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+
+                                                        {{ $subMaterial->title }}
+                                                    </a>
+
+
+                                                    <span class="text-muted font-weight-bold">
+
+                                                        {{ $material->title }}
+                                                    </span>
+
+                                                    <!--end::Title-->
+
+                                                </div>
+
+                                                <!--end::Info-->
+
+                                            </div>
+                                            <!--end::Section-->
+                                            <!--begin::Content-->
+                                            <!--end::Content-->
+                                            <!--begin::Text-->
+                                            <p class="mb-7 mt-5"
+                                                style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                                {{ $subMaterial->description }}
+                                            </p>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Body-->
+                                        <!--begin::Footer-->
+                                        <div class="card-footer d-flex flex-row justify-content-between">
+                                            <div class="d-flex">
+                                                <div class="d-flex align-items-center me-5">
+                                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
+                                                    <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <rect opacity="0.5" x="7" y="2" width="14"
+                                                                height="16" rx="3" fill="currentColor" />
+                                                            <rect x="3" y="6" width="14" height="16"
+                                                                rx="3" fill="currentColor" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                    <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
+                                                        class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }}
+                                                        Tugas</a>
+
+
+                                                </div>
 
 
                                             </div>
 
+                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
+                                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                         </div>
 
-                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
-                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                        <!--end::Footer-->
 
                                     </div>
 
-                                    <!--end::Footer-->
+                                    <!--end::Card-->
 
                                 </div>
-
-                                <!--end::Card-->
-
-                            </div>
-                        @empty
-                            <x-empty-component title="bab" />
-                        @endforelse
+                            @empty
+                                <x-empty-component title="bab" />
+                            @endforelse
+                        @endif
                     </div>
 
                     <div class="row">
@@ -324,6 +729,14 @@
             .searching {
                 display: flex;
             }
+        }
+
+        .card-disabled {
+            opacity: 0.5;
+            /* Reduce opacity for disabled appearance */
+            pointer-events: none;
+            /* Disable pointer events */
+            /* Add any other styles to visually indicate the card is disabled */
         }
     </Style>
 @endsection
