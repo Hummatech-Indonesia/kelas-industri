@@ -40,12 +40,22 @@ class AssignmentService
      */
     public function handleGetAssignmentStudent(string $classroomId, string $assignmentId, Request $request): mixed
     {
-        // dd($request->filterShowing);
         if ($request->filterShowing == null) {
-            # code...
             return $this->repository->get_assignment_student($classroomId, $assignmentId, $request, 10);
         }
         return $this->repository->get_assignment_student($classroomId, $assignmentId, $request, $request->filterShowing);
+    }
+
+    /**
+     * handleGetAssignmentStudentDownload
+     *
+     * @param  mixed $classroomId
+     * @param  mixed $assignmentId
+     * @return mixed
+     */
+    public function handleGetAssignmentStudentDownload(string $classroomId, string $assignmentId): mixed
+    {
+        return $this->repository->assignmentStudentDownload($classroomId, $assignmentId);
     }
 
     /**
@@ -65,7 +75,7 @@ class AssignmentService
         $studentId = auth()->id();
 
         // Deleting old file if it exists
-        $oldAssignment = $this->repository->getSubmitAssignmentByStudentId($studentId);
+        $oldAssignment = $this->repository->get_submit_assignment_student($studentId, $request->assignment_id);
         if ($oldAssignment && Storage::disk('public')->exists($oldAssignment->file)) {
             Storage::disk('public')->delete($oldAssignment->file);
         }
@@ -74,10 +84,10 @@ class AssignmentService
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $data['file'] = $request->file('file')->store('assignment_file', 'public');
             if (!Storage::disk('public')->exists($data['file'])) {
-                return redirect()->back()->with('error', 'gambar gagal tersimpan, silahkan masukan kembali');
+                return redirect()->back()->with('error', 'File gagal tersimpan, silahkan masukan kembali');
             }
         } else {
-            return redirect()->back()->with('error', 'gambar gagal tersimpan, silahkan masukan kembali');
+            return redirect()->back()->with('error', 'File gagal tersimpan, silahkan masukan kembali');
         }
 
         $data['student_id'] = $studentId;
@@ -144,9 +154,9 @@ class AssignmentService
      * @param  mixed $previousOrder
      * @return int
      */
-    public function countAssignments(string $previousSubmaterialId, int $previousOrder): int
+    public function countAssignments(string $previousSubMaterialId, int $previousOrder): int
     {
-        return $this->repository->count_assignments($previousSubmaterialId, $previousOrder);
+        return $this->repository->count_assignments($previousSubMaterialId, $previousOrder);
     }
 
     /**
@@ -155,9 +165,9 @@ class AssignmentService
      * @param  mixed $previousOrder
      * @return int
      */
-    public function countStudentAssignments(string $previousSubmaterialId, int $previousOrder): int
+    public function countStudentAssignments(string $previousSubMaterialId, int $previousOrder): int
     {
-        return $this->repository->count_student_assignments($previousSubmaterialId, $previousOrder);
+        return $this->repository->count_student_assignments($previousSubMaterialId, $previousOrder);
     }
 
     /**

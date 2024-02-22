@@ -14,11 +14,9 @@ use App\Services\MaterialService;
 use App\Services\PointService;
 use App\Services\StudentService;
 use App\Services\SubMaterialService;
-use Illuminate\Pagination\LengthAwarePaginator;
 use App\Services\SubmitAssignmentService;
 use App\Services\SubmitChallengeService;
 use App\Traits\DataSidebar;
-use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -69,7 +67,6 @@ class UserClassroomController extends Controller
         return view('dashboard.user.pages.classroom.detail', $data);
     }
 
-
     public function materials(Classroom $classroom, Request $request): View
     {
         $data = $this->GetDataSidebar();
@@ -99,22 +96,13 @@ class UserClassroomController extends Controller
 
                 $previousOrder = $order - 1;
 
-                $previousSubmaterial = \App\Models\Submaterial::where('material_id', $subMaterial->material_id)
-                    ->where('order', $previousOrder)
-                    ->select('id')
-                    ->first();
+                $previousSubMaterial = $this->subMaterialService->handlePreviousSubMaterial($subMaterial->material->id, $previousOrder);
 
-                if ($previousSubmaterial) {
-                    $countAssignment = \App\Models\Assignment::whereRelation('submaterial', 'order', $previousOrder)
-                        ->where('sub_material_id', $previousSubmaterial->id)
-                        ->count();
+                if ($previousSubMaterial) {
+                    $countAssignment = $this->assignmentService->countAssignments($previousSubMaterial->id, $previousOrder);
 
-                    $countStudentAssignment = \App\Models\Assignment::where('sub_material_id', $previousSubmaterial->id)
-                        ->whereRelation('submaterial', 'order', $previousOrder)
-                        ->whereHas('StudentSubmitAssignment', function ($query) {
-                            $query->where('student_id', auth()->user()->studentSchool->student_id);
-                        })
-                        ->count();
+                    $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubMaterial->id, $previousOrder);
+
                 } else {
                     $countAssignment = 0;
                     $countStudentAssignment = 0;
@@ -125,7 +113,7 @@ class UserClassroomController extends Controller
                     'subMaterial' => $subMaterial,
                     'isFirst' => $isFirst,
                     'countAssignment' => $countAssignment,
-                    'countStudentAssignment' => $countStudentAssignment
+                    'countStudentAssignment' => $countStudentAssignment,
                 ];
             }
 
@@ -143,33 +131,7 @@ class UserClassroomController extends Controller
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
 
-        if (auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor') {
-            return view('dashboard.user.pages.submaterial.detail', $data);
-        }
-
-        if ($order == 1) {
-            return view('dashboard.user.pages.submaterial.detail', $data);
-        }
-
-        $previousOrder = $order - 1;
-
-        $previousSubmaterial = $this->subMaterialService->handlePreviousSubmaterial($submaterial->material->id, $previousOrder);
-
-        $countAssignmentByMaterial = $this->assignmentService->countAssignmentByMaterial($submaterial->id);
-
-        if ($countAssignmentByMaterial == 0) {
-            return view('dashboard.user.pages.submaterial.detail', $data);
-        }
-
-        $countAssignment = $this->assignmentService->countAssignments($previousSubmaterial->id, $previousOrder);
-
-        $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubmaterial->id, $previousOrder);
-
-        if ($countAssignment == $countStudentAssignment) {
-            return view('dashboard.user.pages.submaterial.detail', $data);
-        }
-
-        return redirect()->route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id])->with('error', 'Materi belum bisa diakses, anda belum menyelesaikan semua tugas dari materi sebelumnya');
+        return view('dashboard.user.pages.submaterial.detail', $data);
     }
 
     public function showDocument(SubMaterial $submaterial, string $role)

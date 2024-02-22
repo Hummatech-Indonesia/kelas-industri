@@ -78,7 +78,7 @@ class UserAssignmentController extends Controller
 
     public function downloadAll(Classroom $classroom, Assignment $assignment)
     {
-    $files = $this->assignmentService->handleGetAssignmentStudent($classroom->id, $assignment->id);
+    $files = $this->assignmentService->handleGetAssignmentStudentDownload($classroom->id, $assignment->id);
 
     if (count($files) > 0) {
         $zipName = 'Assignment.zip';

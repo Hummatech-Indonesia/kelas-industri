@@ -1,6 +1,5 @@
 @php use Carbon\Carbon; @endphp
 @extends('dashboard.user.layouts.app')
-
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <!--begin::Content wrapper-->
@@ -102,10 +101,10 @@
                                         </div>
                                         <div class="col-lg-2 col-md-12 ms-3">
                                             <button type="submit" class="btn btn-primary">Cari</button>
-                                            <a href="{{ route('student.rewards.index')}}"
-                                                type="button" class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i
-                                                    class="fonticon-repeat"></i></a>
+                                            <a href="{{ route('student.rewards.index') }}" type="button"
+                                                class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -122,14 +121,20 @@
                                 <div class="position-relative">
                                     <div class="card card-flush h-xl-100">
                                         <!--begin::Badge-->
-                                        <span class="position-absolute top-0 end-0 badge bg-primary">{{ $reward->point }}
-                                            point</span>
+
                                         <!--end::Badge-->
 
                                         <!--begin::Body-->
                                         <div class="card-body text-center pb-5">
                                             <!--begin::Overlay-->
-                                            <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="#">
+                                            <span
+                                                style=" position: absolute;
+                                            z-index: 2;margin-right: 5%; "
+                                                class="position-absolute mt-5 fs-6 top-0 end-0 badge bg-primary">{{ $reward->point }}
+                                                point</span>
+                                            <a style="position: relative;
+                                            z-index: 1;"
+                                                class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="#">
                                                 <!--begin::Image-->
                                                 <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-7"
                                                     style="height: 266px;background-image:url('{{ asset('storage/' . $reward->photo) }}')">

@@ -127,7 +127,7 @@
                                                name="account_number"
                                                type="text" value="{{ old('account_number') }}"
                                                placeholder="117-129-x-xxx"
-                                               required="">
+                                            required="">
 
                                     </div>
 
