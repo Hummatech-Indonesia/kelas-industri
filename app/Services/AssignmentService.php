@@ -40,7 +40,12 @@ class AssignmentService
      */
     public function handleGetAssignmentStudent(string $classroomId, string $assignmentId, Request $request): mixed
     {
-        return $this->repository->get_assignment_student($classroomId, $assignmentId, $request, 10);
+        // dd($request->filterShowing);
+        if ($request->filterShowing == null) {
+            # code...
+            return $this->repository->get_assignment_student($classroomId, $assignmentId, $request, 10);
+        }
+        return $this->repository->get_assignment_student($classroomId, $assignmentId, $request, $request->filterShowing);
     }
 
     /**

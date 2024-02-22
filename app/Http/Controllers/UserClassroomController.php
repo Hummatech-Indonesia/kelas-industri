@@ -91,64 +91,48 @@ class UserClassroomController extends Controller
             'material' => $material->id,
         ];
 
-        $subMaterialsInfo = [];
+        if (auth()->user()->roles->pluck('name')[0] == 'students') {
+            $subMaterialsInfo = [];
 
-        foreach ($data['subMaterials'] as $subMaterial) {
-            $order = $subMaterial->order;
+            foreach ($data['subMaterials'] as $subMaterial) {
+                $order = $subMaterial->order;
 
-            $previousOrder = $order - 1;
+                $previousOrder = $order - 1;
 
-            $previousSubmaterial = \App\Models\Submaterial::where('material_id', $subMaterial->material_id)
-                ->where('order', $previousOrder)
-                ->select('id')
-                ->first();
+                $previousSubmaterial = \App\Models\Submaterial::where('material_id', $subMaterial->material_id)
+                    ->where('order', $previousOrder)
+                    ->select('id')
+                    ->first();
 
-            if ($previousSubmaterial) {
-                $countAssignment = \App\Models\Assignment::whereRelation('submaterial', 'order', $previousOrder)
-                    ->where('sub_material_id', $previousSubmaterial->id)
-                    ->count();
+                if ($previousSubmaterial) {
+                    $countAssignment = \App\Models\Assignment::whereRelation('submaterial', 'order', $previousOrder)
+                        ->where('sub_material_id', $previousSubmaterial->id)
+                        ->count();
 
-                $countStudentAssignment = \App\Models\Assignment::where('sub_material_id', $previousSubmaterial->id)
-                    ->whereRelation('submaterial', 'order', $previousOrder)
-                    ->whereHas('StudentSubmitAssignment', function ($query) {
-                        $query->where('student_id', auth()->user()->studentSchool->student_id);
-                    })
-                    ->count();
-            } else {
-                $countAssignment = 0;
-                $countStudentAssignment = 0;
+                    $countStudentAssignment = \App\Models\Assignment::where('sub_material_id', $previousSubmaterial->id)
+                        ->whereRelation('submaterial', 'order', $previousOrder)
+                        ->whereHas('StudentSubmitAssignment', function ($query) {
+                            $query->where('student_id', auth()->user()->studentSchool->student_id);
+                        })
+                        ->count();
+                } else {
+                    $countAssignment = 0;
+                    $countStudentAssignment = 0;
+                }
+
+                $isFirst = $order == 1;
+                $subMaterialsInfo[] = [
+                    'subMaterial' => $subMaterial,
+                    'isFirst' => $isFirst,
+                    'countAssignment' => $countAssignment,
+                    'countStudentAssignment' => $countStudentAssignment
+                ];
             }
 
-            $isFirst = $order == 1;
-            $subMaterialsInfo[] = [
-                'subMaterial' => $subMaterial,
-                'isFirst' => $isFirst,
-                'countAssignment' => $countAssignment,
-                'countStudentAssignment' => $countStudentAssignment
-            ];
+            $data['subMaterialsInfo'] = $subMaterialsInfo;
         }
 
-        $data['subMaterialsInfo'] = $subMaterialsInfo;
-
         return view('dashboard.user.pages.submaterial.index', $data);
-
-
-        // $subMaterialsInfo = [];
-
-        // foreach ($data['subMaterials'] as $subMaterial) {
-        //     $order = $subMaterial->order;
-        //     $previousSubmaterial = $this->subMaterialService->handlePreviousSubmaterial($subMaterial->material_id, $order);
-
-        //     $subMaterialsInfo[] = [
-        //         'subMaterial' => $subMaterial,
-        //         'countAssignment' => $this->assignmentService->countAssignments($previousSubmaterial->id, $order),
-        //         'countStudentAssignment' => $this->assignmentService->countStudentAssignments($previousSubmaterial->id, $order)
-        //     ];
-        // }
-
-        // $data['subMaterialsInfo'] = $subMaterialsInfo;
-
-        // dd($data);
     }
 
     public function showSubMaterial(Classroom $classroom, Material $material, SubMaterial $submaterial)

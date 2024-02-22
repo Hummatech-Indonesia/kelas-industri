@@ -165,10 +165,21 @@
                                     <form
                                         action="{{ route('teacher.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
                                         method="get" class="row g-3 align-items-center mb-3">
+                                        <div class="col-auto">
+                                            <select name="filterShowing" id="filterShowing" class="form-select form-select-sm">
+                                                <option value="10" selected>10</option>
+                                                <option value="15">15</option>
+                                                <option value="35">35</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-auto">
+                                            <button class="btn btn-primary btn-sm" type="submit" id="filterShowing">
+                                                Filter
+                                            </button>
+                                        </div>
                                         <div class="col-auto ms-auto">
                                             <input type="text" class="form-control form-control-solid form-control-sm"
-                                                name="search" placeholder="Cari siswa...."
-                                                value="{{ request('search') }}">
+                                                name="search" placeholder="Cari siswa...." value="{{ request('search') }}">
                                         </div>
                                         <div class="col-auto">
                                             <button class="btn btn-primary btn-sm" type="submit" id="btn-search">
@@ -188,7 +199,7 @@
                                         <tbody>
                                             @forelse($students as $student)
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}</td>
                                                     <td>{{ $student->name }}</td>
                                                     @if ($student->submitAssignment)
                                                         <td>
