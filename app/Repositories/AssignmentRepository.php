@@ -44,16 +44,6 @@ class AssignmentRepository extends BaseRepository
             })
             ->where('name', 'like', '%' . $request->search . '%')
             ->paginate($limit);
-            // ->with('submitAssignment', function ($q) use ($assignmentId) {
-            //     $q->where('assignment_id', $assignmentId);
-            // })
-            // ->whereRelation('studentSchool.classrooms', function ($q) use ($classroomId) {
-            //     $q->where('classroom_id', $classroomId);
-            // })
-            // ->get();
-            //            ->withCount(['submitAssignment' => function ($q) use ($assignmentId) {
-            //                $q->where('assignment_id', $assignmentId);
-            //            }])
     }
 
     public function getSubmitAssignmentByStudentId($studentId)

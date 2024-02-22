@@ -166,10 +166,11 @@
                                         action="{{ route('teacher.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
                                         method="get" class="row g-3 align-items-center mb-3">
                                         <div class="col-auto">
-                                            <select name="filterShowing" id="filterShowing" class="form-select form-select-sm">
-                                                <option value="10" selected>10</option>
-                                                <option value="15">15</option>
-                                                <option value="35">35</option>
+                                            <select name="filterShowing" id="filterShowing"
+                                                class="form-select form-select-sm">
+                                                <option value="10" {{ request('filterShowing') == 10 ? 'selected' : ''}}>10</option>
+                                                <option value="15" {{ request('filterShowing') == 15 ? 'selected' : ''}}>15</option>
+                                                <option value="35" {{ request('filterShowing') == 35 ? 'selected' : ''}}>35</option>
                                             </select>
                                         </div>
                                         <div class="col-auto">
@@ -199,7 +200,8 @@
                                         <tbody>
                                             @forelse($students as $student)
                                                 <tr>
-                                                    <td>{{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}</td>
+                                                    <td>{{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}
+                                                    </td>
                                                     <td>{{ $student->name }}</td>
                                                     @if ($student->submitAssignment)
                                                         <td>
