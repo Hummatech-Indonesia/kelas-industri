@@ -91,7 +91,7 @@ class UserClassroomController extends Controller
             'material' => $material->id,
         ];
 
-        if (auth()->user()->roles->pluck('name')[0] == 'students') {
+        if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $subMaterialsInfo = [];
 
             foreach ($data['subMaterials'] as $subMaterial) {
