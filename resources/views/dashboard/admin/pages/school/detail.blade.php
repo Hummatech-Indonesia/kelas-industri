@@ -163,11 +163,11 @@
 
                         <!--begin::Items-->
 
-                        <div class="d-flex align-items-center flex-wrap mt-8">
+                        <div class="flex-wrap mt-8" style="width: auto; display: flex; justify-content: space-around; align-items: center;">
 
                             <!--begin::Item-->
 
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                            <div class="d-flex justify-content-center align-items-center flex-lg-fill mr-5 mb-2">
 
                                 <span class="me-4">
 
@@ -177,12 +177,8 @@
 
                                 <div class="d-flex flex-column text-dark-75">
 
-                                    <span class="fw-bolder font-size-sm">Guru</span>
+                                    <span class="fw-bolder font-size-sm">{{ count($school->teachers) }} Guru</span>
 
-                                    <span class="fw-bolder font-size-h5">
-
-                                        <span
-                                            class="text-dark-50 font-weight-bold"></span>{{ count($school->teachers) }}</span>
 
                                 </div>
 
@@ -194,7 +190,7 @@
 
                             <!--begin::Item-->
 
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                            <div class="d-flex justify-content-center align-items-center flex-lg-fill mr-5 mb-2">
 
                                 <span class="me-4">
 
@@ -204,13 +200,7 @@
 
                                 <div class="d-flex flex-column text-dark-75">
 
-                                    <span class="fw-bolder font-size-sm">Siswa</span>
-
-                                    <span class="fw-bolder font-size-h5">
-
-                                        <span class="text-dark-50 font-weight-bold">
-                                            {{ count($school->schoolStudents) }}
-                                        </span>
+                                    <span class="fw-bolder font-size-sm">{{ count($school->schoolStudents) }} Siswa</span>
 
                                 </div>
 
@@ -222,7 +212,7 @@
 
                             <!--begin::Item-->
 
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                            <div class="d-flex justify-content-center align-items-center flex-lg-fill mr-5 mb-2">
 
                                 <span class="me-4">
 
@@ -232,13 +222,8 @@
 
                                 <div class="d-flex flex-column text-dark-75">
 
-                                    <span class="fw-bolder font-size-sm">Kelas</span>
+                                    <span class="fw-bolder font-size-sm">{{ count($school->classrooms) }} Kelas</span>
 
-                                    <span class="fw-bolder font-size-h5">
-
-                                        <span class="text-dark-50 font-weight-bold"></span>
-                                        {{ count($school->classrooms) }}
-                                    </span>
 
                                 </div>
 
