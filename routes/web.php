@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminitrasionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
@@ -47,6 +48,27 @@ Route::get('/gallery', [WelcomeController::class, 'gallery'])->name('gallery');
 Route::get('/news', [WelcomeController::class, 'news'])->name('news');
 Route::get('/news/{slug}', [WelcomeController::class, 'detail'])->name('detail-news');
 Route::get('certify/{material}/{classroom}',[CertifyController::class, 'certify'])->name('certify');
+
+
+Route::get('/adminis', [AdminitrasionController::class, 'index'])->name('administration');
+
+Route::get('/adminis/guru', [AdminitrasionController::class, 'guru'])->name('administration.guru.index');
+Route::get('/adminis/guru/create', [AdminitrasionController::class, 'createGuru'])->name('administration.guru.create');
+Route::get('/adminis/guru/edit', [AdminitrasionController::class, 'editGuru'])->name('administration.guru.edit');
+Route::get('/adminis/guru/edit-password', [AdminitrasionController::class, 'editPassGuru'])->name('administration.guru.edit-password');
+
+
+Route::get('/adminis/gaji-guru', [AdminitrasionController::class, 'gajiGuru'])->name('administration.gajiGuru.index');
+Route::get('/adminis/gaji-guru/create', [AdminitrasionController::class, 'createGajiGuru'])->name('administration.gajiGuru.create');
+
+Route::get('/adminis/mentor', [AdminitrasionController::class, 'mentor'])->name('administration.mentor.index');
+Route::get('/adminis/mentor/create', [AdminitrasionController::class, 'createMentor'])->name('administration.mentor.create');
+Route::get('/adminis/mentor/edit', [AdminitrasionController::class, 'editMentor'])->name('administration.mentor.edit');
+Route::get('/adminis/mentor/edit-password', [AdminitrasionController::class, 'editPassMentor'])->name('administration.mentor.edit-password');
+
+Route::get('/adminis/gaji-mentor', [AdminitrasionController::class, 'gajiMentor'])->name('administration.gaji-mentor.index');
+Route::get('/adminis/gaji-mentor/create', [AdminitrasionController::class, 'createGajiMentor'])->name('administration.gaji-mentor.create');
+
 
 Auth::routes(['login' => true, 'register' => true]);
 
