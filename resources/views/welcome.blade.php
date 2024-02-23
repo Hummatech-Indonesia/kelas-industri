@@ -6,6 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="Improve your skill with hummatech internship.">
+    <meta property="og:image" content="https://i.postimg.cc/J0TFcfkC/Logo-Kelas-Industri.png" style="width: 50%;">
     <link rel="shortcut icon" href="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}">
     <title>Kelas Industri</title>
 

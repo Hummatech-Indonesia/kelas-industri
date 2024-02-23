@@ -20,11 +20,12 @@ License: For each use you must have a valid license purchased only from above li
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
-    <title>Kelas Industri</title>
+    <title>Kelas Industri Hummatech</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-
+    <meta property="og:description" content="Improve your skill with hummatech internship.">
+    <meta property="og:image" content="https://i.postimg.cc/J0TFcfkC/Logo-Kelas-Industri.png">
     <link rel="shortcut icon" href="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" />
 
     <!--begin::Fonts(mandatory for all pages)-->

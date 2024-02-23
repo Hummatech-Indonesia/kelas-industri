@@ -50,6 +50,8 @@ Route::get('certify/{material}/{classroom}',[CertifyController::class, 'certify'
 
 Auth::routes(['login' => true, 'register' => true]);
 
+Route::middleware('auth.custom')->group(function () {
+
 Route::prefix('profile')->name('profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'edit'])->name('index');
     Route::patch('/update-profile/{user}', [ProfileController::class, 'update'])->name('update');
@@ -276,5 +278,8 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
 });
 //end student
+
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -11,7 +11,8 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta property="og:site_name" content="Keenthemes | Metronic" />
+    <meta property="og:description" content="Improve your skill with hummatech internship.">
+    <link rel="icon" href="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" type="image/png" />
     <link rel="shortcut icon" href="{{asset('app-assets/logo_file/Logo-Kelas-Industri.png')}}"/>
 
     <!--begin::Fonts(mandatory for all pages)-->
