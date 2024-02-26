@@ -51,26 +51,6 @@ Route::get('certify/{material}/{classroom}', [CertifyController::class, 'certify
 Route::get('all-school', [SchoolController::class, 'school'])->name('all-school');
 Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name('classroomBySchool');
 
-Route::get('/adminis', [AdminitrasionController::class, 'index'])->name('administration');
-
-Route::get('/adminis/teacher', [AdminitrasionController::class, 'teacher'])->name('administration.teacher.index');
-Route::get('/adminis/teacher/create', [AdminitrasionController::class, 'createTeacher'])->name('administration.teacher.create');
-Route::get('/adminis/teacher/edit', [AdminitrasionController::class, 'editTeacher'])->name('administration.teacher.edit');
-Route::get('/adminis/teacher/edit-password', [AdminitrasionController::class, 'editPassTeacher'])->name('administration.teacher.edit-password');
-
-Route::get('/adminis/salary-teacher', [AdminitrasionController::class, 'salaryTeacher'])->name('administration.salaryTeacher.index');
-Route::get('/adminis/salary-teacher/create', [AdminitrasionController::class, 'createsalaryTeacher'])->name('administration.salaryTeacher.create');
-Route::get('/adminis/salary-teacher/edit', [AdminitrasionController::class, 'editsalaryTeacher'])->name('administration.salaryTeacher.edit');
-
-Route::get('/adminis/mentor', [AdminitrasionController::class, 'mentor'])->name('administration.mentor.index');
-Route::get('/adminis/mentor/create', [AdminitrasionController::class, 'createMentor'])->name('administration.mentor.create');
-Route::get('/adminis/mentor/edit', [AdminitrasionController::class, 'editMentor'])->name('administration.mentor.edit');
-Route::get('/adminis/mentor/edit-password', [AdminitrasionController::class, 'editPassMentor'])->name('administration.mentor.edit-password');
-
-Route::get('/adminis/salary-mentor', [AdminitrasionController::class, 'salaryMentor'])->name('administration.salary-mentor.index');
-Route::get('/adminis/salary-mentor/create', [AdminitrasionController::class, 'createsalaryMentor'])->name('administration.salary-mentor.create');
-Route::get('/adminis/salary-mentor/edit', [AdminitrasionController::class, 'editsalaryMentor'])->name('administration.salary-mentor.edit');
-
 Auth::routes(['login' => true, 'register' => true]);
 
 Route::middleware('auth.custom')->group(function () {
@@ -81,7 +61,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::patch('/update-password/{user}', [ProfileController::class, 'updatePassword'])->name('updatePassword');
     });
 
-//admin
+    //admin
     Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
@@ -160,9 +140,33 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/gantiPasswordGuru/{teacher}', [TeacherController::class, 'ChangePasswordTeacher'])->name('gantiPasswordGuru');
         Route::patch('/updatePasswordGuru/{teacher}', [TeacherController::class, 'updatePasswordGuru'])->name('updatePasswordGuru');
     });
-//end admin
+    //end admin
 
-//schools
+    //finance
+    Route::middleware(['auth', 'role:administration'])->prefix('administration')->name('administration.')->group(function () {
+        Route::get('', [AdminitrasionController::class, 'index'])->name('');
+
+        Route::get('teacher', [AdminitrasionController::class, 'teacher'])->name('teacher.index');
+        Route::get('teacher/create', [AdminitrasionController::class, 'createTeacher'])->name('teacher.create');
+        Route::get('teacher/edit', [AdminitrasionController::class, 'editTeacher'])->name('teacher.edit');
+        Route::get('teacher/edit-password', [AdminitrasionController::class, 'editPassTeacher'])->name('teacher.edit-password');
+
+        Route::get('salary-teacher', [AdminitrasionController::class, 'salaryTeacher'])->name('salaryTeacher.index');
+        Route::get('salary-teacher/create', [AdminitrasionController::class, 'createsalaryTeacher'])->name('salaryTeacher.create');
+        Route::get('salary-teacher/edit', [AdminitrasionController::class, 'editsalaryTeacher'])->name('salaryTeacher.edit');
+
+        Route::get('mentor', [AdminitrasionController::class, 'mentor'])->name('mentor.index');
+        Route::get('mentor/create', [AdminitrasionController::class, 'createMentor'])->name('mentor.create');
+        Route::get('mentor/edit', [AdminitrasionController::class, 'editMentor'])->name('mentor.edit');
+        Route::get('mentor/edit-password', [AdminitrasionController::class, 'editPassMentor'])->name('mentor.edit-password');
+
+        Route::get('salary-mentor', [AdminitrasionController::class, 'salaryMentor'])->name('salary-mentor.index');
+        Route::post('salary-mentor/create', [AdminitrasionController::class, 'createsalaryMentor'])->name('salary-mentor.create');
+        Route::get('salary-mentor/edit', [AdminitrasionController::class, 'editsalaryMentor'])->name('salary-mentor.edit');
+    });
+    //end finance
+
+    //schools
     Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->group(function () {
         Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
@@ -199,11 +203,10 @@ Route::middleware('auth.custom')->group(function () {
         //changepwsteacher
         Route::get('/gantiPasswordGuru/{teacher}', [TeacherController::class, 'ChangePasswordTeacher'])->name('gantiPasswordGuru');
         Route::patch('/updatePasswordGuru/{teacher}', [TeacherController::class, 'updatePasswordGuru'])->name('updatePasswordGuru');
-
     });
-//end schools
+    //end schools
 
-//teacher
+    //teacher
     Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
         Route::resources([
             'challenges' => ChallengeController::class,
@@ -226,9 +229,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
     });
-//end teacher
+    //end teacher
 
-//mentor
+    //mentor
     Route::middleware(['auth', 'role:mentor'])->prefix('mentor')->name('mentor.')->group(function () {
         Route::resources([
             'challenges' => ChallengeController::class,
@@ -250,9 +253,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
         Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
     });
-//end mentor
+    //end mentor
 
-//mentor, student, teacher
+    //mentor, student, teacher
     Route::name('common.')->group(function () {
         Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
         Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
@@ -261,9 +264,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
     });
-//end mentor, student, teacher
+    //end mentor, student, teacher
 
-//student
+    //student
     Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
         Route::get('/', function () {
             return view('dashboard.user.pages.material.index');
@@ -297,7 +300,7 @@ Route::middleware('auth.custom')->group(function () {
         ]);
         Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
     });
-//end student
+    //end student
 
 });
 
