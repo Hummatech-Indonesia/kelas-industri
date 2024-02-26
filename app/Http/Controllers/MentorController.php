@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\UserServices;
 use App\Models\MentorClassroom;
+use App\Models\Generation;
 use App\Services\MentorService;
 use App\Helpers\SchoolYearHelper;
 use App\Services\ClassroomService;
@@ -68,11 +69,14 @@ class MentorController extends Controller
      *
      * @return mixed
      */
+    /**
+     * Get classrooms by school id for the current school year.
+     *
+     * @return mixed
+     */
     public function getClassroomBySchool(): mixed
     {
-        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
-
-        return $this->classroomService->handleGetBySchool(request()->schoolId, $currentSchoolYear->id);
+        return $this->classroomService->handleGetBySchool(request()->schoolId);
     }
 
     /**

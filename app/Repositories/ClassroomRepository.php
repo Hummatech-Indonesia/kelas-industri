@@ -106,15 +106,12 @@ class ClassroomRepository extends BaseRepository
      * @return mixed
      */
 
-    public function get_by_school(string $schoolId, int $schoolYearId): mixed
+    public function get_by_school(string $schoolId): mixed
     {
         return $this->model->query()
             ->where('school_id', $schoolId)
-            ->whereRelation('generation', function ($q) use ($schoolYearId) {
-                return $q->where('school_year_id', $schoolYearId);
-            })
-            ->with(['generation.schoolYear'])
             ->get();
+    
     }
 
     public function get_teacher_classroom(string $schoolId, int $schoolYearId): mixed

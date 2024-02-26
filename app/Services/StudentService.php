@@ -29,9 +29,9 @@ class StudentService
      * @return mixed
      * @throws Exception
      */
-    public function handleGetBySchool(string $schoolId): mixed
+    public function handleGetBySchool(string $schoolId, string $classroom): mixed
     {
-        return $this->repository->get_by_school($schoolId);
+        return $this->repository->get_by_school($schoolId, $classroom);
     }
 
     /**

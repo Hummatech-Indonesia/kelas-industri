@@ -201,7 +201,11 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                     <a href="{{ route('school.classrooms.show', $classroom->id) }}"
-                                        class="fw-bold text-info ml-2">{{ count($classroom->students) }} Siswa</a>
+                                        class="fw-bold text-info ml-2">{{ $classroom->students()->whereHas('studentSchool', function($q) {
+                $q->whereHas('student', function($q) {
+                    $q->where('status', 'active');
+                });
+            })->count() }} Siswa</a>
 
 
                                 </div>
