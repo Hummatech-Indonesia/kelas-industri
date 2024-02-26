@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use App\Models\Classroom;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use App\Services\StudentService;
 use App\Helpers\SchoolYearHelper;
+use App\Http\Requests\ClassroomRequest;
+use App\Models\Classroom;
 use App\Services\ClassroomService;
 use App\Services\GenerationService;
 use App\Services\SchoolYearService;
+use App\Services\StudentService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Pagination\Paginator;
-use App\Http\Requests\ClassroomRequest;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ClassroomController extends Controller
 {
@@ -39,15 +38,18 @@ class ClassroomController extends Controller
     {
         $schoolYear = SchoolYearHelper::get_current_school_year();
         $selectedSchoolYear = 0;
-        if($schoolYear){
+        if ($schoolYear) {
             $selectedSchoolYear = $schoolYear->id;
         }
-        if($request->filter){
+        if ($request->filter) {
             $filter = $request->filter;
-        }else{
+        } else {
             $filter = $selectedSchoolYear;
         }
-        if (request()->ajax()) return $this->generationService->handleGetBySchoolYear($request->school_year_id,$selectedSchoolYear);
+        if (request()->ajax()) {
+            return $this->generationService->handleGetBySchoolYear($request->school_year_id, $selectedSchoolYear);
+        }
+
         $data = [
             'school_years' => $this->schoolYearService->handleGetAll(),
             'generations' => $this->generationService->handleGetAll(),
@@ -66,7 +68,7 @@ class ClassroomController extends Controller
     public function create(): View
     {
         $data = [
-            'generations' => $this->generationService->handleGetAll()
+            'generations' => $this->generationService->handleGetAll(),
         ];
         return \view('dashboard.admin.pages.classroom.create', $data);
     }
@@ -93,12 +95,11 @@ class ClassroomController extends Controller
      */
     public function show(Classroom $classroom): View
     {
-        
+
         $data = [
             'classroom' => $classroom,
-            'students' => $this->studentService->handleGetBySchool(auth()->id())
+            'students' => $this->studentService->handleGetBySchool(auth()->id()),
         ];
-//        dd($data);
         return \view('dashboard.admin.pages.classroom.detail', $data);
     }
 
@@ -112,7 +113,7 @@ class ClassroomController extends Controller
     {
         $data = [
             'classroom' => $classroom,
-            'generations' => $this->generationService->handleGetAll()
+            'generations' => $this->generationService->handleGetAll(),
         ];
         return \view('dashboard.admin.pages.classroom.edit', $data);
     }
@@ -141,7 +142,9 @@ class ClassroomController extends Controller
     {
         $data = $this->service->handleDelete($classroom->id);
 
-        if (!$data) return back()->with('error', trans('alert.delete_constrained'));
+        if (!$data) {
+            return back()->with('error', trans('alert.delete_constrained'));
+        }
 
         return back()->with('success', trans('alert.delete_success'));
     }

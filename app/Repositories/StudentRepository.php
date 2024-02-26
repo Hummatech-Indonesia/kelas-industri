@@ -5,15 +5,13 @@ namespace App\Repositories;
 use App\Models\StudentClassroom;
 use App\Models\StudentSchool;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class StudentRepository extends BaseRepository
 {
     private User $userModel;
     private StudentClassroom $modeClass;
 
-    public function __construct(StudentSchool $model, User $userModel , StudentClassroom $ModelClass)
+    public function __construct(StudentSchool $model, User $userModel, StudentClassroom $ModelClass)
     {
         $this->modeClass = $ModelClass;
         $this->model = $model;
@@ -29,9 +27,10 @@ class StudentRepository extends BaseRepository
     public function get_by_school(string $schoolId)
     {
         return $this->modeClass->query()
-            ->where('classroom_id', $schoolId)->paginate(6);    
+            ->whereRelation('studentSchool.student', 'status', 'active')
+            ->where('classroom_id', $schoolId)
+            ->paginate(6);
     }
-
 
     /**
      * store

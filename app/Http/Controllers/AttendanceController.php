@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AttendanceRequest;
 use App\Models\Attendance;
 use App\Services\AttendanceService;
+use App\Traits\DataSidebar;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use App\Traits\DataSidebar;
-
 
 class AttendanceController extends Controller
 {
@@ -27,12 +26,14 @@ class AttendanceController extends Controller
      */
     public function index(): View
     {
-        if(auth()->user()->roles->pluck('name')[0] == 'mentor'){
+        if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             $data = $this->GetDataSidebar();
             $data['attendances'] = $this->service->handleGetByMentor();
             return view('dashboard.user.pages.absent.index', $data);
-        }else
-        $data['attendances'] = $this->service->handleGetByAdmin();
+        } else {
+            $data['attendances'] = $this->service->handleGetByAdmin();
+        }
+
         return view('dashboard.admin.pages.absent.index', $data);
 
     }
@@ -45,7 +46,7 @@ class AttendanceController extends Controller
     public function create(): View
     {
         $data = $this->GetDataSidebar();
-        return view('dashboard.user.pages.absent.create',$data);
+        return view('dashboard.user.pages.absent.create', $data);
     }
 
     /**
@@ -70,16 +71,15 @@ class AttendanceController extends Controller
     public function show(Attendance $attendance): View
     {
         $data = $this->GetDataSidebar();
-        if(auth()->user()->roles->pluck('name')[0] == 'admin'){
+        if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data['attendances'] = $this->service->getStudentBySubmitAttendance($attendance);
             return view('dashboard.admin.pages.absent.detail', $data);
-        }else{
+        } else {
             $mentorId = auth()->id();
             $data['attendances'] = $this->service->getStudentBySubmitAttendanceMentor($attendance, $mentorId);
             return view('dashboard.user.pages.absent.show', $data);
         }
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -125,10 +125,15 @@ class AttendanceController extends Controller
      */
     public function submit(Attendance $attendance): view
     {
-        $mentor = $this->service->handleShow($attendance);
-        if($this->service->validate_student_mentor($mentor->created_by)) abort(404);
-        if($this->service->validate_attendance_status($attendance)) return view('dashboard.user.pages.absent.status')->with(['status' => 'closed']);
-        if($this->service->validate_student_submit_status($attendance)) return view('dashboard.user.pages.absent.status')->with(['status' => 'have_done']);
+        // $mentor = $this->service->handleShow($attendance);
+        // if($this->service->validate_student_mentor($mentor->created_by)) abort(404);
+        if ($this->service->validate_attendance_status($attendance)) {
+            return view('dashboard.user.pages.absent.status')->with(['status' => 'closed']);
+        }
+
+        if ($this->service->validate_student_submit_status($attendance)) {
+            return view('dashboard.user.pages.absent.status')->with(['status' => 'have_done']);
+        }
 
         $this->service->submitAttendance($attendance);
         return view('dashboard.user.pages.absent.status')->with(['status' => 'success']);

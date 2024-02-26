@@ -113,6 +113,7 @@ class ClassroomRepository extends BaseRepository
             ->whereRelation('generation', function ($q) use ($schoolYearId) {
                 return $q->where('school_year_id', $schoolYearId);
             })
+            ->with(['generation.schoolYear'])
             ->get();
     }
 
@@ -153,16 +154,16 @@ class ClassroomRepository extends BaseRepository
      * @param int $limit
      * @return mixed
      */
-    public function get_paginate_by_school_search(string | null $search,string|null $generation,string|null $filter, string $schoolId, int $limit): mixed
+    public function get_paginate_by_school_search(string | null $search, string | null $generation, string | null $filter, string $schoolId, int $limit): mixed
     {
         return $this->model->query()
             ->where('name', 'like', '%' . $search . '%')
-            ->when($generation,function($q) use ($generation){
-                return $q->where('generation_id',$generation);
+            ->when($generation, function ($q) use ($generation) {
+                return $q->where('generation_id', $generation);
             })
-            ->when($filter,function($q) use ($filter){
-                $q->whereRelation('generation', function ($q) use ($filter){
-                    return $q->where('school_year_id',$filter);
+            ->when($filter, function ($q) use ($filter) {
+                $q->whereRelation('generation', function ($q) use ($filter) {
+                    return $q->where('school_year_id', $filter);
                 });
             })
             ->orderBy('name', 'ASC')
@@ -193,54 +194,55 @@ class ClassroomRepository extends BaseRepository
             ->get();
     }
 
-    public function get_school_classroom_report(string $schoolId, $year):mixed
+    public function get_school_classroom_report(string $schoolId, $year): mixed
     {
         return $this->model->query()
             ->where('school_id', $schoolId)
-            ->whereRelation('generation.schoolYear', function ($q) use ($year){
+            ->whereRelation('generation.schoolYear', function ($q) use ($year) {
                 $q->where('id', $year);
             })
             ->get();
     }
 
-    public function get_school_classroom_mentor(string $mentorId, $year):mixed
+    public function get_school_classroom_mentor(string $mentorId, $year): mixed
     {
         return $this->mentorClassroom->query()
-                    ->where('mentor_id', $mentorId)
-                    ->whereRelation('classroom.generation.schoolYear', function ($q) use ($year){
-                        $q->where('id', $year);
-                    })
-                    ->get();
+            ->where('mentor_id', $mentorId)
+            ->whereRelation('classroom.generation.schoolYear', function ($q) use ($year) {
+                $q->where('id', $year);
+            })
+            ->get();
     }
 
-    public function get_school_classroom_teacher(string $teacherId,string $schoolId, $year):mixed
+    public function get_school_classroom_teacher(string $teacherId, string $schoolId, $year): mixed
     {
         return $this->teacherClassroom->query()
-                    ->whereRelation('teacherSchool', function ($q) use ($teacherId){
-                        $q->where('teacher_id', $teacherId);
-                    })
-                    ->whereRelation('teacherSchool', function ($q) use ($schoolId){
-                        $q->where('school_id', $schoolId);
-                    })
-                    ->whereRelation('classroom.generation.schoolYear', function ($q) use ($year){
-                        $q->where('id', $year);
-                    })
-                    ->get();
+            ->whereRelation('teacherSchool', function ($q) use ($teacherId) {
+                $q->where('teacher_id', $teacherId);
+            })
+            ->whereRelation('teacherSchool', function ($q) use ($schoolId) {
+                $q->where('school_id', $schoolId);
+            })
+            ->whereRelation('classroom.generation.schoolYear', function ($q) use ($year) {
+                $q->where('id', $year);
+            })
+            ->get();
     }
 
-    public function get_school_classroom_journal(string $schoolId,$year) :mixed
+    public function get_school_classroom_journal(string $schoolId, $year): mixed
     {
         return $this->model->query()
-        ->whereRelation('generation.schoolYear', function ($q) use ($year){
-            $q->where('id', $year);
-        })
-        ->where('school_id', $schoolId)
-        ->get();
+            ->whereRelation('generation.schoolYear', function ($q) use ($year) {
+                $q->where('id', $year);
+            })
+            ->where('school_id', $schoolId)
+            ->get();
     }
 
-    public function get_student_by_classroom(string $classroomId){
+    public function get_student_by_classroom(string $classroomId)
+    {
         return $this->studentClassroom->query()
-        ->where('classroom_id', $classroomId)
-        ->get();
+            ->where('classroom_id', $classroomId)
+            ->get();
     }
 }

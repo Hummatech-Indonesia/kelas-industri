@@ -45,9 +45,8 @@
                                         class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
                                             width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
-                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                fill="currentColor">
+                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"
+                                                rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor">
                                             </rect>
                                             <path
                                                 d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
@@ -147,12 +146,11 @@
                                 <div class="d-flex">
                                     <a href="{{ route('school.classrooms.edit', $classroom->id) }}"
                                         class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip"
-                                        data-bs-title="Edit"><i
+                                        data-bs-custom-class="custom-tooltip" data-bs-title="Edit"><i
                                             class="fonticon-setting fs-2 text-warning"></i></a>
-                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $classroom->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip"
-                                        data-bs-title="Hapus Data">
+                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $classroom->id }}"
+                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data">
                                         <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
                                 </div>
 
@@ -192,13 +190,13 @@
                                             <path
                                                 d="M16.0173 9H15.3945C14.2833 9 13.263 9.61425 12.7431 10.5963L12.154 11.7091C12.0645 11.8781 12.1072 12.0868 12.2559 12.2071L12.6402 12.5183C13.2631 13.0225 13.7556 13.6691 14.0764 14.4035L14.2321 14.7601C14.2957 14.9058 14.4396 15 14.5987 15H18.6747C19.7297 15 20.4057 13.8774 19.912 12.945L18.6686 10.5963C18.1487 9.61425 17.1285 9 16.0173 9Z"
                                                 fill="currentColor" />
-                                            <rect opacity="0.3" x="14" y="4" width="4" height="4"
-                                                rx="2" fill="currentColor" />
+                                            <rect opacity="0.3" x="14" y="4" width="4" height="4" rx="2"
+                                                fill="currentColor" />
                                             <path
                                                 d="M4.65486 14.8559C5.40389 13.1224 7.11161 12 9 12C10.8884 12 12.5961 13.1224 13.3451 14.8559L14.793 18.2067C15.3636 19.5271 14.3955 21 12.9571 21H5.04292C3.60453 21 2.63644 19.5271 3.20698 18.2067L4.65486 14.8559Z"
                                                 fill="currentColor" />
-                                            <rect opacity="0.3" x="6" y="5" width="6"
-                                                height="6" rx="3" fill="currentColor" />
+                                            <rect opacity="0.3" x="6" y="5" width="6" height="6"
+                                                rx="3" fill="currentColor" />
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->

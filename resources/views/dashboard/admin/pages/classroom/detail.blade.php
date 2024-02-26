@@ -117,7 +117,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($classroom->students as $student)
+                                            @foreach ($students as $student)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $student->studentSchool->student->name }}</td>

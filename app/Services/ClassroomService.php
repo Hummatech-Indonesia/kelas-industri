@@ -88,7 +88,7 @@ class ClassroomService
      */
     public function handleGetPaginate(string $schoolId, int $schoolYearId): mixed
     {
-        return $this->repository->get_paginate_by_school($schoolId,$schoolYearId, 8);
+        return $this->repository->get_paginate_by_school($schoolId, $schoolYearId, 8);
     }
 
     /**
@@ -100,7 +100,7 @@ class ClassroomService
      */
     public function handleSearch(Request $search, string $schoolId): mixed
     {
-        return $this->repository->get_paginate_by_school_search($search->search,$search->generation_id,$search->filter, $schoolId, 3);
+        return $this->repository->get_paginate_by_school_search($search->search, $search->generation_id, $search->filter, $schoolId, 3);
     }
 
     /**
@@ -155,47 +155,47 @@ class ClassroomService
         }
     }
 
-    public function handleCountClassroomTeacher(string $teacherId) :mixed
+    public function handleCountClassroomTeacher(string $teacherId): mixed
     {
         return $this->repository->get_count_classroom_teacher($teacherId);
     }
 
-    public function handleCountClassroomMentor(string $mentorId) :mixed
+    public function handleCountClassroomMentor(string $mentorId): mixed
     {
         return $this->repository->get_count_classroom_mentor($mentorId);
     }
 
-    public function handleGetByTeacherClassroom(string $schoolId, int $schoolYearId) :mixed
+    public function handleGetByTeacherClassroom(string $schoolId, int $schoolYearId): mixed
     {
         return $this->repository->get_teacher_classroom($schoolId, $schoolYearId);
     }
 
-    public function handleGetBySchoolClassroom(string $schoolId):mixed
+    public function handleGetBySchoolClassroom(string $schoolId): mixed
     {
         return $this->repository->get_school_classroom($schoolId);
     }
 
-    public function handleGetSchoolClassrooomReport(string $schoolId, $year) :mixed
+    public function handleGetSchoolClassrooomReport(string $schoolId, $year): mixed
     {
         return $this->repository->get_school_classroom_report($schoolId, $year);
     }
 
-    public function handleGetSchoolClassrooomJournal(string $schoolId, $year):mixed
+    public function handleGetSchoolClassrooomJournal(string $schoolId, $year): mixed
     {
         return $this->repository->get_school_classroom_journal($schoolId, $year);
     }
 
-    public function handleGetStudent(string $classroomId) :mixed
+    public function handleGetStudent(string $classroomId): mixed
     {
         return $this->repository->get_student_by_classroom($classroomId);
     }
 
-    public function handleGetSchoolClassrooomMentor(string $mentorId, $year) :mixed
+    public function handleGetSchoolClassrooomMentor(string $mentorId, $year): mixed
     {
         return $this->repository->get_school_classroom_mentor($mentorId, $year);
     }
 
-    public function handleGetSchoolClassrooomTeacher(string $teacherId, string $schoolId, $year) :mixed
+    public function handleGetSchoolClassrooomTeacher(string $teacherId, string $schoolId, $year): mixed
     {
         return $this->repository->get_school_classroom_teacher($teacherId, $schoolId, $year);
     }

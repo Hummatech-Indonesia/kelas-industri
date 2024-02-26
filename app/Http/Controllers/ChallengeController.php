@@ -21,7 +21,7 @@ use App\Http\Requests\SubmitChallengeRequest;
 
 class ChallengeController extends Controller
 {
-    use DataSidebar;
+    use DataSidebar;    
     private ChallengeService $service;
     private SchoolYearService $schoolYearService;
 
