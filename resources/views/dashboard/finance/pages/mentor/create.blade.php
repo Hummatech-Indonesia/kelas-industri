@@ -1,4 +1,4 @@
-@extends('dashboard.keuangan.layout.app')
+@extends('dashboard.finance.layout.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Edit Mentor
+                Tambah Mentor
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman edit mentor
+                Halaman tambah mentor
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -31,7 +31,6 @@
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
             <form action="" method="POST" enctype="multipart/form-data">
-                @method('PATCH')
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -50,7 +49,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('administration.guru.index') }}"
+                                <a href="{{ route('administration.mentor.index') }}"
                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -85,7 +84,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="name"
-                                               type="text" value="" placeholder="John Doe"
+                                               type="text" value="{{ old('name') }}" placeholder="John Doe"
                                                required="">
 
                                     </div>
@@ -98,7 +97,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="email"
-                                               type="email" value="" placeholder="johndoe@gmail.com"
+                                               type="email" value="{{ old('email') }}" placeholder="johndoe@gmail.com"
                                                required="">
 
                                     </div>
@@ -112,8 +111,7 @@
 
                                         <input class="form-control form-control-solid form-control-lg"
                                                name="phone_number"
-                                               type="text" value=""
-                                               placeholder="087xxxxxxxxx"
+                                               type="text" value="{{ old('phone_number') }}" placeholder="087xxxxxxxxx"
                                                required="">
 
                                     </div>
@@ -127,9 +125,9 @@
 
                                         <input class="form-control form-control-solid form-control-lg"
                                                name="account_number"
-                                               type="text" value=""
+                                               type="text" value="{{ old('account_number') }}"
                                                placeholder="117-129-x-xxx"
-                                               required="">
+                                            required="">
 
                                     </div>
 
@@ -142,7 +140,7 @@
 
                                         <input class="form-control form-control-solid form-control-lg"
                                                name="bank"
-                                               type="text" value=""
+                                               type="text" value="{{ old('bank') }}"
                                                placeholder="Mandiri"
                                                required="">
 
@@ -159,7 +157,7 @@
                                                   name="address"
                                                   type="text"
                                                   placeholder="Jl. Soekarno Hatta No 9"
-                                                  required=""></textarea>
+                                                  required="">{{ old('address') }}</textarea>
 
                                     </div>
 

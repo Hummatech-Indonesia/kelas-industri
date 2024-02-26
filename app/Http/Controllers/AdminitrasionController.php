@@ -7,7 +7,28 @@ use Illuminate\Http\Request;
 class AdminitrasionController extends Controller
 {
     public function index(){
-        return view('dashboard.keuangan.pages.home');
+        return view('dashboard.finance.pages.home');
+    }
+
+
+
+
+
+
+    public function teacher(){
+        return view('dashboard.finance.pages.teacher.index');
+    }
+
+    public function createTeacher(){
+        return view('dashboard.finance.pages.teacher.create');
+    }
+
+    public function editTeacher(){
+        return view('dashboard.finance.pages.teacher.edit');
+    }
+
+    public function editPassTeacher(){
+        return view('dashboard.finance.pages.teacher.changePassword');
     }
 
 
@@ -18,38 +39,17 @@ class AdminitrasionController extends Controller
 
 
 
-    public function guru(){
-        return view('dashboard.keuangan.pages.guru.index');
+
+
+    public function salaryTeacher(){
+        return view('dashboard.finance.pages.salaryTeacher.index');
     }
 
-    public function createGuru(){
-        return view('dashboard.keuangan.pages.guru.create');
+    public function createsalaryTeacher(){
+        return view('dashboard.finance.pages.salaryTeacher.create');
     }
-
-    public function editGuru(){
-        return view('dashboard.keuangan.pages.guru.edit');
-    }
-
-    public function editPassGuru(){
-        return view('dashboard.keuangan.pages.guru.changePassword');
-    }
-
-
-
-
-
-
-
-
-
-
-
-    public function gajiGuru(){
-        return view('dashboard.keuangan.pages.gajiGuru.index');
-    }
-
-    public function createGajiGuru(){
-        return view('dashboard.keuangan.pages.gajiGuru.create');
+    public function editsalaryTeacher(){
+        return view('dashboard.finance.pages.salaryTeacher.show');
     }
 
 
@@ -58,19 +58,19 @@ class AdminitrasionController extends Controller
 
 
     public function mentor(){
-        return view('dashboard.keuangan.pages.mentor.index');
+        return view('dashboard.finance.pages.mentor.index');
     }
 
     public function createMentor(){
-        return view('dashboard.keuangan.pages.mentor.create');
+        return view('dashboard.finance.pages.mentor.create');
     }
 
     public function editMentor(){
-        return view('dashboard.keuangan.pages.mentor.edit');
+        return view('dashboard.finance.pages.mentor.edit');
     }
 
     public function editPassMentor(){
-        return view('dashboard.keuangan.pages.mentor.changePassword');
+        return view('dashboard.finance.pages.mentor.changePassword');
     }
 
 
@@ -78,10 +78,13 @@ class AdminitrasionController extends Controller
 
 
 
-    public function gajiMentor(){
-        return view('dashboard.keuangan.pages.gajiMentor.index');
+    public function salaryMentor(){
+        return view('dashboard.finance.pages.salaryMentor.index');
     }
-    public function createGajiMentor(){
-        return view('dashboard.keuangan.pages.gajiMentor.create');
+    public function createsalaryMentor(){
+        return view('dashboard.finance.pages.salaryMentor.create');
+    }
+    public function editsalaryMentor(){
+        return view('dashboard.finance.pages.salaryMentor.show');
     }
 }

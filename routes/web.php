@@ -49,25 +49,26 @@ Route::get('/news', [WelcomeController::class, 'news'])->name('news');
 Route::get('/news/{slug}', [WelcomeController::class, 'detail'])->name('detail-news');
 Route::get('certify/{material}/{classroom}',[CertifyController::class, 'certify'])->name('certify');
 
-
 Route::get('/adminis', [AdminitrasionController::class, 'index'])->name('administration');
 
-Route::get('/adminis/guru', [AdminitrasionController::class, 'guru'])->name('administration.guru.index');
-Route::get('/adminis/guru/create', [AdminitrasionController::class, 'createGuru'])->name('administration.guru.create');
-Route::get('/adminis/guru/edit', [AdminitrasionController::class, 'editGuru'])->name('administration.guru.edit');
-Route::get('/adminis/guru/edit-password', [AdminitrasionController::class, 'editPassGuru'])->name('administration.guru.edit-password');
+Route::get('/adminis/teacher', [AdminitrasionController::class, 'teacher'])->name('administration.teacher.index');
+Route::get('/adminis/teacher/create', [AdminitrasionController::class, 'createTeacher'])->name('administration.teacher.create');
+Route::get('/adminis/teacher/edit', [AdminitrasionController::class, 'editTeacher'])->name('administration.teacher.edit');
+Route::get('/adminis/teacher/edit-password', [AdminitrasionController::class, 'editPassTeacher'])->name('administration.teacher.edit-password');
 
+Route::get('/adminis/salary-teacher', [AdminitrasionController::class, 'salaryTeacher'])->name('administration.salaryTeacher.index');
+Route::get('/adminis/salary-teacher/create', [AdminitrasionController::class, 'createsalaryTeacher'])->name('administration.salaryTeacher.create');
+Route::get('/adminis/salary-teacher/edit', [AdminitrasionController::class, 'editsalaryTeacher'])->name('administration.salaryTeacher.edit');
 
-Route::get('/adminis/gaji-guru', [AdminitrasionController::class, 'gajiGuru'])->name('administration.gajiGuru.index');
-Route::get('/adminis/gaji-guru/create', [AdminitrasionController::class, 'createGajiGuru'])->name('administration.gajiGuru.create');
 
 Route::get('/adminis/mentor', [AdminitrasionController::class, 'mentor'])->name('administration.mentor.index');
 Route::get('/adminis/mentor/create', [AdminitrasionController::class, 'createMentor'])->name('administration.mentor.create');
 Route::get('/adminis/mentor/edit', [AdminitrasionController::class, 'editMentor'])->name('administration.mentor.edit');
 Route::get('/adminis/mentor/edit-password', [AdminitrasionController::class, 'editPassMentor'])->name('administration.mentor.edit-password');
 
-Route::get('/adminis/gaji-mentor', [AdminitrasionController::class, 'gajiMentor'])->name('administration.gaji-mentor.index');
-Route::get('/adminis/gaji-mentor/create', [AdminitrasionController::class, 'createGajiMentor'])->name('administration.gaji-mentor.create');
+Route::get('/adminis/salary-mentor', [AdminitrasionController::class, 'salaryMentor'])->name('administration.salary-mentor.index');
+Route::get('/adminis/salary-mentor/create', [AdminitrasionController::class, 'createsalaryMentor'])->name('administration.salary-mentor.create');
+Route::get('/adminis/salary-mentor/edit', [AdminitrasionController::class, 'editsalaryMentor'])->name('administration.salary-mentor.edit');
 
 
 Auth::routes(['login' => true, 'register' => true]);

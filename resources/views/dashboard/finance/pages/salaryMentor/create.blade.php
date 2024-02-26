@@ -1,4 +1,4 @@
-@extends('dashboard.keuangan.layout.app')
+@extends('dashboard.finance.layout.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Edit Bukti Gaji
+                Tambah Bukti Gaji
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman Edit Bukti Gaji
+                Halaman Bukti Gaji
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -25,13 +25,12 @@
         </div>
         <!--end::Actions-->
     </div>
-    @if($errors->any())
+    {{-- @if($errors->any())
         <x-errors-component/>
-    @endif
+    @endif --}}
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('admin.saleries.update', $salery->id) }}" method="POST" enctype="multipart/form-data">
-                @method('PATCH')
+            <form action="{{ route('admin.saleries.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -50,7 +49,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('admin.saleries.index') }}"
+                                <a href="{{ route('administration.salaryTeacher.index') }}"
                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -85,10 +84,10 @@
 
                                         <select name="user_id" class="form-select form-select-solid me-5"
                                                 data-control="select2" data-placeholder="Select an option">
-                                            @foreach($mentors as $mentor)
+                                            {{-- @foreach($mentors as $mentor)
                                                 <option
                                                     {{ (old('user_id') == $mentor->id) ? 'selected' : '' }} value="{{ $mentor->id }}">{{ $mentor->name }}</option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
 
                                     </div>
@@ -101,7 +100,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="salary_amount"
-                                               type="number" value="{{$salery->salary_amount}}" placeholder="10000"
+                                               type="number" value="{{ old('salary_amount') }}" placeholder="10000"
                                                required="">
 
                                     </div>
@@ -114,7 +113,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="payday"
-                                               type="date" value="{{$salery->payday}}" placeholder="johndoe@gmail.com"
+                                               type="date" value="{{ old('payday') }}" placeholder="johndoe@gmail.com"
                                                required="">
 
                                     </div>
@@ -127,7 +126,8 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="photo"
-                                               type="file" value="{{ $salery->photo }}" placeholder="johndoe@gmail.com">
+                                               type="file" value="{{ old('photo') }}" placeholder="johndoe@gmail.com"
+                                               required="">
 
                                     </div>
 

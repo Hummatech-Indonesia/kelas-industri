@@ -1,4 +1,4 @@
-@extends('dashboard.keuangan.layout.app')
+@extends('dashboard.finance.layout.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Edit Mentor
+                Edit Bukti Gaji
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman edit mentor
+                Halaman Edit Bukti Gaji
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -42,7 +42,7 @@
 
                                 <h3 class="card-label">
 
-                                    Silakan Isi Data Mentor
+                                    Silakan Isi Data Bukti Gaji
 
                                 </h3>
 
@@ -50,7 +50,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('administration.mentor.index') }}"
+                                <a href="{{ route('administration.salary-mentor.index') }}"
                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -76,16 +76,32 @@
                         </div>
 
                         <div class="card-body">
-
                             <div class="row">
                                 <div class="form-group row mb-3">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama Mentor</label>
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <input class="form-control form-control-solid form-control-lg" name="name"
-                                               type="text" value="" placeholder="John Doe"
+                                        <select name="user_id" class="form-select form-select-solid me-5"
+                                                data-control="select2" data-placeholder="Select an option">
+                                            {{-- @foreach($mentors as $mentor)
+                                                <option
+                                                    {{ (old('user_id') == $mentor->id) ? 'selected' : '' }} value="{{ $mentor->id }}">{{ $mentor->name }}</option>
+                                            @endforeach --}}
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group row mb-3">
+
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Jumlah Gaji</label>
+
+                                    <div class="col-lg-9 col-xl-9">
+
+                                        <input class="form-control form-control-solid form-control-lg" name="salary_amount"
+                                               type="number" value="" placeholder="10000"
                                                required="">
 
                                     </div>
@@ -93,12 +109,12 @@
                                 </div>
                                 <div class="form-group row mb-3">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Email</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Bulan</label>
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <input class="form-control form-control-solid form-control-lg" name="email"
-                                               type="email" value="" placeholder="johndoe@gmail.com"
+                                        <input class="form-control form-control-solid form-control-lg" name="payday"
+                                               type="date" value="" placeholder="johndoe@gmail.com"
                                                required="">
 
                                     </div>
@@ -106,60 +122,12 @@
                                 </div>
                                 <div class="form-group row mb-3">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Nomor Telepon</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Bukti Gaji</label>
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="phone_number"
-                                               type="text" value=""
-                                               placeholder="087xxxxxxxxx"
-                                               required="">
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Nomor Rekening</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="account_number"
-                                               type="text" value=""
-                                               placeholder="117-129-x-xxx"
-                                               required="">
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Bank</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="bank"
-                                               type="text" value=""
-                                               placeholder="Mandiri"
-                                               required="">
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Alamat</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <textarea class="form-control form-control-solid form-control-lg"
-                                                  name="address"
-                                                  type="text"
-                                                  placeholder="Jl. Soekarno Hatta No 9"
-                                                  required=""></textarea>
+                                        <input class="form-control form-control-solid form-control-lg" name="photo"
+                                               type="file" value="" placeholder="johndoe@gmail.com">
 
                                     </div>
 

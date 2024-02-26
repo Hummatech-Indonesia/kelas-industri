@@ -1,4 +1,4 @@
-@extends('dashboard.keuangan.layout.app')
+@extends('dashboard.finance.layout.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Mentor
+                Guru
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List mentor pada kelas industri.
+                List Guru pada kelas industri.
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -24,7 +24,7 @@
         <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <a href="{{ route('admin.mentors.create') }}" class="btn btn-dark fw-bold">
+            <a href="{{ route('administration.teacher.create') }}" class="btn btn-dark fw-bold">
                 Tambah </a>
             <!--end::Button-->
         </div>
@@ -36,10 +36,10 @@
                 <div class="card">
 
                     <!--begin::Card body-->
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-4">
 
                         <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
                             <!--begin::Table head-->
                             <thead>
                             <!--begin::Table row-->
@@ -65,7 +65,7 @@
                                     <td>1234567890678</td>
                                     <td>1234567890678</td>
                                     <td>BRI</td>
-                                    @include('dashboard.keuangan.pages.mentor.datatables')
+                                    @include('dashboard.finance.pages.teacher.datatables')
                                 </tr>
                             </tbody>
                             <!--end::Table body-->
@@ -93,6 +93,7 @@
 
                 $('#kt_modal_delete').modal('show')
             })
+
         });
     </script>
 @endsection

@@ -20,7 +20,7 @@
             <!--end::Aside  toggle-->
 
             <!--begin::Logo-->
-            <a href="{{ route('home') }}">
+            <a href="{{ route('administration') }}">
                 <img alt="Logo" src="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}"
                     class="h-40px h-lg-50px" />
             </a>
@@ -30,7 +30,8 @@
             <!--begin::Nav-->
             <div class="ms-5 ms-md-10">
                 <!--begin::Toggle-->
-                {{-- <span class="badge badge-light-primary p-3">Masuk : @php
+                <span class="badge badge-light-primary p-3">Masuk : Administrasi
+                    {{-- @php
                     if (auth()->user()->roles->pluck('name')[0] == 'admin') {
                         echo 'Admin';
                     } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
@@ -38,7 +39,8 @@
                     }else{
                         echo 'Mentor';
                     }
-                @endphp</span> --}}
+                @endphp --}}
+                </span>
                 <!--end::Toggle-->
             </div>
             <!--end::Nav-->

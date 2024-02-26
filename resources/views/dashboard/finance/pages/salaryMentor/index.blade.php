@@ -1,7 +1,7 @@
 @php
     use Carbon\Carbon;
 @endphp
-@extends('dashboard.keuangan.layout.app')
+@extends('dashboard.finance.layout.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -10,7 +10,7 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Bukti Gaji
+                Bukti Gaji Mentor
             </h1>
             <!--end::Title-->
 
@@ -26,7 +26,7 @@
         <!--begin::Actions-->
         <!--end::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ route('administration.gaji-mentor.index') }}" class="btn btn-dark fw-bold h-40px fs-7">
+            <a href="{{ route('administration.salary-mentor.create') }}" class="btn btn-dark fw-bold h-40px fs-7">
                 Tambah
             </a>
         </div>
@@ -37,11 +37,11 @@
                 <div class="card">
 
                     <!--begin::Card body-->
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-4">
 
                         <!--begin::Table-->
 
-                            <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5">
                                 <thead>
                                     <!--begin::Table row-->
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
@@ -55,36 +55,46 @@
                                     <!--end::Table row-->
                                 </thead>
                                 <!--end::Table head-->
-
+    
                                 <!--begin::Table body-->
                                 <tbody class="fw-semibold text-gray-600">
-                                        <tr>
-                                            <td>1</td>
-                                            <td>nama</td>
-                                            <td>
-                                                {{-- {{ Carbon::parse($salery->payday)->locale('id')->isoFormat('MMMM') }} --}}
-                                            </td>
-                                            <td>Rp 
-                                                {{-- {{ number_format(floatval($salery->salary_amount), 0, ',', '.') }} --}}
-                                            </td>
-                                            <td>
-                                                <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="30"
-                                                    viewBox="0 0 24 24"
-                                                    data-photo="
-                                                    {{-- {{ asset('storage/' . $salery->photo) }} --}}
-                                                    " class="btn-photo">
-                                                    <path
-                                                        d="M8.5 13.498l2.5 3.006l3.5-4.506l4.5 6H5m16 1v-14a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"
-                                                        fill="currentColor" />
-                                                </svg>
-                                            </td>
-                                            <td><a href=""
-                                                    class="btn btn-default btn-sm p-1"><i
-                                                        class="fonticon-setting fs-2 text-warning"></i></a>
-                                                <button class="btn btn-default btn-sm p-1 btn-delete" data-id="">
-                                                    <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
-                                            </td>
-                                        </tr>
+                                    {{-- @foreach ($salarys as $salary) --}}
+                                    <tr>
+                                        <td>1</td>
+                                        <td>nama</td>
+                                        <td>
+                                            {{-- {{ Carbon::parse($salary->payday)->locale('id')->isoFormat('MMMM YYYY') }} --}}
+                                        </td>
+                                        <td>Rp
+                                            {{-- {{ number_format(floatval($salary->salary_amount), 0, ',', '.') }} --}}
+                                        </td>
+                                        <td>
+                                            <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="30"
+                                                viewBox="0 0 24 24"
+                                                data-photo="
+                                                {{-- {{asset('storage/'.$salary->photo)}} --}}
+                                                "
+                                                class="btn-photo">
+                                                <path
+                                                    d="M8.5 13.498l2.5 3.006l3.5-4.506l4.5 6H5m16 1v-14a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"
+                                                    fill="currentColor" />
+                                            </svg>
+                                        </td>
+                                        <td><a href="
+                                            {{route('administration.salary-mentor.edit')}}
+                                            " class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip"
+                                            data-bs-title="Edit Gaji"><i
+                                                    class="fonticon-setting fs-2 text-warning"></i></a>
+                                            <button class="btn btn-default btn-sm p-1 btn-delete"
+                                                data-id="
+                                            {{-- {{$salary->id}} --}}
+                                            " data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip"
+                                            data-bs-title="Hapus Gaji">
+                                                <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
+                                        </td>
+                                    </tr>
                                     {{-- @endforeach --}}
                                 </tbody>
                                 <!--end::Table body-->
@@ -127,9 +137,9 @@
 @endsection
 @section('script')
     <script>
-        $("#kt_datatable_responsive").DataTable({
-            responsive: true
-        });
+        // $("#kt_datatable_responsive").DataTable({
+        //     responsive: true
+        // });
 
         $('.btn-delete').click(function() {
             const url = "{{ route('admin.saleries.destroy', ':id') }}".replace(':id', $(this).data(

@@ -101,14 +101,14 @@ https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
             <!--begin::Wrapper-->
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
                 <!--begin::Header-->
-                @include('dashboard.keuangan.layout.navbar')
+                @include('dashboard.finance.layout.navbar')
                 <!--end::Header-->
 
 
                 <!--begin::Content wrapper-->
                 <div class="d-flex flex-column-fluid">
                     <!--begin::Aside-->
-                    @include('dashboard.keuangan.layout.sidebar')
+                    @include('dashboard.finance.layout.sidebar')
                     <!--end::Aside-->
 
                     <!--begin::Container-->
@@ -120,7 +120,7 @@ https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
                         <!--end::Post-->
 
                         <!--begin::Footer-->
-                        @include('dashboard.keuangan.layout.footer')
+                        @include('dashboard.finance.layout.footer')
                         <!--end::Footer-->
                     </div>
                     <!--end::Container-->

@@ -1,4 +1,4 @@
-@extends('dashboard.keuangan.layout.app')
+@extends('dashboard.finance.layout.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -24,7 +24,7 @@
         <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <a href="{{ route('administration.guru.create') }}" class="btn btn-dark fw-bold">
+            <a href="{{ route('administration.mentor.create') }}" class="btn btn-dark fw-bold">
                 Tambah </a>
             <!--end::Button-->
         </div>
@@ -36,10 +36,10 @@
                 <div class="card">
 
                     <!--begin::Card body-->
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-4">
 
                         <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5">
                             <!--begin::Table head-->
                             <thead>
                             <!--begin::Table row-->
@@ -65,7 +65,7 @@
                                     <td>1234567890678</td>
                                     <td>1234567890678</td>
                                     <td>BRI</td>
-                                    @include('dashboard.keuangan.pages.guru.datatables')
+                                    @include('dashboard.finance.pages.mentor.datatables')
                                 </tr>
                             </tbody>
                             <!--end::Table body-->
@@ -93,7 +93,6 @@
 
                 $('#kt_modal_delete').modal('show')
             })
-
         });
     </script>
 @endsection

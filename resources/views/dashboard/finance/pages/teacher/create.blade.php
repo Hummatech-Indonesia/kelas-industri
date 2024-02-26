@@ -1,4 +1,4 @@
-@extends('dashboard.keuangan.layout.app')
+@extends('dashboard.finance.layout.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -49,7 +49,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('admin.mentors.index') }}"
+                                <a href="{{ route('administration.teacher.index') }}"
                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
