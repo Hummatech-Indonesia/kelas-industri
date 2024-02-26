@@ -4,10 +4,9 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Models\Salary;
-use App\Services\SalaryService;
 use App\Http\Requests\SalaryRequest;
 use App\Repositories\SalaryRepository;
-use App\Repositories\SchoolRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class SalaryService
@@ -35,14 +34,14 @@ class SalaryService
      *
      * @return mixed
      */
-    public function handleGetMentor() :mixed
+    public function handleGetMentor(): mixed
     {
         return $this->repository->getMentor();
     }
 
-    public function handleGetTeacher() :mixed
+    public function handleGetTeacher(): mixed
     {
-        return $this->repository->getTeacher();
+        return $this->repository->getTeacher(2);
     }
 
 
@@ -67,7 +66,8 @@ class SalaryService
         return $this->repository->search_paginate($search, 6);
     }
 
-    public function handleCount(){
+    public function handleCount()
+    {
         return $this->repository->getCount();
     }
 
@@ -80,9 +80,26 @@ class SalaryService
     public function handleCreate(SalaryRequest $request): void
     {
         $data = $request->validated();
-        $data['user_id'] = $request->user_id;
-        $data['photo'] = $request->file('photo')->store('salary_file', 'public');
-        $salary = $this->repository->store($data);
+        if($request->has('generation_id')){
+            foreach($request->user_id as $key => $value){
+                $data['user_id'] = $value;
+                $data['payday'] = now();
+                $data['generation_id'] = $data->generation_id[$key];
+                $data['salary_amount'] = $data->salary_amount[$key];
+                $data['photo'] = $data->photo[$key];
+                $this->repository->store($data);
+            }
+        }
+        foreach($request->user_id as $key => $value){
+            $data['user_id'] = $value;
+            $data['payday'] = now();
+            $data['generation_id'] = null;
+            $data['salary_amount'] = $request->salary_amount[$key];
+            $data['photo'] = $request->photo[$key]->store('salary_file', 'public');
+            $this->repository->store($data);
+        }
+        // dd($data);
+        // $salary = $this->repository->store($data);
     }
 
     /**
@@ -95,7 +112,7 @@ class SalaryService
     public function handleUpdate(SalaryRequest $request, Salary $salery): void
     {
         $data = $request->validated();
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             Storage::delete('public/' . $salery->photo);
             $data['photo'] = $request->file('photo')->store('salery_file', 'public');
         }
@@ -110,13 +127,13 @@ class SalaryService
      */
     public function handleDelete(Salary $salery): bool
     {
-        if($salery->photo){
+        if ($salery->photo) {
             $delete = Storage::delete('public/' . $salery->photo);
         }
         return $this->repository->destroy($salery->id);
     }
 
-    public function handleGetSalaryByUser(string $userId):mixed
+    public function handleGetSalaryByUser(string $userId): mixed
     {
         return $this->repository->get_salary_by_user($userId);
     }

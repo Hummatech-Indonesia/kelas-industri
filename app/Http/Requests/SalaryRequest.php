@@ -14,9 +14,10 @@ class SalaryRequest extends FormRequest
     public function rules()
     {
         return [
-            'payday' => 'required',
+            'user_id' => 'required',
             'salary_amount' => 'required',
-            'photo' => 'mimes:png,jpg,jpeg|max:2048',
+            'photo.*' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'generation_id' => 'nullable',
         ];
     }
 
@@ -28,7 +29,6 @@ class SalaryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'payday.required' => 'Tanggal tidak boleh kosong!',
             'salary_amout.required' => 'Jumlah Gaji tidak boleh kosong!',
             'photo.mimes' => 'Foto harus dalam format PNG, JPG, atau JPEG!',
             'photo.max' => 'Ukuran foto tidak boleh melebihi :max kilobita!',
