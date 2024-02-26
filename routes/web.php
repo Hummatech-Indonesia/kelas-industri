@@ -145,6 +145,7 @@ Route::middleware('auth.custom')->group(function () {
     //finance
     Route::middleware(['auth', 'role:administration'])->prefix('administration')->name('administration.')->group(function () {
         Route::get('', [AdminitrasionController::class, 'index'])->name('');
+        Route::post('salary-mentor-teacher/create', [AdminitrasionController::class, 'createsalaryMentorTeacher'])->name('salary-mentor.create');
 
         Route::get('teacher', [AdminitrasionController::class, 'teacher'])->name('teacher.index');
         Route::get('teacher/create', [AdminitrasionController::class, 'createTeacher'])->name('teacher.create');
@@ -152,7 +153,6 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('teacher/edit-password', [AdminitrasionController::class, 'editPassTeacher'])->name('teacher.edit-password');
 
         Route::get('salary-teacher', [AdminitrasionController::class, 'salaryTeacher'])->name('salaryTeacher.index');
-        Route::get('salary-teacher/create', [AdminitrasionController::class, 'createsalaryTeacher'])->name('salaryTeacher.create');
         Route::get('salary-teacher/edit', [AdminitrasionController::class, 'editsalaryTeacher'])->name('salaryTeacher.edit');
 
         Route::get('mentor', [AdminitrasionController::class, 'mentor'])->name('mentor.index');
@@ -161,7 +161,6 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('mentor/edit-password', [AdminitrasionController::class, 'editPassMentor'])->name('mentor.edit-password');
 
         Route::get('salary-mentor', [AdminitrasionController::class, 'salaryMentor'])->name('salary-mentor.index');
-        Route::post('salary-mentor/create', [AdminitrasionController::class, 'createsalaryMentor'])->name('salary-mentor.create');
         Route::get('salary-mentor/edit', [AdminitrasionController::class, 'editsalaryMentor'])->name('salary-mentor.edit');
     });
     //end finance

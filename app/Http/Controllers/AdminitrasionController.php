@@ -89,18 +89,15 @@ class AdminitrasionController extends Controller
 
 
 
-    public function salaryTeacher()
+    public function salaryTeacher(Request $request)
     {
+        // dd($request->all());
         $data = [
             'schools' => $this->userServices->handleGetAllSchool(),
             'generations' => $this->generationServices->handleGetGeneration(),
+            'teachers' => $this->teacherServices->handleGetAngkatan($request->school_id)
         ];
         return view('dashboard.finance.pages.salaryTeacher.index', $data);
-    }
-
-    public function getTeacherBySchool(): mixed
-    {
-        return $this->teacherServices->handleGetAngkatan(request()->schoolId);
     }
 
     public function createsalaryTeacher()
@@ -150,7 +147,7 @@ class AdminitrasionController extends Controller
         $data['attendances'] = $this->attendanceServices->countMentorAttendance();
         return view('dashboard.finance.pages.salaryMentor.index', $data);
     }
-    public function createsalaryMentor(SalaryRequest $request)
+    public function createsalaryMentorTeacher(SalaryRequest $request)
     {
         // dd($request->all());
         $this->salaryServices->handleCreate($request);
