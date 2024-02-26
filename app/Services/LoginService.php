@@ -16,7 +16,6 @@ class LoginService
     {
         $data['email'] = $request->email;
         $user = $user->getWhere($data);
-
         $role = $user->roles->pluck('name')[0];
 
         if ($role == 'student') {
@@ -30,12 +29,14 @@ class LoginService
                 return redirect()->back()->with('error', 'Anda tidak dapat login sekarang, tunggu admin mengkonfirmasi akun anda');
             }
         }
-        if ($role == 'admin' || $role == 'school' || $role == 'teacher' || $role == 'mentor') {
+        // dd($role);
+        if ($role == 'admin' || $role == 'school' || $role == 'teacher' || $role == 'mentor' || $role == 'administration') {
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
                 return redirect()->route('home')->with('success', 'Berhasil Login.');
             } else {
                 return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
             }
         }
+        // return 'kontol';
     }
 }
