@@ -83,7 +83,7 @@ Route::middleware('auth.custom')->group(function () {
 
 //admin
     Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-        Route::get('/', public function () {
+        Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
         });
 
@@ -164,7 +164,7 @@ Route::middleware('auth.custom')->group(function () {
 
 //schools
     Route::middleware(['auth', 'role:school'])->prefix('school')->name('school.')->group(function () {
-        Route::get('/', public function () {
+        Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
         });
 
@@ -265,7 +265,7 @@ Route::middleware('auth.custom')->group(function () {
 
 //student
     Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
-        Route::get('/', public function () {
+        Route::get('/', function () {
             return view('dashboard.user.pages.material.index');
         });
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');

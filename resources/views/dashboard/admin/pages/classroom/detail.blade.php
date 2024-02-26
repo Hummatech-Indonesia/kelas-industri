@@ -120,10 +120,10 @@
                                             @foreach ($students as $student)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $student->studentSchool->student->name }}</td>
-                                                    <td>{{ $student->studentSchool->student->email }}</td>
-                                                    <td>{{ $student->studentSchool->student->phone_number }}</td>
-                                                    <td>{{ $student->studentSchool->student->address }}</td>
+                                                    <td>{{ $student->student->name }}</td>
+                                                    <td>{{ $student->student->email }}</td>
+                                                    <td>{{ $student->student->phone_number }}</td>
+                                                    <td>{{ $student->student->address }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -149,7 +149,7 @@
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-100px symbol-circle mb-7">
                                     <img src="{{ $classroom->teacherClassroom->teacherSchool->teacher->photo ? asset('storage/' . $classroom->teacherClassroom->teacherSchool->teacher->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
-                                    alt="image" />
+                                        alt="image" />
                                 </div>
                                 <!--end::Avatar-->
 

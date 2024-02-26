@@ -26,10 +26,11 @@ class StudentRepository extends BaseRepository
      */
     public function get_by_school(string $schoolId)
     {
-        return $this->modeClass->query()
-            ->whereRelation('studentSchool.student', 'status', 'active')
-            ->where('classroom_id', $schoolId)
-            ->paginate(6);
+        return $this->model->query()
+            ->with('student')
+            ->where('school_id', $schoolId)
+            ->whereRelation('student', 'status', 'active')
+            ->get();
     }
 
     /**
