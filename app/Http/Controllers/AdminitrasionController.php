@@ -39,6 +39,10 @@ class AdminitrasionController extends Controller
         return view('dashboard.admin.pages.administration.index', $data);
     }
 
+    public function dashFinance(){
+        return view('dashboard.finance.pages.home');
+    }
+
     public function create()
     {
         //
