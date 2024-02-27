@@ -97,6 +97,7 @@ Route::middleware('auth.custom')->group(function () {
             'submitRewards' => SubmitRewardController::class,
             'gallerys' => GalleryController::class,
             'news' => NewsController::class,
+            'administrations' => AdminitrasionController::class,
         ]);
         Route::patch('updateStatusNews/{news}', [NewsController::class, 'updateStatus'])->name('updateStatusNews');
         Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
