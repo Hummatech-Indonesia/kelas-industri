@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Models\Attendance;
 use App\Models\SubmitAttendance;
+use Carbon\Carbon;
 
 class AttendanceRepository extends BaseRepository
 {
@@ -23,6 +24,16 @@ class AttendanceRepository extends BaseRepository
             ->orderBy('created_at', 'desc')
             ->get();
     }
+
+    public function count_mentor_attendance(): mixed
+    {
+        return $this->model->query()
+            ->selectRaw('count(*) as count, created_by')
+            ->groupBy('created_by')
+            ->whereMonth('created_at', Carbon::today()->month)
+            ->get();
+    }
+
     /**
      * get challenge by teacher
      *
@@ -33,17 +44,17 @@ class AttendanceRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('created_by', $mentorId)
-            ->orderBy('created_at','desc')
+            ->orderBy('created_at', 'desc')
             ->get();
     }
     public function get_student_attendance_status(string $attendanceId): mixed
     {
         return $this->submitAttendance->query()
-            ->where('attendance_id',$attendanceId)
-            ->where('student_id',auth()->user()->id)
+            ->where('attendance_id', $attendanceId)
+            ->where('student_id', auth()->user()->id)
             ->get();
     }
-    public function create_submit_attendance(array $data) : void
+    public function create_submit_attendance(array $data): void
     {
         $this->submitAttendance->create($data);
     }
@@ -51,18 +62,18 @@ class AttendanceRepository extends BaseRepository
     public function get_student_by_submit_attendance(string $attendanceId): mixed
     {
         return $this->submitAttendance->query()
-        ->where('attendance_id',$attendanceId)
-        ->get();
+            ->where('attendance_id', $attendanceId)
+            ->get();
     }
 
-    public function get_student_by_submit_attendance_mentor(string $attendanceId, string $mentorId) :mixed
+    public function get_student_by_submit_attendance_mentor(string $attendanceId, string $mentorId): mixed
     {
         return $this->submitAttendance->query()
-        ->where('attendance_id', $attendanceId)
-        ->whereRelation('attendance', function ($q) use ($mentorId){
-            $q->where('created_by', $mentorId);
-        })
-        ->get();
+            ->where('attendance_id', $attendanceId)
+            ->whereRelation('attendance', function ($q) use ($mentorId) {
+                $q->where('created_by', $mentorId);
+            })
+            ->get();
     }
 
     public function update_status(string $id): void
@@ -71,6 +82,4 @@ class AttendanceRepository extends BaseRepository
         $data->status = 'close';
         $data->save();
     }
-
 }
-

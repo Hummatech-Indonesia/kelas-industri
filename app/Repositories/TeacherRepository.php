@@ -22,4 +22,12 @@ class TeacherRepository extends BaseRepository
             ->where('school_id', $schoolId)
             ->get();
     }
+
+    public function get_angkatan(string | null $schoolId): mixed
+    {
+        return $this->model->query()
+            ->with('teacher')
+            ->where('school_id', $schoolId)
+            ->get();
+    }
 }

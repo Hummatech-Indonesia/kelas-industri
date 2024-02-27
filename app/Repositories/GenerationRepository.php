@@ -31,4 +31,10 @@ class GenerationRepository extends BaseRepository
         ->where('school_year_id', $schoolYearId)
         ->get();
     }
+
+    public function get_generation()
+    {
+        return $this->model->query()
+            ->get();
+    }
 }

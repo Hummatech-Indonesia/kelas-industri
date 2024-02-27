@@ -25,7 +25,18 @@ class UserRepository extends BaseRepository
             ->whereHas('roles', function ($q) {
                 return $q->where("name", "mentor");
             })
+            // ->where('name', 'like', '%' . $request->search . '%')
             ->get();
+    }
+
+    public function get_mentors_administration(Request $request,int $limit): mixed
+    {
+        return $this->model->query()
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "mentor");
+            })
+            ->where('name', 'like', '%' . $request->search . '%')
+            ->paginate($limit);
     }
 
     public function get_students(): mixed
@@ -95,7 +106,7 @@ class UserRepository extends BaseRepository
     {
         return $this->model->query()
             ->when($request->classroom_id, function ($q) use ($request) {
-            return $q->whereRelation('studentSchool.studentClassroom', function ($q) use ($request) {
+                return $q->whereRelation('studentSchool.studentClassroom', function ($q) use ($request) {
                     return $q->where('classroom_id', $request->classroom_id);
                 });
             })
