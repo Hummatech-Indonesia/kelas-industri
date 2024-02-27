@@ -34,7 +34,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-
+                    <form action="" method="GET">
+                        <input type="text" name="search" placeholder="cari mentor" value="{{request('search')}}" />
+                        <button type="submit" id="search">cari</button>
+                    </form>
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
 
@@ -42,34 +45,35 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5">
                             <!--begin::Table head-->
                             <thead>
-                            <!--begin::Table row-->
-                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>No Telepon</th>
-                                <th>No Rekening</th>
-                                <th>Bank</th>
-                                <th>Aksi</th>
-                            </tr>
-                            <!--end::Table row-->
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>No Telepon</th>
+                                    <th>No Rekening</th>
+                                    <th>Bank</th>
+                                </tr>
+                                <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
 
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Nama</td>
-                                    <td>nama@gmail.com</td>
-                                    <td>1234567890678</td>
-                                    <td>1234567890678</td>
-                                    <td>BRI</td>
-                                    @include('dashboard.finance.pages.mentor.datatables')
-                                </tr>
+                                @foreach ($mentors as $mentor)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$mentor->name}}</td>
+                                        <td>{{$mentor->email}}</td>
+                                        <td>{{$mentor->phone_number}}</td>
+                                        <td>{{$mentor->account_number}}</td>
+                                        <td>{{$mentor->bank}}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                             <!--end::Table body-->
                         </table>
+                        {{$mentors->links('pagination::bootstrap-5')}}
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->
@@ -77,22 +81,6 @@
             </div>
 
         </div>
-        <x-delete-modal-component/>
+        <x-delete-modal-component />
     </div>
-@endsection
-@section('script')
-    {{--    <script src="{{ asset('app-assets/js/custom/apps/customers/list/export.js') }}"></script>--}}
-    <script src="{{ asset('app-assets/js/custom/apps/customers/list/list.js') }}"></script>
-    {{--    <script src="{{ asset('app-assets/js/custom/apps/customers/add.js') }}"></script>--}}
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-
-            $(document).on('click', '.delete', function () {
-                const url = "{{ route('admin.mentors.destroy', ':id') }}".replace(':id', $(this).data('id'))
-                $('#form-delete').attr('action', url)
-
-                $('#kt_modal_delete').modal('show')
-            })
-        });
-    </script>
 @endsection
