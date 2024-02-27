@@ -83,6 +83,10 @@ class HomeController extends Controller
             $data['student'] = count($this->studentService->handleGetBySchool($userId));
             return view('dashboard.admin.pages.home', $data);
         }
+        if ($role == 'administration') {
+            # code...
+            return view('dashboard.admin.pages.home');
+        }
         $data = $this->GetDataSidebar();
         if ($role == 'student') {
             $data['assignment'] = $this->assignmentService->handleCountAssignmentStudent();
@@ -90,7 +94,7 @@ class HomeController extends Controller
             $data['material'] = $this->materialService->handleCountMaterialUser();
             $data['point'] = $this->pointService->hanleCountPointStudent($userId);
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleStudent();
-            
+
             $assignments = Assignment::with('StudentSubmitAssignment')->whereRelation('submaterial.material', function ($query) {
                 $query->where('generation_id', Auth()->user()->studentSchool->studentClassroom->classroom->generation_id);
             })->get();
@@ -136,7 +140,7 @@ class HomeController extends Controller
             $data['sudahChallenge'] = count($challengeSudahDikerjakan);
             $data['belumChallenge'] = count($challengeBelumDikerjakan);
             $data['tidakChallenge'] = count($challengeTidakDikerjakan);
-            
+
         } elseif ($role == 'teacher') {
             $data['classroom'] = $this->classroomService->handleCountClassroomTeacher($userId);
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
