@@ -240,7 +240,7 @@
                         <!--end:Menu sub-->
                     </div>
                     <div data-kt-menu-trigger="click"
-                        class="menu-item {{ request()->routeIs('admin.saleries.*') || request()->routeIs('admin.saleriesTeacher') || request()->routeIs('admin.createSaleriesTeacher') || request()->routeIs('admin.editSaleriesTeacher') ? 'show here' : '' }} menu-accordion">
+                        class="menu-item {{ request()->routeIs('admin.administrations.*')  ? 'show here' : ''  }} menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -257,7 +257,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                             </span>
-                            <span class="menu-title">Gaji</span><span class="menu-arrow"></span></span>
+                            <span class="menu-title">Akun Keuangan</span><span class="menu-arrow"></span></span>
                         <!--end:Menu link-->
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-accordion">
@@ -266,17 +266,17 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.saleries.*') ? 'active' : '' }}"
-                                        href="{{ route('admin.saleries.index') }}">
+                                    <a class="menu-link {{ request()->routeIs('admin.administrations.create') ? 'active' : '' }}"
+                                        href="{{ route('admin.administrations.create') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Mentor</span>
+                                        <span class="menu-title">Tambah Akun</span>
                                     </a>
                                     <!--end:Menu link--
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.saleriesTeacher') || request()->routeIs('admin.createSaleriesTeacher') || request()->routeIs('admin.editSaleriesTeacher') ? 'active' : '' }}"
-                                        href="{{ route('admin.saleriesTeacher') }}">
+                                    <a class="menu-link {{ request()->routeIs('admin.administrations.index') || request()->routeIs('admin.administrations.edit') || request()->routeIs('admin.administrations.show') ? 'active' : '' }}"
+                                        href="{{ route('admin.administrations.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Guru</span>
+                                        <span class="menu-title">List Akun</span>
                                     </a>
                                     <!--end:Menu link-->
                                 </div>
