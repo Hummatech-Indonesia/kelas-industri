@@ -51,7 +51,7 @@ class UserClassroomController extends Controller
 
     public function show(Classroom $classroom): View
     {
-        $students = $this->studentService->handleGetBySchool($classroom->id);
+        $students = $this->studentService->handleGetByClassroom($classroom->id);
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data = [
                 'students' => $students,

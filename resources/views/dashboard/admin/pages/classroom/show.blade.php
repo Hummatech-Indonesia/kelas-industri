@@ -59,7 +59,7 @@
                                 <!--end::Title-->
                             </div>
                             <div class="card-body">
-                                @if (count($classroom->students) > 0)
+                                @if (count($students) > 0)
                                     <table class="table rounded">
                                         <thead class="p-2">
                                             <tr class="fw-semibold fs-6 text-gray-800">
@@ -74,20 +74,20 @@
                                             @foreach ($students as $student)
                                                 <tr>
                                                     <td scope="col">{{ $loop->iteration }}</td>
-                                                    <td>{{ $student->studentSchool->student->name }}</td>
-                                                    <td>{{ $student->studentSchool->student->email }}</td>
-                                                    <td>{{ $student->studentSchool->student->phone_number }}
+                                                    <td>{{ $student->student->name }}</td>
+                                                    <td>{{ $student->student->email }}</td>
+                                                    <td>{{ $student->student->phone_number }}
                                                     </td>
                                                     <td style="word-break: break-word;">
-                                                        {{ $student->studentSchool->student->address }}</td>
+                                                        {{ $student->student->address }}</td>
                                                     @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                         <td>
-                                                            <a href="{{ route('teacher.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                            <a href="{{ route('teacher.showStudentDetail', $student->student->id) }}"
                                                                 class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
                                                         </td>
                                                     @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                         <td>
-                                                            <a href="{{ route('mentor.showStudentDetail', $student->studentSchool->student->id) }}"
+                                                            <a href="{{ route('mentor.showStudentDetail', $student->student->id) }}"
                                                                 class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
                                                         </td>
                                                     @endif
