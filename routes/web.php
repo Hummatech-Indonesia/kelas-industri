@@ -149,16 +149,12 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('teacher', [AdminitrasionController::class, 'teacher'])->name('teacher.index');
         Route::get('teacher/create', [AdminitrasionController::class, 'createTeacher'])->name('teacher.create');
-        Route::get('teacher/edit', [AdminitrasionController::class, 'editTeacher'])->name('teacher.edit');
-        Route::get('teacher/edit-password', [AdminitrasionController::class, 'editPassTeacher'])->name('teacher.edit-password');
 
         Route::get('salary-teacher', [AdminitrasionController::class, 'salaryTeacher'])->name('salaryTeacher.index');
         Route::get('salary-teacher/edit', [AdminitrasionController::class, 'editsalaryTeacher'])->name('salaryTeacher.edit');
 
         Route::get('mentor', [AdminitrasionController::class, 'mentor'])->name('mentor.index');
         Route::get('mentor/create', [AdminitrasionController::class, 'createMentor'])->name('mentor.create');
-        Route::get('mentor/edit', [AdminitrasionController::class, 'editMentor'])->name('mentor.edit');
-        Route::get('mentor/edit-password', [AdminitrasionController::class, 'editPassMentor'])->name('mentor.edit-password');
 
         Route::get('salary-mentor', [AdminitrasionController::class, 'salaryMentor'])->name('salary-mentor.index');
         Route::get('salary-mentor/edit', [AdminitrasionController::class, 'editsalaryMentor'])->name('salary-mentor.edit');

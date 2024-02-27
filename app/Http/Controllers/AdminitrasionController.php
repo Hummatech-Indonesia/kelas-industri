@@ -59,7 +59,7 @@ class AdminitrasionController extends Controller
     public function teacher(Request $request)
     {
         $data = [
-            'salarys' => $this->salaryServices->handleGetTeacher($request),
+            'teachers' => $this->salaryServices->HandleGetTeacherAdministration($request),
         ];
         return view('dashboard.finance.pages.teacher.index', $data);
     }

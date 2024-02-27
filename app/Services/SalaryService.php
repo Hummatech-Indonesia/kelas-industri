@@ -41,7 +41,12 @@ class SalaryService
 
     public function handleGetTeacher(): mixed
     {
-        return $this->repository->getTeacher(2);
+        return $this->repository->getTeacher();
+    }
+
+    public function HandleGetTeacherAdministration(Request $request): mixed
+    {
+        return $this->repository->getTeacherAdministration($request, 6);
     }
 
 

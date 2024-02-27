@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Models\Salary;
-use App\Repositories\SalaryRepository;
+use Illuminate\Http\Request;
 
 class SalaryRepository extends  BaseRepository
 {
@@ -14,24 +14,32 @@ class SalaryRepository extends  BaseRepository
         $this->user = $user;
     }
 
-    public function getMentor() :mixed
+    public function getMentor(): mixed
     {
         return $this->model->query()
-        ->whereHas('user.mentorClassrooms')
-        ->get();
+            ->whereHas('user.mentorClassrooms')
+            ->get();
     }
 
-    public function getTeacher() :mixed
+    public function getTeacher(): mixed
     {
         return $this->model->query()
-        ->whereHas('user.teacherSchool')
-        ->get();
+            ->whereHas('user.teacherSchool')
+            ->get();
     }
 
-    public function get_salary_by_user(string $userId) :mixed
+    public function getTeacherAdministration(Request $request, int $limit): mixed
+    {
+        return $this->user->query()
+            ->whereHas('teacherSchool')
+            ->where('name', 'like', '%' . $request->search . '%')
+            ->paginate($limit);
+    }
+
+    public function get_salary_by_user(string $userId): mixed
     {
         return $this->model->query()
-        ->where('user_id', $userId)
-        ->get();
+            ->where('user_id', $userId)
+            ->get();
     }
 }
