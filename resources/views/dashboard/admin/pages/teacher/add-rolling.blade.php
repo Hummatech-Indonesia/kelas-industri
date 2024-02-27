@@ -21,15 +21,15 @@
         <!--end::Page title-->
         <!--begin::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{route('school.rollingTeacher.index')}}"
+            <a href="{{ route('school.rollingTeacher.index') }}"
                 class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                 <i class="bi bi-arrow-left me-2"></i> Kembali
             </a>
         </div>
         <!--end::Actions-->
     </div>
-    @if($errors->any())
-        <x-errors-component/>
+    @if ($errors->any())
+        <x-errors-component />
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -59,16 +59,17 @@
                                     <div>
                                         <label for="">Kelas</label>
                                         <select name="classroom_id" class="form-select form-select-solid me-5 mt-3"
-                                                data-control="select2" data-placeholder="Select an option">
+                                            data-control="select2" data-placeholder="Select an option">
                                             <option value=""></option>
-                                            @foreach($classrooms as $classroom)
-                                                <option
-                                                    {{ (old('classroom_id') == $classroom->id) ? 'selected' : '' }} value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                                            @foreach ($classrooms as $classroom)
+                                                <option {{ old('classroom_id') == $classroom->id ? 'selected' : '' }}
+                                                    value="{{ $classroom->id }}">{{ $classroom->name }} -
+                                                    {{ $classroom->generation->schoolYear->school_year }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <input type="hidden" name="teacher_school_id"
-                                           value="{{ $teacher->teacherSchool->id }}">
+                                        value="{{ $teacher->teacherSchool->id }}">
                                     <div class="mt-7 text-end">
                                         <button type="submit" class="btn btn-primary btn-sm" id="add">Tambah</button>
                                     </div>
@@ -100,14 +101,13 @@
                     <div class="card-body">
 
                         <div class="row">
-                            <table id="kt_datatable_responsive"
-                                   class="table table-striped border rounded gy-5 gs-7 mt-3">
+                            <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7 mt-3">
                                 <thead>
-                                <tr class="fw-semibold fs-6 text-gray-800">
-                                    <th data-priority="1">Nama</th>
-                                    <th>Sekolah</th>
-                                    <th>Aksi</th>
-                                </tr>
+                                    <tr class="fw-semibold fs-6 text-gray-800">
+                                        <th data-priority="1">Nama</th>
+                                        <th>Sekolah</th>
+                                        <th>Aksi</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="t-classrooms">
                                 </tbody>
@@ -120,15 +120,16 @@
             </div>
         </div>
     </div>
-    <x-delete-modal-component/>
+    <x-delete-modal-component />
 @endsection
 @section('script')
     <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         handleGetTeacherClassrooms()
 
-        $(document).on('click', '.delete', function () {
-            const url = "{{ route('school.rollingTeacher.deleteRollingTeacher', ':id') }}".replace(':id', $(this).data('id'))
+        $(document).on('click', '.delete', function() {
+            const url = "{{ route('school.rollingTeacher.deleteRollingTeacher', ':id') }}".replace(':id', $(this)
+                .data('id'))
             $('#form-delete').attr('action', url)
 
             $('#kt_modal_delete').modal('show')
@@ -138,7 +139,7 @@
             $.ajax({
                 method: 'GET',
                 url: '{{ route('school.rollingTeacher.add', $teacher->id) }}',
-                success: function (classrooms) {
+                success: function(classrooms) {
                     let html = ''
 
                     classrooms.map(classroom => {
@@ -161,7 +162,7 @@
             responsive: true
         });
 
-        $('#schools').change(function () {
+        $('#schools').change(function() {
             handleGetClassrooms()
         })
     </script>

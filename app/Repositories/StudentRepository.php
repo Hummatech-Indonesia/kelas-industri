@@ -26,7 +26,6 @@ class StudentRepository extends BaseRepository
         return $this->model->query()
             ->with('student')
             ->where('school_id', $schoolId)
-
             ->whereRelation('student', 'status', 'active')
             ->get();
     }

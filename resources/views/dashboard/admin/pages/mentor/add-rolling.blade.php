@@ -150,21 +150,21 @@
 
                     classrooms.map(classroom => {
                         html += `<tr>
-                                    <td>${classroom.classroom.name}</td>
+                                    <td>${classroom.classroom.name} - ${classroom.classroom.generation.school_year.school_year}</td>
                                     <td>${classroom.classroom.school.name}</td>
                                     <td>
                                         <button data-id="${classroom.id}" class="btn btn-light-danger btn-sm delete"><i class="fas fa-trash-alt"></i>
                                         </button>
                                     </td>
                                 </tr>`
-                                
+
                     })
 
                     $('#t-classrooms').html(html)
                 }
             })
         }
-        
+
         function handleGetClassrooms() {
             $.ajax({
                 headers: {

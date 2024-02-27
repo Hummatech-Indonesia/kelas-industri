@@ -110,8 +110,8 @@ class ClassroomRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('school_id', $schoolId)
+            ->with('generation.schoolYear')
             ->get();
-    
     }
 
     public function get_teacher_classroom(string $schoolId, int $schoolYearId): mixed

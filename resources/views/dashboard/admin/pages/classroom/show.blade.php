@@ -95,7 +95,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    {{ $students->links('pagination::bootstrap-5') }}
+                                    {{-- {{ $students->links('pagination::bootstrap-5') }} --}}
                                 @else
                                     <x-empty-component title="siswa" />
                                 @endif

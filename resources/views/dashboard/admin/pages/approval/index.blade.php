@@ -44,8 +44,9 @@
                                 <form id="form-search" action="{{ route('admin.studentRegistration') }}" method="GET"
                                     class="row g-3 align-items-center">
                                     <div class="col-auto">
-                                        <input type="text" class="form-control form-control-solid form-control-sm" name="search"
-                                            placeholder="Cari berdasarkan nama" value="{{ request('search') }}">
+                                        <input type="text" class="form-control form-control-solid form-control-sm"
+                                            name="search" placeholder="Cari berdasarkan nama"
+                                            value="{{ request('search') }}">
                                     </div>
                                     <div class="col-auto me-auto">
                                         <button class="btn btn-primary btn-sm" type="submit" id="btn-search">
@@ -125,8 +126,9 @@
                                                         data-address = "{{ $user->address }}"
                                                         data-motivation = "{{ $user->motivation }}"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Detail Data"><svg width="20"
-                                                            height="20" viewBox="0 0 24 24" fill="none"
+                                                        data-bs-custom-class="custom-tooltip"
+                                                        data-bs-title="Detail Data"><svg width="20" height="20"
+                                                            viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
                                                                 d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z"
@@ -247,6 +249,65 @@
     @section('script')
         <script>
             $(document).ready(function() {
+                var selectedValues = [];
+
+                $(".select").change(function() {
+                    selectedValues = [];
+                    $(".select:checked").each(function() {
+                        selectedValues.push($(this).val());
+                    });
+                });
+
+                $("#btn-accept-siswa").click(function() {
+                    Swal.fire({
+                        title: 'Apakah anda yakin?',
+                        text: 'Anda akan menerima semua siswa. Tindakan ini tidak bisa dibatalkan.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Iya!',
+                        cancelButtonText: 'Tidak, batal!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                url: '{{ route('admin.approveStudentAll') }}',
+                                method: 'PATCH',
+                                data: {
+                                    select: selectedValues,
+                                },
+                                success: function(response) {
+                                    console.log(response.message);
+                                    window.location.reload();
+                                },
+                                error: function(error) {
+                                    console.error('Error:', error);
+                                    // Handle error jika diperlukan
+                                }
+                            });
+                            window.location.reload();
+                        }
+                    });
+                });
+
+                // Trigger change event of individual checkboxes when "Select All" is clicked
+                $("#select-all").change(function() {
+                    $(".select").prop("checked", $(this).prop("checked")).change();
+                });
+
+                $(".select").change(function() {
+                    if (!$(this).prop("checked")) {
+                        $("#select-all").prop("checked", false);
+                    }
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
                 getSchool();
 
                 $('#select-school').change(function() {
@@ -342,65 +403,6 @@
 
                 // Event listener to toggle the button visibility on checkbox change
                 $(".select").change(toggleAcceptButton);
-            });
-        </script>
-        <script>
-            $(document).ready(function() {
-                var selectedValues = [];
-
-                $(".select").change(function() {
-                    selectedValues = [];
-                    $(".select:checked").each(function() {
-                        selectedValues.push($(this).val());
-                    });
-                });
-
-                $("#btn-accept-siswa").click(function() {
-                    Swal.fire({
-                        title: 'Apakah anda yakin?',
-                        text: 'Anda akan menerima semua siswa. Tindakan ini tidak bisa dibatalkan.',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Iya!',
-                        cancelButtonText: 'Tidak, batal!',
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-                            $.ajax({
-                                url: '{{ route('admin.approveStudentAll') }}',
-                                method: 'PATCH',
-                                data: {
-                                    select: selectedValues,
-                                },
-                                success: function(response) {
-                                    console.log(response.message);
-                                    window.location.reload();
-                                },
-                                error: function(error) {
-                                    console.error('Error:', error);
-                                    // Handle error jika diperlukan
-                                }
-                            });
-                            window.location.reload();
-                        }
-                    });
-                });
-
-                // Trigger change event of individual checkboxes when "Select All" is clicked
-                $("#select-all").change(function() {
-                    $(".select").prop("checked", $(this).prop("checked")).change();
-                });
-
-                $(".select").change(function() {
-                    if (!$(this).prop("checked")) {
-                        $("#select-all").prop("checked", false);
-                    }
-                });
             });
         </script>
     @endsection
