@@ -56,7 +56,6 @@ class HomeController extends Controller
         $this->userService = $userService;
         $this->studentService = $studentService;
         $this->teacherService = $teacherService;
-
     }
 
     /**
@@ -85,7 +84,7 @@ class HomeController extends Controller
         }
         if ($role == 'administration') {
             # code...
-            return view('dashboard.admin.pages.home');
+            return view('dashboard.finance.pages.home');
         }
         $data = $this->GetDataSidebar();
         if ($role == 'student') {
@@ -104,7 +103,7 @@ class HomeController extends Controller
             $sudahDikerjakan = [];
 
             foreach ($assignments as $assignment) {
-                $submitAssignments = $assignment->StudentSubmitAssignment->where('student_id',auth()->id());
+                $submitAssignments = $assignment->StudentSubmitAssignment->where('student_id', auth()->id());
                 if (count($submitAssignments)) {
                     array_push($sudahDikerjakan, $submitAssignments);
                 } elseif ($assignment->end_date < now() || $submitAssignments == null) {
@@ -140,7 +139,6 @@ class HomeController extends Controller
             $data['sudahChallenge'] = count($challengeSudahDikerjakan);
             $data['belumChallenge'] = count($challengeBelumDikerjakan);
             $data['tidakChallenge'] = count($challengeTidakDikerjakan);
-
         } elseif ($role == 'teacher') {
             $data['classroom'] = $this->classroomService->handleCountClassroomTeacher($userId);
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
