@@ -36,7 +36,7 @@ class AdminitrasionController extends Controller
     public function index()
     {
         $data = $this->GetDataSidebar();
-        return view('dashboard.finance.pages.home', $data);
+        return view('dashboard.admin.pages.administration.index', $data);
     }
 
     public function create()
@@ -50,7 +50,7 @@ class AdminitrasionController extends Controller
         //
         $this->userServices->storeAdministration($request);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', trans('alert.add_success'));
     }
 
 
@@ -117,7 +117,7 @@ class AdminitrasionController extends Controller
     public function mentor(Request $request)
     {
         $data = [
-            'mentors' => $this->userServices->handleGetAllMentor($request),
+            'mentors' => $this->userServices->handleGetAllMentorAdminis($request),
         ];
         return view('dashboard.finance.pages.mentor.index', $data);
     }
