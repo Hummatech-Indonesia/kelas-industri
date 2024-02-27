@@ -24,21 +24,27 @@ class AdministrationRequest extends FormRequest
      */
     public function rules()
     {
-        $request = [
-            'name' => 'required|string',
-            'email' => ['required', 'email', Rule::unique('users')],
+        $rules = [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $this->route('administration'),
             'phone_number' => 'required|max:15',
             'address' => 'required',
-            'account_number' => 'required',
-            'bank' => 'required'
+            'account_number' => 'required|string',
+            'bank' => 'required|string|max:255'
         ];
 
-        if (request()->routeIs('admin.mentors.update')) {
-            $request['email'] = ['required', 'email', Rule::unique('users')->ignore($this->mentor)];
-        }
+        // if ($this->isMethod('patch') || $this->isMethod('put')) {
+        //     $rules['email'] = [
+        //         'required',
+        //         'email',
+        //         'unique:users,email,except,id',
+        //         Rule::unique('users')->ignore($this->route('mentor'))
+        //     ];
+        // }
 
-        return $request;
+        return $rules;
     }
+
 
     public function messages(): array
     {

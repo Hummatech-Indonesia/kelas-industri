@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\User;
 use App\Http\Requests\AdministrationRequest;
 use App\Http\Requests\SalaryRequest;
 use App\Services\AttendanceService;
@@ -35,11 +37,14 @@ class AdminitrasionController extends Controller
 
     public function index()
     {
+        $akun = $this->userServices->handleGetKeuangan(6);
         $data = $this->GetDataSidebar();
+        $data['akun'] = $akun;
         return view('dashboard.admin.pages.administration.index', $data);
     }
 
-    public function dashFinance(){
+    public function dashFinance()
+    {
         return view('dashboard.finance.pages.home');
     }
 
@@ -57,6 +62,28 @@ class AdminitrasionController extends Controller
         return redirect()->back()->with('success', trans('alert.add_success'));
     }
 
+    public function edit($id)
+    {
+        $data = [
+            'akun' => $this->userServices->handleEditKeuangan($id),
+        ];
+
+        return view('dashboard.admin.pages.administration.edit', $data);
+    }
+
+    public function update(AdministrationRequest $request, string $id)
+    {
+        // dd($request->all());
+        // dd($id);
+        $this->userServices->handleUpdateKeuangan($request, $id);
+
+        return to_route('admin.administrations.index')->with('success', trans('alert.update_success'));
+    }
+
+    public function destroy(string $id){
+        $this->userServices->handleDeleteKeuangan($id);
+        return back()->with('success', trans('alert.delete_success'));
+    }
 
 
 

@@ -23,14 +23,25 @@ class StudentRepository extends BaseRepository
      */
     public function get_by_school(string $schoolId): mixed
     {
-        return $this->model->query()
-            ->with('student')
+        return $this->model->newQuery()
+            ->with(['student' => function ($query) {
+                $query->where('status', 'active');
+            }])
             ->where('school_id', $schoolId)
-            ->whereRelation('student', 'status', 'active')
-            ->get();
+            ->paginate(6);
     }
 
-        /**
+    public function get_by_classroom(string $classroomId): mixed
+{
+    return $this->model->newQuery()
+        ->whereHas('studentClassroom', function ($query) use ($classroomId) {
+            $query->where('classroom_id', $classroomId);
+        })
+        ->whereRelation('student', 'status', 'active')
+        ->paginate(6);
+}
+
+    /**
      * store
      *
      * @param  mixed $data
@@ -41,5 +52,4 @@ class StudentRepository extends BaseRepository
         return $this->model->query()
             ->create($data);
     }
-
 }

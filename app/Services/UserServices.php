@@ -110,6 +110,24 @@ class UserServices
     {
         return $this->repository->get_mentors();
     }
+    public function handleGetKeuangan(int $limit): mixed
+    {
+        return $this->repository->get_administration($limit);
+    }
+    public function handleEditKeuangan(string $id): mixed
+    {
+        return $this->repository->get_Edit_administration($id);
+    }
+    public function handleUpdateKeuangan(AdministrationRequest $request,string $id): mixed
+    {
+        // dd($request->all());
+        $data = $request->validated();
+        return $this->repository->update($id, $data);
+    }
+    public function handleDeleteKeuangan(string $id): mixed
+    {
+        return $this->repository->destroy($id);
+    }
 
     /**
      * store mentor
