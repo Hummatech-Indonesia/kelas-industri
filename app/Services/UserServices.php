@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\AdministrationRequest;
 use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -87,6 +88,11 @@ class UserServices
     public function handleGetAllMentor(): mixed
     {
         return $this->repository->get_mentors();
+    }
+
+    public function handleGetAllMentorAdminis(Request $request): mixed
+    {
+        return $this->repository->get_mentors_administration($request, 6);
     }
 
     public function handleGetAllStudent(): mixed
@@ -221,4 +227,12 @@ class UserServices
         return $this->repository->update_user_active_all($siswaId, $status);
     }
 
+    public function storeAdministration(AdministrationRequest $request)
+    {
+        $data = $request->validated();
+        $data['password'] = bcrypt('password');
+
+        $user = $this->repository->store($data);
+        $user->assignRole('administration');
+    }
 }

@@ -34,6 +34,11 @@ class TeacherService
         return $this->repository->get_teacher_by_school($schoolId);
     }
 
+    public function handleGetAngkatan(string | null $schoolId)
+    {
+        return $this->repository->get_angkatan($schoolId);
+    }
+
     /**
      * store teacher
      *

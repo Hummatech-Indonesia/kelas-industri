@@ -39,6 +39,11 @@ class AttendanceService
         return $this->repository->get_all();
     }
 
+    public function countMentorAttendance()
+    {
+        return $this->repository->count_mentor_attendance();
+    }
+
     public function handleCreate(AttendanceRequest $request): void
     {
         $data = $request->validated();
@@ -108,4 +113,5 @@ class AttendanceService
     {
         return $this->repository->destroy($attendance->id);
     }
+
 }

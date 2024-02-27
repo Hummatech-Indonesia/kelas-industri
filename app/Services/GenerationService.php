@@ -76,4 +76,9 @@ class GenerationService
         }
         return $this->repository->get_by_school_year($selectedYear);
     }
+
+    public function handleGetGeneration():mixed
+    {
+        return $this->repository->get_generation();
+    }
 }
