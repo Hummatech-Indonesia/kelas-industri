@@ -15,21 +15,21 @@ class SalaryRequest extends FormRequest
     {
         return [
             'user_id' => 'required',
-            'salary_amount' => 'required',
+            'salary_amount.*' => 'required',
             'photo.*' => 'required|mimes:png,jpg,jpeg|max:2048',
             'generation_id' => 'nullable',
         ];
     }
 
     /**
-     * set custome messages
+     * set custom messages
      *
      * @return array
      */
     public function messages(): array
     {
         return [
-            'salary_amout.required' => 'Jumlah Gaji tidak boleh kosong!',
+            'salary_amount.*.required' => 'salary amount :index ini harus diisi!',
             'photo.mimes' => 'Foto harus dalam format PNG, JPG, atau JPEG!',
             'photo.max' => 'Ukuran foto tidak boleh melebihi :max kilobita!',
         ];

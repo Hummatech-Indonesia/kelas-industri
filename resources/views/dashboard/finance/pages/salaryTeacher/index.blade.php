@@ -35,7 +35,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-
+                    @if ($errors->any())
+                        <x-errors-component />
+                    @endif
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
 
@@ -46,7 +48,7 @@
                                 <select name="school_id" class="form-select form-select-solid me-5" data-control="select2"
                                     data-placeholder="select an option">
                                     @foreach ($schools as $school)
-                                    <option value="">default</option>
+                                        <option value="">default</option>
                                         <option value="{{ $school->id }}"
                                             {{ request('school_id') == $school->id ? 'selected' : '' }}>
                                             {{ $school->name }}
@@ -55,7 +57,7 @@
                                 </select>
                                 <button type="submit" class="btn btn-dark fw-bold">Filter</button>
                             </form>
-                            <a href="{{url('administration/salary-teacher')}}" class="btn btn-primary">reset</a>
+                            <a href="{{ url('administration/salary-teacher') }}" class="btn btn-primary">reset</a>
                         </div>
                         {{-- @if ($salarys->count() > 0) --}}
                         <form action="{{ route('administration.salary-mentor.create') }}" method="post"
