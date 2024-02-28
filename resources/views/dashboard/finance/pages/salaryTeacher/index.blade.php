@@ -40,47 +40,60 @@
                     <div class="card-body pt-4">
 
                         <!--begin::Table-->
-                        <form action="{{ route('administration.salaryTeacher.index') }}" method="get">
-                            @csrf
-                            <select name="school_id" id="">
-                                @foreach ($schools as $school)
-                                    <option value="{{ $school->id }}"
-                                        {{ request('school_id') == $school->id ? 'selected' : '' }}>{{ $school->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <button type="submit" name="getSchool" class="btn btn-dark fw-bold h-40px fs-7">get
-                                school</button>
-                        </form>
+                        <div class="d-flex justify-content-start my-3">
+                            <form action="{{ route('administration.salaryTeacher.index') }}" method="get"
+                                class="d-flex align-items-center" style="width: 500px">
+                                @csrf
+                                <select class="form-select" aria-label="Default select example" name="school_id">
+                                    @foreach ($schools as $school)
+                                        <option value="{{ $school->id }}"
+                                            {{ request('school_id') == $school->id ? 'selected' : '' }}>{{ $school->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" name="getSchool"
+                                    class="btn btn-dark fw-bold h-40px d-flex align-items-center ms-7"
+                                    style="font-size: 12px; width: 127px">get
+                                    school</button>
+                            </form>
+                        </div>
                         {{-- @if ($salarys->count() > 0) --}}
-                        <table class="table align-middle table-row-dashed fs-6 gy-5">
-                            <!--begin::Table head-->
-                            <thead>
-                                <!--begin::Table row-->
-                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Angkatan</th>
-                                    <th>Jumlah Gaji</th>
-                                    <th>Bukti Pembayaran</th>
-                                </tr>
-                                <!--end::Table row-->
-                            </thead>
-                            <!--end::Table head-->
+                        <form action="{{ route('administration.salary-mentor.create') }}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="d-flex justify-content-end" style="width: 100%">
+                                <button type="submit" class="btn btn-dark fw-bold h-40px d-flex justify-content-end">gaji
+                                    guru</button>
+                            </div>
 
-                            <!--begin::Table body-->
-                            <tbody class="fw-semibold text-gray-600">
-                                <form action="{{ route('administration.salary-mentor.create') }}" method="post" enctype="multipart/form-data">
-                                    @csrf
+                            <table class="table align-middle table-row-dashed fs-6 gy-5">
+                                <!--begin::Table head-->
+                                <thead>
+                                    <!--begin::Table row-->
+                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Angkatan</th>
+                                        <th>Jumlah Gaji</th>
+                                        <th>Bukti Pembayaran</th>
+                                    </tr>
+                                    <!--end::Table row-->
+                                </thead>
+                                <!--end::Table head-->
+
+                                <!--begin::Table body-->
+                                <tbody class="fw-semibold text-gray-600">
                                     @foreach ($teachers as $teacher)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <input type="text" class="form-control" name="user_id[]" value="{{ $teacher->teacher->id }}" hidden>
+                                                <input type="text" class="form-control" name="user_id[]"
+                                                    value="{{ $teacher->teacher->id }}" hidden>
                                                 {{ $teacher->teacher->name }}
                                             </td>
                                             <td>
-                                                <select name="generation_id[]" id="">
+                                                <select class="form-select" aria-label="Default select example"
+                                                    name="generation_id[]">
                                                     @foreach ($generations as $generation)
                                                         <option value="{{ $generation->id }}">{{ $generation->generation }}
                                                         </option>
@@ -96,11 +109,10 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                    <button type="submit">gaji guru</button>
-                                </form>
-                            </tbody>
-                            <!--end::Table body-->
-                        </table>
+                                </tbody>
+                                <!--end::Table body-->
+                            </table>
+                        </form>
                         {{-- @else --}}
                         {{-- <x-empty-component title="gaji" /> --}}
                         {{--  @endif --}}

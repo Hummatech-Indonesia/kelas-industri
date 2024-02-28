@@ -34,13 +34,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <form action="" method="GET">
-                        <input type="text" name="search" placeholder="cari guru" value="{{ request('search') }}">
-                        <button id="search">cari</button>
-                    </form>
+                    <div class="d-flex justify-content-end me-4">
+                        <form class="d-flex mt-5" style="width: 300px;" role="search" method="GET">
+                            <input class="form-control me-2" type="text" name="search" placeholder="Cari Guru"
+                                aria-label="Search" value="{{ request('search') }}">
+                            <button class="btn btn-dark fw-bold" id="search">Search</button>
+                        </form>
+                    </div>
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
-
                         <!--begin::Table-->
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
                             <!--begin::Table head-->
@@ -54,26 +56,26 @@
                                     <th>No Rekening</th>
                                     <th>Bank</th>
                                 </tr>
-                                <!--end::Table row-->
-                            </thead>
-                            <!--end::Table head-->
-
-                            <!--begin::Table body-->
-                            <tbody class="fw-semibold text-gray-600">
-                                @foreach ($teachers as $teacher)
+                                    <!--end::Table row-->
+                                </thead>
+                                <!--end::Table head-->
+                                
+                                <!--begin::Table body-->
+                                <tbody class="fw-semibold text-gray-600">
+                                    @foreach ($teachers as $teacher)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$teacher->name}}</td>
-                                        <td>{{$teacher->email}}</td>
-                                        <td>{{$teacher->phone_number}}</td>
-                                        <td>{{$teacher->account_number}}</td>
-                                        <td>{{$teacher->bank}}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $teacher->name }}</td>
+                                        <td>{{ $teacher->email }}</td>
+                                        <td>{{ $teacher->phone_number }}</td>
+                                        <td>{{ $teacher->account_number }}</td>
+                                        <td>{{ $teacher->bank }}</td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                            <!--end::Table body-->
-                        </table>
-                        {{ $teachers->links('pagination::bootstrap-5') }}
+                                    @endforeach
+                                </tbody>
+                                <!--end::Table body-->
+                            </table>
+                            {{ $teachers->links('pagination::bootstrap-5') }}
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->

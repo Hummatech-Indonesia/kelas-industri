@@ -19,25 +19,18 @@
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
-
-        <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
-
-            <!--begin::Button-->
-            <a href="{{ route('administration.mentor.create') }}" class="btn btn-dark fw-bold">
-                Tambah </a>
-            <!--end::Button-->
-        </div>
-        <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <form action="" method="GET">
-                        <input type="text" name="search" placeholder="cari mentor" value="{{request('search')}}" />
-                        <button type="submit" id="search">cari</button>
-                    </form>
+                    <div class="d-flex justify-content-end me-4">
+                        <form class="d-flex mt-5" style="width: 300px;" role="search" method="GET">
+                            <input class="form-control me-2" type="text" name="search" placeholder="Cari Mentor"
+                                aria-label="Search" value="{{ request('search') }}">
+                            <button class="btn btn-dark fw-bold" type="submit" id="search">Search</button>
+                        </form>
+                    </div>
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
 
@@ -57,7 +50,7 @@
                                 <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
-
+                            
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
                                 @foreach ($mentors as $mentor)

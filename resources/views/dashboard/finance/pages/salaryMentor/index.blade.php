@@ -32,6 +32,12 @@
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
 
+                        <form action="{{ route('administration.salary-mentor.create') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="d-flex justify-content-end" style="width: 100%">
+                                <button type="submit" class="btn btn-dark fw-bold d-flex justify-content-end">gaji
+                                    mentor</button>
+                            </div>
                         <!--begin::Table-->
 
                         <table class="table align-middle table-row-dashed fs-6 gy-5">
@@ -50,9 +56,7 @@
 
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
-                                <form action="{{ route('administration.salary-mentor.create') }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    @foreach ($attendances as $attendance)
+                                @foreach($attendances as $attendance)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
@@ -73,9 +77,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                    <button type="submit" class="btn btn-dark fw-bold h-40px fs-7">
-                                        Gaji mentor
-                                    </button>
                                 </form>
                             </tbody>
                             <!--end::Table body-->
