@@ -27,7 +27,7 @@ class TeacherRepository extends BaseRepository
     {
         return $this->model->query()
             ->with('teacher')
-            ->where('school_id', $schoolId)
+            ->where('school_id', 'like', '%' . $schoolId . '%')
             ->get();
     }
 }

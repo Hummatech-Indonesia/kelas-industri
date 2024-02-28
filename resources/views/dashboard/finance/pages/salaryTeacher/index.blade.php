@@ -44,8 +44,9 @@
                             <form action="{{ route('administration.salaryTeacher.index') }}" method="get"
                                 class="d-flex align-items-center gap-2" style="width: 300px">
                                 <select name="school_id" class="form-select form-select-solid me-5" data-control="select2"
-                                    data-placeholder="Select an option">
+                                    data-placeholder="select an option">
                                     @foreach ($schools as $school)
+                                    <option value="">default</option>
                                         <option value="{{ $school->id }}"
                                             {{ request('school_id') == $school->id ? 'selected' : '' }}>
                                             {{ $school->name }}
@@ -54,6 +55,7 @@
                                 </select>
                                 <button type="submit" class="btn btn-dark fw-bold">Filter</button>
                             </form>
+                            <a href="{{url('administration/salary-teacher')}}" class="btn btn-primary">reset</a>
                         </div>
                         {{-- @if ($salarys->count() > 0) --}}
                         <form action="{{ route('administration.salary-mentor.create') }}" method="post"
@@ -91,7 +93,8 @@
                                                 <select class="form-select" aria-label="Default select example"
                                                     name="generation_id[]">
                                                     @foreach ($generations as $generation)
-                                                        <option value="{{ $generation->id }}">{{ $generation->generation }}
+                                                        <option value="{{ $generation->id }}">
+                                                            {{ $generation->generation }}
                                                         </option>
                                                     @endforeach
                                                 </select>
