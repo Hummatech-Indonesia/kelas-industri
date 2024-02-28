@@ -29,6 +29,16 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
+    public function get_mentors_administration(Request $request, int $limit): mixed
+    {
+        return $this->model->query()
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "mentor");
+            })
+            ->where('name', 'like', '%'. $request->search . '%')
+            ->paginate($limit);
+    }
+
     public function get_administration(int $limit): mixed
     {
         return $this->model->query()
