@@ -42,19 +42,17 @@
                         <!--begin::Table-->
                         <div class="d-flex justify-content-start my-3">
                             <form action="{{ route('administration.salaryTeacher.index') }}" method="get"
-                                class="d-flex align-items-center" style="width: 500px">
-                                @csrf
-                                <select class="form-select" aria-label="Default select example" name="school_id">
+                                class="d-flex align-items-center gap-2" style="width: 300px">
+                                <select name="school_id" class="form-select form-select-solid me-5" data-control="select2"
+                                    data-placeholder="Select an option">
                                     @foreach ($schools as $school)
                                         <option value="{{ $school->id }}"
-                                            {{ request('school_id') == $school->id ? 'selected' : '' }}>{{ $school->name }}
+                                            {{ request('school_id') == $school->id ? 'selected' : '' }}>
+                                            {{ $school->name }}
                                         </option>
                                     @endforeach
                                 </select>
-                                <button type="submit" name="getSchool"
-                                    class="btn btn-dark fw-bold h-40px d-flex align-items-center ms-7"
-                                    style="font-size: 12px; width: 127px">get
-                                    school</button>
+                                <button type="submit" class="btn btn-dark fw-bold">Filter</button>
                             </form>
                         </div>
                         {{-- @if ($salarys->count() > 0) --}}
@@ -62,10 +60,8 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="d-flex justify-content-end" style="width: 100%">
-                                <button type="submit" class="btn btn-dark fw-bold h-40px d-flex justify-content-end">gaji
-                                    guru</button>
+                                <button type="submit" class="btn btn-dark fw-bold">Gaji</button>
                             </div>
-
                             <table class="table align-middle table-row-dashed fs-6 gy-5">
                                 <!--begin::Table head-->
                                 <thead>

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\User;
 use App\Http\Requests\AdministrationRequest;
 use App\Http\Requests\SalaryRequest;
 use App\Services\AttendanceService;
@@ -80,12 +78,11 @@ class AdminitrasionController extends Controller
         return to_route('admin.administrations.index')->with('success', trans('alert.update_success'));
     }
 
-    public function destroy(string $id){
+    public function destroy(string $id)
+    {
         $this->userServices->handleDeleteKeuangan($id);
         return back()->with('success', trans('alert.delete_success'));
     }
-
-
 
     public function teacher(Request $request)
     {
@@ -110,23 +107,13 @@ class AdminitrasionController extends Controller
         return view('dashboard.finance.pages.teacher.changePassword');
     }
 
-
-
-
-
-
-
-
-
-
-
     public function salaryTeacher(Request $request)
     {
         // dd($request->all());
         $data = [
             'schools' => $this->userServices->handleGetAllSchool(),
             'generations' => $this->generationServices->handleGetGeneration(),
-            'teachers' => $this->teacherServices->handleGetAngkatan($request->school_id)
+            'teachers' => $this->teacherServices->handleGetAngkatan($request->school_id),
         ];
         return view('dashboard.finance.pages.salaryTeacher.index', $data);
     }
@@ -139,11 +126,6 @@ class AdminitrasionController extends Controller
     {
         return view('dashboard.finance.pages.salaryTeacher.show');
     }
-
-
-
-
-
 
     public function mentor(Request $request)
     {
@@ -167,7 +149,7 @@ class AdminitrasionController extends Controller
     {
         return view('dashboard.finance.pages.mentor.changePassword');
     }
-    
+
     public function salaryMentor()
     {
         $data['attendances'] = $this->attendanceServices->countMentorAttendance();
@@ -176,11 +158,17 @@ class AdminitrasionController extends Controller
     public function createsalaryMentorTeacher(SalaryRequest $request)
     {
         // dd($request->all());
-        $this->salaryServices->handleCreate($request);
-        if ($request->generation_id) {
-            return to_route('administration.salaryTeacher.index')->with('success', trans('alert.add_success'));
+        foreach ($_FILES['photo']['tmp_name'] as $key => $file) {
+            if (!$file) {
+                return redirect()->back()->with('error', 'Photo tidak boleh kosong pada data ke ' . ($key + 1));
+            } else {
+                $this->salaryServices->handleCreate($request);
+                if ($request->generation_id) {
+                    return to_route('administration.salaryTeacher.index')->with('success', trans('alert.add_success'));
+                }
+                return to_route('administration.salary-mentor.create')->with('success', trans('alert.add_success'));
+            }
         }
-        return to_route('administration.salary-mentor.create')->with('success', trans('alert.add_success'));
     }
     public function editsalaryMentor()
     {
