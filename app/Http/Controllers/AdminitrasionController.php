@@ -157,17 +157,29 @@ class AdminitrasionController extends Controller
     }
     public function createsalaryMentorTeacher(SalaryRequest $request)
     {
-        // dd($request->all());
+        $allFilesValid = true;
+        $invalidFiles = [];
         foreach ($_FILES['photo']['tmp_name'] as $key => $file) {
             if (!$file) {
-                return redirect()->back()->with('error', 'Photo tidak boleh kosong pada data ke ' . ($key + 1));
-            } else {
-                $this->salaryServices->handleCreate($request);
-                if ($request->generation_id) {
-                    return to_route('administration.salaryTeacher.index')->with('success', trans('alert.add_success'));
-                }
-                return to_route('administration.salary-mentor.create')->with('success', trans('alert.add_success'));
+                $allFilesValid = false;
+                $invalidFiles[] = $key + 1;
             }
+        }
+        if (!$allFilesValid) {
+            $errorMessage = 'Photo tidak boleh kosong pada data ke ' . implode(', ', $invalidFiles);
+            return redirect()->back()->with('error', $errorMessage);
+        }
+
+        if ($allFilesValid) {
+            foreach ($_FILES['photo']['tmp_name'] as $key => $file) {
+                $this->salaryServices->handleCreate($request);
+            }
+
+            if ($request->generation_id) {
+                return to_route('administration.salaryTeacher.index')->with('success', trans('alert.add_success'));
+            }
+
+            return to_route('administration.salary-mentor.create')->with('success', trans('alert.add_success'));
         }
     }
     public function editsalaryMentor()
