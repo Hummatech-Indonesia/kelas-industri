@@ -26,8 +26,8 @@
         <!--end::Actions-->
 
     </div>
-    @if($errors->any())
-        <x-errors-component/>
+    @if ($errors->any())
+        <x-errors-component />
     @endif
     <div class="content flex-column-fluid">
         <div class="row">
@@ -52,7 +52,7 @@
                             <div class="card-toolbar">
 
                                 <a href="{{ route('admin.administrations.index') }}"
-                                   class="btn btn-light-primary font-weight-bolder me-2">
+                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
 
@@ -85,8 +85,7 @@
 
                                     <div class="col-lg-9 col-xl-9">
                                         <input class="form-control form-control-solid form-control-lg" name="name"
-                                               type="text" value="{{ $akun->name }}" placeholder="John Doe"
-                                               required="">
+                                            type="text" value="{{ $akun->name }}" placeholder="John Doe">
 
                                     </div>
 
@@ -98,37 +97,7 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="email"
-                                               type="email" value="{{ $akun->email }}" placeholder="johndoe@gmail.com"
-                                               required="">
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Nomor Telepon</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="phone_number"
-                                               type="text" value="{{ $akun->phone_number }}" placeholder="087xxxxxxxxx"
-                                               required="">
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Alamat</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <textarea class="form-control form-control-solid form-control-lg"
-                                                  name="address"
-                                                  type="text"
-                                                  placeholder="Jl. Soekarno Hatta No 9"
-                                                  required="">{{ $akun->address }}</textarea>
+                                            type="email" value="{{ $akun->email }}" placeholder="johndoe@gmail.com">
 
                                     </div>
 

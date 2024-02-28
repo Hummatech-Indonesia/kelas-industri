@@ -7,15 +7,6 @@ use Illuminate\Validation\Rule;
 
 class AdministrationRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -27,8 +18,6 @@ class AdministrationRequest extends FormRequest
         $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $this->route('administration'),
-            'phone_number' => 'required|max:15',
-            'address' => 'required'
         ];
 
         // if ($this->isMethod('patch') || $this->isMethod('put')) {
@@ -52,9 +41,6 @@ class AdministrationRequest extends FormRequest
             'email.required' => 'Email tidak boleh kosong !',
             'email.unique' => 'Email sudah digunakan !',
             'email.email' => 'Email tidal valid !',
-            'phone_number.required' => 'Nomor telepon tidak boleh kosong !',
-            'phone_number.max' => 'Nomor telepon maksimal 15 angka !',
-            'address.required' => 'Alamat tidak boleh kosong !',
         ];
     }
 }

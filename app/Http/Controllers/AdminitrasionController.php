@@ -167,12 +167,7 @@ class AdminitrasionController extends Controller
     {
         return view('dashboard.finance.pages.mentor.changePassword');
     }
-
-
-
-
-
-
+    
     public function salaryMentor()
     {
         $data['attendances'] = $this->attendanceServices->countMentorAttendance();
