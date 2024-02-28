@@ -120,36 +120,6 @@
                                 </div>
                                 <div class="form-group row mb-3">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Nomor Rekening</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="account_number"
-                                               type="text" value="{{ $akun->account_number }}"
-                                               placeholder="117-129-x-xxx"
-                                            required="">
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Bank</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="bank"
-                                               type="text" value="{{ $akun->bank }}"
-                                               placeholder="Mandiri"
-                                               required="">
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
                                     <label class="col-xl-3 col-lg-3 col-form-label">Alamat</label>
 
                                     <div class="col-lg-9 col-xl-9">

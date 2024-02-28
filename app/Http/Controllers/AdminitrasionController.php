@@ -59,7 +59,7 @@ class AdminitrasionController extends Controller
         //
         $this->userServices->storeAdministration($request);
 
-        return redirect()->back()->with('success', trans('alert.add_success'));
+        return to_route('admin.administrations.index')->with('success', trans('alert.add_success'));
     }
 
     public function edit($id)

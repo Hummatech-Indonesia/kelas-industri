@@ -28,9 +28,7 @@ class AdministrationRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $this->route('administration'),
             'phone_number' => 'required|max:15',
-            'address' => 'required',
-            'account_number' => 'required|string',
-            'bank' => 'required|string|max:255'
+            'address' => 'required'
         ];
 
         // if ($this->isMethod('patch') || $this->isMethod('put')) {
@@ -57,8 +55,6 @@ class AdministrationRequest extends FormRequest
             'phone_number.required' => 'Nomor telepon tidak boleh kosong !',
             'phone_number.max' => 'Nomor telepon maksimal 15 angka !',
             'address.required' => 'Alamat tidak boleh kosong !',
-            'account_number.required' => 'Nomor rekening tidak boleh kosong !',
-            'bank.required' => 'Bank tidak boleh kosong !',
         ];
     }
 }

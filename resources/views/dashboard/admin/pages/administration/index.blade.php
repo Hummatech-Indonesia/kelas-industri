@@ -34,7 +34,7 @@
                 <div class="card">
 
                     <!--begin::Card body-->
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-12">
 
                         <!--begin::Table-->
                         <table class="table align-middle table-row-dashed fs-6 gy-5">
@@ -46,18 +46,16 @@
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>No Telepon</th>
-                                    <th>No Rekening</th>
-                                    <th>Bank</th>
                                     <th>Alamat</th>
                                     <th>Aksi</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
-
+                            
                             <!--begin::Table body-->
+                            @forelse ($akun as $administration)
                             <tbody class="fw-semibold text-gray-600">
-                                @forelse ($akun as $administration)
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
@@ -86,24 +84,7 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="d-flex justify-content-start flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">{{ $administration->phone }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="d-flex justify-content-start flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">
-                                                        {{ $administration->account_number }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="d-flex justify-content-start flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">{{ $administration->bank }}
+                                                    <div class="text-gray-900 fw-bold fs-7">{{ $administration->phone_number }}
                                                     </div>
                                                 </div>
                                             </div>
