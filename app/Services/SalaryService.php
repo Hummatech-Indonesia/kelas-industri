@@ -84,26 +84,17 @@ class SalaryService
      */
     public function handleCreate(SalaryRequest $request): void
     {
-        // dd($request->all());
         $data = $request->validated();
-        if($request->has('generation_id')){
-            foreach($request->user_id as $key => $value){
-                $data['user_id'] = $value;
-                $data['payday'] = now( );
-                $data['generation_id'] = $request->generation_id[$key];
-                $data['salary_amount'] = $request->salary_amount[$key];
-                $data['photo'] = $request->photo[$key]->store('salary_file', 'public');
-                $this->repository->store($data);
-            }
-        }
-        foreach($request->user_id as $key => $value){
+        // dd($request);
+        foreach ($request->user_id as $key => $value) {
             $data['user_id'] = $value;
             $data['payday'] = now();
-            $data['generation_id'] = null;
+            $data['generation_id'] = $request->generation_id[$key] ?? null;
             $data['salary_amount'] = $request->salary_amount[$key];
             $data['photo'] = $request->photo[$key]->store('salary_file', 'public');
-            $this->repository->store($data);
+
         }
+        $this->repository->store($data);
         // dd($data);
         // $salary = $this->repository->store($data);
     }
