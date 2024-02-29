@@ -6,6 +6,7 @@ use App\Http\Requests\AdministrationRequest;
 use App\Http\Requests\SalaryRequest;
 use App\Services\AttendanceService;
 use App\Services\GenerationService;
+use App\Services\JournalService;
 use App\Services\SalaryService;
 use App\Services\SchoolYearService;
 use App\Services\TeacherService;
@@ -22,8 +23,9 @@ class AdminitrasionController extends Controller
     private AttendanceService $attendanceServices;
     private SchoolYearService $schoolYearServices;
     private GenerationService $generationServices;
+    private JournalService $journalServices;
 
-    public function __construct(UserServices $userServices, SalaryService $salaryServices, TeacherService $teacherServices, AttendanceService $attendanceServices, SchoolYearService $schoolYearServices, GenerationService $generationServices)
+    public function __construct(UserServices $userServices, SalaryService $salaryServices, TeacherService $teacherServices, AttendanceService $attendanceServices, SchoolYearService $schoolYearServices, GenerationService $generationServices, JournalService $journalServices)
     {
         $this->userServices = $userServices;
         $this->salaryServices = $salaryServices;
@@ -31,6 +33,7 @@ class AdminitrasionController extends Controller
         $this->schoolYearServices = $schoolYearServices;
         $this->generationServices = $generationServices;
         $this->attendanceServices = $attendanceServices;
+        $this->journalServices = $journalServices;
     }
 
     public function index()
@@ -96,6 +99,7 @@ class AdminitrasionController extends Controller
     {
         $data = [
             'guru' => $this->userServices->handleShowTeacher($id),
+            'jurnals' => $this->journalServices->handleGetByTeacher($id),
         ];
         return view('dashboard.finance.pages.teacher.show', $data);
     }
@@ -154,7 +158,7 @@ class AdminitrasionController extends Controller
                 return to_route('administration.salaryTeacher.index')->with('success', trans('alert.add_success'));
             }
 
-            return to_route('administration.salary-mentor.create')->with('success', trans('alert.add_success'));
+            return to_route('administration.salary-mentor.index')->with('success', trans('alert.add_success'));
         }
     }
     public function showSalaryMentor()
