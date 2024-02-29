@@ -124,12 +124,42 @@ hr.fc-divider {
   padding: 0;
   vertical-align: top;
 }
+:root {
+  --background-color: #5CA7DB;
+  --background-view-color: #f5f5f5;
+    --border-color: #5CA7DB;
+    --text-color: #252525;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #5CA7DB;
+  --background-view-color: #f5f5f5;
+    --text-color: #252525;
+    --border-color: #5CA7DB;
+  }
+}
+
+.fc-day-number{
+  color:var(--text-color);
+}
+
+.fc-day-header span{
+  color:var(--text-color);
+}
+.fc-dayGrid-view {
+  background-color: var(--background-view-color);
+}
+.fc-view-container {
+background-color: var(--background-view-color);
+}
 
 .fc td.fc-today .fc-day-number{
-    background-color: #61AADD;
-    border: 2px solid #61AADD;
+    background-color: var(--background-color);
+    border: 2px solid var(--border-color);
     border-radius: 50%;
-    color:white;
+    color: #fff;
 }
 
 .fc td.fc-today {
@@ -717,7 +747,6 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
   opacity: 0.65;
 }
 
-/* "primary" coloring */
 .fc-button-primary {
   color: #fff;
   background-color: #5CA7DB;
