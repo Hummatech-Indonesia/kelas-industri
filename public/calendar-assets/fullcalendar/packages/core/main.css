@@ -125,6 +125,13 @@ hr.fc-divider {
   vertical-align: top;
 }
 
+.fc td.fc-today .fc-day-number{
+    background-color: #61AADD;
+    border: 2px solid #61AADD;
+    border-radius: 50%;
+    color:white;
+}
+
 .fc td.fc-today {
   border-style: double;
   /* overcome neighboring borders */
@@ -577,10 +584,6 @@ TODO: more distinction between this file and common.css
 .fc-unthemed .fc-popover .fc-header,
 .fc-unthemed .fc-list-heading td {
   background: #eee;
-}
-
-.fc-unthemed td.fc-today {
-  background: #5CA7DB;
 }
 
 .fc-unthemed .fc-disabled-day {
