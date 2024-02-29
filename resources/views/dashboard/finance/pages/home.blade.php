@@ -31,12 +31,11 @@
         <div class="row">
             <div class="col-md-3">
                 <h3>Selamat datang, 
-                    {{-- {{ auth()->user()->name }} --}}
+                    {{ auth()->user()->name }}
                 </h3>
             </div>
 
         </div>
-        {{-- @elseif (auth()->user()->roles->pluck('name')[0] == 'admin') --}}
             <div class="covercard row gap-2 mt-4">
                 <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                     <div class="card-body d-flex align-items">
@@ -49,7 +48,7 @@
 
                         <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                             Jumlah Mentor 
-                            {{-- {{ $mentor }} --}}
+                            {{ $mentor }}
                         </span>
                     </div>
                 </a>
@@ -64,7 +63,7 @@
 
                         <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                             Jumlah Guru 
-                            {{-- {{ $student }} --}}
+                            {{ $guru }}
                         </span>
                     </div>
                 </a>

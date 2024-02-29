@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Mentor
+                Riwayat Gaji Guru
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List mentor pada kelas industri.
+                List riwayat gaji guru pada kelas industri.
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="d-flex justify-content-end me-4">
                         <form class="d-flex mt-5" style="width: 300px;" role="search" method="GET">
-                            <input class="form-control me-2" type="text" name="search" placeholder="Cari Mentor"
+                            <input class="form-control me-2" type="text" name="search" placeholder="Cari Guru"
                                 aria-label="Search" value="{{ request('search') }}">
                             <button class="btn btn-dark fw-bold" type="submit" id="search">Cari</button>
                         </form>
@@ -42,10 +42,10 @@
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>No Telepon</th>
-                                    <th>No Rekening</th>
-                                    <th>Bank</th>
+                                    <th>Gaji</th>
+                                    <th>Bukti</th>
+                                    <th>Tanggal</th>
+                                    <th>Angkatan</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -53,20 +53,18 @@
                             
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
-                                @foreach ($mentors as $mentor)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$mentor->name}}</td>
-                                        <td>{{$mentor->email}}</td>
-                                        <td>{{$mentor->phone_number}}</td>
-                                        <td>{{$mentor->account_number}}</td>
-                                        <td>{{$mentor->bank}}</td>
+                                        <td>Testing</td>
+                                        <td>Testing</td>
+                                        <td>Testing</td>
+                                        <td>Testing</td>
+                                        <td>Testing</td>
+                                        <td>Testing</td>
                                     </tr>
-                                @endforeach
                             </tbody>
                             <!--end::Table body-->
                         </table>
-                        {{$mentors->links('pagination::bootstrap-5')}}
+                        {{-- {{$mentors->links('pagination::bootstrap-5')}} --}}
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->

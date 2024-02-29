@@ -19,16 +19,6 @@
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
-
-        <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
-
-            <!--begin::Button-->
-            <a href="{{ route('administration.teacher.create') }}" class="btn btn-dark fw-bold">
-                Tambah </a>
-            <!--end::Button-->
-        </div>
-        <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -38,13 +28,13 @@
                         <form class="d-flex mt-5" style="width: 300px;" role="search" method="GET">
                             <input class="form-control me-2" type="text" name="search" placeholder="Cari Guru"
                                 aria-label="Search" value="{{ request('search') }}">
-                            <button class="btn btn-dark fw-bold" id="search">Search</button>
+                            <button class="btn btn-dark fw-bold" id="search">Cari</button>
                         </form>
                     </div>
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
                         <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" >
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
@@ -55,14 +45,15 @@
                                     <th>No Telepon</th>
                                     <th>No Rekening</th>
                                     <th>Bank</th>
+                                    <th>Aksi</th>
                                 </tr>
-                                    <!--end::Table row-->
-                                </thead>
-                                <!--end::Table head-->
-                                
-                                <!--begin::Table body-->
-                                <tbody class="fw-semibold text-gray-600">
-                                    @foreach ($teachers as $teacher)
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600">
+                                @foreach ($teachers as $teacher)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $teacher->name }}</td>
@@ -70,12 +61,19 @@
                                         <td>{{ $teacher->phone_number }}</td>
                                         <td>{{ $teacher->account_number }}</td>
                                         <td>{{ $teacher->bank }}</td>
+                                        <td>
+                                            <a href="{{ route('administration.teacher.show', $teacher->id) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-detail btn-sm me-1"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Lihat Detail">
+                                                <i class="fa fa-eye fs-3 text-primary"></i>
+                                            </a>
+                                        </td>
                                     </tr>
-                                    @endforeach
-                                </tbody>
-                                <!--end::Table body-->
-                            </table>
-                            {{ $teachers->links('pagination::bootstrap-5') }}
+                                @endforeach
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        {{ $teachers->links('pagination::bootstrap-5') }}
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->
@@ -85,4 +83,6 @@
         </div>
         <x-delete-modal-component />
     </div>
+@endsection
+@section('script')
 @endsection

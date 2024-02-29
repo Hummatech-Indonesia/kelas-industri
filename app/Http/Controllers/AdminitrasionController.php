@@ -92,20 +92,22 @@ class AdminitrasionController extends Controller
         return view('dashboard.finance.pages.teacher.index', $data);
     }
 
-    public function createTeacher()
+    public function showTeacher($id)
     {
-        return view('dashboard.finance.pages.teacher.create');
+        $data = [
+            'guru' => $this->userServices->handleShowTeacher($id),
+        ];
+        return view('dashboard.finance.pages.teacher.show', $data);
     }
 
-    public function editTeacher()
-    {
-        return view('dashboard.finance.pages.teacher.edit');
-    }
 
-    public function editPassTeacher()
-    {
-        return view('dashboard.finance.pages.teacher.changePassword');
-    }
+
+
+
+
+
+
+
 
     public function salaryTeacher(Request $request)
     {
@@ -117,14 +119,9 @@ class AdminitrasionController extends Controller
         ];
         return view('dashboard.finance.pages.salaryTeacher.index', $data);
     }
-
-    public function createsalaryTeacher()
+    public function showsalaryTeacher()
     {
-        return view('dashboard.finance.pages.salaryTeacher.create');
-    }
-    public function editsalaryTeacher()
-    {
-        return view('dashboard.finance.pages.salaryTeacher.show');
+        return view('dashboard.finance.pages.salaryTeacher.history');
     }
 
     public function mentor(Request $request)
@@ -133,21 +130,6 @@ class AdminitrasionController extends Controller
             'mentors' => $this->userServices->handleGetAllMentorAdminis($request),
         ];
         return view('dashboard.finance.pages.mentor.index', $data);
-    }
-
-    public function createMentor()
-    {
-        return view('dashboard.finance.pages.mentor.create');
-    }
-
-    public function editMentor()
-    {
-        return view('dashboard.finance.pages.mentor.edit');
-    }
-
-    public function editPassMentor()
-    {
-        return view('dashboard.finance.pages.mentor.changePassword');
     }
 
     public function salaryMentor()
@@ -182,8 +164,8 @@ class AdminitrasionController extends Controller
             return to_route('administration.salary-mentor.create')->with('success', trans('alert.add_success'));
         }
     }
-    public function editsalaryMentor()
+    public function showsalaryMentor()
     {
-        return view('dashboard.finance.pages.salaryMentor.show');
+        return view('dashboard.finance.pages.salaryMentor.history');
     }
 }

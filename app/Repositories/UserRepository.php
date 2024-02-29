@@ -58,6 +58,24 @@ class UserRepository extends BaseRepository
             ->first();
     }
 
+    public function getCountTeacher(): mixed
+    {
+        return $this->model->query()
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "teacher");
+            })
+            ->get();
+    }
+
+    public function getCountMentor(): mixed
+    {
+        return $this->model->query()
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "mentor");
+            })
+            ->get();
+    }
+
     public function get_students(): mixed
     {
         return $this->model->query()

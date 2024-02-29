@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Mentor
+                Riwayat Gaji Mentor
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List mentor pada kelas industri.
+                List riwayat gaji mentor pada kelas industri.
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -53,20 +53,18 @@
                             
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
-                                @foreach ($mentors as $mentor)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$mentor->name}}</td>
-                                        <td>{{$mentor->email}}</td>
-                                        <td>{{$mentor->phone_number}}</td>
-                                        <td>{{$mentor->account_number}}</td>
-                                        <td>{{$mentor->bank}}</td>
+                                        <td>testing</td>
+                                        <td>testing</td>
+                                        <td>testing</td>
+                                        <td>testing</td>
+                                        <td>testing</td>
+                                        <td>testing</td>
                                     </tr>
-                                @endforeach
                             </tbody>
                             <!--end::Table body-->
                         </table>
-                        {{$mentors->links('pagination::bootstrap-5')}}
+                        {{-- {{$mentors->links('pagination::bootstrap-5')}} --}}
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->

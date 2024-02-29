@@ -176,9 +176,13 @@ class UserServices
      *
      * @throws Exception
      */
-    public function handleGetTeacher(): mixed
+    public function handleCountTeacher(): mixed
     {
-        return $this->TeacherMockup($this->repository->get_mentors());
+        return $this->repository->getCountTeacher();
+    }
+    public function handleCountMentor(): mixed
+    {
+        return $this->repository->getCountMentor();
     }
 
     /**
@@ -194,6 +198,11 @@ class UserServices
 
         $user = $this->repository->store($data);
         $user->assignRole('mentor');
+    }
+
+    public function handleShowTeacher(string $id): mixed
+    {
+        return $this->repository->get_Show_Teacher($id);
     }
 
     /**

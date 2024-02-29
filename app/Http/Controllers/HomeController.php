@@ -83,8 +83,11 @@ class HomeController extends Controller
             return view('dashboard.admin.pages.home', $data);
         }
         if ($role == 'administration') {
-            # code...
-            return view('dashboard.finance.pages.home');
+            $data = [
+                'guru' => count($this->userService->handleCountTeacher()),
+                'mentor' => count($this->userService->handleCountMentor()),
+            ];
+            return view('dashboard.finance.pages.home', $data);
         }
         $data = $this->GetDataSidebar();
         if ($role == 'student') {

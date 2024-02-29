@@ -72,12 +72,19 @@
                                     <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                     <span class="menu-title">List Guru</span>
                                 </a>
-                                <!--end:Menu link--
-                                    <!--begin:Menu link-->
-                                <a class="menu-link {{ request()->routeIs('administration.salaryTeacher.*') ? 'active' : '' }}"
+                                <!--end:Menu link-->
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('administration.salaryTeacher.index') ? 'active' : '' }}"
                                     href="{{ route('administration.salaryTeacher.index') }}">
                                     <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                     <span class="menu-title">Gaji Guru</span>
+                                </a>
+                                <!--end:Menu link-->
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('administration.salaryTeacher.show') ? 'active' : '' }}"
+                                    href="{{ route('administration.salaryTeacher.show') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">Riwayat Guru</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -116,12 +123,19 @@
                                     <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                     <span class="menu-title">List Mentor</span>
                                 </a>
-                                <!--end:Menu link--
-                                    <!--begin:Menu link-->
-                                <a class="menu-link {{ request()->routeIs('administration.salary-mentor.*') ? 'active' : '' }}"
+                                <!--end:Menu link-->
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('administration.salary-mentor.index') ? 'active' : '' }}"
                                     href="{{ route('administration.salary-mentor.index') }}">
                                     <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                     <span class="menu-title">Gaji Mentor</span>
+                                </a>
+                                <!--end:Menu link-->
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('administration.salary-mentor.show') ? 'active' : '' }}"
+                                    href="{{ route('administration.salary-mentor.show') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">Riwayat Mentor</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
