@@ -202,7 +202,7 @@ class UserServices
 
     public function handleShowTeacher(string $id): mixed
     {
-        return $this->repository->get_Show_Teacher($id);
+        return $this->repository->get_show_teacher($id);
     }
 
     /**

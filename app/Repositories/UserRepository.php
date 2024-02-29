@@ -35,7 +35,7 @@ class UserRepository extends BaseRepository
             ->whereHas('roles', function ($q) {
                 return $q->where("name", "mentor");
             })
-            ->where('name', 'like', '%'. $request->search . '%')
+            ->where('name', 'like', '%' . $request->search . '%')
             ->paginate($limit);
     }
 
@@ -172,5 +172,16 @@ class UserRepository extends BaseRepository
         return $this->model->query()
             ->whereIn('id', $userId)
             ->update($status);
+    }
+
+
+    public function get_show_teacher(string $id): mixed
+    {
+        return $this->model->query()
+            ->where('id', $id)
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "teacher");
+            })
+            ->first();
     }
 }
