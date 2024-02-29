@@ -42,25 +42,58 @@
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>No Telepon</th>
-                                    <th>No Rekening</th>
-                                    <th>Bank</th>
+                                    <th>Gaji</th>
+                                    <th>Bukti</th>
+                                    <th>Tanggal Penggajian</th>
+                                    <th>Bulan</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
-                            
+
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
+                                @forelse ($mentors as $mentor)
                                     <tr>
-                                        <td>testing</td>
-                                        <td>testing</td>
-                                        <td>testing</td>
-                                        <td>testing</td>
-                                        <td>testing</td>
-                                        <td>testing</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $mentor->user->name }}</td>
+                                        <td>{{ 'Rp ' . number_format($mentor->salary_amount, 2, ',', '.') }}</td>
+                                        <td> <svg type="button" class="btn-photo"
+                                                data-photo="{{ asset('storage/' . $mentor->photo) }}"
+                                                xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M8.5 13.498l2.5 3.006l3.5-4.506l4.5 6H5m16 1v-14a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"
+                                                    fill="#474761" />
+                                            </svg> </td>
+                                        <td>{{ \Carbon\Carbon::parse($mentor->payday)->locale('id')->isoFormat('D MMMM YYYY') }}
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($mentor->payday)->locale('id')->isoFormat('MMMM') }}
+                                        </td>
                                     </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="col-12 text-center">
+                                                <!--begin::Illustration-->
+                                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
+                                                    alt="" />
+                                                <!--end::Illustration-->
+
+                                                <!--begin::Title-->
+                                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                                <!--end::Title-->
+
+                                                <!--begin::Desctiption-->
+                                                <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                                    Tidak ada history untuk saat ini.
+                                                </span>
+                                                <!--end::Desctiption-->
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                             <!--end::Table body-->
                         </table>
@@ -72,6 +105,14 @@
             </div>
 
         </div>
-        <x-delete-modal-component />
     </div>
+@endsection
+@section('script')
+    <script>
+        $('.btn-photo').click(function() {
+            var photo = $(this).data('photo')
+            $('#photo').attr('src', photo);
+            $('#modal_photo').modal('show')
+        });
+    </script>
 @endsection

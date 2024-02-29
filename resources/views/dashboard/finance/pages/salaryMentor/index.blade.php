@@ -35,8 +35,7 @@
                         <form action="{{ route('administration.salary-mentor.create') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="d-flex justify-content-end" style="width: 100%">
-                                <button type="submit" class="btn btn-dark fw-bold d-flex justify-content-end">gaji
-                                    mentor</button>
+                                <button type="submit" class="btn btn-dark fw-bold">Gaji</button>
                             </div>
                         <!--begin::Table-->
 

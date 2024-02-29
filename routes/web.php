@@ -153,13 +153,13 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('teacher/{teacher}', [AdminitrasionController::class, 'showTeacher'])->name('teacher.show');
 
         Route::get('salary-teacher', [AdminitrasionController::class, 'salaryTeacher'])->name('salaryTeacher.index');
-        Route::get('salary-teacher/show', [AdminitrasionController::class, 'showsalaryTeacher'])->name('salaryTeacher.show');
+        Route::get('salary-teacher/show', [AdminitrasionController::class, 'showSalaryTeacher'])->name('salaryTeacher.show');
 
         Route::get('mentor', [AdminitrasionController::class, 'mentor'])->name('mentor.index');
         Route::get('mentor/create', [AdminitrasionController::class, 'createMentor'])->name('mentor.create');
 
         Route::get('salary-mentor', [AdminitrasionController::class, 'salaryMentor'])->name('salary-mentor.index');
-        Route::get('salary-mentor/show', [AdminitrasionController::class, 'showsalaryMentor'])->name('salary-mentor.show');
+        Route::get('salary-mentor/show', [AdminitrasionController::class, 'showSalaryMentor'])->name('salary-mentor.show');
     });
     //end finance
 
