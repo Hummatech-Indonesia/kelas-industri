@@ -161,9 +161,9 @@ class AdminitrasionController extends Controller
             return to_route('administration.salary-mentor.index')->with('success', trans('alert.add_success'));
         }
     }
-    public function showSalaryMentor()
+    public function showSalaryMentor(Request $request)
     {
-        $mentors = $this->salaryServices->handleGetSalaryMentor();
+        $mentors = $this->salaryServices->handleGetSalaryMentor($request);
 
         return view('dashboard.finance.pages.salaryMentor.history', compact('mentors'));
     }

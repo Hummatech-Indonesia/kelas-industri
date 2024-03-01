@@ -2,11 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
 use App\Models\Salary;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class SalaryRepository extends  BaseRepository
+class SalaryRepository extends BaseRepository
 {
     public function __construct(Salary $model, User $user)
     {
@@ -46,18 +47,21 @@ class SalaryRepository extends  BaseRepository
     public function getSalaryTeacher(): mixed
     {
         return $this->model->query()
-        ->whereHas('user.roles', function ($q) {
-            return $q->where("name", "teacher");
-        })
-        ->get();
+            ->whereHas('user.roles', function ($q) {
+                return $q->where("name", "teacher");
+            })
+            ->get();
     }
 
-    public function getSalaryMentor(): mixed
+    public function getSalaryMentor(Request $request): mixed
     {
         return $this->model->query()
-        ->whereHas('user.roles', function ($q) {
-            return $q->where("name", "mentor");
-        })
-        ->get();
+            ->whereHas('user.roles', function ($q) {
+                return $q->where("name", "mentor");
+            })
+            ->whereRelation('user', 'name', 'like', '%' . $request->search . '%')
+            ->whereMonth('created_at', Carbon::parse($request->month)->month)
+            ->whereYear('created_at', Carbon::parse($request->month)->year)
+            ->get();
     }
 }

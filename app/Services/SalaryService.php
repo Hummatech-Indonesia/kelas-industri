@@ -140,8 +140,8 @@ class SalaryService
         return $this->repository->getSalaryTeacher();
     }
 
-    public function handleGetSalaryMentor(): mixed
+    public function handleGetSalaryMentor(Request $request): mixed
     {
-        return $this->repository->getSalaryMentor();
+        return $this->repository->getSalaryMentor($request);
     }
 }
