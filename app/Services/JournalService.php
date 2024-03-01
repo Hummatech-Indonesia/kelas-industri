@@ -113,4 +113,10 @@ class JournalService
     {
         return $this->repository->get_count_journal_mentor($mentorId);
     }
+
+    public function handleGetByTeacher(string $teacherId): mixed
+    {
+        return $this->repository->get_journal_by_teacher($teacherId);
+    }
+
 }
