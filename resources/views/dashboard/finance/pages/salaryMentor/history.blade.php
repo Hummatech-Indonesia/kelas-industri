@@ -24,10 +24,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="d-flex justify-content-end me-4">
-                        <form class="d-flex mt-5" style="width: 300px;" role="search" method="GET">
-                            <input class="form-control me-2" type="text" name="search" placeholder="Cari Mentor"
+                    <div class="d-flex justify-content-between ms-5 me-5 row">
+                        <form class=" d-flex mt-5" style="width: 200px;" role="search" method="GET">
+                            <input class="form-control me-2 col-3" type="text" name="search" placeholder="Cari Mentor"
                                 aria-label="Search" value="{{ request('search') }}">
+
+                            <input class="form-control me-2 col-3" type="month" name="month">
                             <button class="btn btn-dark fw-bold" type="submit" id="search">Cari</button>
                         </form>
                     </div>
@@ -106,6 +108,29 @@
 
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" id="modal_photo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Bukti Foto Gaji</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960"
+                            width="30">
+                            <path
+                                d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+                        </svg>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <div class="modal-body">
+                    <img id="photo" alt="" width="100%" srcset="">
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script>
@@ -114,5 +139,29 @@
             $('#photo').attr('src', photo);
             $('#modal_photo').modal('show')
         });
+    </script>
+    <script>
+        function getMonthFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const monthParam = urlParams.get('month');
+            return monthParam ? monthParam : null;
+        }
+
+        function setMonthInputValue() {
+            const inputMonth = document.querySelector('input[type="month"]');
+            const monthFromUrl = getMonthFromUrl();
+            if (monthFromUrl) {
+                inputMonth.value = monthFromUrl;
+            } else {
+                const now = new Date();
+                const month = now.getMonth() + 1;
+                const year = now.getFullYear();
+                inputMonth.value = `${year}-${month.toString().padStart(2, '0')}`;
+            }
+        }
+
+        window.onload = function() {
+            setMonthInputValue();
+        };
     </script>
 @endsection

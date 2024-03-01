@@ -114,11 +114,12 @@ class AdminitrasionController extends Controller
         ];
         return view('dashboard.finance.pages.salaryTeacher.index', $data);
     }
-    public function showSalaryTeacher()
+    public function showSalaryTeacher(Request $request)
     {
-        $teachers = $this->salaryServices->handleGetSalaryTeacher();
+        $schools = $this->userServices->handleGetAllSchool();
+        $teachers = $this->salaryServices->handleGetSalaryTeacher($request);
 
-        return view('dashboard.finance.pages.salaryTeacher.history', compact('teachers'));
+        return view('dashboard.finance.pages.salaryTeacher.history', compact('teachers','schools'));
     }
 
     public function mentor(Request $request)
@@ -161,9 +162,9 @@ class AdminitrasionController extends Controller
             return to_route('administration.salary-mentor.index')->with('success', trans('alert.add_success'));
         }
     }
-    public function showSalaryMentor()
+    public function showSalaryMentor(Request $request)
     {
-        $mentors = $this->salaryServices->handleGetSalaryMentor();
+        $mentors = $this->salaryServices->handleGetSalaryMentor($request);
 
         return view('dashboard.finance.pages.salaryMentor.history', compact('mentors'));
     }

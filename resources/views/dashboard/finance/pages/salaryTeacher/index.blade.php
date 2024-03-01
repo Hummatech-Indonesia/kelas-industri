@@ -58,9 +58,9 @@
                                 <button type="submit" name="getSchool"
                                     class="btn btn-dark fw-bold h-40px d-flex align-items-center ms-3"
                                     style="font-size: 12px; width: auto;">Cari</button>
-                                    <a href="{{url('administration/salary-teacher')}}" class="btn btn-primary fw-bold h-40px d-flex align-items-center ms-1">reset</a>
+                                    <a href="{{url('administration/salary-teacher')}}" class="btn btn-primary fw-bold h-40px d-flex align-items-center ms-1">Reset</a>
                             </form>
-                            
+
                         </div>
                         {{-- @if ($salarys->count() > 0) --}}
                         <form action="{{ route('administration.salary-mentor.create') }}" method="post"
