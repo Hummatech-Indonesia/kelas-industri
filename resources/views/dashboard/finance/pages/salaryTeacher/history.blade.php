@@ -24,11 +24,23 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="d-flex justify-content-end me-4">
-                        <form class="d-flex mt-5" style="width: 300px;" role="search" method="GET">
+                    <div class="d-flex justify-content-start ms-5">
+                        <form class="d-flex mt-5" role="search" method="GET">
                             <input class="form-control me-2" type="text" name="search" placeholder="Cari Guru"
                                 aria-label="Search" value="{{ request('search') }}">
-                            <button class="btn btn-dark fw-bold" type="submit" id="search">Cari</button>
+                            <select name="school_id" class="form-select form-select-solid" data-control="select2"
+                                data-placeholder="Pilih Sekolah">
+                                @foreach ($schools as $school)
+                                    <option value="">Pilih</option>
+                                    <option value="{{ $school->id }}"
+                                        {{ request('school_id') == $school->id ? 'selected' : '' }}>
+                                        {{ $school->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button class="btn btn-dark fw-bold ms-2" type="submit" id="search">Cari</button>
+                            <a href="{{ url('administration/salary-teacher/show') }}"
+                                class="btn btn-primary fw-bold d-flex align-items-center ms-1">Reset</a>
                         </form>
                     </div>
                     <!--begin::Card body-->

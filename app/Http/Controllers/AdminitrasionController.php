@@ -114,11 +114,12 @@ class AdminitrasionController extends Controller
         ];
         return view('dashboard.finance.pages.salaryTeacher.index', $data);
     }
-    public function showSalaryTeacher()
+    public function showSalaryTeacher(Request $request)
     {
-        $teachers = $this->salaryServices->handleGetSalaryTeacher();
+        $schools = $this->userServices->handleGetAllSchool();
+        $teachers = $this->salaryServices->handleGetSalaryTeacher($request);
 
-        return view('dashboard.finance.pages.salaryTeacher.history', compact('teachers'));
+        return view('dashboard.finance.pages.salaryTeacher.history', compact('teachers','schools'));
     }
 
     public function mentor(Request $request)

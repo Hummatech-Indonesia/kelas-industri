@@ -135,9 +135,9 @@ class SalaryService
         return $this->repository->get_salary_by_user($userId);
     }
 
-    public function handleGetSalaryTeacher(): mixed
+    public function handleGetSalaryTeacher(Request $request): mixed
     {
-        return $this->repository->getSalaryTeacher();
+        return $this->repository->getSalaryTeacher($request);
     }
 
     public function handleGetSalaryMentor(Request $request): mixed

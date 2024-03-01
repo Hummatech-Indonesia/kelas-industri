@@ -44,11 +44,15 @@ class SalaryRepository extends BaseRepository
             ->get();
     }
 
-    public function getSalaryTeacher(): mixed
+    public function getSalaryTeacher(Request $request): mixed
     {
         return $this->model->query()
             ->whereHas('user.roles', function ($q) {
                 return $q->where("name", "teacher");
+            })
+            ->whereRelation('user', 'name', 'like', '%' . $request->search . '%')
+            ->when($request->school_id, function ($q) use ($request){
+                $q->whereRelation('user.teacherSchool', 'school_id', $request->school_id);
             })
             ->get();
     }
