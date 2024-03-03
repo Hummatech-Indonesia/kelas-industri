@@ -54,4 +54,12 @@ class JournalRepository extends BaseRepository
             ->where('created_by', $teacherId)
             ->get();
     }
+
+    public function get_month(Request $request, string $TeacherId): mixed
+    {
+        return $this->model->query()
+            ->where('created_by', $TeacherId)
+            ->where('date', 'like', '%' . $request->tahun . '%')
+            ->get();
+    }
 }

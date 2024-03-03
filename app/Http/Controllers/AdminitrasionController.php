@@ -95,13 +95,20 @@ class AdminitrasionController extends Controller
         return view('dashboard.finance.pages.teacher.index', $data);
     }
 
-    public function showTeacher($id)
+    public function showTeacher(Request $request, $id)
     {
         $data = [
             'guru' => $this->userServices->handleShowTeacher($id),
             'jurnals' => $this->journalServices->handleGetByTeacher($id),
+            'getMonth' => $this->journalServices->getMonth($request, $id),
         ];
         return view('dashboard.finance.pages.teacher.show', $data);
+    }
+
+    public function getMonth(Request $request, string $TeacherId): mixed
+    {
+        $data = $this->journalServices->getMonth($request, $TeacherId);
+        return $data;
     }
 
     public function salaryTeacher(Request $request)

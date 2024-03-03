@@ -119,4 +119,9 @@ class JournalService
         return $this->repository->get_journal_by_teacher($teacherId);
     }
 
+    public function getMonth(Request $request, string $TeacherId):mixed
+    {
+        return $this->repository->get_month($request, $TeacherId);
+    }
+
 }

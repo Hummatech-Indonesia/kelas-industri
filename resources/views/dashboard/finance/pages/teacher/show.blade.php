@@ -30,8 +30,9 @@
                 <div class="card">
                     <div class="content px-20 pt-10">
                         <div class="d-flex justify-content-end pb-2 px-11">
-                            <div class="btn btn-filter me-1" style="background-color: #5CA7DB; color: white" data-bs-toggle="tooltip"
-                                data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Lihat Detail">
+                            <div class="btn btn-filter me-1" style="background-color: #5CA7DB; color: white"
+                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                data-bs-title="Lihat Detail">
                                 Filter Tahun/Bulan
                             </div>
                         </div>
@@ -39,8 +40,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
+        {{ $getMonth }}
         <x-delete-modal-component />
         <div class="modal fade" tabindex="-1" id="filterModal">
             <div class="modal-dialog">
@@ -60,33 +61,71 @@
                         <!--end::Close-->
                     </div>
                     <div class="modal-body row">
-                        <form action="">
-                        <div class="row gap-3">
-                            <div class="col-12">
-                                <label for="tahun">Pilih Tahun</label>
-                                <select name="tahun" id="tahun" class="form-select form-select-solid me-5" data-control="select2"
-                                    data-placeholder="select an option">
-                                    <option value="">Tahun</option>
-                                        <option value="">
-                                            Rendi
-                                        </option>
-                                </select>
+                        <form id="form-filter">
+                            <div class="row gap-3">
+                                <div class="col-12">
+                                    <label for="tahun">Pilih Tahun</label>
+                                    <select name="tahun" id="tahun" class="form-select form-select-solid me-5"
+                                        data-control="select2" data-placeholder="select an option"
+                                        onchange="getBulan(this.value)">
+                                        <option value="">Pilih Tahun</option>
+                                        @php
+                                            $tahuns = [];
+                                        @endphp
+                                        @foreach ($jurnals as $jurnal)
+                                            @if (!in_array(substr($jurnal->date, 0, 4), $tahuns))
+                                                <option value="{{ substr($jurnal->date, 0, 4) }}"
+                                                    @if (request('tahun') == substr($jurnal->date, 0, 4)) selected @endif>
+                                                    {{ substr($jurnal->date, 0, 4) }}
+                                                </option>
+                                                @php
+                                                    $tahuns[] = substr($jurnal->date, 0, 4);
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="bulan">Pilih Bulan</label>
+                                    <select name="bulan" id="bulan" class="form-select form-select-solid me-5"
+                                        data-control="select2" data-placeholder="select an option">
+                                        <option value="">Pilih Bulan</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end mt-3">
+                                    <button type="submit" class="btn fw-bold"
+                                        style="background-color: #5CA7DB; color: white;">Filter</button>
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <label for="bulan">Pilih Bulan</label>
-                                <select name="bulan" id="bulan" class="form-select form-select-solid me-5" data-control="select2"
-                                    data-placeholder="select an option">
-                                    <option value="">Bulan</option>
-                                        <option value="">
-                                            Rendi
-                                        </option>
-                                </select>   
-                            </div>
-                            <div class="col-12 d-flex justify-content-end mt-3">
-                                <button type="submit" class="btn fw-bold" style="background-color: #5CA7DB; color: white;">Filter</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                        <script>
+                            function getBulan(tahun) {
+                                $.ajax({
+                                    url: "{{ route('administration.teacherMonth.show', $guru->id) }}",
+                                    method: "POST",
+                                    data: {
+                                        tahun: tahun,
+                                        _token: "{{ csrf_token() }}"
+                                    },
+                                    success: function(data) {
+                                        let html = '';
+                                        let bulanTerpilih = '';
+                                        data.forEach(element => {
+                                            const date = element.date.split('-');
+                                            const bulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                                                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+                                            ][parseInt(date[1])];
+                                            if (bulanTerpilih != bulan) {
+                                                bulanTerpilih = bulan;
+                                                html += '<option value="' + date[1] + '">' + bulan + '</option>';
+                                            }
+                                        });
+                                        $('#bulan').html(html);
+                                    }
+                                });
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
@@ -110,66 +149,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
 
+            var queryString = window.location.search;
+            var urlParams = new URLSearchParams(queryString);
+            var tahun = urlParams.get('tahun');
+            var bulan = urlParams.get('bulan');
+
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: ['interaction', 'dayGrid'],
-                defaultDate: new Date().toISOString().split('T')[0],
+                defaultDate: tahun ? tahun + '-' + (bulan ? bulan : new Date().getMonth() + 1) : new Date().toISOString().split('T')[0],
                 editable: true,
-                eventLimit: true, // allow "more" link when too many events
-                events: [{
-                        title: 'All Day Event',
-                        start: '2020-02-01'
-                    },
-                    {
-                        title: 'Long Event',
-                        start: '2020-02-07',
-                        end: '2020-02-10'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2020-02-09T16:00:00'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2020-02-16T16:00:00'
-                    },
-                    {
-                        title: 'Conference',
-                        start: '2020-02-11',
-                        end: '2020-02-13'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2020-02-12T10:30:00',
-                        end: '2020-02-12T12:30:00'
-                    },
-                    {
-                        title: 'Lunch',
-                        start: '2020-02-12T12:00:00'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2020-02-12T14:30:00'
-                    },
-                    {
-                        title: 'Happy Hour',
-                        start: '2020-02-12T17:30:00'
-                    },
-                    {
-                        title: 'Dinner',
-                        start: '2020-02-12T20:00:00'
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: '2020-02-13T07:00:00'
-                    },
-                    {
-                        title: 'Click for Google',
-                        url: 'http://google.com/',
-                        start: '2020-02-28'
-                    }
-                ]
+                eventLimit: true,
+                events: @json($jurnals),
             });
 
             calendar.render();

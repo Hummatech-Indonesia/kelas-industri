@@ -151,6 +151,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('teacher', [AdminitrasionController::class, 'teacher'])->name('teacher.index');
         Route::get('teacher/create', [AdminitrasionController::class, 'createTeacher'])->name('teacher.create');
         Route::get('teacher/{teacher}', [AdminitrasionController::class, 'showTeacher'])->name('teacher.show');
+        Route::post('teacher/{teacher}/month', [AdminitrasionController::class, 'getMonth'])->name('teacherMonth.show');
 
         Route::get('salary-teacher', [AdminitrasionController::class, 'salaryTeacher'])->name('salaryTeacher.index');
         Route::get('salary-teacher/show', [AdminitrasionController::class, 'showSalaryTeacher'])->name('salaryTeacher.show');
