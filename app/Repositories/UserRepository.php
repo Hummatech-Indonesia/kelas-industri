@@ -184,4 +184,14 @@ class UserRepository extends BaseRepository
             })
             ->first();
     }
+
+    public function get_show_mentor(string $id):mixed
+    {
+        return $this->model->query()
+            ->where('id', $id)
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "mentor");
+            })
+            ->first();
+    }
 }

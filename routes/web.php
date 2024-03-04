@@ -158,6 +158,8 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('mentor', [AdminitrasionController::class, 'mentor'])->name('mentor.index');
         Route::get('mentor/create', [AdminitrasionController::class, 'createMentor'])->name('mentor.create');
+        Route::get('mentor/{mentor}', [AdminitrasionController::class, 'showMentor'])->name('mentor.show');
+        Route::post('mentor/{mentor}/month', [AdminitrasionController::class, 'getMonthAttendance'])->name('mentorMonth.show');
 
         Route::get('salary-mentor', [AdminitrasionController::class, 'salaryMentor'])->name('salary-mentor.index');
         Route::get('salary-mentor/show', [AdminitrasionController::class, 'showSalaryMentor'])->name('salary-mentor.show');

@@ -118,7 +118,7 @@ class UserServices
     {
         return $this->repository->get_Edit_administration($id);
     }
-    public function handleUpdateKeuangan(AdministrationRequest $request,string $id): mixed
+    public function handleUpdateKeuangan(AdministrationRequest $request, string $id): mixed
     {
         // dd($request->all());
         $data = $request->validated();
@@ -261,5 +261,10 @@ class UserServices
 
         $user = $this->repository->store($data);
         $user->assignRole('administration');
+    }
+
+    public function handleShowMentor(string $id): mixed
+    {
+        return $this->repository->get_show_mentor($id);
     }
 }

@@ -111,6 +111,12 @@ class AdminitrasionController extends Controller
         return $data;
     }
 
+    public function getMonthAttendance(Request $request, string $id):mixed
+    {
+        $data = $this->attendanceServices->getMonthAttendance($request, $id);
+        return $data;
+    }
+
     public function salaryTeacher(Request $request)
     {
         // dd($request->all());
@@ -126,7 +132,16 @@ class AdminitrasionController extends Controller
         $schools = $this->userServices->handleGetAllSchool();
         $teachers = $this->salaryServices->handleGetSalaryTeacher($request);
 
-        return view('dashboard.finance.pages.salaryTeacher.history', compact('teachers','schools'));
+        return view('dashboard.finance.pages.salaryTeacher.history', compact('teachers', 'schools'));
+    }
+
+    public function showMentor(string $id): mixed
+    {
+        $data = [
+            'mentors' => $this->userServices->handleShowMentor($id),
+            'attendances' => $this->attendanceServices->handleGetAttendanceMentor($id),
+        ];
+        return view('dashboard.finance.pages.mentor.show', $data);
     }
 
     public function mentor(Request $request)

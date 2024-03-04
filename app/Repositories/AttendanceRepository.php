@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Attendance;
 use App\Models\SubmitAttendance;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class AttendanceRepository extends BaseRepository
 {
@@ -81,5 +82,20 @@ class AttendanceRepository extends BaseRepository
         $data = $this->model->query()->findorfail($id);
         $data->status = 'close';
         $data->save();
+    }
+
+    public function get_attendance_mentor(string $id): mixed
+    {
+        return $this->model->query()
+            ->where('created_by', $id)
+            ->get();
+    }
+
+    public function get_month_attendance(Request $request, string $id): mixed
+    {
+        return $this->model->query()
+            ->where('created_by', $id)
+            ->where('created_at', 'like', '%' . $request->tahun . '%')
+            ->get();
     }
 }

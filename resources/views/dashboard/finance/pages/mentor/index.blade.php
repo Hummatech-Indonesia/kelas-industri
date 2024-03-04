@@ -46,11 +46,12 @@
                                     <th>No Telepon</th>
                                     <th>No Rekening</th>
                                     <th>Bank</th>
+                                    <th>Aksi</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
-                            
+
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
                                 @foreach ($mentors as $mentor)
@@ -61,6 +62,14 @@
                                         <td>{{$mentor->phone_number}}</td>
                                         <td>{{$mentor->account_number}}</td>
                                         <td>{{$mentor->bank}}</td>
+                                        <td>
+                                            <a href="{{ route('administration.mentor.show', $mentor->id) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-detail btn-sm me-1"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Lihat Detail">
+                                                <i class="fa fa-eye fs-3 text-primary"></i>
+                                            </a>
+                                        </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>

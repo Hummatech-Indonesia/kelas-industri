@@ -8,6 +8,7 @@ use App\Models\Attendance;
 use App\Repositories\AttendanceRepository;
 use App\Repositories\MentorRepository;
 use App\Repositories\PointRepository;
+use Illuminate\Http\Request;
 
 class AttendanceService
 {
@@ -44,11 +45,21 @@ class AttendanceService
         return $this->repository->count_mentor_attendance();
     }
 
+    public function handleGetAttendanceMentor(string $id):mixed
+    {
+        return $this->repository->get_attendance_mentor($id);
+    }
+
     public function handleCreate(AttendanceRequest $request): void
     {
         $data = $request->validated();
         $data['created_by'] = auth()->user()->id;
         $this->repository->store($data);
+    }
+
+    public function getMonthAttendance(Request $request, string $id):mixed
+    {
+        return $this->repository->get_month_attendance($request, $id);
     }
 
     public function handleShow(Attendance $attandance) : mixed

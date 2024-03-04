@@ -13,12 +13,12 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Detail Guru
+                Detail mentors
             </h1>
             <!--end::Title-->
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                Detail Guru {{ $guru->name }}.
+                Detail mentors {{ $mentors->name }}.
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -71,14 +71,14 @@
                                         @php
                                             $tahuns = [];
                                         @endphp
-                                        @foreach ($jurnals as $jurnal)
-                                            @if (!in_array(substr($jurnal->date, 0, 4), $tahuns))
-                                                <option value="{{ substr($jurnal->date, 0, 4) }}"
-                                                    @if (request('tahun') == substr($jurnal->date, 0, 4)) selected @endif>
-                                                    {{ substr($jurnal->date, 0, 4) }}
+                                        @foreach ($attendances as $attendance)
+                                            @if (!in_array(substr($attendance->created_at, 0, 4), $tahuns))
+                                                <option value="{{ substr($attendance->created_at, 0, 4) }}"
+                                                    @if (request('tahun') == substr($attendance->created_at, 0, 4)) selected @endif>
+                                                    {{ substr($attendance->created_at, 0, 4) }}
                                                 </option>
                                                 @php
-                                                    $tahuns[] = substr($jurnal->date, 0, 4);
+                                                    $tahuns[] = substr($attendance->created_at, 0, 4);
                                                 @endphp
                                             @endif
                                         @endforeach
@@ -101,17 +101,17 @@
                         <script>
                             function getBulan(tahun) {
                                 $.ajax({
-                                    url: "{{ route('administration.teacherMonth.show', $guru->id) }}",
+                                    url: "{{ route('administration.mentorMonth.show', $mentors->id) }}",
                                     method: "POST",
                                     data: {
                                         tahun: tahun,
                                         _token: "{{ csrf_token() }}"
                                     },
                                     success: function(data) {
-                                        let html = '';
-                                        let bulanTerpilih = '';
+                                        var bulanTerpilih = '';
+                                        var html = '';
                                         data.forEach(element => {
-                                            const date = element.date.split('-');
+                                            const date = element.created_at.split('-');
                                             const bulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
                                                 "Juli", "Agustus", "September", "Oktober", "November", "Desember"
                                             ][parseInt(date[1])];
@@ -155,14 +155,23 @@
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: ['interaction', 'dayGrid'],
-                defaultDate: tahun ? tahun + '-' + (bulan ? bulan : new Date().getMonth() + 1) : new Date().toISOString().split('T')[0],
+                defaultDate: tahun ? tahun + '-' + (bulan ? bulan : new Date().getMonth() + 1) : new Date()
+                    .toISOString().split('T')[0],
                 editable: true,
                 eventLimit: true,
-                events: @json($jurnals),
-            });
+                events: [
+                    @foreach ($attendances as $attendance)
+                        {
+                            title: '{{ $attendance->title }}',
+                            start: '{{ $attendance->created_at->format('Y-m-d') }}',
+                        },
+                    @endforeach
+                ],
+            })
+
 
             calendar.render();
-        });
+        })
     </script>
     <script src="{{ asset('calendar-assets/js/main.js') }}"></script>
 @endsection
