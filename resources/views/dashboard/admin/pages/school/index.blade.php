@@ -167,7 +167,7 @@
                                     </span>
 
                                     <span class="btn btn-light-danger btn-sm font-weight-bold btn-upper btn-text">
-                                        {{ count($school->schoolStudents) }}
+                                        {{ $countStudents[$school->id] }}
                                     </span>
 
                                 </div>

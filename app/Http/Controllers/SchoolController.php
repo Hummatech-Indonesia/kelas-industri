@@ -34,7 +34,13 @@ class SchoolController extends Controller
             $schools = $this->service->handleSearch(request()->search);
             $parameters = request()->query();
     }
+        foreach($schools as $school){
+            $schoolId = $school->id;
+            $countStudent = $this->service->handleCountStudent($schoolId);
+            $countStudents[$schoolId] = $countStudent->count();
+        }
         $data = [
+            'countStudents' => $countStudents,
             'schools' => $schools,
             'parameters' => $parameters
         ];

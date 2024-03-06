@@ -44,4 +44,14 @@ class SchoolRepository extends  BaseRepository
             ->role('school')
             ->count();
     }
+
+    public function getCountStudent(string $id)
+    {
+        return $this->model->query()
+            ->where('status', 'active')
+            ->whereHas('studentSchool', function ($query) use ($id) {
+                $query->where('school_id', $id);
+            })
+            ->get();
+    }
 }

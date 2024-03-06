@@ -82,6 +82,7 @@ class UserRepository extends BaseRepository
             ->whereHas('roles', function ($q) {
                 return $q->where("name", "student");
             })
+            ->where('status', 'active')
             ->get();
     }
 
