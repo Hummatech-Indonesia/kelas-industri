@@ -23,6 +23,7 @@ class ProfileRequest extends BaseRequest
             'bank' => 'string|nullable',
             'address' => 'string|nullable',
             'photo' => 'mimes:png,jpg,jpeg|max:2048',
+            'national_student_id' => 'min:10|max:10',
         ];
     }
     public function messages(): array
@@ -34,6 +35,8 @@ class ProfileRequest extends BaseRequest
             'photo.mimes' => 'Foto harus dalam format PNG, JPG, atau JPEG!',
             'photo.max' => 'Ukuran foto tidak boleh melebihi :max kilobita!',
             'bank.string' => 'Nama Bank harus string !',
+            'national_student_id.min' => 'Nomor Induk Siswa Nasional minimal :min karakter!',
+            'national_student_id.max' => 'Nomor Induk Siswa Nasional maksimal :max karakter!',
         ];
     }
 

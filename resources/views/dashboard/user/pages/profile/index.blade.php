@@ -206,6 +206,18 @@
                                             </div>
                                             <!--end::Col-->
                                         </div>
+
+                                        <div class="row mb-6">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nomer induk siswa</label>
+                                            <!--end::Label-->
+
+                                            <!--begin::Col-->
+                                            <div class="col-lg-8 fv-row">
+                                                <textarea class="form-control form-control-lg form-control-solid" name="national_student_id" placeholder="00231231234">{{ $user->national_student_id }}</textarea>
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
                                         <!--end::Input group-->
                                     </div>
                                     <!--end::Card body-->
