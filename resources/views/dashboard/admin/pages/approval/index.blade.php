@@ -54,6 +54,11 @@
                                         </button>
                                     </div>
                                     <div class="col-auto">
+                                        <a href="{{route('admin.wrongInput')}}" class="btn btn-primary btn-sm" type="submit" id="btn-search">
+                                            periksa siswa yang salah
+                                        </a>
+                                    </div>
+                                    <div class="col-auto">
                                         <select class="form-select form-select-solid form-select-sm" name="school_id"
                                             data-control="select2" id="select-school" data-placeholder="Pilih sekolah">
                                             {{-- Options will be populated by Ajax --}}

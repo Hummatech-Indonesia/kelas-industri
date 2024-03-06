@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\StudentSchool;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class StudentRepository extends BaseRepository
 {
@@ -30,14 +31,14 @@ class StudentRepository extends BaseRepository
     }
 
     public function get_by_classroom(string $classroomId): mixed
-{
-    return $this->model->newQuery()
-        ->whereHas('studentClassroom', function ($query) use ($classroomId) {
-            $query->where('classroom_id', $classroomId);
-        })
-        ->whereRelation('student', 'status', 'active')
-        ->paginate(6);
-}
+    {
+        return $this->model->newQuery()
+            ->whereHas('studentClassroom', function ($query) use ($classroomId) {
+                $query->where('classroom_id', $classroomId);
+            })
+            ->whereRelation('student', 'status', 'active')
+            ->paginate(6);
+    }
 
     /**
      * store
@@ -49,5 +50,14 @@ class StudentRepository extends BaseRepository
     {
         return $this->model->query()
             ->create($data);
+    }
+
+    public function update_school(Request $request): mixed
+    {
+        return $this->model->query()
+            ->where('id', $request->id)
+            ->update([
+                'school_id' => $request->school_id
+            ]);
     }
 }

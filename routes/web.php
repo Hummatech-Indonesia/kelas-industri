@@ -77,6 +77,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
 
         Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
+        Route::get('studentRegistration/wrongInput', [ApprovalController::class, 'wrongInput'])->name('wrongInput');
+        Route::patch('studentRegistration/updateSchool', [ApprovalController::class, 'updateSchool'])->name('updateSchool');
         Route::patch('approve-student-all', [ApprovalController::class, 'approveAll'])->name('approveStudentAll');
         Route::patch('approve-student/{user}', [ApprovalController::class, 'approve']);
 

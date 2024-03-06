@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\StudentRepository;
 use App\Repositories\UserRepository;
 use Exception;
+use Illuminate\Http\Request;
 
 class StudentService
 {
@@ -35,6 +36,13 @@ class StudentService
     {
         return $this->repository->get_by_classroom($schoolId);
     }
+
+
+    public function handleUpdateSchool(Request $request): mixed
+    {
+        return $this->repository->update_school($request);
+    }
+
 
     /**
      * store school year

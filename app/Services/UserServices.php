@@ -100,6 +100,11 @@ class UserServices
         return $this->repository->get_students();
     }
 
+    public function handleGetAllStudentWithSchool(Request $request): mixed
+    {
+        return $this->repository->get_students_with_school($request, 6);
+    }
+
     /**
      * handle get mentors
      *

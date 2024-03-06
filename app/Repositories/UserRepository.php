@@ -2,15 +2,19 @@
 
 namespace App\Repositories;
 
+use App\Models\StudentSchool;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Svg\Tag\Rect;
 
 class UserRepository extends BaseRepository
 {
-    public function __construct(User $model)
+    private StudentSchool $studentSchool;
+
+    public function __construct(User $model, StudentSchool $studentSchool)
     {
         $this->model = $model;
+        $this->studentSchool = $studentSchool;
     }
 
     /**
@@ -86,6 +90,15 @@ class UserRepository extends BaseRepository
             ->get();
     }
 
+    public function get_students_with_school(Request $request, int $limit): mixed
+    {
+        return $this->studentSchool->query()
+            ->whereHas('student', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%');
+            })
+            ->paginate($limit);
+    }
+
     /**
      * get teachers by school
      *
@@ -145,7 +158,7 @@ class UserRepository extends BaseRepository
         $query = $this->model->query()
             ->where('status', 'nonactive');
 
-        if ($request->school_id ) {
+        if ($request->school_id) {
             $query->whereHas('studentSchool', function ($q) use ($request) {
                 $q->where('school_id', $request->school_id);
             });
@@ -198,7 +211,7 @@ class UserRepository extends BaseRepository
             ->first();
     }
 
-    public function get_show_mentor(string $id):mixed
+    public function get_show_mentor(string $id): mixed
     {
         return $this->model->query()
             ->where('id', $id)

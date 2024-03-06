@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ApprovalRequest;
+use App\Models\StudentSchool;
 use App\Models\User;
 use App\Services\UserServices;
 use App\Repositories\UserRepository;
 use App\Services\ClassroomService;
+use App\Services\StudentService;
 use Illuminate\Http\Request;
 
 class ApprovalController extends Controller
@@ -14,12 +16,14 @@ class ApprovalController extends Controller
     private ClassroomService $classroom;
     private UserServices $service;
     private UserRepository $userRepository;
+    private StudentService $studentService;
 
-    public function __construct(UserServices $service, UserRepository $userRepository, ClassroomService $classroom)
+    public function __construct(UserServices $service, UserRepository $userRepository, ClassroomService $classroom, StudentService $studentService)
     {
         $this->service = $service;
         $this->userRepository = $userRepository;
         $this->classroom = $classroom;
+        $this->studentService = $studentService;
     }
 
     public function studentRegistration(Request $request)
@@ -27,6 +31,20 @@ class ApprovalController extends Controller
         $users = $this->service->handleUserNonActive($request);
         $schools = $this->service->handleGetAllSchool();
         return view('dashboard.admin.pages.approval.index', compact('users', 'schools'));
+    }
+
+    public function wrongInput(Request $request)
+    {
+
+        $data['users'] = $this->service->handleGetAllStudentWithSchool($request);
+        $data['schools'] = $this->service->handleGetAllSchool();
+        return view('dashboard.admin.pages.approval.wrongInput', $data);
+    }
+
+    public function updateSchool(Request $request): mixed
+    {
+        $this->studentService->handleUpdateSchool($request);
+        return redirect()->back();
     }
 
     /**
