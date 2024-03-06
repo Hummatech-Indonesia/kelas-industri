@@ -139,20 +139,32 @@ class UserRepository extends BaseRepository
      *
      * @return mixed
      */
-    public function get_user_nonactive(Request $request, int $limit): mixed
+    public function get_user_nonactive(Request $request): mixed
     {
-        return $this->model->query()
-            ->when($request->classroom_id, function ($q) use ($request) {
-                return $q->whereRelation('studentSchool.studentClassroom', function ($q) use ($request) {
+        $query = $this->model->query()
+            ->where('status', 'nonactive');
+
+        if ($request->school_id ) {
+            $query->whereHas('studentSchool', function ($q) use ($request) {
+                $q->where('school_id', $request->school_id);
+            });
+
+            if ($request->classroom_id !== 'null') {
+                $query->whereHas('studentSchool.studentClassroom', function ($q) use ($request) {
                     return $q->where('classroom_id', $request->classroom_id);
                 });
+            }
+        }
+
+        return $query
+            ->when($request->search, function ($q) use ($request) {
+                return $q->where('name', 'like', '%' . $request->search . '%');
             })
-            ->where('status', 'nonactive')
             ->latest()
-            ->where('name', 'like', '%' . $request->search . '%')
-            ->orderBy('created_at', 'DESC')
-            ->paginate($limit);
+            ->paginate(6);
     }
+
+
 
     /**
      * getWhere

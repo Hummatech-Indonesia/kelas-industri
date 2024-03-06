@@ -325,6 +325,7 @@
                                 var option = '<option value="' + item.id + '"' + (item.id ===
                                         selectedSchoolId ? ' selected' : '') + '>' + item.name +
                                     '</option>';
+                                $('#select-school').append('<option value="null">Semua sekolah</option>');
                                 $('#select-school').append(option);
                             });
                             getClassroom();
@@ -341,6 +342,7 @@
                         },
                         success: function(response) {
                             $('#select-classroom').html('');
+                            $('#select-classroom').append('<option value="null">Semua kelas</option>');
                             $.each(response, function(index, item) {
                                 var selectedSchoolId = new URLSearchParams(window.location.search)
                                     .get('classroom_id');
