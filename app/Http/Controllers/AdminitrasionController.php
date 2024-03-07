@@ -101,6 +101,8 @@ class AdminitrasionController extends Controller
             'guru' => $this->userServices->handleShowTeacher($id),
             'jurnals' => $this->journalServices->handleGetByTeacher($id),
             'getMonth' => $this->journalServices->getMonth($request, $id),
+            'getMonthCount' => $this->journalServices->getMonthCount($request, $id),
+            'getYearsCount' => $this->journalServices->getYearsCount($request, $id),
         ];
         return view('dashboard.finance.pages.teacher.show', $data);
     }
@@ -135,11 +137,13 @@ class AdminitrasionController extends Controller
         return view('dashboard.finance.pages.salaryTeacher.history', compact('teachers', 'schools'));
     }
 
-    public function showMentor(string $id): mixed
+    public function showMentor(Request $request, string $id): mixed
     {
         $data = [
             'mentors' => $this->userServices->handleShowMentor($id),
             'attendances' => $this->attendanceServices->handleGetAttendanceMentor($id),
+            'attendancesCountYears' => $this->attendanceServices->attendancesCountYears($request, $id),
+            'attendancesCountMonth' => $this->attendanceServices->attendancesCountMonth($request, $id),
         ];
         return view('dashboard.finance.pages.mentor.show', $data);
     }

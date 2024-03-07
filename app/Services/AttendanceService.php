@@ -16,7 +16,7 @@ class AttendanceService
     private MentorRepository $mentorRepository;
     private PointRepository $pointRepository;
 
-    public function __construct(AttendanceRepository $repository,MentorRepository $mentorRepository, PointRepository $pointRepository)
+    public function __construct(AttendanceRepository $repository, MentorRepository $mentorRepository, PointRepository $pointRepository)
     {
         $this->pointRepository = $pointRepository;
         $this->repository = $repository;
@@ -45,9 +45,19 @@ class AttendanceService
         return $this->repository->count_mentor_attendance();
     }
 
-    public function handleGetAttendanceMentor(string $id):mixed
+    public function handleGetAttendanceMentor(string $id): mixed
     {
         return $this->repository->get_attendance_mentor($id);
+    }
+
+    public function attendancesCountYears(Request $request, string $id): mixed
+    {
+        return $this->repository->attendances_count_years($request, $id);
+    }
+
+    public function attendancesCountMonth(Request $request, string $id): mixed
+    {
+        return $this->repository->attendances_count_month($request, $id);
     }
 
     public function handleCreate(AttendanceRequest $request): void
@@ -57,32 +67,37 @@ class AttendanceService
         $this->repository->store($data);
     }
 
-    public function getMonthAttendance(Request $request, string $id):mixed
+    public function getMonthAttendance(Request $request, string $id): mixed
     {
         return $this->repository->get_month_attendance($request, $id);
     }
 
-    public function handleShow(Attendance $attandance) : mixed
+    public function getMonthAttendanceCount(Request $request, string $id): mixed
+    {
+        return $this->repository->get_month_attendance_count($request, $id);
+    }
+
+    public function handleShow(Attendance $attandance): mixed
     {
         return $this->repository->show($attandance->id);
     }
 
-    public function validate_student_mentor($mentorId) : bool
+    public function validate_student_mentor($mentorId): bool
     {
         return $this->mentorRepository->student_have_mentor($mentorId);
     }
-    public function validate_attendance_status(Attendance $attendance) : bool
+    public function validate_attendance_status(Attendance $attendance): bool
     {
         $check = $this->repository->show($attendance->id);
-        if($check->status == 'close'){
+        if ($check->status == 'close') {
             return true;
         }
         return false;
     }
 
-    public function validate_student_submit_status(Attendance $attendance) : bool
+    public function validate_student_submit_status(Attendance $attendance): bool
     {
-        if($this->repository->get_student_attendance_status($attendance->id)->count() > 0){
+        if ($this->repository->get_student_attendance_status($attendance->id)->count() > 0) {
             return true;
         }
         return false;
@@ -99,7 +114,7 @@ class AttendanceService
         $this->repository->create_submit_attendance($data);
     }
 
-    public function getStudentBySubmitAttendanceMentor(Attendance $attendance, string $mentorId) :mixed
+    public function getStudentBySubmitAttendanceMentor(Attendance $attendance, string $mentorId): mixed
     {
         return $this->repository->get_student_by_submit_attendance_mentor($attendance->id, $mentorId);
     }
@@ -124,5 +139,4 @@ class AttendanceService
     {
         return $this->repository->destroy($attendance->id);
     }
-
 }

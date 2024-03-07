@@ -98,4 +98,21 @@ class AttendanceRepository extends BaseRepository
             ->where('created_at', 'like', '%' . $request->tahun . '%')
             ->get();
     }
+
+    public function attendances_count_years(Request $request, string $id): mixed
+    {
+        return $this->model->query()
+            ->where('created_by', $id)
+            ->where('created_at', 'like', '%' . $request->tahun . '%')
+            ->count();
+    }
+
+    public function attendances_count_month(Request $request, string $id): mixed
+    {
+        return $this->model->query()
+            ->where('created_by', $id)
+            ->where('created_at', 'like', '%' . $request->tahun . '%')
+            ->where('created_at', 'like', '%' . $request->bulan . '%')
+            ->count();
+    }
 }

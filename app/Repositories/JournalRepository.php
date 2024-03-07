@@ -62,4 +62,21 @@ class JournalRepository extends BaseRepository
             ->where('date', 'like', '%' . $request->tahun . '%')
             ->get();
     }
+
+    public function get_month_count(Request $request, string $TeacherId): mixed
+    {
+        return $this->model->query()
+            ->where('created_by', $TeacherId)
+            ->where('date', 'like', '%' . $request->tahun . '%')
+            ->where('date', 'like', '%' . $request->bulan . '%')
+            ->count();
+    }
+
+    public function get_years_count(Request $request, string $TeacherId): mixed
+    {
+        return $this->model->query()
+            ->where('created_by', $TeacherId)
+            ->where('created_at', 'like', '%' . $request->tahun . '%')
+            ->count();
+    }
 }

@@ -47,17 +47,9 @@
                                         <div class="row">
                                             <div class="card d-flex flex-row gap-6 mt-4 align-items-center p-3" style="background-color: #5CA7DB;">
                                                 <div class="col-4">
-                                                    <div class="card p-3 text-center" style="background-color: hsl(205, 100%, 94%); font-weight: 500">1234</div>
+                                                    <div class="card p-3 text-center" style="background-color: hsl(205, 100%, 94%); font-weight: 500">{{$attendancesCountMonth}}</div>
                                                 </div>
-                                                <div class="col-8" style="color: white; font-weight: 500">Januari 2024</div> 
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="card d-flex flex-row gap-6 align-items-center p-3" style="background-color: #5CA7DB;">
-                                                <div class="col-4">
-                                                    <div class="card p-3 text-center" style="background-color: hsl(205, 100%, 94%); font-weight: 500">1234</div>
-                                                </div>
-                                                <div class="col-8" style="color: white; font-weight: 500">Tahun 2024</div> 
+                                                <div class="col-8" style="color: white; font-weight: 500">Januari 2024</div>
                                             </div>
                                         </div>
                                     </div>
