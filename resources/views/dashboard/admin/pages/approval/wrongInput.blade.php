@@ -14,7 +14,7 @@
                             <i class="bi bi-search"></i>
                         </button>
                     </form>
-                    <a href="{{ redirect()->back()->getTargetUrl() }}" class="btn btn-primary btn-sm">Kembali</a>
+                    <a href="{{ route('admin.studentRegistration') }}" class="btn btn-primary btn-sm">Kembali</a>
                 </div>
         </div>
         <div class="card-body">

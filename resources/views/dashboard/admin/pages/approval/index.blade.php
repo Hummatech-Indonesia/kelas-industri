@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="col-auto">
                                         <a href="{{route('admin.wrongInput')}}" class="btn btn-primary btn-sm" type="submit" id="btn-search">
-                                            periksa siswa yang salah
+                                            Ganti Sekolah
                                         </a>
                                     </div>
                                     <div class="col-auto">
