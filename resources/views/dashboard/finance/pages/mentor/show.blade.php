@@ -45,11 +45,17 @@
                                     <h4 class="text-center mt-2">Rekap Absen</h4>
                                     <div class="d-flex flex-column justify-content-center mx-5 gap-3">
                                         <div class="row">
-                                            <div class="card d-flex flex-row gap-6 mt-4 align-items-center p-3" style="background-color: #5CA7DB;">
+                                            <div class="card d-flex flex-row gap-6 mt-4 align-items-center p-3"
+                                                style="background-color: #5CA7DB;">
                                                 <div class="col-4">
-                                                    <div class="card p-3 text-center" style="background-color: hsl(205, 100%, 94%); font-weight: 500">{{$attendancesCountMonth}}</div>
+                                                    <div class="card p-3 text-center"
+                                                        style="background-color: hsl(205, 100%, 94%); font-weight: 500">
+                                                        {{ $attendancesCountMonth }}</div>
                                                 </div>
-                                                <div class="col-8" style="color: white; font-weight: 500">Januari 2024</div>
+                                                <div class="col-8" style="color: white; font-weight: 500">
+                                                    {{ isset($_GET['bulan']) && $_GET['bulan'] != '' ? $_GET['bulan'] : date('n') }}
+                                                    {{ isset($_GET['tahun']) && $_GET['tahun'] != '' ? $_GET['tahun'] : date('Y') }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

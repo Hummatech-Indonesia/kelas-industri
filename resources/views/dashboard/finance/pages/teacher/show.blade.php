@@ -49,7 +49,10 @@
                                                 <div class="col-4">
                                                     <div class="card p-3 text-center" style="background-color: hsl(205, 100%, 94%); font-weight: 500">{{$getMonthCount}}</div>
                                                 </div>
-                                                <div class="col-8" style="color: white; font-weight: 500">Januari 2024</div>
+                                                <div class="col-8" style="color: white; font-weight: 500">
+                                                    {{ (isset($_GET['bulan']) && $_GET['bulan'] != '' ? $_GET['bulan'] : date('n')) }}
+                                                    {{ (isset($_GET['tahun']) && $_GET['tahun'] != '' ? $_GET['tahun'] : date('Y')) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
