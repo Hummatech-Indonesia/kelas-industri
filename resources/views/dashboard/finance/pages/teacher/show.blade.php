@@ -36,7 +36,34 @@
                                 Filter Tahun/Bulan
                             </div>
                         </div>
-                        <div id='calendar'></div>
+                        <div class="row">
+                            <div class="col-12 col-md-8">
+                                <div id='calendar'></div>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <div class="card p-4 ms-3 mt-18 shadow card-statistics">
+                                    <h4 class="text-center mt-2">Rekap Jurnal</h4>
+                                    <div class="d-flex flex-column justify-content-center mx-5 gap-3">
+                                        <div class="row">
+                                            <div class="card d-flex flex-row gap-6 mt-4 align-items-center p-3" style="background-color: #5CA7DB;">
+                                                <div class="col-4">
+                                                    <div class="card p-3 text-center" style="background-color: hsl(205, 100%, 94%); font-weight: 500">1234</div>
+                                                </div>
+                                                <div class="col-8" style="color: white; font-weight: 500">Januari 2024</div> 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="card d-flex flex-row gap-6 align-items-center p-3" style="background-color: #5CA7DB;">
+                                                <div class="col-4">
+                                                    <div class="card p-3 text-center" style="background-color: hsl(205, 100%, 94%); font-weight: 500">1234</div>
+                                                </div>
+                                                <div class="col-8" style="color: white; font-weight: 500">Tahun 2024</div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
