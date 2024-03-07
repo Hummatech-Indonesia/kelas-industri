@@ -104,7 +104,7 @@
                             </div>
                             <div class="card-body">
 
-                                @if (count($classroom->students) > 0)
+                                @if (count($studentClassroom) > 0)
                                     <table id="kt_datatable_responsive"
                                         class="table table-striped border rounded gy-5 gs-7">
                                         <thead>
@@ -117,13 +117,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($classroom->students as $student)
+                                            @foreach ($studentClassroom as $student)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $student->studentSchool->student->name }}</td>
-                                                    <td>{{ $student->studentSchool->student->email }}</td>
-                                                    <td>{{ $student->studentSchool->student->phone_number }}</td>
-                                                    <td>{{ $student->studentSchool->student->address }}</td>
+                                                    <td>{{ $student->student->name }}</td>
+                                                    <td>{{ $student->student->email }}</td>
+                                                    <td>{{ $student->student->phone_number }}</td>
+                                                    <td>{{ $student->student->address }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

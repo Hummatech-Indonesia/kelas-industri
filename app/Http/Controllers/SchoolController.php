@@ -33,8 +33,8 @@ class SchoolController extends Controller
         if (request()->has('search')) {
             $schools = $this->service->handleSearch(request()->search);
             $parameters = request()->query();
-    }
-        foreach($schools as $school){
+        }
+        foreach ($schools as $school) {
             $schoolId = $school->id;
             $countStudent = $this->service->handleCountStudent($schoolId);
             $countStudents[$schoolId] = $countStudent->count();
@@ -78,8 +78,28 @@ class SchoolController extends Controller
      */
     public function show(User $school): View
     {
-        return view('dashboard.admin.pages.school.detail', compact('school'));
+        $classrooms = $school->classrooms;
+        $schools = $school->id;
+
+
+        if ($classrooms) {
+            foreach ($classrooms as $classroom) {
+                $classroomId = $classroom->id;
+                $countStudentClassroom = $this->service->handleCountStudentClassroom($classroomId, $schools);
+                $countStudents[$classroomId] = $countStudentClassroom->count();
+            }
+        } else {
+            $countStudents = [];
+        }
+
+        $data = [
+            'countStudents' => $countStudents,
+            'school' => $school
+        ];
+        return view('dashboard.admin.pages.school.detail', $data);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -89,6 +109,7 @@ class SchoolController extends Controller
      */
     public function edit(User $school): View
     {
+
         return view('dashboard.admin.pages.school.edit', compact('school'));
     }
 

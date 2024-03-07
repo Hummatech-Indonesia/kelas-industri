@@ -34,7 +34,7 @@ class SchoolRepository extends  BaseRepository
     {
         return $this->model->query()
             ->role('school')
-            ->where('name', 'like', '%'. $search .'%')
+            ->where('name', 'like', '%' . $search . '%')
             ->paginate($limit);
     }
 
@@ -51,6 +51,19 @@ class SchoolRepository extends  BaseRepository
             ->where('status', 'active')
             ->whereHas('studentSchool', function ($query) use ($id) {
                 $query->where('school_id', $id);
+            })
+            ->get();
+    }
+
+    public function getCountStudentClassroom(string $classroom, string $school)
+    {
+        return $this->model->query()
+            ->where('status', 'active')
+            ->whereHas('studentSchool', function ($query) use ($school, $classroom) {
+                $query->where('school_id', $school)
+                    ->whereHas('classrooms', function ($query) use ($classroom) {
+                        $query->where('classroom_id', $classroom);
+                    });
             })
             ->get();
     }

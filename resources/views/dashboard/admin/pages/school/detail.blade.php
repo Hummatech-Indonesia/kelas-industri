@@ -259,8 +259,6 @@
                                     <th>Email</th>
                                     <th>No Telepon</th>
                                     <th>Alamat</th>
-                                    <th>Total Jurnal</th>
-                                    <th>Total Belum dinilai</th>
                                     <th>No Rekening</th>
                                     <th>Bank</th>
                                 </tr>
@@ -273,14 +271,6 @@
                                         <td>{{ $teacher->teacher->email }}</td>
                                         <td>{{ $teacher->teacher->phone_number }}</td>
                                         <td>{{ $teacher->teacher->address }}</td>
-                                        <td>{{ count($teacher->teacher->journals) }}</td>
-                                        @php
-                                            $total = 0;
-                                            foreach ($teacher->teacher->teacherSchool->teacherClassroom->classroom->students as $student) {
-                                                if ($student->studentSchool->student->submitAssignment()->whereNull('point')->exists()) $total++;
-                                            }
-                                        @endphp
-                                        <td>{{ $total }}</td>
                                         <td>{{ $teacher->teacher->account_number }}</td>
                                         <td>{{ $teacher->teacher->bank }}</td>
                                     </tr>
@@ -357,11 +347,6 @@
                                             {{ $classroom->name }}
                                         </a>
 
-
-                                        <span class="text-muted font-weight-bold">
-                                            {{ $classroom->name }}
-                                        </span>
-
                                         <span class="text-muted font-weight-bold">
                                             {{ $classroom->generation->generation }}
                                             ({{ $classroom->generation->schoolYear->school_year }})
@@ -401,7 +386,7 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                         <a href="{{ route('admin.showClassrooms', $classroom->id) }}"
-                                            class="fw-bold text-info ml-2">{{ count($classroom->students) }}
+                                            class="fw-bold text-info ml-2">{{ $countStudents[$classroom->id] }}
                                             Siswa</a>
 
 
@@ -425,12 +410,9 @@
                 @endforeach
                 </div>
 
-
-
                 <!--end::Body-->
 
                 <!--begin::Footer-->
-
 
                 <!--end::Footer-->
             </div>

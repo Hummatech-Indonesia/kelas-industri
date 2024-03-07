@@ -94,13 +94,14 @@ class ClassroomController extends Controller
      * @throws Exception
      */
     public function show(Classroom $classroom): View
-    {
+    {;
 
         $data = [
+            'studentClassroom' => $this->studentService->handleGetStudentByClassroom(auth()->id(), $classroom->id),
             'classroom' => $classroom,
             'students' => $this->studentService->handleGetBySchool(auth()->id(), $classroom->id),
         ];
-        return \view('dashboard.admin.pages.classroom.detail', $data);
+        return \view('dashboard.admin.pages.classroom.detail', $data, );
     }
 
     /**

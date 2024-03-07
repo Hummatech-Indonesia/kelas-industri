@@ -25,8 +25,8 @@ class StudentRepository extends BaseRepository
     public function get_by_school(string $schoolId): mixed
     {
         return $this->model->newQuery()
-            ->whereRelation('student', 'status', 'active')
             ->where('school_id', $schoolId)
+            ->whereRelation('student', 'status', 'active')
             ->paginate(6);
     }
 
@@ -59,5 +59,16 @@ class StudentRepository extends BaseRepository
             ->update([
                 'school_id' => $request->school_id
             ]);
+    }
+
+    public function get_student_by_classroom(string $schoolId, string $classroomId): mixed
+    {
+        return $this->model->newQuery()
+            ->whereRelation('student', 'status', 'active')
+            ->where('school_id', $schoolId)
+            ->whereHas('studentClassroom', function ($query) use ($classroomId) {
+                $query->where('classroom_id', $classroomId);
+            })
+            ->paginate(6);
     }
 }

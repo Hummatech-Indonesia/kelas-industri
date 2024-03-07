@@ -42,7 +42,10 @@ class StudentService
     {
         return $this->repository->update_school($request);
     }
-
+    public function handleGetStudentByClassroom(string $schoolId, string $classroomId): mixed
+    {
+        return $this->repository->get_student_by_classroom($schoolId, $classroomId);
+    }
 
     /**
      * store school year
