@@ -129,9 +129,4 @@ class JournalService
         return $this->repository->get_month_count($request, $TeacherId);
     }
 
-    public function getYearsCount(Request $request, string $TeacherId):mixed
-    {
-        return $this->repository->get_years_count($request, $TeacherId);
-    }
-
 }

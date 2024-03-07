@@ -102,7 +102,6 @@ class AdminitrasionController extends Controller
             'jurnals' => $this->journalServices->handleGetByTeacher($id),
             'getMonth' => $this->journalServices->getMonth($request, $id),
             'getMonthCount' => $this->journalServices->getMonthCount($request, $id),
-            'getYearsCount' => $this->journalServices->getYearsCount($request, $id),
         ];
         return view('dashboard.finance.pages.teacher.show', $data);
     }
@@ -142,7 +141,6 @@ class AdminitrasionController extends Controller
         $data = [
             'mentors' => $this->userServices->handleShowMentor($id),
             'attendances' => $this->attendanceServices->handleGetAttendanceMentor($id),
-            'attendancesCountYears' => $this->attendanceServices->attendancesCountYears($request, $id),
             'attendancesCountMonth' => $this->attendanceServices->attendancesCountMonth($request, $id),
         ];
         return view('dashboard.finance.pages.mentor.show', $data);

@@ -153,7 +153,7 @@ class UserRepository extends BaseRepository
      *
      * @return mixed
      */
-    public function get_user_nonactive(Request $request): mixed
+    public function get_user_nonactive(Request $request, int $limit): mixed
     {
         $query = $this->model->query()
             ->where('status', 'nonactive');
@@ -175,7 +175,7 @@ class UserRepository extends BaseRepository
                 return $q->where('name', 'like', '%' . $request->search . '%');
             })
             ->latest()
-            ->paginate(6);
+            ->paginate($limit);
     }
 
 

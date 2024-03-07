@@ -57,16 +57,16 @@ class ApprovalController extends Controller
     {
         $this->userRepository->update($user->id, ['status' => 'active']);
 
-        return redirect()->back()->with('success', 'Berhasil Menyetujui Siswa ' . $user->name);
+        return redirect()->route('admin.studentRegistration')->with('success', 'Berhasil Menyetujui Siswa ' . $user->name);
     }
 
-    public function approveAll(ApprovalRequest $request)
+    public function approveAll(ApprovalRequest $request): mixed
     {
         // dd($request->all());
         // $request->validated();
         $data['status'] = 'active';
         $this->service->storeUserActiveAll($request['select'], $data);
-        return redirect()->back();
+        return redirect()->route('admin.studentRegistration')->with('success', 'Berhasil Menyetujui Siswa');
     }
 
     // public function filterBySchool(Request $request)

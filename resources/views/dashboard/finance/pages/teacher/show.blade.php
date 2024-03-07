@@ -96,7 +96,8 @@
                                         @foreach ($jurnals as $jurnal)
                                             @if (!in_array(substr($jurnal->date, 0, 4), $tahuns))
                                                 <option value="{{ substr($jurnal->date, 0, 4) }}"
-                                                    @if (request('tahun') == substr($jurnal->date, 0, 4)) selected @endif>
+                                                    {{-- @if (request('tahun') == substr($jurnal->date, 0, 4)) selected @endif --}}
+                                                    >
                                                     {{ substr($jurnal->date, 0, 4) }}
                                                 </option>
                                                 @php

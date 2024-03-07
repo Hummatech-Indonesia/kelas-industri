@@ -286,15 +286,10 @@
                                     select: selectedValues,
                                 },
                                 success: function(response) {
-                                    console.log(response.message);
                                     window.location.reload();
-                                },
-                                error: function(error) {
-                                    console.error('Error:', error);
-                                    // Handle error jika diperlukan
                                 }
                             });
-                            window.location.reload();
+                            window.location.href = '{{ route('admin.studentRegistration') }}';
                         }
                     });
                 });

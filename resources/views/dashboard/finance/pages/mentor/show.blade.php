@@ -99,7 +99,8 @@
                                         @foreach ($attendances as $attendance)
                                             @if (!in_array(substr($attendance->created_at, 0, 4), $tahuns))
                                                 <option value="{{ substr($attendance->created_at, 0, 4) }}"
-                                                    @if (request('tahun') == substr($attendance->created_at, 0, 4)) selected @endif>
+                                                    {{-- @if (request('tahun') == substr($attendance->created_at, 0, 4)) selected @endif --}}
+                                                    >
                                                     {{ substr($attendance->created_at, 0, 4) }}
                                                 </option>
                                                 @php

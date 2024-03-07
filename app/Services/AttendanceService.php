@@ -50,11 +50,6 @@ class AttendanceService
         return $this->repository->get_attendance_mentor($id);
     }
 
-    public function attendancesCountYears(Request $request, string $id): mixed
-    {
-        return $this->repository->attendances_count_years($request, $id);
-    }
-
     public function attendancesCountMonth(Request $request, string $id): mixed
     {
         return $this->repository->attendances_count_month($request, $id);
