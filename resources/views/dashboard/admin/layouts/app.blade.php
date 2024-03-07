@@ -202,25 +202,37 @@ https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
     </script>
     <script>
         @if (Session::has('success'))
-            Swal.fire({
-                text: "{{ Session::get('success') }}",
-                icon: "success",
-                buttonsStyling: false,
-                confirmButtonText: "Ok!",
-                customClass: {
-                    confirmButton: "btn btn-primary"
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ Session::get('success') }}"
             });
         @endif
         @if (Session::has('error'))
-            Swal.fire({
-                text: "{{ Session::get('error') }}",
-                icon: "error",
-                buttonsStyling: false,
-                confirmButtonText: "Ok!",
-                customClass: {
-                    confirmButton: "btn btn-danger"
+        const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "{{ Session::get('error') }}"
             });
         @endif
     </script>
