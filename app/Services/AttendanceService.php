@@ -40,9 +40,14 @@ class AttendanceService
         return $this->repository->get_all();
     }
 
-    public function countMentorAttendance()
+    public function countMentorAttendance(Request $request): mixed
     {
-        return $this->repository->count_mentor_attendance();
+        return $this->repository->count_mentor_attendance($request, 6);
+    }
+
+    public function countMentorAttendanceMonth(): mixed
+    {
+        return $this->repository->count_mentor_attendance_month();
     }
 
     public function handleGetAttendanceMentor(string $id): mixed

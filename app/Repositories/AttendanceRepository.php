@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use App\Models\SubmitAttendance;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceRepository extends BaseRepository
 {
@@ -26,12 +27,23 @@ class AttendanceRepository extends BaseRepository
             ->get();
     }
 
-    public function count_mentor_attendance(): mixed
+    public function count_mentor_attendance(Request $request, int $limit): mixed
     {
         return $this->model->query()
             ->selectRaw('count(*) as count, created_by')
             ->groupBy('created_by')
-            ->whereMonth('created_at', Carbon::today()->month)
+            ->when($request->lastMonth, function ($query) use ($request) {
+                return $query->whereMonth('created_at', $request->lastMonth);
+            }, function ($query) {
+                return $query->whereMonth('created_at', Carbon::now()->month);
+            })
+            ->paginate($limit);
+    }
+
+
+    public function count_mentor_attendance_month(): mixed
+    {
+        return $this->model->query()
             ->get();
     }
 

@@ -128,6 +128,7 @@ class AdminitrasionController extends Controller
         ];
         return view('dashboard.finance.pages.salaryTeacher.index', $data);
     }
+
     public function showSalaryTeacher(Request $request)
     {
         $schools = $this->userServices->handleGetAllSchool();
@@ -154,9 +155,10 @@ class AdminitrasionController extends Controller
         return view('dashboard.finance.pages.mentor.index', $data);
     }
 
-    public function salaryMentor()
+    public function salaryMentor(Request $request)
     {
-        $data['attendances'] = $this->attendanceServices->countMentorAttendance();
+        $data['attendances'] = $this->attendanceServices->countMentorAttendance($request);
+        $data['attendancesMonth'] = $this->attendanceServices->countMentorAttendanceMonth();
         return view('dashboard.finance.pages.salaryMentor.index', $data);
     }
     public function createsalaryMentorTeacher(SalaryRequest $request)
@@ -186,6 +188,13 @@ class AdminitrasionController extends Controller
             return to_route('administration.salary-mentor.index')->with('success', trans('alert.add_success'));
         }
     }
+
+    public function createsalaryMentorTeacherOne(SalaryRequest $request)
+    {
+        $this->salaryServices->handleCreateOne($request);
+        return to_route('administration.salary-mentor.index')->with('success', trans('alert.add_success'));
+    }
+
     public function showSalaryMentor(Request $request)
     {
         $mentors = $this->salaryServices->handleGetSalaryMentor($request);
