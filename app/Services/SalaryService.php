@@ -102,7 +102,7 @@ class SalaryService
             'payday' => now(),
             'generation_id' => $request->input('generation_id'),
             'salary_amount' => $request->input('salary_amount'),
-            // 'photo' => $request->file('photo')->store('salery_file', 'public'),
+            'photo' => $request->file('photo')->store('salery_file', 'public'),
         ];
 
         $this->repository->store($data);

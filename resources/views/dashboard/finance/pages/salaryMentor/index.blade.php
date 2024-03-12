@@ -43,36 +43,31 @@
                             </select>
                             <button type="submit" class="btn btn-dark fw-bold">Filter</button>
                         </form>
-                        <form action="{{ route('administration.salary-mentor.create') }}" method="post"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="d-flex justify-content-end" style="width: 100%">
-                                <button type="submit" class="btn btn-dark fw-bold">Gaji</button>
-                            </div>
-                            <!--begin::Table-->
+                        <!--begin::Table-->
 
-                            <table class="table align-middle table-row-dashed fs-6 gy-5">
-                                <thead>
-                                    <!--begin::Table row-->
-                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Absen</th>
-                                        <th>Jumlah Gaji</th>
-                                        <th>Bukti Pembayaran</th>
-                                    </tr>
-                                    <!--end::Table row-->
-                                </thead>
-                                <!--end::Table head-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-5">
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Absen</th>
+                                    <th>Jumlah Gaji</th>
+                                    <th>Bukti Pembayaran</th>
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
 
-                                <!--begin::Table body-->
-                                <tbody class="fw-semibold text-gray-600">
-                                    @foreach ($attendances as $attendance)
-                                        {{ $attendance }}
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600">
+                                @foreach ($attendances as $attendance)
+                                    <form action="{{ route('administration.salary-mentor.create.one') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <input type="text" class="form-control" name="user_id[]"
+                                                <input type="text" class="form-control" name="user_id"
                                                     value="{{ $attendance->mentor->id }}" hidden>
                                                 {{ $attendance->mentor->name }}
                                             </td>
@@ -80,18 +75,21 @@
                                                 {{ $attendance->count }}
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control" name="salary_amount[]"
+                                                <input type="number" class="form-control" name="salary_amount"
                                                     value="{{ $attendance->count * 50000 }}" hidden>
                                                 {{ $attendance->count * 50000 }}
                                             </td>
                                             <td>
-                                                <input type="file" class="form-control" name="photo[]" />
+                                                <input type="file" class="form-control" name="photo" />
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary" type="submit">gaji</button>
                                             </td>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </form>
+                                    </form>
+                                @endforeach
+                            </tbody>
+                        </table>
                         <!--end::Table body-->
                         {{ $attendances->links('pagination::bootstrap-5') }}
                         {{-- @else

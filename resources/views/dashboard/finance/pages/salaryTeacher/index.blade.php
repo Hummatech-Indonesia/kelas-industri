@@ -84,7 +84,7 @@
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
                                 @foreach ($teachers as $teacher)
-                                    <form action="{{ route('administration.salary-mentor.create.one') }}" method="post">
+                                    <form action="{{ route('administration.salary-mentor.create.one') }}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <tr>
                                             <td>
