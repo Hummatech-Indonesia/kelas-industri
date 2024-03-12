@@ -36,7 +36,7 @@ class TeacherService
 
     public function handleGetAngkatan(string | null $schoolId)
     {
-        return $this->repository->get_angkatan($schoolId);
+        return $this->repository->get_angkatan($schoolId, 6);
     }
 
     /**

@@ -112,7 +112,7 @@ class AdminitrasionController extends Controller
         return $data;
     }
 
-    public function getMonthAttendance(Request $request, string $id):mixed
+    public function getMonthAttendance(Request $request, string $id): mixed
     {
         $data = $this->attendanceServices->getMonthAttendance($request, $id);
         return $data;
@@ -189,9 +189,12 @@ class AdminitrasionController extends Controller
         }
     }
 
-    public function createsalaryMentorTeacherOne(SalaryRequest $request)
+    public function createsalaryMentorTeacherOne(Request $request)
     {
         $this->salaryServices->handleCreateOne($request);
+        if ($request->generation_id) {
+            return to_route('administration.salaryTeacher.index')->with('success', trans('alert.add_success'));
+        }
         return to_route('administration.salary-mentor.index')->with('success', trans('alert.add_success'));
     }
 

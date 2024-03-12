@@ -148,7 +148,8 @@ Route::middleware('auth.custom')->group(function () {
     //finance
     Route::middleware(['auth', 'role:administration'])->prefix('administration')->name('administration.')->group(function () {
         Route::get('', [AdminitrasionController::class, 'dashFinance'])->name('');
-        Route::post('salary-mentor-teacher/create', [AdminitrasionController::class, 'createsalaryMentorTeacher'])->name('salary-mentor.create');
+        Route::post('salary-mentor-teacher/create', [AdminitrasionController::class, 'createsalaryMentorTeacher'])->name('salaryMentorTeacherCreateAll');
+        Route::post('salary-mentor-teacher/createOne', [AdminitrasionController::class, 'createsalaryMentorTeacherOne'])->name('salary-mentor.create.one');
 
         Route::get('teacher', [AdminitrasionController::class, 'teacher'])->name('teacher.index');
         Route::get('teacher/create', [AdminitrasionController::class, 'createTeacher'])->name('teacher.create');

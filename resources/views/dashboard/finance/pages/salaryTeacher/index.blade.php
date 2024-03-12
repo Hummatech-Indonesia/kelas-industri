@@ -58,65 +58,71 @@
                                 <button type="submit" name="getSchool"
                                     class="btn btn-dark fw-bold h-40px d-flex align-items-center ms-3"
                                     style="font-size: 12px; width: auto;">Cari</button>
-                                    <a href="{{url('administration/salary-teacher')}}" class="btn btn-primary fw-bold h-40px d-flex align-items-center ms-1">Reset</a>
+                                <a href="{{ url('administration/salary-teacher') }}"
+                                    class="btn btn-primary fw-bold h-40px d-flex align-items-center ms-1">Reset</a>
                             </form>
-
                         </div>
-                        {{-- @if ($salarys->count() > 0) --}}
-                        <form action="{{ route('administration.salary-mentor.create') }}" method="post"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="d-flex justify-content-end" style="width: 100%">
-                                <button type="submit" class="btn btn-dark fw-bold">Gaji</button>
-                            </div>
-                            <table class="table align-middle table-row-dashed fs-6 gy-5">
-                                <!--begin::Table head-->
-                                <thead>
-                                    <!--begin::Table row-->
-                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Angkatan</th>
-                                        <th>Jumlah Gaji</th>
-                                        <th>Bukti Pembayaran</th>
-                                    </tr>
-                                    <!--end::Table row-->
-                                </thead>
-                                <!--end::Table head-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-5">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th>
+                                        <input type="checkbox" name="" id="" onClick="toggle(this)">
+                                    </th>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Angkatan</th>
+                                    <th>Jumlah Gaji</th>
+                                    <th>Bukti Pembayaran</th>
+                                    <th>Aksi</th>
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
 
-                                <!--begin::Table body-->
-                                <tbody class="fw-semibold text-gray-600">
-                                    @foreach ($teachers as $teacher)
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600">
+                                @foreach ($teachers as $teacher)
+                                    <form action="{{ route('administration.salary-mentor.create.one') }}" method="post">
+                                        @csrf
                                         <tr>
+                                            <td>
+                                                <input type="checkbox" name="checkAll" id="">
+                                            </td>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <input type="text" class="form-control" name="user_id[]"
+                                                <input type="text" class="form-control" name="user_id"
                                                     value="{{ $teacher->teacher->id }}" hidden>
                                                 {{ $teacher->teacher->name }}
                                             </td>
                                             <td>
-                                                <select class="form-select" aria-label="Default select example"
-                                                    name="generation_id[]">
+                                                <select class="form-select form-select-solid me-5" data-control="select2"
+                                                    data-placeholder="select an option" name="generation_id">
                                                     @foreach ($generations as $generation)
                                                         <option value="{{ $generation->id }}">
-                                                            {{ $generation->generation }}
+                                                            {{ $generation->generation . ' - ' . $generation->created_at->format('Y') }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control" name="salary_amount[]"
+                                                <input type="number" class="form-control" name="salary_amount"
                                                     placeholder="50000">
                                             </td>
                                             <td>
-                                                <input type="file" class="form-control" name="photo[]" />
+                                                <input type="file" class="form-control" name="photo" />
+                                            </td>
+                                            <td>
+                                                <button type="submit">gaji</button>
                                             </td>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                                <!--end::Table body-->
-                            </table>
-                        </form>
+                                    </form>
+                                @endforeach
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        {{ $teachers->links('pagination::bootstrap-5') }}
                         {{-- @else --}}
                         {{-- <x-empty-component title="gaji" /> --}}
                         {{--  @endif --}}
@@ -128,4 +134,14 @@
 
         </div>
     </div>
+
+    <script>
+        function toggle(source) {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i] != source)
+                    checkboxes[i].checked = source.checked;
+            }
+        }
+    </script>
 @endsection
