@@ -214,7 +214,7 @@ License: For each use you must have a valid license purchased only from above li
                     }
                 })
                 Toast.fire({
-                    icon: 'error',
+                    icon: 'success',
                     title: successMessage
                 })
             }
