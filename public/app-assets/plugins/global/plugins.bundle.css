@@ -6724,7 +6724,7 @@ button.toastr-close-button {
   grid-template-columns: 1fr 99fr 1fr;
   padding: 1em;
   overflow-y: hidden;
-  background: #fff;
+  background: #019EF7;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.075), 0 1px 2px rgba(0, 0, 0, 0.075), 1px 2px 4px rgba(0, 0, 0, 0.075), 1px 3px 8px rgba(0, 0, 0, 0.075), 2px 4px 16px rgba(0, 0, 0, 0.075);
   pointer-events: all;
 }
@@ -6738,6 +6738,7 @@ button.toastr-close-button {
   padding: 0;
   font-size: 1em;
   text-align: initial;
+  color: #fff;
 }
 
 .swal2-popup.swal2-toast .swal2-loading {

@@ -41,9 +41,7 @@ License: For each use you must have a valid license purchased only from above li
         type="text/css" />
     {{--    <link rel="stylesheet" href="{{ asset('app-assets/plugins/custom/pdfjs-3.4.120-dist/web/viewer.css') }}" --}}
     {{--          type="text/css"> --}}
-    <link href="
-https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
-" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
     <link href="{{ asset('app-assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -202,38 +200,44 @@ https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/web/pdf_viewer.min.css
     </script>
     <script>
         @if (Session::has('success'))
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-            Toast.fire({
-                icon: "success",
-                title: "{{ Session::get('success') }}"
-            });
+            const successMessage = "{{ Session::get('success') }}";
+            if (successMessage) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'error',
+                    title: successMessage
+                })
+            }
         @endif
         @if (Session::has('error'))
-        const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-            Toast.fire({
-                icon: "error",
-                title: "{{ Session::get('error') }}"
-            });
+        const errorMessage = "{{ Session::get('error') }}";
+            if (successMessage) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'error',
+                    title: errorMessage
+                })
+            }
         @endif
     </script>
     <!--end::Javascript-->
