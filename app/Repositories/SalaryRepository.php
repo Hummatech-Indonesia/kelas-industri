@@ -51,7 +51,7 @@ class SalaryRepository extends BaseRepository
                 return $q->where("name", "teacher");
             })
             ->whereRelation('user', 'name', 'like', '%' . $request->search . '%')
-            ->when($request->school_id, function ($q) use ($request){
+            ->when($request->school_id, function ($q) use ($request) {
                 $q->whereRelation('user.teacherSchool', 'school_id', $request->school_id);
             })
             ->get();

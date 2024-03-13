@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('salaries', function (Blueprint $table) {
             //
-            $table->foreignId('generation_id')->nullable()->constrained('generations')->after('user_id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('generation_id')->constrained('generations')->cascadeOnUpdate()->cascadeOnDelete()->after('user_id')->nullable();
         });
     }
 

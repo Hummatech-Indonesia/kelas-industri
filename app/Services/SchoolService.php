@@ -37,15 +37,19 @@ class SchoolService
     {
         return $this->repository->search_paginate($search, 6);
     }
-    
+
     public function handleCountStudent(string $id){
         return $this->repository->getCountStudent($id);
+    }
+
+    public function handleCountAllStudentActive(string $id){
+        return $this->repository->countAllStudentActive($id);
     }
 
     public function handleCountStudentClassroom(string $classroom, string $school){
         return $this->repository->getCountStudentClassroom($classroom, $school);
     }
-    
+
     public function handleCount(){
         return $this->repository->getCount();
     }

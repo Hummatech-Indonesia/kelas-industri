@@ -80,6 +80,7 @@ class SchoolController extends Controller
     {
         $classrooms = $school->classrooms;
         $schools = $school->id;
+        $countAllStudentActive = $this->service->handleCountAllStudentActive($school->id);
 
 
         if ($classrooms) {
@@ -94,7 +95,8 @@ class SchoolController extends Controller
 
         $data = [
             'countStudents' => $countStudents,
-            'school' => $school
+            'school' => $school,
+            'countAllStudent' => $countAllStudentActive,
         ];
         return view('dashboard.admin.pages.school.detail', $data);
     }

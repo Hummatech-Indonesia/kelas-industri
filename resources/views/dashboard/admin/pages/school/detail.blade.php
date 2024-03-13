@@ -200,7 +200,7 @@
 
                                 <div class="d-flex flex-column text-dark-75">
 
-                                    <span class="fw-bolder font-size-sm">{{ $school->where('status', 'active')->count() }} Siswa</span>
+                                    <span class="fw-bolder font-size-sm">{{ $countAllStudent }} Siswa</span>
 
                                 </div>
 
