@@ -62,12 +62,14 @@
                                         <select class="form-select form-select-solid form-select-sm" name="school_id"
                                             data-control="select2" id="select-school" data-placeholder="Pilih sekolah">
                                             {{-- Options will be populated by Ajax --}}
+                                            <option value="null" disabled selected>Semua sekolah</option>
                                         </select>
                                     </div>
                                     <div class="col-auto">
                                         <select class="form-select form-select-solid form-select-sm" name="classroom_id"
                                             data-control="select2" id="select-classroom" data-placeholder="Pilih kelas">
                                             {{-- Options will be populated by Ajax --}}
+                                            <option value="null" disabled selected>Semua kelas</option>
                                         </select>
                                     </div>
                                     <div class="col-auto">
@@ -325,7 +327,6 @@
                                 var option = '<option value="' + item.id + '"' + (item.id ===
                                         selectedSchoolId ? ' selected' : '') + '>' + item.name +
                                     '</option>';
-                                $('#select-school').append('<option value="null">Semua sekolah</option>');
                                 $('#select-school').append(option);
                             });
                             getClassroom();
@@ -341,8 +342,6 @@
                             schoolId: $('#select-school').val()
                         },
                         success: function(response) {
-                            $('#select-classroom').html('');
-                            $('#select-classroom').append('<option value="null">Semua kelas</option>');
                             $.each(response, function(index, item) {
                                 var selectedSchoolId = new URLSearchParams(window.location.search)
                                     .get('classroom_id');
