@@ -26,26 +26,28 @@ class StudentImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row) {
 
-            $check = User::query()->where('email', $row['email'])->first();
+            $emailExists = User::query()->where('email', $row['email'])->exists();
 
-            if (!$check) {
-                $user = User::create([
-                    'name' => $row['nama'],
-                    'email' => $row['email'],
-                    'phone_number' => $row['no_telepon'],
-                    'address' => $row['alamat'],
-                    'status' => 'active',
-                    'password' => bcrypt('password')
-                ]);
-
-                $role = Role::where('name', 'student')->first();
-                $user->assignRole($role);
-
-                StudentSchool::create([
-                    'student_id' => $user->id,
-                    'school_id' => $this->schoolId
-                ]);
+            if ($emailExists) {
+                return redirect()->back()->with('error', trans('email sudah ada yang terpakai'));
             }
+
+            $user = User::create([
+                'name' => $row['nama'],
+                'email' => $row['email'],
+                'phone_number' => $row['no_telepon'],
+                'address' => $row['alamat'],
+                'status' => 'active',
+                'password' => bcrypt('password')
+            ]);
+
+            $role = Role::where('name', 'student')->first();
+            $user->assignRole($role);
+
+            StudentSchool::create([
+                'student_id' => $user->id,
+                'school_id' => $this->schoolId
+            ]);
         }
     }
 
@@ -53,4 +55,6 @@ class StudentImport implements ToCollection, WithHeadingRow
     {
         return 1;
     }
+
 }
+
