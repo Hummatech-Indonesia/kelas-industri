@@ -30,6 +30,7 @@ class StudentRepository extends BaseRepository
         return $this->model->newQuery()
             ->where('school_id', $schoolId)
             ->whereRelation('student', 'status', 'active')
+            ->with('student')
             ->paginate(6);
     }
     public function get_classroom(): mixed
