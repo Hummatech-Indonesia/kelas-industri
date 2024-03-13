@@ -4,16 +4,19 @@ namespace App\Repositories;
 
 use App\Models\StudentSchool;
 use App\Models\User;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 
 class StudentRepository extends BaseRepository
 {
     private User $userModel;
+    private Classroom $classroomModel;
 
-    public function __construct(StudentSchool $model, User $userModel)
+    public function __construct(StudentSchool $model, User $userModel, Classroom $classroomModel)
     {
         $this->model = $model;
         $this->userModel = $userModel;
+        $this->classroomModel = $classroomModel;
     }
 
     /**
@@ -29,7 +32,21 @@ class StudentRepository extends BaseRepository
             ->whereRelation('student', 'status', 'active')
             ->paginate(6);
     }
-
+    public function get_classroom(): mixed
+    {
+        return $this->classroomModel->newQuery()
+            ->get();
+    }
+    public function filter_student_by_classroom(string $schoolId ,string $classroomId): mixed
+    {
+        return $this->model->newQuery()
+            ->where('school_id', $schoolId)
+            ->whereHas('studentClassroom', function ($query) use ($classroomId) {
+                $query->where('classroom_id', $classroomId);
+            })
+            ->whereRelation('student', 'status', 'active')
+            ->paginate(6);
+    }
     public function get_by_classroom(string $classroomId): mixed
     {
         return $this->model->newQuery()

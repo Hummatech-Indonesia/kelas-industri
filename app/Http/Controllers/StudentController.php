@@ -38,11 +38,22 @@ class StudentController extends Controller
      */
     public function index(): mixed
     {
-        if (request()->ajax()) {
-            return $this->StudentMockup($this->studentService->handleGetBySchool(auth()->id()));
-        }
+        $data = [
+            'students' => $this->studentService->handleGetBySchool(auth()->id()),
+            'classrooms' => $this->studentService->handleGetClassroom(),
+        ];
 
-        return view('dashboard.admin.pages.student.index');
+        return view('dashboard.admin.pages.student.index', $data);
+    }
+
+    public function filterStudent(Request $request): mixed
+    {
+        $data = [
+            'students' => $this->studentService->handleFilterStudentByClassroom(auth()->id(),$request->classroom_id),
+            'classrooms' => $this->studentService->handleGetClassroom(),
+
+        ];
+        return view('dashboard.admin.pages.student.index', $data);
     }
 
     /**

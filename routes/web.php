@@ -201,6 +201,7 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         //changepwstudent
+        Route::get('/filter', [StudentController::class, 'filterStudent'])->name('filterStudent');
         Route::get('/gantiPassword/{student}', [StudentController::class, 'ChangePassword'])->name('gantiPassword');
         Route::patch('/updatePassword/{student}', [StudentController::class, 'updatePassword'])->name('updatePassword');
         //changepwsteacher

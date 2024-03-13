@@ -97,16 +97,38 @@
         <!--end::Page title-->
 
         <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
-            <!--begin::Button-->
-            <a href="#" type="button" class="btn btn-success fw-bold me-3" data-bs-toggle="modal"
-                data-bs-target="#modal-import">
-                Import </a>
-            <!--end::Button-->
-            <!--begin::Button-->
-            <a href="{{ route('school.students.create') }}" class="btn btn-dark fw-bold">
-                Tambah </a>
-            <!--end::Button-->
+        <div class="d-flex align-items-center py-2 py-md-1 gap-4">
+            <div>
+                <form action="{{ route('school.filterStudent') }}" class="d-flex gap-4" method="GET">
+                    <select class="form-select" data-placeholder="Select option" name="classroom_id"
+                        id="classroom_id">
+                        <option selected disabled>Nama Kelas</option>
+                        @foreach ($classrooms as $classroom)
+                            <option value="{{ $classroom->id }}" {{ request('classroom_id') == $classroom->id ? 'selected' : '' }}>
+                                {{ $classroom->name }}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </form>
+            </div>
+            <div>
+                <!--begin::Button-->
+                <a href="{{ route('school.students.index') }}" type="button" class="btn btn-primary fw-bold">Reset</a>
+                <!--end::Button-->
+            </div>
+            <div>
+                <!--begin::Button-->
+                <a href="#" type="button" class="btn btn-success fw-bold" data-bs-toggle="modal"
+                    data-bs-target="#modal-import">
+                    Import </a>
+                <!--end::Button-->
+            </div>
+            <div>
+                <!--begin::Button-->
+                <a href="{{ route('school.students.create') }}" class="btn btn-dark fw-bold">
+                    Tambah </a>
+                <!--end::Button-->
+            </div>
         </div>
         <!--end::Actions-->
     </div>
@@ -122,24 +144,74 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
                             <!--begin::Table head-->
                             <thead>
-                                <!--begin::Table row-->
-                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>No Telepon</th>
-                                    <th>Aksi</th>
+                                <tr class="fw-bold text-muted">
+                                    <th class="min-w-50px text-center">No</th>
+                                    <th class="min-w-150px text-center">Nama</th>
+                                    <th class="min-w-200px text-center">Email</th>
+                                    <th class="min-w-150px text-center">No Telepon</th>
+                                    <th class="min-w-150px text-center">Kelas</th>
+                                    <th class="min-w-70px text-center">Aksi</th>
                                 </tr>
-                                <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
 
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
+                                @foreach ($students as $student)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <div class="text-gray-900 fw-bold fs-7">
+                                                        {{ $loop->index + 1 + ($students->perPage() * ($students->currentPage() - 1)) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <div class="text-gray-900 fw-bold fs-7">
+                                                        {{ $student->student->name }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <div class="text-gray-900 fw-bold fs-7">
+                                                        {{ $student->student->email }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <div class="text-gray-900 fw-bold fs-7">
+                                                        {{ $student->student->phone_number ?? ' - ' }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <div class="text-gray-900 fw-bold fs-7">
+                                                        {{ $student->studentClassroom ? $student->studentClassroom->classroom->name : '-' }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        @include('dashboard.admin.pages.student.datatables')
+                                    </tr>
+                                @endforeach
                             </tbody>
                             <!--end::Table body-->
                         </table>
                         <!--end::Table-->
+                        {{ $students->links('pagination::bootstrap-5') }}
                     </div>
                     <!--end::Card body-->
                 </div>
@@ -163,47 +235,6 @@
 
                 $('#kt_modal_delete').modal('show')
             })
-
-            // Datatables Responsive
-            $("#datatables-responsive").DataTable({
-                // scrollX: false,
-                // sScrollX: false,
-                // scrollY: false,
-                // scrollCollapse: false,
-                paging: true,
-                pageLength: 10,
-                responsive: true,
-                processing: true,
-                serverSide: true,
-                searching: true,
-                ajax: "{{ route('school.students.index') }}",
-                oLanguage: {
-                    sProcessing: 'loading...'
-                },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        searchable: false
-                    },
-                    {
-                        data: 'student.name',
-                        name: 'student.name'
-                    },
-                    {
-                        data: 'student.email',
-                        name: 'student.email'
-                    },
-                    {
-                        data: 'student.phone_number',
-                        name: 'student.phone_number'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
         });
     </script>
 @endsection
