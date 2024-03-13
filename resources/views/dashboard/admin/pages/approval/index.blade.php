@@ -109,7 +109,7 @@
                                                     <input type="checkbox" class="select" name="status[]"
                                                         value="{{ $user->id }}">
                                                 </td>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $loop->parent->iteration * $loop->parent->count() + $loop->iteration }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>
                                                     {{ $user->studentSchool->school->name }}
