@@ -80,6 +80,16 @@ class UserServices
         return $this->repository->get_schools();
     }
 
+     /**
+     * handle get all school
+     *
+     * @return mixed
+     */
+    public function handleGetAllClassroom(): mixed
+    {
+        return $this->repository->get_classroom();
+    }
+
     /**
      * handle get all mentor
      *

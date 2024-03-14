@@ -4,17 +4,21 @@ namespace App\Repositories;
 
 use App\Models\StudentSchool;
 use App\Models\User;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
+use PhpParser\Builder\Class_;
 use Svg\Tag\Rect;
 
 class UserRepository extends BaseRepository
 {
     private StudentSchool $studentSchool;
+    private Classroom $classroom;
 
-    public function __construct(User $model, StudentSchool $studentSchool)
+    public function __construct(User $model, StudentSchool $studentSchool, Classroom $classroom)
     {
         $this->model = $model;
         $this->studentSchool = $studentSchool;
+        $this->classroom = $classroom;
     }
 
     /**
@@ -87,6 +91,12 @@ class UserRepository extends BaseRepository
                 return $q->where("name", "student");
             })
             ->where('status', 'active')
+            ->get();
+    }
+
+    public function get_classroom(): mixed
+    {
+        return $this->classroom->query()
             ->get();
     }
 

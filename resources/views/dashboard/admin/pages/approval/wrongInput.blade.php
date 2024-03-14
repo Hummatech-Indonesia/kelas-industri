@@ -27,6 +27,7 @@
                         <th>email</th>
                         <th>nis</th>
                         <th>sekolah</th>
+                        <th>kelas</th>
                         <th>aksi</th>
                     </tr>
                 </thead>
@@ -41,7 +42,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex justify-content-start flex-column">
                                             <div class="text-gray-900 fw-bold fs-7">
-                                                {{ $loop->iteration }}
+                                                {{ ($loop->index + 1 + ($users->currentPage() - 1) * $users->perPage()) }}
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +79,7 @@
                                         <div class="d-flex justify-content-start flex-column">
                                             <div class="text-gray-900 fw-bold fs-7">
                                                 <select name="school_id" class="form-select" id=""
-                                                    style="width: 200px;">
+                                                    style="width: 100px;">
                                                     @foreach ($schools as $school)
                                                         <option value="{{ $school->id }}"
                                                             {{ $user->student->studentSchool->school_id == $school->id ? 'selected' : '' }}>
@@ -90,7 +91,23 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary" type="submit">update</button>
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <div class="text-gray-900 fw-bold fs-7">
+                                                <select name="classroom_id" class="form-select" id=""
+                                                    style="width: 100px;">
+                                                    @foreach ($classrooms as $classroom)
+                                                        <option value="{{ $classroom->id }}"
+                                                            {{ $user->student->studentSchool->studentClassroom ? ($user->student->studentSchool->studentClassroom->classroom_id == $classroom->id ? 'selected' : '') : '' }}>
+                                                            {{ $classroom->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" type="submit">Edit</button>
                                 </td>
                             </tr>
                         </form>

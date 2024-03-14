@@ -35,9 +35,11 @@ class ApprovalController extends Controller
 
     public function wrongInput(Request $request)
     {
-
-        $data['users'] = $this->service->handleGetAllStudentWithSchool($request);
-        $data['schools'] = $this->service->handleGetAllSchool();
+        $data = [
+            'users' => $this->service->handleGetAllStudentWithSchool($request),
+            'schools' => $this->service->handleGetAllSchool(),
+            'classrooms' => $this->service->handleGetAllClassroom(),
+        ];
         return view('dashboard.admin.pages.approval.wrongInput', $data);
     }
 
