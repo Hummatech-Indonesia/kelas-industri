@@ -107,8 +107,14 @@ class AttendanceRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('created_by', $id)
-            ->where('created_at', 'like', '%' . $request->tahun . '%')
-            ->get();
+            ->whereYear('created_at', $request->tahun)
+            ->whereMonth('created_at', '>=', 1)
+            ->whereMonth('created_at', '<=', 12)
+            ->selectRaw('distinct month(created_at) as month')
+            ->orderBy('month', 'asc')
+            ->get([
+                DB::raw('month(created_at) as month')
+            ]);
     }
 
     public function attendances_count_month(Request $request, string $id): mixed

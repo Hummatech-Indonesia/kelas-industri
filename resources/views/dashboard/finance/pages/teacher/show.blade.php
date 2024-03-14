@@ -131,16 +131,15 @@
                                         _token: "{{ csrf_token() }}"
                                     },
                                     success: function(data) {
-                                        let html = '';
-                                        let bulanTerpilih = '';
+                                        var bulanTerpilih = '';
+                                        var html = '';
                                         data.forEach(element => {
-                                            const date = element.date.split('-');
                                             const bulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
                                                 "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-                                            ][parseInt(date[1])];
+                                            ][element.month];
                                             if (bulanTerpilih != bulan) {
                                                 bulanTerpilih = bulan;
-                                                html += '<option value="' + date[1] + '">' + bulan + '</option>';
+                                                html += '<option value="' + element.month + '">' + bulan + '</option>';
                                             }
                                         });
                                         $('#bulan').html(html);

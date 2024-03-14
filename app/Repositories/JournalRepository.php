@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Journal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JournalRepository extends BaseRepository
 {
@@ -60,19 +61,25 @@ class JournalRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('created_by', $TeacherId)
-            ->where('date', 'like', '%' . $request->tahun . '%')
-            ->get();
+            ->whereYear('date', $request->tahun)
+            ->whereMonth('date', '>=', 1)
+            ->whereMonth('date', '<=', 12)
+            ->selectRaw('distinct month(date) as month')
+            ->orderBy('month', 'asc')
+            ->get([
+                DB::raw('month(date) as month')
+            ]);
     }
 
     public function get_month_count(Request $request, string $TeacherId): mixed
     {
         return $this->model->query()
-        ->where('created_by', $TeacherId)
-        ->when($request->tahun && $request->bulan, function ($query) use ($request) {
-            return $query->whereYear('date', $request->tahun)->whereMonth('date', $request->bulan);
-        }, function ($query) {
-            return $query->whereYear('date', Carbon::now()->year)->whereMonth('date', Carbon::now()->month);
-        })
-        ->count();
+            ->where('created_by', $TeacherId)
+            ->when($request->tahun && $request->bulan, function ($query) use ($request) {
+                return $query->whereYear('date', $request->tahun)->whereMonth('date', $request->bulan);
+            }, function ($query) {
+                return $query->whereYear('date', Carbon::now()->year)->whereMonth('date', Carbon::now()->month);
+            })
+            ->count();
     }
 }
