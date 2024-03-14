@@ -114,9 +114,9 @@ class AttendanceRepository extends BaseRepository
     public function attendances_count_month(Request $request, string $id): mixed
     {
         return $this->model->query()
-            ->where('created_by', $id)
-            ->where('created_at', 'like', '%' . $request->tahun . '%')
-            ->where('created_at', 'like', '%' . $request->bulan . '%')
-            ->count();
+        ->where('created_by', $id)
+        ->whereYear('created_at', $request->tahun)
+        ->whereMonth('created_at', $request->bulan)
+        ->count();
     }
 }
