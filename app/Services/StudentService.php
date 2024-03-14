@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Http\Requests\StudentRequest;
+use App\Models\StudentClassroom;
 use App\Models\User;
+use App\Repositories\StudentClassroomRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\UserRepository;
 use Exception;
@@ -14,11 +16,13 @@ class StudentService
 
     private StudentRepository $repository;
     private UserRepository $userRepository;
+    private StudentClassroomRepository $studentClassroomRepository;
 
-    public function __construct(StudentRepository $repository, UserRepository $userRepository)
+    public function __construct(StudentRepository $repository, UserRepository $userRepository, StudentClassroomRepository $studentClassroomRepository)
     {
         $this->repository = $repository;
         $this->userRepository = $userRepository;
+        $this->studentClassroomRepository = $studentClassroomRepository;
     }
 
     /**
@@ -49,6 +53,12 @@ class StudentService
     {
         return $this->repository->update_school($request);
     }
+
+    public function handleUpdateClassroom(Request $request): mixed
+    {
+        return $this->studentClassroomRepository->update_classroom($request);
+    }
+
     public function handleGetStudentByClassroom(string $schoolId, string $classroomId): mixed
     {
         return $this->repository->get_student_by_classroom($schoolId, $classroomId);

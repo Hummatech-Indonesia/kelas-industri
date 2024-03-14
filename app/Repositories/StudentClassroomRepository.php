@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\StudentClassroom;
+use Illuminate\Http\Request;
 
 class StudentClassroomRepository extends BaseRepository
 {
@@ -34,5 +35,14 @@ class StudentClassroomRepository extends BaseRepository
     {
         return $this->model->query()
             ->create($data);
+    }
+
+    public function update_classroom(Request $request): mixed
+    {
+        return $this->model->query()
+            ->where('student_school_id', $request->id)
+            ->update([
+                'classroom_id' => $request->classroom_id
+            ]);
     }
 }

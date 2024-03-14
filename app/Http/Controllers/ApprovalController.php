@@ -45,7 +45,9 @@ class ApprovalController extends Controller
 
     public function updateSchool(Request $request): mixed
     {
+        // dd($request->all());
         $this->studentService->handleUpdateSchool($request);
+        $this->studentService->handleUpdateClassroom($request);
         return redirect()->back();
     }
 
