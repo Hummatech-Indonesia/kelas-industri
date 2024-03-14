@@ -132,7 +132,7 @@
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                                 <a href="{{ Route('mentor.journal.edit', [$journal->id]) }}"
                                                                     class="btn btn-default btn-update btn-sm p-1">
-                                                                    <i class="fonticon-setting fs-2 text-warning"></i>
+                                                                    <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
                                                                 </a>
                                                                 <button class="btn btn-default btn-sm p-1 btn-delete"
                                                                     data-id="{{ $journal->id }}">
@@ -141,7 +141,7 @@
                                                             @else
                                                                 <a href="{{ Route('teacher.journal.edit', [$journal->id]) }}"
                                                                     class="btn btn-default btn-update btn-sm p-1">
-                                                                    <i class="fonticon-setting fs-2 text-warning"></i>
+                                                                    <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
                                                                 </a>
                                                                 <button
                                                                     class="btn btn-default btn-sm p-1 btn-delete-teacher"

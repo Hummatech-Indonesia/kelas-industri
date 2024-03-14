@@ -125,7 +125,7 @@
                                                                 @if ($attendance->status == 'open')
                                                                     <button class="btn btn-default btn-update btn-sm p-1"
                                                                         data-id="{{ $attendance->id }}">
-                                                                        <i class="fonticon-setting fs-2 text-warning"></i>
+                                                                        <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
                                                                     </button>
                                                                 @endif
                                                                 <button class="btn btn-default btn-sm p-1 btn-delete"

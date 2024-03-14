@@ -87,7 +87,7 @@
                                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data">
-                                                        <i class="fonticon-setting fs-2 text-warning"></i> </a>
+                                                        <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </a>
 
                                                     <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-delete delete"
                                                         data-id="{{ $administration->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
