@@ -43578,10 +43578,6 @@ code:not([class*=language-]) {
   }
 }
 
-.scroll-ps {
-  padding-left: var(--bs-scrollbar-size) !important;
-}
-
 .scroll-ms {
   margin-left: var(--bs-scrollbar-size) !important;
 }
