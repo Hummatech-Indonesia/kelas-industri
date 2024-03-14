@@ -115,8 +115,11 @@ class AttendanceRepository extends BaseRepository
     {
         return $this->model->query()
         ->where('created_by', $id)
-        ->whereYear('created_at', $request->tahun)
-        ->whereMonth('created_at', $request->bulan)
+        ->when($request->tahun && $request->bulan, function ($query) use ($request) {
+            return $query->whereYear('created_at', $request->tahun)->whereMonth('created_at', $request->bulan);
+        }, function ($query) {
+            return $query->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month);
+        })
         ->count();
     }
 }

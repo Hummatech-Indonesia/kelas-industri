@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Journal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class JournalRepository extends BaseRepository
@@ -66,9 +67,12 @@ class JournalRepository extends BaseRepository
     public function get_month_count(Request $request, string $TeacherId): mixed
     {
         return $this->model->query()
-            ->where('created_by', $TeacherId)
-            ->where('date', 'like', '%' . $request->tahun . '%')
-            ->where('date', 'like', '%' . $request->bulan . '%')
-            ->count();
+        ->where('created_by', $TeacherId)
+        ->when($request->tahun && $request->bulan, function ($query) use ($request) {
+            return $query->whereYear('date', $request->tahun)->whereMonth('date', $request->bulan);
+        }, function ($query) {
+            return $query->whereYear('date', Carbon::now()->year)->whereMonth('date', Carbon::now()->month);
+        })
+        ->count();
     }
 }
