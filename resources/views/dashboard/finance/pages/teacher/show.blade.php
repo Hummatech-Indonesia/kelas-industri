@@ -177,7 +177,7 @@
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: ['interaction', 'dayGrid'],
-                defaultDate: tahun ? tahun + '-' + (bulan ? bulan : new Date().getMonth() + 1) : new Date().toISOString().split('T')[0],
+                defaultDate: tahun ? tahun + '-' + (bulan ? (parseInt(bulan) > 9 ? bulan : '0' + parseInt(bulan)) : ('0' + (new Date().getMonth() + 1)).slice(-2)) : new Date().toISOString().split('T')[0],
                 editable: true,
                 eventLimit: true,
                 events: @json($jurnals),
