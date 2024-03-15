@@ -158,8 +158,4 @@ class SalaryService
     {
         return $this->repository->school();
     }
-    public function handleGetAllTeacherSchool(string $school ,string $limit): mixed
-    {
-        return $this->repository->getAllTeacherSchool($school ,$limit);
-    }
 }

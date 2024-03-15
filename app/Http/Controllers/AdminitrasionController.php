@@ -97,15 +97,6 @@ class AdminitrasionController extends Controller
         return view('dashboard.finance.pages.teacher.index', $data);
     }
 
-    public function filterTeacher(Request $request)
-    {
-        $data = [
-            'teachers' => $this->salaryServices->handleGetAllTeacherSchool($request->school_id, 6),
-            'schools' => $this->salaryServices->handleGetSchool(),
-        ];  
-        return view('dashboard.finance.pages.teacher.index', $data);
-    }
-
     public function showTeacher(Request $request, $id)
     {
         $data = [

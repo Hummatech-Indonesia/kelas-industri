@@ -35,6 +35,9 @@ class SalaryRepository extends BaseRepository
         return $this->user->query()
             ->whereHas('teacherSchool')
             ->where('name', 'like', '%' . $request->search . '%')
+            ->when($request->school_id, function ($q) use ($request){
+                $q->whereRelation('teacherSchool', 'school_id', $request->school_id);
+            })
             ->paginate($limit);
     }
 
@@ -77,17 +80,5 @@ class SalaryRepository extends BaseRepository
                 return $q->where("name", "school");
             })
             ->get();
-    }
-
-    public function getAllTeacherSchool(string $school, int $limit): mixed
-    {
-        return $this->user->query()
-            ->whereHas('roles', function ($q) {
-                return $q->where("name", "teacher");
-            })
-            ->whereHas('teacherSchool', function ($q) use ($school) {
-                return $q->where('school_id', $school);
-            })
-            ->paginate($limit);
     }
 }

@@ -26,14 +26,9 @@
                 <div class="card">
                     <div class="d-flex justify-content-start ms-4 mt-4 gap-2">
                         <div>
-                            <form class="d-flex" style="width: 300px;" role="search" method="GET">
+                            <form action="" method="GET" class="d-flex gap-2">
                                 <input class="form-control me-2" type="text" name="search" placeholder="Cari Guru"
                                     aria-label="Search" value="{{ request('search') }}">
-                                <button class="btn btn-dark fw-bold" id="search">Cari</button>
-                            </form>
-                        </div>
-                        <div>
-                            <form action="{{ route('administration.teacher.filter') }}" method="GET" class="d-flex gap-2">
                                 <select name="school_id" class="form-select form-select-solid me-5" data-control="select2"
                                     data-placeholder="select an option">
                                     @foreach ($schools as $school)
@@ -44,8 +39,9 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <button type="submit" class="btn btn-primary fw-bold">Filter</button>
-                                <a href="{{ route('administration.teacher.index') }}" class="btn btn-primary fw-bold">Reset</a>
+                                <button type="submit" class="btn btn-primary fw-bold">Cari</button>
+                                <a href="{{ route('administration.teacher.index') }}"
+                                    class="btn btn-primary fw-bold">Reset</a>
                             </form>
                         </div>
                     </div>
