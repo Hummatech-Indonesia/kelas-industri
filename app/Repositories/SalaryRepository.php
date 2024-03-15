@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class SalaryRepository extends BaseRepository
 {
+    private User $user;
     public function __construct(Salary $model, User $user)
     {
         $this->model = $model;
@@ -67,5 +68,26 @@ class SalaryRepository extends BaseRepository
             ->whereMonth('created_at', Carbon::parse($request->month)->month)
             ->whereYear('created_at', Carbon::parse($request->month)->year)
             ->get();
+    }
+
+    public function school(): mixed
+    {
+        return $this->user->query()
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "school");
+            })
+            ->get();
+    }
+
+    public function getAllTeacherSchool(string $school, int $limit): mixed
+    {
+        return $this->user->query()
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "teacher");
+            })
+            ->whereHas('teacherSchool', function ($q) use ($school) {
+                return $q->where('school_id', $school);
+            })
+            ->paginate($limit);
     }
 }

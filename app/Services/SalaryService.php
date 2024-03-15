@@ -153,4 +153,13 @@ class SalaryService
     {
         return $this->repository->getSalaryMentor($request);
     }
+
+    public function handleGetSchool(): mixed
+    {
+        return $this->repository->school();
+    }
+    public function handleGetAllTeacherSchool(string $school ,string $limit): mixed
+    {
+        return $this->repository->getAllTeacherSchool($school ,$limit);
+    }
 }

@@ -24,17 +24,35 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="d-flex justify-content-end me-4">
-                        <form class="d-flex mt-5" style="width: 300px;" role="search" method="GET">
-                            <input class="form-control me-2" type="text" name="search" placeholder="Cari Guru"
-                                aria-label="Search" value="{{ request('search') }}">
-                            <button class="btn btn-dark fw-bold" id="search">Cari</button>
-                        </form>
+                    <div class="d-flex justify-content-start ms-4 mt-4 gap-2">
+                        <div>
+                            <form class="d-flex" style="width: 300px;" role="search" method="GET">
+                                <input class="form-control me-2" type="text" name="search" placeholder="Cari Guru"
+                                    aria-label="Search" value="{{ request('search') }}">
+                                <button class="btn btn-dark fw-bold" id="search">Cari</button>
+                            </form>
+                        </div>
+                        <div>
+                            <form action="{{ route('administration.teacher.filter') }}" method="GET" class="d-flex gap-2">
+                                <select name="school_id" class="form-select form-select-solid me-5" data-control="select2"
+                                    data-placeholder="select an option">
+                                    @foreach ($schools as $school)
+                                        <option value="">default</option>
+                                        <option value="{{ $school->id }}"
+                                            {{ request('school_id') == $school->id ? 'selected' : '' }}>
+                                            {{ $school->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-primary fw-bold">Filter</button>
+                                <a href="{{ route('administration.teacher.index') }}" class="btn btn-primary fw-bold">Reset</a>
+                            </form>
+                        </div>
                     </div>
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
                         <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" >
+                        <table class="table align-middle table-row-dashed fs-6 gy-5">
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
@@ -62,7 +80,8 @@
                                         <td>{{ $teacher->account_number }}</td>
                                         <td>{{ $teacher->bank }}</td>
                                         <td>
-                                            <a href="{{ route('administration.teacher.show', $teacher->id) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-detail btn-sm me-1"
+                                            <a href="{{ route('administration.teacher.show', $teacher->id) }}"
+                                                class="btn btn-icon btn-bg-light btn-active-color-primary btn-detail btn-sm me-1"
                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                 data-bs-custom-class="custom-tooltip" data-bs-title="Lihat Detail">
                                                 <i class="fa fa-eye fs-3 text-primary"></i>
