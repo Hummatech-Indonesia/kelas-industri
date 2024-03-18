@@ -23,8 +23,10 @@ class DevisionController extends Controller
      */
     public function index()
     {
-        //
-        return view('dashboard.admin.pages.division.index');
+        $data = [
+            'devisions' => $this->devisionService->handleGetAllDevision(),
+        ];
+        return view('dashboard.admin.pages.division.index', $data);
     }
 
     /**

@@ -12,4 +12,9 @@ class DevisionRepository extends BaseRepository
     {
         $this->model= $devision;
     }
+
+    public function getAllDevision()
+    {
+        return $this->model->paginate(6);
+    }
 }

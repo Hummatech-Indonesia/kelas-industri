@@ -15,6 +15,10 @@ class DevisionService
         $this->repository = $repository;
     }
 
+    public function handleGetAllDevision()
+    {
+        return $this->repository->getAllDevision();
+    }
     public function handleStoreDevision(DevisionRequest $request)
     {
         $this->repository->store($request->validated());

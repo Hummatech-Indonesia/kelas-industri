@@ -52,18 +52,19 @@
 
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
+                                    @forelse ($devisions as $devision)
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center justify-content-start">
                                                 <div class="d-flex flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">1</div>
+                                                    <div class="text-gray-900 fw-bold fs-7">{{ $loop->iteration }}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <div class="d-flex flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">ljno</div>
+                                                    <div class="text-gray-900 fw-bold fs-7">{{ $devision->name }}</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -73,12 +74,14 @@
                                                     <div class="text-gray-900 fw-bold fs-7">
                                                         <button
                                                         class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                                        data-id="{{ $devision->id }}"
+                                                        data-name="{{ $devision->name }}"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data">
                                                         <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </button>
 
                                                     <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-delete delete"
-                                                        data-id="" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-id="{{ $devision->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data">
                                                         <i class="fonticon-trash-bin fs-2 text-danger"></i>
                                                     </div>
@@ -87,10 +90,33 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-12 text-center">
+                                                <!--begin::Illustration-->
+                                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
+                                                    alt="" />
+                                                <!--end::Illustration-->
+        
+                                                <!--begin::Title-->
+                                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                                <!--end::Title-->
+        
+                                                <!--begin::Desctiption-->
+                                                <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                                    anda belum memiliki Devisi untuk saat ini.
+                                                </span>
+                                                <!--end::Desctiption-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforelse
                             </tbody>
                             <!--end::Table body-->
                         </table>
                         <!--end::Table-->
+                        {{ $devisions->links('pagination::bootstrap-5') }}
                     </div>
                     <!--end::Card body-->
                 </div>
@@ -147,9 +173,11 @@
                     <!--end::Close-->
                 </div>
                 <div class="modal-body row">
-                    <form action="">
-                        <label for="name">Nama Devisi</label>
-                        <input type="text" name="name" id="name" class="form-control mt-2" placeholder="Masukkan Nama Devisi" required>
+                    <form action="{{ route('admin.devisions.update', $devision->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <label for="name)edit">Nama Devisi</label>
+                        <input type="text" name="name" id="name_edit" class="form-control mt-2" placeholder="Masukkan Nama Devisi" required>
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary mt-5">Simpan</button>
                         </div>
@@ -178,6 +206,9 @@
             $('#kt_modal_plus').modal('show')
         })
         $('.btn-edit').click(function() {
+            var id = $(this).data('id')
+            var name = $(this).data('name')
+            $('#name_edit').val(name)
             $('#kt_modal_edit').modal('show')
         })
     </script>
