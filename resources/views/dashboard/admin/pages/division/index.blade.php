@@ -195,7 +195,7 @@
         document.addEventListener("DOMContentLoaded", () => {
 
             $(document).on('click', '.delete', function() {
-                const url = "{{ route('admin.administrations.destroy', ':id') }}".replace(':id', $(this).data('id'))
+                const url = "{{ route('admin.devisions.destroy', ':id') }}".replace(':id', $(this).data('id'))
                 $('#form-delete').attr('action', url)
 
                 $('#kt_modal_delete').modal('show')
