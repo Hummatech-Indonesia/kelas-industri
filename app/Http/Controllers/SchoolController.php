@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\View\View;
-use App\Services\UserServices;
-use App\Services\SchoolService;
 use App\Http\Requests\SchoolRequest;
+use App\Models\User;
+use App\Services\SchoolService;
+use App\Services\UserServices;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class SchoolController extends Controller
 {
@@ -42,7 +42,7 @@ class SchoolController extends Controller
         $data = [
             'countStudents' => $countStudents,
             'schools' => $schools,
-            'parameters' => $parameters
+            'parameters' => $parameters,
         ];
         return view('dashboard.admin.pages.school.index', $data);
     }
@@ -82,15 +82,14 @@ class SchoolController extends Controller
         $schools = $school->id;
         $countAllStudentActive = $this->service->handleCountAllStudentActive($school->id);
 
-
-        if ($classrooms) {
+        if ($classrooms->isEmpty()) {
+            $countStudents = [];
+        } else {
             foreach ($classrooms as $classroom) {
                 $classroomId = $classroom->id;
                 $countStudentClassroom = $this->service->handleCountStudentClassroom($classroomId, $schools);
                 $countStudents[$classroomId] = $countStudentClassroom->count();
             }
-        } else {
-            $countStudents = [];
         }
 
         $data = [
@@ -100,8 +99,6 @@ class SchoolController extends Controller
         ];
         return view('dashboard.admin.pages.school.detail', $data);
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
