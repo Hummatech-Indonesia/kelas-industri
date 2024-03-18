@@ -57,7 +57,9 @@
                                         <td>
                                             <div class="d-flex align-items-center justify-content-start">
                                                 <div class="d-flex flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">{{ $loop->iteration }}</div>
+                                                    <div class="text-gray-900 fw-bold fs-7">
+                                                        {{ ($devisions->firstItem() - $loop->iteration) + 1 }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>
@@ -173,9 +175,10 @@
                     <!--end::Close-->
                 </div>
                 <div class="modal-body row">
-                    <form action="{{ route('admin.devisions.update', $devision->id) }}" method="POST">
+                    <form id="form_edit" method="POST">
                         @csrf
                         @method('PUT')
+                        <input type="hidden" name="id" id="id_edit">
                         <label for="name)edit">Nama Devisi</label>
                         <input type="text" name="name" id="name_edit" class="form-control mt-2" placeholder="Masukkan Nama Devisi" required>
                         <div class="d-flex justify-content-end">
@@ -209,6 +212,7 @@
             var id = $(this).data('id')
             var name = $(this).data('name')
             $('#name_edit').val(name)
+            $('#form_edit').attr('action', "{{ route('admin.devisions.update', ':id') }}".replace(':id', id))
             $('#kt_modal_edit').modal('show')
         })
     </script>
