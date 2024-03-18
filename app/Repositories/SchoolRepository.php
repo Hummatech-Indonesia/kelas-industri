@@ -67,4 +67,14 @@ class SchoolRepository extends  BaseRepository
             })
             ->get();
     }
+
+    public function countAllStudentActive(string $school)
+    {
+        return $this->model->query()
+            ->where('status', 'active')
+            ->whereHas('studentSchool', function ($query) use ($school) {
+                $query->where('school_id', $school);
+            })
+            ->count();
+    }
 }
