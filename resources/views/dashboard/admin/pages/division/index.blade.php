@@ -117,7 +117,8 @@
                     <!--end::Close-->
                 </div>
                 <div class="modal-body row">
-                    <form action="">
+                    <form action="{{route('admin.devisions.store')}}" method="post">
+                        @csrf
                         <label for="name">Nama Devisi</label>
                         <input type="text" name="name" id="name" class="form-control mt-2" placeholder="Masukkan Nama Devisi" required>
                         <div class="d-flex justify-content-end">

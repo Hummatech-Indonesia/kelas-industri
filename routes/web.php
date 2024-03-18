@@ -7,6 +7,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CertifyController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\DevisionController;
 use App\Http\Controllers\DevisionsController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GalleryController;
@@ -101,7 +102,7 @@ Route::middleware('auth.custom')->group(function () {
             'gallerys' => GalleryController::class,
             'news' => NewsController::class,
             'administrations' => AdminitrasionController::class,
-            'devisions' => DevisionsController::class,
+            'devisions' => DevisionController::class,
         ]);
         Route::patch('updateStatusNews/{news}', [NewsController::class, 'updateStatus'])->name('updateStatusNews');
         Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
