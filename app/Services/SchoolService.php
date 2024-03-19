@@ -6,6 +6,7 @@ use App\Http\Requests\SchoolRequest;
 use App\Http\Requests\SchoolYearRequest;
 use App\Models\User;
 use App\Repositories\SchoolRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class SchoolService
@@ -38,19 +39,23 @@ class SchoolService
         return $this->repository->search_paginate($search, 6);
     }
 
-    public function handleCountStudent(string $id){
+    public function handleCountStudent(string $id)
+    {
         return $this->repository->getCountStudent($id);
     }
 
-    public function handleCountAllStudentActive(string $id){
+    public function handleCountAllStudentActive(string $id)
+    {
         return $this->repository->countAllStudentActive($id);
     }
 
-    public function handleCountStudentClassroom(string $classroom, string $school){
+    public function handleCountStudentClassroom(string $classroom, string $school)
+    {
         return $this->repository->getCountStudentClassroom($classroom, $school);
     }
 
-    public function handleCount(){
+    public function handleCount()
+    {
         return $this->repository->getCount();
     }
 
@@ -80,7 +85,7 @@ class SchoolService
     public function handleUpdate(SchoolRequest $request, User $school): void
     {
         $data = $request->validated();
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             Storage::delete('public/' . $school->photo);
             $data['photo'] = $request->file('photo')->store('school-logo', 'public');
         }
@@ -96,9 +101,14 @@ class SchoolService
      */
     public function handleDelete(User $school): bool
     {
-        if($school->photo){
+        if ($school->photo) {
             $delete = Storage::delete('public/' . $school->photo);
         }
         return $this->repository->destroy($school->id);
+    }
+
+    public function handleGetAllClassroom(User $school, Request $request): mixed
+    {
+        return $this->repository->getAllClassroom($school, $request);
     }
 }

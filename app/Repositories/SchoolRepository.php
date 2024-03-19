@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class SchoolRepository extends  BaseRepository
 {
@@ -76,5 +77,38 @@ class SchoolRepository extends  BaseRepository
                 $query->where('school_id', $school);
             })
             ->count();
+    }
+
+    public function getAllClassroom(User $school, Request $request)
+    {
+        return $this->model->query()
+            ->where('id', $school->id)
+            ->with('classrooms.generation')
+            ->where(function ($query) use ($request) {
+                $search = $request->get('search', '');
+                $query->where('name', 'like', "%$search%")
+                    ->orWhereHas('classrooms', function ($query) use ($search) {
+                        $query->where('name', 'like', "%$search%");
+                    })
+                    ->orWhereHas('classrooms.generation', function ($query) use ($search) {
+                        $query->where('name', 'like', "%$search%");
+                    })
+                    ->orWhereHas('classrooms.generation.schoolYear', function ($query) use ($search) {
+                        $query->where('name', 'like', "%$search%");
+                    });
+                $schoolYearId = (int) $request->get('school_year_id', 0);
+                if ($schoolYearId) {
+                    $query->whereHas('classrooms.generation.schoolYear', function ($query) use ($schoolYearId) {
+                        $query->where('id', $schoolYearId);
+                    });
+                }
+                $generationId = (int) $request->get('generation_id', 0);
+                if ($generationId) {
+                    $query->whereHas('classrooms.generation', function ($query) use ($generationId) {
+                        $query->where('id', $generationId);
+                    });
+                }
+            })
+            ->get();
     }
 }

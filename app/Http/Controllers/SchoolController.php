@@ -4,20 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SchoolRequest;
 use App\Models\User;
+use App\Services\GenerationService;
 use App\Services\SchoolService;
+use App\Services\SchoolYearService;
 use App\Services\UserServices;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SchoolController extends Controller
 {
     private SchoolService $service;
     private UserServices $userService;
+    private GenerationService $generationService;
+    private SchoolYearService $schoolYearService;
 
-    public function __construct(SchoolService $service, UserServices $userService)
+    public function __construct(SchoolService $service, UserServices $userService, GenerationService $generationService, SchoolYearService $schoolYearService)
     {
         $this->service = $service;
         $this->userService = $userService;
+        $this->generationService = $generationService;
+        $this->schoolYearService = $schoolYearService;
     }
 
     /**
@@ -76,11 +83,13 @@ class SchoolController extends Controller
      * @param User $school
      * @return View
      */
-    public function show(User $school): View
+    public function show(User $school, Request $request): View
     {
         $classrooms = $school->classrooms;
-        $schools = $school->id;
+        $schools = $this->service->handleGetAllClassroom($school, $request);
         $countAllStudentActive = $this->service->handleCountAllStudentActive($school->id);
+        $generations = $this->generationService->handleGetAll();
+        $schoolyears = $this->schoolYearService->handleGetAll();
 
         if ($classrooms->isEmpty()) {
             $countStudents = [];
@@ -95,7 +104,10 @@ class SchoolController extends Controller
         $data = [
             'countStudents' => $countStudents,
             'school' => $school,
+            'schools' => $schools,
             'countAllStudent' => $countAllStudentActive,
+            'generations' => $generations,
+            'schoolyears' => $schoolyears,
         ];
         return view('dashboard.admin.pages.school.detail', $data);
     }
