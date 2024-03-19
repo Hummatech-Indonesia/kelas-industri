@@ -19,16 +19,6 @@
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
-
-        <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
-
-            <!--begin::Button-->
-            <a href="{{ route('school.teachers.create') }}" class="btn btn-dark fw-bold">
-                Tambah </a>
-            <!--end::Button-->
-        </div>
-        <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -50,7 +40,6 @@
                                 <th>No Telepon</th>
                                 <th>No Rekening</th>
                                 <th>Bank</th>
-                                <th>Aksi</th>
                             </tr>
                             <!--end::Table row-->
                             </thead>
@@ -123,12 +112,6 @@
                         data: 'teacher.bank',
                         name: 'teacher.bank'
                     },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
                 ]
             });
         });

@@ -18,15 +18,6 @@
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
-        <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
-
-            <!--begin::Button-->
-            <a href="{{ route('school.classrooms.create') }}" class="btn btn-dark fw-bold">
-                Tambah </a>
-            <!--end::Button-->
-        </div>
-        <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -142,17 +133,6 @@
                                 </div>
 
                                 <!--end::Info-->
-
-                                <div class="d-flex">
-                                    <a href="{{ route('school.classrooms.edit', $classroom->id) }}"
-                                        class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip" data-bs-title="Edit"><i
-                                            class="fonticon-setting fs-2 text-warning"></i></a>
-                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $classroom->id }}"
-                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data">
-                                        <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
-                                </div>
 
                             </div>
 

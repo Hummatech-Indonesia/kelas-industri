@@ -95,11 +95,6 @@
                                             {{ $classroom->name }}.</span>
                                     </h3>
                                 </div>
-                                <div class="col-lg-6 d-flex justify-content-end">
-                                    <button class="btn btn-light-primary h-40px fs-7" data-bs-toggle="modal"
-                                        data-bs-target="#modal-add">Tambah
-                                    </button>
-                                </div>
                                 <!--end::Title-->
                             </div>
                             <div class="card-body">
