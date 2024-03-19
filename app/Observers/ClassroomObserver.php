@@ -16,7 +16,7 @@ class ClassroomObserver
     public function creating(Classroom $classroom)
     {
         $classroom->id = Uuid::uuid();
-        $classroom->school_id = auth()->id();
+        // $classroom->school_id = auth()->id();
     }
 
     /**

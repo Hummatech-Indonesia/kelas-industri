@@ -25,13 +25,13 @@
         </div>
         <!--end::Actions-->
     </div>
-    @if($errors->any())
-        <x-errors-component/>
+    @if ($errors->any())
+        <x-errors-component />
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('school.classrooms.update', $classroom->id) }}" method="POST"
-                  enctype="multipart/form-data">
+            <form action="{{ route('admin.classrooms.update', [$classroom->id, $school->id]) }}" method="POST"
+                enctype="multipart/form-data">
                 @method('PATCH')
                 @csrf
                 <div class="col-12">
@@ -52,7 +52,7 @@
                             <div class="card-toolbar">
 
                                 <a href="{{ route('school.classrooms.index') }}"
-                                   class="btn btn-light-primary font-weight-bolder me-2">
+                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
 
@@ -86,8 +86,8 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="name"
-                                               type="text" value="{{ $classroom->name }}" placeholder="X RPL 1"
-                                               required="">
+                                            type="text" value="{{ $classroom->name }}" placeholder="X RPL 1"
+                                            required="">
 
                                     </div>
 
@@ -99,10 +99,12 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <select name="generation_id" class="form-select form-select-solid me-5"
-                                                data-control="select2" data-placeholder="Select an option">
-                                            @foreach($generations as $generation)
+                                            data-control="select2" data-placeholder="Select an option">
+                                            @foreach ($generations as $generation)
                                                 <option
-                                                    {{ ($classroom->generation_id == $generation->id) ? 'selected' : '' }} value="{{ $generation->id }}">{{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}
+                                                    {{ $classroom->generation_id == $generation->id ? 'selected' : '' }}
+                                                    value="{{ $generation->id }}">
+                                                    {{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}
                                                 </option>
                                             @endforeach
                                         </select>

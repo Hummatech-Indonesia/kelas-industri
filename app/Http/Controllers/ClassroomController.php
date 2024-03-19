@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\ClassroomRequest;
+use Exception;
+use App\Models\User;
 use App\Models\Classroom;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Services\StudentService;
+use App\Helpers\SchoolYearHelper;
 use App\Services\ClassroomService;
 use App\Services\GenerationService;
 use App\Services\SchoolYearService;
-use App\Services\StudentService;
-use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use App\Http\Requests\ClassroomRequest;
 
 class ClassroomController extends Controller
 {
@@ -65,9 +66,10 @@ class ClassroomController extends Controller
      *
      * @return View
      */
-    public function create(): View
+    public function create(User $school): View
     {
         $data = [
+            'school' => $school,
             'generations' => $this->generationService->handleGetAll(),
         ];
         return \view('dashboard.admin.pages.classroom.create', $data);
@@ -79,11 +81,11 @@ class ClassroomController extends Controller
      * @param ClassroomRequest $request
      * @return RedirectResponse
      */
-    public function store(ClassroomRequest $request): RedirectResponse
+    public function store(ClassroomRequest $request, User $school): RedirectResponse
     {
-        $this->service->handleCreate($request);
+        $this->service->handleCreate($request, $school->id);
 
-        return to_route('school.classrooms.index')->with('success', trans('alert.add_success'));
+        return to_route('admin.schools.show', $school->id)->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -110,9 +112,10 @@ class ClassroomController extends Controller
      * @param Classroom $classroom
      * @return View
      */
-    public function edit(Classroom $classroom): View
+    public function edit(Classroom $classroom, User $school): View
     {
         $data = [
+            'school' => $school,
             'classroom' => $classroom,
             'generations' => $this->generationService->handleGetAll(),
         ];
@@ -126,11 +129,11 @@ class ClassroomController extends Controller
      * @param Classroom $classroom
      * @return RedirectResponse
      */
-    public function update(ClassroomRequest $request, Classroom $classroom): RedirectResponse
+    public function update(ClassroomRequest $request, Classroom $classroom, User $school): RedirectResponse
     {
         $this->service->handleUpdate($request, $classroom->id);
 
-        return to_route('school.classrooms.index')->with('success', trans('alert.update_success'));
+        return to_route('admin.schools.show', $school->id)->with('success', trans('alert.update_success'));
     }
 
     /**

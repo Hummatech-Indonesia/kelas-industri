@@ -8,7 +8,6 @@ use App\Http\Controllers\CertifyController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DevisionController;
-use App\Http\Controllers\DevisionsController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GenerationController;
@@ -83,6 +82,11 @@ Route::middleware('auth.custom')->group(function () {
         Route::patch('studentRegistration/updateSchool', [ApprovalController::class, 'updateSchool'])->name('updateSchool');
         Route::patch('approve-student-all', [ApprovalController::class, 'approveAll'])->name('approveStudentAll');
         Route::patch('approve-student/{user}', [ApprovalController::class, 'approve']);
+        Route::get('classrooms/create/{school}', [ClassroomController::class, 'create'])->name('classrooms.create');
+        Route::post('classrooms/store/{school}', [ClassroomController::class, 'store'])->name('classrooms.store');
+        Route::get('classrooms/{classroom}/{school}/edit', [ClassroomController::class, 'edit'])->name('classrooms.edit');
+        Route::patch('classrooms/{classroom}/{school}', [ClassroomController::class, 'update'])->name('classrooms.update');
+        Route::delete('classrooms/{classroom}', [ClassroomController::class, 'destroy'])->name('classrooms.destroy');
 
         Route::resources([
             'schoolYears' => SchoolYearController::class,

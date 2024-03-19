@@ -35,6 +35,7 @@ abstract class BaseRepository implements BaseInterface
 
     public function store(array $data): mixed
     {
+        // dd($data);
         return $this->model->create($data);
     }
 
@@ -76,11 +77,14 @@ abstract class BaseRepository implements BaseInterface
     public function destroy(mixed $id): mixed
     {
         $destroy = $this->show($id);
-        
+
         try {
             $destroy = $destroy->delete($id);
         } catch (QueryException $e) {
-            if ($e->errorInfo[1] == 1451) return false;
+            if ($e->errorInfo[1] == 1451) {
+                return false;
+            }
+
         }
 
         return $destroy;

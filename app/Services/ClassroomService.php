@@ -108,9 +108,15 @@ class ClassroomService
      * @param ClassroomRequest $request
      * @return void
      */
-    public function handleCreate(ClassroomRequest $request): void
+    public function handleCreate(ClassroomRequest $request, string $school): void
     {
-        $this->repository->store($request->validated());
+        $data = $request->validated();
+
+        $this->repository->store([
+            'generation_id' => $data['generation_id'],
+            'school_id' => $school,
+            'name' => $data['name'],
+        ]);
     }
 
     /**
