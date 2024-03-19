@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use App\Models\User;
-use App\Models\Classroom;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use App\Services\StudentService;
 use App\Helpers\SchoolYearHelper;
+use App\Http\Requests\ClassroomRequest;
+use App\Models\Classroom;
+use App\Models\User;
 use App\Services\ClassroomService;
 use App\Services\GenerationService;
 use App\Services\SchoolYearService;
+use App\Services\StudentService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\ClassroomRequest;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ClassroomController extends Controller
 {
@@ -99,9 +99,9 @@ class ClassroomController extends Controller
     {;
 
         $data = [
-            'studentClassroom' => $this->studentService->handleGetStudentByClassroom(auth()->id(), $classroom->id),
+            'studentClassroom' => $this->studentService->handleGetStudentByClassroom($classroom->school->id, $classroom->id),
             'classroom' => $classroom,
-            'students' => $this->studentService->handleGetBySchool(auth()->id(), $classroom->id),
+            'students' => $this->studentService->handleGetBySchool($classroom->school->id),
         ];
         return \view('dashboard.admin.pages.classroom.detail', $data, );
     }

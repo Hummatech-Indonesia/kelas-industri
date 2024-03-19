@@ -250,7 +250,7 @@
         });
 
         getGenertation($('#schoolYear').val())
-
+        
         function getGenertation(schoolYear) {
             $.ajax({
                 method: 'GET',
@@ -280,7 +280,6 @@
                 }
             })
         }
-
 
         $('#schoolYear').change(function() {
             getGenertation($(this).val())

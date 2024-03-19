@@ -22,58 +22,67 @@
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
-        <!--begin::Actions-->
-        <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ route('school.classrooms.index') }}"
-                class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                <i class="bi bi-arrow-left me-2"></i> Kembali
-            </a>
-        </div>
-        <!--end::Actions-->
+        @if (auth()->user()->hasRole('admin'))
+            <!--begin::Actions-->
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <a href="{{ route('admin.schools.show', $classroom->school->id) }}"
+                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                    <i class="bi bi-arrow-left me-2"></i> Kembali
+                </a>
+            </div>
+            <!--end::Actions-->
+        @else
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <a href="{{ route('school.classrooms.index') }}"
+                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                    <i class="bi bi-arrow-left me-2"></i> Kembali
+                </a>
+            </div>
+        @endif
     </div>
 
+    @if (auth()->user()->hasRole('admin'))
+        {{--    modal add student --}}
+        <div class="modal fade" tabindex="-1" id="modal-add">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Tambah Siswa</h3>
 
-
-    {{--    modal add student --}}
-    <div class="modal fade" tabindex="-1" id="modal-add">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Tambah Siswa</h3>
-
-                    <!--begin::Close-->
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <span class="svg-icon svg-icon-1"></span>
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <form action="{{ route('school.rollingStudent.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="classroom_id" value="{{ $classroom->id }}">
-                    <div class="modal-body">
-                        <div class="col-12">
-                            <label for="">Siswa <span class="text-danger">*</span></label>
-                            <select name="students[]" class="form-select form-select-solid me-5 mt-3" data-control="select2"
-                                data-placeholder="Select an option" multiple="multiple">
-                                @foreach ($students as $student)
-                                    <option
-                                        {{ in_array($student->id, $classroom->students->pluck('student_school_id')->toArray()) ? 'selected' : '' }}
-                                        value="{{ $student->id }}">{{ $student->student->name }}</option>
-                                @endforeach
-                            </select>
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            <span class="svg-icon svg-icon-1"></span>
                         </div>
+                        <!--end::Close-->
                     </div>
+                    <form action="{{ route('admin.rollingStudent.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="classroom_id" value="{{ $classroom->id }}">
+                        <div class="modal-body">
+                            <div class="col-12">
+                                <label for="">Siswa <span class="text-danger">*</span></label>
+                                <select name="students[]" class="form-select form-select-solid me-5 mt-3"
+                                    data-control="select2" data-placeholder="Select an option" multiple="multiple">
+                                    @foreach ($students as $student)
+                                        <option
+                                            {{ in_array($student->id, $classroom->students->pluck('student_school_id')->toArray()) ? 'selected' : '' }}
+                                            value="{{ $student->id }}">{{ $student->student->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    {{--    end modal add student --}}
+        {{--    end modal add student --}}
+    @endif
 
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -95,6 +104,13 @@
                                             {{ $classroom->name }}.</span>
                                     </h3>
                                 </div>
+                                @if (auth()->user()->hasRole('admin'))
+                                    <div class="col-lg-6 d-flex justify-content-end">
+                                        <button class="btn btn-light-primary h-40px fs-7" data-bs-toggle="modal"
+                                            data-bs-target="#modal-add">Tambah
+                                        </button>
+                                    </div>
+                                @endif
                                 <!--end::Title-->
                             </div>
                             <div class="card-body">
@@ -144,7 +160,7 @@
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-100px symbol-circle mb-7">
                                     <img src="{{ $classroom->teacherClassroom->teacherSchool->teacher->photo ? asset('storage/' . $classroom->teacherClassroom->teacherSchool->teacher->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
-                                    alt="image" />
+                                        alt="image" />
                                 </div>
                                 <!--end::Avatar-->
 

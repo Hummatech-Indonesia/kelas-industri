@@ -473,17 +473,15 @@
                                                 </svg>
                                             </span>
                                             <!--end::Svg Icon-->
-                                            <a href="{{ route('common.showClassrooms', $classroom->id) }}"
+                                            <a href="{{ route('admin.classrooms.show', $classroom->id) }}"
                                                 class="fw-bold text-info ml-2">{{ $countStudents[$classroom->id] }}
                                                 Siswa</a>
-
-
                                         </div>
 
 
                                     </div>
 
-                                    <a href="{{ route('common.showClassrooms', $classroom->id) }}"
+                                    <a href="{{ route('admin.classrooms.show', $classroom->id) }}"
                                         class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                 </div>
@@ -516,12 +514,55 @@
         });
     </script>
     <script>
-        $('.btn-delete').click(function() {
-            const url = "{{ route('admin.classrooms.destroy', ':id') }}".replace(':id', $(this).data(
-                'id'))
-            $('#form-delete').attr('action', url)
+        document.addEventListener("DOMContentLoaded", () => {
+            $('.btn-delete').click(function() {
+                const url = "{{ route('admin.classrooms.destroy', ':id') }}".replace(':id', $(this).data(
+                    'id'))
+                $('#form-delete').attr('action', url)
 
-            $('#kt_modal_delete').modal('show')
+                $('#kt_modal_delete').modal('show')
+            })
+
+            $('#btn-search').click(function() {
+                window.location.href = "{{ route('school.classrooms.index', 'search=' . ':id') }}".replace(
+                    ':id', $("input[name='search']").val())
+            })
+        });
+
+        getGenertation($('#schoolYear').val())
+
+        function getGenertation(schoolYear) {
+            $.ajax({
+                method: 'GET',
+                url: '{{ route('school.classrooms.index') }}',
+                data: {
+                    school_year_id: schoolYear
+                },
+                success: function(generations) {
+                    $('#generations').html('')
+                    console.log(generations)
+                    let html = '<option value=""></option>'
+
+                    generations.map(generation => {
+                        if (generation.id == "{{ request()->generation_id }}") {
+                            html +=
+                                `<option selected value="${generation.id}">${generation.generation}</option>`
+                        } else {
+                            html +=
+                                `<option value="${generation.id}">${generation.generation}</option>`
+                        }
+                    })
+
+                    $('#generations').html(html)
+                },
+                error: function(response) {
+                    console.log(response.responseText)
+                }
+            })
+        }
+
+        $('#schoolYear').change(function() {
+            getGenertation($(this).val())
         })
     </script>
 @endsection

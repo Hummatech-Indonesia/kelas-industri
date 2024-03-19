@@ -8,6 +8,7 @@ use App\Http\Controllers\CertifyController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DevisionController;
+use App\Http\Controllers\DevisionsController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GenerationController;
@@ -74,7 +75,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/report', [ReportController::class, 'index'])->name('report');
         Route::get('/detailKelas/{school}', [ReportController::class, 'show'])->name('detailKelas');
         Route::get('/detailSiswa/{classroom}', [ReportController::class, 'detail'])->name('detailSiswa');
-        Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
+        Route::resource('classrooms', ClassroomController::class)->only('show');
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
 
         Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
@@ -86,7 +87,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('classrooms/store/{school}', [ClassroomController::class, 'store'])->name('classrooms.store');
         Route::get('classrooms/{classroom}/{school}/edit', [ClassroomController::class, 'edit'])->name('classrooms.edit');
         Route::patch('classrooms/{classroom}/{school}', [ClassroomController::class, 'update'])->name('classrooms.update');
-        Route::delete('classrooms/{classroom}', [ClassroomController::class, 'destroy'])->name('classrooms.destroy');
+        Route::delete('classrooms/{classroom}',[ClassroomController::class, 'destroy'])->name('classrooms.destroy');
 
         Route::resources([
             'schoolYears' => SchoolYearController::class,
@@ -137,6 +138,11 @@ Route::middleware('auth.custom')->group(function () {
         Route::name('submaterials.')->prefix('submaterials')->group(function () {
             Route::get('/assignments/{submaterial}/create', [AssignmentController::class, 'create'])->name('createAssignment');
             Route::get('/{submaterial}/view/{role}', [SubMaterialController::class, 'viewMaterial'])->name('viewMaterial');
+        });
+
+        Route::prefix('rolling-student')->name('rollingStudent.')->group(function () {
+            Route::get('/', [StudentController::class, 'rollingStudent'])->name('index');
+            Route::post('/', [ClassroomController::class, 'addStudentClassroom'])->name('store');
         });
 
         Route::patch('validStatus/{submitReward}', [SubmitRewardController::class, 'validStatus'])->name('validStatus');
@@ -199,11 +205,6 @@ Route::middleware('auth.custom')->group(function () {
             Route::get('/{teacher}', [TeacherController::class, 'addRollingTeacher'])->name('add');
             Route::post('/action-rolling-teacher', [TeacherController::class, 'actionRollingTeacher'])->name('actionRollingTeacher');
             Route::delete('/delete-rolling-teacher/{teacherClassroom}', [TeacherController::class, 'deleteTeacherClassroom'])->name('deleteRollingTeacher');
-        });
-
-        Route::prefix('rolling-student')->name('rollingStudent.')->group(function () {
-            Route::get('/', [StudentController::class, 'rollingStudent'])->name('index');
-            Route::post('/', [ClassroomController::class, 'addStudentClassroom'])->name('store');
         });
 
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
