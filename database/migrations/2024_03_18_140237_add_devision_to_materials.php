@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('devisions', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('materials', function (Blueprint $table) {
+            //
+            $table->foreignUuid('devision_id')->constrained('devisions')->cascadeOnDelete()->nullable()->after('id');
         });
     }
 
@@ -27,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devision');
+        Schema::table('materials', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -16,7 +16,7 @@ class Material extends Model
     protected $table = 'materials';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'generation_id', 'title', 'description'];
+    protected $fillable = ['id', 'generation_id', 'title', 'description', 'devision_id'];
 
     /**
      * many to one relationship

@@ -17,7 +17,8 @@ class MaterialRequest extends BaseRequest
         return [
             'generation_id' => 'required',
             'title'         => 'required|string',
-            'description'   => 'required'
+            'description'   => 'required',
+            'devision_id'   => 'required'
         ];
     }
 
@@ -30,6 +31,7 @@ class MaterialRequest extends BaseRequest
     {
         return [
             'generation_id.required'    => 'Angkatan tidak boleh kosong !',
+            'devision_id.required'    => 'devisi tidak boleh kosong !',
             'title.required'            => 'Judul tidak boleh kosong !',
             'title.string'              => 'Judul harus berupa string !',
             'description.required'      => 'Deskripsi tidak boleh kosong !'

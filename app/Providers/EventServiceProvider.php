@@ -13,6 +13,7 @@ use App\Models\Challenge;
 use App\Models\Classroom;
 use App\Models\Assignment;
 use App\Models\Attendance;
+use App\Models\Devision;
 use App\Models\SubMaterial;
 use App\Observers\ExamObserver;
 use App\Observers\NewsObserver;
@@ -25,6 +26,7 @@ use App\Observers\ChallengeObserver;
 use App\Observers\ClassroomObserver;
 use App\Observers\AssignmentObserver;
 use App\Observers\AttendanceObserver;
+use App\Observers\DevisionObserver;
 use App\Observers\SubmaterialObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -62,6 +64,7 @@ class EventServiceProvider extends ServiceProvider
         Salary::observe(SalaryObserver::class);
         Reward::observe(RewardObserver::class);
         News::observe(NewsObserver::class);
+        Devision::observe(DevisionObserver::class);
     }
 
     /**

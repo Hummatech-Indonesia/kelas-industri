@@ -12,6 +12,7 @@ use App\Services\SchoolYearService;
 use App\Services\SubMaterialService;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MaterialRequest;
+use App\Services\DevisionService;
 
 class MaterialController extends Controller
 {
@@ -19,13 +20,15 @@ class MaterialController extends Controller
     private GenerationService $generationService;
     private SubMaterialService $subMaterialService;
     private SchoolYearService $schoolYearService;
+    private DevisionService $devisionService;
 
-    public function __construct(MaterialService $service, GenerationService $generationService, SubMaterialService $subMaterialService, SchoolYearService $schoolYearService)
+    public function __construct(MaterialService $service, GenerationService $generationService, SubMaterialService $subMaterialService, SchoolYearService $schoolYearService, DevisionService $devisionService)
     {
         $this->service = $service;
         $this->generationService = $generationService;
         $this->subMaterialService = $subMaterialService;
         $this->schoolYearService = $schoolYearService;
+        $this->devisionService = $devisionService;
     }
 
     /**
@@ -64,7 +67,8 @@ class MaterialController extends Controller
     public function create(): View
     {
         $data = [
-            'generations' => $this->generationService->handleGetAll()
+            'generations' => $this->generationService->handleGetAll(),
+            'devisions' => $this->devisionService->handleGetAll()
         ];
         return view('dashboard.admin.pages.material.create', $data);
     }
