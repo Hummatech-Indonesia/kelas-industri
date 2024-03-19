@@ -124,8 +124,8 @@
                         <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="light">
                             <span class="menu-icon" data-kt-element="icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen060.svg-->
-                                <span class="svg-icon svg-icon-3"><svg width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <span class="svg-icon svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M11.9905 5.62598C10.7293 5.62574 9.49646 5.9995 8.44775 6.69997C7.39903 7.40045 6.58159 8.39619 6.09881 9.56126C5.61603 10.7263 5.48958 12.0084 5.73547 13.2453C5.98135 14.4823 6.58852 15.6185 7.48019 16.5104C8.37186 17.4022 9.50798 18.0096 10.7449 18.2557C11.9818 18.5019 13.2639 18.3757 14.429 17.8931C15.5942 17.4106 16.5901 16.5933 17.2908 15.5448C17.9915 14.4962 18.3655 13.2634 18.3655 12.0023C18.3637 10.3119 17.6916 8.69129 16.4964 7.49593C15.3013 6.30056 13.6808 5.62806 11.9905 5.62598Z"
                                             fill="currentColor" />
@@ -169,8 +169,8 @@
                         <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="dark">
                             <span class="menu-icon" data-kt-element="icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen061.svg-->
-                                <span class="svg-icon svg-icon-3"><svg width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <span class="svg-icon svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M19.0647 5.43757C19.3421 5.43757 19.567 5.21271 19.567 4.93534C19.567 4.65796 19.3421 4.43311 19.0647 4.43311C18.7874 4.43311 18.5625 4.65796 18.5625 4.93534C18.5625 5.21271 18.7874 5.43757 19.0647 5.43757Z"
                                             fill="currentColor" />
@@ -228,21 +228,23 @@
 
                     <!--begin::Name-->
                     <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
-                        {{-- <span class="text-muted fs-8 fw-semibold lh-1 mb-1">{{ auth()->user()->name }}</span>
+                        <span class="text-muted fs-8 fw-semibold lh-1 mb-1">{{ auth()->user()->name }}</span>
                         <span class="text-white fs-8 fw-bold lh-1">@php
                             if (auth()->user()->roles->pluck('name')[0] == 'admin') {
                                 echo 'Admin';
-                            }elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
+                            } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
                                 echo 'Sekolah';
+                            } elseif (auth()->user()->roles->pluck('name')[0] == 'administration') {
+                                echo 'Admin Keuangan';
                             }
-                        @endphp</span> --}}
+                        @endphp</span>
                     </div>
                     <!--end::Name-->
 
                     <!--begin::Symbol-->
                     <div class="symbol symbol-30px symbol-md-40px">
                         <img src="
-                        {{-- {{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }} --}}
+                        {{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}
                         "
                             alt="image" />
                     </div>
@@ -261,7 +263,7 @@
                             <div class="symbol symbol-50px me-5">
                                 <img alt="Logo"
                                     src="
-                                    {{-- {{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }} --}}
+                                    {{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}
                                     " />
                             </div>
                             <!--end::Avatar-->
@@ -269,12 +271,13 @@
                             <!--begin::Username-->
                             <div class="d-flex flex-column">
                                 <div class="fw-bold d-flex align-items-center fs-5">
-                                    {{-- {{ auth()->user()->name }} --}}
+                                    {{ auth()->user()->name }}
                                 </div>
 
-                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7" style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
-                                    {{-- {{ auth()->user()->email }} --}}
-                                 </a>
+                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7"
+                                    style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+                                    {{ auth()->user()->email }}
+                                </a>
                             </div>
                             <!--end::Username-->
                         </div>
