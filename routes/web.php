@@ -16,6 +16,7 @@ use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
@@ -27,6 +28,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TrackingPaymentController;
 use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\WelcomeController;
@@ -179,6 +181,10 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('salary-mentor', [AdminitrasionController::class, 'salaryMentor'])->name('salary-mentor.index');
         Route::get('salary-mentor/show', [AdminitrasionController::class, 'showSalaryMentor'])->name('salary-mentor.show');
+
+        Route::resource('tracking', TrackingPaymentController::class);
+        Route::get('tracking/student-school/{school}', [TrackingPaymentController::class, 'allStudent'])->name('tracking.showStudent');
+        Route::get('tracking/student-school/95e49875-dfcf-3f0e-accc-61983da745d0/detail', [TrackingPaymentController::class, 'detailStudent'])->name('tracking.detailStudent');
     });
     //end finance
 
@@ -196,6 +202,7 @@ Route::middleware('auth.custom')->group(function () {
             'teachers' => TeacherController::class,
             'journal' => JurnalController::class,
             'exam' => ExamController::class,
+            'payment' => PaymentController::class,
         ]);
 
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
