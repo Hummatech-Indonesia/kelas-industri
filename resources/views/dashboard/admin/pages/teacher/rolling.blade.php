@@ -1,22 +1,29 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
-    <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
+    <div class="toolbar mb-5 mb-lg-7 d-flex justify-content-between" id="kt_toolbar">
+        <div class="">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column me-3">
+                <!--begin::Title-->
+                <h1 class="d-flex text-dark fw-bold my-1 fs-3">
+                    Rolling Guru
+                </h1>
+                <!--end::Title-->
 
 
-        <!--begin::Page title-->
-        <div class="page-title d-flex flex-column me-3">
-            <!--begin::Title-->
-            <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Rolling Guru
-            </h1>
-            <!--end::Title-->
+                <!--begin::Breadcrumb-->
+                <p class="text-muted">
+                    List guru beserta kelas yang sedang diampu.
+                </p>
+                <!--end::Breadcrumb-->
+            </div>
+        </div>
 
-
-            <!--begin::Breadcrumb-->
-            <p class="text-muted">
-                List guru beserta kelas yang sedang diampu.
-            </p>
-            <!--end::Breadcrumb-->
+        <div class="">
+            <a href="{{ route('admin.schools.show', $school->id) }}"
+                class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Kembali
+            </a>
         </div>
         <!--end::Page title-->
 

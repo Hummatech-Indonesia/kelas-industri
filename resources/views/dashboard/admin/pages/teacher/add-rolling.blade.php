@@ -21,7 +21,7 @@
         <!--end::Page title-->
         <!--begin::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ route('school.rollingTeacher.index') }}"
+            <a href="{{ route('admin.rollingTeacher.index', $school) }}"
                 class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                 <i class="bi bi-arrow-left me-2"></i> Kembali
             </a>
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('school.rollingTeacher.actionRollingTeacher') }}" method="POST">
+                        <form action="{{ route('admin.rollingTeacher.actionRollingTeacher') }}" method="POST">
                             @method('POST')
                             @csrf
                             <div class="row">
@@ -128,7 +128,7 @@
         handleGetTeacherClassrooms()
 
         $(document).on('click', '.delete', function() {
-            const url = "{{ route('school.rollingTeacher.deleteRollingTeacher', ':id') }}".replace(':id', $(this)
+            const url = "{{ route('admin.rollingTeacher.deleteRollingTeacher', ':id') }}".replace(':id', $(this)
                 .data('id'))
             $('#form-delete').attr('action', url)
 
@@ -138,7 +138,7 @@
         function handleGetTeacherClassrooms() {
             $.ajax({
                 method: 'GET',
-                url: '{{ route('school.rollingTeacher.add', $teacher->id) }}',
+                url: '{{ route('admin.rollingTeacher.add', $teacher->id) }}',
                 success: function(classrooms) {
                     let html = ''
 

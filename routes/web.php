@@ -155,7 +155,7 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::prefix('rolling-teacher')->name('rollingTeacher.')->group(function () {
             Route::get('/{school}', [TeacherController::class, 'rollingTeacher'])->name('index');
-            Route::get('/{teacher}', [TeacherController::class, 'addRollingTeacher'])->name('add');
+            Route::get('addRollingTeacher/{teacher}', [TeacherController::class, 'addRollingTeacher'])->name('add');
             Route::post('/action-rolling-teacher', [TeacherController::class, 'actionRollingTeacher'])->name('actionRollingTeacher');
             Route::delete('/delete-rolling-teacher/{teacherClassroom}', [TeacherController::class, 'deleteTeacherClassroom'])->name('deleteRollingTeacher');
         });
