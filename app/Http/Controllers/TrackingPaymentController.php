@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaymentRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Services\PaymentService;
 use App\Services\SchoolService;
+use App\Services\StudentService;
 use App\Services\UserServices;
 use Illuminate\View\View;
 
@@ -12,11 +15,15 @@ class TrackingPaymentController extends Controller
 {
     private SchoolService $service;
     private UserServices $userService;
+    private PaymentService $servicePayment;
+    private StudentService $studentService;
 
-    public function __construct(SchoolService $service, UserServices $userService)
+    public function __construct(SchoolService $service, UserServices $userService, PaymentService $servicePayment, StudentService $studentService)
     {
         $this->service = $service;
         $this->userService = $userService;
+        $this->servicePayment = $servicePayment;
+        $this->studentService = $studentService;
     }
 
     /**
@@ -62,9 +69,12 @@ class TrackingPaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PaymentRequest $request)
     {
         //
+        $request->validated();
+        $this->servicePayment->handleStore($request);
+        return redirect()->back();
     }
 
     /**
@@ -75,7 +85,6 @@ class TrackingPaymentController extends Controller
      */
     public function show($userId)
     {
-        
     }
 
     /**
@@ -96,9 +105,12 @@ class TrackingPaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PaymentRequest $request, string $payment)
     {
         //
+        $request->validated();
+        $this->servicePayment->handleUpdate($payment, $request);
+        return redirect()->back();
     }
 
     /**
@@ -111,11 +123,15 @@ class TrackingPaymentController extends Controller
     {
         //
     }
-    public function allStudent($school){
-        return view('dashboard.finance.pages.trackingPayment.student');
+    public function allStudent(string $schoolId)
+    {
+        $data['students'] = $this->studentService->handleGetBySchool($schoolId);
+        return view('dashboard.finance.pages.trackingPayment.student', $data);
     }
-    public function detailStudent(){
-        return view('dashboard.finance.pages.trackingPayment.detailStudent');
+    public function detailStudent(string $user)
+    {
+        $data['student'] = $this->userService->handleGetById($user);
+        $data['trackings'] = $this->servicePayment->handleGetByStudent($user);
+        return view('dashboard.finance.pages.trackingPayment.detailStudent', $data);
     }
 }
-

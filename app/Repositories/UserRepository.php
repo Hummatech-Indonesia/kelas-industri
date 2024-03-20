@@ -230,4 +230,11 @@ class UserRepository extends BaseRepository
             })
             ->first();
     }
+
+    public function get_by_id($user): mixed
+    {
+        return $this->model->query()
+            ->where('id', $user)
+            ->first();
+    }
 }

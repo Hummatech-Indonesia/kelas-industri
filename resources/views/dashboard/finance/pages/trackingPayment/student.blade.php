@@ -59,90 +59,74 @@
 
                         <!--begin::Table body-->
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <div class="text-gray-900 fw-bold fs-7">
-                                                1
+                            @forelse ($students as $student)
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex justify-content-start flex-column">
+                                                <div class="text-gray-900 fw-bold fs-7">
+                                                    {{ $loop->iteration }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <div class="text-gray-900 fw-bold fs-7">Irsyad
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex justify-content-start flex-column">
+                                                <div class="text-gray-900 fw-bold fs-7">{{ $student->student->name }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <div class="text-gray-900 fw-bold fs-7">083456345678
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex justify-content-start flex-column">
+                                                <div class="text-gray-900 fw-bold fs-7">
+                                                    {{ $student->student->phone_number }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
-                                    <span class="text-gray-900 fw-bold fs-7">email@gmail.com</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <div class="text-gray-900 fw-bold fs-7">Rp 400.000
+                                    </td>
+                                    <td
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
+                                        <span class="text-gray-900 fw-bold fs-7">{{ $student->student->email }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex justify-content-start flex-column">
+                                                <div class="text-gray-900 fw-bold fs-7">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex justify-content-start">
-                                            <div class="text-gray-900 fw-bold fs-7">Rp 200.000
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex justify-content-start">
+                                                <div class="text-gray-900 fw-bold fs-7">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex justify-content-start">
-                                            {{-- <div class="fw-semibold fs-7" style="background-color: #4eb443; color: white; border-radius: 5px; padding: 5px ">Lunas
-                                            </div> --}}
-                                            <div class="fw-semibold fs-7"
-                                                style="background-color: #b44343; color: white; border-radius: 5px; padding: 5px ">
-                                                Belum Lunas
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex justify-content-start">
+                                                {{-- <div class="fw-semibold fs-7" style="background-color: #4eb443; color: white; border-radius: 5px; padding: 5px ">Lunas
+                                                </div> --}}
+                                                <div class="fw-semibold fs-7"
+                                                    style="background-color: #b44343; color: white; border-radius: 5px; padding: 5px ">
+                                                    Belum Lunas
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="{{ route('administration.tracking.detailStudent') }}"
-                                        class="btn btn-primary">Lihat</a>
-                                </td>
-                            </tr>
-                            {{-- @empty
-                            <tr>
-                                <td colspan="7">
-                                    <div class="col-12 text-center">
-                                        <!--begin::Illustration-->
-                                        <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
-                                            alt="" />
-                                        <!--end::Illustration-->
-
-                                        <!--begin::Title-->
-                                        <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
-                                        <!--end::Title-->
-
-                                        <!--begin::Desctiption-->
-                                        <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                            anda belum memiliki berita untuk saat ini.
-                                        </span>
-                                        <!--end::Desctiption-->
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforelse --}}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('administration.tracking.detailStudent', ['school' => $student->school_id, 'user' => $student->student->id]) }}"
+                                            class="btn btn-primary">Lihat</a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <x-empty-component title="kelas" />
+                            @endforelse
                         </tbody>
                         <!--end::Table body-->
                     </table>

@@ -10,7 +10,8 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Irsyad Andhika - X RPL 1 - SMK TESTING 1
+                {{ $student->name }} - {{ $student->studentSchool->studentClassroom->classroom->name }} -
+                {{ $student->studentSchool->school->name }}
             </h1>
             <!--end::Title-->
 
@@ -58,31 +59,41 @@
 
                         <!--begin::Table body-->
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <div class="text-gray-900 fw-bold fs-7">
-                                                1
+                            @forelse ($trackings as $tracking)
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex justify-content-start flex-column">
+                                                <div class="text-gray-900 fw-bold fs-7">
+                                                    {{ $loop->iteration }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
-                                    <span class="text-gray-900 fw-bold fs-7">Rp 300.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="d-flex justify-content-start flex-column">
-                                            <div class="text-gray-900 fw-bold fs-7">28 Maret 2024
+                                    </td>
+                                    <td
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
+                                        <span class="text-gray-900 fw-bold fs-7">Rp.
+                                            {{ number_format($tracking->total_pay, 0, ',', '.') }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex justify-content-start flex-column">
+                                                <div class="text-gray-900 fw-bold fs-7">
+                                                    {{ Carbon::parse($tracking->payment_date)->translatedFormat('d F Y') }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary btn-edit">Edit</button>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary btn-edit" data-id="{{ $tracking->id }}"
+                                            data-user="{{ $tracking->user_id }}"
+                                            data-total="{{ $tracking->total_pay }}"
+                                            data-payment="{{ $tracking->payment_date }}">Edit</button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <x-empty-component title="transaksi" />
+                            @endforelse
                             {{-- @empty
                             <tr>
                                 <td colspan="7">
@@ -135,15 +146,17 @@
                     <!--end::Close-->
                 </div>
                 <div class="modal-body row">
-                    <form action="">
+                    <form action="{{ route('administration.tracking.detailStudent.store', $student->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="user_id" value="{{ $student->id }}">
                         <div class="mb-3">
-                            <label for="nominal">Nominal Uang</label>
-                            <input type="number" class="form-control" name="nominal" id="nominal">
+                            <label for="total_pay">Nominal Uang</label>
+                            <input type="number" class="form-control" name="total_pay" id="total_pay">
                         </div>
                         <div class="mb-5">
-                            <label for="date">tanggal</label>
-                            <input type="date" class="form-control" name="date" id="date">
+                            <label for="payment_date">tanggal</label>
+                            <input type="date" class="form-control" name="payment_date" id="payment_date" now>
                         </div>
                         <div class="mb-3 d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">Simpan</button>
@@ -171,15 +184,17 @@
                     <!--end::Close-->
                 </div>
                 <div class="modal-body row">
-                    <form action="">
+                    <form method="POST" id="form_edit">
                         @csrf
+                        @method('PUT')
+                        <input type="text" name="user_id" id="user-edit">
                         <div class="mb-3">
-                            <label for="nominal">Nominal Uang</label>
-                            <input type="number" class="form-control" name="nominal" id="nominal">
+                            <label for="total_pay">Nominal Uang</label>
+                            <input type="number" class="form-control" name="total_pay" id="total-edit">
                         </div>
                         <div class="mb-5">
-                            <label for="date">tanggal</label>
-                            <input type="date" class="form-control" name="date" id="date">
+                            <label for="payment_date">tanggal</label>
+                            <input type="date" class="form-control" name="payment_date" id="payment-edit">
                         </div>
                         <div class="mb-3 d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">Simpan</button>
@@ -204,6 +219,15 @@
             $('#create_modal').modal('show');
         });
         $('.btn-edit').click(function() {
+            var id = $(this).data('id');
+            var user = $(this).data('user');
+            var totalPay = $(this).data('total');
+            var paymentDate = $(this).data('payment');
+            $('#user-edit').val(user);
+            $('#payment-edit').val(paymentDate);
+            $('#total-edit').val(totalPay);
+            $('#form_edit').attr('action', "{{ route('administration.tracking.detailStudent.update', ':id') }}"
+                .replace(':id', id))
             $('#edit_modal').modal('show');
         });
     </script>

@@ -282,4 +282,9 @@ class UserServices
     {
         return $this->repository->get_show_mentor($id);
     }
+
+    public function handleGetById(string $user): mixed
+    {
+        return $this->repository->get_by_id($user);
+    }
 }
