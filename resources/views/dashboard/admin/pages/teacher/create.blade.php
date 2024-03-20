@@ -25,12 +25,12 @@
         </div>
         <!--end::Actions-->
     </div>
-    @if($errors->any())
-        <x-errors-component/>
+    @if ($errors->any())
+        <x-errors-component />
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('school.teachers.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.teachers.store', $school->id) }}" method="POST">
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -49,8 +49,8 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('school.teachers.index') }}"
-                                   class="btn btn-light-primary font-weight-bolder me-2">
+                                <a href="{{ route('admin.schools.show', $school->id) }}"
+                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
 
@@ -75,7 +75,6 @@
                         </div>
 
                         <div class="card-body">
-                            <input type="hidden" name="school_id" value="{{ auth()->id() }}">
                             <div class="row">
                                 <div class="form-group row mb-3">
 
@@ -84,8 +83,8 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="name"
-                                               type="text" value="{{ old('name') }}" placeholder="John Doe"
-                                               required="">
+                                            type="text" value="{{ old('name') }}" placeholder="John Doe"
+                                            required="">
 
                                     </div>
 
@@ -97,8 +96,8 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="email"
-                                               type="email" value="{{ old('email') }}" placeholder="johndoe@gmail.com"
-                                               required="">
+                                            type="email" value="{{ old('email') }}" placeholder="johndoe@gmail.com"
+                                            required="">
 
                                     </div>
 
@@ -109,10 +108,8 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="phone_number"
-                                               type="text" value="{{ old('phone_number') }}" placeholder="087xxxxxxxxx"
-                                               >
+                                        <input class="form-control form-control-solid form-control-lg" name="phone_number"
+                                            type="text" value="{{ old('phone_number') }}" placeholder="087xxxxxxxxx">
 
                                     </div>
 
@@ -123,11 +120,8 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="account_number"
-                                               type="text" value="{{ old('account_number') }}"
-                                               placeholder="117-129-x-xxx"
-                                               >
+                                        <input class="form-control form-control-solid form-control-lg" name="account_number"
+                                            type="text" value="{{ old('account_number') }}" placeholder="117-129-x-xxx">
 
                                     </div>
 
@@ -138,11 +132,8 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="bank"
-                                               type="text" value="{{ old('bank') }}"
-                                               placeholder="Mandiri"
-                                               >
+                                        <input class="form-control form-control-solid form-control-lg" name="bank"
+                                            type="text" value="{{ old('bank') }}" placeholder="Mandiri">
 
                                     </div>
 
@@ -153,11 +144,8 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <textarea class="form-control form-control-solid form-control-lg"
-                                                  name="address"
-                                                  type="text"
-                                                  placeholder="Jl. Soekarno Hatta No 9"
-                                                  >{{ old('address') }}</textarea>
+                                        <textarea class="form-control form-control-solid form-control-lg" name="address" type="text"
+                                            placeholder="Jl. Soekarno Hatta No 9">{{ old('address') }}</textarea>
 
                                     </div>
 

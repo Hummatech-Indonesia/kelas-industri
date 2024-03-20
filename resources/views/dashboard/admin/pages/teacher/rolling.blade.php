@@ -33,14 +33,14 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
                             <!--begin::Table head-->
                             <thead>
-                            <!--begin::Table row-->
-                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Kelas</th>
-                                <th>Aksi</th>
-                            </tr>
-                            <!--end::Table row-->
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Kelas</th>
+                                    <th>Aksi</th>
+                                </tr>
+                                <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
 
@@ -56,17 +56,17 @@
             </div>
 
         </div>
-        <x-delete-modal-component/>
+        <x-delete-modal-component />
     </div>
 @endsection
 @section('script')
-    {{--    <script src="{{ asset('app-assets/js/custom/apps/customers/list/export.js') }}"></script>--}}
+    {{--    <script src="{{ asset('app-assets/js/custom/apps/customers/list/export.js') }}"></script> --}}
     <script src="{{ asset('app-assets/js/custom/apps/customers/list/list.js') }}"></script>
-    {{--    <script src="{{ asset('app-assets/js/custom/apps/customers/add.js') }}"></script>--}}
+    {{--    <script src="{{ asset('app-assets/js/custom/apps/customers/add.js') }}"></script> --}}
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 
-            $(document).on('click', '.delete', function () {
+            $(document).on('click', '.delete', function() {
                 const url = "{{ route('admin.mentors.destroy', ':id') }}".replace(':id', $(this).data('id'))
                 $('#form-delete').attr('action', url)
 
@@ -85,10 +85,11 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('school.rollingTeacher.index') }}",
-                oLanguage: {sProcessing: 'loading...'},
-                columns: [
-                    {
+                ajax: "{{ route('admin.rollingTeacher.index', $school->id) }}",
+                oLanguage: {
+                    sProcessing: 'loading...'
+                },
+                columns: [{
                         data: 'DT_RowIndex',
                         searchable: false
                     },

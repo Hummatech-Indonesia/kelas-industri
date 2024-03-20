@@ -23,7 +23,7 @@ class TeacherRequest extends BaseRequest
             'address' => 'required'
         ];
 
-        if (request()->routeIs('school.teachers.update')) {
+        if (request()->routeIs('admin.teachers.update')) {
             $request['email'] = ['required','email', Rule::unique('users')->ignore($this->teacher)];
         }
 

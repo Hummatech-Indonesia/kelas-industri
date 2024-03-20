@@ -45,7 +45,7 @@ class TeacherService
      * @param TeacherRequest $request
      * @return void
      */
-    public function handleCreate(TeacherRequest $request): void
+    public function handleCreate(TeacherRequest $request, string $schoolId): void
     {
         $data = $request->validated();
         $data['password'] = bcrypt('password');
@@ -55,7 +55,7 @@ class TeacherService
 
         $data = [
             'teacher_id' => $user->id,
-            'school_id' => $request->school_id
+            'school_id' => $schoolId
         ];
 
         $this->repository->store($data);

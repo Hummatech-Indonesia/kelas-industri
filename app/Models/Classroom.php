@@ -18,7 +18,7 @@ class Classroom extends Model
     protected $table = 'classrooms';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'generation_id', 'school_id', 'name'];
+    protected $fillable = ['id', 'generation_id', 'school_id', 'name', 'devision_id'];
 
     /**
      * one to many relationship
@@ -30,7 +30,7 @@ class Classroom extends Model
         return $this->hasMany(StudentClassroom::class);
     }
 
-    
+
 
     /**
      * one to many relationship

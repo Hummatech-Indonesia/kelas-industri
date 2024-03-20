@@ -91,6 +91,12 @@ Route::middleware('auth.custom')->group(function () {
         Route::patch('classrooms/{classroom}/{school}', [ClassroomController::class, 'update'])->name('classrooms.update');
         Route::delete('classrooms/{classroom}',[ClassroomController::class, 'destroy'])->name('classrooms.destroy');
 
+        Route::get('teachers/create/{school}', [TeacherController::class, 'create'])->name('teachers.create');
+        Route::post('teachers/store/{school}', [TeacherController::class, 'store'])->name('teachers.store');
+        Route::get('teachers/edit/{teacher}/{school}', [TeacherController::class, 'edit'])->name('teachers.edit');
+        Route::patch('teachers/update/{teacher}/{school}', [TeacherController::class, 'update'])->name('teachers.update');
+        Route::resource('teachers', TeacherController::class)->only('destroy');
+
         Route::resources([
             'schoolYears' => SchoolYearController::class,
             'generations' => GenerationController::class,
@@ -147,6 +153,13 @@ Route::middleware('auth.custom')->group(function () {
             Route::post('/', [ClassroomController::class, 'addStudentClassroom'])->name('store');
         });
 
+        Route::prefix('rolling-teacher')->name('rollingTeacher.')->group(function () {
+            Route::get('/{school}', [TeacherController::class, 'rollingTeacher'])->name('index');
+            Route::get('/{teacher}', [TeacherController::class, 'addRollingTeacher'])->name('add');
+            Route::post('/action-rolling-teacher', [TeacherController::class, 'actionRollingTeacher'])->name('actionRollingTeacher');
+            Route::delete('/delete-rolling-teacher/{teacherClassroom}', [TeacherController::class, 'deleteTeacherClassroom'])->name('deleteRollingTeacher');
+        });
+
         Route::patch('validStatus/{submitReward}', [SubmitRewardController::class, 'validStatus'])->name('validStatus');
 
         Route::get('createExam/{classroom}', [ExamController::class, 'createExam'])->name('createExam');
@@ -196,23 +209,17 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
         Route::post('/import-students', [StudentController::class, 'importStudents'])->name('importStudents');
+
+        Route::resource('teachers', TeacherController::class)->only('index');
         Route::resources([
             'classrooms' => ClassroomController::class,
             'students' => StudentController::class,
             'teachers' => TeacherController::class,
             'journal' => JurnalController::class,
             'exam' => ExamController::class,
-            'payment' => PaymentController::class,
         ]);
 
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
-
-        Route::prefix('rolling-teacher')->name('rollingTeacher.')->group(function () {
-            Route::get('/', [TeacherController::class, 'rollingTeacher'])->name('index');
-            Route::get('/{teacher}', [TeacherController::class, 'addRollingTeacher'])->name('add');
-            Route::post('/action-rolling-teacher', [TeacherController::class, 'actionRollingTeacher'])->name('actionRollingTeacher');
-            Route::delete('/delete-rolling-teacher/{teacherClassroom}', [TeacherController::class, 'deleteTeacherClassroom'])->name('deleteRollingTeacher');
-        });
 
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         //changepwstudent

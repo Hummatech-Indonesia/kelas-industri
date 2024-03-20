@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\View\View;
-use App\Traits\YajraTable;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Services\UserServices;
+use App\Helpers\SchoolYearHelper;
+use App\Http\Requests\TeacherRequest;
+use App\Http\Requests\UserPasswordRequest;
 use App\Models\MentorClassroom;
 use App\Models\TeacherClassroom;
-use App\Services\TeacherService;
-use App\Helpers\SchoolYearHelper;
+use App\Models\User;
 use App\Services\ClassroomService;
-use App\Http\Requests\TeacherRequest;
+use App\Services\TeacherService;
+use App\Services\UserServices;
+use App\Traits\YajraTable;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\UserPasswordRequest;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
-class   TeacherController extends Controller
+class TeacherController extends Controller
 {
     use YajraTable;
 
@@ -39,7 +39,9 @@ class   TeacherController extends Controller
      */
     public function index(): mixed
     {
-        if (request()->ajax()) return $this->TeacherMockup($this->service->handleGetBySchool(auth()->id()));
+        if (request()->ajax()) {
+            return $this->TeacherMockup($this->service->handleGetBySchool(auth()->id()));
+        }
 
         return view('dashboard.admin.pages.teacher.index');
     }
@@ -50,13 +52,13 @@ class   TeacherController extends Controller
      * @return View
      * @throws Exception
      */
-    public function rollingTeacher(): mixed
+    public function rollingTeacher(User $school): mixed
     {
         if (request()->ajax()) {
-            return $this->RollingTeacherMockup($this->service->handleGetBySchool(auth()->id()));
+            return $this->RollingTeacherMockup($this->service->handleGetBySchool($school->id));
         }
 
-        return view('dashboard.admin.pages.teacher.rolling');
+        return view('dashboard.admin.pages.teacher.rolling', compact('school'));
     }
 
     /**
@@ -75,7 +77,7 @@ class   TeacherController extends Controller
 
         $data = [
             'classrooms' => $this->classroomService->handleGetByTeacherClassroom(auth()->id(), $currentSchoolYear->id),
-            'teacher' => $teacher
+            'teacher' => $teacher,
         ];
         return view('dashboard.admin.pages.teacher.add-rolling', $data);
     }
@@ -111,9 +113,9 @@ class   TeacherController extends Controller
      *
      * @return View
      */
-    public function create(): View
+    public function create(User $school): View
     {
-        return view('dashboard.admin.pages.teacher.create');
+        return view('dashboard.admin.pages.teacher.create', compact('school'));
     }
 
     /**
@@ -122,11 +124,11 @@ class   TeacherController extends Controller
      * @param TeacherRequest $request
      * @return RedirectResponse
      */
-    public function store(TeacherRequest $request): RedirectResponse
+    public function store(TeacherRequest $request, User $school): RedirectResponse
     {
-        $this->service->handleCreate($request);
+        $this->service->handleCreate($request, $school->id);
 
-        return to_route('school.teachers.index')->with('success', trans('alert.add_success'));
+        return to_route('admin.schools.show', $school->id)->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -146,9 +148,9 @@ class   TeacherController extends Controller
      * @param User $teacher
      * @return View
      */
-    public function edit(User $teacher): View
+    public function edit(User $teacher, User $school): View
     {
-        return view('dashboard.admin.pages.teacher.edit', compact('teacher'));
+        return view('dashboard.admin.pages.teacher.edit', compact('teacher','school'));
     }
 
     /**
@@ -158,11 +160,11 @@ class   TeacherController extends Controller
      * @param User $teacher
      * @return RedirectResponse
      */
-    public function update(TeacherRequest $request, User $teacher): RedirectResponse
+    public function update(TeacherRequest $request, User $teacher, User $school): RedirectResponse
     {
         $this->service->handleUpdate($request, $teacher);
 
-        return to_route('school.teachers.index')->with('success', trans('alert.update_success'));
+        return to_route('admin.schools.show', $school->id)->with('success', trans('alert.update_success'));
     }
 
     /**
@@ -175,7 +177,9 @@ class   TeacherController extends Controller
     {
         $data = $this->service->handleDelete($teacher);
 
-        if (!$data) return back()->with('error', trans('alert.delete_constrained'));
+        if (!$data) {
+            return back()->with('error', trans('alert.delete_constrained'));
+        }
 
         return back()->with('success', trans('alert.delete_success'));
     }

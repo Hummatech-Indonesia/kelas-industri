@@ -116,6 +116,7 @@ class ClassroomService
             'generation_id' => $data['generation_id'],
             'school_id' => $school,
             'name' => $data['name'],
+            'devision_id' => $data['devision_id'],
         ]);
     }
 

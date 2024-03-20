@@ -253,9 +253,10 @@
                         </div>
 
                         <div>
-                            <a href="{{ route('school.classrooms.create') }}" class="btn btn-dark fw-bold mb-2">
+                            <a href="{{ route('admin.rollingTeacher.index', [$school->id]) }}" class="btn btn-dark fw-bold mb-2">
                                 Rooling Guru </a>
-                            <a href="{{ route('school.classrooms.create') }}" class="btn btn-dark fw-bold mb-2">
+                            <a href="{{ route('admin.teachers.create', [$school->id]) }}"
+                                class="btn btn-dark fw-bold mb-2">
                                 Tambah </a>
                         </div>
                         <!--end::Title-->
@@ -269,9 +270,9 @@
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>No Telepon</th>
-                                    <th>Alamat</th>
                                     <th>No Rekening</th>
                                     <th>Bank</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -281,9 +282,19 @@
                                         <td>{{ $teacher->teacher->name }}</td>
                                         <td>{{ $teacher->teacher->email }}</td>
                                         <td>{{ $teacher->teacher->phone_number }}</td>
-                                        <td>{{ $teacher->teacher->address }}</td>
                                         <td>{{ $teacher->teacher->account_number }}</td>
                                         <td>{{ $teacher->teacher->bank }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.teachers.edit', [$teacher->teacher->id, $school->id]) }}" class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Edit"><i
+                                                    class="fa-regular fa-pen-to-square fs-3 text-warning"></i></a>
+                                            <button class="btn btn-default btn-sm p-1 btn-delete-teahcer"
+                                                data-id="{{ $teacher->teacher->id }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Hapus Data">
+                                                <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -568,6 +579,16 @@
 
         $('#schoolYear').change(function() {
             getGenertation($(this).val())
+        })
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            $('.btn-delete-teahcer').click(function() {
+                const url = "{{ route('admin.teachers.destroy', ':id') }}".replace(':id', $(this).data(
+                    'id'))
+                $('#form-delete').attr('action', url)
+                $('#kt_modal_delete').modal('show')
+            })
         })
     </script>
 @endsection

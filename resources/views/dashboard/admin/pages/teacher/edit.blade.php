@@ -30,8 +30,7 @@
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('school.teachers.update', $teacher->id) }}" method="POST"
-                  enctype="multipart/form-data">
+            <form action="{{ route('admin.teachers.update', [$teacher->id, $school->id]) }}" method="POST">
                 @method('PATCH')
                 @csrf
                 <div class="col-12">
@@ -51,7 +50,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('school.teachers.index') }}"
+                                <a href="{{ route('admin.schools.show', $school->id) }}"
                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -77,7 +76,6 @@
                         </div>
 
                         <div class="card-body">
-                            <input type="hidden" name="school_id" value="{{ auth()->id() }}">
                             <div class="row">
                                 <div class="form-group row mb-3">
 

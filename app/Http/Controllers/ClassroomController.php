@@ -7,6 +7,7 @@ use App\Http\Requests\ClassroomRequest;
 use App\Models\Classroom;
 use App\Models\User;
 use App\Services\ClassroomService;
+use App\Services\DevisionService;
 use App\Services\GenerationService;
 use App\Services\SchoolYearService;
 use App\Services\StudentService;
@@ -21,13 +22,15 @@ class ClassroomController extends Controller
     private GenerationService $generationService;
     private StudentService $studentService;
     private SchoolYearService $schoolYearService;
+    private DevisionService $devisionService;
 
-    public function __construct(ClassroomService $service, GenerationService $generationService, StudentService $studentService, SchoolYearService $schoolYearService)
+    public function __construct(ClassroomService $service, GenerationService $generationService, StudentService $studentService, SchoolYearService $schoolYearService, DevisionService $devisionService)
     {
         $this->service = $service;
         $this->generationService = $generationService;
         $this->studentService = $studentService;
         $this->schoolYearService = $schoolYearService;
+        $this->devisionService = $devisionService;
     }
 
     /**
@@ -71,6 +74,7 @@ class ClassroomController extends Controller
         $data = [
             'school' => $school,
             'generations' => $this->generationService->handleGetAll(),
+            'devisions' => $this->devisionService->handleGetAll(),
         ];
         return \view('dashboard.admin.pages.classroom.create', $data);
     }

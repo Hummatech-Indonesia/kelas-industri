@@ -13,6 +13,7 @@ class ClassroomRequest extends BaseRequest
     {
         return [
             'generation_id' => 'required',
+            'devision_id' => 'required',
             'name' => 'required|string'
         ];
     }
@@ -26,6 +27,7 @@ class ClassroomRequest extends BaseRequest
     {
         return [
             'generation_id.required' => 'Angkatan tidak boleh kosong !',
+            'devision_id.required' => 'Devisi tidak boleh kosong !',
             'name.required' => 'Nama tidak boleh kosong !',
             'name.string' => 'Nama harus berupa string !'
         ];
