@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Http\Requests\StudentRequest;
-use App\Models\StudentClassroom;
 use App\Models\User;
 use App\Repositories\StudentClassroomRepository;
 use App\Repositories\StudentRepository;
@@ -32,11 +31,23 @@ class StudentService
      * @return mixed
      * @throws Exception
      */
-    public function handleGetBySchool(string $schoolId, Request $request): mixed
+    public function handleGetBySchool(string $schoolId): mixed
     {
-        return $this->repository->get_by_school($schoolId, $request);
+        return $this->repository->get_by_school($schoolId);
     }
-    
+
+    /**
+     * handle get by school
+     *
+     * @param string $schoolId
+     * @return mixed
+     * @throws Exception
+     */
+    public function handleGetBySchoolAjax(string $schoolId, Request $request): mixed
+    {
+        return $this->repository->get_by_school_ajax($schoolId, $request);
+    }
+
     public function handleGetByClassroom(string $schoolId): mixed
     {
         return $this->repository->get_by_classroom($schoolId);
@@ -63,7 +74,7 @@ class StudentService
      * @param StudentRequest $request
      * @return void
      */
-    public function handleCreate(StudentRequest $request): void
+    public function handleCreate(StudentRequest $request, string $schoolId): void
     {
         $data = $request->validated();
         $data['status'] = 'active';
@@ -74,7 +85,7 @@ class StudentService
 
         $data = [
             'student_id' => $user->id,
-            'school_id' => auth()->id(),
+            'school_id' => $schoolId,
         ];
 
         $this->repository->store($data);

@@ -264,12 +264,12 @@
             $('#studentPhone').val(data.phone_number)
             $('#studentAddress').val(data.address)
 
-            const url = "{{ route('school.students.update', ':id') }}".replace(':id', data.id)
+            const url = "{{ route('admin.students.update', ':id') }}".replace(':id', data.id)
             $('#formStudentEdit').attr('action', url)
         })
 
         $('.btn-delete').click(function() {
-            const url = "{{ route('school.students.destroy', ':id') }}".replace(':id', $(this).data('id'))
+            const url = "{{ route('admin.students.destroy', ':id') }}".replace(':id', $(this).data('id'))
             $('#form-delete').attr('action', url)
 
             $('#kt_modal_delete').modal('show')

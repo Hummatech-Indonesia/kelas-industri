@@ -25,13 +25,12 @@
         </div>
         <!--end::Actions-->
     </div>
-    @if($errors->any())
-        <x-errors-component/>
+    @if ($errors->any())
+        <x-errors-component />
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('school.students.update', $student->id) }}" method="POST"
-                  enctype="multipart/form-data">
+            <form action="{{ route('admin.students.update', [$student->id, $school->id]) }}" method="POST">
                 @method('PATCH')
                 @csrf
                 <div class="col-12">
@@ -52,7 +51,7 @@
                             <div class="card-toolbar">
 
                                 <a href="{{ route('school.students.index') }}"
-                                   class="btn btn-light-primary font-weight-bolder me-2">
+                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
 
@@ -86,8 +85,8 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="name"
-                                               type="text" value="{{ $student->name }}" placeholder="John Doe"
-                                               required="">
+                                            type="text" value="{{ $student->name }}" placeholder="John Doe"
+                                            required="">
 
                                     </div>
 
@@ -99,9 +98,8 @@
                                     <div class="col-lg-9 col-xl-9">
 
                                         <input class="form-control form-control-solid form-control-lg" name="email"
-                                               type="email" value="{{ $student->email }}"
-                                               placeholder="johndoe@gmail.com"
-                                               required="">
+                                            type="email" value="{{ $student->email }}" placeholder="johndoe@gmail.com"
+                                            required="">
 
                                     </div>
 
@@ -112,11 +110,9 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <input class="form-control form-control-solid form-control-lg"
-                                               name="phone_number"
-                                               type="text" value="{{ $student->phone_number }}"
-                                               placeholder="087xxxxxxxxx"
-                                               required="">
+                                        <input class="form-control form-control-solid form-control-lg" name="phone_number"
+                                            type="text" value="{{ $student->phone_number }}" placeholder="087xxxxxxxxx"
+                                            required="">
 
                                     </div>
 
@@ -127,11 +123,8 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <textarea class="form-control form-control-solid form-control-lg"
-                                                  name="address"
-                                                  type="text"
-                                                  placeholder="Jl. Soekarno Hatta No 9"
-                                                  required="">{{ $student->address }}</textarea>
+                                        <textarea class="form-control form-control-solid form-control-lg" name="address" type="text"
+                                            placeholder="Jl. Soekarno Hatta No 9" required="">{{ $student->address }}</textarea>
 
                                     </div>
 

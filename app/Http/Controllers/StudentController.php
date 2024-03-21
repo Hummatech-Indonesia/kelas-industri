@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
+use App\Http\Requests\StudentRequest;
+use App\Http\Requests\UserPasswordRequest;
+use App\Imports\StudentImport;
 use App\Models\User;
-use Illuminate\View\View;
+use App\Services\ClassroomService;
+use App\Services\StudentService;
+use App\Services\UserServices;
 use App\Traits\YajraTable;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Imports\StudentImport;
-use App\Services\UserServices;
-use App\Services\StudentService;
-use App\Services\ClassroomService;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Requests\StudentRequest;
-use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\UserPasswordRequest;
 
 class StudentController extends Controller
 {
@@ -41,7 +41,7 @@ class StudentController extends Controller
     public function index(Request $request): mixed
     {
         if (request()->ajax()) {
-            return $this->StudentMockup($this->studentService->handleGetBySchool(auth()->id(), $request));
+            return $this->StudentMockup($this->studentService->handleGetBySchoolAjax(auth()->id(), $request));
         }
 
         $data = [
@@ -56,9 +56,13 @@ class StudentController extends Controller
      *
      * @return View
      */
-    public function create(): View
+    public function create(User $school): View
     {
-        return view('dashboard.admin.pages.student.create');
+        $data = [
+            'school' => $school,
+        ];
+
+        return view('dashboard.admin.pages.student.create', $data);
     }
 
     /**
@@ -68,11 +72,11 @@ class StudentController extends Controller
      * @return RedirectResponse
      */
 
-    public function store(StudentRequest $request): RedirectResponse
+    public function store(StudentRequest $request, User $school): RedirectResponse
     {
-        $this->studentService->handleCreate($request);
+        $this->studentService->handleCreate($request, $school->id);
 
-        return to_route('school.students.index')->with('success', trans('alert.add_success'));
+        return to_route('admin.schools.show', $school->id)->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -92,9 +96,9 @@ class StudentController extends Controller
      * @param User $student
      * @return View
      */
-    public function edit(User $student): View
+    public function edit(User $student, User $school): View
     {
-        return view('dashboard.admin.pages.student.edit', compact('student'));
+        return view('dashboard.admin.pages.student.edit', compact('student', 'school'));
     }
 
     /**
@@ -104,11 +108,11 @@ class StudentController extends Controller
      * @param User $student
      * @return RedirectResponse
      */
-    public function update(StudentRequest $request, User $student): RedirectResponse
+    public function update(StudentRequest $request, User $student, User $school): RedirectResponse
     {
         $this->studentService->handleUpdate($request, $student);
 
-        return to_route('school.students.index')->with('success', trans('alert.update_success'));
+        return to_route('admin.schools.show', $school->id)->with('success', trans('alert.update_success'));
     }
 
     /**

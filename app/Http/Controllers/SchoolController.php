@@ -2,29 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SchoolRequest;
 use App\Models\User;
-use App\Services\GenerationService;
-use App\Services\SchoolService;
-use App\Services\SchoolYearService;
-use App\Services\UserServices;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Traits\YajraTable;
+use Illuminate\Http\Request;
+use App\Services\UserServices;
+use App\Services\SchoolService;
+use App\Services\StudentService;
+use App\Services\GenerationService;
+use App\Services\SchoolYearService;
+use App\Http\Requests\SchoolRequest;
+use Illuminate\Http\RedirectResponse;
 
 class SchoolController extends Controller
 {
+    use YajraTable;
+
     private SchoolService $service;
     private UserServices $userService;
     private GenerationService $generationService;
     private SchoolYearService $schoolYearService;
+    private StudentService $studentService;
 
-    public function __construct(SchoolService $service, UserServices $userService, GenerationService $generationService, SchoolYearService $schoolYearService)
+    public function __construct(SchoolService $service, UserServices $userService, GenerationService $generationService, SchoolYearService $schoolYearService, StudentService $studentService)
     {
         $this->service = $service;
         $this->userService = $userService;
         $this->generationService = $generationService;
         $this->schoolYearService = $schoolYearService;
+        $this->studentService = $studentService;
     }
 
     /**
@@ -108,6 +114,7 @@ class SchoolController extends Controller
             'countAllStudent' => $countAllStudentActive,
             'generations' => $generations,
             'schoolyears' => $schoolyears,
+            'classrooms' => $classrooms,
         ];
         return view('dashboard.admin.pages.school.detail', $data);
     }
@@ -158,6 +165,13 @@ class SchoolController extends Controller
     {
         if (request()->ajax()) {
             return $this->userService->handleGetAllSchool();
+        }
+    }
+
+    public function students(User $school, Request $request)
+    {
+        if (request()->ajax()) {
+            return $this->StudentMockup($this->studentService->handleGetBySchoolAjax($school->id, $request));
         }
     }
 }

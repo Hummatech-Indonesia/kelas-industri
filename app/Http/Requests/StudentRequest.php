@@ -21,7 +21,7 @@ class StudentRequest extends BaseRequest
             'address' => 'required'
         ];
 
-        if (request()->routeIs('school.students.update')) {
+        if (request()->routeIs('admin.students.update')) {
             $request['email'] = ['required','email', Rule::unique('users')->ignore($this->student)];
         }
 
