@@ -50,7 +50,7 @@ class StudentService
 
     public function handleGetBySchoolPayment(string $schoolId): mixed
     {
-        return $this->repository->get_by_school_payment($schoolId);
+        return $this->repository->get_by_school($schoolId);
     }
 
     public function handleGetByClassroom(string $schoolId): mixed
