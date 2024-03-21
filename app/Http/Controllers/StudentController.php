@@ -11,11 +11,11 @@ use Illuminate\Http\Response;
 use App\Imports\StudentImport;
 use App\Services\UserServices;
 use App\Services\StudentService;
+use App\Services\ClassroomService;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StudentRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UserPasswordRequest;
-use App\Http\Requests\StudentPasswordRequest;
 
 class StudentController extends Controller
 {
@@ -23,11 +23,13 @@ class StudentController extends Controller
 
     private StudentService $studentService;
     private UserServices $userService;
+    private ClassroomService $classroomService;
 
-    public function __construct(StudentService $studentService, UserServices $userService)
+    public function __construct(StudentService $studentService, UserServices $userService, ClassroomService $classroomService)
     {
         $this->studentService = $studentService;
         $this->userService = $userService;
+        $this->classroomService = $classroomService;
     }
 
     /**
@@ -36,23 +38,16 @@ class StudentController extends Controller
      * @return Response
      * @throws Exception
      */
-    public function index(): mixed
+    public function index(Request $request): mixed
     {
+        if (request()->ajax()) {
+            return $this->StudentMockup($this->studentService->handleGetBySchool(auth()->id(), $request));
+        }
+
         $data = [
-            'students' => $this->studentService->handleGetBySchool(auth()->id()),
-            'classrooms' => $this->studentService->handleGetClassroom(),
+            'classrooms' => $this->classroomService->handleGetBySchoolClassroom(auth()->id()),
         ];
 
-        return view('dashboard.admin.pages.student.index', $data);
-    }
-
-    public function filterStudent(Request $request): mixed
-    {
-        $data = [
-            'students' => $this->studentService->handleFilterStudentByClassroom(auth()->id(),$request->classroom_id),
-            'classrooms' => $this->studentService->handleGetClassroom(),
-
-        ];
         return view('dashboard.admin.pages.student.index', $data);
     }
 

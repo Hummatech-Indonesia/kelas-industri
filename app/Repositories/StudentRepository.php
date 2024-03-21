@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Models\Classroom;
 use App\Models\StudentSchool;
 use App\Models\User;
-use App\Models\Classroom;
 use Illuminate\Http\Request;
 
 class StudentRepository extends BaseRepository
@@ -25,29 +25,18 @@ class StudentRepository extends BaseRepository
      * @param string $schoolId
      * @return mixed
      */
-    public function get_by_school(string $schoolId): mixed
+    public function get_by_school(string $schoolId, Request $request): mixed
     {
-        return $this->model->newQuery()
+        return $this->model->query()
+            ->with(['student', 'studentClassroom.classroom'])
             ->where('school_id', $schoolId)
             ->whereRelation('student', 'status', 'active')
-            ->with('student')
-            ->paginate(6);
-    }
-    public function get_classroom(): mixed
-    {
-        return $this->classroomModel->newQuery()
+            ->when($request->classroom_id, function ($query) use ($request){
+                $query->whereRelation('studentClassroom.classroom', 'id', $request->classroom_id);
+            })
             ->get();
     }
-    public function filter_student_by_classroom(string $schoolId ,string $classroomId): mixed
-    {
-        return $this->model->newQuery()
-            ->where('school_id', $schoolId)
-            ->whereHas('studentClassroom', function ($query) use ($classroomId) {
-                $query->where('classroom_id', $classroomId);
-            })
-            ->whereRelation('student', 'status', 'active')
-            ->paginate(6);
-    }
+
     public function get_by_classroom(string $classroomId): mixed
     {
         return $this->model->newQuery()
@@ -75,7 +64,7 @@ class StudentRepository extends BaseRepository
         return $this->model->query()
             ->where('id', $request->id)
             ->update([
-                'school_id' => $request->school_id
+                'school_id' => $request->school_id,
             ]);
     }
 

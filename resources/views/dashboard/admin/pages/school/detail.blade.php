@@ -253,7 +253,8 @@
                         </div>
 
                         <div>
-                            <a href="{{ route('admin.rollingTeacher.index', [$school->id]) }}" class="btn btn-dark fw-bold mb-2">
+                            <a href="{{ route('admin.rollingTeacher.index', [$school->id]) }}"
+                                class="btn btn-dark fw-bold mb-2">
                                 Rooling Guru </a>
                             <a href="{{ route('admin.teachers.create', [$school->id]) }}"
                                 class="btn btn-dark fw-bold mb-2">
@@ -285,7 +286,8 @@
                                         <td>{{ $teacher->teacher->account_number }}</td>
                                         <td>{{ $teacher->teacher->bank }}</td>
                                         <td>
-                                            <a href="{{ route('admin.teachers.edit', [$teacher->teacher->id, $school->id]) }}" class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip"
+                                            <a href="{{ route('admin.teachers.edit', [$teacher->teacher->id, $school->id]) }}"
+                                                class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                                                 data-bs-title="Edit"><i
                                                     class="fa-regular fa-pen-to-square fs-3 text-warning"></i></a>
@@ -517,6 +519,33 @@
                 <!--begin::Footer-->
 
                 <!--end::Footer-->
+            </div>
+            <div class="toolbar mt-7 mb-lg-7 justify-content-between d-flex" id="kt_toolbar">
+
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+                        Siswa
+                    </h1>
+                    <!--end::Title-->
+
+                    <!--begin::Breadcrumb-->
+                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">
+                            List siswa pada {{ $school->name }}
+                        </li>
+                        <!--end::Item-->
+
+                    </ul>
+                    <!--end::Breadcrumb-->
+                </div>
+                <!--end::Page title-->
+                <a href="{{ route('admin.classrooms.create', ['school' => $school->id]) }}" class="btn btn-dark fw-bold">
+                    Tambah </a>
+
+                <!--end::Actions-->
             </div>
         </div>
     </div>
