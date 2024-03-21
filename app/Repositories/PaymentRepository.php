@@ -21,4 +21,13 @@ class PaymentRepository extends BaseRepository
             ->where('user_id', $user)
             ->get();
     }
+
+    public function getBySchool(string $school)
+    {
+        return $this->model->query()
+            ->whereHas('user.studentSchool', function ($q) use ($school) {
+                $q->where('school_id', $school);
+            })
+            ->get();
+    }
 }

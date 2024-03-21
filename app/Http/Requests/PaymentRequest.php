@@ -17,8 +17,9 @@ class PaymentRequest extends FormRequest
         return [
             //
             'user_id' => 'required',
-            'total_pay' => 'required',
+            'total_pay' => 'required|min:0',
             'payment_date' => 'required',
+            'semester' => 'required',
         ];
     }
 
@@ -27,8 +28,10 @@ class PaymentRequest extends FormRequest
         return [
             //
             'user_id.required' => 'user harus diisi',
-            'total_pay.required' => 'nominal harus disi',
+            'total_pay.required' => 'nominal harus diisi',
+            'total_pay.min' => 'minimal pembayaran sebesar Rp. 0',
             'payment_date.required' => 'tanggal pembayaran harus diisi',
+            'semester.required' => 'semester harus diisi',
         ];
     }
 }

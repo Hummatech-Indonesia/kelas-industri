@@ -182,4 +182,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Journal::class, 'created_by');
     }
+
+    public function payment(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'user_id');
+    }
 }

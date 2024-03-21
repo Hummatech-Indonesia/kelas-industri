@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaymentRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Services\DependentService;
 use App\Services\PaymentService;
 use App\Services\SchoolService;
 use App\Services\StudentService;
@@ -17,13 +18,15 @@ class TrackingPaymentController extends Controller
     private UserServices $userService;
     private PaymentService $servicePayment;
     private StudentService $studentService;
+    private DependentService $serviceDependent;
 
-    public function __construct(SchoolService $service, UserServices $userService, PaymentService $servicePayment, StudentService $studentService)
+    public function __construct(SchoolService $service, UserServices $userService, PaymentService $servicePayment, StudentService $studentService, DependentService $serviceDependent)
     {
         $this->service = $service;
         $this->userService = $userService;
         $this->servicePayment = $servicePayment;
         $this->studentService = $studentService;
+        $this->serviceDependent = $serviceDependent;
     }
 
     /**
@@ -123,14 +126,17 @@ class TrackingPaymentController extends Controller
     {
         //
     }
+
     public function allStudent(string $schoolId)
     {
-        $data['students'] = $this->studentService->handleGetBySchool($schoolId);
+        $data['students'] = $this->studentService->handleGetBySchoolPayment($schoolId);
         return view('dashboard.finance.pages.trackingPayment.student', $data);
     }
-    public function detailStudent(string $user)
+
+    public function detailStudent(string $classroom, string $user)
     {
         $data['student'] = $this->userService->handleGetById($user);
+        $data['dependents'] = $this->serviceDependent->handleGetAllByClassroom($classroom);
         $data['trackings'] = $this->servicePayment->handleGetByStudent($user);
         return view('dashboard.finance.pages.trackingPayment.detailStudent', $data);
     }

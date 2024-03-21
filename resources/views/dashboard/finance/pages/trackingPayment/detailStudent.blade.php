@@ -18,7 +18,7 @@
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List transaksi siswa pada kelas industri
+                List transaksi siswa pada kelas industri - semester
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -26,109 +26,151 @@
 
         <!--begin::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
+            {{-- @foreach ($dependents as $dependent)
+                @if ($dependent->nominal - $trackings->sum('total_pay') == 0)
+                    <div class="fw-semibold fs-7"
+                        style="background-color: #4eb443; color: white; border-radius: 5px; padding: 5px ">
+                        Lunas
+                    </div>
+                @else
+                    <div class="fw-semibold fs-7"
+                        style="background-color: #b44343; color: white; border-radius: 5px; padding: 5px ">
+                        Belum Lunas
+                    </div>
+                @endif
+            @endforeach --}}
             <a href="{{ url()->previous() }}"
                 class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                 <i class="bi bi-arrow-left me-2"></i> Kembali
             </a>
-            <button class="btn btn-dark fw-bold h-40px fs-7 btn-plus">
-                Tambah
-            </button>
         </div>
         <!--end::Actions-->
     </div>
+    <ul class="nav nav-pills nav-pills-custom mb-3" role="tablist">
+        @foreach ($dependents as $li)
+            <!--begin::Item-->
+            <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
+                <!--begin::Link-->
+                <a class="nav-link d-flex justify-content-between flex-column flex-center overflow-hidden py-4"
+                    data-bs-toggle="pill" href="#kt_stats_widget_2_tab_{{ $li->id }}" aria-selected="false"
+                    role="tab" tabindex="-1">
+                    <!--begin::Subtitle-->
+                    <span class="nav-text text-gray-700 fw-bold fs-6 lh-1">
+                        Semester {{ $li->semester }}
+                    </span>
+                    <!--end::Subtitle-->
+                    <!--begin::Bullet-->
+                    <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                    <!--end::Bullet-->
+                </a>
+                <!--end::Link-->
+            </li>
+            <!--end::Item-->
+        @endforeach
+    </ul>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="card mb-5 mb-xl-8">
-
             <!--begin::Body-->
             <div class="card-body py-3">
-                <!--begin::Table container-->
-                <div class="table-responsive">
-                    <!--begin::Table-->
-                    <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
-                        <!--begin::Table head-->
-                        <thead>
-                            <tr class="fw-bold text-muted">
-                                <th class="min-w-50px">No</th>
-                                <th class="min-w-150px">Nominal</th>
-                                <th class="min-w-150px">Waktu Pembayaran</th>
-                                <th class="min-w-100px">Aksi</th>
+                @foreach ($dependents as $tabContent)
+                    <div class="tab-content">
+                        <div class="tab-pane fade show" id="kt_stats_widget_2_tab_{{ $tabContent->id }}" role="tabpanel">
+                            @if ($tabContent->semester)
+                                <button class="btn btn-dark fw-bold h-40px fs-7 btn-plus"
+                                    data-semester="{{ $tabContent->semester }}"
+                                    data-semester_tanggungan="{{ $tabContent->nominal }}">
+                                    Tambah
+                                </button>
+                                <button class="btn btn-dark">
+                                    total tanggungan : Rp.
+                                    {{ number_format($tabContent->nominal - $trackings->sum('total_pay'), 0, ',', '.') }}
+                                </button>
+                            @endif
+                            <!--begin::Table container-->
+                            <div class="table-responsive">
+                                <!--begin::Table-->
+                                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                                    <!--begin::Table head-->
+                                    <thead>
+                                        <tr class="fw-bold text-muted">
+                                            <th class="min-w-50px">No</th>
+                                            <th class="min-w-150px">Nominal</th>
+                                            <th class="min-w-150px">Waktu Pembayaran</th>
+                                            <th class="min-w-100px">Aksi</th>
 
-                            </tr>
-                        </thead>
-                        <!--end::Table head-->
+                                        </tr>
+                                    </thead>
+                                    <!--end::Table head-->
 
-                        <!--begin::Table body-->
-                        <tbody>
-                            @forelse ($trackings as $tracking)
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex justify-content-start flex-column">
-                                                <div class="text-gray-900 fw-bold fs-7">
-                                                    {{ $loop->iteration }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td
-                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
-                                        <span class="text-gray-900 fw-bold fs-7">Rp.
-                                            {{ number_format($tracking->total_pay, 0, ',', '.') }}</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex justify-content-start flex-column">
-                                                <div class="text-gray-900 fw-bold fs-7">
-                                                    {{ Carbon::parse($tracking->payment_date)->translatedFormat('d F Y') }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary btn-edit" data-id="{{ $tracking->id }}"
-                                            data-user="{{ $tracking->user_id }}"
-                                            data-total="{{ $tracking->total_pay }}"
-                                            data-payment="{{ $tracking->payment_date }}">Edit</button>
-                                    </td>
-                                </tr>
-                            @empty
-                            <tr>
-                                <td colspan="8">
-                                    <x-empty-component title="transaksi" />
-                                </td>
-                            </tr>
-                            @endforelse
-                            {{-- @empty
-                            <tr>
-                                <td colspan="7">
-                                    <div class="col-12 text-center">
-                                        <!--begin::Illustration-->
-                                        <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
-                                            alt="" />
-                                        <!--end::Illustration-->
-
-                                        <!--begin::Title-->
-                                        <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
-                                        <!--end::Title-->
-
-                                        <!--begin::Desctiption-->
-                                        <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                            anda belum memiliki berita untuk saat ini.
-                                        </span>
-                                        <!--end::Desctiption-->
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforelse --}}
-                        </tbody>
-                        <!--end::Table body-->
-                    </table>
-                    <!--end::Table-->
-                    {{-- {{ $newss->links('pagination::bootstrap-5') }} --}}
-                </div>
-                <!--end::Table container-->
+                                    <!--begin::Table body-->
+                                    <tbody>
+                                        @forelse ($trackings as $tracking)
+                                            @if ($tabContent->semester == $tracking->semester)
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="d-flex justify-content-start flex-column">
+                                                                <div class="text-gray-900 fw-bold fs-7">
+                                                                    {{ $loop->iteration }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td
+                                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
+                                                        <span class="text-gray-900 fw-bold fs-7">Rp.
+                                                            {{ number_format($tracking->total_pay, 0, ',', '.') }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="d-flex justify-content-start flex-column">
+                                                                <div class="text-gray-900 fw-bold fs-7">
+                                                                    {{ Carbon::parse($tracking->payment_date)->translatedFormat('d F Y') }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-primary btn-edit"
+                                                            data-id="{{ $tracking->id }}"
+                                                            data-user="{{ $tracking->user_id }}"
+                                                            data-total="{{ $tracking->total_pay }}"
+                                                            data-payment="{{ $tracking->payment_date }}">Edit</button>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @empty
+                                            <tr>
+                                                <td colspan="8">
+                                                    <x-empty-component title="transaksi" />
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                    <!--end::Table body-->
+                                </table>
+                                <!--end::Table-->
+                                {{-- {{ $newss->links('pagination::bootstrap-5') }} --}}
+                            </div>
+                            <!--end::Table container-->
+                            {{-- </div> --}}
+                        </div>
+                @endforeach
             </div>
+
             <!--begin::Body-->
+        </div>
+
+        <div class="card card-body mt-3">
+            <div>
+                total pembayaran anda pada semester ini : Rp.
+                {{ number_format($trackings->sum('total_pay'), 0, ',', '.') }}
+            </div>
+            <div>
+                total tanggungan pada semester ini &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :
+                Rp.
+                {{-- {{ number_format($student->studentSchool->studentClassroom->classroom->dependent->nominal, 0, ',', '.') }} --}}
+            </div>
         </div>
     </div>
     <x-delete-modal-component />
@@ -154,14 +196,17 @@
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $student->id }}">
+                        <input type="text" name="semester_tanggungan" id="semester_tanggungan">
+                        <input type="text" name="total" value="{{ $trackings->sum('total_pay') }}">
                         <div class="mb-3">
                             <label for="total_pay">Nominal Uang</label>
                             <input type="number" class="form-control" name="total_pay" id="total_pay">
                         </div>
                         <div class="mb-5">
                             <label for="payment_date">tanggal</label>
-                            <input type="date" class="form-control" name="payment_date" id="payment_date" now>
+                            <input type="date" class="form-control" name="payment_date" id="payment_date">
                         </div>
+                        <input type="integer" id="semester" name="semester">
                         <div class="mb-3 d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">Simpan</button>
                         </div>
@@ -191,7 +236,7 @@
                     <form method="POST" id="form_edit">
                         @csrf
                         @method('PUT')
-                        <input type="text" name="user_id" id="user-edit">
+                        <input type="hidden" name="user_id" id="user-edit">
                         <div class="mb-3">
                             <label for="total_pay">Nominal Uang</label>
                             <input type="number" class="form-control" name="total_pay" id="total-edit">
@@ -220,6 +265,10 @@
         })
 
         $('.btn-plus').click(function() {
+            var semester = $(this).data('semester');
+            $('#semester').val(semester);
+            var semester_tanggungan = $(this).data('semester_tanggungan');
+            $('#semester_tanggungan').val(semester_tanggungan);
             $('#create_modal').modal('show');
         });
         $('.btn-edit').click(function() {

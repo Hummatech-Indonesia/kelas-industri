@@ -11,4 +11,12 @@ class DependentRepository extends BaseRepository
     {
         $this->model = $model;
     }
+
+    public function getAllByClassroom(string $classroom)
+    {
+        return $this->model->newQuery()
+            ->where('classroom_id', $classroom)
+            ->orderBy('semester', 'asc')
+            ->get();
+    }
 }

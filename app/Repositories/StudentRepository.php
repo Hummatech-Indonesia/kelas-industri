@@ -25,13 +25,14 @@ class StudentRepository extends BaseRepository
      * @param string $schoolId
      * @return mixed
      */
+
     public function get_by_school_ajax(string $schoolId, Request $request): mixed
     {
         return $this->model->query()
             ->with(['student', 'studentClassroom.classroom'])
             ->where('school_id', $schoolId)
             ->whereRelation('student', 'status', 'active')
-            ->when($request->classroom_id, function ($query) use ($request){
+            ->when($request->classroom_id, function ($query) use ($request) {
                 $query->whereRelation('studentClassroom.classroom', 'id', $request->classroom_id);
             })
             ->get();

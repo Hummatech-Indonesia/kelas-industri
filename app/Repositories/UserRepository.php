@@ -237,4 +237,12 @@ class UserRepository extends BaseRepository
             ->where('id', $user)
             ->first();
     }
+
+    public function get_dependent_by_id($user): mixed
+    {
+        return $this->model->query()
+            ->where('id', $user)
+            ->with('studentSchool.studentClassroom.classroom.dependent')
+            ->get();
+    }
 }

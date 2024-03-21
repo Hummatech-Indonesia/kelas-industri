@@ -48,7 +48,6 @@
                                 <th class="min-w-150px">Nama</th>
                                 <th class="min-w-200px">No Hp</th>
                                 <th class="min-w-150px">Email</th>
-                                <th class="min-w-100px">Status</th>
                                 <th class="min-w-100px">Aksi</th>
 
                             </tr>
@@ -90,19 +89,7 @@
                                         <span class="text-gray-900 fw-bold fs-7">{{ $student->student->email }}</span>
                                     </td>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex justify-content-start">
-                                                {{-- <div class="fw-semibold fs-7" style="background-color: #4eb443; color: white; border-radius: 5px; padding: 5px ">Lunas
-                                                </div> --}}
-                                                <div class="fw-semibold fs-7"
-                                                    style="background-color: #b44343; color: white; border-radius: 5px; padding: 5px ">
-                                                    Belum Lunas
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('administration.tracking.detailStudent', ['user' => $student->student->id]) }}"
+                                        <a href="{{ route('administration.tracking.detailStudent', ['classroom' => $student->studentClassroom->classroom->id, 'user' => $student->student->id]) }}"
                                             class="btn btn-primary">Lihat</a>
                                     </td>
                                 </tr>

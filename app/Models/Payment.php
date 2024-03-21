@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payment extends Model
 {
@@ -13,5 +14,15 @@ class Payment extends Model
     protected $table = 'payments';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'user_id', 'total_pay', 'payment_date'];
+    protected $fillable = ['id', 'user_id', 'total_pay', 'payment_date', 'semester'];
+
+    /**
+     * Get the user that owns the Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

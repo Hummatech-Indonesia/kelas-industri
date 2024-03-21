@@ -287,4 +287,9 @@ class UserServices
     {
         return $this->repository->get_by_id($user);
     }
+
+    public function handleGetDependentById(string $user): mixed
+    {
+        return $this->repository->get_dependent_by_id($user);
+    }
 }

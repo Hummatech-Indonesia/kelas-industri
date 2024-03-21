@@ -81,4 +81,9 @@ class Classroom extends Model
     {
         return $this->belongsTo(User::class, 'school_id');
     }
+
+    public function dependent(): HasMany
+    {
+        return $this->hasMany(Dependent::class, 'classroom_id');
+    }
 }

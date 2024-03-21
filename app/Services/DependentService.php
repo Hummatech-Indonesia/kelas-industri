@@ -29,4 +29,9 @@ class DependentService
     {
         return $this->repository->update($dependent->id, $request->validated());
     }
+
+    public function handleGetAllByClassroom(string $classroom)
+    {
+        return $this->repository->getAllByClassroom($classroom);
+    }
 }

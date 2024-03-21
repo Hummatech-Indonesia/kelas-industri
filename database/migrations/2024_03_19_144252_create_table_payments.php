@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
             $table->integer('total_pay');
             $table->date('payment_date');
-            $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
+            $table->integer('semester');
             $table->timestamps();
         });
     }
