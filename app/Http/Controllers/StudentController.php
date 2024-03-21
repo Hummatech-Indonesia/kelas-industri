@@ -160,18 +160,19 @@ class StudentController extends Controller
         return view('dashboard.admin.pages.student.rolling');
     }
 
-    public function ChangePassword(User $student): view
+    public function ChangePassword(User $student, User $school): view
     {
         $data = [
             'student' => $student,
+            'school' => $school
         ];
         return view('dashboard.admin.pages.student.changePassword', $data);
     }
 
-    public function updatePassword(UserPasswordRequest $request, User $student): RedirectResponse
+    public function updatePassword(UserPasswordRequest $request, User $student, User $school): RedirectResponse
     {
         $this->userService->handleChangePassword($request, $student->id);
 
-        return to_route('school.students.index')->with('success', trans('alert.update_success'));
+        return to_route('admin.schools.show', $school->id)->with('success', trans('alert.update_success'));
     }
 }

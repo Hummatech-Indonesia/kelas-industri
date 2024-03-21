@@ -102,7 +102,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('students/edit/{student}/{school}', [StudentController::class, 'edit'])->name('students.edit');
         Route::patch('students/update/{student}/{school}', [StudentController::class, 'update'])->name('students.update');
         Route::resource('students', StudentController::class)->only('destroy');
-        Route::get('/gantiPassword/{student}', [StudentController::class, 'ChangePassword'])->name('gantiPassword');
+
+        Route::get('/gantiPassword/{student}/{school}', [StudentController::class, 'ChangePassword'])->name('gantiPassword');
+        Route::patch('/updatePassword/{student}/{school}', [StudentController::class, 'updatePassword'])->name('updatePassword');
 
         Route::resources([
             'schoolYears' => SchoolYearController::class,
@@ -240,7 +242,6 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         //changepwstudent
         Route::get('/filter', [StudentController::class, 'filterStudent'])->name('filterStudent');
-        Route::patch('/updatePassword/{student}', [StudentController::class, 'updatePassword'])->name('updatePassword');
         //changepwsteacher
         Route::get('/gantiPasswordGuru/{teacher}', [TeacherController::class, 'ChangePasswordTeacher'])->name('gantiPasswordGuru');
         Route::patch('/updatePasswordGuru/{teacher}', [TeacherController::class, 'updatePasswordGuru'])->name('updatePasswordGuru');

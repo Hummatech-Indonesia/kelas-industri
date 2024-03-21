@@ -748,11 +748,11 @@
                         name: 'student.phone_number'
                     },
                     {
-                        data: 'student_classroom.classroom.name',
+                        data: 'student_classroom',
                         name: 'student_classroom.classroom.name',
                         render: function(data, type, row) {
-                            if (row.student_classroom) {
-                                return data;
+                            if (data != null) {
+                                return data.classroom.name;
                             } else {
                                 return '-';
                             }

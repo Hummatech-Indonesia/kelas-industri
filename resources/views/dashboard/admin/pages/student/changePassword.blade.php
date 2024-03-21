@@ -30,7 +30,7 @@
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('school.updatePassword', [$student->id]) }}" method="POST">
+            <form action="{{ route('admin.updatePassword', [$student->id, $school->id]) }}" method="POST">
                 @method('PATCH')
                 @csrf
                 <div class="col-12">
@@ -50,7 +50,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('school.students.index') }}"
+                                <a href="{{ route('admin.schools.show', $school->id) }}"
                                     class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -90,12 +90,11 @@
                                                 <span
                                                     class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                                                     data-kt-password-meter-control="visibility">
-                                                    <i class="fa-solid fa-eye-slash fs-3"><span
-                                                        class="path1"></span><span class="path2"></span><span
-                                                        class="path3"></span><span class="path4"></span></i>
-                                                    <i class="fa-solid fa-eye d-none fs-3"><span
-                                                        class="path1"></span><span class="path2"></span><span
-                                                        class="path3"></span></i>
+                                                    <i class="fa-solid fa-eye-slash fs-3"><span class="path1"></span><span
+                                                            class="path2"></span><span class="path3"></span><span
+                                                            class="path4"></span></i>
+                                                    <i class="fa-solid fa-eye d-none fs-3"><span class="path1"></span><span
+                                                            class="path2"></span><span class="path3"></span></i>
 
                                                 </span>
                                                 <!--end::Visibility toggle-->
@@ -112,5 +111,4 @@
             </form>
         </div>
     </div>
-
 @endsection
