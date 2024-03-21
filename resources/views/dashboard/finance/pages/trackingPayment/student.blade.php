@@ -48,8 +48,6 @@
                                 <th class="min-w-150px">Nama</th>
                                 <th class="min-w-200px">No Hp</th>
                                 <th class="min-w-150px">Email</th>
-                                <th class="min-w-150px">Total Bayar</th>
-                                <th class="min-w-100px">Total Tanggungan</th>
                                 <th class="min-w-100px">Status</th>
                                 <th class="min-w-100px">Aksi</th>
 
@@ -93,22 +91,6 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="d-flex justify-content-start flex-column">
-                                                <div class="text-gray-900 fw-bold fs-7">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex justify-content-start">
-                                                <div class="text-gray-900 fw-bold fs-7">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
                                             <div class="d-flex justify-content-start">
                                                 {{-- <div class="fw-semibold fs-7" style="background-color: #4eb443; color: white; border-radius: 5px; padding: 5px ">Lunas
                                                 </div> --}}
@@ -120,12 +102,16 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{ route('administration.tracking.detailStudent', ['school' => $student->school_id, 'user' => $student->student->id]) }}"
+                                        <a href="{{ route('administration.tracking.detailStudent', ['user' => $student->student->id]) }}"
                                             class="btn btn-primary">Lihat</a>
                                     </td>
                                 </tr>
                             @empty
-                                <x-empty-component title="kelas" />
+                                <tr>
+                                    <td colspan="8">
+                                        <x-empty-component title="kelas" />
+                                    </td>
+                                </tr>
                             @endforelse
                         </tbody>
                         <!--end::Table body-->

@@ -92,7 +92,11 @@
                                     </td>
                                 </tr>
                             @empty
-                                <x-empty-component title="transaksi" />
+                            <tr>
+                                <td colspan="8">
+                                    <x-empty-component title="transaksi" />
+                                </td>
+                            </tr>
                             @endforelse
                             {{-- @empty
                             <tr>

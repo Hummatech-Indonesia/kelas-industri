@@ -13,6 +13,7 @@ use App\Models\Challenge;
 use App\Models\Classroom;
 use App\Models\Assignment;
 use App\Models\Attendance;
+use App\Models\Dependent;
 use App\Models\Devision;
 use App\Models\Payment;
 use App\Models\SubMaterial;
@@ -27,6 +28,7 @@ use App\Observers\ChallengeObserver;
 use App\Observers\ClassroomObserver;
 use App\Observers\AssignmentObserver;
 use App\Observers\AttendanceObserver;
+use App\Observers\DependentObserver;
 use App\Observers\DevisionObserver;
 use App\Observers\PaymentObserver;
 use App\Observers\SubmaterialObserver;
@@ -68,6 +70,7 @@ class EventServiceProvider extends ServiceProvider
         News::observe(NewsObserver::class);
         Devision::observe(DevisionObserver::class);
         Payment::observe(PaymentObserver::class);
+        Dependent::observe(DependentObserver::class);
     }
 
     /**

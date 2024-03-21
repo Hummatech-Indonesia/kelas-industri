@@ -7,6 +7,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CertifyController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\DependentController;
 use App\Http\Controllers\DevisionController;
 use App\Http\Controllers\DevisionsController;
 use App\Http\Controllers\ExamController;
@@ -89,7 +90,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('classrooms/store/{school}', [ClassroomController::class, 'store'])->name('classrooms.store');
         Route::get('classrooms/{classroom}/{school}/edit', [ClassroomController::class, 'edit'])->name('classrooms.edit');
         Route::patch('classrooms/{classroom}/{school}', [ClassroomController::class, 'update'])->name('classrooms.update');
-        Route::delete('classrooms/{classroom}',[ClassroomController::class, 'destroy'])->name('classrooms.destroy');
+        Route::delete('classrooms/{classroom}', [ClassroomController::class, 'destroy'])->name('classrooms.destroy');
 
         Route::get('teachers/create/{school}', [TeacherController::class, 'create'])->name('teachers.create');
         Route::post('teachers/store/{school}', [TeacherController::class, 'store'])->name('teachers.store');
@@ -195,7 +196,11 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('salary-mentor', [AdminitrasionController::class, 'salaryMentor'])->name('salary-mentor.index');
         Route::get('salary-mentor/show', [AdminitrasionController::class, 'showSalaryMentor'])->name('salary-mentor.show');
 
-        Route::resource('tracking', TrackingPaymentController::class);
+        Route::resources([
+            'tracking' => TrackingPaymentController::class,
+            'dependent' => DependentController::class,
+        ]);
+
         Route::get('tracking/student-school/{school}', [TrackingPaymentController::class, 'allStudent'])->name('tracking.showStudent');
         Route::get('tracking/student-school/detail/{user}', [TrackingPaymentController::class, 'detailStudent'])->name('tracking.detailStudent');
         Route::post('tracking/student-school/detail/{user}/store', [TrackingPaymentController::class, 'store'])->name('tracking.detailStudent.store');
