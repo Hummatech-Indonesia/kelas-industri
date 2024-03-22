@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DependentRequest;
 use App\Models\Dependent;
+use App\Models\Payment;
 use App\Services\ClassroomService;
 use App\Services\DependentService;
-use Illuminate\Http\Request;
 
 class DependentController extends Controller
 {
@@ -39,5 +39,11 @@ class DependentController extends Controller
         $request->validated();
         $this->service->handleUpdate($dependent, $request);
         return redirect()->back();
+    }
+
+    public function semester()
+    {
+        $totalTanggungan = Payment::where('semester', 1)->sum('total_pay');
+        return response()->json($totalTanggungan);
     }
 }

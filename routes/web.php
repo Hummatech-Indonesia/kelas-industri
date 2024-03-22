@@ -216,6 +216,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('tracking/student-school/detail/{classroom}/{user}', [TrackingPaymentController::class, 'detailStudent'])->name('tracking.detailStudent');
         Route::post('tracking/student-school/detail/{user}/store', [TrackingPaymentController::class, 'store'])->name('tracking.detailStudent.store');
         Route::put('tracking/student-school/detail/{user}/update', [TrackingPaymentController::class, 'update'])->name('tracking.detailStudent.update');
+        Route::get('get-total-dependent', [DependentController::class, 'semester'])->name('total.dependent');
     });
     //end finance
 

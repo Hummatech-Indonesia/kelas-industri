@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PaymentRequest;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Services\DependentService;
 use App\Services\PaymentService;
 use App\Services\SchoolService;
 use App\Services\StudentService;
 use App\Services\UserServices;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class TrackingPaymentController extends Controller
@@ -138,6 +138,7 @@ class TrackingPaymentController extends Controller
         $data['student'] = $this->userService->handleGetById($user);
         $data['dependents'] = $this->serviceDependent->handleGetAllByClassroom($classroom);
         $data['trackings'] = $this->servicePayment->handleGetByStudent($user);
+        $data['user'] = $user;
         return view('dashboard.finance.pages.trackingPayment.detailStudent', $data);
     }
 }

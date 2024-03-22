@@ -47,13 +47,14 @@
         <!--end::Actions-->
     </div>
     <ul class="nav nav-pills nav-pills-custom mb-3" role="tablist">
-        @foreach ($dependents as $li)
+        @foreach ($dependents as $index => $li)
             <!--begin::Item-->
             <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
                 <!--begin::Link-->
-                <a class="nav-link d-flex justify-content-between flex-column flex-center overflow-hidden py-4"
-                    data-bs-toggle="pill" href="#kt_stats_widget_2_tab_{{ $li->id }}" aria-selected="false"
-                    role="tab" tabindex="-1">
+                <a class="nav-link d-flex {{ $index === 0 ? 'show active' : '' }} justify-content-between flex-column flex-center overflow-hidden py-4"
+                    data-bs-toggle="pill" href="#kt_stats_widget_2_tab_{{ $li->id }}"
+                    aria-selected="{{ $index === 0 ? 'true' : 'false' }}" role="tab" tabindex="-1"
+                    data-semester="{{ $li->semester }}" data-user="{{ $user }}">
                     <!--begin::Subtitle-->
                     <span class="nav-text text-gray-700 fw-bold fs-6 lh-1">
                         Semester {{ $li->semester }}
@@ -67,23 +68,22 @@
             </li>
             <!--end::Item-->
         @endforeach
+
     </ul>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="card mb-5 mb-xl-8">
             <!--begin::Body-->
             <div class="card-body py-3">
-                @foreach ($dependents as $tabContent)
+                @foreach ($dependents as $index => $tabContent)
                     <div class="tab-content">
-                        <div class="tab-pane fade show" id="kt_stats_widget_2_tab_{{ $tabContent->id }}" role="tabpanel">
+                        <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
+                            id="kt_stats_widget_2_tab_{{ $tabContent->id }}" role="tabpanel">
                             @if ($tabContent->semester)
                                 <button class="btn btn-dark fw-bold h-40px fs-7 btn-plus"
                                     data-semester="{{ $tabContent->semester }}"
-                                    data-semester_tanggungan="{{ $tabContent->nominal }}">
+                                    data-semester_tanggungan="{{ $tabContent->nominal }}"
+                                    data-total_pay="{{ $trackings->where('semester', $tabContent->semester)->sum('total_pay') }}">
                                     Tambah
-                                </button>
-                                <button class="btn btn-dark">
-                                    total tanggungan : Rp.
-                                    {{ number_format($tabContent->nominal - $trackings->sum('total_pay'), 0, ',', '.') }}
                                 </button>
                             @endif
                             <!--begin::Table container-->
@@ -97,7 +97,6 @@
                                             <th class="min-w-150px">Nominal</th>
                                             <th class="min-w-150px">Waktu Pembayaran</th>
                                             <th class="min-w-100px">Aksi</th>
-
                                         </tr>
                                     </thead>
                                     <!--end::Table head-->
@@ -151,29 +150,77 @@
                                 </table>
                                 <!--end::Table-->
                                 {{-- {{ $newss->links('pagination::bootstrap-5') }} --}}
+
                             </div>
                             <!--end::Table container-->
-                            {{-- </div> --}}
+                            <div class="card">
+                                <div class="d-flex flex-stack">
+                                    <!--begin::Section-->
+                                    <div class="text-gray-700 fw-semibold fs-6 me-2">Total pembayaran pada semester ini :
+                                    </div>
+                                    <!--end::Section-->
+
+                                    <!--begin::Statistics-->
+                                    <div class="d-flex align-items-senter">
+                                        <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span
+                                                class="path1"></span><span class="path2"></span></i>
+
+                                        <!--begin::Number-->
+                                        <span class="text-gray-900 fw-bolder fs-6">Rp.
+                                            {{ number_format($trackings->where('semester', $tabContent->semester)->sum('total_pay'), 0, ',', '.') }}</span>
+                                        <!--end::Number-->
+                                    </div>
+                                    <!--end::Statistics-->
+                                </div>
+                                <div class="separator separator-dashed my-3"></div>
+                                <div class="d-flex flex-stack">
+                                    <!--begin::Section-->
+                                    <div class="text-gray-700 fw-semibold fs-6 me-2">Tanggungnan pembayaran pada semester
+                                        ini :
+                                    </div>
+                                    <!--end::Section-->
+
+                                    <!--begin::Statistics-->
+                                    <div class="d-flex align-items-senter">
+                                        <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span
+                                                class="path1"></span><span class="path2"></span></i>
+
+                                        <!--begin::Number-->
+                                        <span class="text-gray-900 fw-bolder fs-6">Rp.
+                                            {{ number_format($tabContent->nominal) }}</span>
+                                        <!--end::Number-->
+                                    </div>
+                                    <!--end::Statistics-->
+                                </div>
+                                <div class="separator separator-dashed my-3"></div>
+                                <div class="d-flex flex-stack">
+                                    <!--begin::Section-->
+                                    <div class="text-gray-700 fw-semibold fs-6 me-2">Total Tanggungan :
+                                    </div>
+                                    <!--end::Section-->
+
+                                    <!--begin::Statistics-->
+                                    <div class="d-flex align-items-senter">
+                                        <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span
+                                                class="path1"></span><span class="path2"></span></i>
+
+                                        <!--begin::Number-->
+                                        <span class="text-gray-900 fw-bolder fs-6">Rp.
+                                            {{ number_format($tabContent->nominal - $trackings->where('semester', $tabContent->semester)->sum('total_pay'), 0, ',', '.') }}</span>
+                                        <!--end::Number-->
+                                    </div>
+                                    <!--end::Statistics-->
+                                </div>
+                            </div>
                         </div>
+                    </div>
                 @endforeach
             </div>
-
             <!--begin::Body-->
         </div>
-
-        <div class="card card-body mt-3">
-            <div>
-                total pembayaran anda pada semester ini : Rp.
-                {{ number_format($trackings->sum('total_pay'), 0, ',', '.') }}
-            </div>
-            <div>
-                total tanggungan pada semester ini &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :
-                Rp.
-                {{-- {{ number_format($student->studentSchool->studentClassroom->classroom->dependent->nominal, 0, ',', '.') }} --}}
-            </div>
-        </div>
+        <x-delete-modal-component />
     </div>
-    <x-delete-modal-component />
+
     <div class="modal fade" tabindex="-1" id="create_modal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -197,7 +244,7 @@
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $student->id }}">
                         <input type="text" name="semester_tanggungan" id="semester_tanggungan">
-                        <input type="text" name="total" value="{{ $trackings->sum('total_pay') }}">
+                        <input type="text" name="total" id="total_pay_semester">
                         <div class="mb-3">
                             <label for="total_pay">Nominal Uang</label>
                             <input type="number" class="form-control" name="total_pay" id="total_pay">
@@ -256,6 +303,23 @@
 @endsection
 @section('script')
     <script>
+        $('.nav-link').click(function() {
+            var semester = $(this).data('semester');
+            var userId = $(this).data('user');
+            console.log(semester, userId);
+            $.ajax({
+                type: "GET",
+                url: "{{ route('administration.total.dependent') }}",
+                success: function(response) {
+                    $('#total_tanggungan').html('Total pembayaran anda pada semester ini : Rp. ' +
+                        response);
+                }
+            });
+        });
+    </script>
+
+
+    <script>
         $('.btn-delete').click(function() {
             const url = "{{ route('admin.news.destroy', ':id') }}".replace(':id', $(this).data(
                 'id'))
@@ -269,6 +333,8 @@
             $('#semester').val(semester);
             var semester_tanggungan = $(this).data('semester_tanggungan');
             $('#semester_tanggungan').val(semester_tanggungan);
+            var total_pay = $(this).data('total_pay');
+            $('#total_pay_semester').val(total_pay);
             $('#create_modal').modal('show');
         });
         $('.btn-edit').click(function() {

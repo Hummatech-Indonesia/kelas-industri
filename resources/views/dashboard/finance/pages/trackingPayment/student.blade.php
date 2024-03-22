@@ -48,6 +48,7 @@
                                 <th class="min-w-150px">Nama</th>
                                 <th class="min-w-200px">No Hp</th>
                                 <th class="min-w-150px">Email</th>
+                                <th class="min-w-150px">Kelas</th>
                                 <th class="min-w-100px">Aksi</th>
 
                             </tr>
@@ -88,9 +89,18 @@
                                         style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
                                         <span class="text-gray-900 fw-bold fs-7">{{ $student->student->email }}</span>
                                     </td>
+                                    <td
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
+                                        <span
+                                            class="text-gray-900 fw-bold fs-7">{{ $student->studentClassroom ? $student->studentClassroom->classroom->name : '-' }}</span>
+                                    </td>
                                     <td>
-                                        <a href="{{ route('administration.tracking.detailStudent', ['classroom' => $student->studentClassroom->classroom->id, 'user' => $student->student->id]) }}"
-                                            class="btn btn-primary">Lihat</a>
+                                        @if ($student->studentClassroom)
+                                            <a href="{{ route('administration.tracking.detailStudent', ['classroom' => $student->studentClassroom->classroom->id, 'user' => $student->student->id]) }}"
+                                                class="btn btn-primary">Lihat</a>
+                                        @else
+                                            -
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
