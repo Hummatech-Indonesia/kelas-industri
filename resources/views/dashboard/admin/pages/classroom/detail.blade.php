@@ -256,23 +256,5 @@
         $("#kt_datatable_responsive").DataTable({
             responsive: true
         });
-
-        $('.btn-edit').click(function() {
-            const data = $(this).data('student')
-            $('#studentName').val(data.name)
-            $('#studentEmail').val(data.email)
-            $('#studentPhone').val(data.phone_number)
-            $('#studentAddress').val(data.address)
-
-            const url = "{{ route('admin.students.update', ':id') }}".replace(':id', data.id)
-            $('#formStudentEdit').attr('action', url)
-        })
-
-        $('.btn-delete').click(function() {
-            const url = "{{ route('admin.students.destroy', ':id') }}".replace(':id', $(this).data('id'))
-            $('#form-delete').attr('action', url)
-
-            $('#kt_modal_delete').modal('show')
-        })
     </script>
 @endsection

@@ -21,14 +21,14 @@ class PaymentService
         $total = $request->total;
         $pengurangan = $semester_tanggungan - $total;
 
+        if ($pengurangan == 0) {
+            return redirect()->back()->with('error', 'Tanggungan anda sudah lunas');
+        }
         if ($pengurangan < $request->total_pay) {
             return redirect()->back()->with('error', 'Jumlah pembayaran melebihi kekurangan tanggungan. Masukkan sejumlah Rp. ' . $pengurangan);
         }
         if ($request->total_pay < 0) {
             return redirect()->back()->with('error', 'Jumlah pembayaran minimal Rp. 0');
-        }
-        if ($pengurangan == 0 && $request->total_pay > 0) {
-            return redirect()->back()->with('error', 'Tanggungan anda sudah lunas');
         }
         return $this->payment->store($request->validated());
     }
