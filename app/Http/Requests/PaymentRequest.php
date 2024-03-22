@@ -19,7 +19,7 @@ class PaymentRequest extends FormRequest
             'user_id' => 'required',
             'total_pay' => 'required|min:0',
             'payment_date' => 'required',
-            'semester' => 'required',
+            'semester' => 'nullable',
         ];
     }
 

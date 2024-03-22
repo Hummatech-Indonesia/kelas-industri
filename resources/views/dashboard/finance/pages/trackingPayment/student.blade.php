@@ -97,7 +97,12 @@
                                     <td>
                                         @if ($student->studentClassroom)
                                             <a href="{{ route('administration.tracking.detailStudent', ['classroom' => $student->studentClassroom->classroom->id, 'user' => $student->student->id]) }}"
-                                                class="btn btn-primary">Lihat</a>
+                                                class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data"
+                                                data-kt-initialized="1">
+                                                <i class="fa-regular fa-eye fs-3 text-warning"></i>
+                                            </a>
                                         @else
                                             -
                                         @endif

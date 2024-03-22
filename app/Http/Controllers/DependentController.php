@@ -42,10 +42,10 @@ class DependentController extends Controller
         return redirect()->back()->with('success', trans('alert.update_success'));
     }
 
-    public function semester()
+    public function semester($semester,User $user)
     {
-
-        $totalTanggungan = Payment::where('semester', 1)->sum('total_pay');
-        return response()->json($totalTanggungan);
+        $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', $user->id)->sum('total_pay');
+        $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', $user->studentSchool->studentClassroom->classroom->id)->select('nominal')->first();
+        return response()->json($data);
     }
 }

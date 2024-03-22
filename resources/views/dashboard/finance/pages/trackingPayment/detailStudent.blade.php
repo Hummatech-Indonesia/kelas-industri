@@ -78,14 +78,16 @@
                     <div class="tab-content">
                         <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
                             id="kt_stats_widget_2_tab_{{ $tabContent->id }}" role="tabpanel">
-                            @if ($tabContent->semester)
-                                <button class="btn btn-dark fw-bold h-40px fs-7 btn-plus"
-                                    data-semester="{{ $tabContent->semester }}"
-                                    data-semester_tanggungan="{{ $tabContent->nominal }}"
-                                    data-total_pay="{{ $trackings->where('semester', $tabContent->semester)->sum('total_pay') }}">
-                                    Tambah
-                                </button>
-                            @endif
+                            <div class="d-flex">
+                                @if ($tabContent->semester)
+                                    <button class="btn btn-dark ms-auto fw-bold h-40px fs-7 btn-plus"
+                                        data-semester="{{ $tabContent->semester }}"
+                                        data-semester_tanggungan="{{ $tabContent->nominal }}"
+                                        data-total_pay="{{ $trackings->where('semester', $tabContent->semester)->sum('total_pay') }}">
+                                        Tambah
+                                    </button>
+                                @endif
+                            </div>
                             <!--begin::Table container-->
                             <div class="table-responsive">
                                 <!--begin::Table-->
@@ -103,41 +105,46 @@
 
                                     <!--begin::Table body-->
                                     <tbody>
-                                        @forelse ($trackings as $tracking)
-                                            @if ($tabContent->semester == $tracking->semester)
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="d-flex justify-content-start flex-column">
-                                                                <div class="text-gray-900 fw-bold fs-7">
-                                                                    {{ $loop->iteration }}
-                                                                </div>
+                                        @php
+                                            $counter = 1;
+                                        @endphp
+                                        @forelse ($trackings->where('semester', $tabContent->semester) as $index => $tracking)
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="d-flex justify-content-start flex-column">
+                                                            <div class="text-gray-900 fw-bold fs-7">
+                                                                {{ $counter++ }}
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                    <td
-                                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
-                                                        <span class="text-gray-900 fw-bold fs-7">Rp.
-                                                            {{ number_format($tracking->total_pay, 0, ',', '.') }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="d-flex justify-content-start flex-column">
-                                                                <div class="text-gray-900 fw-bold fs-7">
-                                                                    {{ Carbon::parse($tracking->payment_date)->translatedFormat('d F Y') }}
-                                                                </div>
+                                                    </div>
+                                                </td>
+                                                <td
+                                                    style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
+                                                    <span class="text-gray-900 fw-bold fs-7">Rp.
+                                                        {{ number_format($tracking->total_pay, 0, ',', '.') }}</span>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="d-flex justify-content-start flex-column">
+                                                            <div class="text-gray-900 fw-bold fs-7">
+                                                                {{ Carbon::parse($tracking->payment_date)->translatedFormat('d F Y') }}
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-primary btn-edit"
-                                                            data-id="{{ $tracking->id }}"
-                                                            data-user="{{ $tracking->user_id }}"
-                                                            data-total="{{ $tracking->total_pay }}"
-                                                            data-payment="{{ $tracking->payment_date }}">Edit</button>
-                                                    </td>
-                                                </tr>
-                                            @endif
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                                        data-id="{{ $tracking->id }}" data-user="{{ $tracking->user_id }}"
+                                                        data-total="{{ $tracking->total_pay }}"
+                                                        data-payment="{{ $tracking->payment_date }}"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data"
+                                                        data-kt-initialized="1">
+                                                        <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         @empty
                                             <tr>
                                                 <td colspan="8">
@@ -153,65 +160,6 @@
 
                             </div>
                             <!--end::Table container-->
-                            <div class="card">
-                                <div class="d-flex flex-stack">
-                                    <!--begin::Section-->
-                                    <div class="text-gray-700 fw-semibold fs-6 me-2">Total pembayaran pada semester ini :
-                                    </div>
-                                    <!--end::Section-->
-
-                                    <!--begin::Statistics-->
-                                    <div class="d-flex align-items-senter">
-                                        <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span
-                                                class="path1"></span><span class="path2"></span></i>
-
-                                        <!--begin::Number-->
-                                        <span class="text-gray-900 fw-bolder fs-6">Rp.
-                                            {{ number_format($trackings->where('semester', $tabContent->semester)->sum('total_pay'), 0, ',', '.') }}</span>
-                                        <!--end::Number-->
-                                    </div>
-                                    <!--end::Statistics-->
-                                </div>
-                                <div class="separator separator-dashed my-3"></div>
-                                <div class="d-flex flex-stack">
-                                    <!--begin::Section-->
-                                    <div class="text-gray-700 fw-semibold fs-6 me-2">Tanggungnan pembayaran pada semester
-                                        ini :
-                                    </div>
-                                    <!--end::Section-->
-
-                                    <!--begin::Statistics-->
-                                    <div class="d-flex align-items-senter">
-                                        <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span
-                                                class="path1"></span><span class="path2"></span></i>
-
-                                        <!--begin::Number-->
-                                        <span class="text-gray-900 fw-bolder fs-6">Rp.
-                                            {{ number_format($tabContent->nominal) }}</span>
-                                        <!--end::Number-->
-                                    </div>
-                                    <!--end::Statistics-->
-                                </div>
-                                <div class="separator separator-dashed my-3"></div>
-                                <div class="d-flex flex-stack">
-                                    <!--begin::Section-->
-                                    <div class="text-gray-700 fw-semibold fs-6 me-2">Total Tanggungan :
-                                    </div>
-                                    <!--end::Section-->
-
-                                    <!--begin::Statistics-->
-                                    <div class="d-flex align-items-senter">
-                                        <i class="ki-duotone ki-arrow-up-right fs-2 text-success me-2"><span
-                                                class="path1"></span><span class="path2"></span></i>
-
-                                        <!--begin::Number-->
-                                        <span class="text-gray-900 fw-bolder fs-6">Rp.
-                                            {{ number_format($tabContent->nominal - $trackings->where('semester', $tabContent->semester)->sum('total_pay'), 0, ',', '.') }}</span>
-                                        <!--end::Number-->
-                                    </div>
-                                    <!--end::Statistics-->
-                                </div>
-                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -219,13 +167,31 @@
             <!--begin::Body-->
         </div>
         <x-delete-modal-component />
+
+        <h4 class="fw-bolder fs-1 mb-4">Rincian Pembayaran</h4>
+        <div class="card shadow mb-5 bg-body-tertiary rounded">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-gray-900 fw-medium fs-5">Total Pembayaran Anda pada semester ini</div>
+                    <div class="text-gray-900 fw-bolder fs-5" id="total_bayar"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div class="text-gray-900 fw-medium fs-5">Tanggungan pembayaran pada semester ini</div>
+                    <div class="text-gray-900 fw-bolder fs-5" id="tanggungan_pembayaran"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-5">
+                    <div class="text-primary fw-bolder fs-1">Total Tanggungan</div>
+                    <div class="text-primary fw-bolder fs-1" id="total_sisa"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="modal fade" tabindex="-1" id="create_modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Detail Berita</h3>
+                    <h3 class="modal-title" id="modal-title"></h3>
 
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
@@ -243,8 +209,8 @@
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $student->id }}">
-                        <input type="text" name="semester_tanggungan" id="semester_tanggungan">
-                        <input type="text" name="total" id="total_pay_semester">
+                        <input type="hidden" name="semester_tanggungan" id="semester_tanggungan">
+                        <input type="hidden" name="total" id="total_pay_semester">
                         <div class="mb-3">
                             <label for="total_pay">Nominal Uang</label>
                             <input type="number" class="form-control" name="total_pay" id="total_pay">
@@ -253,7 +219,7 @@
                             <label for="payment_date">tanggal</label>
                             <input type="date" class="form-control" name="payment_date" id="payment_date">
                         </div>
-                        <input type="integer" id="semester" name="semester">
+                        <input type="hidden" id="semester" name="semester">
                         <div class="mb-3 d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">Simpan</button>
                         </div>
@@ -303,16 +269,55 @@
 @endsection
 @section('script')
     <script>
+        $(document).ready(function() {
+            var semester = $('a[data-semester]').first().data('semester');
+            var userId = $('a[data-semester]').first().data('user');
+            if (semester && userId) {
+                console.log(semester, userId);
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('administration.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
+                        .replace(':semester', semester).replace(':user', userId),
+                    success: function(response) {
+                        console.log(response);
+                        $('#total_bayar').html(numberFormat(response.totalBayar));
+                        $('#tanggungan_pembayaran').html(numberFormat(response.nominal.nominal));
+                        $('#total_sisa').html(numberFormat(response.nominal.nominal - response
+                            .totalBayar));
+
+                        function numberFormat(angka) {
+                            var rupiah = '';
+                            var angkarev = angka.toString().split('').reverse().join('');
+                            for (var i = 0; i < angkarev.length; i++)
+                                if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.';
+                            return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
+                        }
+
+                    }
+                });
+            }
+        });
+
         $('.nav-link').click(function() {
             var semester = $(this).data('semester');
             var userId = $(this).data('user');
             console.log(semester, userId);
             $.ajax({
                 type: "GET",
-                url: "{{ route('administration.total.dependent') }}",
+                url: "/administration/get-total-dependent/" + semester + "/" + userId,
                 success: function(response) {
-                    $('#total_tanggungan').html('Total pembayaran anda pada semester ini : Rp. ' +
-                        response);
+                    console.log(response);
+                    $('#total_bayar').html(numberFormat(response.totalBayar));
+                    $('#tanggungan_pembayaran').html(numberFormat(response.nominal.nominal));
+                    $('#total_sisa').html(numberFormat(response.nominal.nominal - response.totalBayar));
+
+                    function numberFormat(angka) {
+                        var rupiah = '';
+                        var angkarev = angka.toString().split('').reverse().join('');
+                        for (var i = 0; i < angkarev.length; i++)
+                            if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.';
+                        return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
+                    }
                 }
             });
         });
@@ -335,6 +340,7 @@
             $('#semester_tanggungan').val(semester_tanggungan);
             var total_pay = $(this).data('total_pay');
             $('#total_pay_semester').val(total_pay);
+            $('#modal-title').html('Tambah Pembayaran Semester ' + semester);
             $('#create_modal').modal('show');
         });
         $('.btn-edit').click(function() {
