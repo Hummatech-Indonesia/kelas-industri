@@ -5,27 +5,32 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                List Devisi
+                List Daftar Tanggungan Persemester
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List Devisi pada kelas industri.
+                List Daftar Tanggungan {{ $school->name }}.
             </p>
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
 
         <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
-
-            <!--begin::Button-->
-            <button class="btn btn-dark btn-plus fw-bold">
-                Tambah </button>
-            <!--end::Button-->
-        </div>
+        <form action="" method="get">
+            <div class="d-flex align-items-center py-2 py-md-1 gap-3">
+                <!--begin::Button-->
+                <button class="btn btn-dark btn-plus fw-bold">
+                    Tambah </button>
+                <a href="{{ route('administration.tracking.index') }}"
+                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                    <i class="bi bi-arrow-left me-2"></i> Kembali
+                </a>
+                <!--end::Button-->
+            </div>
+        </form>
         <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
@@ -34,18 +39,32 @@
                 <div class="card">
 
                     <!--begin::Card body-->
-                    <div class="card-body pt-12">
-
+                    <div class="card-body pt-5">
                         <!--begin::Table-->
+                        <div class="d-flex justify-content-end">
+                            <div class="d-flex w-25 gap-3">
+                                <select class="form-select form-select-solid" name="classroom_id" data-control="select2"
+                                    data-placeholder="Select an option">
+                                    @foreach ($classrooms as $classroom)
+                                        <option {{ request()->classroom_id == $classroom->id ? 'selected' : '' }}
+                                            value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                                    @endforeach
+                                </select>
+                                <button class="btn btn-dark fw-bold" type="submit">
+                                    Cari</button>
+                                <a href="{{ route('administration.dependent.index', $school->id) }}" type="button"
+                                    class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                            </div>
+                        </div>
                         <table class="table align-middle table-row-dashed fs-6 gy-5">
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="text-start">No</th>
-                                    <th class="text-start">semester</th>
-                                    <th class="text-start">kelas</th>
-                                    <th class="text-start">nominal</th>
+                                    <th class="text-start">Kelas</th>
+                                    <th class="text-start">Semester</th>
+                                    <th class="text-start">Nominal</th>
                                     <th class="text-start">Aksi</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -57,14 +76,18 @@
                                 @foreach ($dependents as $dependent)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>semester {{ $dependent->semester }}</td>
                                         <td>{{ $dependent->classroom->name }}</td>
-                                        <td>{{ $dependent->nominal }}</td>
+                                        <td>Semester {{ $dependent->semester }}</td>
+                                        <td>{{ 'Rp ' . number_format($dependent->nominal, 2, ',', '.') }}</td>
                                         <td>
-                                            <button class="btn btn-primary btn-edit" data-id="{{ $dependent->id }}"
-                                                data-semester="{{ $dependent->semester }}"
+                                            <button
+                                                class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                                data-id="{{ $dependent->id }}" data-semester="{{ $dependent->semester }}"
                                                 data-classroom="{{ $dependent->classroom_id }}"
-                                                data-nominal="{{ $dependent->nominal }}">Ubah</button>
+                                                data-nominal="{{ $dependent->nominal }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Edit Data">
+                                                <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -84,7 +107,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Tambah tanggungan</h3>
+                    <h3 class="modal-title">Tambah Tanggungan</h3>
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
                         aria-label="Close">
@@ -99,25 +122,26 @@
                 <div class="modal-body row">
                     <form action="{{ route('administration.dependent.store') }}" method="post">
                         @csrf
-                        <label for="semester">pilih semester</label>
-                        <select name="semester" id="semester" class="form-select" required>
-                            <option value="" disabled selected>pilih semester</option>
-                            <option value="1">semester 1</option>
-                            <option value="2">semester 2</option>
-                            <option value="3">semester 3</option>
-                            <option value="4">semester 4</option>
-                            <option value="5">semester 5</option>
-                            <option value="6">semester 6</option>
+                        <label class="form-label">Pilih Semester</label>
+                        <select class="form-select " name="semester" value="{{ old('semester') }}"
+                            data-placeholder="Select an option">
+                            <option value="1">Semester 1</option>
+                            <option value="2">Semester 2</option>
+                            <option value="3">Semester 3</option>
+                            <option value="4">Semester 4</option>
+                            <option value="5">Semester 5</option>
+                            <option value="6">Semester 6</option>
                         </select>
-                        <label for="classroom_id">pilih kelas</label>
+
+                        <label class="form-label mt-3" for="classroom_id">Pilih Kelas</label>
                         <select name="classroom_id" id="classroom_id" class="form-select" required>
-                            <option value="" disabled selected>pilih kelas</option>
                             @foreach ($classrooms as $classroom)
                                 <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
                             @endforeach
                         </select>
-                        <label for="nominal">nominal</label>
-                        <input type="number" name="nominal" id="nominal" class="form-control mt-2">
+
+                        <label class="form-label mt-3" for="nominal">Nominal</label>
+                        <input type="number" name="nominal" placeholder="100000" id="nominal" class="form-control mt-2">
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary mt-5">Simpan</button>
                         </div>
@@ -147,24 +171,22 @@
                     <form id="form_edit" method="post">
                         @csrf
                         @method('PUT')
-                        <label for="semester">pilih semester</label>
+                        <label class="form-label" for="semester">Pilih Semester</label>
                         <select name="semester" id="semesterEdit" class="form-select" required>
-                            <option value="" disabled selected>pilih semester</option>
-                            <option value="1">semester 1</option>
-                            <option value="2">semester 2</option>
-                            <option value="3">semester 3</option>
-                            <option value="4">semester 4</option>
-                            <option value="5">semester 5</option>
-                            <option value="6">semester 6</option>
+                            <option value="1">Semester 1</option>
+                            <option value="2">Semester 2</option>
+                            <option value="3">Semester 3</option>
+                            <option value="4">Semester 4</option>
+                            <option value="5">Semester 5</option>
+                            <option value="6">Semester 6</option>
                         </select>
-                        <label for="classroom_id">pilih kelas</label>
+                        <label class="form-label mt-3" for="classroom_id">Pilih Kelas</label>
                         <select name="classroom_id" id="classroomEdit" class="form-select" required>
-                            <option value="" disabled selected>pilih kelas</option>
                             @foreach ($classrooms as $classroom)
                                 <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
                             @endforeach
                         </select>
-                        <label for="nominal">nominal</label>
+                        <label class="form-label mt-3" for="nominal">Nominal</label>
                         <input type="number" name="nominal" id="nominalEdit" class="form-control mt-2">
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary mt-5">Simpan</button>
@@ -202,7 +224,8 @@
             $('#semesterEdit').val(semester)
             $('#classroomEdit').val(classroom)
             $('#nominalEdit').val(nominal)
-            $('#form_edit').attr('action', "{{ route('administration.dependent.update', ':id') }}".replace(':id', id))
+            $('#form_edit').attr('action', "{{ route('administration.dependent.update', ':id') }}".replace(':id',
+                id))
             $('#kt_modal_edit').modal('show')
         })
     </script>

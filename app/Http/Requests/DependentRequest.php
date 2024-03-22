@@ -18,7 +18,7 @@ class DependentRequest extends FormRequest
             //
             'semester' => 'required',
             'classroom_id' => 'required',
-            'nominal' => 'required',
+            'nominal' => 'required|numeric|min:0',
         ];
     }
 
@@ -29,6 +29,8 @@ class DependentRequest extends FormRequest
             'semester.required' => 'Semester wajib diisi',
             'classroom_id.required' => 'Kelas wajib diisi',
             'nominal.required' => 'Nominal wajib diisi',
+            'nominal.numeric' => 'Nominal harus diisi angka',
+            'nominal.min' => 'Nilai nominal tidak boleh negatif.',
         ];
     }
 }

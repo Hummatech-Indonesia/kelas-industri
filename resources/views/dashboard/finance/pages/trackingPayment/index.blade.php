@@ -51,7 +51,7 @@
                             <div class="col-lg-2 col-md-4 col-6">
                                 <button class="btn btn-primary" id="btn-search">Cari</button>
                                 <a href="{{ route('admin.schools.index') }}" type="button"
-                                class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                    class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
                             </div>
                             <!--end::Input group-->
                         </div>
@@ -104,7 +104,8 @@
                                         {{ $school->name }}
                                     </a>
 
-                                    <span class="text-muted font-weight-bold" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
+                                    <span class="text-muted font-weight-bold"
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
                                         {{ $school->address }}
                                     </span>
 
@@ -178,10 +179,14 @@
 
                         <!--begin::Footer-->
 
-                        <div class="card-footer d-flex align-items-center flex-row justify-content-center">
+                        <div class="card-footer d-flex align-items-center flex-row justify-content-center gap-2">
 
                             <a href="{{ route('administration.tracking.showStudent', $school->id) }}"
-                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-2 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">detail</a>
+                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-2 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
+
+                            <a href="{{ route('administration.dependent.index', $school->id) }}"
+                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-2 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Tambah
+                                Tanggungan</a>
 
                         </div>
 
@@ -205,36 +210,18 @@
         <x-delete-modal-component />
     </div>
 @endsection
-@section('script')
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-
-            $('.btn-delete').click(function() {
-                const url = "{{ route('admin.schools.destroy', ':id') }}".replace(':id', $(this).data(
-                    'id'))
-                $('#form-delete').attr('action', url)
-
-                $('#kt_modal_delete').modal('show')
-            })
-
-            $('#btn-search').click(function() {
-                window.location.href = "{{ route('admin.schools.index', 'search=' . ':id') }}".replace(
-                    ':id', $("input[name='search']").val())
-            })
-        });
-    </script>
-@endsection
 @section('css')
-        <Style>
-            @media (max-width:639px){
-                .position-relative{
-                    margin-bottom: 10px;
-                }
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
             }
-            @media (min-width:640px){
-                .searching{
-                    display: flex;
-                }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
             }
-        </Style>
-    @endsection
+        }
+    </Style>
+@endsection

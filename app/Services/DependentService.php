@@ -3,8 +3,9 @@
 namespace App\Services;
 
 use App\Models\Dependent;
-use App\Repositories\DependentRepository;
 use Illuminate\Http\Request;
+use App\Http\Requests\DependentRequest;
+use App\Repositories\DependentRepository;
 
 class DependentService
 {
@@ -15,17 +16,17 @@ class DependentService
         $this->repository = $repository;
     }
 
-    public function handleGetAll(): mixed
+    public function handleGeByClassroom(Request $request): mixed
     {
-        return $this->repository->getAll();
+        return $this->repository->getByClassroom($request);
     }
 
-    public function handleStore(Request $request)
+    public function handleStore(DependentRequest $request)
     {
         return $this->repository->store($request->validated());
     }
 
-    public function handleUpdate(Dependent $dependent, Request $request): mixed
+    public function handleUpdate(Dependent $dependent, DependentRequest $request): mixed
     {
         return $this->repository->update($dependent->id, $request->validated());
     }
