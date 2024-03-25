@@ -15,6 +15,7 @@ use App\Models\Assignment;
 use App\Models\Attendance;
 use App\Models\Dependent;
 use App\Models\Devision;
+use App\Models\Packages;
 use App\Models\Payment;
 use App\Models\SubMaterial;
 use App\Observers\ExamObserver;
@@ -30,6 +31,7 @@ use App\Observers\AssignmentObserver;
 use App\Observers\AttendanceObserver;
 use App\Observers\DependentObserver;
 use App\Observers\DevisionObserver;
+use App\Observers\PackageObserver;
 use App\Observers\PaymentObserver;
 use App\Observers\SubmaterialObserver;
 use Illuminate\Auth\Events\Registered;
@@ -71,6 +73,7 @@ class EventServiceProvider extends ServiceProvider
         Devision::observe(DevisionObserver::class);
         Payment::observe(PaymentObserver::class);
         Dependent::observe(DependentObserver::class);
+        Packages::observe(PackageObserver::class);
     }
 
     /**
