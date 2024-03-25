@@ -16,6 +16,8 @@ use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
@@ -211,6 +213,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::resource('dependent', DependentController::class)->only('store','update');
         Route::resources([
             'tracking' => TrackingPaymentController::class,
+            'package' => PackageController::class,  
         ]);
 
         Route::get('tracking/student-school/{school}', [TrackingPaymentController::class, 'allStudent'])->name('tracking.showStudent');
