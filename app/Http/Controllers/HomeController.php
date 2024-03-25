@@ -6,9 +6,12 @@ use App\Helpers\SchoolYearHelper;
 use App\Models\SubmitAttendance;
 use App\Models\Challenge;
 use App\Models\Assignment;
+use App\Models\Dependent;
+use App\Models\Payment;
 use App\Services\AssignmentService;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
+use App\Services\DependentService;
 use App\Services\JournalService;
 use App\Services\MaterialService;
 use App\Services\MentorService;
@@ -37,12 +40,13 @@ class HomeController extends Controller
     private StudentService $studentService;
     private TeacherService $teacherService;
     private ZoomScheduleService $zoomScheduleService;
+    private DependentService $dependentService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(TeacherService $teacherService, StudentService $studentService, UserServices $userService, AssignmentService $assignmentService, MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService)
+    public function __construct(TeacherService $teacherService, StudentService $studentService, UserServices $userService, AssignmentService $assignmentService, MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService, DependentService $dependentService)
     {
         $this->middleware('auth');
         $this->assignmentService = $assignmentService;
@@ -56,6 +60,7 @@ class HomeController extends Controller
         $this->userService = $userService;
         $this->studentService = $studentService;
         $this->teacherService = $teacherService;
+        $this->dependentService = $dependentService;
     }
 
     /**
@@ -91,12 +96,15 @@ class HomeController extends Controller
         }
         $data = $this->GetDataSidebar();
         if ($role == 'student') {
+            $classId = Auth()->user()->studentSchool->studentClassroom->classroom_id;
             $data['assignment'] = $this->assignmentService->handleCountAssignmentStudent();
             $data['challenge'] = $this->challengeService->handleCountChallengeStudent();
             $data['material'] = $this->materialService->handleCountMaterialUser();
             $data['point'] = $this->pointService->hanleCountPointStudent($userId);
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleStudent();
+            $data['dependents'] = $this->dependentService->handleGetAllByClassroom($classId);
 
+            
             $assignments = Assignment::with('StudentSubmitAssignment')->whereRelation('submaterial.material', function ($query) {
                 $query->where('generation_id', Auth()->user()->studentSchool->studentClassroom->classroom->generation_id);
             })->get();
@@ -156,5 +164,12 @@ class HomeController extends Controller
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleMentor();
         }
         return view('dashboard.user.pages.home', $data);
+    }
+
+    public function semester($semester)
+    {
+        $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', auth()->user()->id)->sum('total_pay');
+        $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', auth()->user()->studentSchool->studentClassroom->classroom->id)->select('nominal')->first();
+        return response()->json($data);
     }
 }

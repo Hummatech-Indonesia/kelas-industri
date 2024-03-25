@@ -76,7 +76,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $dependent->classroom->name }}</td>
                                         <td>Semester {{ $dependent->semester }}</td>
-                                        <td>{{ 'Rp ' . number_format($dependent->nominal, 2, ',', '.') }}</td>
+                                        <td>{{ 'Rp ' . number_format($dependent->nominal, 0, ',', '.') }}</td>
                                         <td>
                                             <button
                                                 class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"

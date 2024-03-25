@@ -12,6 +12,7 @@ use App\Http\Controllers\DevisionController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GenerationController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MentorController;
@@ -346,6 +347,9 @@ Route::middleware('auth.custom')->group(function () {
             'rewards' => RewardController::class,
         ]);
         Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
+
+        Route::get('/{semester}/{user}', [HomeController::class, 'semester'])->name('total.dependent');
+
     });
     //end student
 
