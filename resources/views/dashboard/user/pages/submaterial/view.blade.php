@@ -108,43 +108,104 @@
                                                 </span>
                                                 <!--end:Menu link-->
                                                 <!--begin:Menu sub-->
-                                                @foreach ($material->subMaterials as $subMaterial)
+                                                @foreach ($subMaterialsInfo as $subMaterials)
                                                     @php
                                                         $countAnswerAssignments = SubmitAssignment::whereRelation(
                                                             'assignment',
                                                             'sub_material_id',
-                                                            $subMaterial->id,
+                                                            $subMaterials['subMaterial']->id,
                                                         )->count();
                                                     @endphp
                                                     <div class="menu-sub menu-sub-accordion">
-                                                        <!--begin:Menu item-->
-                                                        <div
-                                                            class="menu-item {{ $subMaterial->id == $submaterial->id ? 'here' : '' }}">
-                                                            <!--begin:Menu link-->
-                                                            <a role="link" class="menu-link"
-                                                                style="@if (count($subMaterial->assignments) != $countAnswerAssignments) pointer-events: none; @endif"
-                                                                href="{{ route('common.showDocument', [$subMaterial->id, 'student']) }}">
-                                                                <span class="menu-bullet">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                        viewBox="0 0 24 24" stroke-width="1.5"
-                                                                        stroke="currentColor" class="w-3 h-3">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                                            d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                                                                    </svg>
-                                                                </span>
-                                                                <span class="menu-title">{{ $subMaterial->title }}</span>
-                                                                @if (count($subMaterial->assignments) == $countAnswerAssignments)
-                                                                    <span class="success"></span>
-                                                                @else
-                                                                    <span class="erorr"></span>
-                                                                @endif
-                                                            </a>
+                                                        @if ($subMaterials['isFirst'] == true)
+                                                        open first
+                                                            <!--begin:Menu item-->
+                                                            <div
+                                                                class="menu-item {{ $subMaterials['subMaterial']->id == $subMaterials['subMaterial']->id ? 'here' : '' }}">
+                                                                <!--begin:Menu link-->
+                                                                <a role="link" class="menu-link"
+                                                                    style="@if (count($subMaterials['subMaterial']->assignments) != $countAnswerAssignments) pointer-events: none; @endif"
+                                                                    href="{{ route('common.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}">
+                                                                    <span class="menu-bullet">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            fill="none" viewBox="0 0 24 24"
+                                                                            stroke-width="1.5" stroke="currentColor"
+                                                                            class="w-3 h-3">
+                                                                            <path stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                                                        </svg>
+                                                                    </span>
+                                                                    <span
+                                                                        class="menu-title">{{ $subMaterials['subMaterial']->title }}</span>
+                                                                    @if (count($subMaterials['subMaterial']->assignments) == $countAnswerAssignments)
+                                                                        <span class="success"></span>
+                                                                    @else
+                                                                        <span class="erorr"></span>
+                                                                    @endif
+                                                                </a>
+                                                            </div>
+                                                        @elseif ($subMaterials['isFirst'] == false)
+                                                            @if ($subMaterials['countAssignment'] == $subMaterials['countStudentAssignment'])
+                                                                materi sebelumnya selesai
+                                                                <div
+                                                                    class="menu-item {{ $subMaterials['subMaterial']->id == $subMaterials['subMaterial']->id ? 'here' : '' }}">
+                                                                    <!--begin:Menu link-->
+                                                                    <a role="link" class="menu-link"
+                                                                        href="{{ route('common.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}">
+                                                                        <span class="menu-bullet">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                fill="none" viewBox="0 0 24 24"
+                                                                                stroke-width="1.5" stroke="currentColor"
+                                                                                class="w-3 h-3">
+                                                                                <path stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                                                            </svg>
+                                                                        </span>
+                                                                        <span
+                                                                            class="menu-title">{{ $subMaterials['subMaterial']->title }}</span>
+                                                                        @if (count($subMaterials['subMaterial']->assignments) == $countAnswerAssignments)
+                                                                            <span class="success"></span>
+                                                                        @else
+                                                                            <span class="erorr"></span>
+                                                                        @endif
+                                                                    </a>
+                                                                </div>
+                                                            @else
+                                                                materi sebelumnya belum selesai
+                                                                <div
+                                                                    class="menu-item {{ $subMaterials['subMaterial']->id == $subMaterials['subMaterial']->id ? 'here' : '' }}">
+                                                                    <!--begin:Menu link-->
+                                                                    <a role="link" class="menu-link"
+                                                                        href="{{ route('common.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}"
+                                                                        style="color: gray; pointer-events: none">
+                                                                        <span class="menu-bullet">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                fill="none" viewBox="0 0 24 24"
+                                                                                stroke-width="1.5" stroke="currentColor"
+                                                                                class="w-3 h-3">
+                                                                                <path stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                                                            </svg>
+                                                                        </span>
+                                                                        <span class="menu-title"
+                                                                            style="color:gray">{{ $subMaterials['subMaterial']->title }}</span>
+                                                                        @if (count($subMaterials['subMaterial']->assignments) == $countAnswerAssignments)
+                                                                            <span class="success"></span>
+                                                                        @else
+                                                                            <span class="erorr"></span>
+                                                                        @endif
+                                                                    </a>
+                                                                </div>
+                                                            @endif
                                                             <!--end:Menu link-->
-                                                        </div>
+                                                        @endif
                                                         <!--end:Menu item-->
                                                     </div>
+                                                    <!--end:Menu sub-->
                                                 @endforeach
-                                                <!--end:Menu sub-->
                                             </div>
                                         @endforeach
                                         <!--end:Menu item-->
