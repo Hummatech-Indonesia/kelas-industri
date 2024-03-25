@@ -70,7 +70,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($packages as $package)
+                            @forelse ($packages as $package)
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -147,7 +147,28 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="6">
+                                    <div class="col-12 text-center">
+                                        <!--begin::Illustration-->
+                                        <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
+                                            alt="" />
+                                        <!--end::Illustration-->
+
+                                        <!--begin::Title-->
+                                        <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                        <!--end::Title-->
+
+                                        <!--begin::Desctiption-->
+                                        <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                            anda belum memiliki Paket untuk saat ini.
+                                        </span>
+                                        <!--end::Desctiption-->
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $packages->links() }}
