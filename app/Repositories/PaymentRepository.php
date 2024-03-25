@@ -19,6 +19,7 @@ class PaymentRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('user_id', $user)
+            ->whereRelation('user.studentSchool.student', 'status', 'active')
             ->get();
     }
 
@@ -28,6 +29,7 @@ class PaymentRepository extends BaseRepository
             ->whereHas('user.studentSchool', function ($q) use ($school) {
                 $q->where('school_id', $school);
             })
+            ->whereRelation('user.studentSchool.student', 'status', 'active')
             ->get();
     }
 }

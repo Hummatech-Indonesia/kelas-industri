@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaymentRequest;
 use App\Models\User;
+use App\Services\ClassroomService;
 use App\Services\DependentService;
 use App\Services\PaymentService;
 use App\Services\SchoolService;
@@ -19,14 +20,16 @@ class TrackingPaymentController extends Controller
     private PaymentService $servicePayment;
     private StudentService $studentService;
     private DependentService $serviceDependent;
+    private ClassroomService $classroomService;
 
-    public function __construct(SchoolService $service, UserServices $userService, PaymentService $servicePayment, StudentService $studentService, DependentService $serviceDependent)
+    public function __construct(SchoolService $service, UserServices $userService, PaymentService $servicePayment, StudentService $studentService, DependentService $serviceDependent, ClassroomService $classroomService)
     {
         $this->service = $service;
         $this->userService = $userService;
         $this->servicePayment = $servicePayment;
         $this->studentService = $studentService;
         $this->serviceDependent = $serviceDependent;
+        $this->classroomService = $classroomService;
     }
 
     /**
@@ -77,7 +80,7 @@ class TrackingPaymentController extends Controller
         //
         $request->validated();
         $this->servicePayment->handleStore($request);
-        return redirect()->back();
+        return redirect()->back()->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -113,7 +116,7 @@ class TrackingPaymentController extends Controller
         //
         $request->validated();
         $this->servicePayment->handleUpdate($payment, $request);
-        return redirect()->back();
+        return redirect()->back()->with('success', trans('alert.update_success'));
     }
 
     /**
@@ -127,9 +130,13 @@ class TrackingPaymentController extends Controller
         //
     }
 
-    public function allStudent(string $schoolId)
+    public function allStudent(User $school, Request $request)
     {
-        $data['students'] = $this->studentService->handleGetBySchoolPayment($schoolId);
+        $data = [
+            'classrooms' => $this->classroomService->handleGetBySchool($school->id),
+            'students' => $this->studentService->handleGetBySchoolPayment($school->id, $request),
+            'school' => $school,
+        ];
         return view('dashboard.finance.pages.trackingPayment.student', $data);
     }
 

@@ -48,11 +48,6 @@ class StudentService
         return $this->repository->get_by_school_ajax($schoolId, $request);
     }
 
-    public function handleGetBySchoolPayment(string $schoolId): mixed
-    {
-        return $this->repository->get_by_school($schoolId);
-    }
-
     public function handleGetByClassroom(string $schoolId): mixed
     {
         return $this->repository->get_by_classroom($schoolId);
@@ -71,6 +66,12 @@ class StudentService
     public function handleGetStudentByClassroom(string $schoolId, string $classroomId): mixed
     {
         return $this->repository->get_student_by_classroom($schoolId, $classroomId);
+    }
+
+
+    public function handleGetBySchoolPayment(string $school, Request $request)
+    {
+        return $this->repository->getBySchoolPayment($school, $request);
     }
 
     /**

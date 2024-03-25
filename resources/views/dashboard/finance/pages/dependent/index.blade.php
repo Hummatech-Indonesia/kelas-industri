@@ -19,18 +19,16 @@
         <!--end::Page title-->
 
         <!--begin::Actions-->
-        <form action="" method="get">
-            <div class="d-flex align-items-center py-2 py-md-1 gap-3">
-                <!--begin::Button-->
-                <button class="btn btn-dark btn-plus fw-bold">
-                    Tambah </button>
-                <a href="{{ route('administration.tracking.index') }}"
-                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                    <i class="bi bi-arrow-left me-2"></i> Kembali
-                </a>
-                <!--end::Button-->
-            </div>
-        </form>
+        <div class="d-flex align-items-center py-2 py-md-1 gap-3">
+            <!--begin::Button-->
+            <button class="btn btn-dark btn-plus fw-bold">
+                Tambah </button>
+            <a href="{{ route('administration.tracking.index') }}"
+                class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                <i class="bi bi-arrow-left me-2"></i> Kembali
+            </a>
+            <!--end::Button-->
+        </div>
         <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">

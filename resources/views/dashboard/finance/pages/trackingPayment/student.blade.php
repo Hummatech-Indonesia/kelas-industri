@@ -10,26 +10,28 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Berita Kelas Industri
+                Detail Siswa {{ $school->name }}
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List Berita pada kelas industri
+                List siswa pada {{ $school->name }}
             </p>
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
 
         <!--begin::Actions-->
-        <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ url()->previous() }}"
-                class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                <i class="bi bi-arrow-left me-2"></i> Kembali
-            </a>
-        </div>
+        <form action="" method="get">
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <a href="{{ route('administration.tracking.index') }}"
+                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                    <i class="bi bi-arrow-left me-2"></i> Kembali
+                </a>
+            </div>
+        </form>
         <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
@@ -37,6 +39,26 @@
 
             <!--begin::Body-->
             <div class="card-body py-3">
+                <form action="" method="get">
+                    <div class="d-flex justify-content-start">
+                        <div class="d-flex mb-3 gap-3">
+                            <input class="form-control me-2" type="text" name="search" placeholder="Cari Siswa"
+                                aria-label="Search" value="{{ request('search') }}">
+                            <select class="form-select form-select-solid" name="classroom_id" data-control="select2"
+                                data-placeholder="Select an option">
+                                @foreach ($classrooms as $classroom)
+                                    <option {{ request()->classroom_id == $classroom->id ? 'selected' : '' }}
+                                        value="{{ $classroom->id }}">
+                                        {{ $classroom->name }}</option>
+                                @endforeach
+                            </select>
+                            <button class="btn btn-dark fw-bold" type="submit">
+                                Cari</button>
+                            <a href="{{ route('administration.tracking.showStudent', $school->id) }}" type="button"
+                                class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
+                        </div>
+                    </div>
+                </form>
                 <!--begin::Table container-->
                 <div class="table-responsive">
                     <!--begin::Table-->

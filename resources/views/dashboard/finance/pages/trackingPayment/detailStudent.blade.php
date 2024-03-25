@@ -134,7 +134,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                                    <button
+                                                        class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
                                                         data-id="{{ $tracking->id }}" data-user="{{ $tracking->user_id }}"
                                                         data-total="{{ $tracking->total_pay }}"
                                                         data-payment="{{ $tracking->payment_date }}"
@@ -213,7 +214,8 @@
                         <input type="hidden" name="total" id="total_pay_semester">
                         <div class="mb-3">
                             <label for="total_pay">Nominal Uang</label>
-                            <input type="number" class="form-control" name="total_pay" id="total_pay">
+                            <input type="number" placeholder="100000" class="form-control" name="total_pay"
+                                id="total_pay">
                         </div>
                         <div class="mb-5">
                             <label for="payment_date">tanggal</label>
@@ -232,7 +234,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Detail Berita</h3>
+                    <h3 class="modal-title">Edit Pembayaran</h3>
 
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"

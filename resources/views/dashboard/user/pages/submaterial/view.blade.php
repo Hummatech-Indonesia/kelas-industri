@@ -24,11 +24,9 @@
             border-radius: 10px;
         }
         .menu-link{
-            background-color: #fff;
             transition: 500px;
         }
         .menu-link:hover{
-            background-color: #f4f4f4;
             border-radius: 10px;
 
         }

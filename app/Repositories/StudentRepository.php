@@ -94,4 +94,18 @@ class StudentRepository extends BaseRepository
             })
             ->paginate(6);
     }
+
+    public function getBySchoolPayment(string $school, Request $request)
+    {
+        return $this->model->query()
+            ->where('school_id', $school)
+            ->when($request->classroom_id, function ($q) use ($request) {
+                $q->whereRelation('studentClassroom', 'classroom_id', $request->classroom_id);
+            })
+            ->whereHas('student', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%');
+            })
+            ->whereRelation('student', 'status', 'active')
+            ->paginate(10);
+    }
 }
