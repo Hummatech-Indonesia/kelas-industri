@@ -18,7 +18,7 @@ class SubMaterial extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = ['id','material_id','order','title', 'description', 'student_file', 'teacher_file'];
-
+    
     /**
      * one to many relationship
      *

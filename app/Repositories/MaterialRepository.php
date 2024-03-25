@@ -36,59 +36,70 @@ class MaterialRepository extends BaseRepository
             ->paginate($limit);
     }
 
-    public function get_by_classroom(string $classroomId,string|null $search, int $limit)
+    public function get_by_classroom(string $classroomId, string | null $search, int $limit)
     {
         return $this->model->query()
-            ->where('title', 'LIKE', '%'. $search .'%')
+            ->where('title', 'LIKE', '%' . $search . '%')
             ->whereRelation('generation.classrooms', function ($q) use ($classroomId) {
                 return $q->where('id', $classroomId);
             })
             ->paginate($limit);
     }
 
-    public function search_paginate(string | null $search,string|null $generation,string|null $filter,string $year, int $limit): mixed
+    public function search_paginate(string | null $search, string | null $generation, string | null $filter, string $year, int $limit): mixed
     {
         return $this->model->query()
-        ->when(!$generation,function($q) use ($year){
-            $q->whereRelation('generation', function ($q) use ($year) {
-                return $q->where('school_year_id', $year);
-            });
-        })
-        ->when($generation,function($q) use ($generation){
-            return $q->where('generation_id',$generation);
-        })
-        ->when($filter,function($q) use ($filter){
-            $q->whereRelation('generation', function ($q) use ($filter){
-                return $q->where('school_year_id',$filter);
-            });
-        })
-            ->where('title', 'like', '%'. $search .'%')
+            ->when(!$generation, function ($q) use ($year) {
+                $q->whereRelation('generation', function ($q) use ($year) {
+                    return $q->where('school_year_id', $year);
+                });
+            })
+            ->when($generation, function ($q) use ($generation) {
+                return $q->where('generation_id', $generation);
+            })
+            ->when($filter, function ($q) use ($filter) {
+                $q->whereRelation('generation', function ($q) use ($filter) {
+                    return $q->where('school_year_id', $filter);
+                });
+            })
+            ->where('title', 'like', '%' . $search . '%')
             ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }
 
     public function get_count_material_user()
     {
-        if(auth()->user()->roles->pluck('name')[0] == 'student'){
+        if (auth()->user()->roles->pluck('name')[0] == 'student') {
             return $this->model->query()
-            ->where('generation_id', Auth()->user()->studentSchool->studentClassroom->classroom->generation_id)
-            ->count();
-        }elseif(auth()->user()->roles->pluck('name')[0] == 'teacher'){
+                ->where('generation_id', Auth()->user()->studentSchool->studentClassroom->classroom->generation_id)
+                ->count();
+        } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             return $this->model->query()
-            ->where('generation_id', Auth()->user()->teacherSchool->teacherClassroom->classroom->generation_id)
-            ->count();
-        }else{
+                ->where('generation_id', Auth()->user()->teacherSchool->teacherClassroom->classroom->generation_id)
+                ->count();
+        } else {
             // $data = Auth()->user()->mentorClassrooms[0]->classroom->generation_id;
             return $this->model->query()
-            ->whereHas('generation.classrooms.mentorClassrooms', function ($query) {
-                $query->whereIn('classroom_id', Auth()->user()->mentorClassrooms->pluck('classroom_id'));
-            })
-            ->count();
+                ->whereHas('generation.classrooms.mentorClassrooms', function ($query) {
+                    $query->whereIn('classroom_id', Auth()->user()->mentorClassrooms->pluck('classroom_id'));
+                })
+                ->count();
         }
     }
 
-    public function get_count_material_admin(){
+    public function get_count_material_admin()
+    {
         return $this->model->query()
-        ->count();
+            ->count();
+    }
+
+    public function getByDevision(string $devisionId)
+    {
+        return $this->model->query()
+            ->with('subMaterials', function ($query) {
+                $query->oldest();
+            })
+            ->where('devision_id', $devisionId)
+            ->get();
     }
 }

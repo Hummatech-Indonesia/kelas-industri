@@ -140,13 +140,14 @@ class UserClassroomController extends Controller
             $order = $submaterial->order;
             $listSubMaterials = $this->subMaterialService->handleListSubMaterials($submaterial->order, $submaterial->material->id);
             $prevSubMaterials = $this->subMaterialService->handlePrevSubmaterial($submaterial->order, $submaterial->material->id);
+            $materials = $this->materialService->handleGetMaterialByDevision($submaterial->material->devision_id);
 
             if (auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor') {
-                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials'));
+                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials'));
             }
 
             if ($order == 1) {
-                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials'));
+                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials'));
             }
 
             $previousOrder = $order - 1;
@@ -156,7 +157,7 @@ class UserClassroomController extends Controller
             $previousSubmaterial = $this->subMaterialService->handlePreviousSubmaterial($submaterial->material->id, $previousOrder);
 
             if ($countAssignmentByMaterial == 0) {
-                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials'));
+                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials'));
             }
 
             $countAssignment = $this->assignmentService->countAssignments($previousSubmaterial->id, $previousOrder);
@@ -164,7 +165,7 @@ class UserClassroomController extends Controller
             $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubmaterial->id, $previousOrder);
 
             if ($countAssignment == $countStudentAssignment) {
-                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials'));
+                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials'));
             }
 
             return redirect()->back()->with('error', 'Materi belum bisa diakses, anda belum menyelesaikan semua tugas dari materi sebelumnya');
