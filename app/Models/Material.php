@@ -37,4 +37,14 @@ class Material extends Model
     {
         return $this->hasMany(SubMaterial::class, 'material_id');
     }
+
+    /**
+     * many to one relationship
+     *
+     * @return BelongsTo
+     */
+    public function devision(): BelongsTo
+    {
+        return $this->belongsTo(Devision::class, 'devision_id');
+    }
 }
