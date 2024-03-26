@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->integer('price');
-            $table->string('description');
+            $table->text('description');
             $table->text('image')->nullable();
             $table->timestamps();
         });
