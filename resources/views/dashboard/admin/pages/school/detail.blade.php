@@ -433,16 +433,14 @@
                                                 </a>
 
                                                 <span class="text-muted font-weight-bold">
-                                                    {{ $class->name }}
+                                                    Devisi : {{ $class->devision->name }}
                                                 </span>
 
                                                 <span class="text-muted font-weight-bold">
                                                     {{ $class->generation->generation }}
                                                     ({{ $class->generation->schoolYear->school_year }})
                                                 </span>
-
                                                 <!--end::Title-->
-
                                             </div>
 
                                             <div class="d-flex">

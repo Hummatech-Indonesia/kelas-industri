@@ -86,4 +86,14 @@ class Classroom extends Model
     {
         return $this->hasMany(Dependent::class, 'classroom_id');
     }
+
+    /**
+     * many to one relationship
+     *
+     * @return BelongsTo
+     */
+    public function devision(): BelongsTo
+    {
+        return $this->belongsTo(Devision::class, 'devision_id');
+    }
 }
