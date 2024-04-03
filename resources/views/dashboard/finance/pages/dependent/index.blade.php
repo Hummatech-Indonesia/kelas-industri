@@ -31,21 +31,25 @@
         </div>
         <!--end::Actions-->
     </div>
+    @if ($errors->any())
+        <x-errors-component />
+    @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
             <div class="col-12">
                 <div class="card">
-
                     <!--begin::Card body-->
                     <div class="card-body pt-5">
                         <!--begin::Table-->
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-start">
                             <div class="d-flex w-25 gap-3">
                                 <select class="form-select form-select-solid" name="classroom_id" data-control="select2"
                                     data-placeholder="Select an option">
                                     @foreach ($classrooms as $classroom)
                                         <option {{ request()->classroom_id == $classroom->id ? 'selected' : '' }}
-                                            value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                                            value="{{ $classroom->id }}">{{ $classroom->name }} -
+                                            {{ $classroom->devision->name }} -
+                                            {{ $classroom->generation->schoolYear->school_year }}</option>
                                     @endforeach
                                 </select>
                                 <button class="btn btn-dark fw-bold" type="submit">
@@ -61,6 +65,8 @@
                                 <tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="text-start">No</th>
                                     <th class="text-start">Kelas</th>
+                                    <th class="text-start">Devisi</th>
+                                    <th class="text-start">Tahun Ajaran</th>
                                     <th class="text-start">Semester</th>
                                     <th class="text-start">Nominal</th>
                                     <th class="text-start">Aksi</th>
@@ -75,6 +81,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $dependent->classroom->name }}</td>
+                                        <td>{{ $dependent->classroom->devision->name }}</td>
+                                        <td>{{ $dependent->classroom->generation->schoolYear->school_year }}</td>
                                         <td>Semester {{ $dependent->semester }}</td>
                                         <td>{{ 'Rp ' . number_format($dependent->nominal, 0, ',', '.') }}</td>
                                         <td>
@@ -134,7 +142,9 @@
                         <label class="form-label mt-3" for="classroom_id">Pilih Kelas</label>
                         <select name="classroom_id" id="classroom_id" class="form-select" required>
                             @foreach ($classrooms as $classroom)
-                                <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                                <option value="{{ $classroom->id }}">{{ $classroom->name }} -
+                                    {{ $classroom->devision->name }} -
+                                    {{ $classroom->generation->schoolYear->school_year }}</option>
                             @endforeach
                         </select>
 
@@ -181,7 +191,9 @@
                         <label class="form-label mt-3" for="classroom_id">Pilih Kelas</label>
                         <select name="classroom_id" id="classroomEdit" class="form-select" required>
                             @foreach ($classrooms as $classroom)
-                                <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                                <option value="{{ $classroom->id }}">{{ $classroom->name }} -
+                                    {{ $classroom->devision->name }} -
+                                    {{ $classroom->generation->schoolYear->school_year }}</option>
                             @endforeach
                         </select>
                         <label class="form-label mt-3" for="nominal">Nominal</label>

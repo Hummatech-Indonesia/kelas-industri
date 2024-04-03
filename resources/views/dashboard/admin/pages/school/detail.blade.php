@@ -433,7 +433,7 @@
                                                 </a>
 
                                                 <span class="text-muted font-weight-bold">
-                                                    Devisi : {{ $class->devision->name }}
+                                                    Devisi {{ $class->devision->name }}
                                                 </span>
 
                                                 <span class="text-muted font-weight-bold">
@@ -747,7 +747,7 @@
                     },
                     {
                         data: 'student_classroom',
-                        name: 'student_classroom.classroom.name',
+                        name: 'student_classroom',
                         render: function(data, type, row) {
                             if (data != null) {
                                 return data.classroom.name;

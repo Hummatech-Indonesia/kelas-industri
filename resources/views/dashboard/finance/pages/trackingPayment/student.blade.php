@@ -49,7 +49,9 @@
                                 @foreach ($classrooms as $classroom)
                                     <option {{ request()->classroom_id == $classroom->id ? 'selected' : '' }}
                                         value="{{ $classroom->id }}">
-                                        {{ $classroom->name }}</option>
+                                        {{ $classroom->name }} - {{ $classroom->devision->name }} -
+                                        {{ $classroom->generation->schoolYear->school_year }}
+                                    </option>
                                 @endforeach
                             </select>
                             <button class="btn btn-dark fw-bold" type="submit">
@@ -71,6 +73,7 @@
                                 <th class="min-w-200px">No Hp</th>
                                 <th class="min-w-150px">Email</th>
                                 <th class="min-w-150px">Kelas</th>
+                                <th class="min-w-150px">Devisi</th>
                                 <th class="min-w-100px">Aksi</th>
 
                             </tr>
@@ -115,6 +118,11 @@
                                         style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
                                         <span
                                             class="text-gray-900 fw-bold fs-7">{{ $student->studentClassroom ? $student->studentClassroom->classroom->name : '-' }}</span>
+                                    </td>
+                                    <td
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
+                                        <span
+                                            class="text-gray-900 fw-bold fs-7">{{ $student->studentClassroom ? $student->studentClassroom->classroom->devision->name : '-' }}</span>
                                     </td>
                                     <td>
                                         @if ($student->studentClassroom)

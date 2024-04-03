@@ -78,8 +78,8 @@
                                 <button type="submit" class="btn btn-primary">Cari</button>
                                 <a href="{{ route('admin.materials.index') }}" type="button"
                                     class="btn btn-light text-light ms-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="Muat Ulang"><i class="fonticon-repeat"></i></a>
+                                    data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang"><i
+                                        class="fonticon-repeat"></i></a>
                             </div>
                             <!--end::Input group-->
                         </div>
@@ -126,19 +126,22 @@
                                     <!--begin: Title-->
 
                                     <a href="{{ route('admin.materials.show', $material->id) }}"
-                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
+                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
 
                                         {{ $material->title }}
                                     </a>
 
-                                    <span class="text-muted font-weight-bold" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
-                                        {{ $material->title }}
+                                    <span class="text-muted font-weight-bold"
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
+                                        Devisi {{ $material->devision->name }}
                                     </span>
 
 
 
-                                    <span class="text-muted font-weight-bold" >
-                                        {{ $material->generation->generation }} ({{$material->generation->schoolYear->school_year}})
+                                    <span class="text-muted font-weight-bold">
+                                        {{ $material->generation->generation }}
+                                        ({{ $material->generation->schoolYear->school_year }})
                                     </span>
 
                                     <!--end::Title-->
@@ -152,7 +155,8 @@
                                         class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data"><i
                                             class="fonticon-setting fs-2 text-warning"></i></a>
-                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $material->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{ $material->id }}"
+                                        data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data"><i
                                             class="fonticon-trash-bin fs-2 text-danger"></i></button>
                                 </div>
@@ -169,7 +173,8 @@
 
                             <!--begin::Text-->
 
-                            <p class="mb-7 mt-5" style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                            <p class="mb-7 mt-5"
+                                style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
 
                                 {{ $material->description }}
                             </p>
@@ -265,7 +270,7 @@
                         }
                     })
 
-                    $('#generations').html(html)    
+                    $('#generations').html(html)
                 },
                 error: function(response) {
                     console.log(response.responseText)
@@ -277,20 +282,20 @@
         $('#schoolYear').change(function() {
             getGenertation($(this).val())
         })
-
     </script>
 @endsection
 @section('css')
-        <Style>
-            @media (max-width:639px){
-                .position-relative{
-                    margin-bottom: 10px;
-                }
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
             }
-            @media (min-width:640px){
-                .searching{
-                    display: flex;
-                }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
             }
-        </Style>
-    @endsection
+        }
+    </Style>
+@endsection

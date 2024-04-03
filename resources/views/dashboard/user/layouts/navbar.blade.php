@@ -358,22 +358,21 @@
                     <!--begin::Menu wrapper-->
                     <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
                         <span class="text-muted fs-7 fw-semibold lh-1 mb-2">{{ auth()->user()->name }}</span>
-                        <span
-                                class="fs-8 badge badge-light-success">@php
-                                    if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-                                        echo 'Guru';
-                                    } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-                                        echo 'Mentor';
-                                    }else{
-                                        echo 'Siswa';
-                                    }
-                                @endphp</span>
+                        <span class="fs-8 badge badge-light-success">@php
+                            if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+                                echo 'Guru';
+                            } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
+                                echo 'Mentor';
+                            } else {
+                                echo 'Siswa';
+                            }
+                        @endphp</span>
                     </div>
 
                     <div class="cursor-pointer symbol symbol-30px symbol-md-35px"
                         data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
                         data-kt-menu-placement="bottom-end">
-                        <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
+                    <img src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('app-assets/media/svg/avatars/blank.svg') }}"
                             alt="image" />
                     </div>
 

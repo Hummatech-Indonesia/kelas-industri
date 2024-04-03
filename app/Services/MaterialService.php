@@ -20,9 +20,9 @@ class MaterialService
         return $this->repository->getAll();
     }
 
-    public function handleByClassroom(string $classroomId, $request)
+    public function handleByClassroom(mixed $classroom, $request)
     {
-        return $this->repository->get_by_classroom($classroomId, $request->search ,6);
+        return $this->repository->get_by_classroom($classroom, $request->search ,6);
     }
 
     public function handleGetMaterialByDevision(string $devisionId)

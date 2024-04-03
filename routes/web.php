@@ -1,42 +1,43 @@
 <?php
 
-use App\Http\Controllers\AdminitrasionController;
-use App\Http\Controllers\ApprovalController;
-use App\Http\Controllers\AssignmentController;
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\CertifyController;
-use App\Http\Controllers\ChallengeController;
-use App\Http\Controllers\ClassroomController;
-use App\Http\Controllers\DependentController;
-use App\Http\Controllers\DevisionController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\JurnalController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\MentorController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\PackageController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PointController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JurnalController;
+use App\Http\Controllers\MentorController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\CertifyController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ApprovalController;
+use App\Http\Controllers\DevisionController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\DependentController;
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\GenerationController;
+use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\SubmitRewardController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\TrackingPaymentController;
-use App\Http\Controllers\UserAssignmentController;
-use App\Http\Controllers\UserClassroomController;
-use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ZoomScheduleController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminitrasionController;
+use App\Http\Controllers\UserClassroomController;
+use App\Http\Controllers\UserAssignmentController;
+use App\Http\Controllers\TrackingPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -214,7 +215,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::resource('dependent', DependentController::class)->only('store','update');
         Route::resources([
             'tracking' => TrackingPaymentController::class,
-            'package' => PackageController::class,  
+            'package' => PackageController::class,
         ]);
 
         Route::get('tracking/student-school/{school}', [TrackingPaymentController::class, 'allStudent'])->name('tracking.showStudent');
@@ -300,6 +301,10 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
         Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
         Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
+
+        Route::get('student-project/{classroom}', [ProjectController::class, 'studentProject'])->name('studentProject');
+        Route::post('approval-student-project/{project}', [ProjectController::class, 'approvalProject'])->name('approvalProject');
+        Route::post('reject-student-project/{project}', [ProjectController::class, 'rejectProject'])->name('rejectProject');
     });
     //end mentor
 
@@ -345,6 +350,7 @@ Route::middleware('auth.custom')->group(function () {
             'submitRewards' => SubmitRewardController::class,
             'challenges' => ChallengeController::class,
             'rewards' => RewardController::class,
+            'projects' => ProjectController::class,
         ]);
         Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
 

@@ -51,7 +51,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('school.classrooms.index') }}"
+                                <a href="{{ route('admin.schools.show', ['school' => $school->id]) }}"
                                     class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -94,6 +94,25 @@
                                 </div>
                                 <div class="form-group row mb-3">
 
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Devisi</label>
+
+                                    <div class="col-lg-9 col-xl-9">
+
+                                        <select name="devision_id" class="form-select form-select-solid me-5"
+                                            data-control="select2" data-placeholder="Select an option">
+                                            @foreach ($devisions as $devision)
+                                                <option {{ $devision->id == $classroom->devision_id ? 'selected' : '' }}
+                                                    value="{{ $devision->id }}">
+                                                    {{ $devision->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group row mb-3">
+
                                     <label class="col-xl-3 col-lg-3 col-form-label">Angkatan</label>
 
                                     <div class="col-lg-9 col-xl-9">
@@ -101,8 +120,7 @@
                                         <select name="generation_id" class="form-select form-select-solid me-5"
                                             data-control="select2" data-placeholder="Select an option">
                                             @foreach ($generations as $generation)
-                                                <option
-                                                    {{ $classroom->generation_id == $generation->id ? 'selected' : '' }}
+                                                <option {{ $classroom->generation_id == $generation->id ? 'selected' : '' }}
                                                     value="{{ $generation->id }}">
                                                     {{ $generation->generation . ' - ' . $generation->schoolYear->school_year }}
                                                 </option>

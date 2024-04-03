@@ -71,7 +71,7 @@ class UserClassroomController extends Controller
     {
         $data = $this->GetDataSidebar();
         $data['classroom'] = $classroom;
-        $data['materials'] = $this->materialService->handleByClassroom($classroom->id, $request);
+        $data['materials'] = $this->materialService->handleByClassroom($classroom, $request);
         $data['search'] = $request->search;
         return \view('dashboard.user.pages.material.index', $data);
     }

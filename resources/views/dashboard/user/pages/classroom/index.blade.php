@@ -39,128 +39,134 @@
 
                     <div class="row">
                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                        <form id="form-search" action="{{ route('common.classrooms') }}">
-                            <!--begin::Card-->
-                            <div class="card mb-7">
-                                <!--begin::Card body-->
-                                <div class="card-body">
-                                    <!--begin::Compact form-->
-                                    <div class="searching align-items-center">
-                                        <!--begin::Input group-->
-                                        <div class="position-relative col-lg-10 col-md-12 me-2">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                            <span
-                                                class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
-                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                        height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                        fill="currentColor"></rect>
-                                                    <path
-                                                        d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                        fill="currentColor"></path>
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                            <input type="text" class="form-control form-control-solid ps-10"
-                                                name="search" value="{{$search}}" placeholder="Search">
+                            <form id="form-search" action="{{ route('common.classrooms') }}">
+                                <!--begin::Card-->
+                                <div class="card mb-7">
+                                    <!--begin::Card body-->
+                                    <div class="card-body">
+                                        <!--begin::Compact form-->
+                                        <div class="searching align-items-center">
+                                            <!--begin::Input group-->
+                                            <div class="position-relative col-lg-10 col-md-12 me-2">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                                <span
+                                                    class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                            height="2" rx="1"
+                                                            transform="rotate(45 17.0365 15.1223)" fill="currentColor">
+                                                        </rect>
+                                                        <path
+                                                            d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                                <input type="text" class="form-control form-control-solid ps-10"
+                                                    name="search" value="{{ $search }}" placeholder="Search">
+                                            </div>
+                                            <div class="col-lg-2 col-md-12">
+                                                <button type="submit" class="btn btn-primary">Cari</button>
+                                                <a href="{{ route('common.classrooms') }}" type="button"
+                                                    class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                    data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
+                                            </div>
+                                            <!--end::Input group-->
                                         </div>
-                                        <div class="col-lg-2 col-md-12">
-                                            <button type="submit" class="btn btn-primary">Cari</button>
-                                            <a href="{{ route('common.classrooms') }}" type="button"
-                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
-                                        </div>
-                                        <!--end::Input group-->
+                                        <!--end::Compact form-->
                                     </div>
-                                    <!--end::Compact form-->
+                                    <!--end::Card body-->
                                 </div>
-                                <!--end::Card body-->
-                            </div>
-                            <!--end::Card-->
-                        </form>
+                                <!--end::Card-->
+                            </form>
                         @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                        <form id="form-search" action="{{ route('common.classrooms') }}">
-                            <!--begin::Card-->
-                            <div class="card mb-7">
-                                <!--begin::Card body-->
-                                <div class="card-body">
-                                    <!--begin::Compact form-->
-                                    <div class="searching align-items-center">
-                                        <!--begin::Input group-->
-                                        <div class="position-relative col-lg-10 col-md-12 me-2">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                            <span
-                                                class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
-                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                        height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                        fill="currentColor"></rect>
-                                                    <path
-                                                        d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                        fill="currentColor"></path>
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                            <input type="text" class="form-control form-control-solid ps-10"
-                                                name="search" value="{{ $search }}" placeholder="Search">
+                            <form id="form-search" action="{{ route('common.classrooms') }}">
+                                <!--begin::Card-->
+                                <div class="card mb-7">
+                                    <!--begin::Card body-->
+                                    <div class="card-body">
+                                        <!--begin::Compact form-->
+                                        <div class="searching align-items-center">
+                                            <!--begin::Input group-->
+                                            <div class="position-relative col-lg-10 col-md-12 me-2">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                                <span
+                                                    class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                            height="2" rx="1"
+                                                            transform="rotate(45 17.0365 15.1223)" fill="currentColor">
+                                                        </rect>
+                                                        <path
+                                                            d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                                <input type="text" class="form-control form-control-solid ps-10"
+                                                    name="search" value="{{ $search }}" placeholder="Search">
+                                            </div>
+                                            <div class="col-lg-2 col-md-12">
+                                                <button type="submit" class="btn btn-primary">Cari</button>
+                                                <a href="{{ route('common.classrooms') }}" type="button"
+                                                    class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                    data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
+                                            </div>
+                                            <!--end::Input group-->
                                         </div>
-                                        <div class="col-lg-2 col-md-12">
-                                            <button type="submit" class="btn btn-primary">Cari</button>
-                                            <a href="{{ route('common.classrooms') }}" type="button"
-                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
-                                        </div>
-                                        <!--end::Input group-->
+                                        <!--end::Compact form-->
                                     </div>
-                                    <!--end::Compact form-->
+                                    <!--end::Card body-->
                                 </div>
-                                <!--end::Card body-->
-                            </div>
-                            <!--end::Card-->
-                        </form>
+                                <!--end::Card-->
+                            </form>
                         @elseif (auth()->user()->roles->pluck('name')[0] == 'student')
-                        <form id="form-search" action="{{ route('common.classrooms') }}">
-                            <!--begin::Card-->
-                            <div class="card mb-7">
-                                <!--begin::Card body-->
-                                <div class="card-body">
-                                    <!--begin::Compact form-->
-                                    <div class="searching align-items-center">
-                                        <!--begin::Input group-->
-                                        <div class="position-relative col-lg-10 col-md-12 me-2">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                            <span
-                                                class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
-                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                        height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                        fill="currentColor"></rect>
-                                                    <path
-                                                        d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                        fill="currentColor"></path>
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                            <input type="text" class="form-control form-control-solid ps-10"
-                                                name="search" value="{{ $search}}" placeholder="Search">
+                            <form id="form-search" action="{{ route('common.classrooms') }}">
+                                <!--begin::Card-->
+                                <div class="card mb-7">
+                                    <!--begin::Card body-->
+                                    <div class="card-body">
+                                        <!--begin::Compact form-->
+                                        <div class="searching align-items-center">
+                                            <!--begin::Input group-->
+                                            <div class="position-relative col-lg-10 col-md-12 me-2">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                                <span
+                                                    class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                            height="2" rx="1"
+                                                            transform="rotate(45 17.0365 15.1223)" fill="currentColor">
+                                                        </rect>
+                                                        <path
+                                                            d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                                <input type="text" class="form-control form-control-solid ps-10"
+                                                    name="search" value="{{ $search }}" placeholder="Search">
+                                            </div>
+                                            <div class="col-lg-2 col-md-12">
+                                                <button type="submit" class="btn btn-primary">Cari</button>
+                                                <a href="{{ route('common.classrooms') }}" type="button"
+                                                    class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                    data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
+                                            </div>
+                                            <!--end::Input group-->
                                         </div>
-                                        <div class="col-lg-2 col-md-12">
-                                            <button type="submit" class="btn btn-primary">Cari</button>
-                                            <a href="{{ route('common.classrooms') }}" type="button"
-                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
-                                        </div>
-                                        <!--end::Input group-->
+                                        <!--end::Compact form-->
                                     </div>
-                                    <!--end::Compact form-->
+                                    <!--end::Card body-->
                                 </div>
-                                <!--end::Card body-->
-                            </div>
-                            <!--end::Card-->
-                        </form>
+                                <!--end::Card-->
+                            </form>
                         @endif
                     </div>
 
@@ -205,6 +211,9 @@
                                                 </a>
 
                                                 <span class="text-muted font-weight-bold">
+                                                    Devisi {{ $classroom->classroom->devision->name }}
+                                                </span>
+                                                <span class="text-muted font-weight-bold">
                                                     {{ $classroom->classroom->generation->generation }}
                                                     ({{ $classroom->classroom->generation->schoolYear->school_year }})
                                                 </span>
@@ -244,13 +253,23 @@
 
                                         <div class="d-flex">
                                             {{-- masih salah --}}
-                                            <a href="{{ route('common.showClassrooms', $classroom->classroom->id)}}"
+                                            <a href="{{ route('common.showClassrooms', $classroom->classroom->id) }}"
                                                 class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                         </div>
 
-                                        <a href="{{ route('common.materials', $classroom->classroom->id) }}"
-                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">materi</a>
+                                        @if ($classroom->classroom->generation->generation == 'Kelas 12')
+                                        @if (auth()->user()->hasRole('student'))
+                                        <a href="{{ route('student.projects.index') }}"
+                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">project</a>
+                                        @else
+                                        <a href="{{ route('mentor.studentProject', $classroom->classroom->id) }}"
+                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">project</a>
+                                        @endif
+                                        @else
+                                            <a href="{{ route('common.materials', $classroom->classroom->id) }}"
+                                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">materi</a>
+                                        @endif
 
                                     </div>
 
@@ -292,11 +311,9 @@
                     <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Syarat & Ketentuan</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Kebijakan Privasi</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>
@@ -306,16 +323,17 @@
     </div>
 @endsection
 @section('css')
-        <Style>
-            @media (max-width:639px){
-                .position-relative{
-                    margin-bottom: 10px;
-                }
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
             }
-            @media (min-width:640px){
-                .searching{
-                    display: flex;
-                }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
             }
-        </Style>
-    @endsection
+        }
+    </Style>
+@endsection

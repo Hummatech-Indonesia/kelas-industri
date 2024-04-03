@@ -122,6 +122,7 @@ class ClassroomController extends Controller
             'school' => $school,
             'classroom' => $classroom,
             'generations' => $this->generationService->handleGetAll(),
+            'devisions' => $this->devisionService->handleGetAll(),
         ];
         return \view('dashboard.admin.pages.classroom.edit', $data);
     }
