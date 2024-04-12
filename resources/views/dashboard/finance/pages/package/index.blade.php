@@ -16,6 +16,18 @@
             height: 80px;
             object-fit: cover;
         }
+
+        .status-pack-group {
+            background-color: #bbe3ff;
+            padding: 4px 10px;
+            border-radius: 15px;
+        }
+
+        .status-pack-individual {
+            background-color: #ceffd6;
+            padding: 4px 10px;
+            border-radius: 15px;
+        }
     </style>
 @endsection
 @section('content')
@@ -63,6 +75,7 @@
                                 <th class="min-w-50px">No</th>
                                 <th class="min-w-150px">Nama </th>
                                 <th class="min-w-200px">Harga</th>
+                                <th class="min-w-100px">status</th>
                                 <th class="min-w-150px">Deskripsi</th>
                                 <th class="min-w-150px">Foto</th>
                                 <th class="min-w-100px">Aksi</th>
@@ -75,7 +88,8 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="d-flex justify-content-start flex-column">
-                                                <div class="text-gray-900 fw-bold fs-7">{{ $loop->iteration + ($packages->perPage() * ($packages->currentPage()-1)) }}
+                                                <div class="text-gray-900 fw-bold fs-7">
+                                                    {{ $loop->iteration + $packages->perPage() * ($packages->currentPage() - 1) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -100,6 +114,17 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="d-flex justify-content-start flex-column">
+                                                <div
+                                                    class="text-gray-900 fw-bold fs-7 
+                                                    {{ $package->status == 'individual' ? 'status-pack-individual' : 'status-pack-group' }}">
+                                                    {{ $package->status == 'individual' ? 'paket persiswa' : 'paket sekolah' }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex justify-content-start flex-column">
                                                 <div class="text-gray-900 fw-bold fs-7">{{ $package->description }}
                                                 </div>
                                             </div>
@@ -114,60 +139,66 @@
                                                 @else
                                                     -
                                                 @endif
+                                                {{-- {{ $package->image }} --}}
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex ">
-                                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-detail btn-sm me-1"
-                                            data-id="{{ $package->id }}"
-                                            data-name="{{ $package->name }}"
-                                            data-price="{{ $package->price }}"
-                                            data-description="{{ $package->description }}"
-                                            data-image="{{ $package->image }}"
+                                            <button
+                                                class="btn btn-icon btn-bg-light btn-active-color-primary btn-detail btn-sm me-1"
+                                                data-name="{{ $package->name }}"
+                                                data-price="Rp {{ number_format($package->price, 0, ',', '.') }}"
+                                                data-status="{{ $package->status }}"
+                                                data-description="{{ $package->description }}"
+                                                data-image="{{ asset('storage/' . $package->image) }}"
                                                 data-bs-toggle="tooltip" data-bs-placement="top"
                                                 data-bs-custom-class="custom-tooltip" data-bs-title="Lihat Detail">
                                                 <i class="fa fa-eye fs-3 text-primary"></i>
                                             </button>
-    
-                                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-edit me-1"
-                                            data-id="{{ $package->id }}"
-                                                data-name="{{ $package->name }}"
+
+                                            <button
+                                                class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-edit me-1"
+                                                data-id="{{ $package->id }}" data-name="{{ $package->name }}"
                                                 data-price="{{ $package->price }}"
                                                 data-description="{{ $package->description }}"
-                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data">
-                                                <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </button>
-    
+                                                data-status="{{ $package->status }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Edit Data">
+                                                <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
+                                            </button>
+
+
                                             <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-delete"
-                                                data-id="{{ $package->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data">
+                                                data-id="{{ $package->id }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Hapus Data">
                                                 <i class="fonticon-trash-bin fs-2 text-danger"></i>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
-                            <tr>
-                                <td colspan="6">
-                                    <div class="col-12 text-center">
-                                        <!--begin::Illustration-->
-                                        <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
-                                            alt="" />
-                                        <!--end::Illustration-->
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="col-12 text-center">
+                                            <!--begin::Illustration-->
+                                            <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
+                                                alt="" />
+                                            <!--end::Illustration-->
 
-                                        <!--begin::Title-->
-                                        <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
-                                        <!--end::Title-->
+                                            <!--begin::Title-->
+                                            <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                            <!--end::Title-->
 
-                                        <!--begin::Desctiption-->
-                                        <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                            anda belum memiliki Paket untuk saat ini.
-                                        </span>
-                                        <!--end::Desctiption-->
-                                    </div>
-                                </td>
-                            </tr>
+                                            <!--begin::Desctiption-->
+                                            <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                                anda belum memiliki Paket untuk saat ini.
+                                            </span>
+                                            <!--end::Desctiption-->
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -198,7 +229,8 @@
                     @if ($errors->any())
                         <x-errors-component />
                     @endif
-                    <form action="{{ route('administration.package.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('administration.package.store') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="mb-4">
@@ -210,6 +242,14 @@
                             <label for="price" class="form-label mb-3">Harga Paket</label>
                             <input type="number" class="form-control" name="price" id="price"
                                 placeholder="Masukkan Harga Paket">
+                        </div>
+                        <div class="my-4">
+                            <label for="status" class="form-label mb-3">Status Paket</label>
+                            <select name="status" id="status" class="form-select">
+                                <option selected disabled>Status Paket</option>
+                                <option value="collective">Paket Sekolah</option>
+                                <option value="individual">Paket Persiswa</option>
+                            </select>
                         </div>
                         <div class="my-4">
                             <label for="description" class="form-label mb-3">Deskripsi Paket</label>
@@ -224,6 +264,52 @@
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modal_detail">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Detail Paket</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960"
+                            width="30">
+                            <path
+                                d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+                        </svg>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col flex flex-col mb-4">
+                            <h5 class="text-muted">Nama :</h5>
+                            <h3 class="fs-3 fw-bold" id="nameDetail"></h3>
+                        </div>
+                        <div class="col flex flex-col mb-4">
+                            <h5 class="text-muted">Harga :</h5>
+                            <h3 class="fs-3 fw-bold" id="priceDetail"></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col flex flex-col mb-4">
+                            <h5 class="text-muted">Deskripsi :</h5>
+                            <h3 class="fs-3 fw-bold" id="descriptionDetail"></h3>
+                        </div>
+                        <div class="col flex flex-col mb-4">
+                            <h5 class="text-muted">Status :</h5>
+                            <h3 class="fs-3 fw-bold" id="statusDetail"></h3>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <h5 class="text-muted">Foto :</h5>
+                        <img id="imageDetail" alt="" style="width: 450px;  border-radius: 15px;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -263,6 +349,11 @@
                                 placeholder="Masukkan Harga Paket">
                         </div>
                         <div class="my-4">
+                            <label for="statusEdit" class="form-label mb-3">Status Paket</label>
+                            <select name="status" id="statusEdit" class="form-select">
+                            </select>
+                        </div>
+                        <div class="my-4">
                             <label for="descriptionEdit" class="form-label mb-3">Deskripsi Paket</label>
                             <textarea type="text" class="form-control" name="description" id="descriptionEdit"
                                 placeholder="Masukkan Deskripsi Paket"></textarea>
@@ -292,18 +383,42 @@
         $('.btn-plus').click(function() {
             $('#modal_plus').modal('show')
         })
-        $('.btn-edit').click(function() {
-            var id = $(this).data('id')
+        $('.btn-detail').click(function() {
             var name = $(this).data('name')
             var price = $(this).data('price')
             var description = $(this).data('description')
-            $('#form_edit').attr('action', "{{ route('administration.package.update', ':id') }}".replace(':id',
-                id))
-            $('#nameEdit').val(name)
-            $('#priceEdit').val(price)
-            $('#descriptionEdit').val(description)
-            $('#modal_edit').modal('show')
+            var image = $(this).data('image')
+            var status = $(this).data('status')
+            $('#nameDetail').html(name);
+            $('#priceDetail').html(price);
+            $('#descriptionDetail').html(description);
+            $('#statusDetail').html(status == 'individual' ? 'Paket Persiswa' : 'Paket Sekolah');
+            $('#statusDetail').addClass(status == 'individual' ? 'Paket Persiswa' : 'Paket Sekolah');
+            $('#imageDetail').attr('src', image);
+            $('#modal_detail').modal('show')
         })
+        $('.btn-edit').click(function() {
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var price = $(this).data('price');
+            var description = $(this).data('description');
+            var status = $(this).data('status');
+
+            $('#form_edit').attr('action', "{{ route('administration.package.update', ':id') }}".replace(':id',
+                id));
+            $('#nameEdit').val(name);
+            $('#priceEdit').val(price);
+            $('#descriptionEdit').val(description);
+
+            $('#statusEdit').empty();
+
+            $('#statusEdit').append('<option value="collective">Paket Sekolah</option>');
+            $('#statusEdit').append('<option value="individual">Paket Persiswa</option>');
+            $('#statusEdit').val(status);
+
+            $('#modal_edit').modal('show');
+        });
+
 
         function showDetail() {
             var detail = document.getElementById('detail');
