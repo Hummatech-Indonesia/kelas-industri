@@ -17,4 +17,10 @@ class PackageRepository extends BaseRepository
         return $this->model->latest()->paginate($limit);
     }
 
+    public function getPackagePay($id){
+        return $this->model
+        ->where('id', $id)
+        ->first();
+    }
+
 }

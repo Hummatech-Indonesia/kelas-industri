@@ -13,5 +13,5 @@ class Packages extends Model
     protected $table = 'packages';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'name', 'price', 'description', 'image'];
+    protected $fillable = ['id', 'name', 'price', 'description', 'image', 'status'];
 }
