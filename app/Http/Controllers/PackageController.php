@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Tripay\TripayController;
 use App\Models\Packages;
 use App\Services\PackageService;
 use App\Http\Requests\PackageRequest;
@@ -22,10 +23,32 @@ class PackageController extends Controller
      */
     public function index()
     {
+        $role = auth()->user()->roles->pluck('name')[0];
+        if ($role == 'administration') {
+            $data = [
+                'packages' => $this->packageService->HandleGetPackages(6)
+            ];
+            return view('dashboard.finance.pages.package.index', $data);
+        }
+        if ($role == 'school') {
+            $data = [
+                'packages' => $this->packageService->HandleGetPackages(6)
+            ];
+            return view('dashboard.admin.pages.package.index', $data);
+        }
+    }
+
+    public function getPayment(Packages $package, )
+    {
+        $channel = new TripayController();
+        
+        // dd($channels);
         $data = [
-            'packages' => $this->packageService->HandleGetPackages(6)
-        ];
-        return view('dashboard.finance.pages.package.index', $data);
+            'products' => $this->packageService->getPackagePay($package->id),
+            'channels' => $channel->getPaymentChannels(),
+        ] ;
+        // dd($products);
+        return view('dashboard.admin.pages.package.getPay', $data);
     }
 
     /**

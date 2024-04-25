@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('price');
             $table->text('description');
             $table->text('image')->nullable();
+            $table->enum('status', ['collective', 'individual']);
             $table->timestamps();
         });
     }

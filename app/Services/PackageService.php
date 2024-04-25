@@ -51,4 +51,9 @@ class PackageService
         }
         return $this->repository->destroy($package->id);
     }
+
+    public function getPackagePay($idPack)
+    {
+        return $this->repository->getPackagePay($idPack);
+    }
 }

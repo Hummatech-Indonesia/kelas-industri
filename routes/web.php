@@ -244,9 +244,9 @@ Route::middleware('auth.custom')->group(function () {
             'teachers' => TeacherController::class,
             'journal' => JurnalController::class,
             'exam' => ExamController::class,
-            // 'payment' => PaymentController::class,
+            'packages' => PackageController::class,
         ]);
-
+        Route::get('/packages/{package}', [PackageController::class, 'getPayment'])->name('packages.getPayment');
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
 
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');

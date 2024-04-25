@@ -15,6 +15,7 @@ class PackageRequest extends FormRequest
             'price' => 'required|max:50',
             'description' => 'required',
             'image' => 'mimes:png,jpg,jpeg|max:2048',
+            'status' => 'required|in:collective,individual',
         ];
     }
 
@@ -28,6 +29,8 @@ class PackageRequest extends FormRequest
             'description.required' => 'Deskripsi paket harus diisi',
             'image.mimes' => 'Foto harus dalam format PNG, JPG, atau JPEG!',
             'image.max' => 'Ukuran foto tidak boleh melebihi :max kilobita!',
+            'status.required' => 'Status paket harus diisi',
+            'status.in' => 'Status harus berupa Paket Sekolah atau Paket Individu!',
         ];
     }
 }
