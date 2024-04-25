@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectRequest extends FormRequest
+class PresentationRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -17,8 +16,9 @@ class ProjectRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
-            'deadline' => 'required|date|after_or_equal:now',
-            'photo' => 'mimes:png,jpg,jpeg|max:2048|nullable',
+            'date' => 'required|date|after_or_equal:now',
+            'project_id' => 'required',
+            'presentation_status' => 'required',
         ];
     }
 }

@@ -77,10 +77,10 @@ class RegisterController extends Controller
      * @return RedirectResponse
      */
 
-     public function register(RegisterRequest $request)
-     {
-         $this->service->handleRegistration($request, $this->user, $this->student, $this->classroom);
+    public function register(RegisterRequest $request)
+    {
+        $this->service->handleRegistration($request, $this->user, $this->student, $this->classroom);
 
-         return redirect()->back()->with('success', trans('alert.add_success'));
-     }
+        return redirect()->back()->with('success', trans('alert.add_success'));
+    }
 }

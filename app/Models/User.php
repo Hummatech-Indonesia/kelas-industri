@@ -187,4 +187,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Payment::class, 'user_id');
     }
+
+    /**
+     * one to one relationship
+     *
+     * @return HasOne
+     */
+    public function project(): HasOne
+    {
+        return $this->hasOne(Project::class, 'user_id');
+    }
 }

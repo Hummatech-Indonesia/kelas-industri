@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Classroom;
 use App\Models\Project;
+use App\Services\PresentationService;
 use App\Services\ProjectService;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
@@ -13,10 +14,12 @@ class ProjectController extends Controller
 {
     use DataSidebar;
     private ProjectService $projectService;
+    private PresentationService $presentationService;
 
-    public function __construct(ProjectService $projectService)
+    public function __construct(ProjectService $projectService, PresentationService $presentationService)
     {
         $this->projectService = $projectService;
+        $this->presentationService = $presentationService;
     }
 
     /**
@@ -28,6 +31,17 @@ class ProjectController extends Controller
     {
         $data = $this->GetDataSidebar();
         $data['project'] = $this->projectService->handleGetProjectByUser(auth()->user()->id);
+        if ($data['project']) {
+            $data['presentations'] = $this->presentationService->handleGetByProject(auth()->user()->project->id);
+            $data['approvedPresentations'] = $this->presentationService->handleGetByProjectApproved($data['project']->id);
+            $data['notes'] = $this->projectService->handleGetNote($data['project']->id);
+            $data['tasks'] = $this->projectService->handleGetTasks($data['project']->id);
+        }else{
+            $data['presentations'] = [];
+            $data['approvedPresentations'] = [];
+            $data['notes'] = [];
+            $data['tasks'] = [];
+        }
         return view('dashboard.user.pages.project.index', $data);
     }
 

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MentorController;
@@ -32,6 +34,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\SubMaterialController;
+use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
@@ -351,6 +354,9 @@ Route::middleware('auth.custom')->group(function () {
             'challenges' => ChallengeController::class,
             'rewards' => RewardController::class,
             'projects' => ProjectController::class,
+            'presentation' => PresentationController::class,
+            'notes' => NoteController::class,
+            'tasks' => TaskController::class,
         ]);
         Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
 
