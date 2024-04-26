@@ -424,6 +424,7 @@
                                                                                 data-name="{{ $task->name }}"
                                                                                 data-description="{{ $task->description }}"
                                                                                 data-deadline="{{ $task->deadline }}"
+                                                                                data-status="{{ $task->status }}"
                                                                                 data-priority="{{ $task->priority }}">
                                                                                 Edit
                                                                             </div>
@@ -471,7 +472,6 @@
                                                                             $now,
                                                                             false,
                                                                         );
-                                                                    @endphp
                                                                     @endphp
                                                                     <!--begin::Stat-->
                                                                     <div
@@ -602,6 +602,7 @@
                                                                                 data-name="{{ $task->name }}"
                                                                                 data-description="{{ $task->description }}"
                                                                                 data-deadline="{{ $task->deadline }}"
+                                                                                data-status="{{ $task->status }}"
                                                                                 data-priority="{{ $task->priority }}">
                                                                                 Edit
                                                                             </div>
@@ -644,9 +645,9 @@
                                                                         $deadline = \Carbon\Carbon::parse(
                                                                             $task->deadline,
                                                                         );
-                                                                        $now = now();
-                                                                        $daysUntilDeadline = $now->diffInDays(
-                                                                            $deadline,
+                                                                        $now = \Carbon\Carbon::now();
+                                                                        $daysUntilDeadline = $deadline->diffInDays(
+                                                                            $now,
                                                                             false,
                                                                         );
                                                                     @endphp
@@ -656,11 +657,8 @@
                                                                         <span class="ms-1 fs-7 fw-bold text-gray-600">
                                                                             @if ($daysUntilDeadline > 0)
                                                                                 {{ $daysUntilDeadline }} hari akan datang
-                                                                            @elseif ($daysUntilDeadline == 0)
-                                                                                Hari ini adalah batas waktu
                                                                             @else
-                                                                                Batas waktu telah lewat
-                                                                                {{ abs($daysUntilDeadline) }} hari
+                                                                                Hari ini adalah batas waktu
                                                                             @endif
                                                                         </span>
                                                                     </div>
@@ -776,6 +774,7 @@
                                                                                 data-name="{{ $task->name }}"
                                                                                 data-description="{{ $task->description }}"
                                                                                 data-deadline="{{ $task->deadline }}"
+                                                                                data-status="{{ $task->status }}"
                                                                                 data-priority="{{ $task->priority }}">
                                                                                 Edit
                                                                             </div>
@@ -818,9 +817,9 @@
                                                                         $deadline = \Carbon\Carbon::parse(
                                                                             $task->deadline,
                                                                         );
-                                                                        $now = now();
-                                                                        $daysUntilDeadline = $now->diffInDays(
-                                                                            $deadline,
+                                                                        $now = \Carbon\Carbon::now();
+                                                                        $daysUntilDeadline = $deadline->diffInDays(
+                                                                            $now,
                                                                             false,
                                                                         );
                                                                     @endphp
@@ -830,11 +829,8 @@
                                                                         <span class="ms-1 fs-7 fw-bold text-gray-600">
                                                                             @if ($daysUntilDeadline > 0)
                                                                                 {{ $daysUntilDeadline }} hari akan datang
-                                                                            @elseif ($daysUntilDeadline == 0)
-                                                                                Hari ini adalah batas waktu
                                                                             @else
-                                                                                Batas waktu telah lewat
-                                                                                {{ abs($daysUntilDeadline) }} hari
+                                                                                Hari ini adalah batas waktu
                                                                             @endif
                                                                         </span>
                                                                     </div>
@@ -2097,10 +2093,8 @@
                                                             <div class="fw-semibold ms-5 text-gray-600">
                                                                 <!--begin::Time-->
                                                                 <div class="fs-5">
-                                                                    13:00 - 14:00
-
-                                                                    <span class="fs-7 text-gray-500 text-uppercase">
-                                                                        pm </span>
+                                                                    Jam
+                                                                    {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->format('H:i') }}
                                                                 </div>
                                                                 <!--end::Time-->
 
@@ -2113,7 +2107,7 @@
                                                                 <!--begin::User-->
                                                                 <div class="text-gray-500">
                                                                     Presentasi dengan mentor <a
-                                                                        href="#">{{ $approvedPresentation->project->user->mentorClassrooms->first() ? $approvedPresentation->project->user->mentorClassrooms->first()->mentor->name : 'Belum ada mentor' }}</a>
+                                                                        href="#">{{ auth()->user()->mentorClassrooms->first() ? auth()->user()->mentorClassrooms->first()->mentor->name : 'Belum ada mentor' }}</a>
                                                                 </div>
 
 
@@ -2122,8 +2116,9 @@
                                                             <!--end::Info-->
 
                                                             <!--begin::Action-->
-                                                            <a href="#"
-                                                                class="btn btn-bg-light btn-active-color-primary btn-sm">View</a>
+                                                            <a href="https://us05web.zoom.us/j/89475402083?pwd=qpM8RxdJN7ZYTqZy9btmRWLvoGsLoC.1"
+                                                                class="btn btn-bg-light btn-active-color-primary btn-sm"
+                                                                target="_blank">Zoom</a>
                                                             <!--end::Action-->
                                                         </div>
                                                         <!--end::Time-->
@@ -2784,9 +2779,8 @@
                                 <select class="form-select form-select-solid" data-control="select2"
                                     data-hide-search="true" data-placeholder="Pilih Status" name="status">
                                     <option value="done">Dikerjakan</option>
-                                    <option value="finished">Selesai</option>
                                     <option value="revised">Revisi</option>
-                                    <option value="not_finished">Tidak Selesai</option>
+                                    <option value="finished">Selesai</option>
                                 </select>
                             </div>
                         </div>
@@ -2962,11 +2956,13 @@
             var name = $(this).data('name');
             var description = $(this).data('description');
             var priority = $(this).data('priority');
+            var status = $(this).data('status');
             var deadline = $(this).data('deadline');
 
             $('#name_task').val(name);
             $('#description_task').val(description);
             $('select[name="priority"]').val(priority).trigger('change');
+            $('select[name="status"]').val(status).trigger('change');
 
             var datepickerInstance = $("#kt_datepicker_2").flatpickr();
             datepickerInstance.setDate(deadline);

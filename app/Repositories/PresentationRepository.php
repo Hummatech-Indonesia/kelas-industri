@@ -32,4 +32,17 @@ class PresentationRepository extends BaseRepository
         ->get();
     }
 
+    /**
+     * approvalPresentation
+     *
+     * @param  mixed $PresentationId
+     * @return mixed
+     */
+    public function approvalPresentation(string $approvalPresentationId): mixed
+    {
+        return $this->show($approvalPresentationId)->update([
+        'status' => 'approved',
+        ]);
+    }
+
 }

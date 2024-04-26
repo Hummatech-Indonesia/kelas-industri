@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignUuid('project_id')->constrained('projects')->cascadeOnDelete();
             $table->enum('status', ['pending', 'approved', 'not_approved'])->default('pending');
             $table->enum('presentation_status', ['design', 'beginning', 'progress', 'finalization'])->default('design');
+            $table->text('message')->nullable();
             $table->timestamps();
         });
     }

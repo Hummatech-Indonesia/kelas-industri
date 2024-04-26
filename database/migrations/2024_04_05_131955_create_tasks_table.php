@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->date('deadline');
-            $table->enum('status', ['new_task', 'done', 'finished', 'not_finished', 'revised'])->default('new_task');
+            $table->enum('status', ['new_task', 'done', 'finished', 'revised'])->default('new_task');
             $table->enum('priority', ['urgent', 'important', 'regular', 'additional', 'optional']);
             $table->timestamps();
         });

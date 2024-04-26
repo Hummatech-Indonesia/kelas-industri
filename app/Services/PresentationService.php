@@ -54,4 +54,9 @@ class PresentationService
             'presentation_status' => $data['presentation_status'],
         ]);
     }
+
+    public function handleApprovalPresentation(String $presentationId): mixed
+    {
+        return $this->repository->approvalPresentation($presentationId);
+    }
 }

@@ -41,7 +41,7 @@ class PackageController extends Controller
     public function getPayment(Packages $package, )
     {
         $channel = new TripayController();
-        
+
         // dd($channels);
         $data = [
             'products' => $this->packageService->getPackagePay($package->id),
@@ -124,5 +124,10 @@ class PackageController extends Controller
         }
 
         return to_route('administration.package.index')->with('success', trans('alert.update_success'));
+    }
+
+    public function payment()
+    {
+        return view('dashboard.finance.pages.package.payment');
     }
 }

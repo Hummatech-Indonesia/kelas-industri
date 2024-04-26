@@ -221,6 +221,8 @@ Route::middleware('auth.custom')->group(function () {
             'package' => PackageController::class,
         ]);
 
+        Route::get('payment-package', [PackageController::class, 'payment'])->name('payment');
+
         Route::get('tracking/student-school/{school}', [TrackingPaymentController::class, 'allStudent'])->name('tracking.showStudent');
         Route::get('tracking/student-school/detail/{classroom}/{user}', [TrackingPaymentController::class, 'detailStudent'])->name('tracking.detailStudent');
         Route::post('tracking/student-school/detail/{user}/store', [TrackingPaymentController::class, 'store'])->name('tracking.detailStudent.store');
@@ -308,6 +310,11 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('student-project/{classroom}', [ProjectController::class, 'studentProject'])->name('studentProject');
         Route::post('approval-student-project/{project}', [ProjectController::class, 'approvalProject'])->name('approvalProject');
         Route::post('reject-student-project/{project}', [ProjectController::class, 'rejectProject'])->name('rejectProject');
+
+        Route::post('approval-student-presentation/{presentation}', [PresentationController::class, 'approvalPresentation'])->name('approvalPresentation');
+        Route::post('reject-student-presentation/{presentation}', [PresentationController::class, 'rejectPresentation'])->name('rejectPresentation');
+
+
     });
     //end mentor
 
@@ -319,6 +326,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
         Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+        Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
     });
     //end mentor, student, teacher
 

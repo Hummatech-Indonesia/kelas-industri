@@ -1,3 +1,6 @@
+@php
+    use App\Models\Task;
+@endphp
 @extends('dashboard.user.layouts.app')
 
 @section('content')
@@ -70,7 +73,7 @@
                                 <!--begin::Compact form-->
                                 <div class="row d-flex searching align-items-center">
                                     <!--begin::Input group-->
-                                    <div class="position-relative col-lg-6 col-md-12">
+                                    <div class="position-relative col-lg-7 col-md-12">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                         <span
                                             class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -87,27 +90,30 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                         <input type="text" class="form-control form-control-solid ps-10" name="search"
-                                            value="" placeholder="Search">
+                                            value="{{ request()->search }}" placeholder="Search">
                                     </div>
-                                    <div class="position-relative col-lg-2 col-md-12">
-                                        <select name="generation_id" class="form-select form-select-solid me-5"
-                                            data-control="select2" data-placeholder="Select an option" id="generations">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
-                                    <div class="position-relative col-lg-2 col-md-12">
-                                        <select name="generation_id" class="form-select form-select-solid me-5"
-                                            data-control="select2" data-placeholder="Select an option" id="generations">
-                                            <option value=""></option>
+                                    <div class="position-relative col-lg-3 col-md-12">
+                                        <select name="status" class="form-select form-select-solid me-5"
+                                            data-control="select2" data-placeholder="Select an option" id="status">
+                                            <option value="pending" {{ request()->status == 'pending' ? 'selected' : '' }}>
+                                                Menunggu</option>
+                                            <option value="approved"
+                                                {{ request()->status == 'approved' ? 'selected' : '' }}>Terima</option>
+                                            <option value="in_progress"
+                                                {{ request()->status == 'in_progress' ? 'selected' : '' }}>Progress</option>
+                                            <option value="not_approved"
+                                                {{ request()->status == 'not_approved' ? 'selected' : '' }}>Tolak</option>
+                                            <option value="not_finished"
+                                                {{ request()->status == 'not_finished' ? 'selected' : '' }}>Tidak Selesai
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-lg-2 col-md-12">
                                         <button type="submit" class="btn btn-primary">Cari</button>
-                                        <a href="http://127.0.0.1:8000/admin/materials" type="button"
-                                            class="btn btn-light text-light ms-2" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-                                            data-bs-title="Muat Ulang" data-kt-initialized="1"><i
-                                                class="fonticon-repeat"></i></a>
+                                        <a href="" type="button" class="btn btn-light text-light ms-2"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang"
+                                            data-kt-initialized="1"><i class="fonticon-repeat"></i></a>
                                     </div>
                                     <!--end::Input group-->
                                 </div>
@@ -193,15 +199,27 @@
                                                 <!--end::Budget-->
                                             </div>
                                             <!--end::Info-->
+                                            @php
+                                                $totalTasks = Task::query()
+                                                    ->where('project_id', $project->id)
+                                                    ->count();
 
+                                                $finishedTasks = Task::query()
+                                                    ->where('project_id', $project->id)
+                                                    ->where('status', 'finished')
+                                                    ->count();
+
+                                                $progressPercentage =
+                                                    $totalTasks > 0 ? ($finishedTasks / $totalTasks) * 100 : 0;
+                                            @endphp
                                             <!--begin::Progress-->
                                             <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-                                                data-bs-title="Project {{ $project->progress }}% selesai">
+                                                data-bs-title="Project  {{ number_format($progressPercentage) }}% selesai">
                                                 <div class="bg-primary rounded h-4px" role="progressbar"
-                                                    style="width: {{ $project->progress }}%"
-                                                    aria-valuenow="{{ $project->progress }}" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
+                                                    style="width:  {{ number_format($progressPercentage) }}%"
+                                                    aria-valuenow=" {{ number_format($progressPercentage) }}"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             <!--end::Progress-->
 
@@ -229,8 +247,8 @@
                                                             data-student="{{ $project->user->name }}">Tolak</button>
                                                     </div>
                                                 @else
-                                                    <button class="btn btn-light-primary btn-sm"
-                                                        type="submit">Detail</button>
+                                                    <a href="{{ route('common.detail-student-project', ['project' => $project->id]) }}"
+                                                        class="btn btn-light-primary btn-sm" type="button">Detail</a>
                                                 @endif
                                             </div>
 
@@ -244,7 +262,6 @@
 
                         @empty
                         @endforelse
-
                     </div>
                 </div>
             </div>

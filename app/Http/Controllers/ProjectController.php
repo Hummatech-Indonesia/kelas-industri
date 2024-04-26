@@ -36,7 +36,7 @@ class ProjectController extends Controller
             $data['approvedPresentations'] = $this->presentationService->handleGetByProjectApproved($data['project']->id);
             $data['notes'] = $this->projectService->handleGetNote($data['project']->id);
             $data['tasks'] = $this->projectService->handleGetTasks($data['project']->id);
-        }else{
+        } else {
             $data['presentations'] = [];
             $data['approvedPresentations'] = [];
             $data['notes'] = [];
@@ -75,7 +75,13 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $data = $this->GetDataSidebar();
+        $data['project'] = $project;
+        $data['tasks'] = $this->projectService->handleGetTasks($project->id);
+        $data['notes'] = $this->projectService->handleGetNote($project->id);
+        $data['presentations'] = $this->presentationService->handleGetByProject($project->id);
+        $data['approvedPresentations'] = $this->presentationService->handleGetByProjectApproved($project->id);
+        return view('dashboard.user.pages.project.detailProject', $data);
     }
 
     /**
@@ -118,10 +124,10 @@ class ProjectController extends Controller
      * @param  mixed $classroom
      * @return void
      */
-    public function studentProject(Classroom $classroom)
+    public function studentProject(Classroom $classroom, Request $request)
     {
         $data = $this->GetDataSidebar();
-        $data['projects'] = $this->projectService->handleGetProjectByClassroom($classroom->id);
+        $data['projects'] = $this->projectService->handleGetProjectByClassroom($classroom->id, $request);
         return view('dashboard.user.pages.project.studentProject', $data);
     }
 

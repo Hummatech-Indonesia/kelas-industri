@@ -71,9 +71,9 @@ class ProjectService
      * @param  mixed $classroomId
      * @return mixed
      */
-    public function handleGetProjectByClassroom(string $classroomId): mixed
+    public function handleGetProjectByClassroom(string $classroomId, Request $request): mixed
     {
-        return $this->repository->getProjectByClassroom($classroomId);
+        return $this->repository->getProjectByClassroom($classroomId, $request, 9);
     }
 
     /**

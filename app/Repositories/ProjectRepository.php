@@ -43,11 +43,15 @@ class ProjectRepository extends BaseRepository
      * @param  mixed $classroomId
      * @return mixed
      */
-    public function getProjectByClassroom(string $classroomId): mixed
+    public function getProjectByClassroom(string $classroomId, Request $request, int $limit): mixed
     {
         return $this->model->query()
+            ->when($request->status, function ($q) use ($request) {
+                return $q->where('status', $request->status);
+            })
+            ->where('name', 'like', '%' . $request->search . '%')
             ->whereRelation('user.studentSchool.studentClassroom', 'classroom_id', $classroomId)
-            ->get();
+            ->paginate($limit);
     }
 
     /**

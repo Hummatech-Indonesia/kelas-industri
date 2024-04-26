@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Presentation;
-use Illuminate\Http\Request;
-use App\Services\PresentationService;
 use App\Http\Requests\PresentationRequest;
+use App\Models\Presentation;
+use App\Services\PresentationService;
+use Illuminate\Http\Request;
 
 class PresentationController extends Controller
 {
@@ -91,5 +91,29 @@ class PresentationController extends Controller
     public function destroy(Presentation $presentation)
     {
         //
+    }
+
+    /**
+     * approvalPresentation
+     *
+     * @param  mixed $presentation
+     * @return void
+     */
+    public function approvalPresentation(Presentation $presentation)
+    {
+        $this->service->handleApprovalPresentation($presentation->id);
+        return redirect()->back()->with('success', 'Presentasi ' . $presentation->project->user->name . ' berhasil di Setujui');
+    }
+
+    /**
+     * rejectPresentation
+     *
+     * @param  mixed $presentation
+     * @return void
+     */
+    public function rejectPresentation(Presentation $presentation, Request $request)
+    {
+        $this->service->handleRejectPresentation($project->id, $request);
+        return redirect()->back()->with('success', 'Project ' . $project->user->name . ' berhasil di Tolak');
     }
 }

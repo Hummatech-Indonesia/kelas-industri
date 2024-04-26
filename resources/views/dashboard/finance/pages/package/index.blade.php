@@ -18,13 +18,13 @@
         }
 
         .status-pack-group {
-            background-color: #bbe3ff;
+            background-color: #403e89;
             padding: 4px 10px;
             border-radius: 15px;
         }
 
         .status-pack-individual {
-            background-color: #ceffd6;
+            background-color: #403e89;
             padding: 4px 10px;
             border-radius: 15px;
         }
@@ -62,7 +62,7 @@
             </button>
         </div>
     </div>
-    <div class="content" id="kt_content">
+    <div class="content flex-column-fluid" id="kt_content">
         <div class="card mb-5 mb-xl-8">
             <!--begin::Body-->
             <div class="card-body py-3">
@@ -115,7 +115,7 @@
                                         <div class="d-flex align-items-center">
                                             <div class="d-flex justify-content-start flex-column">
                                                 <div
-                                                    class="text-gray-900 fw-bold fs-7 
+                                                    class="text-white fw-bold fs-8
                                                     {{ $package->status == 'individual' ? 'status-pack-individual' : 'status-pack-group' }}">
                                                     {{ $package->status == 'individual' ? 'paket persiswa' : 'paket sekolah' }}
                                                 </div>
