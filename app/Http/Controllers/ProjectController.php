@@ -7,6 +7,7 @@ use App\Models\Classroom;
 use App\Models\Project;
 use App\Services\PresentationService;
 use App\Services\ProjectService;
+use App\Services\NotificationService;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 
@@ -15,11 +16,13 @@ class ProjectController extends Controller
     use DataSidebar;
     private ProjectService $projectService;
     private PresentationService $presentationService;
+    private NotificationService $notificationService;
 
-    public function __construct(ProjectService $projectService, PresentationService $presentationService)
+    public function __construct(ProjectService $projectService, PresentationService $presentationService, NotificationService $notificationService)
     {
         $this->projectService = $projectService;
         $this->presentationService = $presentationService;
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -153,6 +156,7 @@ class ProjectController extends Controller
     public function rejectProject(Project $project, Request $request)
     {
         $this->projectService->handleRejectProject($project->id, $request);
+        $this->notificationService->createRejectNotification($project->id, $request);
         return redirect()->back()->with('success', 'Project ' . $project->user->name . ' berhasil di Tolak');
 
     }

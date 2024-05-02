@@ -170,7 +170,8 @@
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
                                                     <div class="fs-4 fw-bold">
-                                                        {{ $project? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }}
+                                                        {{-- {{ $project? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }} --}}
+                                                            {{ $project->start != null? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }}
                                                     </div>
                                                 </div>
                                                 <!--end::Number-->
