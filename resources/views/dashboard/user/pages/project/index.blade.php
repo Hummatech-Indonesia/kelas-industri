@@ -170,11 +170,7 @@
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
                                                     <div class="fs-4 fw-bold">
-                                                        @if ($project->start)
-                                                            {{ \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY') }}
-                                                        @else
-                                                            -
-                                                        @endif
+                                                        {{ $project? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }}
                                                     </div>
                                                 </div>
                                                 <!--end::Number-->
@@ -205,26 +201,35 @@
                                         <!--end::Stats-->
 
                                         <!--begin::Users-->
-                                        @php
-                                            $totalTasks = $tasks->where('project_id', $project->id)->count();
+                                        @if ($tasks == [])
+                                            <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Proyek ini 0% selesai">
+                                                <div class="bg-primary rounded h-4px" role="progressbar" style="width: 0%"
+                                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        @else
+                                            @php
+                                                $totalTasks = $tasks->where('project_id', $project->id)->count();
 
-                                            $finishedTasks = $tasks
-                                                ->where('project_id', $project->id)
-                                                ->where('status', 'finished')
-                                                ->count();
+                                                $finishedTasks = $tasks
+                                                    ->where('project_id', $project->id)
+                                                    ->where('status', 'finished')
+                                                    ->count();
 
-                                            $progressPercentage =
-                                                $totalTasks > 0 ? ($finishedTasks / $totalTasks) * 100 : 0;
-                                        @endphp
+                                                $progressPercentage =
+                                                    $totalTasks > 0 ? ($finishedTasks / $totalTasks) * 100 : 0;
+                                            @endphp
 
-                                        <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-                                            data-bs-title="Proyek ini {{ number_format($progressPercentage) }}% selesai">
-                                            <div class="bg-primary rounded h-4px" role="progressbar"
-                                                style="width: {{ number_format($progressPercentage) }}%"
-                                                aria-valuenow="{{ number_format($progressPercentage) }}" aria-valuemin="0"
-                                                aria-valuemax="100"></div>
-                                        </div>
+                                            <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Proyek ini {{ number_format($progressPercentage) }}% selesai">
+                                                <div class="bg-primary rounded h-4px" role="progressbar"
+                                                    style="width: {{ number_format($progressPercentage) }}%"
+                                                    aria-valuenow="{{ number_format($progressPercentage) }}"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        @endif
                                         <!--end::Users-->
                                     </div>
                                     <!--end::Info-->
@@ -268,2029 +273,2075 @@
                         </div>
                     </div>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
-                            <div class="d-flex flex-wrap flex-stack pt-5 pb-5 mb-5">
-                                <!--begin::Heading-->
-                                <h3 class="fw-bold my-2">
-                                    List Tugas
-                                    <span class="fs-6 text-gray-500 fw-semibold ms-1">Daftar tugas yang anda buat ↓</span>
-                                </h3>
-                                <!--end::Heading-->
-                            </div>
-                            <div style="overflow-x: auto; width: 100%">
-                                <div class="d-flex flex-nowrap" style="min-width: 100%">
-                                    <!-- Ubah class row menjadi d-flex dan tambahkan flex-nowrap -->
-                                    <div class="col-md-3 col-lg-12 col-xl-3 me-5">
-                                        <!--begin::Col header-->
-                                        <div class="mb-9">
-                                            <div class="d-flex flex-stack">
-                                                @php
-                                                    $statusToCount = 'new_task';
-                                                    $statusDone = 'done';
-                                                    $statusFinished = 'finished';
-                                                    $statusRevised = 'revised';
+                        @if ($project)
+                            <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+                                <div class="d-flex flex-wrap flex-stack pt-5 pb-5 mb-5">
+                                    <!--begin::Heading-->
+                                    <h3 class="fw-bold my-2">
+                                        List Tugas
+                                        <span class="fs-6 text-gray-500 fw-semibold ms-1">Daftar tugas yang anda buat
+                                            ↓</span>
+                                    </h3>
+                                    <!--end::Heading-->
+                                </div>
+                                <div style="overflow-x: auto; width: 100%">
+                                    <div class="d-flex flex-nowrap" style="min-width: 100%">
+                                        <!-- Ubah class row menjadi d-flex dan tambahkan flex-nowrap -->
+                                        <div class="col-md-3 col-lg-12 col-xl-3 me-5">
+                                            <!--begin::Col header-->
+                                            <div class="mb-9">
+                                                <div class="d-flex flex-stack">
+                                                    @php
+                                                        $statusToCount = 'new_task';
+                                                        $statusDone = 'done';
+                                                        $statusFinished = 'finished';
+                                                        $statusRevised = 'revised';
 
-                                                    $newTasks = $tasks->filter(function ($task) use ($statusToCount) {
-                                                        return $task->status === $statusToCount &&
-                                                            $task->deadline > now();
-                                                    });
-                                                    $doneTasks = $tasks->filter(function ($task) use ($statusDone) {
-                                                        return $task->status === $statusDone && $task->deadline > now();
-                                                    });
-                                                    $finishedTasks = $tasks->filter(function ($task) use (
-                                                        $statusFinished,
-                                                    ) {
-                                                        return $task->status === $statusFinished;
-                                                    });
-                                                    $notFinishedTasks = $tasks->filter(function ($task) use (
-                                                        $statusToCount,
-                                                        $statusDone,
-                                                        $statusRevised,
-                                                    ) {
-                                                        return ($task->status === $statusToCount ||
-                                                            $task->status === $statusDone ||
-                                                            $task->status === $statusRevised) &&
-                                                            $task->deadline < now();
-                                                    });
-                                                    $revisedTasks = $tasks->filter(function ($task) use (
-                                                        $statusRevised,
-                                                    ) {
-                                                        return $task->status === $statusRevised &&
-                                                            $task->deadline > now();
-                                                    });
+                                                        $newTasks = $tasks->filter(function ($task) use (
+                                                            $statusToCount,
+                                                        ) {
+                                                            return $task->status === $statusToCount &&
+                                                                $task->deadline > now();
+                                                        });
+                                                        $doneTasks = $tasks->filter(function ($task) use ($statusDone) {
+                                                            return $task->status === $statusDone &&
+                                                                $task->deadline > now();
+                                                        });
+                                                        $finishedTasks = $tasks->filter(function ($task) use (
+                                                            $statusFinished,
+                                                        ) {
+                                                            return $task->status === $statusFinished;
+                                                        });
+                                                        $notFinishedTasks = $tasks->filter(function ($task) use (
+                                                            $statusToCount,
+                                                            $statusDone,
+                                                            $statusRevised,
+                                                        ) {
+                                                            return ($task->status === $statusToCount ||
+                                                                $task->status === $statusDone ||
+                                                                $task->status === $statusRevised) &&
+                                                                $task->deadline < now();
+                                                        });
+                                                        $revisedTasks = $tasks->filter(function ($task) use (
+                                                            $statusRevised,
+                                                        ) {
+                                                            return $task->status === $statusRevised &&
+                                                                $task->deadline > now();
+                                                        });
 
-                                                    $countNewTasks = $newTasks->count();
-                                                    $countDoneTasks = $doneTasks->count();
-                                                    $countFinishedTasks = $finishedTasks->count();
-                                                    $countNotFinishedTasks = $notFinishedTasks->count();
-                                                    $countRevisedTasks = $revisedTasks->count();
-                                                @endphp
-                                                <div class="fw-bold fs-4">
-                                                    Tugas Baru
-                                                    <span class="fs-6 text-gray-500 ms-2">{{ $countNewTasks }}</span>
+                                                        $countNewTasks = $newTasks->count();
+                                                        $countDoneTasks = $doneTasks->count();
+                                                        $countFinishedTasks = $finishedTasks->count();
+                                                        $countNotFinishedTasks = $notFinishedTasks->count();
+                                                        $countRevisedTasks = $revisedTasks->count();
+                                                    @endphp
+                                                    <div class="fw-bold fs-4">
+                                                        Tugas Baru
+                                                        <span class="fs-6 text-gray-500 ms-2">{{ $countNewTasks }}</span>
+                                                    </div>
+
                                                 </div>
 
+                                                <div class="h-3px w-100 bg-warning"></div>
                                             </div>
-
-                                            <div class="h-3px w-100 bg-warning"></div>
-                                        </div>
-                                        <div style="overflow-y: auto; max-height: 550px;">
-                                            @foreach ($tasks as $task)
-                                                @if ($task->status == 'new_task' && $task->deadline > now())
-                                                    @php
-                                                        $badgeClass = '';
-                                                        $description = '';
-                                                        switch ($task->priority) {
-                                                            case 'urgent':
-                                                                $badgeClass = 'badge-danger';
-                                                                $description = 'Mendesak';
-                                                                break;
-                                                            case 'important':
-                                                                $badgeClass = 'badge-warning';
-                                                                $description = 'Penting';
-                                                                break;
-                                                            case 'regular':
-                                                                $badgeClass = 'badge-primary';
-                                                                $description = 'Biasa';
-                                                                break;
-                                                            case 'additional':
-                                                                $badgeClass = 'badge-info';
-                                                                $description = 'Tambahan';
-                                                                break;
-                                                            case 'optional':
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Opsional';
-                                                                break;
-                                                            default:
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Tidak dikenal';
-                                                        }
-                                                    @endphp
-                                                    <div class="card mb-2 mb-xl-7 draggable-zone">
-                                                        <!--begin::Card body-->
-                                                        <div class="card-body">
-                                                            <!--begin::Header-->
-                                                            <div class="d-flex flex-stack mb-3">
-                                                                <!--begin::Badge-->
-                                                                <div class="badge {{ $badgeClass }}">
-                                                                    {{ ucwords($description) }}
-                                                                </div>
-
-                                                                <!--end::Badge-->
-
-                                                                <!--begin::Menu-->
-                                                                <div>
-                                                                    <button type="button"
-                                                                        class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
-                                                                        data-kt-menu-trigger="click"
-                                                                        data-kt-menu-placement="bottom-end">
-                                                                        <span
-                                                                            class="svg-icon svg-icon-muted svg-icon-2hx"><svg
-                                                                                width="24" height="24"
-                                                                                viewBox="0 0 24 24" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <rect opacity="0.3" x="2" y="2"
-                                                                                    width="20" height="20"
-                                                                                    rx="4" fill="currentColor" />
-                                                                                <rect x="11" y="11" width="2.6"
-                                                                                    height="2.6" rx="1.3"
-                                                                                    fill="currentColor" />
-                                                                                <rect x="15" y="11" width="2.6"
-                                                                                    height="2.6" rx="1.3"
-                                                                                    fill="currentColor" />
-                                                                                <rect x="7" y="11" width="2.6"
-                                                                                    height="2.6" rx="1.3"
-                                                                                    fill="currentColor" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </button>
-
-                                                                    <!--begin::Menu 3-->
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
-                                                                        data-kt-menu="true">
-                                                                        <!--begin::Heading-->
-                                                                        <div class="menu-item px-3">
-                                                                            <div
-                                                                                class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
-                                                                                Aksi
-                                                                            </div>
-                                                                        </div>
-                                                                        <!--end::Heading-->
-
-                                                                        <!--begin::Menu item-->
-                                                                        <div class="menu-item px-3">
-                                                                            <div class="menu-link px-3 btn-edit-task"
-                                                                                data-id="{{ $task->id }}"
-                                                                                data-name="{{ $task->name }}"
-                                                                                data-description="{{ $task->description }}"
-                                                                                data-deadline="{{ $task->deadline }}"
-                                                                                data-status="{{ $task->status }}"
-                                                                                data-priority="{{ $task->priority }}">
-                                                                                Edit
-                                                                            </div>
-                                                                        </div>
-                                                                        <!--end::Menu item-->
-
-                                                                        <!--begin::Menu item-->
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="#"
-                                                                                class="menu-link flex-stack px-3 btn-delete-task"
-                                                                                data-id="{{ $task->id }}">
-                                                                                Delete
-                                                                            </a>
-                                                                        </div>
-                                                                        <!--end::Menu item-->
+                                            <div style="overflow-y: auto; max-height: 550px;">
+                                                @foreach ($tasks as $task)
+                                                    @if ($task->status == 'new_task' && $task->deadline > now())
+                                                        @php
+                                                            $badgeClass = '';
+                                                            $description = '';
+                                                            switch ($task->priority) {
+                                                                case 'urgent':
+                                                                    $badgeClass = 'badge-danger';
+                                                                    $description = 'Mendesak';
+                                                                    break;
+                                                                case 'important':
+                                                                    $badgeClass = 'badge-warning';
+                                                                    $description = 'Penting';
+                                                                    break;
+                                                                case 'regular':
+                                                                    $badgeClass = 'badge-primary';
+                                                                    $description = 'Biasa';
+                                                                    break;
+                                                                case 'additional':
+                                                                    $badgeClass = 'badge-info';
+                                                                    $description = 'Tambahan';
+                                                                    break;
+                                                                case 'optional':
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Opsional';
+                                                                    break;
+                                                                default:
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Tidak dikenal';
+                                                            }
+                                                        @endphp
+                                                        <div class="card mb-2 mb-xl-7 draggable-zone">
+                                                            <!--begin::Card body-->
+                                                            <div class="card-body">
+                                                                <!--begin::Header-->
+                                                                <div class="d-flex flex-stack mb-3">
+                                                                    <!--begin::Badge-->
+                                                                    <div class="badge {{ $badgeClass }}">
+                                                                        {{ ucwords($description) }}
                                                                     </div>
-                                                                    <!--end::Menu 3-->
-                                                                </div>
-                                                                <!--end::Menu-->
-                                                            </div>
-                                                            <!--end::Header-->
 
-                                                            <!--begin::Title-->
-                                                            <div class="mb-2">
-                                                                <a href="#"
-                                                                    class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
-                                                            </div>
-                                                            <!--end::Title-->
+                                                                    <!--end::Badge-->
 
-                                                            <!--begin::Content-->
-                                                            <div class="fs-6 fw-semibold text-gray-600 mb-5">
-                                                                {{ $task->description }}</div>
-                                                            <!--end::Content-->
+                                                                    <!--begin::Menu-->
+                                                                    <div>
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
+                                                                            data-kt-menu-trigger="click"
+                                                                            data-kt-menu-placement="bottom-end">
+                                                                            <span
+                                                                                class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect opacity="0.3" x="2" y="2"
+                                                                                        width="20" height="20"
+                                                                                        rx="4"
+                                                                                        fill="currentColor" />
+                                                                                    <rect x="11" y="11" width="2.6"
+                                                                                        height="2.6" rx="1.3"
+                                                                                        fill="currentColor" />
+                                                                                    <rect x="15" y="11" width="2.6"
+                                                                                        height="2.6" rx="1.3"
+                                                                                        fill="currentColor" />
+                                                                                    <rect x="7" y="11" width="2.6"
+                                                                                        height="2.6" rx="1.3"
+                                                                                        fill="currentColor" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
 
-                                                            <!--begin::Footer-->
-                                                            <div class="d-flex flex-stack flex-wrapr justify-content-end">
-                                                                <!--begin::Stats-->
-                                                                <div class="d-flex my-1">
-                                                                    @php
-                                                                        $deadline = \Carbon\Carbon::parse(
-                                                                            $task->deadline,
-                                                                        );
-                                                                        $now = \Carbon\Carbon::now();
-                                                                        $daysUntilDeadline = $deadline->diffInDays(
-                                                                            $now,
-                                                                            false,
-                                                                        );
-                                                                    @endphp
-                                                                    <!--begin::Stat-->
-                                                                    <div
-                                                                        class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
-                                                                        <span class="ms-1 fs-7 fw-bold text-gray-600">
-                                                                            @if ($daysUntilDeadline > 0)
-                                                                                {{ $daysUntilDeadline }} hari akan datang
-                                                                            @else
-                                                                                Hari ini adalah batas waktu
-                                                                            @endif
-                                                                        </span>
+                                                                        <!--begin::Menu 3-->
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
+                                                                            data-kt-menu="true">
+                                                                            <!--begin::Heading-->
+                                                                            <div class="menu-item px-3">
+                                                                                <div
+                                                                                    class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                                                    Aksi
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--end::Heading-->
+
+                                                                            <!--begin::Menu item-->
+                                                                            <div class="menu-item px-3">
+                                                                                <div class="menu-link px-3 btn-edit-task"
+                                                                                    data-id="{{ $task->id }}"
+                                                                                    data-name="{{ $task->name }}"
+                                                                                    data-description="{{ $task->description }}"
+                                                                                    data-deadline="{{ $task->deadline }}"
+                                                                                    data-status="{{ $task->status }}"
+                                                                                    data-priority="{{ $task->priority }}">
+                                                                                    Edit
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--end::Menu item-->
+
+                                                                            <!--begin::Menu item-->
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="#"
+                                                                                    class="menu-link flex-stack px-3 btn-delete-task"
+                                                                                    data-id="{{ $task->id }}">
+                                                                                    Delete
+                                                                                </a>
+                                                                            </div>
+                                                                            <!--end::Menu item-->
+                                                                        </div>
+                                                                        <!--end::Menu 3-->
                                                                     </div>
-                                                                    <!--end::Stat-->
+                                                                    <!--end::Menu-->
                                                                 </div>
-                                                                <!--end::Stats-->
+                                                                <!--end::Header-->
+
+                                                                <!--begin::Title-->
+                                                                <div class="mb-2">
+                                                                    <a href="#"
+                                                                        class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
+                                                                </div>
+                                                                <!--end::Title-->
+
+                                                                <!--begin::Content-->
+                                                                <div class="fs-6 fw-semibold text-gray-600 mb-5">
+                                                                    {{ $task->description }}</div>
+                                                                <!--end::Content-->
+
+                                                                <!--begin::Footer-->
+                                                                <div
+                                                                    class="d-flex flex-stack flex-wrapr justify-content-end">
+                                                                    <!--begin::Stats-->
+                                                                    <div class="d-flex my-1">
+                                                                        @php
+                                                                            $deadline = \Carbon\Carbon::parse(
+                                                                                $task->deadline,
+                                                                            );
+                                                                            $now = \Carbon\Carbon::now();
+                                                                            $daysUntilDeadline = $deadline->diffInDays(
+                                                                                $now,
+                                                                                false,
+                                                                            );
+                                                                        @endphp
+                                                                        <!--begin::Stat-->
+                                                                        <div
+                                                                            class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                                                            <span class="ms-1 fs-7 fw-bold text-gray-600">
+                                                                                @if ($daysUntilDeadline > 0)
+                                                                                    {{ $daysUntilDeadline }} hari akan
+                                                                                    datang
+                                                                                @else
+                                                                                    Hari ini adalah batas waktu
+                                                                                @endif
+                                                                            </span>
+                                                                        </div>
+                                                                        <!--end::Stat-->
+                                                                    </div>
+                                                                    <!--end::Stats-->
+                                                                </div>
+                                                                <!--end::Footer-->
                                                             </div>
-                                                            <!--end::Footer-->
+                                                            <!--end::Card body-->
                                                         </div>
-                                                        <!--end::Card body-->
-                                                    </div>
-                                                @endif
-                                            @endforeach
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                            <a href="#" class="btn btn-primary er w-100 fs-6 px-8 py-4"
+                                                data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Buat Tugas
+                                                Baru</a>
                                         </div>
-                                        <a href="#" class="btn btn-primary er w-100 fs-6 px-8 py-4"
-                                            data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Buat Tugas
-                                            Baru</a>
-                                    </div>
-                                    <div class="col-md-3 col-lg-12 col-xl-3 me-5">
-                                        <!--begin::Col header-->
-                                        <div class="mb-9">
-                                            <div class="d-flex flex-stack">
-                                                <div class="fw-bold fs-4">
-                                                    Dikerjakan
-                                                    <span class="fs-6 text-gray-500 ms-2">{{ $countDoneTasks }}</span>
+                                        <div class="col-md-3 col-lg-12 col-xl-3 me-5">
+                                            <!--begin::Col header-->
+                                            <div class="mb-9">
+                                                <div class="d-flex flex-stack">
+                                                    <div class="fw-bold fs-4">
+                                                        Dikerjakan
+                                                        <span class="fs-6 text-gray-500 ms-2">{{ $countDoneTasks }}</span>
+                                                    </div>
+
                                                 </div>
 
+                                                <div class="h-3px w-100 bg-primary"></div>
                                             </div>
-
-                                            <div class="h-3px w-100 bg-primary"></div>
-                                        </div>
-                                        <div style="overflow-y: auto; max-height: 600px;">
-                                            @foreach ($tasks as $task)
-                                                @if ($task->status == 'done' && $task->deadline > now())
-                                                    @php
-                                                        $badgeClass = '';
-                                                        $description = '';
-                                                        switch ($task->priority) {
-                                                            case 'urgent':
-                                                                $badgeClass = 'badge-danger';
-                                                                $description = 'Mendesak';
-                                                                break;
-                                                            case 'important':
-                                                                $badgeClass = 'badge-warning';
-                                                                $description = 'Penting';
-                                                                break;
-                                                            case 'regular':
-                                                                $badgeClass = 'badge-primary';
-                                                                $description = 'Biasa';
-                                                                break;
-                                                            case 'additional':
-                                                                $badgeClass = 'badge-info';
-                                                                $description = 'Tambahan';
-                                                                break;
-                                                            case 'optional':
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Opsional';
-                                                                break;
-                                                            default:
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Tidak dikenal';
-                                                        }
-                                                    @endphp
-                                                    <div class="card mb-2 mb-xl-7 draggable-zone">
-                                                        <!--begin::Card body-->
-                                                        <div class="card-body">
-                                                            <!--begin::Header-->
-                                                            <div class="d-flex flex-stack mb-3">
-                                                                <!--begin::Badge-->
-                                                                <div class="badge {{ $badgeClass }}">
-                                                                    {{ ucwords($description) }}
-                                                                </div>
-
-                                                                <!--end::Badge-->
-
-                                                                <!--begin::Menu-->
-                                                                <div>
-                                                                    <button type="button"
-                                                                        class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
-                                                                        data-kt-menu-trigger="click"
-                                                                        data-kt-menu-placement="bottom-end">
-                                                                        <span
-                                                                            class="svg-icon svg-icon-muted svg-icon-2hx"><svg
-                                                                                width="24" height="24"
-                                                                                viewBox="0 0 24 24" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <rect opacity="0.3" x="2" y="2"
-                                                                                    width="20" height="20"
-                                                                                    rx="4" fill="currentColor" />
-                                                                                <rect x="11" y="11" width="2.6"
-                                                                                    height="2.6" rx="1.3"
-                                                                                    fill="currentColor" />
-                                                                                <rect x="15" y="11" width="2.6"
-                                                                                    height="2.6" rx="1.3"
-                                                                                    fill="currentColor" />
-                                                                                <rect x="7" y="11" width="2.6"
-                                                                                    height="2.6" rx="1.3"
-                                                                                    fill="currentColor" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </button>
-
-                                                                    <!--begin::Menu 3-->
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
-                                                                        data-kt-menu="true">
-                                                                        <!--begin::Heading-->
-                                                                        <div class="menu-item px-3">
-                                                                            <div
-                                                                                class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
-                                                                                Aksi
-                                                                            </div>
-                                                                        </div>
-                                                                        <!--end::Heading-->
-
-                                                                        <!--begin::Menu item-->
-                                                                        <div class="menu-item px-3">
-                                                                            <div class="menu-link px-3 btn-edit-task"
-                                                                                data-id="{{ $task->id }}"
-                                                                                data-name="{{ $task->name }}"
-                                                                                data-description="{{ $task->description }}"
-                                                                                data-deadline="{{ $task->deadline }}"
-                                                                                data-status="{{ $task->status }}"
-                                                                                data-priority="{{ $task->priority }}">
-                                                                                Edit
-                                                                            </div>
-                                                                        </div>
-                                                                        <!--end::Menu item-->
-
-                                                                        <!--begin::Menu item-->
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="#"
-                                                                                class="menu-link flex-stack px-3 btn-delete-task"
-                                                                                data-id="{{ $task->id }}">
-                                                                                Delete
-                                                                            </a>
-                                                                        </div>
-                                                                        <!--end::Menu item-->
+                                            <div style="overflow-y: auto; max-height: 600px;">
+                                                @foreach ($tasks as $task)
+                                                    @if ($task->status == 'done' && $task->deadline > now())
+                                                        @php
+                                                            $badgeClass = '';
+                                                            $description = '';
+                                                            switch ($task->priority) {
+                                                                case 'urgent':
+                                                                    $badgeClass = 'badge-danger';
+                                                                    $description = 'Mendesak';
+                                                                    break;
+                                                                case 'important':
+                                                                    $badgeClass = 'badge-warning';
+                                                                    $description = 'Penting';
+                                                                    break;
+                                                                case 'regular':
+                                                                    $badgeClass = 'badge-primary';
+                                                                    $description = 'Biasa';
+                                                                    break;
+                                                                case 'additional':
+                                                                    $badgeClass = 'badge-info';
+                                                                    $description = 'Tambahan';
+                                                                    break;
+                                                                case 'optional':
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Opsional';
+                                                                    break;
+                                                                default:
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Tidak dikenal';
+                                                            }
+                                                        @endphp
+                                                        <div class="card mb-2 mb-xl-7 draggable-zone">
+                                                            <!--begin::Card body-->
+                                                            <div class="card-body">
+                                                                <!--begin::Header-->
+                                                                <div class="d-flex flex-stack mb-3">
+                                                                    <!--begin::Badge-->
+                                                                    <div class="badge {{ $badgeClass }}">
+                                                                        {{ ucwords($description) }}
                                                                     </div>
-                                                                    <!--end::Menu 3-->
-                                                                </div>
-                                                                <!--end::Menu-->
-                                                            </div>
-                                                            <!--end::Header-->
 
-                                                            <!--begin::Title-->
-                                                            <div class="mb-2">
-                                                                <a href="#"
-                                                                    class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
-                                                            </div>
-                                                            <!--end::Title-->
+                                                                    <!--end::Badge-->
 
-                                                            <!--begin::Content-->
-                                                            <div class="fs-6 fw-semibold text-gray-600 mb-5">
-                                                                {{ $task->description }}</div>
-                                                            <!--end::Content-->
+                                                                    <!--begin::Menu-->
+                                                                    <div>
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
+                                                                            data-kt-menu-trigger="click"
+                                                                            data-kt-menu-placement="bottom-end">
+                                                                            <span
+                                                                                class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect opacity="0.3" x="2" y="2"
+                                                                                        width="20" height="20"
+                                                                                        rx="4"
+                                                                                        fill="currentColor" />
+                                                                                    <rect x="11" y="11" width="2.6"
+                                                                                        height="2.6" rx="1.3"
+                                                                                        fill="currentColor" />
+                                                                                    <rect x="15" y="11" width="2.6"
+                                                                                        height="2.6" rx="1.3"
+                                                                                        fill="currentColor" />
+                                                                                    <rect x="7" y="11" width="2.6"
+                                                                                        height="2.6" rx="1.3"
+                                                                                        fill="currentColor" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
 
-                                                            <!--begin::Footer-->
-                                                            <div class="d-flex flex-stack flex-wrapr justify-content-end">
-                                                                <!--begin::Stats-->
-                                                                <div class="d-flex my-1">
-                                                                    @php
-                                                                        $deadline = \Carbon\Carbon::parse(
-                                                                            $task->deadline,
-                                                                        );
-                                                                        $now = \Carbon\Carbon::now();
-                                                                        $daysUntilDeadline = $deadline->diffInDays(
-                                                                            $now,
-                                                                            false,
-                                                                        );
-                                                                    @endphp
-                                                                    <!--begin::Stat-->
-                                                                    <div
-                                                                        class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
-                                                                        <span class="ms-1 fs-7 fw-bold text-gray-600">
-                                                                            @if ($daysUntilDeadline > 0)
-                                                                                {{ $daysUntilDeadline }} hari akan datang
-                                                                            @else
-                                                                                Hari ini adalah batas waktu
-                                                                            @endif
-                                                                        </span>
+                                                                        <!--begin::Menu 3-->
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
+                                                                            data-kt-menu="true">
+                                                                            <!--begin::Heading-->
+                                                                            <div class="menu-item px-3">
+                                                                                <div
+                                                                                    class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                                                    Aksi
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--end::Heading-->
+
+                                                                            <!--begin::Menu item-->
+                                                                            <div class="menu-item px-3">
+                                                                                <div class="menu-link px-3 btn-edit-task"
+                                                                                    data-id="{{ $task->id }}"
+                                                                                    data-name="{{ $task->name }}"
+                                                                                    data-description="{{ $task->description }}"
+                                                                                    data-deadline="{{ $task->deadline }}"
+                                                                                    data-status="{{ $task->status }}"
+                                                                                    data-priority="{{ $task->priority }}">
+                                                                                    Edit
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--end::Menu item-->
+
+                                                                            <!--begin::Menu item-->
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="#"
+                                                                                    class="menu-link flex-stack px-3 btn-delete-task"
+                                                                                    data-id="{{ $task->id }}">
+                                                                                    Delete
+                                                                                </a>
+                                                                            </div>
+                                                                            <!--end::Menu item-->
+                                                                        </div>
+                                                                        <!--end::Menu 3-->
                                                                     </div>
-                                                                    <!--end::Stat-->
+                                                                    <!--end::Menu-->
                                                                 </div>
-                                                                <!--end::Stats-->
+                                                                <!--end::Header-->
+
+                                                                <!--begin::Title-->
+                                                                <div class="mb-2">
+                                                                    <a href="#"
+                                                                        class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
+                                                                </div>
+                                                                <!--end::Title-->
+
+                                                                <!--begin::Content-->
+                                                                <div class="fs-6 fw-semibold text-gray-600 mb-5">
+                                                                    {{ $task->description }}</div>
+                                                                <!--end::Content-->
+
+                                                                <!--begin::Footer-->
+                                                                <div
+                                                                    class="d-flex flex-stack flex-wrapr justify-content-end">
+                                                                    <!--begin::Stats-->
+                                                                    <div class="d-flex my-1">
+                                                                        @php
+                                                                            $deadline = \Carbon\Carbon::parse(
+                                                                                $task->deadline,
+                                                                            );
+                                                                            $now = \Carbon\Carbon::now();
+                                                                            $daysUntilDeadline = $deadline->diffInDays(
+                                                                                $now,
+                                                                                false,
+                                                                            );
+                                                                        @endphp
+                                                                        <!--begin::Stat-->
+                                                                        <div
+                                                                            class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                                                            <span class="ms-1 fs-7 fw-bold text-gray-600">
+                                                                                @if ($daysUntilDeadline > 0)
+                                                                                    {{ $daysUntilDeadline }} hari akan
+                                                                                    datang
+                                                                                @else
+                                                                                    Hari ini adalah batas waktu
+                                                                                @endif
+                                                                            </span>
+                                                                        </div>
+                                                                        <!--end::Stat-->
+                                                                    </div>
+                                                                    <!--end::Stats-->
+                                                                </div>
+                                                                <!--end::Footer-->
                                                             </div>
-                                                            <!--end::Footer-->
+                                                            <!--end::Card body-->
                                                         </div>
-                                                        <!--end::Card body-->
-                                                    </div>
-                                                @endif
-                                            @endforeach
+                                                    @endif
+                                                @endforeach
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3 col-lg-12 col-xl-3 me-5">
-                                        <div class="mb-9">
-                                            <div class="d-flex flex-stack">
-                                                <div class="fw-bold fs-4">
-                                                    Revisi
-                                                    <span class="fs-6 text-gray-500 ms-2">{{ $countRevisedTasks }}</span>
+                                        <div class="col-md-3 col-lg-12 col-xl-3 me-5">
+                                            <div class="mb-9">
+                                                <div class="d-flex flex-stack">
+                                                    <div class="fw-bold fs-4">
+                                                        Revisi
+                                                        <span
+                                                            class="fs-6 text-gray-500 ms-2">{{ $countRevisedTasks }}</span>
+                                                    </div>
                                                 </div>
+                                                <div class="h-3px w-100 bg-info"></div>
                                             </div>
-                                            <div class="h-3px w-100 bg-info"></div>
-                                        </div>
-                                        <div style="overflow-y: auto; max-height: 600px;">
-                                            @foreach ($tasks as $task)
-                                                @if ($task->status == 'revised' && $task->deadline > now())
-                                                    @php
-                                                        $badgeClass = '';
-                                                        $description = '';
-                                                        switch ($task->priority) {
-                                                            case 'urgent':
-                                                                $badgeClass = 'badge-danger';
-                                                                $description = 'Mendesak';
-                                                                break;
-                                                            case 'important':
-                                                                $badgeClass = 'badge-warning';
-                                                                $description = 'Penting';
-                                                                break;
-                                                            case 'regular':
-                                                                $badgeClass = 'badge-primary';
-                                                                $description = 'Biasa';
-                                                                break;
-                                                            case 'additional':
-                                                                $badgeClass = 'badge-info';
-                                                                $description = 'Tambahan';
-                                                                break;
-                                                            case 'optional':
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Opsional';
-                                                                break;
-                                                            default:
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Tidak dikenal';
-                                                        }
-                                                    @endphp
-                                                    <div class="card mb-2 mb-xl-7 draggable-zone">
-                                                        <!--begin::Card body-->
-                                                        <div class="card-body">
-                                                            <!--begin::Header-->
-                                                            <div class="d-flex flex-stack mb-3">
-                                                                <!--begin::Badge-->
-                                                                <div class="badge {{ $badgeClass }}">
-                                                                    {{ ucwords($description) }}
-                                                                </div>
-
-                                                                <!--end::Badge-->
-
-                                                                <!--begin::Menu-->
-                                                                <div>
-                                                                    <button type="button"
-                                                                        class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
-                                                                        data-kt-menu-trigger="click"
-                                                                        data-kt-menu-placement="bottom-end">
-                                                                        <span
-                                                                            class="svg-icon svg-icon-muted svg-icon-2hx"><svg
-                                                                                width="24" height="24"
-                                                                                viewBox="0 0 24 24" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <rect opacity="0.3" x="2" y="2"
-                                                                                    width="20" height="20"
-                                                                                    rx="4" fill="currentColor" />
-                                                                                <rect x="11" y="11" width="2.6"
-                                                                                    height="2.6" rx="1.3"
-                                                                                    fill="currentColor" />
-                                                                                <rect x="15" y="11" width="2.6"
-                                                                                    height="2.6" rx="1.3"
-                                                                                    fill="currentColor" />
-                                                                                <rect x="7" y="11" width="2.6"
-                                                                                    height="2.6" rx="1.3"
-                                                                                    fill="currentColor" />
-                                                                            </svg>
-                                                                        </span>
-                                                                    </button>
-
-                                                                    <!--begin::Menu 3-->
-                                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
-                                                                        data-kt-menu="true">
-                                                                        <!--begin::Heading-->
-                                                                        <div class="menu-item px-3">
-                                                                            <div
-                                                                                class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
-                                                                                Aksi
-                                                                            </div>
-                                                                        </div>
-                                                                        <!--end::Heading-->
-
-                                                                        <!--begin::Menu item-->
-                                                                        <div class="menu-item px-3">
-                                                                            <div class="menu-link px-3 btn-edit-task"
-                                                                                data-id="{{ $task->id }}"
-                                                                                data-name="{{ $task->name }}"
-                                                                                data-description="{{ $task->description }}"
-                                                                                data-deadline="{{ $task->deadline }}"
-                                                                                data-status="{{ $task->status }}"
-                                                                                data-priority="{{ $task->priority }}">
-                                                                                Edit
-                                                                            </div>
-                                                                        </div>
-                                                                        <!--end::Menu item-->
-
-                                                                        <!--begin::Menu item-->
-                                                                        <div class="menu-item px-3">
-                                                                            <a href="#"
-                                                                                class="menu-link flex-stack px-3 btn-delete-task"
-                                                                                data-id="{{ $task->id }}">
-                                                                                Delete
-                                                                            </a>
-                                                                        </div>
-                                                                        <!--end::Menu item-->
+                                            <div style="overflow-y: auto; max-height: 600px;">
+                                                @foreach ($tasks as $task)
+                                                    @if ($task->status == 'revised' && $task->deadline > now())
+                                                        @php
+                                                            $badgeClass = '';
+                                                            $description = '';
+                                                            switch ($task->priority) {
+                                                                case 'urgent':
+                                                                    $badgeClass = 'badge-danger';
+                                                                    $description = 'Mendesak';
+                                                                    break;
+                                                                case 'important':
+                                                                    $badgeClass = 'badge-warning';
+                                                                    $description = 'Penting';
+                                                                    break;
+                                                                case 'regular':
+                                                                    $badgeClass = 'badge-primary';
+                                                                    $description = 'Biasa';
+                                                                    break;
+                                                                case 'additional':
+                                                                    $badgeClass = 'badge-info';
+                                                                    $description = 'Tambahan';
+                                                                    break;
+                                                                case 'optional':
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Opsional';
+                                                                    break;
+                                                                default:
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Tidak dikenal';
+                                                            }
+                                                        @endphp
+                                                        <div class="card mb-2 mb-xl-7 draggable-zone">
+                                                            <!--begin::Card body-->
+                                                            <div class="card-body">
+                                                                <!--begin::Header-->
+                                                                <div class="d-flex flex-stack mb-3">
+                                                                    <!--begin::Badge-->
+                                                                    <div class="badge {{ $badgeClass }}">
+                                                                        {{ ucwords($description) }}
                                                                     </div>
-                                                                    <!--end::Menu 3-->
-                                                                </div>
-                                                                <!--end::Menu-->
-                                                            </div>
-                                                            <!--end::Header-->
 
-                                                            <!--begin::Title-->
-                                                            <div class="mb-2">
-                                                                <a href="#"
-                                                                    class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
-                                                            </div>
-                                                            <!--end::Title-->
+                                                                    <!--end::Badge-->
 
-                                                            <!--begin::Content-->
-                                                            <div class="fs-6 fw-semibold text-gray-600 mb-5">
-                                                                {{ $task->description }}</div>
-                                                            <!--end::Content-->
+                                                                    <!--begin::Menu-->
+                                                                    <div>
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
+                                                                            data-kt-menu-trigger="click"
+                                                                            data-kt-menu-placement="bottom-end">
+                                                                            <span
+                                                                                class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <rect opacity="0.3" x="2" y="2"
+                                                                                        width="20" height="20"
+                                                                                        rx="4"
+                                                                                        fill="currentColor" />
+                                                                                    <rect x="11" y="11" width="2.6"
+                                                                                        height="2.6" rx="1.3"
+                                                                                        fill="currentColor" />
+                                                                                    <rect x="15" y="11" width="2.6"
+                                                                                        height="2.6" rx="1.3"
+                                                                                        fill="currentColor" />
+                                                                                    <rect x="7" y="11" width="2.6"
+                                                                                        height="2.6" rx="1.3"
+                                                                                        fill="currentColor" />
+                                                                                </svg>
+                                                                            </span>
+                                                                        </button>
 
-                                                            <!--begin::Footer-->
-                                                            <div class="d-flex flex-stack flex-wrapr justify-content-end">
-                                                                <!--begin::Stats-->
-                                                                <div class="d-flex my-1">
-                                                                    @php
-                                                                        $deadline = \Carbon\Carbon::parse(
-                                                                            $task->deadline,
-                                                                        );
-                                                                        $now = \Carbon\Carbon::now();
-                                                                        $daysUntilDeadline = $deadline->diffInDays(
-                                                                            $now,
-                                                                            false,
-                                                                        );
-                                                                    @endphp
-                                                                    <!--begin::Stat-->
-                                                                    <div
-                                                                        class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
-                                                                        <span class="ms-1 fs-7 fw-bold text-gray-600">
-                                                                            @if ($daysUntilDeadline > 0)
-                                                                                {{ $daysUntilDeadline }} hari akan datang
-                                                                            @else
-                                                                                Hari ini adalah batas waktu
-                                                                            @endif
-                                                                        </span>
+                                                                        <!--begin::Menu 3-->
+                                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
+                                                                            data-kt-menu="true">
+                                                                            <!--begin::Heading-->
+                                                                            <div class="menu-item px-3">
+                                                                                <div
+                                                                                    class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                                                    Aksi
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--end::Heading-->
+
+                                                                            <!--begin::Menu item-->
+                                                                            <div class="menu-item px-3">
+                                                                                <div class="menu-link px-3 btn-edit-task"
+                                                                                    data-id="{{ $task->id }}"
+                                                                                    data-name="{{ $task->name }}"
+                                                                                    data-description="{{ $task->description }}"
+                                                                                    data-deadline="{{ $task->deadline }}"
+                                                                                    data-status="{{ $task->status }}"
+                                                                                    data-priority="{{ $task->priority }}">
+                                                                                    Edit
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--end::Menu item-->
+
+                                                                            <!--begin::Menu item-->
+                                                                            <div class="menu-item px-3">
+                                                                                <a href="#"
+                                                                                    class="menu-link flex-stack px-3 btn-delete-task"
+                                                                                    data-id="{{ $task->id }}">
+                                                                                    Delete
+                                                                                </a>
+                                                                            </div>
+                                                                            <!--end::Menu item-->
+                                                                        </div>
+                                                                        <!--end::Menu 3-->
                                                                     </div>
-                                                                    <!--end::Stat-->
+                                                                    <!--end::Menu-->
                                                                 </div>
-                                                                <!--end::Stats-->
+                                                                <!--end::Header-->
+
+                                                                <!--begin::Title-->
+                                                                <div class="mb-2">
+                                                                    <a href="#"
+                                                                        class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
+                                                                </div>
+                                                                <!--end::Title-->
+
+                                                                <!--begin::Content-->
+                                                                <div class="fs-6 fw-semibold text-gray-600 mb-5">
+                                                                    {{ $task->description }}</div>
+                                                                <!--end::Content-->
+
+                                                                <!--begin::Footer-->
+                                                                <div
+                                                                    class="d-flex flex-stack flex-wrapr justify-content-end">
+                                                                    <!--begin::Stats-->
+                                                                    <div class="d-flex my-1">
+                                                                        @php
+                                                                            $deadline = \Carbon\Carbon::parse(
+                                                                                $task->deadline,
+                                                                            );
+                                                                            $now = \Carbon\Carbon::now();
+                                                                            $daysUntilDeadline = $deadline->diffInDays(
+                                                                                $now,
+                                                                                false,
+                                                                            );
+                                                                        @endphp
+                                                                        <!--begin::Stat-->
+                                                                        <div
+                                                                            class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                                                            <span class="ms-1 fs-7 fw-bold text-gray-600">
+                                                                                @if ($daysUntilDeadline > 0)
+                                                                                    {{ $daysUntilDeadline }} hari akan
+                                                                                    datang
+                                                                                @else
+                                                                                    Hari ini adalah batas waktu
+                                                                                @endif
+                                                                            </span>
+                                                                        </div>
+                                                                        <!--end::Stat-->
+                                                                    </div>
+                                                                    <!--end::Stats-->
+                                                                </div>
+                                                                <!--end::Footer-->
                                                             </div>
-                                                            <!--end::Footer-->
+                                                            <!--end::Card body-->
                                                         </div>
-                                                        <!--end::Card body-->
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-lg-12 col-xl-3 me-5">
-                                        <!--begin::Col header-->
-                                        <div class="mb-9">
-                                            <div class="d-flex flex-stack">
-                                                <div class="fw-bold fs-4">
-                                                    Selesai
-                                                    <span class="fs-6 text-gray-500 ms-2">{{ $countFinishedTasks }}</span>
-                                                </div>
-
+                                                    @endif
+                                                @endforeach
                                             </div>
-
-                                            <div class="h-3px w-100 bg-success"></div>
                                         </div>
-                                        <div style="overflow-y: auto; max-height: 600px;">
-                                            @foreach ($tasks as $task)
-                                                @if ($task->status == 'finished')
-                                                    @php
-                                                        $badgeClass = '';
-                                                        $description = '';
-                                                        switch ($task->priority) {
-                                                            case 'urgent':
-                                                                $badgeClass = 'badge-danger';
-                                                                $description = 'Mendesak';
-                                                                break;
-                                                            case 'important':
-                                                                $badgeClass = 'badge-warning';
-                                                                $description = 'Penting';
-                                                                break;
-                                                            case 'regular':
-                                                                $badgeClass = 'badge-primary';
-                                                                $description = 'Biasa';
-                                                                break;
-                                                            case 'additional':
-                                                                $badgeClass = 'badge-info';
-                                                                $description = 'Tambahan';
-                                                                break;
-                                                            case 'optional':
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Opsional';
-                                                                break;
-                                                            default:
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Tidak dikenal';
-                                                        }
-                                                    @endphp
-                                                    <div class="card mb-2 mb-xl-7 draggable-zone">
-                                                        <!--begin::Card body-->
-                                                        <div class="card-body">
-                                                            <!--begin::Header-->
-                                                            <div class="d-flex flex-stack mb-3">
-                                                                <!--begin::Badge-->
-                                                                <div class="badge {{ $badgeClass }}">
-                                                                    {{ ucwords($description) }}
-                                                                </div>
-                                                                <!--end::Badge-->
-                                                            </div>
-                                                            <!--end::Header-->
-
-                                                            <!--begin::Title-->
-                                                            <div class="mb-2">
-                                                                <a href="#"
-                                                                    class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
-                                                            </div>
-                                                            <!--end::Title-->
-
-                                                            <!--begin::Content-->
-                                                            <div class="fs-6 fw-semibold text-gray-600 mb-5">
-                                                                {{ $task->description }}</div>
-                                                            <!--end::Content-->
-                                                            <div class="d-flex flex-stack flex-wrapr justify-content-end">
-                                                                <!--begin::Stats-->
-                                                                <div class="d-flex my-1">
-
-                                                                    <!--begin::Stat-->
-                                                                    <div
-                                                                        class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
-                                                                        <span class="ms-1 fs-7 fw-bold text-gray-600">
-                                                                            Selesai
-                                                                            {{ \Carbon\Carbon::parse($task->upated_at)->locale('id')->isoFormat('D MMMM YYYY') }}
-                                                                        </span>
-                                                                    </div>
-                                                                    <!--end::Stat-->
-                                                                </div>
-                                                                <!--end::Stats-->
-                                                            </div>
-                                                            <!--end::Footer-->
-                                                        </div>
-                                                        <!--end::Card body-->
+                                        <div class="col-md-3 col-lg-12 col-xl-3 me-5">
+                                            <!--begin::Col header-->
+                                            <div class="mb-9">
+                                                <div class="d-flex flex-stack">
+                                                    <div class="fw-bold fs-4">
+                                                        Selesai
+                                                        <span
+                                                            class="fs-6 text-gray-500 ms-2">{{ $countFinishedTasks }}</span>
                                                     </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-lg-12 col-xl-3">
-                                        <!--begin::Col header-->
-                                        <div class="mb-9">
-                                            <div class="d-flex flex-stack">
-                                                <div class="fw-bold fs-4">
-                                                    Tidak Selesai
-                                                    <span
-                                                        class="fs-6 text-gray-500 ms-2">{{ $countNotFinishedTasks }}</span>
+
                                                 </div>
 
+                                                <div class="h-3px w-100 bg-success"></div>
                                             </div>
-
-                                            <div class="h-3px w-100 bg-danger"></div>
-                                        </div>
-                                        <div style="overflow-y: auto; max-height: 600px;">
-                                            @foreach ($tasks as $task)
-                                                @if ($task->deadline < now() && ($task->status == 'new_task' || $task->status == 'done' || $task->status == 'revised'))
-                                                    @php
-                                                        $badgeClass = '';
-                                                        $description = '';
-                                                        switch ($task->priority) {
-                                                            case 'urgent':
-                                                                $badgeClass = 'badge-danger';
-                                                                $description = 'Mendesak';
-                                                                break;
-                                                            case 'important':
-                                                                $badgeClass = 'badge-warning';
-                                                                $description = 'Penting';
-                                                                break;
-                                                            case 'regular':
-                                                                $badgeClass = 'badge-primary';
-                                                                $description = 'Biasa';
-                                                                break;
-                                                            case 'additional':
-                                                                $badgeClass = 'badge-info';
-                                                                $description = 'Tambahan';
-                                                                break;
-                                                            case 'optional':
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Opsional';
-                                                                break;
-                                                            default:
-                                                                $badgeClass = 'badge-secondary';
-                                                                $description = 'Tidak dikenal';
-                                                        }
-                                                    @endphp
-                                                    <div class="card mb-2 mb-xl-7 draggable-zone">
-                                                        <!--begin::Card body-->
-                                                        <div class="card-body">
-                                                            <!--begin::Header-->
-                                                            <div class="d-flex flex-stack mb-3">
-                                                                <!--begin::Badge-->
-                                                                <div class="badge {{ $badgeClass }}">
-                                                                    {{ ucwords($description) }}
-                                                                </div>
-                                                                <!--end::Badge-->
-                                                            </div>
-                                                            <!--end::Header-->
-
-                                                            <!--begin::Title-->
-                                                            <div class="mb-2">
-                                                                <a href="#"
-                                                                    class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
-                                                            </div>
-                                                            <!--end::Title-->
-
-                                                            <!--begin::Content-->
-                                                            <div class="fs-6 fw-semibold text-gray-600 mb-5">
-                                                                {{ $task->description }}</div>
-                                                            <!--end::Content-->
-                                                            <div class="d-flex flex-stack flex-wrapr justify-content-end">
-                                                                <!--begin::Stats-->
-                                                                <div class="d-flex my-1">
-
-                                                                    <!--begin::Stat-->
-                                                                    <div
-                                                                        class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
-                                                                        <span class="ms-1 fs-7 fw-bold text-gray-600">
-                                                                            Tenggat
-                                                                            {{ \Carbon\Carbon::parse($task->deadline)->locale('id')->isoFormat('D MMMM YYYY') }}
-                                                                        </span>
+                                            <div style="overflow-y: auto; max-height: 600px;">
+                                                @foreach ($tasks as $task)
+                                                    @if ($task->status == 'finished')
+                                                        @php
+                                                            $badgeClass = '';
+                                                            $description = '';
+                                                            switch ($task->priority) {
+                                                                case 'urgent':
+                                                                    $badgeClass = 'badge-danger';
+                                                                    $description = 'Mendesak';
+                                                                    break;
+                                                                case 'important':
+                                                                    $badgeClass = 'badge-warning';
+                                                                    $description = 'Penting';
+                                                                    break;
+                                                                case 'regular':
+                                                                    $badgeClass = 'badge-primary';
+                                                                    $description = 'Biasa';
+                                                                    break;
+                                                                case 'additional':
+                                                                    $badgeClass = 'badge-info';
+                                                                    $description = 'Tambahan';
+                                                                    break;
+                                                                case 'optional':
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Opsional';
+                                                                    break;
+                                                                default:
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Tidak dikenal';
+                                                            }
+                                                        @endphp
+                                                        <div class="card mb-2 mb-xl-7 draggable-zone">
+                                                            <!--begin::Card body-->
+                                                            <div class="card-body">
+                                                                <!--begin::Header-->
+                                                                <div class="d-flex flex-stack mb-3">
+                                                                    <!--begin::Badge-->
+                                                                    <div class="badge {{ $badgeClass }}">
+                                                                        {{ ucwords($description) }}
                                                                     </div>
-                                                                    <!--end::Stat-->
+                                                                    <!--end::Badge-->
                                                                 </div>
-                                                                <!--end::Stats-->
+                                                                <!--end::Header-->
+
+                                                                <!--begin::Title-->
+                                                                <div class="mb-2">
+                                                                    <a href="#"
+                                                                        class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
+                                                                </div>
+                                                                <!--end::Title-->
+
+                                                                <!--begin::Content-->
+                                                                <div class="fs-6 fw-semibold text-gray-600 mb-5">
+                                                                    {{ $task->description }}</div>
+                                                                <!--end::Content-->
+                                                                <div
+                                                                    class="d-flex flex-stack flex-wrapr justify-content-end">
+                                                                    <!--begin::Stats-->
+                                                                    <div class="d-flex my-1">
+
+                                                                        <!--begin::Stat-->
+                                                                        <div
+                                                                            class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                                                            <span class="ms-1 fs-7 fw-bold text-gray-600">
+                                                                                Selesai
+                                                                                {{ \Carbon\Carbon::parse($task->upated_at)->locale('id')->isoFormat('D MMMM YYYY') }}
+                                                                            </span>
+                                                                        </div>
+                                                                        <!--end::Stat-->
+                                                                    </div>
+                                                                    <!--end::Stats-->
+                                                                </div>
+                                                                <!--end::Footer-->
                                                             </div>
-                                                            <!--end::Footer-->
+                                                            <!--end::Card body-->
                                                         </div>
-                                                        <!--end::Card body-->
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-12 col-xl-3">
+                                            <!--begin::Col header-->
+                                            <div class="mb-9">
+                                                <div class="d-flex flex-stack">
+                                                    <div class="fw-bold fs-4">
+                                                        Tidak Selesai
+                                                        <span
+                                                            class="fs-6 text-gray-500 ms-2">{{ $countNotFinishedTasks }}</span>
                                                     </div>
-                                                @endif
-                                            @endforeach
+
+                                                </div>
+
+                                                <div class="h-3px w-100 bg-danger"></div>
+                                            </div>
+                                            <div style="overflow-y: auto; max-height: 600px;">
+                                                @foreach ($tasks as $task)
+                                                    @if ($task->deadline < now() && ($task->status == 'new_task' || $task->status == 'done' || $task->status == 'revised'))
+                                                        @php
+                                                            $badgeClass = '';
+                                                            $description = '';
+                                                            switch ($task->priority) {
+                                                                case 'urgent':
+                                                                    $badgeClass = 'badge-danger';
+                                                                    $description = 'Mendesak';
+                                                                    break;
+                                                                case 'important':
+                                                                    $badgeClass = 'badge-warning';
+                                                                    $description = 'Penting';
+                                                                    break;
+                                                                case 'regular':
+                                                                    $badgeClass = 'badge-primary';
+                                                                    $description = 'Biasa';
+                                                                    break;
+                                                                case 'additional':
+                                                                    $badgeClass = 'badge-info';
+                                                                    $description = 'Tambahan';
+                                                                    break;
+                                                                case 'optional':
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Opsional';
+                                                                    break;
+                                                                default:
+                                                                    $badgeClass = 'badge-secondary';
+                                                                    $description = 'Tidak dikenal';
+                                                            }
+                                                        @endphp
+                                                        <div class="card mb-2 mb-xl-7 draggable-zone">
+                                                            <!--begin::Card body-->
+                                                            <div class="card-body">
+                                                                <!--begin::Header-->
+                                                                <div class="d-flex flex-stack mb-3">
+                                                                    <!--begin::Badge-->
+                                                                    <div class="badge {{ $badgeClass }}">
+                                                                        {{ ucwords($description) }}
+                                                                    </div>
+                                                                    <!--end::Badge-->
+                                                                </div>
+                                                                <!--end::Header-->
+
+                                                                <!--begin::Title-->
+                                                                <div class="mb-2">
+                                                                    <a href="#"
+                                                                        class="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary">{{ $task->name }}</a>
+                                                                </div>
+                                                                <!--end::Title-->
+
+                                                                <!--begin::Content-->
+                                                                <div class="fs-6 fw-semibold text-gray-600 mb-5">
+                                                                    {{ $task->description }}</div>
+                                                                <!--end::Content-->
+                                                                <div
+                                                                    class="d-flex flex-stack flex-wrapr justify-content-end">
+                                                                    <!--begin::Stats-->
+                                                                    <div class="d-flex my-1">
+
+                                                                        <!--begin::Stat-->
+                                                                        <div
+                                                                            class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                                                            <span class="ms-1 fs-7 fw-bold text-gray-600">
+                                                                                Tenggat
+                                                                                {{ \Carbon\Carbon::parse($task->deadline)->locale('id')->isoFormat('D MMMM YYYY') }}
+                                                                            </span>
+                                                                        </div>
+                                                                        <!--end::Stat-->
+                                                                    </div>
+                                                                    <!--end::Stats-->
+                                                                </div>
+                                                                <!--end::Footer-->
+                                                            </div>
+                                                            <!--end::Card body-->
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12 col-lg-12 col-xl-12">
-                                    <div class="card mb-5">
-                                        <div class="card-header d-flex justify-content-between pt-7">
-                                            <!--begin::Title-->
-                                            <h3 class="card-title align-items-start flex-column">
-                                                <span class="card-label fw-bold text-gray-800">Catatan</span>
-                                                <span class="text-gray-400 mt-1 fw-semibold fs-6">list catatan anda.</span>
-                                            </h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <table class="table table-striped border rounded gy-5 gs-7">
-                                                <thead>
-                                                    <tr class="fw-semibold fs-6 text-gray-800">
-                                                        <th class="min-w-100px" data-priority="1">No</th>
-                                                        <th class="min-w-100px" data-priority="2">Judul</th>
-                                                        <th class="min-w-100px" data-priority="3">Tanggal</th>
-                                                        <th class="min-w-100px" data-priority="4">Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse ($notes as $note)
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $note->name }}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($note->created_at)->locale('id')->isoFormat('D MMMM YYYY') }}
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex ">
-                                                                    <button
-                                                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-detail-note btn-sm me-1"
-                                                                        data-id="{{ $note->id }}"
-                                                                        data-name="{{ $note->name }}"
-                                                                        data-description="{{ $note->description }}"
-                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                        data-bs-custom-class="custom-tooltip"
-                                                                        data-bs-title="Lihat Detail">
-                                                                        <i class="fa fa-eye fs-3 text-primary"></i>
-                                                                    </button>
-
-                                                                    <button
-                                                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-edit-note me-1"
-                                                                        data-id="{{ $note->id }}"
-                                                                        data-project_id="{{ $note->project_id }}"
-                                                                        data-name="{{ $note->name }}"
-                                                                        data-description="{{ $note->description }}"
-                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                        data-bs-custom-class="custom-tooltip"
-                                                                        data-bs-title="Edit Data">
-                                                                        <i
-                                                                            class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
-                                                                    </button>
-
-                                                                    <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-delete-note"
-                                                                        data-id="{{ $note->id }}"
-                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                        data-bs-custom-class="custom-tooltip"
-                                                                        data-bs-title="Hapus Data">
-                                                                        <i class="fonticon-trash-bin fs-2 text-danger"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                            <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12 col-xl-12">
+                                        <div class="card mb-5">
+                                            <div class="card-header d-flex justify-content-between pt-7">
+                                                <!--begin::Title-->
+                                                <h3 class="card-title align-items-start flex-column">
+                                                    <span class="card-label fw-bold text-gray-800">Catatan</span>
+                                                    <span class="text-gray-400 mt-1 fw-semibold fs-6">list catatan
+                                                        anda.</span>
+                                                </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table table-striped border rounded gy-5 gs-7">
+                                                    <thead>
+                                                        <tr class="fw-semibold fs-6 text-gray-800">
+                                                            <th class="min-w-100px" data-priority="1">No</th>
+                                                            <th class="min-w-100px" data-priority="2">Judul</th>
+                                                            <th class="min-w-100px" data-priority="3">Tanggal</th>
+                                                            <th class="min-w-100px" data-priority="4">Aksi</th>
                                                         </tr>
-                                                    @empty
-                                                        <tr>
-                                                            <td colspan="4">
-                                                                <div class="col-12 text-center">
-                                                                    <!--begin::Illustration-->
-                                                                    <img src="{{ asset('user-assets/media/misc/watch.svg') }}"
-                                                                        class="h-150px" alt="" />
-                                                                    <!--end::Illustration-->
+                                                    </thead>
+                                                    <tbody>
+                                                        @forelse ($notes as $note)
+                                                            <tr>
+                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ $note->name }}</td>
+                                                                <td>{{ \Carbon\Carbon::parse($note->created_at)->locale('id')->isoFormat('D MMMM YYYY') }}
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex ">
+                                                                        <button
+                                                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-detail-note btn-sm me-1"
+                                                                            data-id="{{ $note->id }}"
+                                                                            data-name="{{ $note->name }}"
+                                                                            data-description="{{ $note->description }}"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="top"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-bs-title="Lihat Detail">
+                                                                            <i class="fa fa-eye fs-3 text-primary"></i>
+                                                                        </button>
 
-                                                                    <!--begin::Title-->
-                                                                    <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih
-                                                                        Kosong</h4>
-                                                                    <!--end::Title-->
+                                                                        <button
+                                                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-edit-note me-1"
+                                                                            data-id="{{ $note->id }}"
+                                                                            data-project_id="{{ $note->project_id }}"
+                                                                            data-name="{{ $note->name }}"
+                                                                            data-description="{{ $note->description }}"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="top"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-bs-title="Edit Data">
+                                                                            <i
+                                                                                class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
+                                                                        </button>
 
-                                                                    <!--begin::Desctiption-->
-                                                                    <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                                                        anda belum memiliki presentasi untuk saat ini.
-                                                                    </span>
-                                                                    <!--end::Desctiption-->
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
+                                                                        <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-delete-note"
+                                                                            data-id="{{ $note->id }}"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="top"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-bs-title="Hapus Data">
+                                                                            <i
+                                                                                class="fonticon-trash-bin fs-2 text-danger"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    <div class="col-12 text-center">
+                                                                        <!--begin::Illustration-->
+                                                                        <img src="{{ asset('user-assets/media/misc/watch.svg') }}"
+                                                                            class="h-150px" alt="" />
+                                                                        <!--end::Illustration-->
+
+                                                                        <!--begin::Title-->
+                                                                        <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih
+                                                                            Kosong</h4>
+                                                                        <!--end::Title-->
+
+                                                                        <!--begin::Desctiption-->
+                                                                        <span
+                                                                            class="fw-semibold text-gray-700 mb-4 d-block">
+                                                                            anda belum memiliki presentasi untuk saat ini.
+                                                                        </span>
+                                                                        <!--end::Desctiption-->
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <!--begin::Repeater-->
-                                    <div id="kt_docs_repeater_basic">
-                                        <!--begin::Form group-->
-                                        <div class="form-group row">
-                                            <form action="{{ route('student.notes.store') }}" method="post">
-                                                <div class="d-flex justify-content-between mb-5">
-                                                    <!--begin::Title-->
-                                                    <h3 class="card-title align-items-start flex-column">
-                                                        <span class="card-label fw-bold text-gray-800">Catatan</span>
-                                                    </h3>
-                                                    <!--end::Title-->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!--begin::Repeater-->
+                                        <div id="kt_docs_repeater_basic">
+                                            <!--begin::Form group-->
+                                            <div class="form-group row">
+                                                <form action="{{ route('student.notes.store') }}" method="post">
+                                                    <div class="d-flex justify-content-between mb-5">
+                                                        <!--begin::Title-->
+                                                        <h3 class="card-title align-items-start flex-column">
+                                                            <span class="card-label fw-bold text-gray-800">Catatan</span>
+                                                        </h3>
+                                                        <!--end::Title-->
 
-                                                    <!--begin::Toolbar-->
-                                                    <div class="card-toolbar">
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-success">Simpan</button>
+                                                        <!--begin::Toolbar-->
+                                                        <div class="card-toolbar">
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-success">Simpan</button>
+                                                        </div>
+                                                        <!--end::Toolbar-->
                                                     </div>
-                                                    <!--end::Toolbar-->
-                                                </div>
-                                                @csrf
-                                                @method('POST')
-                                                <input type="hidden" name="project_id"
-                                                    value="{{ $project ? $project->id : '' }}">
-                                                <div class="col-md-12 mb-5">
-                                                    <label class="form-label">Judul Catatan :</label>
-                                                    <input type="text" name="name"
-                                                        class="form-control mb-2 mb-md-0"
-                                                        placeholder="Masukkan judul catatan" />
-                                                </div>
-                                                <div data-repeater-list="description">
-                                                    <div data-repeater-item>
-                                                        <div class="form-group row mb-5">
-                                                            <div class="col-md-10">
-                                                                <label class="form-label">Catatan :</label>
-                                                                <input type="description[]" name=""
-                                                                    class="form-control mb-2 mb-md-0"
-                                                                    placeholder="Masukkan catatan" />
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <a href="javascript:;" data-repeater-delete
-                                                                    class="btn btn-sm btn-light-danger mt-3 mt-md-8">
-                                                                    <span class="svg-icon svg-icon-muted svg-icon-3"><svg
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                                                                fill="currentColor" />
-                                                                            <path opacity="0.5"
-                                                                                d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                                                                fill="currentColor" />
-                                                                            <path opacity="0.5"
-                                                                                d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                                                                fill="currentColor" />
-                                                                        </svg>
-                                                                    </span>
+                                                    @csrf
+                                                    @method('POST')
+                                                    <input type="hidden" name="project_id"
+                                                        value="{{ $project ? $project->id : '' }}">
+                                                    <div class="col-md-12 mb-5">
+                                                        <label class="form-label">Judul Catatan :</label>
+                                                        <input type="text" name="name"
+                                                            class="form-control mb-2 mb-md-0"
+                                                            placeholder="Masukkan judul catatan" />
+                                                    </div>
+                                                    <div data-repeater-list="description">
+                                                        <div data-repeater-item>
+                                                            <div class="form-group row mb-5">
+                                                                <div class="col-md-10">
+                                                                    <label class="form-label">Catatan :</label>
+                                                                    <input type="description[]" name=""
+                                                                        class="form-control mb-2 mb-md-0"
+                                                                        placeholder="Masukkan catatan" />
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <a href="javascript:;" data-repeater-delete
+                                                                        class="btn btn-sm btn-light-danger mt-3 mt-md-8">
+                                                                        <span
+                                                                            class="svg-icon svg-icon-muted svg-icon-3"><svg
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                <path
+                                                                                    d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                                                                                    fill="currentColor" />
+                                                                                <path opacity="0.5"
+                                                                                    d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                                                                                    fill="currentColor" />
+                                                                                <path opacity="0.5"
+                                                                                    d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                                                                    fill="currentColor" />
+                                                                            </svg>
+                                                                        </span>
 
-                                                                    Hapus
-                                                                </a>
+                                                                        Hapus
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!--end::Form group-->
+                                                </form>
+                                            </div>
+                                            <!--end::Form group-->
 
-                                        <!--begin::Form group-->
-                                        <div class="form-group mt-5">
-                                            <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
-                                                <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                            rx="5" fill="currentColor" />
-                                                        <rect x="10.8891" y="17.8033" width="12" height="2"
-                                                            rx="1" transform="rotate(-90 10.8891 17.8033)"
-                                                            fill="currentColor" />
-                                                        <rect x="6.01041" y="10.9247" width="12" height="2"
-                                                            rx="1" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                Tambah
-                                            </a>
+                                            <!--begin::Form group-->
+                                            <div class="form-group mt-5">
+                                                <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
+                                                    <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <rect opacity="0.3" x="2" y="2" width="20"
+                                                                height="20" rx="5" fill="currentColor" />
+                                                            <rect x="10.8891" y="17.8033" width="12" height="2"
+                                                                rx="1" transform="rotate(-90 10.8891 17.8033)"
+                                                                fill="currentColor" />
+                                                            <rect x="6.01041" y="10.9247" width="12" height="2"
+                                                                rx="1" fill="currentColor" />
+                                                        </svg>
+                                                    </span>
+                                                    Tambah
+                                                </a>
+                                            </div>
+                                            <!--end::Form group-->
                                         </div>
-                                        <!--end::Form group-->
+                                        <!--end::Repeater-->
                                     </div>
-                                    <!--end::Repeater-->
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="tab-pane fade" id="kt_tab_pane_3" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12 col-lg-12 col-xl-12">
-                                    <div class="card mb-5">
-                                        <div class="card-header d-flex justify-content-between pt-7">
-                                            <!--begin::Title-->
-                                            <h3 class="card-title align-items-start flex-column">
-                                                <span class="card-label fw-bold text-gray-800">Presentasi</span>
-                                                <span class="text-gray-400 mt-1 fw-semibold fs-6">list presentasi
-                                                    anda.</span>
-                                            </h3>
+                            <div class="tab-pane fade" id="kt_tab_pane_3" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12 col-xl-12">
+                                        <div class="card mb-5">
+                                            <div class="card-header d-flex justify-content-between pt-7">
+                                                <!--begin::Title-->
+                                                <h3 class="card-title align-items-start flex-column">
+                                                    <span class="card-label fw-bold text-gray-800">Presentasi</span>
+                                                    <span class="text-gray-400 mt-1 fw-semibold fs-6">list presentasi
+                                                        anda.</span>
+                                                </h3>
 
-                                            <div class="btn btn-sm btn-primary mb-5" data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_new_project">
-                                                Ajukan Presentasi
+                                                <div class="btn btn-sm btn-primary mb-5" data-bs-toggle="modal"
+                                                    data-bs-target="#kt_modal_new_project">
+                                                    Ajukan Presentasi
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <table class="table table-striped border rounded gy-5 gs-7">
-                                                <thead>
-                                                    <tr class="fw-semibold fs-6 text-gray-800">
-                                                        <th class="min-w-100px" data-priority="1">Judul</th>
-                                                        <th class="min-w-100px" data-priority="2">Deskripsi</th>
-                                                        <th class="min-w-100px" data-priority="3">Tanggal</th>
-                                                        <th class="min-w-100px" data-priority="4">List Presentasi</th>
-                                                        <th class="min-w-100px" data-priority="5">Status Presentasi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse ($presentations as $presentation)
-                                                        <tr>
-                                                            <td>{{ $presentation->name }}</td>
-                                                            <td>{{ $presentation->description }}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($presentation->date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
-                                                            </td>
-                                                            <td>
-                                                                @if ($presentation->presentation_status == 'design')
-                                                                    Presentasi Rancangan
-                                                                @elseif($presentation->presentation_status == 'beginning')
-                                                                    Presentasi Awal Project
-                                                                @elseif($presentation->presentation_status == 'progress')
-                                                                    Presentasi Progres Project
-                                                                @elseif($presentation->presentation_status == 'finalization')
-                                                                    Presentasi Finalisasi Project
-                                                                @endif
-                                                            </td>
+                                            <div class="card-body">
+                                                <table class="table table-striped border rounded gy-5 gs-7">
+                                                    <thead>
+                                                        <tr class="fw-semibold fs-6 text-gray-800">
+                                                            <th class="min-w-100px" data-priority="1">Judul</th>
+                                                            <th class="min-w-100px" data-priority="2">Deskripsi</th>
+                                                            <th class="min-w-100px" data-priority="3">Tanggal</th>
+                                                            <th class="min-w-100px" data-priority="4">List Presentasi</th>
+                                                            <th class="min-w-100px" data-priority="5">Status Presentasi
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @forelse ($presentations as $presentation)
+                                                            <tr>
+                                                                <td>{{ $presentation->name }}</td>
+                                                                <td>{{ $presentation->description }}</td>
+                                                                <td>{{ \Carbon\Carbon::parse($presentation->date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}
+                                                                </td>
+                                                                <td>
+                                                                    @if ($presentation->presentation_status == 'design')
+                                                                        Presentasi Rancangan
+                                                                    @elseif($presentation->presentation_status == 'beginning')
+                                                                        Presentasi Awal Project
+                                                                    @elseif($presentation->presentation_status == 'progress')
+                                                                        Presentasi Progres Project
+                                                                    @elseif($presentation->presentation_status == 'finalization')
+                                                                        Presentasi Finalisasi Project
+                                                                    @endif
+                                                                </td>
 
-                                                            <td>
-                                                                <span
-                                                                    class="badge
+                                                                <td>
+                                                                    <span
+                                                                        class="badge
                                                     @if ($presentation->status == 'pending') badge-light-warning
                                                     @elseif($presentation->status == 'approved') badge-light-success
                                                     @elseif($presentation->status == 'not_approved') badge-light-danger @endif fw-bold me-auto px-4 py-3">
-                                                                    @if ($presentation->status == 'pending')
-                                                                        Menunggu
-                                                                    @elseif($presentation->status == 'approved')
-                                                                        Diterima
-                                                                    @elseif($presentation->status == 'not_approved')
-                                                                        Tidak Diterima
-                                                                    @endif
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                    @empty
-                                                        <tr>
-                                                            <td colspan="6">
-                                                                <div class="col-12 text-center">
-                                                                    <!--begin::Illustration-->
-                                                                    <img src="{{ asset('user-assets/media/misc/watch.svg') }}"
-                                                                        class="h-150px" alt="" />
-                                                                    <!--end::Illustration-->
-
-                                                                    <!--begin::Title-->
-                                                                    <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih
-                                                                        Kosong</h4>
-                                                                    <!--end::Title-->
-
-                                                                    <!--begin::Desctiption-->
-                                                                    <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                                                        anda belum memiliki presentasi untuk saat ini.
+                                                                        @if ($presentation->status == 'pending')
+                                                                            Menunggu
+                                                                        @elseif($presentation->status == 'approved')
+                                                                            Diterima
+                                                                        @elseif($presentation->status == 'not_approved')
+                                                                            Tidak Diterima
+                                                                        @endif
                                                                     </span>
-                                                                    <!--end::Desctiption-->
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="6">
+                                                                    <div class="col-12 text-center">
+                                                                        <!--begin::Illustration-->
+                                                                        <img src="{{ asset('user-assets/media/misc/watch.svg') }}"
+                                                                            class="h-150px" alt="" />
+                                                                        <!--end::Illustration-->
+
+                                                                        <!--begin::Title-->
+                                                                        <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih
+                                                                            Kosong</h4>
+                                                                        <!--end::Title-->
+
+                                                                        <!--begin::Desctiption-->
+                                                                        <span
+                                                                            class="fw-semibold text-gray-700 mb-4 d-block">
+                                                                            anda belum memiliki presentasi untuk saat ini.
+                                                                        </span>
+                                                                        <!--end::Desctiption-->
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-lg-12 col-xl-6">
-                                    <div class="card card-flush h-lg-100">
-                                        <!--begin::Card header-->
-                                        <div class="card-header mt-6">
-                                            <!--begin::Card title-->
-                                            <div class="card-title flex-column">
-                                                <h3 class="fw-bold mb-1">List Presentasi</h3>
+                                    <div class="col-md-6 col-lg-12 col-xl-6">
+                                        <div class="card card-flush h-lg-100">
+                                            <!--begin::Card header-->
+                                            <div class="card-header mt-6">
+                                                <!--begin::Card title-->
+                                                <div class="card-title flex-column">
+                                                    <h3 class="fw-bold mb-1">List Presentasi</h3>
 
-                                                <div class="fs-6 text-gray-500">Silahkan ceklist jika sudah selesai
-                                                    presentasi
+                                                    <div class="fs-6 text-gray-500">Silahkan ceklist jika sudah selesai
+                                                        presentasi
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <!--end::Card title-->
+                                                <!--end::Card title-->
 
-                                            <!--begin::Card toolbar-->
-                                            <div class="card-toolbar">
-                                                <a href="#"
-                                                    class="btn btn-bg-light btn-active-color-primary btn-sm">View
-                                                    All</a>
-                                            </div>
-                                            <!--end::Card toolbar-->
-                                        </div>
-                                        <!--end::Card header-->
-
-                                        <!--begin::Card body-->
-                                        <div class="card-body d-flex flex-column mb-9 p-9 pt-3">
-                                            <!--begin::Item-->
-                                            <div class="d-flex align-items-center position-relative mb-7">
-                                                <!--begin::Label-->
-                                                <div
-                                                    class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
-                                                </div>
-                                                <!--end::Label-->
-
-                                                <!--begin::Checkbox-->
-                                                <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                </div>
-                                                <!--end::Checkbox-->
-
-                                                <!--begin::Details-->
-                                                <div class="fw-semibold">
+                                                <!--begin::Card toolbar-->
+                                                <div class="card-toolbar">
                                                     <a href="#"
-                                                        class="fs-6 fw-bold text-gray-900 text-hover-primary">Presentasi
-                                                        Rancangan</a>
-
-                                                    <!--begin::Info-->
-                                                    <div class="text-gray-500">
-                                                        Due in 1 day <a href="#">Karina Clark</a>
-                                                    </div>
-                                                    <!--end::Info-->
+                                                        class="btn btn-bg-light btn-active-color-primary btn-sm">View
+                                                        All</a>
                                                 </div>
-                                                <!--end::Details-->
-
-                                                <!--begin::Menu-->
-                                                <button type="button"
-                                                    class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto"
-                                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-
-                                                    <i class="ki-outline ki-element-plus fs-3"></i> </button>
-
-
-
-                                                <!--begin::Menu 1-->
-                                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
-                                                    data-kt-menu="true" id="kt_menu_660e26c165891">
-                                                    <!--begin::Header-->
-                                                    <div class="px-7 py-5">
-                                                        <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
-                                                    </div>
-                                                    <!--end::Header-->
-
-                                                    <!--begin::Menu separator-->
-                                                    <div class="separator border-gray-200"></div>
-                                                    <!--end::Menu separator-->
-
-
-                                                    <!--begin::Form-->
-                                                    <div class="px-7 py-5">
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Status:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Input-->
-                                                            <div>
-                                                                <select
-                                                                    class="form-select form-select-solid select2-hidden-accessible"
-                                                                    multiple="" data-kt-select2="true"
-                                                                    data-close-on-select="false"
-                                                                    data-placeholder="Select option"
-                                                                    data-dropdown-parent="#kt_menu_660e26c165891"
-                                                                    data-allow-clear="true"
-                                                                    data-select2-id="select2-data-21-vqqw" tabindex="-1"
-                                                                    aria-hidden="true" data-kt-initialized="1">
-                                                                    <option></option>
-                                                                    <option value="1">Approved</option>
-                                                                    <option value="2">Pending</option>
-                                                                    <option value="2">In Process</option>
-                                                                    <option value="2">Rejected</option>
-                                                                </select><span
-                                                                    class="select2 select2-container select2-container--bootstrap5"
-                                                                    dir="ltr" data-select2-id="select2-data-22-shq5"
-                                                                    style="width: 100%;"><span class="selection"><span
-                                                                            class="select2-selection select2-selection--multiple form-select form-select-solid"
-                                                                            role="combobox" aria-haspopup="true"
-                                                                            aria-expanded="false" tabindex="-1"
-                                                                            aria-disabled="false">
-                                                                            <ul class="select2-selection__rendered"
-                                                                                id="select2-bbj2-container"></ul><span
-                                                                                class="select2-search select2-search--inline">
-                                                                                <textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none"
-                                                                                    spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search"
-                                                                                    aria-describedby="select2-bbj2-container" placeholder="Select option" style="width: 100%;"></textarea>
-                                                                            </span>
-                                                                        </span></span><span class="dropdown-wrapper"
-                                                                        aria-hidden="true"></span></span>
-                                                            </div>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Member Type:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Options-->
-                                                            <div class="d-flex">
-                                                                <!--begin::Options-->
-                                                                <label
-                                                                    class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="1">
-                                                                    <span class="form-check-label">
-                                                                        Author
-                                                                    </span>
-                                                                </label>
-                                                                <!--end::Options-->
-
-                                                                <!--begin::Options-->
-                                                                <label
-                                                                    class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="2" checked="checked">
-                                                                    <span class="form-check-label">
-                                                                        Customer
-                                                                    </span>
-                                                                </label>
-                                                                <!--end::Options-->
-                                                            </div>
-                                                            <!--end::Options-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Notifications:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Switch-->
-                                                            <div
-                                                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" name="notifications" checked="">
-                                                                <label class="form-check-label">
-                                                                    Enabled
-                                                                </label>
-                                                            </div>
-                                                            <!--end::Switch-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Actions-->
-                                                        <div class="d-flex justify-content-end">
-                                                            <button type="reset"
-                                                                class="btn btn-sm btn-light btn-active-light-primary me-2"
-                                                                data-kt-menu-dismiss="true">Reset</button>
-
-                                                            <button type="submit" class="btn btn-sm btn-primary"
-                                                                data-kt-menu-dismiss="true">Apply</button>
-                                                        </div>
-                                                        <!--end::Actions-->
-                                                    </div>
-                                                    <!--end::Form-->
-                                                </div>
-                                                <!--end::Menu 1--> <!--end::Menu-->
+                                                <!--end::Card toolbar-->
                                             </div>
-                                            <!--end::Item-->
-                                            <!--begin::Item-->
-                                            <div class="d-flex align-items-center position-relative mb-7">
-                                                <!--begin::Label-->
-                                                <div
-                                                    class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
-                                                </div>
-                                                <!--end::Label-->
-
-                                                <!--begin::Checkbox-->
-                                                <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                </div>
-                                                <!--end::Checkbox-->
-
-                                                <!--begin::Details-->
-                                                <div class="fw-semibold">
-                                                    <a href="#"
-                                                        class="fs-6 fw-bold text-gray-900 text-hover-primary">Presentasi
-                                                        Awal Project</a>
-
-                                                    <!--begin::Info-->
-                                                    <div class="text-gray-500">
-                                                        Due in 3 days <a href="#">Rober Doe</a>
-                                                    </div>
-                                                    <!--end::Info-->
-                                                </div>
-                                                <!--end::Details-->
-
-                                                <!--begin::Menu-->
-                                                <button type="button"
-                                                    class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto"
-                                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-
-                                                    <i class="ki-outline ki-element-plus fs-3"></i> </button>
-
-
-
-                                                <!--begin::Menu 1-->
-                                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
-                                                    data-kt-menu="true" id="kt_menu_660e26c16589e">
-                                                    <!--begin::Header-->
-                                                    <div class="px-7 py-5">
-                                                        <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
-                                                    </div>
-                                                    <!--end::Header-->
-
-                                                    <!--begin::Menu separator-->
-                                                    <div class="separator border-gray-200"></div>
-                                                    <!--end::Menu separator-->
-
-
-                                                    <!--begin::Form-->
-                                                    <div class="px-7 py-5">
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Status:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Input-->
-                                                            <div>
-                                                                <select
-                                                                    class="form-select form-select-solid select2-hidden-accessible"
-                                                                    multiple="" data-kt-select2="true"
-                                                                    data-close-on-select="false"
-                                                                    data-placeholder="Select option"
-                                                                    data-dropdown-parent="#kt_menu_660e26c16589e"
-                                                                    data-allow-clear="true"
-                                                                    data-select2-id="select2-data-23-1ba2" tabindex="-1"
-                                                                    aria-hidden="true" data-kt-initialized="1">
-                                                                    <option></option>
-                                                                    <option value="1">Approved</option>
-                                                                    <option value="2">Pending</option>
-                                                                    <option value="2">In Process</option>
-                                                                    <option value="2">Rejected</option>
-                                                                </select><span
-                                                                    class="select2 select2-container select2-container--bootstrap5"
-                                                                    dir="ltr" data-select2-id="select2-data-24-jims"
-                                                                    style="width: 100%;"><span class="selection"><span
-                                                                            class="select2-selection select2-selection--multiple form-select form-select-solid"
-                                                                            role="combobox" aria-haspopup="true"
-                                                                            aria-expanded="false" tabindex="-1"
-                                                                            aria-disabled="false">
-                                                                            <ul class="select2-selection__rendered"
-                                                                                id="select2-4czt-container"></ul><span
-                                                                                class="select2-search select2-search--inline">
-                                                                                <textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none"
-                                                                                    spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search"
-                                                                                    aria-describedby="select2-4czt-container" placeholder="Select option" style="width: 100%;"></textarea>
-                                                                            </span>
-                                                                        </span></span><span class="dropdown-wrapper"
-                                                                        aria-hidden="true"></span></span>
-                                                            </div>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Member Type:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Options-->
-                                                            <div class="d-flex">
-                                                                <!--begin::Options-->
-                                                                <label
-                                                                    class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="1">
-                                                                    <span class="form-check-label">
-                                                                        Author
-                                                                    </span>
-                                                                </label>
-                                                                <!--end::Options-->
-
-                                                                <!--begin::Options-->
-                                                                <label
-                                                                    class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="2" checked="checked">
-                                                                    <span class="form-check-label">
-                                                                        Customer
-                                                                    </span>
-                                                                </label>
-                                                                <!--end::Options-->
-                                                            </div>
-                                                            <!--end::Options-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Notifications:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Switch-->
-                                                            <div
-                                                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" name="notifications" checked="">
-                                                                <label class="form-check-label">
-                                                                    Enabled
-                                                                </label>
-                                                            </div>
-                                                            <!--end::Switch-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Actions-->
-                                                        <div class="d-flex justify-content-end">
-                                                            <button type="reset"
-                                                                class="btn btn-sm btn-light btn-active-light-primary me-2"
-                                                                data-kt-menu-dismiss="true">Reset</button>
-
-                                                            <button type="submit" class="btn btn-sm btn-primary"
-                                                                data-kt-menu-dismiss="true">Apply</button>
-                                                        </div>
-                                                        <!--end::Actions-->
-                                                    </div>
-                                                    <!--end::Form-->
-                                                </div>
-                                                <!--end::Menu 1--> <!--end::Menu-->
-                                            </div>
-                                            <!--end::Item-->
-                                            <!--begin::Item-->
-                                            <div class="d-flex align-items-center position-relative mb-7">
-                                                <!--begin::Label-->
-                                                <div
-                                                    class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
-                                                </div>
-                                                <!--end::Label-->
-
-                                                <!--begin::Checkbox-->
-                                                <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                </div>
-                                                <!--end::Checkbox-->
-
-                                                <!--begin::Details-->
-                                                <div class="fw-semibold">
-                                                    <a href="#"
-                                                        class="fs-6 fw-bold text-gray-900 text-hover-primary">Presentasi
-                                                        Progres
-                                                        Project </a>
-
-                                                    <!--begin::Info-->
-                                                    <div class="text-gray-500">
-                                                        Due in 1 week <a href="#">Neil Owen</a>
-                                                    </div>
-                                                    <!--end::Info-->
-                                                </div>
-                                                <!--end::Details-->
-
-                                                <!--begin::Menu-->
-                                                <button type="button"
-                                                    class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto"
-                                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-
-                                                    <i class="ki-outline ki-element-plus fs-3"></i> </button>
-
-
-
-                                                <!--begin::Menu 1-->
-                                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
-                                                    data-kt-menu="true" id="kt_menu_660e26c1658ab">
-                                                    <!--begin::Header-->
-                                                    <div class="px-7 py-5">
-                                                        <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
-                                                    </div>
-                                                    <!--end::Header-->
-
-                                                    <!--begin::Menu separator-->
-                                                    <div class="separator border-gray-200"></div>
-                                                    <!--end::Menu separator-->
-
-
-                                                    <!--begin::Form-->
-                                                    <div class="px-7 py-5">
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Status:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Input-->
-                                                            <div>
-                                                                <select
-                                                                    class="form-select form-select-solid select2-hidden-accessible"
-                                                                    multiple="" data-kt-select2="true"
-                                                                    data-close-on-select="false"
-                                                                    data-placeholder="Select option"
-                                                                    data-dropdown-parent="#kt_menu_660e26c1658ab"
-                                                                    data-allow-clear="true"
-                                                                    data-select2-id="select2-data-25-4bu7" tabindex="-1"
-                                                                    aria-hidden="true" data-kt-initialized="1">
-                                                                    <option></option>
-                                                                    <option value="1">Approved</option>
-                                                                    <option value="2">Pending</option>
-                                                                    <option value="2">In Process</option>
-                                                                    <option value="2">Rejected</option>
-                                                                </select><span
-                                                                    class="select2 select2-container select2-container--bootstrap5"
-                                                                    dir="ltr" data-select2-id="select2-data-26-9ks3"
-                                                                    style="width: 100%;"><span class="selection"><span
-                                                                            class="select2-selection select2-selection--multiple form-select form-select-solid"
-                                                                            role="combobox" aria-haspopup="true"
-                                                                            aria-expanded="false" tabindex="-1"
-                                                                            aria-disabled="false">
-                                                                            <ul class="select2-selection__rendered"
-                                                                                id="select2-izye-container"></ul><span
-                                                                                class="select2-search select2-search--inline">
-                                                                                <textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none"
-                                                                                    spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search"
-                                                                                    aria-describedby="select2-izye-container" placeholder="Select option" style="width: 100%;"></textarea>
-                                                                            </span>
-                                                                        </span></span><span class="dropdown-wrapper"
-                                                                        aria-hidden="true"></span></span>
-                                                            </div>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Member Type:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Options-->
-                                                            <div class="d-flex">
-                                                                <!--begin::Options-->
-                                                                <label
-                                                                    class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="1">
-                                                                    <span class="form-check-label">
-                                                                        Author
-                                                                    </span>
-                                                                </label>
-                                                                <!--end::Options-->
-
-                                                                <!--begin::Options-->
-                                                                <label
-                                                                    class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="2" checked="checked">
-                                                                    <span class="form-check-label">
-                                                                        Customer
-                                                                    </span>
-                                                                </label>
-                                                                <!--end::Options-->
-                                                            </div>
-                                                            <!--end::Options-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Notifications:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Switch-->
-                                                            <div
-                                                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" name="notifications" checked="">
-                                                                <label class="form-check-label">
-                                                                    Enabled
-                                                                </label>
-                                                            </div>
-                                                            <!--end::Switch-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Actions-->
-                                                        <div class="d-flex justify-content-end">
-                                                            <button type="reset"
-                                                                class="btn btn-sm btn-light btn-active-light-primary me-2"
-                                                                data-kt-menu-dismiss="true">Reset</button>
-
-                                                            <button type="submit" class="btn btn-sm btn-primary"
-                                                                data-kt-menu-dismiss="true">Apply</button>
-                                                        </div>
-                                                        <!--end::Actions-->
-                                                    </div>
-                                                    <!--end::Form-->
-                                                </div>
-                                                <!--end::Menu 1--> <!--end::Menu-->
-                                            </div>
-                                            <!--end::Item-->
-                                            <!--begin::Item-->
-                                            <div class="d-flex align-items-center position-relative mb-7">
-                                                <!--begin::Label-->
-                                                <div
-                                                    class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
-                                                </div>
-                                                <!--end::Label-->
-
-                                                <!--begin::Checkbox-->
-                                                <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                    <input class="form-check-input" type="checkbox" value="">
-                                                </div>
-                                                <!--end::Checkbox-->
-
-                                                <!--begin::Details-->
-                                                <div class="fw-semibold">
-                                                    <a href="#"
-                                                        class="fs-6 fw-bold text-gray-900 text-hover-primary">Presentasi
-                                                        Finalisasi
-                                                        Project</a>
-
-                                                    <!--begin::Info-->
-                                                    <div class="text-gray-500">
-                                                        Due in 1 week <a href="#">Olivia Wild</a>
-                                                    </div>
-                                                    <!--end::Info-->
-                                                </div>
-                                                <!--end::Details-->
-
-                                                <!--begin::Menu-->
-                                                <button type="button"
-                                                    class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto"
-                                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-
-                                                    <i class="ki-outline ki-element-plus fs-3"></i> </button>
-
-
-
-                                                <!--begin::Menu 1-->
-                                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
-                                                    data-kt-menu="true" id="kt_menu_660e26c1658b7">
-                                                    <!--begin::Header-->
-                                                    <div class="px-7 py-5">
-                                                        <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
-                                                    </div>
-                                                    <!--end::Header-->
-
-                                                    <!--begin::Menu separator-->
-                                                    <div class="separator border-gray-200"></div>
-                                                    <!--end::Menu separator-->
-
-
-                                                    <!--begin::Form-->
-                                                    <div class="px-7 py-5">
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Status:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Input-->
-                                                            <div>
-                                                                <select
-                                                                    class="form-select form-select-solid select2-hidden-accessible"
-                                                                    multiple="" data-kt-select2="true"
-                                                                    data-close-on-select="false"
-                                                                    data-placeholder="Select option"
-                                                                    data-dropdown-parent="#kt_menu_660e26c1658b7"
-                                                                    data-allow-clear="true"
-                                                                    data-select2-id="select2-data-27-1wnd" tabindex="-1"
-                                                                    aria-hidden="true" data-kt-initialized="1">
-                                                                    <option></option>
-                                                                    <option value="1">Approved</option>
-                                                                    <option value="2">Pending</option>
-                                                                    <option value="2">In Process</option>
-                                                                    <option value="2">Rejected</option>
-                                                                </select><span
-                                                                    class="select2 select2-container select2-container--bootstrap5"
-                                                                    dir="ltr" data-select2-id="select2-data-28-dvux"
-                                                                    style="width: 100%;"><span class="selection"><span
-                                                                            class="select2-selection select2-selection--multiple form-select form-select-solid"
-                                                                            role="combobox" aria-haspopup="true"
-                                                                            aria-expanded="false" tabindex="-1"
-                                                                            aria-disabled="false">
-                                                                            <ul class="select2-selection__rendered"
-                                                                                id="select2-1vdq-container"></ul><span
-                                                                                class="select2-search select2-search--inline">
-                                                                                <textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none"
-                                                                                    spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search"
-                                                                                    aria-describedby="select2-1vdq-container" placeholder="Select option" style="width: 100%;"></textarea>
-                                                                            </span>
-                                                                        </span></span><span class="dropdown-wrapper"
-                                                                        aria-hidden="true"></span></span>
-                                                            </div>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Member Type:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Options-->
-                                                            <div class="d-flex">
-                                                                <!--begin::Options-->
-                                                                <label
-                                                                    class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="1">
-                                                                    <span class="form-check-label">
-                                                                        Author
-                                                                    </span>
-                                                                </label>
-                                                                <!--end::Options-->
-
-                                                                <!--begin::Options-->
-                                                                <label
-                                                                    class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="2" checked="checked">
-                                                                    <span class="form-check-label">
-                                                                        Customer
-                                                                    </span>
-                                                                </label>
-                                                                <!--end::Options-->
-                                                            </div>
-                                                            <!--end::Options-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label fw-semibold">Notifications:</label>
-                                                            <!--end::Label-->
-
-                                                            <!--begin::Switch-->
-                                                            <div
-                                                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" name="notifications" checked="">
-                                                                <label class="form-check-label">
-                                                                    Enabled
-                                                                </label>
-                                                            </div>
-                                                            <!--end::Switch-->
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <!--begin::Actions-->
-                                                        <div class="d-flex justify-content-end">
-                                                            <button type="reset"
-                                                                class="btn btn-sm btn-light btn-active-light-primary me-2"
-                                                                data-kt-menu-dismiss="true">Reset</button>
-
-                                                            <button type="submit" class="btn btn-sm btn-primary"
-                                                                data-kt-menu-dismiss="true">Apply</button>
-                                                        </div>
-                                                        <!--end::Actions-->
-                                                    </div>
-                                                    <!--end::Form-->
-                                                </div>
-                                                <!--end::Menu 1--> <!--end::Menu-->
-                                            </div>
-                                            <!--end::Item-->
-                                        </div>
-                                        <!--end::Card body-->
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-12 col-xl-6">
-                                    <div class="card card-flush h-lg-100">
-                                        <!--begin::Card header-->
-                                        <div class="card-header mt-6">
-                                            <!--begin::Card title-->
-                                            <div class="card-title flex-column">
-                                                <h3 class="fw-bold mb-1">Jadwal Presentasi</h3>
-
-                                                <div class="fs-6 text-gray-500">Silahkan masuk kezoom jika sudah waktunya
-                                                    presentasi</div>
-                                            </div>
-                                            <!--end::Card title-->
-                                        </div>
-                                        <!--end::Card header-->
-
-                                        <!--begin::Card body-->
-                                        <div class="card-body p-9 pt-4">
-                                            <!--begin::Dates-->
-                                            <ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2"
-                                                role="tablist">
-
-                                                <!--begin::Date-->
-                                                @forelse ($approvedPresentations as $approvedPresentation)
-                                                    <li class="nav-item me-1" role="presentation">
-                                                        <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary active"
-                                                            data-bs-toggle="tab"
-                                                            href="#kt_schedule_day_{{ $approvedPresentation->id }}"
-                                                            aria-selected="true" role="tab">
-
-                                                            <span class="opacity-50 fs-7 fw-semibold">
-                                                                {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('dddd') }}
-                                                            </span>
-                                                            <span class="fs-6 fw-bold">
-                                                                {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('DD MMMM') }}
-                                                            </span>
-
-
-
-                                                        </a>
-                                                    </li>
-                                                @empty
-                                                    <div class="col-12 text-center">
-                                                        <!--begin::Illustration-->
-                                                        <img src="{{ asset('user-assets/media/misc/watch.svg') }}"
-                                                            class="h-150px" alt="" />
-                                                        <!--end::Illustration-->
-
-                                                        <!--begin::Title-->
-                                                        <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih
-                                                            Kosong</h4>
-                                                        <!--end::Title-->
-
-                                                        <!--begin::Desctiption-->
-                                                        <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                                            belum ada presentasi yang diterima untuk saat ini.
-                                                        </span>
-                                                        <!--end::Desctiption-->
-                                                    </div>
-                                                @endforelse
-                                                <!--end::Date-->
-                                            </ul>
-                                            <!--end::Dates-->
-
-                                            <!--begin::Tab Content-->
-                                            <div class="tab-content">
-                                                <!--begin::Day-->
-                                                @foreach ($approvedPresentations as $index => $approvedPresentation)
-                                                    <div id="kt_schedule_day_{{ $approvedPresentation->id }}"
-                                                        class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
-                                                        role="tabpanel">
-                                                        <!--begin::Time-->
-                                                        <div class="d-flex flex-stack position-relative mt-8">
-                                                            <!--begin::Bar-->
-                                                            <div
-                                                                class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0">
-                                                            </div>
-                                                            <!--end::Bar-->
-
-                                                            <!--begin::Info-->
-                                                            <div class="fw-semibold ms-5 text-gray-600">
-                                                                <!--begin::Time-->
-                                                                <div class="fs-5">
-                                                                    Jam
-                                                                    {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->format('H:i') }}
-                                                                </div>
-                                                                <!--end::Time-->
-
-                                                                <!--begin::Title-->
-                                                                <a href="#"
-                                                                    class="fs-5 fw-bold text-gray-800 text-hover-primary mb-2">
-                                                                    {{ $approvedPresentation->name }} </a>
-                                                                <!--end::Title-->
-
-                                                                <!--begin::User-->
-                                                                <div class="text-gray-500">
-                                                                    Presentasi dengan mentor <a
-                                                                        href="#">{{ auth()->user()->mentorClassrooms->first() ? auth()->user()->mentorClassrooms->first()->mentor->name : 'Belum ada mentor' }}</a>
-                                                                </div>
-
-
-                                                                <!--end::User-->
-                                                            </div>
-                                                            <!--end::Info-->
-
-                                                            <!--begin::Action-->
-                                                            <a href="https://us05web.zoom.us/j/89475402083?pwd=qpM8RxdJN7ZYTqZy9btmRWLvoGsLoC.1"
-                                                                class="btn btn-bg-light btn-active-color-primary btn-sm"
-                                                                target="_blank">Zoom</a>
-                                                            <!--end::Action-->
-                                                        </div>
-                                                        <!--end::Time-->
-                                                    </div>
-                                                @endforeach
-                                                <!--end::Day-->
-                                            </div>
-                                            <!--end::Tab Content-->
-                                        </div>
-                                        <!--end::Card body-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="kt_tab_pane_4" role="tabpanel">
-                            <div class="card">
-                                <!--begin::Card header-->
-                                <div class="card-header">
-                                    <!--begin::Card title-->
-                                    <div class="card-title fs-3 fw-bold">Project Settings</div>
-                                    <!--end::Card title-->
-                                </div>
-                                <!--end::Card header-->
-
-                                <!--begin::Form-->
-                                <form id="kt_project_settings_form"
-                                    class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
-                                    <!--begin::Card body-->
-                                    <div class="card-body p-9">
-                                        <!--begin::Row-->
-                                        <div class="row mb-5">
-                                            <!--begin::Col-->
-                                            <div class="col-xl-3">
-                                                <div class="fs-6 fw-semibold mt-2 mb-3">Project Logo</div>
-                                            </div>
-                                            <!--end::Col-->
-
-                                            <!--begin::Col-->
-                                            <div class="col-lg-8">
-                                                <!--begin::Image input-->
-                                                <div class="image-input image-input-outline {{ !$project ? 'image-input-empty' : '' }}"
-                                                    data-kt-image-input="true"
-                                                    style="background-image: url({{ asset('app-assets/media/svg/avatars/blank.svg') }})">
-                                                    <!--begin::Preview existing avatar-->
-                                                    <div class="image-input-wrapper w-125px h-125px"
-                                                        style="background-image: {{ $project ? 'url(' . asset('storage/' . $project->photo) . ')' : 'none' }}">
-                                                    </div>
-                                                    <!--end::Preview existing avatar-->
-
+                                            <!--end::Card header-->
+
+                                            <!--begin::Card body-->
+                                            <div class="card-body d-flex flex-column mb-9 p-9 pt-3">
+                                                <!--begin::Item-->
+                                                <div class="d-flex align-items-center position-relative mb-7">
                                                     <!--begin::Label-->
-                                                    <label
-                                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                        data-kt-image-input-action="change" data-bs-toggle="tooltip"
-                                                        title="Change avatar">
-                                                        <i class="bi bi-pencil-fill fs-7"></i>
-
-                                                        <!--begin::Inputs-->
-                                                        <input type="file" name="photo"
-                                                            accept=".png, .jpg, .jpeg" />
-                                                        <input type="hidden" name="avatar_remove" />
-                                                        <!--end::Inputs-->
-                                                    </label>
+                                                    <div
+                                                        class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
+                                                    </div>
                                                     <!--end::Label-->
 
-                                                    <!--begin::Cancel-->
-                                                    <span
-                                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-                                                        title="Cancel avatar">
-                                                        <i class="bi bi-x fs-2"></i>
-                                                    </span>
-                                                    <!--end::Cancel-->
+                                                    <!--begin::Checkbox-->
+                                                    <div class="form-check form-check-custom form-check-solid ms-6 me-4">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                    </div>
+                                                    <!--end::Checkbox-->
 
-                                                    <!--begin::Remove-->
-                                                    <span
-                                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                        data-kt-image-input-action="remove" data-bs-toggle="tooltip"
-                                                        title="Remove avatar">
-                                                        <i class="bi bi-x fs-2"></i>
-                                                    </span>
-                                                    <!--end::Remove-->
+                                                    <!--begin::Details-->
+                                                    <div class="fw-semibold">
+                                                        <a href="#"
+                                                            class="fs-6 fw-bold text-gray-900 text-hover-primary">Presentasi
+                                                            Rancangan</a>
+
+                                                        <!--begin::Info-->
+                                                        <div class="text-gray-500">
+                                                            Due in 1 day <a href="#">Karina Clark</a>
+                                                        </div>
+                                                        <!--end::Info-->
+                                                    </div>
+                                                    <!--end::Details-->
+
+                                                    <!--begin::Menu-->
+                                                    <button type="button"
+                                                        class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto"
+                                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+
+                                                        <i class="ki-outline ki-element-plus fs-3"></i> </button>
+
+
+
+                                                    <!--begin::Menu 1-->
+                                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
+                                                        data-kt-menu="true" id="kt_menu_660e26c165891">
+                                                        <!--begin::Header-->
+                                                        <div class="px-7 py-5">
+                                                            <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                                                        </div>
+                                                        <!--end::Header-->
+
+                                                        <!--begin::Menu separator-->
+                                                        <div class="separator border-gray-200"></div>
+                                                        <!--end::Menu separator-->
+
+
+                                                        <!--begin::Form-->
+                                                        <div class="px-7 py-5">
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label fw-semibold">Status:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Input-->
+                                                                <div>
+                                                                    <select
+                                                                        class="form-select form-select-solid select2-hidden-accessible"
+                                                                        multiple="" data-kt-select2="true"
+                                                                        data-close-on-select="false"
+                                                                        data-placeholder="Select option"
+                                                                        data-dropdown-parent="#kt_menu_660e26c165891"
+                                                                        data-allow-clear="true"
+                                                                        data-select2-id="select2-data-21-vqqw"
+                                                                        tabindex="-1" aria-hidden="true"
+                                                                        data-kt-initialized="1">
+                                                                        <option></option>
+                                                                        <option value="1">Approved</option>
+                                                                        <option value="2">Pending</option>
+                                                                        <option value="2">In Process</option>
+                                                                        <option value="2">Rejected</option>
+                                                                    </select><span
+                                                                        class="select2 select2-container select2-container--bootstrap5"
+                                                                        dir="ltr"
+                                                                        data-select2-id="select2-data-22-shq5"
+                                                                        style="width: 100%;"><span class="selection"><span
+                                                                                class="select2-selection select2-selection--multiple form-select form-select-solid"
+                                                                                role="combobox" aria-haspopup="true"
+                                                                                aria-expanded="false" tabindex="-1"
+                                                                                aria-disabled="false">
+                                                                                <ul class="select2-selection__rendered"
+                                                                                    id="select2-bbj2-container"></ul><span
+                                                                                    class="select2-search select2-search--inline">
+                                                                                    <textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none"
+                                                                                        spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search"
+                                                                                        aria-describedby="select2-bbj2-container" placeholder="Select option" style="width: 100%;"></textarea>
+                                                                                </span>
+                                                                            </span></span><span class="dropdown-wrapper"
+                                                                            aria-hidden="true"></span></span>
+                                                                </div>
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label fw-semibold">Member Type:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Options-->
+                                                                <div class="d-flex">
+                                                                    <!--begin::Options-->
+                                                                    <label
+                                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            value="1">
+                                                                        <span class="form-check-label">
+                                                                            Author
+                                                                        </span>
+                                                                    </label>
+                                                                    <!--end::Options-->
+
+                                                                    <!--begin::Options-->
+                                                                    <label
+                                                                        class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            value="2" checked="checked">
+                                                                        <span class="form-check-label">
+                                                                            Customer
+                                                                        </span>
+                                                                    </label>
+                                                                    <!--end::Options-->
+                                                                </div>
+                                                                <!--end::Options-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label
+                                                                    class="form-label fw-semibold">Notifications:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Switch-->
+                                                                <div
+                                                                    class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="" name="notifications"
+                                                                        checked="">
+                                                                    <label class="form-check-label">
+                                                                        Enabled
+                                                                    </label>
+                                                                </div>
+                                                                <!--end::Switch-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Actions-->
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="reset"
+                                                                    class="btn btn-sm btn-light btn-active-light-primary me-2"
+                                                                    data-kt-menu-dismiss="true">Reset</button>
+
+                                                                <button type="submit" class="btn btn-sm btn-primary"
+                                                                    data-kt-menu-dismiss="true">Apply</button>
+                                                            </div>
+                                                            <!--end::Actions-->
+                                                        </div>
+                                                        <!--end::Form-->
+                                                    </div>
+                                                    <!--end::Menu 1--> <!--end::Menu-->
                                                 </div>
-                                                <!--end::Image input-->
+                                                <!--end::Item-->
+                                                <!--begin::Item-->
+                                                <div class="d-flex align-items-center position-relative mb-7">
+                                                    <!--begin::Label-->
+                                                    <div
+                                                        class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
+                                                    </div>
+                                                    <!--end::Label-->
 
-                                                <!--begin::Hint-->
-                                                <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                                <!--end::Hint-->
+                                                    <!--begin::Checkbox-->
+                                                    <div class="form-check form-check-custom form-check-solid ms-6 me-4">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                    </div>
+                                                    <!--end::Checkbox-->
+
+                                                    <!--begin::Details-->
+                                                    <div class="fw-semibold">
+                                                        <a href="#"
+                                                            class="fs-6 fw-bold text-gray-900 text-hover-primary">Presentasi
+                                                            Awal Project</a>
+
+                                                        <!--begin::Info-->
+                                                        <div class="text-gray-500">
+                                                            Due in 3 days <a href="#">Rober Doe</a>
+                                                        </div>
+                                                        <!--end::Info-->
+                                                    </div>
+                                                    <!--end::Details-->
+
+                                                    <!--begin::Menu-->
+                                                    <button type="button"
+                                                        class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto"
+                                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+
+                                                        <i class="ki-outline ki-element-plus fs-3"></i> </button>
+
+
+
+                                                    <!--begin::Menu 1-->
+                                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
+                                                        data-kt-menu="true" id="kt_menu_660e26c16589e">
+                                                        <!--begin::Header-->
+                                                        <div class="px-7 py-5">
+                                                            <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                                                        </div>
+                                                        <!--end::Header-->
+
+                                                        <!--begin::Menu separator-->
+                                                        <div class="separator border-gray-200"></div>
+                                                        <!--end::Menu separator-->
+
+
+                                                        <!--begin::Form-->
+                                                        <div class="px-7 py-5">
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label fw-semibold">Status:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Input-->
+                                                                <div>
+                                                                    <select
+                                                                        class="form-select form-select-solid select2-hidden-accessible"
+                                                                        multiple="" data-kt-select2="true"
+                                                                        data-close-on-select="false"
+                                                                        data-placeholder="Select option"
+                                                                        data-dropdown-parent="#kt_menu_660e26c16589e"
+                                                                        data-allow-clear="true"
+                                                                        data-select2-id="select2-data-23-1ba2"
+                                                                        tabindex="-1" aria-hidden="true"
+                                                                        data-kt-initialized="1">
+                                                                        <option></option>
+                                                                        <option value="1">Approved</option>
+                                                                        <option value="2">Pending</option>
+                                                                        <option value="2">In Process</option>
+                                                                        <option value="2">Rejected</option>
+                                                                    </select><span
+                                                                        class="select2 select2-container select2-container--bootstrap5"
+                                                                        dir="ltr"
+                                                                        data-select2-id="select2-data-24-jims"
+                                                                        style="width: 100%;"><span class="selection"><span
+                                                                                class="select2-selection select2-selection--multiple form-select form-select-solid"
+                                                                                role="combobox" aria-haspopup="true"
+                                                                                aria-expanded="false" tabindex="-1"
+                                                                                aria-disabled="false">
+                                                                                <ul class="select2-selection__rendered"
+                                                                                    id="select2-4czt-container"></ul><span
+                                                                                    class="select2-search select2-search--inline">
+                                                                                    <textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none"
+                                                                                        spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search"
+                                                                                        aria-describedby="select2-4czt-container" placeholder="Select option" style="width: 100%;"></textarea>
+                                                                                </span>
+                                                                            </span></span><span class="dropdown-wrapper"
+                                                                            aria-hidden="true"></span></span>
+                                                                </div>
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label fw-semibold">Member Type:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Options-->
+                                                                <div class="d-flex">
+                                                                    <!--begin::Options-->
+                                                                    <label
+                                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            value="1">
+                                                                        <span class="form-check-label">
+                                                                            Author
+                                                                        </span>
+                                                                    </label>
+                                                                    <!--end::Options-->
+
+                                                                    <!--begin::Options-->
+                                                                    <label
+                                                                        class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            value="2" checked="checked">
+                                                                        <span class="form-check-label">
+                                                                            Customer
+                                                                        </span>
+                                                                    </label>
+                                                                    <!--end::Options-->
+                                                                </div>
+                                                                <!--end::Options-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label
+                                                                    class="form-label fw-semibold">Notifications:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Switch-->
+                                                                <div
+                                                                    class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="" name="notifications"
+                                                                        checked="">
+                                                                    <label class="form-check-label">
+                                                                        Enabled
+                                                                    </label>
+                                                                </div>
+                                                                <!--end::Switch-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Actions-->
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="reset"
+                                                                    class="btn btn-sm btn-light btn-active-light-primary me-2"
+                                                                    data-kt-menu-dismiss="true">Reset</button>
+
+                                                                <button type="submit" class="btn btn-sm btn-primary"
+                                                                    data-kt-menu-dismiss="true">Apply</button>
+                                                            </div>
+                                                            <!--end::Actions-->
+                                                        </div>
+                                                        <!--end::Form-->
+                                                    </div>
+                                                    <!--end::Menu 1--> <!--end::Menu-->
+                                                </div>
+                                                <!--end::Item-->
+                                                <!--begin::Item-->
+                                                <div class="d-flex align-items-center position-relative mb-7">
+                                                    <!--begin::Label-->
+                                                    <div
+                                                        class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
+                                                    </div>
+                                                    <!--end::Label-->
+
+                                                    <!--begin::Checkbox-->
+                                                    <div class="form-check form-check-custom form-check-solid ms-6 me-4">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                    </div>
+                                                    <!--end::Checkbox-->
+
+                                                    <!--begin::Details-->
+                                                    <div class="fw-semibold">
+                                                        <a href="#"
+                                                            class="fs-6 fw-bold text-gray-900 text-hover-primary">Presentasi
+                                                            Progres
+                                                            Project </a>
+
+                                                        <!--begin::Info-->
+                                                        <div class="text-gray-500">
+                                                            Due in 1 week <a href="#">Neil Owen</a>
+                                                        </div>
+                                                        <!--end::Info-->
+                                                    </div>
+                                                    <!--end::Details-->
+
+                                                    <!--begin::Menu-->
+                                                    <button type="button"
+                                                        class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto"
+                                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+
+                                                        <i class="ki-outline ki-element-plus fs-3"></i> </button>
+
+
+
+                                                    <!--begin::Menu 1-->
+                                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
+                                                        data-kt-menu="true" id="kt_menu_660e26c1658ab">
+                                                        <!--begin::Header-->
+                                                        <div class="px-7 py-5">
+                                                            <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                                                        </div>
+                                                        <!--end::Header-->
+
+                                                        <!--begin::Menu separator-->
+                                                        <div class="separator border-gray-200"></div>
+                                                        <!--end::Menu separator-->
+
+
+                                                        <!--begin::Form-->
+                                                        <div class="px-7 py-5">
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label fw-semibold">Status:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Input-->
+                                                                <div>
+                                                                    <select
+                                                                        class="form-select form-select-solid select2-hidden-accessible"
+                                                                        multiple="" data-kt-select2="true"
+                                                                        data-close-on-select="false"
+                                                                        data-placeholder="Select option"
+                                                                        data-dropdown-parent="#kt_menu_660e26c1658ab"
+                                                                        data-allow-clear="true"
+                                                                        data-select2-id="select2-data-25-4bu7"
+                                                                        tabindex="-1" aria-hidden="true"
+                                                                        data-kt-initialized="1">
+                                                                        <option></option>
+                                                                        <option value="1">Approved</option>
+                                                                        <option value="2">Pending</option>
+                                                                        <option value="2">In Process</option>
+                                                                        <option value="2">Rejected</option>
+                                                                    </select><span
+                                                                        class="select2 select2-container select2-container--bootstrap5"
+                                                                        dir="ltr"
+                                                                        data-select2-id="select2-data-26-9ks3"
+                                                                        style="width: 100%;"><span class="selection"><span
+                                                                                class="select2-selection select2-selection--multiple form-select form-select-solid"
+                                                                                role="combobox" aria-haspopup="true"
+                                                                                aria-expanded="false" tabindex="-1"
+                                                                                aria-disabled="false">
+                                                                                <ul class="select2-selection__rendered"
+                                                                                    id="select2-izye-container"></ul><span
+                                                                                    class="select2-search select2-search--inline">
+                                                                                    <textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none"
+                                                                                        spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search"
+                                                                                        aria-describedby="select2-izye-container" placeholder="Select option" style="width: 100%;"></textarea>
+                                                                                </span>
+                                                                            </span></span><span class="dropdown-wrapper"
+                                                                            aria-hidden="true"></span></span>
+                                                                </div>
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label fw-semibold">Member Type:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Options-->
+                                                                <div class="d-flex">
+                                                                    <!--begin::Options-->
+                                                                    <label
+                                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            value="1">
+                                                                        <span class="form-check-label">
+                                                                            Author
+                                                                        </span>
+                                                                    </label>
+                                                                    <!--end::Options-->
+
+                                                                    <!--begin::Options-->
+                                                                    <label
+                                                                        class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            value="2" checked="checked">
+                                                                        <span class="form-check-label">
+                                                                            Customer
+                                                                        </span>
+                                                                    </label>
+                                                                    <!--end::Options-->
+                                                                </div>
+                                                                <!--end::Options-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label
+                                                                    class="form-label fw-semibold">Notifications:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Switch-->
+                                                                <div
+                                                                    class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="" name="notifications"
+                                                                        checked="">
+                                                                    <label class="form-check-label">
+                                                                        Enabled
+                                                                    </label>
+                                                                </div>
+                                                                <!--end::Switch-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Actions-->
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="reset"
+                                                                    class="btn btn-sm btn-light btn-active-light-primary me-2"
+                                                                    data-kt-menu-dismiss="true">Reset</button>
+
+                                                                <button type="submit" class="btn btn-sm btn-primary"
+                                                                    data-kt-menu-dismiss="true">Apply</button>
+                                                            </div>
+                                                            <!--end::Actions-->
+                                                        </div>
+                                                        <!--end::Form-->
+                                                    </div>
+                                                    <!--end::Menu 1--> <!--end::Menu-->
+                                                </div>
+                                                <!--end::Item-->
+                                                <!--begin::Item-->
+                                                <div class="d-flex align-items-center position-relative mb-7">
+                                                    <!--begin::Label-->
+                                                    <div
+                                                        class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
+                                                    </div>
+                                                    <!--end::Label-->
+
+                                                    <!--begin::Checkbox-->
+                                                    <div class="form-check form-check-custom form-check-solid ms-6 me-4">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                    </div>
+                                                    <!--end::Checkbox-->
+
+                                                    <!--begin::Details-->
+                                                    <div class="fw-semibold">
+                                                        <a href="#"
+                                                            class="fs-6 fw-bold text-gray-900 text-hover-primary">Presentasi
+                                                            Finalisasi
+                                                            Project</a>
+
+                                                        <!--begin::Info-->
+                                                        <div class="text-gray-500">
+                                                            Due in 1 week <a href="#">Olivia Wild</a>
+                                                        </div>
+                                                        <!--end::Info-->
+                                                    </div>
+                                                    <!--end::Details-->
+
+                                                    <!--begin::Menu-->
+                                                    <button type="button"
+                                                        class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary ms-auto"
+                                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+
+                                                        <i class="ki-outline ki-element-plus fs-3"></i> </button>
+
+
+
+                                                    <!--begin::Menu 1-->
+                                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
+                                                        data-kt-menu="true" id="kt_menu_660e26c1658b7">
+                                                        <!--begin::Header-->
+                                                        <div class="px-7 py-5">
+                                                            <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                                                        </div>
+                                                        <!--end::Header-->
+
+                                                        <!--begin::Menu separator-->
+                                                        <div class="separator border-gray-200"></div>
+                                                        <!--end::Menu separator-->
+
+
+                                                        <!--begin::Form-->
+                                                        <div class="px-7 py-5">
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label fw-semibold">Status:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Input-->
+                                                                <div>
+                                                                    <select
+                                                                        class="form-select form-select-solid select2-hidden-accessible"
+                                                                        multiple="" data-kt-select2="true"
+                                                                        data-close-on-select="false"
+                                                                        data-placeholder="Select option"
+                                                                        data-dropdown-parent="#kt_menu_660e26c1658b7"
+                                                                        data-allow-clear="true"
+                                                                        data-select2-id="select2-data-27-1wnd"
+                                                                        tabindex="-1" aria-hidden="true"
+                                                                        data-kt-initialized="1">
+                                                                        <option></option>
+                                                                        <option value="1">Approved</option>
+                                                                        <option value="2">Pending</option>
+                                                                        <option value="2">In Process</option>
+                                                                        <option value="2">Rejected</option>
+                                                                    </select><span
+                                                                        class="select2 select2-container select2-container--bootstrap5"
+                                                                        dir="ltr"
+                                                                        data-select2-id="select2-data-28-dvux"
+                                                                        style="width: 100%;"><span class="selection"><span
+                                                                                class="select2-selection select2-selection--multiple form-select form-select-solid"
+                                                                                role="combobox" aria-haspopup="true"
+                                                                                aria-expanded="false" tabindex="-1"
+                                                                                aria-disabled="false">
+                                                                                <ul class="select2-selection__rendered"
+                                                                                    id="select2-1vdq-container"></ul><span
+                                                                                    class="select2-search select2-search--inline">
+                                                                                    <textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none"
+                                                                                        spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search"
+                                                                                        aria-describedby="select2-1vdq-container" placeholder="Select option" style="width: 100%;"></textarea>
+                                                                                </span>
+                                                                            </span></span><span class="dropdown-wrapper"
+                                                                            aria-hidden="true"></span></span>
+                                                                </div>
+                                                                <!--end::Input-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label fw-semibold">Member Type:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Options-->
+                                                                <div class="d-flex">
+                                                                    <!--begin::Options-->
+                                                                    <label
+                                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            value="1">
+                                                                        <span class="form-check-label">
+                                                                            Author
+                                                                        </span>
+                                                                    </label>
+                                                                    <!--end::Options-->
+
+                                                                    <!--begin::Options-->
+                                                                    <label
+                                                                        class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            value="2" checked="checked">
+                                                                        <span class="form-check-label">
+                                                                            Customer
+                                                                        </span>
+                                                                    </label>
+                                                                    <!--end::Options-->
+                                                                </div>
+                                                                <!--end::Options-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10">
+                                                                <!--begin::Label-->
+                                                                <label
+                                                                    class="form-label fw-semibold">Notifications:</label>
+                                                                <!--end::Label-->
+
+                                                                <!--begin::Switch-->
+                                                                <div
+                                                                    class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="" name="notifications"
+                                                                        checked="">
+                                                                    <label class="form-check-label">
+                                                                        Enabled
+                                                                    </label>
+                                                                </div>
+                                                                <!--end::Switch-->
+                                                            </div>
+                                                            <!--end::Input group-->
+
+                                                            <!--begin::Actions-->
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="reset"
+                                                                    class="btn btn-sm btn-light btn-active-light-primary me-2"
+                                                                    data-kt-menu-dismiss="true">Reset</button>
+
+                                                                <button type="submit" class="btn btn-sm btn-primary"
+                                                                    data-kt-menu-dismiss="true">Apply</button>
+                                                            </div>
+                                                            <!--end::Actions-->
+                                                        </div>
+                                                        <!--end::Form-->
+                                                    </div>
+                                                    <!--end::Menu 1--> <!--end::Menu-->
+                                                </div>
+                                                <!--end::Item-->
                                             </div>
-                                            <!--end::Col-->
+                                            <!--end::Card body-->
                                         </div>
-                                        <!--end::Row-->
-
-                                        <!--begin::Row-->
-                                        <div class="row mb-3">
-                                            <!--begin::Col-->
-                                            <div class="col-xl-3">
-                                                <div class="fs-6 fw-semibold mt-2 mb-3">Project Name</div>
-                                            </div>
-                                            <!--end::Col-->
-
-                                            <!--begin::Col-->
-                                            <div class="col-xl-9 fv-row fv-plugins-icon-container">
-                                                <input type="text" class="form-control form-control-solid"
-                                                    name="name" value="{{ $project ? $project->name : '' }}">
-                                                <div
-                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--end::Row-->
-
-                                        <!--begin::Row-->
-                                        <div class="row mb-3">
-                                            <!--begin::Col-->
-                                            <div class="col-xl-3">
-                                                <div class="fs-6 fw-semibold mt-2 mb-3">Project Description</div>
-                                            </div>
-                                            <!--end::Col-->
-
-                                            <!--begin::Col-->
-                                            <div class="col-xl-9 fv-row fv-plugins-icon-container">
-                                                <textarea name="description" class="form-control form-control-solid h-100px">{{ $project ? $project->description : '' }}
-                                                </textarea>
-                                                <div
-                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                </div>
-                                            </div>
-                                            <!--begin::Col-->
-                                        </div>
-                                        <!--end::Row-->
-
-                                        <!--begin::Row-->
-                                        <div class="row mb-3">
-                                            <!--begin::Col-->
-                                            <div class="col-xl-3">
-                                                <div class="fs-6 fw-semibold mt-2 mb-3">Deadline Project</div>
-                                            </div>
-                                            <!--end::Col-->
-
-                                            <!--begin::Col-->
-                                            <div class="col-xl-9 fv-row fv-plugins-icon-container">
-                                                <div class="position-relative d-flex align-items-center">
-                                                    <input type="date" name="deadline"
-                                                        value="{{ $project ? $project->deadline : '' }}"
-                                                        class="form-control form-control-solid" id="">
-                                                </div>
-                                                <div
-                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                </div>
-                                            </div>
-                                            <!--begin::Col-->
-                                        </div>
-                                        <!--end::Row-->
-
                                     </div>
-                                    <!--end::Card body-->
+                                    <div class="col-md-6 col-lg-12 col-xl-6">
+                                        <div class="card card-flush h-lg-100">
+                                            <!--begin::Card header-->
+                                            <div class="card-header mt-6">
+                                                <!--begin::Card title-->
+                                                <div class="card-title flex-column">
+                                                    <h3 class="fw-bold mb-1">Jadwal Presentasi</h3>
 
-                                    <!--begin::Card footer-->
-                                    <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                        <button type="reset"
-                                            class="btn btn-light btn-active-light-primary me-2">Discard</button>
+                                                    <div class="fs-6 text-gray-500">Silahkan masuk kezoom jika sudah
+                                                        waktunya
+                                                        presentasi</div>
+                                                </div>
+                                                <!--end::Card title-->
+                                            </div>
+                                            <!--end::Card header-->
 
-                                        <button type="submit" class="btn btn-primary"
-                                            id="kt_project_settings_submit">Save Changes</button>
+                                            <!--begin::Card body-->
+                                            <div class="card-body p-9 pt-4">
+                                                <!--begin::Dates-->
+                                                <ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2"
+                                                    role="tablist">
+
+                                                    <!--begin::Date-->
+                                                    @forelse ($approvedPresentations as $approvedPresentation)
+                                                        <li class="nav-item me-1" role="presentation">
+                                                            <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary active"
+                                                                data-bs-toggle="tab"
+                                                                href="#kt_schedule_day_{{ $approvedPresentation->id }}"
+                                                                aria-selected="true" role="tab">
+
+                                                                <span class="opacity-50 fs-7 fw-semibold">
+                                                                    {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('dddd') }}
+                                                                </span>
+                                                                <span class="fs-6 fw-bold">
+                                                                    {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('DD MMMM') }}
+                                                                </span>
+
+
+
+                                                            </a>
+                                                        </li>
+                                                    @empty
+                                                        <div class="col-12 text-center">
+                                                            <!--begin::Illustration-->
+                                                            <img src="{{ asset('user-assets/media/misc/watch.svg') }}"
+                                                                class="h-150px" alt="" />
+                                                            <!--end::Illustration-->
+
+                                                            <!--begin::Title-->
+                                                            <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih
+                                                                Kosong</h4>
+                                                            <!--end::Title-->
+
+                                                            <!--begin::Desctiption-->
+                                                            <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                                                belum ada presentasi yang diterima untuk saat ini.
+                                                            </span>
+                                                            <!--end::Desctiption-->
+                                                        </div>
+                                                    @endforelse
+                                                    <!--end::Date-->
+                                                </ul>
+                                                <!--end::Dates-->
+
+                                                <!--begin::Tab Content-->
+                                                <div class="tab-content">
+                                                    <!--begin::Day-->
+                                                    @foreach ($approvedPresentations as $index => $approvedPresentation)
+                                                        <div id="kt_schedule_day_{{ $approvedPresentation->id }}"
+                                                            class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
+                                                            role="tabpanel">
+                                                            <!--begin::Time-->
+                                                            <div class="d-flex flex-stack position-relative mt-8">
+                                                                <!--begin::Bar-->
+                                                                <div
+                                                                    class="position-absolute h-100 w-4px bg-secondary rounded top-0 start-0">
+                                                                </div>
+                                                                <!--end::Bar-->
+
+                                                                <!--begin::Info-->
+                                                                <div class="fw-semibold ms-5 text-gray-600">
+                                                                    <!--begin::Time-->
+                                                                    <div class="fs-5">
+                                                                        Jam
+                                                                        {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->format('H:i') }}
+                                                                    </div>
+                                                                    <!--end::Time-->
+
+                                                                    <!--begin::Title-->
+                                                                    <a href="#"
+                                                                        class="fs-5 fw-bold text-gray-800 text-hover-primary mb-2">
+                                                                        {{ $approvedPresentation->name }} </a>
+                                                                    <!--end::Title-->
+
+                                                                    <!--begin::User-->
+                                                                    <div class="text-gray-500">
+                                                                        Presentasi dengan mentor <a
+                                                                            href="#">{{ auth()->user()->mentorClassrooms->first() ? auth()->user()->mentorClassrooms->first()->mentor->name : 'Belum ada mentor' }}</a>
+                                                                    </div>
+
+
+                                                                    <!--end::User-->
+                                                                </div>
+                                                                <!--end::Info-->
+
+                                                                <!--begin::Action-->
+                                                                <a href="https://us05web.zoom.us/j/89475402083?pwd=qpM8RxdJN7ZYTqZy9btmRWLvoGsLoC.1"
+                                                                    class="btn btn-bg-light btn-active-color-primary btn-sm"
+                                                                    target="_blank">Zoom</a>
+                                                                <!--end::Action-->
+                                                            </div>
+                                                            <!--end::Time-->
+                                                        </div>
+                                                    @endforeach
+                                                    <!--end::Day-->
+                                                </div>
+                                                <!--end::Tab Content-->
+                                            </div>
+                                            <!--end::Card body-->
+                                        </div>
                                     </div>
-                                    <!--end::Card footer-->
-                                    <input type="hidden">
-                                </form>
-                                <!--end:Form-->
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="tab-pane fade" id="kt_tab_pane_4" role="tabpanel">
+                                <div class="card">
+                                    <!--begin::Card header-->
+                                    <div class="card-header">
+                                        <!--begin::Card title-->
+                                        <div class="card-title fs-3 fw-bold">Project Settings</div>
+                                        <!--end::Card title-->
+                                    </div>
+                                    <!--end::Card header-->
+
+                                    <!--begin::Form-->
+                                    <form id="kt_project_settings_form"
+                                        class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+                                        <!--begin::Card body-->
+                                        <div class="card-body p-9">
+                                            <!--begin::Row-->
+                                            <div class="row mb-5">
+                                                <!--begin::Col-->
+                                                <div class="col-xl-3">
+                                                    <div class="fs-6 fw-semibold mt-2 mb-3">Project Logo</div>
+                                                </div>
+                                                <!--end::Col-->
+
+                                                <!--begin::Col-->
+                                                <div class="col-lg-8">
+                                                    <!--begin::Image input-->
+                                                    <div class="image-input image-input-outline {{ !$project ? 'image-input-empty' : '' }}"
+                                                        data-kt-image-input="true"
+                                                        style="background-image: url({{ asset('app-assets/media/svg/avatars/blank.svg') }})">
+                                                        <!--begin::Preview existing avatar-->
+                                                        <div class="image-input-wrapper w-125px h-125px"
+                                                            style="background-image: {{ $project ? 'url(' . asset('storage/' . $project->photo) . ')' : 'none' }}">
+                                                        </div>
+                                                        <!--end::Preview existing avatar-->
+
+                                                        <!--begin::Label-->
+                                                        <label
+                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                            data-kt-image-input-action="change" data-bs-toggle="tooltip"
+                                                            title="Change avatar">
+                                                            <i class="bi bi-pencil-fill fs-7"></i>
+
+                                                            <!--begin::Inputs-->
+                                                            <input type="file" name="photo"
+                                                                accept=".png, .jpg, .jpeg" />
+                                                            <input type="hidden" name="avatar_remove" />
+                                                            <!--end::Inputs-->
+                                                        </label>
+                                                        <!--end::Label-->
+
+                                                        <!--begin::Cancel-->
+                                                        <span
+                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                            data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+                                                            title="Cancel avatar">
+                                                            <i class="bi bi-x fs-2"></i>
+                                                        </span>
+                                                        <!--end::Cancel-->
+
+                                                        <!--begin::Remove-->
+                                                        <span
+                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                            data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                                                            title="Remove avatar">
+                                                            <i class="bi bi-x fs-2"></i>
+                                                        </span>
+                                                        <!--end::Remove-->
+                                                    </div>
+                                                    <!--end::Image input-->
+
+                                                    <!--begin::Hint-->
+                                                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                                    <!--end::Hint-->
+                                                </div>
+                                                <!--end::Col-->
+                                            </div>
+                                            <!--end::Row-->
+
+                                            <!--begin::Row-->
+                                            <div class="row mb-3">
+                                                <!--begin::Col-->
+                                                <div class="col-xl-3">
+                                                    <div class="fs-6 fw-semibold mt-2 mb-3">Project Name</div>
+                                                </div>
+                                                <!--end::Col-->
+
+                                                <!--begin::Col-->
+                                                <div class="col-xl-9 fv-row fv-plugins-icon-container">
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        name="name" value="{{ $project ? $project->name : '' }}">
+                                                    <div
+                                                        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end::Row-->
+
+                                            <!--begin::Row-->
+                                            <div class="row mb-3">
+                                                <!--begin::Col-->
+                                                <div class="col-xl-3">
+                                                    <div class="fs-6 fw-semibold mt-2 mb-3">Project Description</div>
+                                                </div>
+                                                <!--end::Col-->
+
+                                                <!--begin::Col-->
+                                                <div class="col-xl-9 fv-row fv-plugins-icon-container">
+                                                    <textarea name="description" class="form-control form-control-solid h-100px">{{ $project ? $project->description : '' }}
+                                                </textarea>
+                                                    <div
+                                                        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                    </div>
+                                                </div>
+                                                <!--begin::Col-->
+                                            </div>
+                                            <!--end::Row-->
+
+                                            <!--begin::Row-->
+                                            <div class="row mb-3">
+                                                <!--begin::Col-->
+                                                <div class="col-xl-3">
+                                                    <div class="fs-6 fw-semibold mt-2 mb-3">Deadline Project</div>
+                                                </div>
+                                                <!--end::Col-->
+
+                                                <!--begin::Col-->
+                                                <div class="col-xl-9 fv-row fv-plugins-icon-container">
+                                                    <div class="position-relative d-flex align-items-center">
+                                                        <input type="date" name="deadline"
+                                                            value="{{ $project ? $project->deadline : '' }}"
+                                                            class="form-control form-control-solid" id="">
+                                                    </div>
+                                                    <div
+                                                        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                    </div>
+                                                </div>
+                                                <!--begin::Col-->
+                                            </div>
+                                            <!--end::Row-->
+
+                                        </div>
+                                        <!--end::Card body-->
+
+                                        <!--begin::Card footer-->
+                                        <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                            <button type="reset"
+                                                class="btn btn-light btn-active-light-primary me-2">Discard</button>
+
+                                            <button type="submit" class="btn btn-primary"
+                                                id="kt_project_settings_submit">Save Changes</button>
+                                        </div>
+                                        <!--end::Card footer-->
+                                        <input type="hidden">
+                                    </form>
+                                    <!--end:Form-->
+                                </div>
+                            </div>
+                        @else
+                        @endif
                     </div>
                 </div>
             </div>
