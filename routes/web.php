@@ -38,6 +38,7 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
+use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\TrackingPaymentController;
@@ -314,6 +315,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('approval-student-presentation/{presentation}', [PresentationController::class, 'approvalPresentation'])->name('approvalPresentation');
         Route::post('reject-student-presentation/{presentation}', [PresentationController::class, 'rejectPresentation'])->name('rejectPresentation');
 
+        // set presentation finish
+        Route::post('finish-presentation/{projectId}', [PresentationFinishController::class, 'finish'])->name('presentationFinish');
 
     });
     //end mentor

@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Services\PresentationService;
 use App\Services\ProjectService;
 use App\Services\NotificationService;
+use App\Services\PresentationFinishService;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 
@@ -17,12 +18,14 @@ class ProjectController extends Controller
     private ProjectService $projectService;
     private PresentationService $presentationService;
     private NotificationService $notificationService;
+    private PresentationFinishService $presentationFinishService;
 
-    public function __construct(ProjectService $projectService, PresentationService $presentationService, NotificationService $notificationService)
+    public function __construct(ProjectService $projectService, PresentationService $presentationService, NotificationService $notificationService, PresentationFinishService $presentationFinishService)
     {
         $this->projectService = $projectService;
         $this->presentationService = $presentationService;
         $this->notificationService = $notificationService;
+        $this->presentationFinishService = $presentationFinishService;
     }
 
     /**
@@ -83,6 +86,7 @@ class ProjectController extends Controller
         $data['tasks'] = $this->projectService->handleGetTasks($project->id);
         $data['notes'] = $this->projectService->handleGetNote($project->id);
         $data['presentations'] = $this->presentationService->handleGetByProject($project->id);
+        $data['presentationFinishes'] = $this->presentationFinishService->getPresentationFinish($project->id);
         $data['approvedPresentations'] = $this->presentationService->handleGetByProjectApproved($project->id);
         return view('dashboard.user.pages.project.detailProject', $data);
     }

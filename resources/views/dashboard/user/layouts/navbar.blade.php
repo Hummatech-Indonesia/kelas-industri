@@ -200,7 +200,7 @@
                 <!--begin::User menu-->
                 <div class="d-flex align-items-center ms-1">
                     <!--begin::Menu-->
-                    <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px show menu-dropdown"
+                    <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px menu-dropdown"
                         data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
                         data-kt-menu-placement="bottom-end" id="kt_menu_item_wow">
                         @if (count($notifications) > 0)
@@ -225,7 +225,7 @@
                     </div>
                     <!--end::Menu-->
 
-                    <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px show"
+                    <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
                         data-kt-menu="true" id="kt_menu_notifications"
                         style="z-index: 107; position: fixed; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-238.4px, 59.2px, 0px);"
                         data-popper-placement="bottom-end">

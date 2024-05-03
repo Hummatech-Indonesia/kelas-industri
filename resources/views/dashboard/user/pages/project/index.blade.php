@@ -1280,8 +1280,8 @@
                                                             <th class="min-w-100px" data-priority="2">Deskripsi</th>
                                                             <th class="min-w-100px" data-priority="3">Tanggal</th>
                                                             <th class="min-w-100px" data-priority="4">List Presentasi</th>
-                                                            <th class="min-w-100px" data-priority="5">Status Presentasi
-                                                            </th>
+                                                            <th class="min-w-100px" data-priority="5">Status Presentasi</th>
+                                                            <th class="min-w-100px" data-priority="5">Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1317,6 +1317,13 @@
                                                                             Tidak Diterima
                                                                         @endif
                                                                     </span>
+                                                                </td>
+                                                                <td>
+                                                                    @if($presentation->status == 'not_approved')
+                                                                    <span class="badge badge-primary px-4 py-3" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#kt_modal_new_project">
+                                                                        Ajukan Lagi
+                                                                    </span>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                         @empty
