@@ -210,8 +210,8 @@
                                     <path
                                         d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z" />
                                 </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-dot" style="color: red;" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                    fill="currentColor" class="bi bi-dot position-absolute" style="color: red;" viewBox="0 0 16 16">
                                     <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
                                 </svg>
                             </div>
@@ -251,7 +251,7 @@
 
                                                 <!--begin::Title-->
                                                 <div class="mb-0 me-2">
-                                                    <div class="fs-9">Project ditolak</div>
+                                                    <div class="fs-9">{{$notification->type == "presentation"? "Presentasi": "Project"}} ditolak</div>
                                                     <a href="{{ route('student.projects.index') }}"
                                                         class="fs-6 text-gray-800 text-hover-primary fw-bold">{{ $notification->project->name }}</a>
                                                     <div class="text-gray-500 fs-7">{{ $notification->message }}</div>
@@ -272,15 +272,17 @@
                                 @endforeach
 
                                 <!--begin::View more-->
-                                @if (count($notifications) > 0)
-                                    <div class="py-3 text-center border-top">
+                                <div class="py-3 text-center border-top">
+                                    @if (count($notifications) > 0)
                                         <a href="/metronic8/demo1/pages/user-profile/activity.html"
                                             class="btn btn-color-gray-600 btn-active-color-primary">
                                             View All
                                             <i class="ki-duotone ki-arrow-right fs-5"><span
                                                     class="path1"></span><span class="path2"></span></i> </a>
-                                    </div>
-                                @endif
+                                    @else
+                                        Tidak ada pesan
+                                    @endif
+                                </div>
                                 <!--end::View more-->
                             </div>
                             <!--end::Tab panel-->

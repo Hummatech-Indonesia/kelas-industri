@@ -19,9 +19,17 @@ class NotificationService {
      * @return mixed
      */
 
-    public function createRejectNotification(string $projectId, Request $request): mixed {
+    public function createRejectProjectNotification(string $projectId, Request $request): mixed {
         $data['project_id'] = $projectId;
         $data['message'] = $request->message;
+        $data['type'] = 'project';
+
+        return $this->repository->store($data);
+    }
+    public function createRejectPresentationNotification(string $projectId, Request $request): mixed {
+        $data['project_id'] = $projectId;
+        $data['message'] = $request->message;
+        $data['type'] = 'presentation';
 
         return $this->repository->store($data);
     }

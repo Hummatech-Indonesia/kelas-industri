@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('project_id')->constrained('projects');
+            $table->foreignUuid('project_id')->constrained('projects')->onDelete('cascade');
             $table->text('message');
+            $table->enum('type', ['project', 'presentation']);
             $table->boolean('readed')->default(false);
             $table->timestamps();
         });

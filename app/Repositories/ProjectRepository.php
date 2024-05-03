@@ -79,6 +79,7 @@ class ProjectRepository extends BaseRepository
         return $this->show($projectId)->update([
             'status' => 'not_approved',
             'message' => $request->message,
+            'type' => 'project'
         ]);
     }
 

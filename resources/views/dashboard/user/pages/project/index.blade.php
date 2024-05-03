@@ -170,8 +170,8 @@
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
                                                     <div class="fs-4 fw-bold">
-                                                        {{-- {{ $project? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }} --}}
-                                                            {{ $project->start != null? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }}
+                                                        {{ $project && $project->start != null? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }}
+                                                            {{-- {{ $project->start != null? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }} --}}
                                                     </div>
                                                 </div>
                                                 <!--end::Number-->
@@ -510,7 +510,7 @@
                                                 @endforeach
                                             </div>
                                             <a href="#" class="btn btn-primary er w-100 fs-6 px-8 py-4"
-                                                data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Buat Tugas
+                                                data-bs-toggle="modal" data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending'])? 'disabled': 'kt_modal_new_project'}}">Buat Tugas
                                                 Baru</a>
                                         </div>
                                         <div class="col-md-3 col-lg-12 col-xl-3 me-5">
@@ -1177,7 +1177,7 @@
                                                         <!--begin::Toolbar-->
                                                         <div class="card-toolbar">
                                                             <button type="submit"
-                                                                class="btn btn-sm btn-success">Simpan</button>
+                                                                class="btn btn-sm btn-success" {{ in_array($project->status, ['not_approved', 'pending'])? 'disabled': ''}}>Simpan</button>
                                                         </div>
                                                         <!--end::Toolbar-->
                                                     </div>
@@ -1268,7 +1268,7 @@
                                                 </h3>
 
                                                 <div class="btn btn-sm btn-primary mb-5" data-bs-toggle="modal"
-                                                    data-bs-target="#kt_modal_new_project">
+                                                    data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending'])? '': 'kt_modal_new_project'}}">
                                                     Ajukan Presentasi
                                                 </div>
                                             </div>

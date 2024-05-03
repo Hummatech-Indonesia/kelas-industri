@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PresentationRequest;
 use App\Models\Presentation;
+use App\Services\NotificationService;
 use App\Services\PresentationService;
 use Illuminate\Http\Request;
 
 class PresentationController extends Controller
 {
     private PresentationService $service;
+    private NotificationService $notificationService;
 
-    public function __construct(PresentationService $service)
+    public function __construct(PresentationService $service, NotificationService $notificationService)
     {
         $this->service = $service;
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -113,7 +116,8 @@ class PresentationController extends Controller
      */
     public function rejectPresentation(Presentation $presentation, Request $request)
     {
-        $this->service->handleRejectPresentation($project->id, $request);
-        return redirect()->back()->with('success', 'Project ' . $project->user->name . ' berhasil di Tolak');
+        $this->service->handleRejectPresentation($presentation->id, $request->pending_date);
+        $this->notificationService->createRejectPresentationNotification($presentation->project->id, $request);
+        return redirect()->back()->with('success', 'Presentasi ' . $presentation->name . ' berhasil di Tolak');
     }
 }

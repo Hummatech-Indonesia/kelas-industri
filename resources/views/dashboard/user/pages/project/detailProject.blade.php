@@ -930,8 +930,8 @@
                                                                         </button>
                                                                         <button
                                                                             class="btn btn-icon btn-bg-light btn-active-color-danger btn-detail-note btn-sm me-1"
-                                                                            data-id="{{ $note->id }}"
-                                                                            data-bs-toggle="tooltip"
+                                                                            {{-- data-bs-toggle="tooltip" --}} data-bs-toggle="modal"
+                                                                            data-bs-target="#kt_modal_reject"
                                                                             data-bs-placement="top"
                                                                             data-bs-custom-class="custom-tooltip"
                                                                             data-bs-title="Tolak Presentasi">
@@ -1223,6 +1223,52 @@
             </div>
         </div>
     </div>
+
+
+    {{--    reject modal --}}
+    <div class="modal fade" tabindex="-1" id="kt_modal_reject">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Tolak Presentasi</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span class="svg-icon svg-icon-1"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <form id="form-reject" action="{{route('mentor.rejectPresentation', $presentation->id)}}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <p class="text-p"></p>
+                        <textarea name="message" id="" cols="30" rows="5" class="form-control form-control-solid"
+                            placeholder="Masukkan alasan ditolak"></textarea>
+                        <div class="mt-3">
+
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="">Tanggal Presentasi (Opsional)</span>
+
+
+                                <span class="ms-1" data-bs-toggle="tooltip" title="Specify a target priorty">
+                                    <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i></span>
+                            </label>
+                            <!--end::Label-->
+
+                            <input class="form-control form-control-solid" type="date" name="pending_date"
+                                placeholder="Tanggal Presentasi" id="kt_datepicker_1" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-danger">Tolak</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--    end modal --}}
 @endsection
 @section('script')
     <script>

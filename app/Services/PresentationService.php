@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Http\Requests\PresentationRequest;
 use App\Repositories\PresentationRepository;
+use GuzzleHttp\Psr7\Request;
+use PhpParser\Node\Expr\Cast\String_;
 
 class PresentationService
 {
@@ -58,5 +60,9 @@ class PresentationService
     public function handleApprovalPresentation(String $presentationId): mixed
     {
         return $this->repository->approvalPresentation($presentationId);
+    }
+    public function handleRejectPresentation(String $presentationId, mixed $pendingDate): mixed
+    {
+        return $this->repository->rejectPresentation($presentationId, $pendingDate);
     }
 }

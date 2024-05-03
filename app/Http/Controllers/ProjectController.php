@@ -156,7 +156,7 @@ class ProjectController extends Controller
     public function rejectProject(Project $project, Request $request)
     {
         $this->projectService->handleRejectProject($project->id, $request);
-        $this->notificationService->createRejectNotification($project->id, $request);
+        $this->notificationService->createRejectProjectNotification($project->id, $request);
         return redirect()->back()->with('success', 'Project ' . $project->user->name . ' berhasil di Tolak');
 
     }

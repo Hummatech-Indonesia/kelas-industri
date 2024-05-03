@@ -10,7 +10,7 @@ class Notification extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id', 'project_id', 'message'];
+    protected $fillable = ['project_id', 'message', 'type'];
 
     public function project() : BelongsTo {
         return $this->belongsTo(Project::class);

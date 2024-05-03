@@ -44,5 +44,20 @@ class PresentationRepository extends BaseRepository
         'status' => 'approved',
         ]);
     }
+    public function rejectPresentation(string $presentationId, mixed $pendingDate): mixed
+    {
+        if($pendingDate) {
+            $this->updatePendingDate($presentationId, $pendingDate);
+        }
+        return $this->show($presentationId)->update([
+        'status' => 'not_approved',
+        ]);
+    }
+
+    public function updatePendingDate(string $presentationId, $pendingDate): mixed {
+        return $this->show($presentationId)->update([
+            'date' => $pendingDate
+        ]);
+    }
 
 }
