@@ -19,9 +19,11 @@ class PresentationFinishRepository extends BaseRepository {
      * @param  mixed $preseectationId
      * @return mixed
      */
-    public function handleFinishPresentation(string $projectId) : mixed {
-        $presentation = $this->presentation->whereRelation('project', 'id', $projectId)->latest()->first();
-
+    public function handleFinishPresentation(string $projectId, string $status) : mixed {
+        $presentation = $this->presentation->query()->where('status', 'approved')->where('presentation_status', $status)->whereRelation('project', 'id', $projectId)->orderBy('updated_at', 'desc')->first();
+        if(!$presentation) {
+            return redirect()->back()->with('error', 'tidak ada presentasi dengan status presentasi ' . $status);
+        }
         return $this->store([
             'presentation_id' => $presentation->id,
         ]);
@@ -29,7 +31,7 @@ class PresentationFinishRepository extends BaseRepository {
 
 
     public function handleGetFinishPresentation($projectId) : mixed {
-        return $this->model->query()->whereRelation('presentation.project', 'id', $projectId)->get();
+        return $this->model->query()->whereRelation('presentation.project', 'id', $projectId)->orderBy('created_at', 'asc')->get();
     }
 
 }

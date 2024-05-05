@@ -17,7 +17,7 @@ class PresentationFinishService {
         return $this->repository->handleGetFinishPresentation($projectId);
     }
 
-    public function setPresentationFinish(string $projectId) : mixed {
-        return $this->repository->handleFinishPresentation($projectId);
+    public function setPresentationFinish(string $projectId, string $status) : mixed {
+        return $this->repository->handleFinishPresentation($projectId, $status);
     }
 }

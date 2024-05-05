@@ -1368,14 +1368,6 @@
                                                     </div>
                                                 </div>
                                                 <!--end::Card title-->
-
-                                                <!--begin::Card toolbar-->
-                                                <div class="card-toolbar">
-                                                    <a href="#"
-                                                        class="btn btn-bg-light btn-active-color-primary btn-sm">View
-                                                        All</a>
-                                                </div>
-                                                <!--end::Card toolbar-->
                                             </div>
                                             <!--end::Card header-->
 
@@ -1391,7 +1383,9 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <input class="form-check-input" type="checkbox"
+                                                        disabled
+                                                        {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation? 'checked': ''}}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1402,9 +1396,9 @@
                                                             Rancangan</a>
 
                                                         <!--begin::Info-->
-                                                        <div class="text-gray-500">
+                                                        {{-- <div class="text-gray-500">
                                                             Due in 1 day <a href="#">Karina Clark</a>
-                                                        </div>
+                                                        </div> --}}
                                                         <!--end::Info-->
                                                     </div>
                                                     <!--end::Details-->
@@ -1561,8 +1555,11 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                    </div>
+                                                        <input class="form-check-input" type="checkbox"
+                                                        disabled
+                                                        {{ isset($presentationFinishes[1]) && $presentationFinishes[1]->presentation? 'checked': ''}}
+                                                        >
+                                                        </div>
                                                     <!--end::Checkbox-->
 
                                                     <!--begin::Details-->
@@ -1572,9 +1569,7 @@
                                                             Awal Project</a>
 
                                                         <!--begin::Info-->
-                                                        <div class="text-gray-500">
-                                                            Due in 3 days <a href="#">Rober Doe</a>
-                                                        </div>
+
                                                         <!--end::Info-->
                                                     </div>
                                                     <!--end::Details-->
@@ -1731,7 +1726,9 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <input class="form-check-input" type="checkbox" value="true"
+                                                        disabled
+                                                        {{ isset($presentationFinishes[2]) && $presentationFinishes[2]->presentation? 'checked': ''}}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1743,9 +1740,7 @@
                                                             Project </a>
 
                                                         <!--begin::Info-->
-                                                        <div class="text-gray-500">
-                                                            Due in 1 week <a href="#">Neil Owen</a>
-                                                        </div>
+
                                                         <!--end::Info-->
                                                     </div>
                                                     <!--end::Details-->
@@ -1902,7 +1897,10 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <input class="form-check-input" type="checkbox"
+                                                        disabled
+                                                        {{ isset($presentationFinishes[3]) && $presentationFinishes[3]->presentation? 'checked': ''}}
+                                                        >
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1914,9 +1912,7 @@
                                                             Project</a>
 
                                                         <!--begin::Info-->
-                                                        <div class="text-gray-500">
-                                                            Due in 1 week <a href="#">Olivia Wild</a>
-                                                        </div>
+
                                                         <!--end::Info-->
                                                     </div>
                                                     <!--end::Details-->
@@ -2090,10 +2086,10 @@
                                                     role="tablist">
 
                                                     <!--begin::Date-->
-                                                    @forelse ($approvedPresentations as $approvedPresentation)
+                                                    @forelse ($approvedPresentations as $index => $approvedPresentation)
                                                         <li class="nav-item me-1" role="presentation">
-                                                            <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary active"
-                                                                data-bs-toggle="tab"
+                                                            <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary {{ $index === 0 ? 'active' : '' }}"
+                                                                data-bs-toggle="pill"
                                                                 href="#kt_schedule_day_{{ $approvedPresentation->id }}"
                                                                 aria-selected="true" role="tab">
 

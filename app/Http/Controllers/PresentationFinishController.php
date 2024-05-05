@@ -41,15 +41,35 @@ class PresentationFinishController extends Controller
      */
     public function finish(Request $request, $projectId)
     {
-        $this->service->setPresentationFinish($projectId);
-        return redirect()->back()->with('success', 'Presentasi telah ditanndai selesai');
+        $next = false;
+        if ($request->design) {
+            $this->service->setPresentationFinish($projectId, 'design');
+            $next = true;
+        }
+        if ($request->beginning) {
+            $this->service->setPresentationFinish($projectId, 'beginning');
+            $next = true;
+        }
+        if ($request->progress) {
+            $this->service->setPresentationFinish($projectId, 'progres');
+            $next = true;
+        }
+        if ($request->finalization) {
+            $this->service->setPresentationFinish($projectId, 'finalization');
+            $next = true;
+        }
+        if($next) {
+            return redirect()->back()->with('success', 'Presentasi telah ditanndai selesai');
+        }
+
+        return redirect()->back()->with('error', 'Tidak ada presentasi yang diterima');
     }
 
-    public function getPresentationProgresh(Request $request, $projectId)
-    {
-        $this->service->setPresentationFinish($projectId);
-        return redirect()->back()->with('success', 'Presentasi telah ditanndai selesai');
-    }
+    // public function getPresentationProgresh(Request $request, $projectId)
+    // {
+    //     $this->service->setPresentationFinish($projectId, $request);
+    //     return redirect()->back()->with('success', 'Presentasi telah ditanndai selesai');
+    // }
 
     /**
      * Display the specified resource.

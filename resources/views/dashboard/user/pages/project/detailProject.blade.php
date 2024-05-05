@@ -1075,8 +1075,8 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox" name="design" disabled
-                                                        {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation? 'checked': "" }}>
+                                                        <input class="form-check-input" type="checkbox"
+                                                        {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation? 'checked disabled': "name='design'" }}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1246,8 +1246,8 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox" name="begining" value=""
-                                                        {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation? 'checked': "" }}
+                                                        <input class="form-check-input" type="checkbox" value="true"
+                                                        {{ isset($presentationFinishes[1]) && $presentationFinishes[1]->presentation? 'checked disabled': "name=beginning" }}
                                                         >
                                                         </div>
                                                     <!--end::Checkbox-->
@@ -1416,7 +1416,8 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox" name="progress" value="">
+                                                        <input class="form-check-input" type="checkbox" value="true"
+                                                        {{ isset($presentationFinishes[2]) && $presentationFinishes[2]->presentation? 'checked disabled': "name=progress" }}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1585,7 +1586,9 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox" name="finalization" value="">
+                                                        <input class="form-check-input" type="checkbox" value="true"
+                                                        {{ isset($presentationFinishes[3]) && $presentationFinishes[3]->presentation? 'checked disabled': "name=finalization" }}
+                                                        >
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1771,9 +1774,9 @@
                                                 role="tablist">
 
                                                 <!--begin::Date-->
-                                                @forelse ($approvedPresentations as $approvedPresentation)
+                                                @forelse ($approvedPresentations as $index => $approvedPresentation)
                                                     <li class="nav-item me-1" role="presentation">
-                                                        <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary active"
+                                                        <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary {{ $index === 0 ? 'active' : '' }}"
                                                             data-bs-toggle="tab"
                                                             href="#kt_schedule_day_{{ $approvedPresentation->id }}"
                                                             aria-selected="true" role="tab">

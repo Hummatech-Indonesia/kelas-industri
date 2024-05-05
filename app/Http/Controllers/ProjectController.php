@@ -40,6 +40,7 @@ class ProjectController extends Controller
         if ($data['project']) {
             $data['presentations'] = $this->presentationService->handleGetByProject(auth()->user()->project->id);
             $data['approvedPresentations'] = $this->presentationService->handleGetByProjectApproved($data['project']->id);
+            $data['presentationFinishes'] = $this->presentationFinishService->getPresentationFinish(auth()->user()->project->id);
             $data['notes'] = $this->projectService->handleGetNote($data['project']->id);
             $data['tasks'] = $this->projectService->handleGetTasks($data['project']->id);
         } else {
@@ -48,6 +49,7 @@ class ProjectController extends Controller
             $data['notes'] = [];
             $data['tasks'] = [];
         }
+        // dd($data['approvedPresentations']);
         return view('dashboard.user.pages.project.index', $data);
     }
 
@@ -148,7 +150,6 @@ class ProjectController extends Controller
     {
         $this->projectService->handleApprovalProject($project->id);
         return redirect()->back()->with('success', 'Project ' . $project->user->name . ' berhasil di Setujui');
-
     }
 
     /**
@@ -162,6 +163,5 @@ class ProjectController extends Controller
         $this->projectService->handleRejectProject($project->id, $request);
         $this->notificationService->createRejectProjectNotification($project->id, $request);
         return redirect()->back()->with('success', 'Project ' . $project->user->name . ' berhasil di Tolak');
-
     }
 }
