@@ -97,7 +97,7 @@ class MaterialRepository extends BaseRepository
     public function getByDevision(string $devisionId)
     {
         return $this->model->query()
-            ->with('subMaterials', function ($query) {
+            ->with('subMaterials.assignments', function ($query) {
                 $query->oldest();
             })
             ->where('devision_id', $devisionId)
