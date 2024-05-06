@@ -58,7 +58,6 @@ class ProfileController extends Controller
     public function updatePassword(PasswordRequest $request, User $user): RedirectResponse
     {
         $this->services->handleUpdatePassword($request, $user);
-
         return to_route('profile.index')->with('success', trans('Berhasil Update Password'));
     }
 }

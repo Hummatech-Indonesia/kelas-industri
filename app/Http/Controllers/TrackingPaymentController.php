@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PaymentRequest;
 use App\Models\User;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Services\UserServices;
+use App\Services\SchoolService;
+use App\Services\PaymentService;
+use App\Services\StudentService;
 use App\Services\ClassroomService;
 use App\Services\DependentService;
-use App\Services\PaymentService;
-use App\Services\SchoolService;
-use App\Services\StudentService;
-use App\Services\UserServices;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use App\Http\Requests\PaymentRequest;
+use App\Services\SchoolPackageService;
 
 class TrackingPaymentController extends Controller
 {
@@ -21,6 +22,7 @@ class TrackingPaymentController extends Controller
     private StudentService $studentService;
     private DependentService $serviceDependent;
     private ClassroomService $classroomService;
+    private SchoolPackageService $schooolPackageService;
 
     public function __construct(SchoolService $service, UserServices $userService, PaymentService $servicePayment, StudentService $studentService, DependentService $serviceDependent, ClassroomService $classroomService)
     {

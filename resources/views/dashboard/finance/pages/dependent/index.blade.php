@@ -140,7 +140,7 @@
                         </select>
 
                         <label class="form-label mt-3" for="classroom_id">Pilih Kelas</label>
-                        <select name="classroom_id" id="classroom_id" class="form-select" required>
+                        <select name="classroom_id[]" id="classroom_id" class="form-select form-select-md form-select-solid" data-control="select2" data-close-on-select="false" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
                             @foreach ($classrooms as $classroom)
                                 <option value="{{ $classroom->id }}">{{ $classroom->name }} -
                                     {{ $classroom->devision->name }} -
@@ -187,14 +187,6 @@
                             <option value="4">Semester 4</option>
                             <option value="5">Semester 5</option>
                             <option value="6">Semester 6</option>
-                        </select>
-                        <label class="form-label mt-3" for="classroom_id">Pilih Kelas</label>
-                        <select name="classroom_id" id="classroomEdit" class="form-select" required>
-                            @foreach ($classrooms as $classroom)
-                                <option value="{{ $classroom->id }}">{{ $classroom->name }} -
-                                    {{ $classroom->devision->name }} -
-                                    {{ $classroom->generation->schoolYear->school_year }}</option>
-                            @endforeach
                         </select>
                         <label class="form-label mt-3" for="nominal">Nominal</label>
                         <input type="number" name="nominal" id="nominalEdit" class="form-control mt-2">

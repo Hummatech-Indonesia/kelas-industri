@@ -85,7 +85,7 @@
                                     @if ($school->photo)
                                         <img src="{{ asset('storage/' . $school->photo) }}" alt="kanesa">
                                     @else
-                                        <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
+                                        <div class="symbol-label fs-2 fw-s  emibold bg-primary text-inverse-danger">
                                             {{ substr($school->name, 0, 1) }}</div>
                                     @endif
 
@@ -104,10 +104,30 @@
                                         {{ $school->name }}
                                     </a>
 
+
                                     <span class="text-muted font-weight-bold"
-                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
                                         {{ $school->address }}
                                     </span>
+
+                                    @if ($school->schoolPackages->isNotEmpty())
+                                        <div class="mt-2">
+                                            <span class="badge badge-light-primary rounded border border-primary">Paket
+                                                Sekolah</span> |
+                                            @if (optional($school->schoolPackages()->latest('created_at')->first())->status == 'not_yet_paid')
+                                                <span class="badge badge-light-danger rounded border border-danger">Belum
+                                                    Dibayar</span>
+                                            @elseif (optional($school->schoolPackages()->latest('created_at')->first())->status == 'already_paid')
+                                                <span class="badge badge-light-success rounded border border-success">Sudah
+                                                    Dibayar</span>
+                                            @else
+                                                <span
+                                                    class="badge badge-light-warning rounded border border-warning">Piutang</span>
+                                            @endif
+                                        </div>
+                                    @else
+                                    @endif
+
 
                                     <!--end::Title-->
 

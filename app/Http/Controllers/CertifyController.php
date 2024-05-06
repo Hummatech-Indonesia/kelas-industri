@@ -108,15 +108,15 @@ class CertifyController extends Controller
 
         // Generate QR code and store it in output buffer
         // ob_start();
-        QrCode::size(100)->format('png')->generate('https://class.hummatech.com/', 'php://output');
-        $qrImage = ob_get_clean();
+        // QrCode::size(100)->format('png')->generate('https://class.hummatech.com/', 'php://output');
+        // $qrImage = ob_get_clean();
 
         // Create image from the QR code string and place it at the bottom-right of the certificate
-        $qrcode = ImageManager::gd()->read($qrImage);
-        $img->place($qrcode, 'bottom-right', 200, 170);
+        // $qrcode = ImageManager::gd()->read($qrImage);
+        // $img->place($qrcode, 'bottom-right', 200, 170);
 
         // Membuat direktori jika belum ada
-        $directory = storage_path('app/public/sertifikat');
+        $directory = storage_path('app/public/storage/sertifikat');
         File::makeDirectory($directory, $mode = 0777, true, true);
 
         // Simpan gambar

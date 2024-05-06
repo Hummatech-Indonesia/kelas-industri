@@ -25,14 +25,14 @@ class DependentController extends Controller
     public function index(User $school, Request $request)
     {
         $data['classrooms'] = $this->classroomService->handleGetBySchool($school->id);
-        $data['dependents'] = $this->service->handleGeByClassroom($request);
+        $data['dependents'] = $this->service->handleGeByClassroom($request, $school->id);
         $data['school'] = $school;
         return view('dashboard.finance.pages.dependent.index', $data);
     }
 
     public function store(DependentRequest $request)
     {
-        $this->service->handleStore($request);
+        $this->service->handleCreate($request);
         return redirect()->back()->with('success', trans('alert.add_success'));
     }
 

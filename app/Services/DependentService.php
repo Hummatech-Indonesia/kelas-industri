@@ -16,14 +16,14 @@ class DependentService
         $this->repository = $repository;
     }
 
-    public function handleGeByClassroom(Request $request): mixed
+    public function handleGeByClassroom(Request $request, $schoolId): mixed
     {
-        return $this->repository->getByClassroom($request);
+        return $this->repository->getByClassroom($request, $schoolId);
     }
 
-    public function handleStore(DependentRequest $request)
+    public function handleCreate(DependentRequest $request)
     {
-        return $this->repository->store($request->validated());
+        return $this->repository->create($request->validated());
     }
 
     public function handleUpdate(Dependent $dependent, DependentRequest $request): mixed

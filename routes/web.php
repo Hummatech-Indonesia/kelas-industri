@@ -42,6 +42,7 @@ use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\TrackingPaymentController;
+use App\Http\Controllers\SchoolPackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -220,9 +221,10 @@ Route::middleware('auth.custom')->group(function () {
         Route::resources([
             'tracking' => TrackingPaymentController::class,
             'package' => PackageController::class,
+            'schoolPackage' => SchoolPackageController::class,
         ]);
 
-        Route::get('payment-package', [PackageController::class, 'payment'])->name('payment');
+        Route::get('individual-package', [PackageController::class, 'indexSchool'])->name('individual-package');
 
         Route::get('tracking/student-school/{school}', [TrackingPaymentController::class, 'allStudent'])->name('tracking.showStudent');
         Route::get('tracking/student-school/detail/{classroom}/{user}', [TrackingPaymentController::class, 'detailStudent'])->name('tracking.detailStudent');

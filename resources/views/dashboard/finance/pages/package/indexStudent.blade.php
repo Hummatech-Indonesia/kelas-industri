@@ -75,7 +75,6 @@
                                 <th class="min-w-50px">No</th>
                                 <th class="min-w-150px">Nama </th>
                                 <th class="min-w-200px">Harga</th>
-                                <th class="min-w-100px">status</th>
                                 <th class="min-w-150px">Deskripsi</th>
                                 <th class="min-w-150px">Foto</th>
                                 <th class="min-w-100px">Aksi</th>
@@ -111,17 +110,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex justify-content-start flex-column">
-                                                <div
-                                                    class="text-white fw-bold fs-8
-                                                    {{ $package->status == 'individual' ? 'status-pack-individual' : 'status-pack-group' }}">
-                                                    {{ $package->status == 'individual' ? 'paket persiswa' : 'paket sekolah' }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
+
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="d-flex justify-content-start flex-column">
@@ -243,14 +232,7 @@
                             <input type="number" class="form-control" name="price" id="price"
                                 placeholder="Masukkan Harga Paket">
                         </div>
-                        <div class="my-4">
-                            <label for="status" class="form-label mb-3">Status Paket</label>
-                            <select name="status" id="status" class="form-select">
-                                <option selected disabled>Status Paket</option>
-                                <option value="collective">Paket Sekolah</option>
-                                <option value="individual">Paket Persiswa</option>
-                            </select>
-                        </div>
+                        <input type="hidden" name="status" value="individual">
                         <div class="my-4">
                             <label for="description" class="form-label mb-3">Deskripsi Paket</label>
                             <textarea type="text" class="form-control" name="description" id="description"

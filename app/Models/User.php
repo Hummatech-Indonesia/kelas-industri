@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Point;
 use App\Models\Salary;
+use App\Models\SchoolPackage;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -191,5 +192,15 @@ class User extends Authenticatable
     public function project(): HasOne
     {
         return $this->hasOne(Project::class, 'user_id');
+    }
+
+    /**
+     * Get all of the schoolPackages for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function schoolPackages(): HasMany
+    {
+        return $this->hasMany(SchoolPackage::class, 'school_id');
     }
 }

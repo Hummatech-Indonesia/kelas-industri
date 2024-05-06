@@ -21,14 +21,15 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $role = auth()->user()->roles->pluck('name')[0];
         if ($role == 'administration') {
+            $request->merge(['status' => 'collective']);
             $data = [
-                'packages' => $this->packageService->HandleGetPackages(6)
+                'packages' => $this->packageService->HandleGetPackages(6, $request)
             ];
-            return view('dashboard.finance.pages.package.index', $data);
+            return view('dashboard.finance.pages.package.indexSchool', $data);
         }
         if ($role == 'school') {
             $data = [
@@ -126,8 +127,13 @@ class PackageController extends Controller
         return to_route('administration.package.index')->with('success', trans('alert.update_success'));
     }
 
-    public function payment()
+    public function indexSchool(Request $request)
     {
-        return view('dashboard.finance.pages.package.payment');
+        $request->merge(['status' => 'individual']);
+        $data = [
+            'packages' => $this->packageService->HandleGetPackages(6, $request)
+        ];
+        return view('dashboard.finance.pages.package.indexStudent', $data);
     }
+
 }

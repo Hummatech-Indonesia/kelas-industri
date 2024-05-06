@@ -16,10 +16,10 @@ class PackageService
         $this->repository = $repository;
     }
 
-    public function HandleGetPackages($limit) 
+    public function HandleGetPackages($limit, $request)
     {
-        return $this->repository->getPackages($limit);
-        
+        return $this->repository->getPackages($limit, $request);
+
     }
 
     public function handleStorePackage(PackageRequest $request)
@@ -55,5 +55,10 @@ class PackageService
     public function getPackagePay($idPack)
     {
         return $this->repository->getPackagePay($idPack);
+    }
+
+    public function handleGetByStatus(String $status): mixed
+    {
+        return $this->repository->getByStatus($status);
     }
 }
