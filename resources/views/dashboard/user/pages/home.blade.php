@@ -114,76 +114,45 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="row gap-2 mt-4">
-                            <a href="#" class="card hover-elevate-up col-4 shadow-sm parent-hover">
+                        <div class="covercard row gap-2 mt-4">
+                            <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <span class="w-4 h-4 my-auto fs-1">
-                                        <svg width="32" height="32" viewBox="0 0 37 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M18.5002 20.8629C16.8647 20.8629 15.2961 21.5126 14.1397 22.669C12.9832 23.8255 12.3335 25.394 12.3335 27.0295C12.3335 28.665 12.9832 30.2335 14.1397 31.39C15.2961 32.5465 16.8647 33.1962 18.5002 33.1962C20.1357 33.1962 21.7042 32.5465 22.8607 31.39C24.0171 30.2335 24.6668 28.665 24.6668 27.0295C24.6668 25.394 24.0171 23.8255 22.8607 22.669C21.7042 21.5126 20.1357 20.8629 18.5002 20.8629ZM15.8573 27.0295C15.8573 26.3286 16.1357 25.6564 16.6314 25.1607C17.127 24.6651 17.7992 24.3867 18.5002 24.3867C19.2011 24.3867 19.8733 24.6651 20.3689 25.1607C20.8646 25.6564 21.143 26.3286 21.143 27.0295C21.143 27.7304 20.8646 28.4027 20.3689 28.8983C19.8733 29.3939 19.2011 29.6724 18.5002 29.6724C17.7992 29.6724 17.127 29.3939 16.6314 28.8983C16.1357 28.4027 15.8573 27.7304 15.8573 27.0295Z" fill="#009EF7"/>
-                                            <path d="M28.2363 7.85281L22.6352 0L2.04029 16.4527L0.898571 16.4403V16.458H0V37.6008H37V16.458H35.305L31.9328 6.59305L28.2363 7.85281ZM31.5821 16.458H13.9138L27.0734 11.9721L29.755 11.1141L31.5821 16.458ZM24.7548 9.04033L11.1705 13.6706L21.9287 5.07605L24.7548 9.04033ZM3.52381 30.851V23.2043C4.26715 22.9409 4.94233 22.5149 5.50013 21.9574C6.05793 21.3999 6.48428 20.725 6.7481 19.9818H30.2519C30.5156 20.7252 30.9419 21.4005 31.4997 21.9583C32.0575 22.5161 32.7327 22.9423 33.4762 23.206V30.8527C32.7327 31.1164 32.0575 31.5427 31.4997 32.1005C30.9419 32.6583 30.5156 33.3335 30.2519 34.077H6.75162C6.48766 33.3329 6.06089 32.6571 5.50246 32.099C4.94404 31.5409 4.26804 31.1145 3.52381 30.851Z" fill="#009EF7"/>
-                                            </svg>
-
+                                        <svg width="32" height="32" viewBox="0 0 37 38" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M18.5002 20.8629C16.8647 20.8629 15.2961 21.5126 14.1397 22.669C12.9832 23.8255 12.3335 25.394 12.3335 27.0295C12.3335 28.665 12.9832 30.2335 14.1397 31.39C15.2961 32.5465 16.8647 33.1962 18.5002 33.1962C20.1357 33.1962 21.7042 32.5465 22.8607 31.39C24.0171 30.2335 24.6668 28.665 24.6668 27.0295C24.6668 25.394 24.0171 23.8255 22.8607 22.669C21.7042 21.5126 20.1357 20.8629 18.5002 20.8629ZM15.8573 27.0295C15.8573 26.3286 16.1357 25.6564 16.6314 25.1607C17.127 24.6651 17.7992 24.3867 18.5002 24.3867C19.2011 24.3867 19.8733 24.6651 20.3689 25.1607C20.8646 25.6564 21.143 26.3286 21.143 27.0295C21.143 27.7304 20.8646 28.4027 20.3689 28.8983C19.8733 29.3939 19.2011 29.6724 18.5002 29.6724C17.7992 29.6724 17.127 29.3939 16.6314 28.8983C16.1357 28.4027 15.8573 27.7304 15.8573 27.0295Z"
+                                                fill="#009EF7" />
+                                            <path
+                                                d="M28.2363 7.85281L22.6352 0L2.04029 16.4527L0.898571 16.4403V16.458H0V37.6008H37V16.458H35.305L31.9328 6.59305L28.2363 7.85281ZM31.5821 16.458H13.9138L27.0734 11.9721L29.755 11.1141L31.5821 16.458ZM24.7548 9.04033L11.1705 13.6706L21.9287 5.07605L24.7548 9.04033ZM3.52381 30.851V23.2043C4.26715 22.9409 4.94233 22.5149 5.50013 21.9574C6.05793 21.3999 6.48428 20.725 6.7481 19.9818H30.2519C30.5156 20.7252 30.9419 21.4005 31.4997 21.9583C32.0575 22.5161 32.7327 22.9423 33.4762 23.206V30.8527C32.7327 31.1164 32.0575 31.5427 31.4997 32.1005C30.9419 32.6583 30.5156 33.3335 30.2519 34.077H6.75162C6.48766 33.3329 6.06089 32.6571 5.50246 32.099C4.94404 31.5409 4.26804 31.1145 3.52381 30.851Z"
+                                                fill="#009EF7" />
+                                        </svg>
                                     </span>
 
                                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                                         Total Tanggungan Semester Ini
                                         <div>
-                                            <span class="text-primary fw-bolder fs-2"> Rp 100.000</span>
+                                            <span class="text-primary fw-bolder fs-2">Rp. 100.000</span>
                                         </div>
                                     </span>
                                 </div>
                             </a>
-                        </div>
-                        <div class="row px-10 card py-7 my-5">
-                            <h1>Tanggungan Pembayaran</h1>
-                            <ul class="nav nav-pills nav-pills-custom" role="tablist">
-                                @foreach ($dependents as $index => $li)
-                                    <!--begin::Item-->
-                                    <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
-                                        <!--begin::Link-->
-                                        <a class="nav-link d-flex {{ $index === 0 ? 'show active' : '' }} justify-content-between flex-column flex-center overflow-hidden py-4"
-                                            data-bs-toggle="pill" href="#kt_stats_widget_2_tab_{{ $li->id }}"
-                                            aria-selected="{{ $index === 0 ? 'true' : 'false' }}" role="tab" tabindex="-1"
-                                            data-semester="{{ $li->semester }}" data-user="{{ Auth::user()->id }}">
-                                            <!--begin::Subtitle-->
-                                            <span class="nav-text text-gray-700 fw-bold fs-6 lh-1">
-                                                Semester {{ $li->semester }}
-                                            </span>
-                                            <!--end::Subtitle-->
-                                            <!--begin::Bullet-->
-                                            <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
-                                            <!--end::Bullet-->
-                                        </a>
-                                        <!--end::Link-->
-                                    </li>
-                                    <!--end::Item-->
-                                @endforeach
+                            <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
+                                <div class="card-body d-flex align-items">
+                                    <span class="w-4 h-4 my-auto fs-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M20.5 11H19V7a2 2 0 0 0-2-2h-4V3.5A2.5 2.5 0 0 0 10.5 1A2.5 2.5 0 0 0 8 3.5V5H4a2 2 0 0 0-2 2v3.8h1.5c1.5 0 2.7 1.2 2.7 2.7c0 1.5-1.2 2.7-2.7 2.7H2V20a2 2 0 0 0 2 2h3.8v-1.5c0-1.5 1.2-2.7 2.7-2.7c1.5 0 2.7 1.2 2.7 2.7V22H17a2 2 0 0 0 2-2v-4h1.5a2.5 2.5 0 0 0 2.5-2.5a2.5 2.5 0 0 0-2.5-2.5Z" />
+                                        </svg>
+                                    </span>
 
-                            </ul>
-                            <div class="tab-pane fade show active" id="pills-semester-1" role="tabpanel"
-                                aria-labelledby="pills-semester-1-tab" tabindex="0">
-                                <h4 class="my-4">Rincian Pembayaran</h4>
-                                <div class="card shadow mb-5 bg-body-tertiary rounded">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="text-gray-900 fw-medium fs-5">Total Pembayaran Anda pada
-                                                semester ini</div>
-                                            <span class="text-gray-900 fw-bolder fs-5" id="total_bayar"></span>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <div class="text-gray-900 fw-medium fs-5">Tanggungan pembayaran pada
-                                                semester ini</div>
-                                            <span class="text-gray-900 fw-bolder fs-5" id="tanggungan_pembayaran"></span>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-5">
-                                            <div class="text-primary fw-bolder fs-1">Total Tanggungan</div>
-                                            <span class="text-primary fw-bolder fs-1" id="total_sisa"></span>
-                                        </div>
-                                    </div>
+                                    <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
+                                        Jumlah Tantangan {{ $challenge }}
+                                    </span>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-
                         <div class="row mt-5">
                             @if ($zoom)
                                 <a href="{{ $zoom->link }}" target="blank"
@@ -645,61 +614,4 @@
             }
         }
     </Style>
-@endsection
-@section('script')
-    <script>
-        $(document).ready(function() {
-            var semester = $('a[data-semester]').first().data('semester');
-            var userId = $('a[data-semester]').first().data('user');
-            if (semester && userId) {
-                console.log(semester, userId);
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('student.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
-                        .replace(':semester', semester).replace(':user', userId),
-                    success: function(response) {
-                        console.log(response);
-                        $('#total_bayar').html(numberFormat(response.totalBayar));
-                        $('#tanggungan_pembayaran').html(numberFormat(response.nominal.nominal));
-                        $('#total_sisa').html(numberFormat(response.nominal.nominal - response
-                            .totalBayar));
-
-                        function numberFormat(angka) {
-                            var rupiah = '';
-                            var angkarev = angka.toString().split('').reverse().join('');
-                            for (var i = 0; i < angkarev.length; i++)
-                                if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.';
-                            return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
-                        }
-
-                    }
-                });
-            }
-        });
-
-        $('.nav-link').click(function() {
-            var semester = $(this).data('semester');
-            var userId = $(this).data('user');
-            console.log(semester, userId);
-            $.ajax({
-                type: "GET",
-                url: "{{ route('student.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
-                        .replace(':semester', semester).replace(':user', userId),
-                success: function(response) {
-                    console.log(response);
-                    $('#total_bayar').html(numberFormat(response.totalBayar));
-                    $('#tanggungan_pembayaran').html(numberFormat(response.nominal.nominal));
-                    $('#total_sisa').html(numberFormat(response.nominal.nominal - response.totalBayar));
-
-                    function numberFormat(angka) {
-                        var rupiah = '';
-                        var angkarev = angka.toString().split('').reverse().join('');
-                        for (var i = 0; i < angkarev.length; i++)
-                            if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.';
-                        return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
-                    }
-                }
-            });
-        });
-    </script>
 @endsection

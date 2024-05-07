@@ -11,7 +11,7 @@ use App\Http\Requests\RewardRequest;
 class RewardController extends Controller
 {
     use DataSidebar;
-    private RewardService $salaryService;
+    private RewardService $rewardService;
 
     public function __construct(RewardService $rewardService){
         $this->rewardService = $rewardService;

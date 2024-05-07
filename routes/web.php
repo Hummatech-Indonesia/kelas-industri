@@ -43,6 +43,8 @@ use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\TrackingPaymentController;
 use App\Http\Controllers\SchoolPackageController;
+use App\Http\Controllers\StudentPaymentController;
+use App\Http\Controllers\TripayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -362,6 +364,10 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('submitReward/{reward}', [SubmitRewardController::class, 'submitReward'])->name('submitReward');
         Route::get('historyReward', [RewardController::class, 'historyReward'])->name('historyReward');
 
+        Route::get('student-payment', [StudentPaymentController::class, 'index'])->name('student-payment');
+        Route::get('payment-channel', [TripayController::class,'index'])->name('payment-channel');
+        Route::post('request-transaction', [TripayController::class,'store'])->name('request-transaction');
+        
         Route::resources([
             'submitRewards' => SubmitRewardController::class,
             'challenges' => ChallengeController::class,

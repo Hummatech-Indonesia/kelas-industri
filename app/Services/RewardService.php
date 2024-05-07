@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\Reward;
 use Illuminate\Http\Request;
-use App\Services\RewardService;
 use App\Http\Requests\RewardRequest;
 use App\Repositories\RewardRepository;
 use Illuminate\Support\Facades\Storage;

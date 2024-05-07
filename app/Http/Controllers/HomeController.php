@@ -102,9 +102,7 @@ class HomeController extends Controller
             $data['material'] = $this->materialService->handleCountMaterialUser();
             $data['point'] = $this->pointService->hanleCountPointStudent($userId);
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleStudent();
-            $data['dependents'] = $this->dependentService->handleGetAllByClassroom($classId);
 
-            
             $assignments = Assignment::with('StudentSubmitAssignment')->whereRelation('submaterial.material', function ($query) {
                 $query->where('generation_id', Auth()->user()->studentSchool->studentClassroom->classroom->generation_id);
             })->get();

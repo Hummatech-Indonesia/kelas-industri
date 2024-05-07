@@ -4,11 +4,12 @@ namespace App\Repositories;
 
 use App\Models\Reward;
 use App\Models\SubmitReward;
-use App\Repositories\RewardRepository;
 
 
 class RewardRepository extends  BaseRepository
 {
+    private SubmitReward $submitReward;
+    
     public function __construct(Reward $model, SubmitReward $submitReward)
     {
         $this->model = $model;
