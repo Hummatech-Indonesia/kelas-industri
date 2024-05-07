@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Payment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TripayService
@@ -36,7 +38,11 @@ class TripayService
         $privateKey   = config('tripay.private_key');
         $merchantCode = config('tripay.merchant_code');
         $merchantRef = 'INV' . substr(time(), -6);
-        $amount       = $request['nominal'];
+        if (isset($request['installment'])) {
+            $amount       = $request['installment_payment'];
+        } else {
+            $amount       = $request['nominal'];
+        }
 
         $data = [
             'method'         => $request['method'],
@@ -75,7 +81,23 @@ class TripayService
         $error = curl_error($curl);
 
         curl_close($curl);
-
+        $response = json_decode($response)->data;
+        dd($response);
+        $this->createPayment([
+            'invoice_id' => $response->merchant_ref,
+            'fee_amount' => $response->total_fee,
+            'expired_date' => Carbon::createFromTimestamp($response->expired_time)->format('Y-m-d H:i:s'),
+            'status' => 'pending',
+            'semester' => 1,
+            'paid_amount' => $response->amount,
+            'total_pay' => $response->amount_received,
+            'payment_date' => now()
+        ]);
         return $response ? $response : $error;
+    }
+
+    public function createPayment(array $data): void
+    {
+        Payment::query()->create($data);
     }
 }

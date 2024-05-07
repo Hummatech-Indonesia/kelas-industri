@@ -88,7 +88,6 @@
                                                             <th class="min-w-50px">No</th>
                                                             <th class="min-w-150px">Nominal</th>
                                                             <th class="min-w-150px">Waktu Pembayaran</th>
-
                                                         </tr>
                                                     </thead>
                                                     <!--end::Table head-->
@@ -157,7 +156,7 @@
                                                 <span class="d-block mb-9">Biaya Layanan</span>
                                                 <span class="d-block fs-1 lh-1">Total Tanggungan</span>
                                             </div>
-                                            <!--end::Content-->
+
 
                                             <!--begin::Content-->
                                             <div class="fs-6 fw-bold text-white text-end">
@@ -174,6 +173,17 @@
                                         </div>
                                         <!--end::Summary-->
 
+                                        <!--end::Content-->
+                                        <div class="mb-11">
+                                            <input type="checkbox" name="installment" id="">
+                                            <label for="">Ingin Menyicil Terlebih Dahulu?</label>
+                                            <div class="" id="div-installment" style="display: none">
+                                                <label for="installment_payment">Inputkan Nominal Yang Ingin Anda
+                                                    Bayarkan</label>
+                                                <input type="text" name="installment_payment" class="form-control"
+                                                    placeholder="Rp. 20.000" id="">
+                                            </div>
+                                        </div>
                                         <!--begin::Payment Method-->
                                         <div class="m-0">
                                             <!--begin::Title-->
@@ -199,7 +209,8 @@
 
                                                             <!--begin::Icon-->
                                                             <img src="https://assets.tripay.co.id/upload/payment-icon/n22Qsh8jMa1583433577.png"
-                                                                alt="" class="img-fluid mb-2" style="height: 35px;">
+                                                                alt="" class="img-fluid mb-2"
+                                                                style="height: 35px;">
                                                             <!--end::Icon-->
 
                                                             <!--begin::Title-->
@@ -266,7 +277,7 @@
                                 .totalBayar + currentFee));
                             const nominal = response.nominal.nominal - response
                                 .totalBayar;
-                                $('#nominal').val(nominal);
+                            $('#nominal').val(nominal);
                         }
                     });
                 }
@@ -282,6 +293,16 @@
                 $(this).parent().addClass('active');
 
                 fetchData();
+            });
+        });
+
+        $(document).ready(function() {
+            $('input[name="installment"]').click(function() {
+                if ($(this).is(':checked')) {
+                    $('#div-installment').show();
+                } else {
+                    $('#div-installment').hide();
+                }
             });
         });
     </script>

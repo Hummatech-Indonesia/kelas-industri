@@ -23,7 +23,6 @@ class TripayController extends Controller
     public function store(Request $request)
     {
         $service = $this->service->requestTranscaction($request->all());
-        $response = json_decode($service)->data;
-        return $response;
+        return $service;
     }
 }
