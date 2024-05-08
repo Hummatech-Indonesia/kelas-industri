@@ -128,4 +128,8 @@ class AttendanceRepository extends BaseRepository
         })
         ->count();
     }
+
+    public function countMentorAttendanceMonthYear($year, $month): mixed {
+        return $this->model->query()->whereYear('created_at', $year)->whereMonth('created_at', $month)->count();
+    }
 }

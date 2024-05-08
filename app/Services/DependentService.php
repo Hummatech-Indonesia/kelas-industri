@@ -16,6 +16,10 @@ class DependentService
         $this->repository = $repository;
     }
 
+    public function handleGetLatest(): mixed {
+        return $this->repository->getLatest();
+    }
+
     public function handleGeByClassroom(Request $request, $schoolId): mixed
     {
         return $this->repository->getByClassroom($request, $schoolId);

@@ -82,4 +82,12 @@ class JournalRepository extends BaseRepository
             })
             ->count();
     }
+
+    public function getByFilter($role, $school, $year, $month) : mixed {
+        return $this->model->query()
+            ->whereRelation('user.teacherSchool','school_id', $school)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->with('user')->whereRelation('user.roles', 'name', $role)->get()->groupBy('created_by');
+    }
 }

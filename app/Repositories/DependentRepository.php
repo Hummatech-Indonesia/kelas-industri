@@ -13,6 +13,10 @@ class DependentRepository extends BaseRepository
         $this->model = $model;
     }
 
+    public function getLatest(): mixed {
+        return $this->model->query()->latest()->first();
+    }
+
     public function getAllByClassroom(string $classroom)
     {
         return $this->model->query()

@@ -168,7 +168,6 @@
                                                                         <span
                                                                             onclick="changeMaterial('{{ route('common.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}')"
                                                                             class="menu-title">{{ $subMaterials['subMaterial']->title }}</span>
-                                                                        {{-- {{ dd(count($subMaterials['subMaterial']->assignments) == $countAnswerAssignments) }} --}}
                                                                         @if (count($subMaterials['subMaterial']->assignments) == count($answerAssignments))
                                                                             @php $totalMaterialSubmitAssigment++ @endphp
                                                                         @endif
@@ -181,7 +180,6 @@
                                                                     <!--begin::Menu sub-->
                                                                     <div
                                                                         class="menu-sub menu-sub-accordion {{ request()->submaterial->id == $subMaterials['subMaterial']->id ? 'here show' : '' }} pt-3">
-                                                                        {{-- {{dd($subMaterials['subMaterial']->assignments)}} --}}
                                                                         @foreach ($subMaterials['subMaterial']->assignments as $assigment)
                                                                             @php
                                                                                 array_push($assigments, $assigment);
@@ -195,14 +193,19 @@
                                                                                         <span
                                                                                             class="bullet bullet-dot"></span>
                                                                                     </span>
-                                                                                    <span
-                                                                                        class="menu-title">{{ $assigment->title }}</span>
-                                                                                    {{-- {{ dd($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->first()) }} --}}
-                                                                                    @if (!$assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->first()->point)
-                                                                                        <span class="success"></span>
-                                                                                    @elseif($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->first()->point)
-                                                                                        <span class="warning"></span>
+                                                                                    @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
+                                                                                        @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first()->point)
+                                                                                            <span
+                                                                                                class="menu-title text-warning">{{ $assigment->title }}</span>
+                                                                                            <span class="warning"></span>
+                                                                                        @else
+                                                                                            <span
+                                                                                                class="menu-title text-success">{{ $assigment->title }}</span>
+                                                                                            <span class="success"></span>
+                                                                                        @endif
                                                                                     @else
+                                                                                        <span
+                                                                                            class="menu-title text-danger">{{ $assigment->title }}</span>
                                                                                         <span class="erorr"></span>
                                                                                     @endif
                                                                                 </a>
@@ -232,11 +235,13 @@
                                                                             <span
                                                                                 onclick="changeMaterial('{{ route('common.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}')"
                                                                                 class="menu-title">{{ $subMaterials['subMaterial']->title }}</span>
-                                                                            {{-- @if (count($assigment->StudentSubmitAssignment) > 0)
-                                                                                <span class="success"></span>
-                                                                            @else
-                                                                                <span class="erorr"></span>
-                                                                            @endif --}}
+                                                                            @if (count($subMaterials['subMaterial']->assignments) == count($answerAssignments))
+                                                                                @php $totalMaterialSubmitAssigment++ @endphp
+                                                                            @endif
+                                                                            <span>{{ count($answerAssignments) }}</span>
+                                                                            <span>/</span>
+                                                                            <span>{{ count($subMaterials['subMaterial']->assignments) }}</span>
+                                                                            <span class="menu-arrow"></span>
                                                                             <span class="arrow"></span>
                                                                         </a>
 
@@ -253,8 +258,23 @@
                                                                                             <span
                                                                                                 class="bullet bullet-dot"></span>
                                                                                         </span>
-                                                                                        <span
-                                                                                            class="menu-title">{{ $assigment->title }}</span>
+                                                                                        @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
+                                                                                            @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first()->point)
+                                                                                                <span
+                                                                                                    class="menu-title text-warning">{{ $assigment->title }}</span>
+                                                                                                <span
+                                                                                                    class="warning"></span>
+                                                                                            @else
+                                                                                                <span
+                                                                                                    class="menu-title text-success">{{ $assigment->title }}</span>
+                                                                                                <span
+                                                                                                    class="success"></span>
+                                                                                            @endif
+                                                                                        @else
+                                                                                            <span
+                                                                                                class="menu-title text-danger">{{ $assigment->title }}</span>
+                                                                                            <span class="erorr"></span>
+                                                                                        @endif
                                                                                     </a>
                                                                                 </div>
                                                                                 <!--end::Menu item-->
@@ -281,6 +301,13 @@
                                                                             </span>
                                                                             <span class="menu-title"
                                                                                 style="color:gray">{{ $subMaterials['subMaterial']->title }}</span>
+                                                                            @if (count($subMaterials['subMaterial']->assignments) == count($answerAssignments))
+                                                                                @php $totalMaterialSubmitAssigment++ @endphp
+                                                                            @endif
+                                                                            <span>{{ count($answerAssignments) }}</span>
+                                                                            <span>/</span>
+                                                                            <span>{{ count($subMaterials['subMaterial']->assignments) }}</span>
+                                                                            <span class="menu-arrow"></span>
                                                                         </a>
                                                                     </div>
                                                                 @endif
@@ -425,7 +452,7 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <h2 class="mb-3">{{ $assigment->title }}</h2>
+                                                                <h2 class="mb-5">{{ $assigment->title }}</h2>
                                                                 <span class="h6">Deskripsi</span>
                                                                 <p class="mb-3">{{ $assigment->description }}</p>
                                                             </div>
@@ -438,7 +465,14 @@
                                                                         $assigment->id,
                                                                     ]) }}"
                                                                         class="btn btn-primary">Lihat Tugas</a>
-                                                                        @else
+                                                                @else
+                                                                    <a href="{{ route('student.submitAssignment', [
+                                                                        auth()->user()->studentSchool->studentClassroom->classroom_id,
+                                                                        $assigment->subMaterial->material->id,
+                                                                        $assigment->subMaterial->id,
+                                                                        $assigment->id,
+                                                                    ]) }}"
+                                                                        class="btn btn-primary">Kumpulkan</a>
                                                                 @endif
                                                             </div>
                                                         </div>

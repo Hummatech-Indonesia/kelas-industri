@@ -8,6 +8,7 @@ use App\Models\Attendance;
 use App\Repositories\AttendanceRepository;
 use App\Repositories\MentorRepository;
 use App\Repositories\PointRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceService
@@ -48,6 +49,15 @@ class AttendanceService
     public function countMentorAttendanceMonth(): mixed
     {
         return $this->repository->count_mentor_attendance_month();
+    }
+
+    public function handleCountMentorAttendanceMonthYear($request): mixed
+    {
+        $now = now();
+        return $this->repository->countMentorAttendanceMonthYear(
+            $request->year ? $request->year : $now->year,
+            $request->month ? $request->month : $now->month
+        );
     }
 
     public function handleGetAttendanceMentor(string $id): mixed

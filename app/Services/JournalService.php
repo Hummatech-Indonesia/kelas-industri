@@ -119,14 +119,38 @@ class JournalService
         return $this->repository->get_journal_by_teacher($teacherId);
     }
 
-    public function getMonth(Request $request, string $TeacherId):mixed
+    public function getMonth(Request $request, string $TeacherId): mixed
     {
         return $this->repository->get_month($request, $TeacherId);
     }
 
-    public function getMonthCount(Request $request, string $TeacherId):mixed
+    public function getMonthCount(Request $request, string $TeacherId): mixed
     {
         return $this->repository->get_month_count($request, $TeacherId);
     }
 
+    public function handleCountJournalByFilter(Request $request, string $schoolId, $role): mixed
+    {
+        $now = Carbon::now();
+        $filteredData = $this->repository->getByFilter(
+            $role,
+            $request->school? $request->school: $schoolId,
+            $request->year ? $request->year : $now->year,
+            $request->month ? $request->month : $now->month
+        );
+
+        $transformedData = [];
+
+        foreach ($filteredData as $key => $group) {
+            $userName = "";
+            $count = 0;
+            foreach ($group as $single) {
+                $userName = $single->user->name;
+                $count++;
+            }
+            $transformedData[$userName] = $count;
+        }
+
+        return $transformedData;
+    }
 }

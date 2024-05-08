@@ -158,4 +158,26 @@ class SalaryService
     {
         return $this->repository->school();
     }
+
+
+    public function handleGetGroupByMonth(): mixed
+    {
+        $raw = $this->repository->getGroupByMonth();
+        $data = [];
+        $label = [];
+
+        foreach ($raw as $month => $salaries) {
+            $amount = 0;
+            foreach ($salaries as $salary) {
+                $amount += $salary->salary_amount;
+            }
+            $data[$month] = $amount;
+            array_push($label, $month);
+        }
+
+        return [
+            'label' => $label,
+            'data' => $data
+        ];
+    }
 }

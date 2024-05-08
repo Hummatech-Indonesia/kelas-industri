@@ -79,6 +79,29 @@ class UserServices
     {
         return $this->repository->get_schools();
     }
+    public function handleGetAllSchoolWithPackage(): mixed
+    {
+        return $this->repository->get_schools_with_package();
+    }
+    public function handleCountSchoolPackages($schools): mixed {
+        $data = [
+            'already_paid' => 0,
+            'not_yet_paid' => 0,
+            'dept' => 0,
+        ];
+        foreach ($schools as $school) {
+            foreach ($school->schoolPackages as $package) {
+                if($package->status == 'already_paid') {
+                    $data['already_paid'] ++;
+                } else if($package->status == 'not_yet_paid') {
+                    $data['not_yet_paid'] ++;
+                } if($package->status == 'dept') {
+                    $data['dept'] ++;
+                }
+            }
+        }
+        return $data;
+    }
 
      /**
      * handle get all school
@@ -182,9 +205,7 @@ class UserServices
     public function handleDeleteMentor(User $mentor): bool
     {
         return $this->repository->destroy($mentor->id);
-    }
-
-    /**
+    }   /**
      * handle get mentors
      *
      * @return mixed

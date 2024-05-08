@@ -3,8 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Payment;
-use App\Models\StudentSchool;
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
+use App\Models\StudentSchool;
+use Illuminate\Support\Carbon;
 
 class PaymentRepository extends BaseRepository
 {
@@ -31,5 +33,17 @@ class PaymentRepository extends BaseRepository
             })
             ->whereRelation('user.studentSchool.student', 'status', 'active')
             ->get();
+    }
+
+    public function getGroupByMonth(): mixed
+    {
+        return $this->model->get(['payment_date', 'total_pay'])->groupBy(function ($val) {
+            return Carbon::parse($val->payday)->format('M');
+        });
+    }
+
+    public function getGroupUser($semester): mixed
+    {
+        return $this->model->query()->where('semester', $semester)->get()->groupBy('user_id');
     }
 }

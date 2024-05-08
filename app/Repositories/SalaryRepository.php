@@ -7,7 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class SalaryRepository extends BaseRepository
+class   SalaryRepository extends BaseRepository
 {
     private User $user;
     public function __construct(Salary $model, User $user)
@@ -35,7 +35,7 @@ class SalaryRepository extends BaseRepository
         return $this->user->query()
             ->whereHas('teacherSchool')
             ->where('name', 'like', '%' . $request->search . '%')
-            ->when($request->school_id, function ($q) use ($request){
+            ->when($request->school_id, function ($q) use ($request) {
                 $q->whereRelation('teacherSchool', 'school_id', $request->school_id);
             })
             ->paginate($limit);
@@ -80,5 +80,16 @@ class SalaryRepository extends BaseRepository
                 return $q->where("name", "school");
             })
             ->get();
+    }
+
+    public function getGroupByMonth(): mixed
+    {
+        return $this->model->get(['payday', 'salary_amount'])->groupBy(function ($val) {
+            return Carbon::parse($val->payday)->format('M');
+        });
+    }
+
+    public function getMonth(): mixed {
+        return $this->model->query()->select('payday')->get();
     }
 }

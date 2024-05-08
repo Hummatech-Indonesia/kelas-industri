@@ -138,6 +138,14 @@ class UserRepository extends BaseRepository
             })
             ->get();
     }
+    public function get_schools_with_package(): mixed
+    {
+        return $this->model->query()
+            ->whereHas('roles', function ($q) {
+                return $q->where("name", "school");
+            })->with('schoolPackages')
+            ->get();
+    }
 
     public function create_point($point, string $studentId): void
     {
