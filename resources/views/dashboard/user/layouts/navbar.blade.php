@@ -62,6 +62,7 @@
                                     class="menu-title">Beranda</span></a>
                             <!--end:Menu link-->
                         </div>
+
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             <a href="{{ route('common.classrooms') }}"
@@ -181,6 +182,13 @@
                                 <a href="{{ route('student.rankings') }}"
                                     class="menu-link {{ request()->routeIs('student.rankings') ? 'active' : '' }}">
                                     <span class="menu-title">Peringkat</span></a>
+                            </div>
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <!--begin:Menu link-->
+                                <a href="{{ route('student.student-payment') }}"
+                                    class="menu-link {{ request()->routeIs('student.student-payment') ? 'active' : '' }}"><span
+                                        class="menu-title">Pembayaran</span></a>
+                                <!--end:Menu link-->
                             </div>
                         @endif
                     </div>

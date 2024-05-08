@@ -13,6 +13,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class CertifyController extends Controller
 {
+    private AssignmentService $assignmentService;
 
     public function __construct(AssignmentService $assignmentService)
     {
