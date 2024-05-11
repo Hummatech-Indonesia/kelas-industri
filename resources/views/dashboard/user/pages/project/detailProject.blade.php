@@ -955,6 +955,70 @@
                                                                                 </svg>
                                                                             </span>
                                                                         </button>
+                                                                        {{--    reject modal --}}
+                                                                        <div class="modal fade" tabindex="-1"
+                                                                            id="kt_modal_reject">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h3 class="modal-title">Tolak
+                                                                                            Presentasi</h3>
+
+                                                                                        <!--begin::Close-->
+                                                                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                                                            data-bs-dismiss="modal"
+                                                                                            aria-label="Close">
+                                                                                            <span
+                                                                                                class="svg-icon svg-icon-1"></span>
+                                                                                        </div>
+                                                                                        <!--end::Close-->
+                                                                                    </div>
+                                                                                    <form id="form-reject"
+                                                                                        action="{{ route('mentor.rejectPresentation', $presentation->id) }}"
+                                                                                        method="POST">
+                                                                                        @csrf
+                                                                                        <div class="modal-body">
+                                                                                            <p class="text-p"></p>
+                                                                                            <textarea name="message" id="" cols="30" rows="5" class="form-control form-control-solid"
+                                                                                                placeholder="Masukkan alasan ditolak"></textarea>
+                                                                                            <div class="mt-3">
+
+                                                                                                <label
+                                                                                                    class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                                                                    <span
+                                                                                                        class="">Tanggal
+                                                                                                        Presentasi
+                                                                                                        (Opsional)</span>
+
+
+                                                                                                    <span class="ms-1"
+                                                                                                        data-bs-toggle="tooltip"
+                                                                                                        title="Specify a target priorty">
+                                                                                                        <i
+                                                                                                            class="ki-outline ki-information-5 text-gray-500 fs-6"></i></span>
+                                                                                                </label>
+                                                                                                <!--end::Label-->
+
+                                                                                                <input
+                                                                                                    class="form-control form-control-solid"
+                                                                                                    type="date"
+                                                                                                    name="pending_date"
+                                                                                                    placeholder="Tanggal Presentasi"
+                                                                                                    id="kt_datepicker_1" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button"
+                                                                                                class="btn btn-light"
+                                                                                                data-bs-dismiss="modal">Tutup</button>
+                                                                                            <button type="submit"
+                                                                                                class="btn btn-danger">Tolak</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        {{--    end modal --}}
                                                                     @elseif($presentation->status == 'approved')
                                                                         <button
                                                                             class="btn btn-icon btn-bg-light btn-sm me-1"
@@ -1038,9 +1102,9 @@
 
                                 {{-- Presentation Progress --}}
                                 <div class="col-md-6 col-lg-12 col-xl-6">
-                                    <form action="{{route('mentor.presentationFinish', $project->id)}}" method="POST">
+                                    <form action="{{ route('mentor.presentationFinish', $project->id) }}" method="POST">
                                         @csrf
-                                        @method("POST")
+                                        @method('POST')
                                         <div class="card card-flush h-lg-100">
                                             <!--begin::Card header-->
                                             <div class="card-header mt-6">
@@ -1076,7 +1140,7 @@
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
                                                         <input class="form-check-input" type="checkbox"
-                                                        {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation? 'checked disabled': "name='design'" }}>
+                                                            {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation ? 'checked disabled' : "name='design'" }}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1247,9 +1311,8 @@
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
                                                         <input class="form-check-input" type="checkbox" value="true"
-                                                        {{ isset($presentationFinishes[1]) && $presentationFinishes[1]->presentation? 'checked disabled': "name=beginning" }}
-                                                        >
-                                                        </div>
+                                                            {{ isset($presentationFinishes[1]) && $presentationFinishes[1]->presentation ? 'checked disabled' : 'name=beginning' }}>
+                                                    </div>
                                                     <!--end::Checkbox-->
 
                                                     <!--begin::Details-->
@@ -1417,7 +1480,7 @@
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
                                                         <input class="form-check-input" type="checkbox" value="true"
-                                                        {{ isset($presentationFinishes[2]) && $presentationFinishes[2]->presentation? 'checked disabled': "name=progress" }}>
+                                                            {{ isset($presentationFinishes[2]) && $presentationFinishes[2]->presentation ? 'checked disabled' : 'name=progress' }}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1587,8 +1650,7 @@
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
                                                         <input class="form-check-input" type="checkbox" value="true"
-                                                        {{ isset($presentationFinishes[3]) && $presentationFinishes[3]->presentation? 'checked disabled': "name=finalization" }}
-                                                        >
+                                                            {{ isset($presentationFinishes[3]) && $presentationFinishes[3]->presentation ? 'checked disabled' : 'name=finalization' }}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1940,53 +2002,6 @@
             </div>
         </div>
     </div>
-
-
-    {{--    reject modal --}}
-    <div class="modal fade" tabindex="-1" id="kt_modal_reject">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Tolak Presentasi</h3>
-
-                    <!--begin::Close-->
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <span class="svg-icon svg-icon-1"></span>
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <form id="form-reject" action="{{ route('mentor.rejectPresentation', $presentation->id) }}"
-                    method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <p class="text-p"></p>
-                        <textarea name="message" id="" cols="30" rows="5" class="form-control form-control-solid"
-                            placeholder="Masukkan alasan ditolak"></textarea>
-                        <div class="mt-3">
-
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="">Tanggal Presentasi (Opsional)</span>
-
-
-                                <span class="ms-1" data-bs-toggle="tooltip" title="Specify a target priorty">
-                                    <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i></span>
-                            </label>
-                            <!--end::Label-->
-
-                            <input class="form-control form-control-solid" type="date" name="pending_date"
-                                placeholder="Tanggal Presentasi" id="kt_datepicker_1" />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-danger">Tolak</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{--    end modal --}}
 @endsection
 @section('script')
     <script>

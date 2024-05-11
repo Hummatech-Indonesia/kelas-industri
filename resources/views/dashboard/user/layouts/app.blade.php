@@ -149,6 +149,25 @@
         }
     });
     @endif
+
+
+    $('.notification-link').click(function(e) {
+        $.ajax({
+            url: '/delete-notification/' + e.target.id,
+            type: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            // success: function(response) {
+            //     // Redirect ke halaman tujuan setelah penghapusan berhasil
+            //     window.location.href = $(this).attr('href');
+            // },
+            error: function(xhr) {
+                // Tangani kesalahan jika terjadi
+                console.error(xhr.responseText);
+            }
+        });
+    })
 </script>
 </body>
 <!--end::Body-->

@@ -43,4 +43,11 @@ class NotificationService {
     public function getNotification() : mixed {
         return $this->repository->getUserNotification();
     }
+
+    public function handleDelete($id) : mixed {
+        return $this->repository->destroy($id);
+    }
+    public function handleDeleteAll() : mixed {
+        return $this->repository->deleteAll();
+    }
 }

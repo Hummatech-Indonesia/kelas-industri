@@ -219,7 +219,8 @@
                                         d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z" />
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                    fill="currentColor" class="bi bi-dot position-absolute" style="color: red;" viewBox="0 0 16 16">
+                                    fill="currentColor" class="bi bi-dot position-absolute" style="color: red;"
+                                    viewBox="0 0 16 16">
                                     <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
                                 </svg>
                             </div>
@@ -233,8 +234,8 @@
                     </div>
                     <!--end::Menu-->
 
-                    <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
-                        data-kt-menu="true" id="kt_menu_notifications"
+                    <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" data-kt-menu="true"
+                        id="kt_menu_notifications"
                         style="z-index: 107; position: fixed; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-238.4px, 59.2px, 0px);"
                         data-popper-placement="bottom-end">
                         <!--begin::Tab content-->
@@ -250,18 +251,24 @@
                                             <div class="d-flex align-items-center">
                                                 <!--begin::Symbol-->
                                                 <div class="symbol symbol-35px me-4">
-                                                    <span class="symbol-label bg-light-primary">
-                                                        <i class="ki-duotone ki-abstract-28 fs-2 text-primary"><span
-                                                                class="path1"></span><span class="path2"></span></i>
-                                                    </span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" fill="currentColor"
+                                                        class="bi bi-exclamation-circle-fill text-danger"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+                                                    </svg>
                                                 </div>
                                                 <!--end::Symbol-->
 
                                                 <!--begin::Title-->
                                                 <div class="mb-0 me-2">
-                                                    <div class="fs-9">{{$notification->type == "presentation"? "Presentasi": "Project"}} ditolak</div>
+                                                    <div class="fs-9 text-danger">
+                                                        {{ $notification->type == 'presentation' ? 'Presentasi' : 'Project' }}
+                                                        ditolak</div>
                                                     <a href="{{ route('student.projects.index') }}"
-                                                        class="fs-6 text-gray-800 text-hover-primary fw-bold">{{ $notification->project->name }}</a>
+                                                        id="{{ $notification->id }}"
+                                                        class="notification-link fs-6 text-gray-800 text-hover-primary fw-bold">{{ $notification->project->name }}</a>
                                                     <div class="text-gray-500 fs-7">{{ $notification->message }}</div>
                                                 </div>
                                                 <!--end::Title-->
@@ -282,11 +289,15 @@
                                 <!--begin::View more-->
                                 <div class="py-3 text-center border-top">
                                     @if (count($notifications) > 0)
-                                        <a href="/metronic8/demo1/pages/user-profile/activity.html"
-                                            class="btn btn-color-gray-600 btn-active-color-primary">
-                                            View All
-                                            <i class="ki-duotone ki-arrow-right fs-5"><span
-                                                    class="path1"></span><span class="path2"></span></i> </a>
+                                        <form action="{{ route('deleteAllNotification') }}" method="POST">
+                                            @csrf
+                                            @method("DELETE")
+                                            <button type="submit" class="btn btn-color-gray-600 btn-active-color-primary">
+                                                Hapus Semua
+                                                <i class="ki-duotone ki-arrow-right fs-5"><span
+                                                        class="path1"></span><span class="path2"></span></i>
+                                            </button>
+                                        </form>
                                     @else
                                         Tidak ada pesan
                                     @endif

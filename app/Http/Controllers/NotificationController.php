@@ -22,8 +22,15 @@ class NotificationController extends Controller
 
     public function getAll() {
         return $this->notificationServcie->getNotification();
-        // return "sdfsfsdfsfsdf";
-        // return "sfsgdfh";
     }
-    //
+
+    public function destroy($id): mixed {
+        return $this->notificationServcie->handleDelete($id);
+    }
+
+    public function deleteAll(): mixed {
+        $this->notificationServcie->handleDeleteAll();
+
+        return redirect()->back()->with('success', 'Notifikasi berhasil dihapus');
+    }
 }

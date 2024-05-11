@@ -38,6 +38,7 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\UserAssignmentController;
@@ -45,6 +46,7 @@ use App\Http\Controllers\TrackingPaymentController;
 use App\Http\Controllers\SchoolPackageController;
 use App\Http\Controllers\StudentPaymentController;
 use App\Http\Controllers\TripayController;
+use FontLib\Table\Type\name;
 
 /*
 |--------------------------------------------------------------------------
@@ -367,7 +369,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('student-payment', [StudentPaymentController::class, 'index'])->name('student-payment');
         Route::get('payment-channel', [TripayController::class,'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class,'store'])->name('request-transaction');
-        
+
         Route::resources([
             'submitRewards' => SubmitRewardController::class,
             'challenges' => ChallengeController::class,
@@ -384,6 +386,10 @@ Route::middleware('auth.custom')->group(function () {
     });
     //end student
 
+    // notification
+
+    Route::delete('delete-notification/{id}', [NotificationController::class, 'destroy']);
+    Route::delete('delete-all-notification', [NotificationController::class, 'deleteAll'])->name('deleteAllNotification');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

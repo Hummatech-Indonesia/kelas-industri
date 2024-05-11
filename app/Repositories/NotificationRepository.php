@@ -19,4 +19,8 @@ class NotificationRepository extends BaseRepository {
     public function getUserNotification(): mixed {
         return $this->model->with('project')->whereRelation('project', 'user_id', auth()->id())->get();
     }
+
+    public function deleteAll(): mixed{
+        return $this->model->query()->truncate();
+    }
 }
