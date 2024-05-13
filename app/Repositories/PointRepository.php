@@ -55,6 +55,19 @@ class PointRepository extends BaseRepository
             ->get();
     }
 
+    public function get_point_student_by_school($schoolId)
+    {
+        return $this->user->query()
+            ->role('student')
+            ->whereHas('studentSchool.school')
+            ->orderBy('point', 'desc')->whereHas('studentSchool', function ($query) use ($schoolId) {
+                        $query->whereHas('school', function ($query) use ($schoolId) {
+                            $query->where('id', $schoolId);
+                        });
+                    })
+            ->get();
+    }
+
     public function get_student_by_point(string $studentId): mixed
     {
         return $this->user->query()

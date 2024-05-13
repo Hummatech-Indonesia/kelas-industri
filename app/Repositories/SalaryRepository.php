@@ -85,7 +85,7 @@ class   SalaryRepository extends BaseRepository
     public function getGroupByMonth(): mixed
     {
         return $this->model->get(['payday', 'salary_amount'])->groupBy(function ($val) {
-            return Carbon::parse($val->payday)->format('M');
+            return Carbon::parse($val->payday)->translatedFormat('M');
         });
     }
 

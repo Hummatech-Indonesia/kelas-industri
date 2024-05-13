@@ -19,12 +19,15 @@ use App\Services\PaymentService;
 use App\Services\StudentService;
 use App\Services\TeacherService;
 use App\Helpers\SchoolYearHelper;
+use App\Models\SchoolPackage;
+use App\Models\User;
 use App\Services\MaterialService;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
 use App\Services\DependentService;
 use App\Services\AssignmentService;
 use App\Services\AttendanceService;
+use App\Services\SchoolPackageService;
 use App\Services\ZoomScheduleService;
 use Symfony\Component\VarDumper\VarDumper;
 use Illuminate\Contracts\Support\Renderable;
@@ -47,13 +50,14 @@ class HomeController extends Controller
     private DependentService $dependentService;
     private SalaryService $salaryService;
     private PaymentService $paymentService;
+    private SchoolPackageService $schoolPackageService;
     private AttendanceService $attendanceService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(TeacherService $teacherService, StudentService $studentService, UserServices $userService, AssignmentService $assignmentService, MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService, DependentService $dependentService, SalaryService $salaryService, PaymentService $paymentService, AttendanceService $attendanceService)
+    public function __construct(TeacherService $teacherService, StudentService $studentService, UserServices $userService, AssignmentService $assignmentService, MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService, DependentService $dependentService, SalaryService $salaryService, PaymentService $paymentService, AttendanceService $attendanceService, SchoolPackageService $schoolPackageService)
     {
         $this->middleware('auth');
         $this->assignmentService = $assignmentService;
@@ -70,6 +74,7 @@ class HomeController extends Controller
         $this->dependentService = $dependentService;
         $this->salaryService = $salaryService;
         $this->paymentService = $paymentService;
+        $this->schoolPackageService = $schoolPackageService;
         $this->attendanceService = $attendanceService;
     }
 
@@ -80,40 +85,130 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        // // Mendapatkan semua siswa
+        // $students = User::whereRelation('roles', 'name', 'student')->get();
+
+        // // Loop melalui setiap siswa
+        // foreach ($students as $student) {
+        //     // Mendapatkan pembayaran siswa dengan tagihan belum lunas
+        //     $unpaidPayments = $student->payment()->whereColumn('paid_amount', '<', 'fee_amount')->get();
+
+        //     dd($unpaidPayments);
+        //     // Lakukan sesuatu dengan pembayaran yang belum lunas
+        //     // foreach ($unpaidPayments as $payment) {
+        //     //     // Lakukan tindakan yang diperlukan
+        //     // }
+        // }
+
         $role = auth()->user()->roles->pluck('name')[0];
         $userId = auth()->id();
+
+        $paymentStundent = $this->paymentService->handleGetGroupByMonth();
+        $schoolPackage = $this->schoolPackageService->handleGetGroupByMonth();
+        $salary = $this->salaryService->handleGetGroupByMonth();
+        $incomes = [
+            'Jan' => 0,
+            'Feb' => 0,
+            'Mar' => 0,
+            'Apr' => 0,
+            'Mei' => 0,
+            'Jun' => 0,
+            'Jul' => 0,
+            'Agt' => 0,
+            'Sep' => 0,
+            'Okt' => 0,
+            'Nov' => 0,
+            'Des' => 0
+        ];
+        $spents = [
+            'Jan' => 0,
+            'Feb' => 0,
+            'Mar' => 0,
+            'Apr' => 0,
+            'Mei' => 0,
+            'Jun' => 0,
+            'Jul' => 0,
+            'Agt' => 0,
+            'Sep' => 0,
+            'Okt' => 0,
+            'Nov' => 0,
+            'Des' => 0
+        ];
+        $depts = [
+            'Jan' => 0,
+            'Feb' => 0,
+            'Mar' => 0,
+            'Apr' => 0,
+            'Mei' => 0,
+            'Jun' => 0,
+            'Jul' => 0,
+            'Agt' => 0,
+            'Sep' => 0,
+            'Okt' => 0,
+            'Nov' => 0,
+            'Des' => 0
+        ];
+
+        foreach ($incomes as $key => $value) {
+            if (isset($paymentStundent[$key])) {
+                $incomes[$key] += $paymentStundent[$key];
+            }
+            if (isset($schoolPackage[$key])) {
+                if ($schoolPackage[$key]['dept']) {
+                    $depts[$key] = $schoolPackage[$key]['dept'];
+                }
+                if ($schoolPackage[$key]['paid']) {
+                    $incomes[$key] += $schoolPackage[$key]['paid'];
+                }
+            }
+            if (isset($salary[$key])) {
+                $spents[$key] += $salary[$key];
+            }
+        }
+
         if ($role == 'admin') {
             $data['school'] = count($this->userService->handleGetAllSchool());
             $data['material'] = $this->materialService->handleCountMaterialAdmin();
             $data['mentor'] = count($this->userService->handleGetAllMentor());
             $data['student'] = count($this->userService->handleGetAllStudent());
-            $data['income'] = $this->paymentService->handleGetGroupByMonth();
-            $data['spendiment'] = $this->salaryService->handleGetGroupByMonth();
+            $data['incomes'] = $incomes;
+            $data['spents'] = $spents;
+            $data['depts'] = $depts;
 
             return view('dashboard.admin.pages.home', $data);
         }
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
+
+        // dashboard school
         if ($role == 'school') {
             $data['teacher'] = count($this->teacherService->handleGetBySchool($userId));
             $data['classroom'] = count($this->classroomService->handleGetBySchool($userId, $currentSchoolYear->id));
             $data['jurnal'] = count($this->journalService->handleGetBySchool());
             $data['student'] = count($this->studentService->handleGetBySchool($userId));
+            $data['incomes'] = $incomes;
+            $data['spents'] = $spents;
+            $data['depts'] = $depts;
+            $data['studentPayment'] = $this->paymentService->handleBySchoolGroupUser($this->dependentService->handleGetLatest(), $userId);
+            $data['rankings'] = $this->pointService->handleGetPointStudentBySchool($userId);
             return view('dashboard.admin.pages.home', $data);
         }
         if ($role == 'administration') {
             $data = [
                 'guru' => count($this->userService->handleCountTeacher()),
                 'mentor' => count($this->userService->handleCountMentor()),
-                'spendiment' => $this->salaryService->handleGetGroupByMonth(),
-                'income' => $this->paymentService->handleGetGroupByMonth(),
                 'schools' => $this->userService->handleGetAllSchoolWithPackage(),
+                'incomes' => $incomes,
+                'depts' => $depts,
+                'spents' => $spents,
             ];
             $data['teachersJournal'] = $this->journalService->handleCountJournalByFilter($request, $data['schools'][0]->id, 'teacher');
             $data['mentorsJournal'] = $this->journalService->handleCountJournalByFilter($request, $data['schools'][0]->id, 'mentor');
             $data['schoolPackages'] = $this->userService->handleCountSchoolPackages($data['schools']);
-            $data['studentPayment'] = $this->paymentService->handleGetGroupUser($this->dependentService->handleGetLatest());
             $data['countAttendance'] = $this->attendanceService->handleCountMentorAttendanceMonthYear($request);
-            // dd($data['income']);
+
+            if($this->dependentService->handleGetLatest()) {
+                $data['studentPayment'] = $this->paymentService->handleGetGroupUser($this->dependentService->handleGetLatest());
+            }
             return view('dashboard.finance.pages.home', $data);
         }
         $data = $this->GetDataSidebar();
@@ -190,6 +285,13 @@ class HomeController extends Controller
     {
         $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', auth()->user()->id)->sum('total_pay');
         $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', auth()->user()->studentSchool->studentClassroom->classroom->id)->select('nominal')->first();
+        return response()->json($data);
+    }
+    public function schoolTrackingSemester($semester, $userId)
+    {
+        $user = User::find($userId);
+        $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', $userId)->sum('total_pay');
+        $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', $user->studentSchool->studentClassroom->classroom->id)->select('nominal')->first();
         return response()->json($data);
     }
 }

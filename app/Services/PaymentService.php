@@ -32,6 +32,23 @@ class PaymentService
         }
         return $studentPayment;
     }
+    public function handleBySchoolGroupUser($dependent, $schoolId): mixed
+    {
+        $data = $this->payment->getBySchoolGroupUser($dependent->semester, $schoolId);
+        $totalPayment = 0;
+        $studentPayment =  ['paid_off' => 0, 'not_yet_paid_off' => 0];
+        foreach ($data as $user => $payments) {
+            foreach ($payments as $payment) {
+                $totalPayment += $payment->total_pay;
+            }
+            if ($totalPayment == $dependent->nominal) {
+                $studentPayment['paid_off']++;
+            } else {
+                $studentPayment['not_yet_paid_off']++;
+            }
+        }
+        return $studentPayment;
+    }
     public function handleStore(PaymentRequest $request): mixed
     {
         $semester_tanggungan = $request->semester_tanggungan;
@@ -47,6 +64,7 @@ class PaymentService
         if ($request->total_pay < 0) {
             return redirect()->back()->with('error', 'Jumlah pembayaran minimal Rp. 0');
         }
+        // dd($request->validated());
         return $this->payment->store($request->validated());
     }
 
@@ -70,18 +88,13 @@ class PaymentService
         $raw = $this->payment->getGroupByMonth();
 
         $data = [];
-        $label = [];
         foreach ($raw as $month => $incomes) {
             $amount = 0;
             foreach ($incomes as $payment) {
                 $amount += $payment->total_pay;
             }
             $data[$month] = $amount;
-            array_push($label, $month);
         }
-        return [
-            'label' => $label,
-            'data' => $data
-        ];
+        return $data;
     }
 }

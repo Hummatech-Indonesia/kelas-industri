@@ -264,6 +264,9 @@ Route::middleware('auth.custom')->group(function () {
         //changepwsteacher
         Route::get('/gantiPasswordGuru/{teacher}', [TeacherController::class, 'ChangePasswordTeacher'])->name('gantiPasswordGuru');
         Route::patch('/updatePasswordGuru/{teacher}', [TeacherController::class, 'updatePasswordGuru'])->name('updatePasswordGuru');
+        Route::get('tracking', [TrackingPaymentController::class,'schoolAllStudent'])->name('tracking.showStudent');
+        Route::get('tracking/{classroom}/{user}', [TrackingPaymentController::class,'schoolDetailStudent'])->name('tracking.detailStudent');
+        Route::get('{semester}/{user}', [HomeController::class, 'schoolTrackingSemester'])->name('total.dependent');
     });
     //end schools
 

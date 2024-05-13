@@ -71,7 +71,7 @@
         {{-- @endif --}}
 
         <div class="row gap-2 mt-4">
-            <div class="col-12 col-sm-5 h-100">
+            <div class="col-12 col-sm-3 h-100">
                 <div class="card shadow-sm p-5">
                     <h3 class="card-title">Absensi Mentor</h3>
                     <div class="row row-cols-1 gap-5 mt-4">
@@ -90,51 +90,50 @@
             </div>
             <div class="col">
                 <div class="card shadow-sm">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center ms-4 mt-4 gap-2">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mx-4 mt-4 gap-2">
                         <h4 class="card-title">Keuangan</h4>
-                        <div>
-                            <form action="#kt_jurnal_guru" method="GET" class="d-flex flex-wrap gap-2">
-                                <select class="form-select form-select-solid me-5" name="year" data-control="select2"
-                                    data-placeholder="Tahun">
-                                    <option></option>
-                                    {{-- @foreach ($schools as $school)
-                                        <option value="{{ $school->id }}">{{ $school->name }}</option>
-                                    @endforeach --}}
-                                    <option value="2024">2024</option>
-                                </select>
-                                <button type="submit" class="btn btn-primary fw-bold">Filter</button>
-                            </form>
-                        </div>
+                        <form action="#kt_jurnal_guru" method="GET" class="d-flex gap-2">
+                            <select class="form-select form-select-solid me-5" name="year" data-control="select2"
+                                data-placeholder="Tahun">
+                                <option></option>
+                                <option value="2024">2024</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary fw-bold">Filter</button>
+                        </form>
                     </div>
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
-                        <canvas id="kt_finance_chart" class="mh-400px"></canvas>
-
+                        <div id="kt_keuangan"></div>
                     </div>
                     <!--end::Card body-->
                 </div>
             </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-2 mt-4">
-            <div class="col">
-                <div class="card shadow-sm">
+        <div class="row row-cols-1 row-cols-md-2 gap-2 gap-md-0 mt-4">
+            <div class="col" id="jurnal_mentor">
+                <div class="card shadow-sm h-100">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mx-4 mt-4 gap-2">
                         <h4 class="card-title">Jurnal Mentor</h4>
-                        <div>
-                            <form action="#kt_jurnal_guru" method="GET" class="d-flex flex-wrap gap-2">
+                        <form action="#jurnal_mentor" method="GET"
+                            class="row row-cols-1 row-cols-md-4 justify-content-between">
+                            <div class="col">
                                 <select class="form-select form-select-solid" name="school" data-control="select2"
                                     data-placeholder="Sekolah">
                                     @foreach ($schools as $school)
                                         <option value="{{ $school->id }}">{{ $school->name }}</option>
                                     @endforeach
                                 </select>
-                                <select class="form-select form-select-solid me-5" name="year" data-control="select2"
+                            </div>
+                            <div class="col">
+                                <select class="form-select form-select-solid" name="year" data-control="select2"
                                     data-placeholder="Tahun">
                                     <option></option>
                                     <option value="2024">2024</option>
                                 </select>
+                            </div>
 
-                                <select class="form-select form-select-solid me-5" name="month" data-control="select2"
+                            <div class="col">
+                                <select class="form-select form-select-solid" name="month" data-control="select2"
                                     data-placeholder="Bulan">
                                     <option></option>
                                     <option value="01">Januari</option>
@@ -150,65 +149,82 @@
                                     <option value="11">November</option>
                                     <option value="12">Desember</option>
                                 </select>
-                                <button type="submit" class="btn btn-primary fw-bold">Filter</button>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="col"><button type="submit" class="btn btn-primary fw-bold">Filter</button>
+                            </div>
+                        </form>
                     </div>
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
-                        <div id="kt_jurnal_mentor" style="height: 350px;"></div>
+                        @if (count($mentorsJournal) <= 0)
+                            <x-empty-component title="jurnal mentor" />
+                        @else
+                            <div id="kt_jurnal_mentor" style="height: 350px;"></div>
+                        @endif
                     </div>
                     <!--end::Card body-->
                 </div>
             </div>
-            <div class="col">
+            <div class="col" id="jurnal_guru">
                 <div class="card shadow-sm">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mx-4 mt-4 gap-2">
                         <h4 class="card-title">Jurnal Guru</h4>
                         <div>
-                            <form action="#kt_jurnal_guru" method="GET" class="d-flex flex-wrap gap-2">
-                                <select class="form-select form-select-solid me-5" name="school" data-control="select2"
-                                    data-placeholder="Sekolah">
-                                    @foreach ($schools as $school)
-                                        <option value="{{ $school->id }}">{{ $school->name }}</option>
-                                    @endforeach
-                                </select>
-                                <select class="form-select form-select-solid me-5" name="year" data-control="select2"
-                                    data-placeholder="Tahun">
-                                    <option></option>
-                                    <option value="2024">2024</option>
-                                </select>
+                            <form action="#jurnal_guru" method="GET"
+                                class="row row-cols-1 row-cols-md-4 justify-content-between">
+                                <div class="col">
+                                    <select class="form-select form-select-solid" name="school" data-control="select2"
+                                        data-placeholder="Sekolah">
+                                        @foreach ($schools as $school)
+                                            <option value="{{ $school->id }}">{{ $school->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-solid" name="year" data-control="select2"
+                                        data-placeholder="Tahun">
+                                        <option></option>
+                                        <option value="2024">2024</option>
+                                    </select>
+                                </div>
 
-                                <select class="form-select form-select-solid me-5" name="month" data-control="select2"
-                                    data-placeholder="Bulan">
-                                    <option></option>
-                                    <option value="01">Januari</option>
-                                    <option value="02">Februari</option>
-                                    <option value="03">Maret</option>
-                                    <option value="04">April</option>
-                                    <option value="05">Mei</option>
-                                    <option value="06">Juli</option>
-                                    <option value="07">Juni</option>
-                                    <option value="08">Agustus</option>
-                                    <option value="09">September</option>
-                                    <option value="10">Oktober</option>
-                                    <option value="11">November</option>
-                                    <option value="12">Desember</option>
-                                </select>
-                                <button type="submit" class="btn btn-primary fw-bold">Filter</button>
+                                <div class="col">
+                                    <select class="form-select form-select-solid" name="month" data-control="select2"
+                                        data-placeholder="Bulan">
+                                        <option></option>
+                                        <option value="01">Januari</option>
+                                        <option value="02">Februari</option>
+                                        <option value="03">Maret</option>
+                                        <option value="04">April</option>
+                                        <option value="05">Mei</option>
+                                        <option value="06">Juli</option>
+                                        <option value="07">Juni</option>
+                                        <option value="08">Agustus</option>
+                                        <option value="09">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                </div>
+                                <div class="col"><button type="submit"
+                                        class="btn btn-primary fw-bold">Filter</button></div>
                             </form>
                         </div>
                     </div>
                     <!--begin::Card body-->
                     <div class="card-body pt-4 px-0">
-                        <div id="kt_jurnal_guru" style="height: 350px;"></div>
+                        @if (count($teachersJournal) <= 0)
+                            <x-empty-component title="jurnal guru" />
+                        @else
+                            <div id="kt_jurnal_guru" style="height: 350px;"></div>
+                        @endif
                     </div>
                     <!--end::Card body-->
                 </div>
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-2 mt-4">
+        <div class="row row-cols-1 row-cols-md-2 gap-2 gap-md-0 mt-4">
             <div class="col">
                 <div class="card shadow-sm p-5">
                     <h3 class="card-title">Paket Sekolah</h3>
@@ -218,7 +234,7 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <h3 class="card-title">Dibayar</h3>
-                                        <h3>{{ $schoolPackages['already_paid'] ? $schoolPackages['already_paid'] : 0 }}</h3>
+                                        <h3>{{ isset($schoolPackages['already_paid']) ? $schoolPackages['already_paid'] : 0 }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +244,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <h3 class="card-title">Belum Dibayar</h3>
-                                        <h3>{{ $schoolPackages['not_yet_paid'] ? $schoolPackages['not_yet_paid'] : 0 }}</h3>
+                                        <h3>{{ isset($schoolPackages['not_yet_paid']) ? $schoolPackages['not_yet_paid'] : 0 }}
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +255,7 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <h3 class="card-title">Hutang</h3>
-                                        <h3>{{ $schoolPackages['dept'] ? $schoolPackages['dept'] : 0 }}</h3>
+                                        <h3>{{ isset($schoolPackages['dept']) ? $schoolPackages['dept'] : 0 }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +264,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card shadow-sm p-5">
+                <div class="card shadow-sm p-5 h-100">
                     <h3 class="card-title">Paket Siswa</h3>
                     <div class="row row-cols-md-2 row-gap-3 mt-4">
                         <div class="col">
@@ -255,7 +272,7 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <h3 class="card-title">Lunas</h3>
-                                        <h3>{{ $studentPayment['paid_off'] ? $studentPayment['paid_off'] : 0 }}</h3>
+                                        <h3>{{ isset($studentPayment['paid_off']) ? $studentPayment['paid_off'] : 0 }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -265,7 +282,7 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <h3 class="card-title">Belum Lunas</h3>
-                                        <h3>{{ $studentPayment['not_yet_paid_off'] ? $studentPayment['not_yet_paid_off'] : 0 }}
+                                        <h3>{{ isset($studentPayment['not_yet_paid_off']) ? $studentPayment['not_yet_paid_off'] : 0 }}
                                         </h3>
                                     </div>
                                 </div>
@@ -295,107 +312,72 @@
     @section('script')
         {{-- chart income --}}
         <script>
-            var ctx = document.getElementById('kt_finance_chart');
+            var keuangan = document.getElementById('kt_keuangan');
 
-            // Define colors
-            var primaryColor = KTUtil.getCssVariableValue('--kt-primary');
-            var dangerColor = KTUtil.getCssVariableValue('--kt-danger');
-
-            // Define fonts
-            var fontFamily = KTUtil.getCssVariableValue('--bs-font-sans-serif');
-
-            // Chart labels
-            const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-                'November', 'December'
-            ];
-            // Chart data
-            let income = {
-                'January': 0,
-                'February': 0,
-                'March': 0,
-                'April': 0,
-                'May': 0,
-                'June': 0,
-                'July': 0,
-                'August': 0,
-                'September': 0,
-                'October': 0,
-                'November': 0,
-                'December': 0
-            }
-            @foreach ($income['data'] as $month => $amount)
-                income.{{ $month }} = {{ $amount }}
-            @endforeach
-
-            let spent = {
-                'January': 0,
-                'February': 0,
-                'March': 0,
-                'April': 0,
-                'May': 0,
-                'June': 0,
-                'July': 0,
-                'August': 0,
-                'September': 0,
-                'October': 0,
-                'November': 0,
-                'December': 0
-            }
-            @foreach ($spendiment['data'] as $month => $amount)
-                spent.{{ $month }} = {{ $amount }}
-            @endforeach
-
-            const data = {
-                labels: labels,
-                datasets: [{
-                    label: "Pengeluaran",
-                    data: spent,
-                    borderColor: 'red',
-                    backgroundColor: "red",
-                }, {
-                    label: "Pemasukan",
-                    data: income,
-                    borderColor: 'blue',
-                    backgroundColor: "blue",
-                }]
-            };
-
-            // Chart config
-            const config = {
-                type: 'line',
-                data: data,
-                options: {
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                boxWidth: 20,
-                                padding: 20,
-                                pointStyle: 'circle',
-                                usepointstyle: true,
-                                borderRadius: '100%',
-                            }
-                        },
-                        title: {
-                            display: false,
-                        }
+            // const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
+            const incomeData = [
+                @foreach ($incomes as $key => $value)
+                    {
+                        x: '{{ $key }}',
+                        y: '{{ $value }}'
                     },
-                    responsive: true,
-                    elements: {
-                        point: {
-                            radius: 0
-                        }
-                    }
+                @endforeach
+            ];
+            const spentData = [
+                @foreach ($spents as $key => $value)
+                    {
+                        x: '{{ $key }}',
+                        y: '{{ $value }}'
+                    },
+                @endforeach
+            ];
+            const deptData = [
+                @foreach ($depts as $key => $value)
+                    {
+                        x: '{{ $key }}',
+                        y: '{{ $value }}'
+                    },
+                @endforeach
+            ];
+
+            var financeOptions = {
+                chart: {
+                    type: 'line',
+                    height: '300px',
+                    width: '100%'
                 },
-                defaults: {
-                    global: {
-                        defaultFont: fontFamily
-                    }
-                }
-            };
+                series: [{
+                    name: 'Pemasukan',
+                    data: incomeData
+                }, {
+                    name: 'Pengeluaran',
+                    data: spentData
+                }, {
+                    name: 'Hutang',
+                    data: deptData
+                }],
+                xaxis: {
+                    type: 'category'
+                },
+                stroke: {
+                    curve: 'smooth',
+                },
+                colors: ['#0057E4', '#FF0000', '#FFC700'],
+                toolbar: {
+                    show: false,
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                },
+            }
 
             // Init ChartJS -- for more info, please visit: https://www.chartjs.org/docs/latest/
-            var myChart = new Chart(ctx, config);
+            var financeChart = new ApexCharts(keuangan, financeOptions);
+            financeChart.render();
         </script>
 
         {{-- teacher jurnal chart --}}

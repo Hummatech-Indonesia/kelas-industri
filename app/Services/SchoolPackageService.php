@@ -37,4 +37,27 @@ class SchoolPackageService
     {
         $this->repository->update($id, $request->all());
     }
+
+    public function handleGetGroupByMonth(): mixed
+    {
+        $raw = $this->repository->getGroupByMonth();
+        $data = [];
+        foreach ($raw as $month => $incomes) {
+            $paid = 0;
+            $dept = 0;
+            foreach ($incomes as $payment) {
+                if($payment->status == 'already_paid') {
+                    $paid += $payment->price;
+                }
+                if($payment->status == 'debt') {
+                    $dept += $payment->price;
+                }
+            }
+            $data[$month] = [
+                'dept' => $dept,
+                'paid' => $paid
+            ];
+        }
+        return $data;
+    }
 }

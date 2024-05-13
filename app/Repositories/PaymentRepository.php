@@ -38,12 +38,18 @@ class PaymentRepository extends BaseRepository
     public function getGroupByMonth(): mixed
     {
         return $this->model->get(['payment_date', 'total_pay'])->groupBy(function ($val) {
-            return Carbon::parse($val->payday)->format('M');
+            return Carbon::parse($val->payday)->translatedFormat('M');
         });
     }
 
     public function getGroupUser($semester): mixed
     {
         return $this->model->query()->where('semester', $semester)->get()->groupBy('user_id');
+    }
+    public function getBySchoolGroupUser($semester, $school): mixed
+    {
+        return $this->model->query()->whereHas('user.studentSchool', function ($q) use ($school) {
+            $q->where('school_id', $school);
+        })->where('semester', $semester)->get()->groupBy('user_id');
     }
 }

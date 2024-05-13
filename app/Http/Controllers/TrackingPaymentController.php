@@ -148,6 +148,24 @@ class TrackingPaymentController extends Controller
         $data['dependents'] = $this->serviceDependent->handleGetAllByClassroom($classroom);
         $data['trackings'] = $this->servicePayment->handleGetByStudent($user);
         $data['user'] = $user;
+        // dd($data['trackings']);
         return view('dashboard.finance.pages.trackingPayment.detailStudent', $data);
+    }
+    public function schoolDetailStudent(string $classroom, string $user)
+    {
+        $data['student'] = $this->userService->handleGetById($user);
+        $data['dependents'] = $this->serviceDependent->handleGetAllByClassroom($classroom);
+        $data['trackings'] = $this->servicePayment->handleGetByStudent($user);
+        $data['user'] = $user;
+        return view('dashboard.admin.pages.trackingPayment.detailStudent', $data);
+    }
+    public function schoolAllStudent(Request $request)
+    {
+        $data = [
+            'classrooms' => $this->classroomService->handleGetBySchool(auth()->user()->id),
+            'students' => $this->studentService->handleGetBySchoolPayment(auth()->user()->id, $request),
+            'school' => auth()->user(),
+        ];
+        return view('dashboard.admin.pages.trackingPayment.student', $data);
     }
 }

@@ -164,7 +164,6 @@ class SalaryService
     {
         $raw = $this->repository->getGroupByMonth();
         $data = [];
-        $label = [];
 
         foreach ($raw as $month => $salaries) {
             $amount = 0;
@@ -172,12 +171,8 @@ class SalaryService
                 $amount += $salary->salary_amount;
             }
             $data[$month] = $amount;
-            array_push($label, $month);
         }
 
-        return [
-            'label' => $label,
-            'data' => $data
-        ];
+        return $data;
     }
 }

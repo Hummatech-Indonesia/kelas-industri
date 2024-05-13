@@ -94,6 +94,101 @@
                     </div>
                 </a>
             </div>
+
+            <div class="card card-bordered mt-5">
+                <div class="card-body">
+                    <div id="kt_keuangan"></div>
+                </div>
+            </div>
+            <div class="row row-cols-md-2 mt-5">
+                <div class="col">
+                    <div class="card" style="height: 368px">
+                        <!--begin::Body-->
+                        <div class="card-body">
+                            <!--begin::Title-->
+                            <h3 class="card-title fw-bold text-gray-800" style="margin-bottom: 3rem">
+                                Peringkat
+                            </h3>
+                            <!--end::Title-->
+                            @foreach ($rankings as $index => $ranking)
+                                <div class="d-flex mb-3 flex-stack">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-40px me-4">
+                                        @if ($index == 0)
+                                            <img width="50px"
+                                                src="http://127.0.0.1:8000/app-assets/medal_file/gold-medal.png"
+                                                alt="">
+                                        @elseif ($index == 1)
+                                            <img width="50px"
+                                                src="http://127.0.0.1:8000/app-assets/medal_file/silver-medal.png"
+                                                alt="">
+                                        @elseif ($index == 2)
+                                            <img width="50px"
+                                                src="http://127.0.0.1:8000/app-assets/medal_file/bronze-medal.png"
+                                                alt="">
+                                        @endif
+
+                                    </div>
+                                    <!--end::Symbol-->
+
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                        <!--begin:Author-->
+                                        <div class="flex-grow-1 me-2">
+                                            <a href="http://127.0.0.1:8000/student/ranking"
+                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $ranking->name }}</a>
+                                            <span
+                                                class="text-muted fw-semibold d-block fs-7">{{ $ranking->studentSchool->school->name }}</span>
+                                            <span class="text-muted fw-semibold d-block fs-7">{{ $ranking->point }}</span>
+                                        </div>
+                                        <!--end:Author-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                            @endforeach
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-12 h-100">
+                    <div class="card shadow-sm p-5">
+                        <h5 class="card-title">Pembayaran siswa</h5>
+                        <div class="row row-cols-1 gap-5 mt-4">
+                            <div class="col">
+                                    <div class="card border-4 border-start border-primary shadow-sm">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h3 class="card-title">Total Siswa</h3>
+                                                <h3>{{ $student }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col">
+                                <div class="card border-4 border-start border-primary shadow-sm">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Sudah Bayar</h3>
+                                            <h3>{{ $studentPayment['paid_off'] ? $studentPayment['paid_off'] : 0 }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-4 border-start border-danger shadow-sm">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Belum Bayar</h3>
+                                            <h3>{{ $studentPayment['not_yet_paid_off'] ? $studentPayment['not_yet_paid_off'] : 0 }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @elseif (auth()->user()->roles->pluck('name')[0] == 'admin')
             <div class="covercard row gap-2 mt-4">
                 <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
@@ -154,6 +249,17 @@
                     </div>
                 </a>
             </div>
+
+            <div class="covercard row gap-2 mt-4">
+                <div class="card shadow-sm">
+                    <div class="mt-4 mx-5">
+                        <h4 class="card-title">Keuangan</h4>
+                        <div class="card-body">
+                            <div id="kt_keuangan"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endif
 
     </div>
@@ -173,4 +279,84 @@
             }
         }
     </Style>
+@endsection
+@section('script')
+    <script>
+        var keuangan = document.getElementById('kt_keuangan');
+        var jurnal = document.getElementById('kt_jurnal');
+
+        // var height = parseInt(KTUtil.css(element, 'height'));
+        var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
+        var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
+        var baseColor = KTUtil.getCssVariableValue('--kt-info');
+        var lightColor = KTUtil.getCssVariableValue('--kt-info-light');
+
+        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
+        const incomeData = [
+            @foreach ($incomes as $key => $value)
+                {
+                    x: '{{ $key }}',
+                    y: '{{ $value }}'
+                },
+            @endforeach
+        ];
+        const spentData = [
+            @foreach ($spents as $key => $value)
+                {
+                    x: '{{ $key }}',
+                    y: '{{ $value }}'
+                },
+            @endforeach
+        ];
+        const deptData = [
+            @foreach ($depts as $key => $value)
+                {
+                    x: '{{ $key }}',
+                    y: '{{ $value }}'
+                },
+            @endforeach
+        ];
+
+        var financeOptions = {
+            chart: {
+                type: 'line',
+                height: '300px',
+                width: '100%'
+            },
+            series: [{
+                name: 'Pemasukan',
+                data: incomeData
+            }, {
+                name: 'Pengeluaran',
+                data: spentData
+            }, {
+                name: 'Hutang',
+                data: deptData
+            }
+        ],
+            xaxis: {
+                type: 'category'
+            },
+            stroke: {
+                curve: 'smooth',
+            },
+            colors: ['#0057E4', '#FF0000', '#FFC700'],
+            toolbar: {
+                show: false,
+            },
+            dropShadow: {
+                enabled: true,
+                top: 0,
+                left: 0,
+                blur: 3,
+                opacity: 0.5
+            },
+        }
+
+
+        var chartkeuangan = new ApexCharts(keuangan, financeOptions);
+        chartkeuangan.render();
+        // var chartjurnal = new ApexCharts(jurnal, options);
+        // chartjurnal.render();
+    </script>
 @endsection

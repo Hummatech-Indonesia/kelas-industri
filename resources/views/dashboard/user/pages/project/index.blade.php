@@ -509,7 +509,7 @@
                                                     @endif
                                                 @endforeach
                                             </div>
-                                            <a href="#" class="btn btn-primary er w-100 fs-6 px-8 py-4"
+                                            <a href="#" class="btn {{ in_array($project->status, ['not_approved', 'pending'])? 'btn-secondary': 'btn-primary'}} w-100 fs-6 px-8 py-4"
                                                 data-bs-toggle="modal" data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending'])? 'disabled': 'kt_modal_new_project'}}">Buat Tugas
                                                 Baru</a>
                                         </div>
@@ -1177,7 +1177,7 @@
                                                         <!--begin::Toolbar-->
                                                         <div class="card-toolbar">
                                                             <button type="submit"
-                                                                class="btn btn-sm btn-success" {{ in_array($project->status, ['not_approved', 'pending'])? 'disabled': ''}}>Simpan</button>
+                                                                class="btn btn-sm {{ in_array($project->status, ['not_approved', 'pending'])? 'btn-secondary': 'btn-success'}}" {{ in_array($project->status, ['not_approved', 'pending'])? 'disabled': ''}}>Simpan</button>
                                                         </div>
                                                         <!--end::Toolbar-->
                                                     </div>
@@ -1267,7 +1267,7 @@
                                                         anda.</span>
                                                 </h3>
 
-                                                <div class="btn btn-sm btn-primary mb-5" data-bs-toggle="modal"
+                                                <div class="btn btn-sm {{ in_array($project->status, ['not_approved', 'pending'])? 'btn-secondary': 'btn-primary'}} mb-5" data-bs-toggle="modal"
                                                     data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending'])? '': 'kt_modal_new_project'}}">
                                                     Ajukan Presentasi
                                                 </div>
