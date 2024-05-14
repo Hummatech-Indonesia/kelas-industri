@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Payment;
 use App\Models\Challenge;
 use App\Models\Dependent;
 use App\Models\Assignment;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
+use App\Models\SchoolPackage;
 use App\Services\PointService;
 use App\Services\UserServices;
+use App\Helpers\SemesterHelper;
 use App\Services\MentorService;
 use App\Services\SalaryService;
 use App\Services\SchoolService;
@@ -19,16 +22,14 @@ use App\Services\PaymentService;
 use App\Services\StudentService;
 use App\Services\TeacherService;
 use App\Helpers\SchoolYearHelper;
-use App\Models\SchoolPackage;
-use App\Models\User;
 use App\Services\MaterialService;
 use App\Services\ChallengeService;
 use App\Services\ClassroomService;
 use App\Services\DependentService;
 use App\Services\AssignmentService;
 use App\Services\AttendanceService;
-use App\Services\SchoolPackageService;
 use App\Services\ZoomScheduleService;
+use App\Services\SchoolPackageService;
 use Symfony\Component\VarDumper\VarDumper;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -213,12 +214,15 @@ class HomeController extends Controller
         }
         $data = $this->GetDataSidebar();
         if ($role == 'student') {
-            $classId = Auth()->user()->studentSchool->studentClassroom->classroom_id;
+            $currentSemester = SemesterHelper::get_current_semester(auth()->user()->studentSchool->studentClassroom->classroom_id);
             $data['assignment'] = $this->assignmentService->handleCountAssignmentStudent();
             $data['challenge'] = $this->challengeService->handleCountChallengeStudent();
             $data['material'] = $this->materialService->handleCountMaterialUser();
             $data['point'] = $this->pointService->hanleCountPointStudent($userId);
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleStudent();
+            $payment = $this->paymentService->handleGetTotalPayment($currentSemester->semester, auth()->user()->id);
+            $dependent = $this->dependentService->handleGetTotalDependent($currentSemester->semester, auth()->user()->studentSchool->studentClassroom->classroom_id);
+            $data['totalPayment'] = $dependent->nominal - $payment;
 
             $assignments = Assignment::with('StudentSubmitAssignment')->whereRelation('submaterial.material', function ($query) {
                 $query->where('generation_id', Auth()->user()->studentSchool->studentClassroom->classroom->generation_id);
@@ -283,7 +287,7 @@ class HomeController extends Controller
 
     public function semester($semester)
     {
-        $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', auth()->user()->id)->sum('total_pay');
+        $data['totalBayar'] = Payment::where('semester', $semester)->where('invoice_status', 'paid')->where('user_id', auth()->user()->id)->sum('total_pay');
         $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', auth()->user()->studentSchool->studentClassroom->classroom->id)->select('nominal')->first();
         return response()->json($data);
     }

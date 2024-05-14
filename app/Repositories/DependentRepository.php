@@ -55,4 +55,14 @@ class DependentRepository extends BaseRepository
 
         return $results;
     }
+
+    public function getTotalDependent(String $semester, String $classroomId)
+    {
+        return $this->model->query()
+        ->where('classroom_id', $classroomId)
+        ->where('semester', $semester)
+        ->select('nominal')
+        ->first();
+    }
+
 }

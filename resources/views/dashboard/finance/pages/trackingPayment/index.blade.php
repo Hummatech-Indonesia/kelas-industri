@@ -1,4 +1,19 @@
 @extends('dashboard.finance.layout.app')
+@section('css')
+    <style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
+            }
+        }
+    </style>
+@endsection
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -30,7 +45,7 @@
                         <!--begin::Compact form-->
                         <div class="searching align-items-center row">
                             <!--begin::Input group-->
-                            <div class="col-lg-10 col-md-8 col-6">
+                            <div class="col-lg-6 col-md-6 col-5">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                 <span
                                     class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"><svg
@@ -48,9 +63,22 @@
                                 <input type="text" class="form-control form-control-solid ps-10" name="search"
                                     value="{{ $parameters['search'] ?? '' }}" placeholder="Search">
                             </div>
-                            <div class="col-lg-2 col-md-4 col-6">
+                            <div class="col-lg-4 col-md-4 col-5">
+                                <select name="status" class="form-select form-select-solid me-5" data-control="select2"
+                                    data-placeholder="select an option">
+                                    <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>Status Paket
+                                    </option>
+                                    <option value="school_package"
+                                        {{ request('status') == 'school_package' ? 'selected' : '' }}>Paket Sekolah
+                                    </option>
+                                    <option value="student_package"
+                                        {{ request('status') == 'student_package' ? 'selected' : '' }}>Paket Siswa
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-2">
                                 <button class="btn btn-primary" id="btn-search">Cari</button>
-                                <a href="{{ route('admin.schools.index') }}" type="button"
+                                <a href="{{ route('administration.tracking.index') }}" type="button"
                                     class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
                             </div>
                             <!--end::Input group-->
@@ -224,24 +252,20 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <x-pagination-component :paginator="$schools" :parameters="$parameters" route="admin.schools.index" />
+                <x-pagination-component :paginator="$schools" :parameters="$parameters" route="administration.tracking.index" />
             </div>
         </div>
         <x-delete-modal-component />
     </div>
 @endsection
-@section('css')
-    <Style>
-        @media (max-width:639px) {
-            .position-relative {
-                margin-bottom: 10px;
-            }
-        }
 
-        @media (min-width:640px) {
-            .searching {
-                display: flex;
-            }
-        }
-    </Style>
+@section('script')
+    <script>
+        $('#btn-search').click(function() {
+            var searchQuery = $("input[name='search']").val();
+            var status = $("select[name='status']").val();
+            var baseUrl = "{{ route('administration.tracking.index') }}";
+            window.location.href = baseUrl + '?search=' + searchQuery + '&status=' + status;
+        })
+    </script>
 @endsection

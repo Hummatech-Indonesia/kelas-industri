@@ -67,36 +67,43 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="d-flex justify-content-start ms-4 mt-4 gap-2">
-                        <div>
-                            <form action="" method="GET" class="d-flex gap-2">
-                                <select name="school_id"
-                                    class="form-select form-select-solid me-5 select2-hidden-accessible"
-                                    data-control="select2" data-placeholder="select an option"
-                                    data-select2-id="select2-data-1-t0yr" tabindex="-1" aria-hidden="true"
-                                    data-kt-initialized="1">
-                                    <option value="" data-select2-id="select2-data-3-9z7u">default</option>
-                                    <option value="1eacc94d-e3a0-3d0d-a9e2-7b131ce0c593">
-                                        Vince Dooley
+                    <div class="d-flex row ms-4 mt-4 gap-2">
+                        <form action="" method="GET" class="d-flex gap-2">
+                            <div class="col-3">
+                                <select name="school_id" class="form-select form-select-solid me-5" data-control="select2"
+                                    data-placeholder="select an option">
+                                    <option value="all">Semua Sekolah
                                     </option>
-                                </select><span class="select2 select2-container select2-container--bootstrap5"
-                                    dir="ltr" data-select2-id="select2-data-2-huo1" style="width: 100%;"><span
-                                        class="selection"><span
-                                            class="select2-selection select2-selection--single form-select form-select-solid me-5"
-                                            role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0"
-                                            aria-disabled="false" aria-labelledby="select2-school_id-8f-container"
-                                            aria-controls="select2-school_id-8f-container"><span
-                                                class="select2-selection__rendered" id="select2-school_id-8f-container"
-                                                role="textbox" aria-readonly="true" title="select an option"><span
-                                                    class="select2-selection__placeholder">select an
-                                                    option</span></span><span class="select2-selection__arrow"
-                                                role="presentation"><b role="presentation"></b></span></span></span><span
-                                        class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                <button type="submit" class="btn btn-primary fw-bold">Cari</button>
-                                <a href="http://127.0.0.1:8000/administration/teacher"
-                                    class="btn btn-primary fw-bold">Reset</a>
-                            </form>
-                        </div>
+                                    @foreach ($schools as $school)
+                                        <option value="{{ $school->id }}"
+                                            {{ request('school_id') == $school->id ? 'selected' : '' }}>
+                                            {{ $school->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <select name="status" class="form-select form-select-solid me-5" data-control="select2"
+                                    data-placeholder="select an option">
+                                    <option value="all">Semua Status
+                                    </option>
+                                    <option value="not_yet_paid"
+                                        {{ request('status') == 'not_yet_paid' ? 'selected' : '' }}>
+                                        Belum Dibayar
+                                    </option>
+                                    <option value="debt" {{ request('status') == 'debt' ? 'selected' : '' }}>
+                                        Piutang
+                                    </option>
+                                    <option value="already_paid"
+                                        {{ request('status') == 'already_paid' ? 'selected' : '' }}>
+                                        Sudah Dibayar
+                                    </option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary fw-bold">Cari</button>
+                            <a href="{{ route('administration.schoolPackage.index') }}"
+                                class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                        </form>
                     </div>
                     <!--begin::Card body-->
                     <div class="card-body pt-4">
@@ -127,21 +134,23 @@
                                         <td>{{ 'Rp ' . number_format($schoolPackage->price, 0, ',', '.') }}</td>
                                         <td>
                                             @if ($schoolPackage->status == 'not_yet_paid')
-                                            <span class="badge badge-light-danger rounded border border-danger">Belum Dibayar</span>
+                                                <span class="badge badge-light-danger rounded border border-danger">Belum
+                                                    Dibayar</span>
                                             @elseif($schoolPackage->status == 'already_paid')
-                                            <span class="badge badge-light-success rounded border border-success">Sudah Dibayar</span>
+                                                <span class="badge badge-light-success rounded border border-success">Sudah
+                                                    Dibayar</span>
                                             @else
-                                            <span class="badge badge-light-warning rounded border border-warning">Piutang</span>
+                                                <span
+                                                    class="badge badge-light-warning rounded border border-warning">Piutang</span>
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($schoolPackage->status == 'not_yet_paid')
+                                            @if ($schoolPackage->status == 'not_yet_paid' || $schoolPackage->status == 'debt')
                                                 <button
                                                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-status me-1"
                                                     data-bs-toggle="tooltip" data-id="{{ $schoolPackage->id }}"
-                                                    data-status="{{ $schoolPackage->status }}"
-                                                    data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-                                                    data-bs-title="Edit Status">
+                                                    data-status="{{ $schoolPackage->status }}" data-bs-placement="top"
+                                                    data-bs-custom-class="custom-tooltip" data-bs-title="Edit Status">
                                                     <span class="svg-icon svg-icon-2 svg-icon-primary"><svg width="24"
                                                             height="24" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -180,11 +189,32 @@
                                         </td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="col-12 text-center">
+                                                <!--begin::Illustration-->
+                                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}"
+                                                    class="h-150px" alt="" />
+                                                <!--end::Illustration-->
+
+                                                <!--begin::Title-->
+                                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                                <!--end::Title-->
+
+                                                <!--begin::Desctiption-->
+                                                <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                                    anda belum memiliki status paket sekolah untuk saat ini.
+                                                </span>
+                                                <!--end::Desctiption-->
+                                            </div>
+
+                                        </td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                             <!--end::Table body-->
                         </table>
-
+                        {{ $schoolPackages->links('pagination::bootstrap-5') }}
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->
@@ -192,6 +222,7 @@
             </div>
 
         </div>
+
     </div>
     {{-- Modal --}}
     <div class="modal fade" tabindex="-1" id="modal_plus">
@@ -232,13 +263,13 @@
                         </div>
                         <div class="my-4">
                             <label for="status" class="form-label mb-3">Nama Paket</label>
-                            <input type="text" class="form-control form-control-solid" placeholder="masukkan nama paket" name="package_name"
-                                id="">
+                            <input type="text" class="form-control form-control-solid"
+                                placeholder="masukkan nama paket" name="package_name" id="">
                         </div>
                         <div class="my-4">
-                            <label for="status" class="form-label mb-3">Harga Paket (Akan Dikali Dengan Jumlah
-                                Siswa)</label>
-                            <input type="text" placeholder="Harga paket" class="form-control form-control-solid" name="price" id="">
+                            <label for="status" class="form-label mb-3">Harga Paket </label>
+                            <input type="text" placeholder="Rp. 5,000,000" class="form-control form-control-solid"
+                                name="price" id="">
                         </div>
                         <div class="d-flex justify-content-end mt-5">
                             <button type="submit" class="btn btn-primary">Simpan</button>

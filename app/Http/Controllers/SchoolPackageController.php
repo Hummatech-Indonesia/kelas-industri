@@ -31,9 +31,10 @@ class SchoolPackageController extends Controller
         if (request()->ajax()) {
             return $this->packageService->handleGetByStatus($request->status);
         }
+        // dd($request->school_id);
         $data = [
             'schools' => $this->userService->handleGetAllSchool(),
-            'schoolPackages' => $this->schoolPackageService->handleGetAll(),
+            'schoolPackages' => $this->schoolPackageService->handleFilter($request->school_id, $request->status),
         ];
         return view('dashboard.finance.pages.schoolPackage.index', $data);
     }

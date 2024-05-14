@@ -44,7 +44,7 @@ class DependentController extends Controller
 
     public function semester($semester,User $user)
     {
-        $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', $user->id)->sum('total_pay');
+        $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', $user->id)->where('invoice_status','paid')->sum('total_pay');
         $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', $user->studentSchool->studentClassroom->classroom->id)->select('nominal')->first();
         return response()->json($data);
     }

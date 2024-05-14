@@ -1,3 +1,7 @@
+@php
+    use Carbon\Carbon;
+@endphp
+
 @extends('dashboard.user.layouts.app')
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -73,62 +77,85 @@
                             <div class="card mb-5 mb-xl-8">
                                 <!--begin::Body-->
                                 <div class="card-body py-3">
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active"
-                                            id="kt_stats_widget_2_tab_c045ef40-0c2b-3338-b645-932b147dce1a" role="tabpanel">
+                                    @foreach ($dependents as $index => $tabContent)
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
+                                                id="kt_stats_widget_2_tab_{{ $tabContent->id }}" role="tabpanel">
 
-                                            <!--begin::Table container-->
-                                            <div class="table-responsive">
-                                                <!--begin::Table-->
-                                                <table
-                                                    class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
-                                                    <!--begin::Table head-->
-                                                    <thead>
-                                                        <tr class="fw-bold text-muted">
-                                                            <th class="min-w-50px">No</th>
-                                                            <th class="min-w-150px">Nominal</th>
-                                                            <th class="min-w-150px">Waktu Pembayaran</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <!--end::Table head-->
+                                                <!--begin::Table container-->
+                                                <div class="table-responsive">
+                                                    <!--begin::Table-->
+                                                    <table
+                                                        class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                            <tr class="fw-bold text-muted">
+                                                                <th class="min-w-50px">No</th>
+                                                                <th class="min-w-100px">Nominal</th>
+                                                                <th class="min-w-100px">Waktu Pembayaran</th>
+                                                                <th class="min-w-50px">Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <!--end::Table head-->
 
-                                                    <!--begin::Table body-->
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="d-flex justify-content-start flex-column">
-                                                                        <div class="text-gray-900 fw-bold fs-7">
-                                                                            1
+                                                        <!--begin::Table body-->
+                                                        <tbody>
+                                                            @php
+                                                                $counter = 1;
+                                                            @endphp
+                                                            @forelse ($trackings->where('semester', $tabContent->semester) as $index => $tracking)
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div
+                                                                                class="d-flex justify-content-start flex-column">
+                                                                                <div class="text-gray-900 fw-bold fs-7">
+                                                                                    {{ $counter++ }}
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td
-                                                                style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
-                                                                <span class="text-gray-900 fw-bold fs-7">Rp.
-                                                                    50.000</span>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="d-flex justify-content-start flex-column">
-                                                                        <div class="text-gray-900 fw-bold fs-7">
-                                                                            06 Mei 2024
+
+                                                                    </td>
+                                                                    <td
+                                                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 200px ;white-space: nowrap">
+                                                                        <span class="text-gray-900 fw-bold fs-7">Rp
+                                                                            {{ number_format($tracking->total_pay), 0, ',', '.' }}</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div
+                                                                                class="d-flex justify-content-start flex-column">
+                                                                                <div class="text-gray-900 fw-bold fs-7">
+                                                                                    {{ Carbon::parse($tracking->payment_date)->locale('id')->isoFormat('D MMMM YYYY') }}
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                    <!--end::Table body-->
-                                                </table>
-                                                <!--end::Table-->
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="{{ route('student.detail-payment', $tracking->id) }}"
+                                                                            class="btn btn-primary btn-sm">
+                                                                            Detail
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            @empty
+                                                                <tr>
+                                                                    <td colspan="4">
+                                                                        <x-empty-component title="transaksi" />
+                                                                    </td>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                        <!--end::Table body-->
+                                                    </table>
+                                                    <!--end::Table-->
 
 
+                                                </div>
+                                                <!--end::Table container-->
                                             </div>
-                                            <!--end::Table container-->
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                                 <!--begin::Body-->
                             </div>
@@ -138,6 +165,8 @@
                                 @csrf
                                 @method('POST')
                                 <!--begin::Pos order-->
+                                <input type="hidden" name="nominal" id="nominal" value="">
+
                                 <div class="card card-flush bg-body " id="kt_pos_form">
                                     <!--begin::Header-->
                                     <div class="card-header pt-5">
@@ -153,7 +182,7 @@
                                             <div class="fs-6 fw-bold text-white">
                                                 <span class="d-block lh-1 mb-2">Pembayaran semester ini</span>
                                                 <span class="d-block mb-2">Tanggungan semester ini</span>
-                                                <span class="d-block mb-9">Biaya Layanan</span>
+                                                <span class="d-block mb-9"></span>
                                                 <span class="d-block fs-1 lh-1">Total Tanggungan</span>
                                             </div>
 
@@ -164,71 +193,204 @@
                                                     id="total_bayar"></span>
                                                 <span class="d-block mb-2" data-kt-pos-element="discount"
                                                     id="tanggungan_pembayaran"></span>
-                                                <span class="d-block mb-9" data-kt-pos-element="tax"
-                                                    id="biaya-layanan"></span>
+                                                <span class="d-block mb-9" data-kt-pos-element="tax"></span>
                                                 <span class="d-block fs-1 lh-1" data-kt-pos-element="grant-total"
                                                     id="total_sisa"></span>
                                             </div>
                                             <!--end::Content-->
                                         </div>
                                         <!--end::Summary-->
-
+                                        <div class="mb-5">
+                                            <label for="flexCheckDefault" class="form-label">Pilih Semester</label>
+                                            <select name="semester" class="form-select form-select-solid" id="">
+                                                @foreach ($dependents as $dependet)
+                                                    <option value="{{ $dependet->semester }}">Semester
+                                                        {{ $dependet->semester }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <!--end::Content-->
-                                        <div class="mb-11">
-                                            <input type="checkbox" name="installment" id="">
-                                            <label for="">Ingin Menyicil Terlebih Dahulu?</label>
+                                        <div class="mb-5">
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="installment" type="checkbox"
+                                                    value="" id="installmentCheckbox" />
+                                                <label for="flexCheckDefault" class="form-label">Ingin Menyicil
+                                                    Terlebih
+                                                    Dahulu?</label>
+                                            </div>
                                             <div class="" id="div-installment" style="display: none">
-                                                <label for="installment_payment">Inputkan Nominal Yang Ingin Anda
+                                                <label for="installment_payment" class="form-label">Inputkan Nominal Yang
+                                                    Ingin Anda
                                                     Bayarkan</label>
-                                                <input type="text" name="installment_payment" class="form-control"
-                                                    placeholder="Rp. 20.000" id="">
+                                                <input type="number" name="installment_payment"
+                                                    class="form-control form-control-solid" placeholder="Rp. 20.000"
+                                                    id="">
                                             </div>
                                         </div>
                                         <!--begin::Payment Method-->
                                         <div class="m-0">
                                             <!--begin::Title-->
-                                            <h2 class="fw-bold text-gray-800 mb-5">Metode Pembayaran</h1>
-                                                <!--end::Title-->
-
-                                                <!--begin::Radio group-->
-                                                <div class="d-flex flex-equal gap-5 gap-xxl-9 px-0 mb-12"
-                                                    data-kt-buttons="true" data-kt-buttons-target="[data-kt-button]"
-                                                    data-kt-initialized="1">
-                                                    <input type="hidden" name="nominal" id="nominal" value="">
-                                                    <!--begin::Radio-->
-                                                    @foreach ($channels as $channel)
-                                                        <label
-                                                            class="btn bg-light btn-color-gray-600 btn-active-text-gray-800 border border-3 border-gray-100 border-active-primary btn-active-light-primary w-100 px-4 {{ $loop->first ? 'active' : '' }}"
-                                                            data-kt-button="true">
-                                                            <!--begin::Input-->
-                                                            <input class="btn-check"
-                                                                data-fee="{{ $channel->total_fee->flat }}" type="radio"
-                                                                name="method" value="{{ $channel->code }}"
-                                                                {{ $loop->first ? 'checked' : '' }}>
-                                                            <!--end::Input-->
-
-                                                            <!--begin::Icon-->
-                                                            <img src="https://assets.tripay.co.id/upload/payment-icon/n22Qsh8jMa1583433577.png"
-                                                                alt="" class="img-fluid mb-2"
-                                                                style="height: 35px;">
-                                                            <!--end::Icon-->
-
-                                                            <!--begin::Title-->
-                                                            <span class="fs-7 fw-bold d-block">{{ $channel->name }}
-                                                                {{ $channel->maximum_fee }}</span>
-                                                            <!--end::Title-->
-                                                        </label>
-                                                    @endforeach
-
-
-                                                    <!--end::Radio-->
+                                            <h2 class="fw-bold text-gray-800 mb-5">Pilih Metode Pembayaran</h2>
+                                            <!--end::Title-->
+                                            <div class="card shadow-sm mb-5">
+                                                <div class="card-header collapsible cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#virtualAccountCollapsible">
+                                                    <h3 class="card-title">Virtual Account</h3>
+                                                    <div class="card-toolbar">
+                                                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                width="24" height="24" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                                <!--end::Radio group-->
+                                                <div id="virtualAccountCollapsible" class="collapse">
+                                                    <div class="card-body">
+                                                        <div class="row d-flex flex-equal" data-kt-buttons="true"
+                                                            data-kt-buttons-target="[data-kt-button]">
+                                                            @foreach ($channels as $channel)
+                                                                @if ($channel->group == 'Virtual Account')
+                                                                    <input type="hidden" name="icon_url"
+                                                                        value="{{ $channel->icon_url }}">
+                                                                    <div class="col-4 mb-5">
+                                                                        <label
+                                                                            class="btn bg-light btn-color-gray-600 btn-active-text-gray-800 border border-3 border-gray-100 border-active-primary btn-active-light-primary w-100 px-4 {{ $loop->first ? 'active' : '' }}"
+                                                                            data-kt-button="true">
+                                                                            <!--begin::Input-->
+                                                                            <input class="btn-check" type="radio"
+                                                                                name="method"
+                                                                                value="{{ $channel->code }}"
+                                                                                {{ $loop->first ? 'checked' : '' }}>
+                                                                            <!--end::Input-->
 
-                                                <!--begin::Actions-->
-                                                <button type="submit"
-                                                    class="btn btn-primary fs-1 w-100 py-4">Bayar</button>
-                                                <!--end::Actions-->
+                                                                            <!--begin::Icon-->
+                                                                            <img src="{{ $channel->icon_url }}"
+                                                                                alt="" class="img-fluid mb-2"
+                                                                                style="height: 35px;">
+                                                                            <!--end::Icon-->
+
+                                                                            <!--begin::Title-->
+                                                                            <span
+                                                                                class="fs-7 fw-bold d-block">{{ $channel->name }}</span>
+                                                                            <!--end::Title-->
+                                                                        </label>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card shadow-sm mb-5">
+                                                <div class="card-header collapsible cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#eWalletCollapsible">
+                                                    <h3 class="card-title">E-wallet</h3>
+                                                    <div class="card-toolbar">
+                                                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                width="24" height="24" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div id="eWalletCollapsible" class="collapse">
+                                                    <div class="card-body">
+                                                        <div class="row d-flex flex-equal" data-kt-buttons="true"
+                                                            data-kt-buttons-target="[data-kt-button]">
+                                                            @foreach ($channels as $channel)
+                                                                @if ($channel->group == 'E-Wallet')
+                                                                    <input type="hidden" name="icon_url"
+                                                                        value="{{ $channel->icon_url }}">
+                                                                    <div class="col-4 mb-5">
+                                                                        <label
+                                                                            class="btn bg-light btn-color-gray-600 btn-active-text-gray-800 border border-3 border-gray-100 border-active-primary btn-active-light-primary w-100 px-4 {{ $loop->first ? 'active' : '' }}"
+                                                                            data-kt-button="true">
+                                                                            <!--begin::Input-->
+                                                                            <input class="btn-check" type="radio"
+                                                                                name="method"
+                                                                                value="{{ $channel->code }}"
+                                                                                {{ $loop->first ? 'checked' : '' }}>
+                                                                            <!--end::Input-->
+
+                                                                            <!--begin::Icon-->
+                                                                            <img src="https://assets.tripay.co.id/upload/payment-icon/n22Qsh8jMa1583433577.png"
+                                                                                alt="" class="img-fluid mb-2"
+                                                                                style="height: 35px;">
+                                                                            <!--end::Icon-->
+
+                                                                            <!--begin::Title-->
+                                                                            <span
+                                                                                class="fs-7 fw-bold d-block">{{ $channel->name }}</span>
+                                                                            <!--end::Title-->
+                                                                        </label>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card shadow-sm mb-5">
+                                                <div class="card-header collapsible cursor-pointer"
+                                                    data-bs-toggle="collapse" data-bs-target="#retailOutletCollapsible">
+                                                    <h3 class="card-title">Retail Outlet</h3>
+                                                    <div class="card-toolbar">
+                                                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                width="24" height="24" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div id="retailOutletCollapsible" class="collapse">
+                                                    <div class="card-body">
+                                                        <div class="row d-flex flex-equal" data-kt-buttons="true"
+                                                            data-kt-buttons-target="[data-kt-button]">
+                                                            @foreach ($channels as $channel)
+                                                                <input type="hidden" name="icon_url"
+                                                                    value="{{ $channel->icon_url }}">
+                                                                @if ($channel->group == 'Convenience Store')
+                                                                    <div class="col-4 mb-5">
+                                                                        <label
+                                                                            class="btn bg-light btn-color-gray-600 btn-active-text-gray-800 border border-3 border-gray-100 border-active-primary btn-active-light-primary w-100 px-4 {{ $loop->first ? 'active' : '' }}"
+                                                                            data-kt-button="true">
+                                                                            <!--begin::Input-->
+                                                                            <input class="btn-check" type="radio"
+                                                                                name="method"
+                                                                                value="{{ $channel->code }}"
+                                                                                {{ $loop->first ? 'checked' : '' }}>
+                                                                            <!--end::Input-->
+
+                                                                            <!--begin::Icon-->
+                                                                            <img src="https://assets.tripay.co.id/upload/payment-icon/n22Qsh8jMa1583433577.png"
+                                                                                alt="" class="img-fluid mb-2"
+                                                                                style="height: 35px;">
+                                                                            <!--end::Icon-->
+
+                                                                            <!--begin::Title-->
+                                                                            <span
+                                                                                class="fs-7 fw-bold d-block">{{ $channel->name }}</span>
+                                                                            <!--end::Title-->
+                                                                        </label>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--begin::Actions-->
+                                            <button type="submit" class="btn btn-primary fs-1 w-100 py-4">Bayar</button>
+                                            <!--end::Actions-->
                                         </div>
                                         <!--end::Payment Method-->
                                     </div>
@@ -250,6 +412,35 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            var semester = $('a[data-semester]').first().data('semester');
+            var userId = $('a[data-semester]').first().data('user');
+            if (semester && userId) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('student.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
+                        .replace(':semester', semester).replace(':user', userId),
+                    success: function(response) {
+                        $('#total_bayar').html(numberFormat(response.totalBayar));
+                        $('#tanggungan_pembayaran').html(numberFormat(response.nominal.nominal));
+                        $('#total_sisa').html(numberFormat(response.nominal.nominal - response
+                            .totalBayar));
+                        $('#nominal').val(response.nominal.nominal -
+                            response.totalBayar);
+
+                        function numberFormat(angka) {
+                            var rupiah = '';
+                            var angkarev = angka.toString().split('').reverse().join('');
+                            for (var i = 0; i < angkarev.length; i++)
+                                if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.';
+                            return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
+                        }
+
+                    }
+                });
+            }
+        });
+
+        $(document).ready(function() {
             // Fungsi untuk memformat angka ke format rupiah
             function numberFormat(angka) {
                 var rupiah = '';
@@ -258,13 +449,10 @@
                     if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.';
                 return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
             }
-            var currentFee = $('.btn-check:checked').data('fee');
 
-            $('#biaya-layanan').html(numberFormat(currentFee));
-
-            function fetchData() {
-                var semester = $('a[data-semester]').first().data('semester');
-                var userId = $('a[data-semester]').first().data('user');
+            $('.nav-link').click(function() {
+                var semester = $(this).data('semester');
+                var userId = $(this).data('user');
                 if (semester && userId) {
                     $.ajax({
                         type: "GET",
@@ -272,37 +460,42 @@
                             .replace(':semester', semester).replace(':user', userId),
                         success: function(response) {
                             $('#total_bayar').html(numberFormat(response.totalBayar));
-                            $('#tanggungan_pembayaran').html(numberFormat(response.nominal.nominal));
-                            $('#total_sisa').html(numberFormat(response.nominal.nominal - response
-                                .totalBayar + currentFee));
-                            const nominal = response.nominal.nominal - response
-                                .totalBayar;
-                            $('#nominal').val(nominal);
+                            $('#tanggungan_pembayaran').html(numberFormat(response.nominal
+                                .nominal));
+                            $('#total_sisa').html(numberFormat(response.nominal.nominal -
+                                response.totalBayar));
+                            $('#nominal').val(response.nominal.nominal -
+                                response.totalBayar);
                         }
                     });
                 }
-            }
-
-            fetchData();
+            });
 
             $('.btn-check').click(function() {
-                var fee = $(this).data('fee');
-                currentFee = fee;
-                $('#biaya-layanan').html(numberFormat(fee));
                 $('.btn').removeClass('active');
                 $(this).parent().addClass('active');
-
-                fetchData();
             });
         });
 
         $(document).ready(function() {
             $('input[name="installment"]').click(function() {
                 if ($(this).is(':checked')) {
+                    $('#installmentCheckbox').val('checked');
                     $('#div-installment').show();
                 } else {
+                    $('#installmentCheckbox').val('');
                     $('#div-installment').hide();
                 }
+            });
+        })
+    </script>
+
+    <script>
+        document.querySelectorAll('[data-kt-button]').forEach(button => {
+            button.addEventListener('click', function() {
+                const parentDiv = this.closest('div[data-kt-buttons]');
+                parentDiv.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
             });
         });
     </script>

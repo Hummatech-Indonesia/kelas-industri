@@ -14,7 +14,7 @@ class Payment extends Model
     protected $table = 'payments';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'user_id', 'total_pay', 'payment_date', 'semester', 'invoice_id', 'fee_amount', 'expired_date', 'invoice_status', 'paid_amount', 'fee_amount'];
+    protected $fillable = ['id', 'user_id', 'total_pay', 'payment_date', 'semester', 'invoice_id', 'fee_amount', 'expired_date', 'invoice_status', 'paid_amount','reference','via','icon_url'];
 
     /**
      * Get the user that owns the Payment

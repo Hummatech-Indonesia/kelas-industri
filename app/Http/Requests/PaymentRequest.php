@@ -15,7 +15,6 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
             'user_id' => 'required',
             'total_pay' => 'required|min:0',
             'payment_date' => 'required',
@@ -26,7 +25,6 @@ class PaymentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
             'user_id.required' => 'user harus diisi',
             'total_pay.required' => 'nominal harus diisi',
             'total_pay.min' => 'minimal pembayaran sebesar Rp. 0',

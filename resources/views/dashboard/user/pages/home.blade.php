@@ -132,7 +132,7 @@
                                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                                         Total Tanggungan Semester Ini
                                         <div>
-                                            <span class="text-primary fw-bolder fs-2">Rp. 100.000</span>
+                                            <span class="text-primary fw-bolder fs-2">{{ 'Rp ' . number_format($totalPayment, 0, ',', '.') }}</span>
                                         </div>
                                     </span>
                                 </div>

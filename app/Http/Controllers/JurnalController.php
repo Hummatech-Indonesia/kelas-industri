@@ -77,8 +77,8 @@ class JurnalController extends Controller
     public function store(JournalRequest $request): RedirectResponse
     {
         if ($request->photo != null) {
-            if (Carbon::now()->format('l') == "Saturday" && auth()->user()->roles->pluck('name')[0] == 'teacher') {
-                return redirect()->back()->with('error', trans('Tidak bisa mengisi jurnal, dikarenakan hari ini sabtu!'));
+            if (Carbon::now()->format('l') == "sunday" && auth()->user()->roles->pluck('name')[0] == 'teacher') {
+                return redirect()->back()->with('error', trans('Tidak bisa mengisi jurnal, dikarenakan hari ini minggu!'));
             }
             $this->journalService->handleCreate($request);
             if (auth()->user()->roles->pluck('name')[0] == 'mentor') {

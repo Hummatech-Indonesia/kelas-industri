@@ -39,6 +39,11 @@ class SchoolService
         return $this->repository->search_paginate($search, 6);
     }
 
+    public function handleFilter(String|null $status, string|null $search): mixed
+    {
+        return $this->repository->status_paginate($status,$search, 6);
+    }
+
     public function handleCountStudent(string $id)
     {
         return $this->repository->getCountStudent($id);

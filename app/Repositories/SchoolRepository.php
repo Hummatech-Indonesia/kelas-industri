@@ -39,6 +39,27 @@ class SchoolRepository extends  BaseRepository
             ->paginate($limit);
     }
 
+    /**
+     * search paginate
+     *
+     * @param string|null $search
+     * @param int $limit
+     * @return mixed
+     */
+    public function status_paginate(string|null $status, string|null $search, int $limit): mixed
+{
+    return $this->model->query()
+        ->role('school')
+        ->where('name', 'like', '%' . $search . '%')
+        ->when($status == 'school_package', function ($query) {
+            $query->whereHas('schoolPackages');
+        })
+        ->when($status == 'student_package', function ($query) {
+            $query->whereDoesntHave('schoolPackages');
+        })
+        ->paginate($limit);
+}
+
     public function getCount()
     {
         return $this->model->query()

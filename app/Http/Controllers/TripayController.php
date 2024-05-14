@@ -22,7 +22,17 @@ class TripayController extends Controller
 
     public function store(Request $request)
     {
-        $service = $this->service->requestTranscaction($request->all());
-        return $service;
+        $response = $this->service->requestTranscaction($request->all());
+
+        return redirect()->route(
+            'student.detail-transaction',
+            ['reference' => $response->reference]
+        );
+    }
+
+    public function show($reference)
+    {
+        $response = $this->service->detailTransaction($reference);
+        return $response;
     }
 }
