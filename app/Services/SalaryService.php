@@ -144,6 +144,11 @@ class SalaryService
         return $this->repository->get_salary_by_user($userId);
     }
 
+    public function handleByUserThisMonth(string $userId): mixed
+    {
+        return $this->repository->get_salary_by_user_this_month($userId);
+    }
+
     public function handleGetSalaryTeacher(Request $request): mixed
     {
         return $this->repository->getSalaryTeacher($request);

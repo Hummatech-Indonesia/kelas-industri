@@ -47,6 +47,13 @@ class   SalaryRepository extends BaseRepository
             ->where('user_id', $userId)
             ->get();
     }
+    public function get_salary_by_user_this_month(string $userId): mixed
+    {
+        return $this->model->query()
+            ->where('user_id', $userId)
+            ->whereMonth('payday', Carbon::now()->locale('id')->month)
+            ->sum('salary_amount');
+    }
 
     public function getSalaryTeacher(Request $request): mixed
     {

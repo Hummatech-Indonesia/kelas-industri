@@ -47,6 +47,10 @@ class AttendanceRepository extends BaseRepository
             ->get();
     }
 
+    public function countSubmitAttendance() : mixed {
+        return $this->model->query()->withCount('submitAttendances')->first();
+    }
+
     /**
      * get challenge by teacher
      *

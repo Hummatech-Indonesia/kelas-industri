@@ -60,4 +60,8 @@ class PresentationRepository extends BaseRepository
         ]);
     }
 
+    public function getNearestPresentation(mixed $mentor): mixed {
+        return $this->model->query()->whereRelation('project.user.studentSchool.studentClassroom', $mentor->mentorClassroom)->where('status', 'approved')->with('project.user')->orderBy('updated_at', 'desc')->limit(3)->get();
+    }
+
 }

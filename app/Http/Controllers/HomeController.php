@@ -27,6 +27,7 @@ use App\Services\ClassroomService;
 use App\Services\DependentService;
 use App\Services\AssignmentService;
 use App\Services\AttendanceService;
+use App\Services\PresentationService;
 use App\Services\SchoolPackageService;
 use App\Services\ZoomScheduleService;
 use Symfony\Component\VarDumper\VarDumper;
@@ -52,12 +53,13 @@ class HomeController extends Controller
     private PaymentService $paymentService;
     private SchoolPackageService $schoolPackageService;
     private AttendanceService $attendanceService;
+    private PresentationService $presentationService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(TeacherService $teacherService, StudentService $studentService, UserServices $userService, AssignmentService $assignmentService, MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService, DependentService $dependentService, SalaryService $salaryService, PaymentService $paymentService, AttendanceService $attendanceService, SchoolPackageService $schoolPackageService)
+    public function __construct(TeacherService $teacherService, StudentService $studentService, UserServices $userService, AssignmentService $assignmentService, MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService, DependentService $dependentService, SalaryService $salaryService, PaymentService $paymentService, AttendanceService $attendanceService, SchoolPackageService $schoolPackageService, PresentationService $presentationService)
     {
         $this->middleware('auth');
         $this->assignmentService = $assignmentService;
@@ -76,6 +78,7 @@ class HomeController extends Controller
         $this->paymentService = $paymentService;
         $this->schoolPackageService = $schoolPackageService;
         $this->attendanceService = $attendanceService;
+        $this->presentationService = $presentationService;
     }
 
     /**
@@ -271,12 +274,19 @@ class HomeController extends Controller
             $data['jurnal'] = $this->journalService->handleCountJournalTeacher($userId);
             $data['challenge'] = $this->challengeService->handleCountChallengeTeacher($userId, $currentSchoolYear->id);
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleTeacher();
+            $data['lastestChallenge'] = $this->challengeService->handleGetLatestByMentor($userId);
+            $data['salary'] = $this->salaryService->handleByUserThisMonth($userId);
         } elseif ($role == 'mentor') {
             $data['classroom'] = $this->classroomService->handleCountClassroomMentor($userId);
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);
             $data['jurnal'] = $this->journalService->handleCountJournalMentor($userId);
             $data['challenge'] = $this->challengeService->handleCountChallengeMentor($userId, $currentSchoolYear->id);
+            $data['attendance'] = $this->attendanceService->handleCountSubmitAttendance();
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleMentor();
+            $data['presentationZoom'] = $this->presentationService->getNearestPresentation(auth()->user());
+            $data['lastestChallenge'] = $this->challengeService->handleGetLatestByMentor($userId);
+            $data['salary'] = $this->salaryService->handleByUserThisMonth($userId);
+            // dd($data['salary']);
         }
         return view('dashboard.user.pages.home', $data);
     }

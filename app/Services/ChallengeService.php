@@ -42,6 +42,10 @@ class ChallengeService
     {
         return $this->repository->get_challenge_by_mentor($mentorId, $search->search, 6);
     }
+    public function handleGetLatestByMentor(String $mentorId): mixed
+    {
+        return $this->repository->get_challenge_by_mentor_latest($mentorId);
+    }
 
     public function handleGetChallengeByMentor(String $challengeId): mixed
     {

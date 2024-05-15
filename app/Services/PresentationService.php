@@ -65,4 +65,8 @@ class PresentationService
     {
         return $this->repository->rejectPresentation($presentationId, $pendingDate);
     }
+
+    public function getNearestPresentation(mixed $mentor): mixed {
+        return $this->repository->getNearestPresentation($mentor);
+    }
 }

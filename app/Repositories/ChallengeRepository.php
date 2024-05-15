@@ -69,6 +69,11 @@ class ChallengeRepository extends BaseRepository
             ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }
+    public function get_challenge_by_mentor_latest(String $mentorId): mixed
+    {
+        return $this->model->query()
+            ->where('created_by', $mentorId)->withCount('StudentChallenge')->limit(3)->get();
+    }
 
     public function updateSubmitChallengeByStudentId($data, int $studentId): void
     {

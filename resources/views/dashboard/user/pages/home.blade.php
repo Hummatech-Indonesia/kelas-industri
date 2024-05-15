@@ -36,7 +36,7 @@
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-8">
                             <h1>Selamat Datang, {{ auth()->user()->name }} (@if (auth()->user()->roles->pluck('name')[0] == 'student')
                                     Siswa
                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
@@ -44,6 +44,10 @@
                                 @else
                                     Guru
                                 @endif)</h1>
+                        </div>
+                        <div class="col">
+                            <span class="fs-5 pe-4">Gaji Anda bulan ini</span>
+                            <span class="fs-3">Rp. {{ $salary }}</span>
                         </div>
                     </div>
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
@@ -474,6 +478,127 @@
                                 </a>
                             @endif
                         </div>
+
+                        <div class="row mt-5 ">
+                            <div class="col p-0">
+                                <div class="card card-flush h-md-100">
+                                    <!--begin::Header-->
+                                    <div class="card-header pt-5">
+                                        <!--begin::Title-->
+                                        <h3 class="card-title align-items-start flex-column">
+                                            <span class="card-label fw-bold text-gray-800">Tantangan Sedang
+                                                Berlangsung</span>
+                                        </h3>
+                                        <!--end::Title-->
+
+                                        <!--begin::Toolbar-->
+                                        <div class="card-toolbar">
+                                            <a href="{{ route('teacher.challenges.index') }}"
+                                                class="btn btn-sm btn-light">Lihat</a>
+                                        </div>
+                                        <!--end::Toolbar-->
+                                    </div>
+                                    <!--end::Header-->
+
+                                    <!--begin::Body-->
+                                    <div class="card-body pt-2">
+                                        @if (count($lastestChallenge) > 0)
+                                            <!--begin::Table container-->
+                                            <div class="table-responsive">
+                                                <!--begin::Table-->
+                                                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="fs-7 fw-bold text-gray-500 border-bottom-0">
+                                                            <th class="p-0 pb-3 min-w-175px text-start">Nama</th>
+                                                            <th class="p-0 pb-3 min-w-100px text-center">PENGUMPULAN</th>
+                                                            <th class="p-0 pb-3 min-w-100px text-center">STATUS</th>
+                                                            <th class="p-0 pb-3 min-w-175px text-center pe-12">DITUTUP</th>
+                                                            <th class="p-0 pb-3 w-50px text-end">AKSI</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <!--end::Table head-->
+
+                                                    <!--begin::Table body-->
+                                                    <tbody>
+                                                        @foreach ($lastestChallenge as $challenge)
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="symbol symbol-50px me-3">
+                                                                            <div
+                                                                                class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
+                                                                                {{ ucfirst(substr($challenge->title, 0, 1)) }}
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="d-flex justify-content-start flex-column">
+                                                                            <a href="#"
+                                                                                class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">{{ $challenge->title }}</a>
+                                                                            {{-- <span
+                                                                        class="text-gray-500 fw-semibold d-block fs-7">Jane
+                                                                        Cooper</span> --}}
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td class="text-center pe-0">
+                                                                    <span
+                                                                        class="text-gray-600 fw-bold fs-6">{{ $challenge->student_challenge_count }}</span>
+                                                                </td>
+
+                                                                <td class="text-center">
+                                                                    @if (Carbon::parse($challenge->end_date)->locale('id')->isPast())
+                                                                        <span
+                                                                            class="badge py-3 px-4 fs-7 badge-light-danger">Ditutup</span>
+                                                                    @elseif (!Carbon::parse($challenge->start_date)->locale('id')->isPast())
+                                                                        <span
+                                                                            class="badge py-3 px-4 fs-7 badge-light-success">Berlangsung</span>
+                                                                    @else
+                                                                        <span
+                                                                            class="badge py-3 px-4 fs-7 badge-light-warning">Belum
+                                                                            Dimulai</span>
+                                                                    @endif
+                                                                </td>
+
+                                                                <td class="text-center pe-12">
+                                                                    <!--begin::Label-->
+                                                                    <span class="badge badge-light-danger fs-base">
+                                                                        <i
+                                                                            class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span
+                                                                                class="path1"></span><span
+                                                                                class="path2"></span></i>
+                                                                        {{ Carbon::parse($challenge->end_date)->locale('id')->isoFormat('DD-MM-Y HH:mm') }}
+                                                                    </span>
+                                                                    <!--end::Label-->
+
+                                                                </td>
+
+                                                                <td class="text-end">
+                                                                    <a href="{{ route('mentor.challenges.show', $challenge->id) }}"
+                                                                        class="btn btn-sm btn-icon btn-bg-light btn-active-color-warning w-30px h-30px">
+                                                                        <i class="bi bi-eye"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <!--end::Table body-->
+                                                </table>
+                                            </div>
+
+                                            <!--end::Table-->
+                                        @else
+                                            <x-empty-component title="tantangan berlangsung" />
+                                        @endif
+                                    </div>
+                                    <!--end: Card Body-->
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- mentor page --}}
                     @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
                         <div class="covercard row gap-2 mt-4">
                             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
@@ -557,6 +682,179 @@
                                 </a>
                             @endif
                         </div>
+                        <div class="row mt-5 ">
+                            <div class="col col-md-4 ps-0">
+                                <div class="card h-xl-100">
+                                    <!--begin::Header-->
+                                    <div class="card-header border-0 pt-5">
+                                        <h3 class="card-title align-items-start flex-column">
+                                            <span class="card-label fw-bold text-gray-900">Jadwal zoom presentasi
+                                                project</span>
+                                        </h3>
+                                    </div>
+                                    <!--end::Header-->
+
+                                    <!--begin::Body-->
+                                    <div class="card-body pt-6 mt-7">
+                                        @foreach ($presentationZoom as $presentation)
+                                            <!--begin::Item-->
+                                            <div class="d-flex flex-stack">
+                                                <!--begin::Symbol-->
+                                                <div class="symbol symbol-50px me-4">
+                                                    <div
+                                                        class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger p-6">
+                                                        Z
+                                                    </div>
+                                                </div>
+                                                <!--end::Symbol-->
+
+                                                <!--begin::Section-->
+                                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                                    <!--begin:Author-->
+                                                    <div class="flex-grow-1 me-2">
+                                                        <span href="/metronic8/demo1/pages/user-profile/overview.html"
+                                                            class="text-gray-800 fs-5 fw-bold">{{ $presentation->name }}</span>
+                                                        <span
+                                                            class="text-muted fw-semibold d-block fs-7">{{ $presentation->date }}</span>
+                                                    </div>
+                                                    <!--end:Author-->
+
+                                                    <!--begin::Actions-->
+                                                    <a href="https://us05web.zoom.us/j/89475402083?pwd=qpM8RxdJN7ZYTqZy9btmRWLvoGsLoC.1 "
+                                                        class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                                                        <i class="bi bi-arrow-right-short fs-1"></i>
+                                                    </a>
+                                                    <!--begin::Actions-->
+                                                </div>
+                                                <!--end::Section-->
+                                            </div>
+                                            <!--end::Item-->
+
+                                            <!--begin::Separator-->
+                                            <div class="separator separator-dashed my-4"></div>
+                                            <!--end::Separator-->
+                                        @endforeach
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                            </div>
+                            <div class="col col-md-8 pe-0">
+                                <div class="card card-flush h-md-100">
+                                    <!--begin::Header-->
+                                    <div class="card-header pt-5">
+                                        <!--begin::Title-->
+                                        <h3 class="card-title align-items-start flex-column">
+                                            <span class="card-label fw-bold text-gray-800">Tantangan Sedang
+                                                Berlangsung</span>
+                                        </h3>
+                                        <!--end::Title-->
+
+                                        <!--begin::Toolbar-->
+                                        <div class="card-toolbar">
+                                            <a href="{{ route('teacher.challenges.index') }}"
+                                                class="btn btn-sm btn-light">Lihat</a>
+                                        </div>
+                                        <!--end::Toolbar-->
+                                    </div>
+                                    <!--end::Header-->
+
+                                    <!--begin::Body-->
+                                    <div class="card-body pt-2">
+                                        @if (count($lastestChallenge) > 0)
+                                            <!--begin::Table container-->
+                                            <div class="table-responsive">
+                                                <!--begin::Table-->
+                                                <table class="table table-row-dashed align-middle gs-0 gy-3 my-0">
+                                                    <!--begin::Table head-->
+                                                    <thead>
+                                                        <tr class="fs-7 fw-bold text-gray-500 border-bottom-0">
+                                                            <th class="p-0 pb-3 min-w-175px text-start">Nama</th>
+                                                            <th class="p-0 pb-3 min-w-100px text-center">PENGUMPULAN</th>
+                                                            <th class="p-0 pb-3 min-w-100px text-center">STATUS</th>
+                                                            <th class="p-0 pb-3 min-w-175px text-center pe-12">DITUTUP</th>
+                                                            <th class="p-0 pb-3 w-50px text-end">AKSI</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <!--end::Table head-->
+
+                                                    <!--begin::Table body-->
+                                                    <tbody>
+                                                        @foreach ($lastestChallenge as $challenge)
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="symbol symbol-50px me-3">
+                                                                            <div
+                                                                                class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
+                                                                                {{ ucfirst(substr($challenge->title, 0, 1)) }}
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="d-flex justify-content-start flex-column">
+                                                                            <a href="#"
+                                                                                class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">{{ $challenge->title }}</a>
+                                                                            {{-- <span
+                                                                        class="text-gray-500 fw-semibold d-block fs-7">Jane
+                                                                        Cooper</span> --}}
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td class="text-center pe-0">
+                                                                    <span
+                                                                        class="text-gray-600 fw-bold fs-6">{{ $challenge->student_challenge_count }}</span>
+                                                                </td>
+
+                                                                <td class="text-center">
+                                                                    @if (Carbon::parse($challenge->end_date)->locale('id')->isPast())
+                                                                        <span
+                                                                            class="badge py-3 px-4 fs-7 badge-light-danger">Ditutup</span>
+                                                                    @elseif (!Carbon::parse($challenge->start_date)->locale('id')->isPast())
+                                                                        <span
+                                                                            class="badge py-3 px-4 fs-7 badge-light-success">Berlangsung</span>
+                                                                    @else
+                                                                        <span
+                                                                            class="badge py-3 px-4 fs-7 badge-light-warning">Belum
+                                                                            Dimulai</span>
+                                                                    @endif
+                                                                </td>
+
+                                                                <td class="text-center pe-12">
+                                                                    <!--begin::Label-->
+                                                                    <span class="badge badge-light-danger fs-base">
+                                                                        <i
+                                                                            class="ki-duotone ki-arrow-up fs-5 text-success ms-n1"><span
+                                                                                class="path1"></span><span
+                                                                                class="path2"></span></i>
+                                                                        {{ Carbon::parse($challenge->end_date)->locale('id')->isoFormat('DD-MM-Y HH:mm') }}
+                                                                    </span>
+                                                                    <!--end::Label-->
+
+                                                                </td>
+
+                                                                <td class="text-end">
+                                                                    <a href="{{ route('mentor.challenges.show', $challenge->id) }}"
+                                                                        class="btn btn-sm btn-icon btn-bg-light btn-active-color-warning w-30px h-30px">
+                                                                        <i class="bi bi-eye"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <!--end::Table body-->
+                                                </table>
+                                            </div>
+
+                                            <!--end::Table-->
+                                        @else
+                                            <x-empty-component title="tantangan berlangsung" />
+                                        @endif
+                                    </div>
+                                    <!--end: Card Body-->
+                                </div>
+                            </div>
+                        </div>
                     @endif
 
 
@@ -614,4 +912,28 @@
             }
         }
     </Style>
+@endsection
+@section('script')
+    <script>
+        var options = {
+            series: [44, 55, 41, 17, 15],
+            chart: {
+                type: 'donut',
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#kt_attendance"), options);
+        chart.render();
+    </script>
 @endsection

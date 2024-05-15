@@ -254,7 +254,7 @@
                             <div class="card border-3 border-bottom border-warning shadow-sm">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
-                                        <h3 class="card-title">Hutang</h3>
+                                        <h3 class="card-title">Piutang</h3>
                                         <h3>{{ isset($schoolPackages['dept']) ? $schoolPackages['dept'] : 0 }}</h3>
                                     </div>
                                 </div>
@@ -353,7 +353,7 @@
                     name: 'Pengeluaran',
                     data: spentData
                 }, {
-                    name: 'Hutang',
+                    name: 'Piutang',
                     data: deptData
                 }],
                 xaxis: {

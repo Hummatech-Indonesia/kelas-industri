@@ -25,12 +25,15 @@ class LoginService
                 } else {
                     return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
                 }
-            }else{
+            } else {
                 return redirect()->back()->with('error', 'Anda tidak dapat login sekarang, tunggu admin mengkonfirmasi akun anda');
             }
         }
-        // dd($role);
-        if ($role == 'admin' || $role == 'school' || $role == 'teacher' || $role == 'mentor' || $role == 'administration') {
+
+        if ($role == 'teacher' && !isset($user->teacherSchool->teacherClassroom)) {
+            return redirect('/login')->with('error', 'Anda belum memiliki kelas.');
+        }
+         if ($role == 'admin' || $role == 'school' || $role == 'teacher' || $role == 'mentor' || $role == 'administration') {
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
                 return redirect()->route('home')->with('success', 'Berhasil Login.');
             } else {

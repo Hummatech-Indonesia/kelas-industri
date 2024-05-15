@@ -51,6 +51,10 @@ class AttendanceService
         return $this->repository->count_mentor_attendance_month();
     }
 
+    public function handleCountSubmitAttendance() : mixed {
+        return $this->repository->countSubmitAttendance();
+    }
+
     public function handleCountMentorAttendanceMonthYear($request): mixed
     {
         $now = now();

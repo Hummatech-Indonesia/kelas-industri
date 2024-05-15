@@ -393,6 +393,7 @@ Route::middleware('auth.custom')->group(function () {
 
     Route::delete('delete-notification/{id}', [NotificationController::class, 'destroy']);
     Route::delete('delete-all-notification', [NotificationController::class, 'deleteAll'])->name('deleteAllNotification');
+    
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
