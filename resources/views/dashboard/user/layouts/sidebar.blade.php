@@ -22,7 +22,7 @@
 
                     <li class="nav-item py-1">
                         <!--begin::Navbar link-->
-                        <a data-bs-toggle="tab" href="#kt_app_sidebar_assignment" class="nav-link py-4 px-1 btn active">
+                        <a data-bs-toggle="tab" href="#kt_app_sidebar_assignment" class="nav-link py-4 px-1 btn active" >
                             <i class="bi bi-list-task fs-1"></i>
 
                             <span class="pt-2 fs-9 fs-lg-7 fw-bold">Tugas</span>

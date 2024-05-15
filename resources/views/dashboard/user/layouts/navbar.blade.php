@@ -8,37 +8,6 @@
     // Call the getAll() method on the instance
     $notifications = $notificationController->getAll();
 
-    if (auth()->user()->roles->pluck('name')[0] == 'student') {
-        $schoolPayment = App\Models\SchoolPackage::query()
-            ->where('school_id', auth()->user()->studentSchool->school->id)
-            ->latest()
-            ->first();
-        $dependent = App\Models\Dependent::query()
-            ->where('classroom_id', auth()->user()->studentSchool->studentClassroom->classroom_id)
-            ->orderBy('semester', 'desc')
-            ->first();
-
-        $isPaymentComplete = true;
-
-        if ($dependent && $dependent->semester > 1) {
-            $previousSemester = $dependent->semester - 1;
-
-            $studentPayment = App\Models\Payment::query()
-                ->where('user_id', auth()->user()->id)
-                ->where('semester', $previousSemester)
-                ->sum('total_pay');
-
-            $previousDependent = App\Models\Dependent::where(
-                'classroom_id',
-                auth()->user()->studentSchool->studentClassroom->classroom_id,)
-                ->where('semester', $previousSemester)
-                ->orderBy('semester', 'desc')
-                ->first();
-            $nominalRequired = $previousDependent->nominal;
-            $isPaymentComplete = $nominalRequired == $studentPayment;
-        }
-    }
-
 @endphp
 <div id="kt_app_header" class="app-header ">
 
@@ -98,16 +67,12 @@
                             <!--begin:Menu link-->
                             <a href="{{ auth()->user()->roles->pluck('name')[0] == 'student' ? route('student.classrooms') : route('common.classrooms') }}"
                                 class="menu-link {{ request()->routeIs('common.classrooms') || request()->routeIs('common.classrooms') || request()->routeIs('common.showClassrooms') || request()->routeIs('mentor.showStudentDetail') || request()->routeIs('common.materials') || request()->routeIs('common.showMaterial') || request()->routeIs('common.showSubMaterial') || request()->routeIs('common.showDocument') || request()->routeIs('teacher.showStudentDetail') || request()->routeIs('teacher.showAssignment') || request()->routeIs('mentor.showAssignment') || request()->routeIs('student.submitAssignment') || request()->routeIs('student.classrooms') ? 'active' : '' }}"
-                                @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                    @if ($schoolPayment != null)
+                                @if (auth()->user()->roles->pluck('name')[0] == 'student') @if ($schoolPayment != null)
                                         @if ($schoolPayment->status == 'not_yet_paid')
-                                            style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();"
-                                        @endif
-                                    @else
-                                        @if (!$isPaymentComplete)
-                                            style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();"
-                                        @endif
-                                    @endif
+                                            style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
+                            @else
+                                @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
+                                @endif
                                 @endif
                                 ><span class="menu-title">Kelas</span></a>
                             <!--end:Menu link-->
@@ -126,14 +91,10 @@
                             @elseif (auth()->user()->roles->pluck('name')[0] == 'student')
                                 <a href="{{ route('student.challenges.index') }}"
                                     class="menu-link {{ request()->routeIs('student.challenges.*') || request()->routeIs('student.submitChallenge') ? 'active' : '' }}"
-                                    @if ($schoolPayment != null)
-                                        @if ($schoolPayment->status == 'not_yet_paid')
-                                            style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();"
-                                        @endif
-                                    @else
-                                        @if (!$isPaymentComplete)
-                                            style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();"
-                                        @endif
+                                    @if ($schoolPayment != null) @if ($schoolPayment->status == 'not_yet_paid')
+                                            style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
+                                @else
+                                    @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
                                     @endif
                                     ><span class="menu-title">Tantangan</span></a>
                             @endif
@@ -352,8 +313,9 @@
                                     @if (count($notifications) > 0)
                                         <form action="{{ route('deleteAllNotification') }}" method="POST">
                                             @csrf
-                                            @method("DELETE")
-                                            <button type="submit" class="btn btn-color-gray-600 btn-active-color-primary">
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="btn btn-color-gray-600 btn-active-color-primary">
                                                 Hapus Semua
                                                 <i class="ki-duotone ki-arrow-right fs-5"><span
                                                         class="path1"></span><span class="path2"></span></i>

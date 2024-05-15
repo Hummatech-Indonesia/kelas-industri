@@ -2,11 +2,14 @@
 
 namespace App\Traits;
 
-use App\Models\Assignment;
-use App\Models\Challenge;
-use App\Models\User;
-use App\Models\ZoomSchedule;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Payment;
+use App\Models\Challenge;
+use App\Models\Dependent;
+use App\Models\Assignment;
+use App\Models\ZoomSchedule;
+use App\Models\SchoolPackage;
 
 trait DataSidebar
 {
@@ -41,7 +44,6 @@ trait DataSidebar
             auth()->logout();
             return view('auth.login');
         }
-
     }
 
     function RankMockup()
@@ -78,7 +80,6 @@ trait DataSidebar
         } else {
             return view('auth.login');
         }
-
     }
 
     function ChallengeMockup()
@@ -96,7 +97,6 @@ trait DataSidebar
             }
 
             return [];
-
         } else {
             return view('auth.login');
         }
@@ -118,12 +118,56 @@ trait DataSidebar
         } else {
             return view('auth.login');
         }
+    }
 
+    function MenuMockup()
+    {
+        if (auth()->user()->roles->pluck('name')[0] == 'student') {
+            $dependent = Dependent::query()
+                ->where('classroom_id', auth()->user()->studentSchool->studentClassroom->classroom_id)
+                ->orderBy('semester', 'desc')
+                ->first();
+
+            $isPaymentComplete = true;
+
+            if ($dependent && $dependent->semester > 1) {
+                $previousSemester = $dependent->semester - 1;
+
+                $studentPayment = Payment::query()
+                    ->where('user_id', auth()->user()->id)
+                    ->where('semester', $previousSemester)
+                    ->sum('total_pay');
+
+                $previousDependent = Dependent::where(
+                    'classroom_id',
+                    auth()->user()->studentSchool->studentClassroom->classroom_id,
+                )
+                    ->where('semester', $previousSemester)
+                    ->orderBy('semester', 'desc')
+                    ->first();
+                $nominalRequired = $previousDependent->nominal;
+                $isPaymentComplete = $nominalRequired == $studentPayment;
+            }
+            return $isPaymentComplete;
+        }
+    }
+
+    function SchoolPackageMockup()
+    {
+        if (auth()->user()->roles->pluck('name')[0] == 'student') {
+            $schoolPayment = SchoolPackage::query()
+                ->where('school_id', auth()->user()->studentSchool->school->id)
+                ->latest()
+                ->first();
+            return $schoolPayment;
+        }
     }
 
     function GetDataSidebar()
     {
         $data = [
+            'schoolPayment' => $this->SchoolPackageMockup(),
+            'isPaymentComplete' => $this->MenuMockup(),
             'SidebarRank' => $this->RankMockup(),
             'SidebarSchedule' => $this->ScheduleMockup(),
             'SidebarAssignment' => $this->AssignmentMockup(),

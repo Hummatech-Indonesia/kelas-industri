@@ -335,7 +335,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
         Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
         Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
-        Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
+        Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial')->middleware('checkpayment');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
         Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
     });
@@ -373,6 +373,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('request-transaction', [TripayController::class,'store'])->name('request-transaction');
 
         Route::get('detail-payment/{payment}', [StudentPaymentController::class, 'detail'])->name('detail-payment');
+        Route::get('invoice', [StudentPaymentController::class, 'invoice'])->name('invoice');
         Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');

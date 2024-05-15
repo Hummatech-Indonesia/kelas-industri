@@ -84,6 +84,7 @@ class TripayService
         $response = json_decode($response)->data;
 
         $this->createPayment([
+            'user_id' => auth()->user()->id,
             'invoice_id' => $response->merchant_ref,
             'reference' => $response->reference,
             'fee_amount' => $response->total_fee,

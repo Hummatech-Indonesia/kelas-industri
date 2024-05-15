@@ -30,6 +30,7 @@ class SchoolPackageService
     {
         $this->repository->update($id, $request->all());
     }
+    
     public function handleDelete(SchoolPackage $schoolPackage): bool
     {
         return $this->repository->destroy($schoolPackage->id);

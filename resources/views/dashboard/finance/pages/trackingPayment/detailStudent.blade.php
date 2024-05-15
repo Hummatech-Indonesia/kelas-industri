@@ -97,6 +97,7 @@
                                         <tr class="fw-bold text-muted">
                                             <th class="min-w-50px">No</th>
                                             <th class="min-w-150px">Nominal</th>
+                                            <th class="min-w-150px">Tipe Pembayaran</th>
                                             <th class="min-w-150px">Waktu Pembayaran</th>
                                             <th class="min-w-100px">Aksi</th>
                                         </tr>
@@ -128,22 +129,34 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="d-flex justify-content-start flex-column">
                                                             <div class="text-gray-900 fw-bold fs-7">
+                                                                {{ $tracking->via != null ? $tracking->via : 'Manual' }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="d-flex justify-content-start flex-column">
+                                                            <div class="text-gray-900 fw-bold fs-7">
                                                                 {{ Carbon::parse($tracking->payment_date)->translatedFormat('d F Y') }}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <button
-                                                        class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
-                                                        data-id="{{ $tracking->id }}" data-user="{{ $tracking->user_id }}"
-                                                        data-total="{{ $tracking->total_pay }}"
-                                                        data-payment="{{ $tracking->payment_date }}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data"
-                                                        data-kt-initialized="1">
-                                                        <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
-                                                    </button>
+                                                    @if ($tracking->via == null)
+                                                        <button
+                                                            class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                                            data-id="{{ $tracking->id }}"
+                                                            data-user="{{ $tracking->user_id }}"
+                                                            data-total="{{ $tracking->total_pay }}"
+                                                            data-payment="{{ $tracking->payment_date }}"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data"
+                                                            data-kt-initialized="1">
+                                                            <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
+                                                        </button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @empty
@@ -206,8 +219,8 @@
                     <!--end::Close-->
                 </div>
                 <div class="modal-body row">
-                    <form action="{{ route('administration.tracking.detailStudent.store', $student->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('administration.tracking.detailStudent.store', $student->id) }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $student->id }}">
                         <input type="hidden" name="semester_tanggungan" id="semester_tanggungan">

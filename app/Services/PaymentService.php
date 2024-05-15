@@ -51,6 +51,7 @@ class PaymentService
     }
     public function handleStore(PaymentRequest $request): mixed
     {
+        // dd($request);
         $semester_tanggungan = $request->semester_tanggungan;
         $total = $request->total;
         $pengurangan = $semester_tanggungan - $total;
@@ -84,7 +85,7 @@ class PaymentService
     {
         return $this->payment->getBySchool($school);
     }
-    
+
     public function handleGetGroupByMonth(): mixed
     {
         $raw = $this->payment->getGroupByMonth();

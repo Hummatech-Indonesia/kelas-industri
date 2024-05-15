@@ -223,7 +223,7 @@
                                                     Ingin Anda
                                                     Bayarkan</label>
                                                 <input type="number" name="installment_payment"
-                                                    class="form-control form-control-solid" placeholder="Rp. 20.000"
+                                                    class="form-control form-control-solid" placeholder="Rp. 50.000"
                                                     id="">
                                             </div>
                                         </div>

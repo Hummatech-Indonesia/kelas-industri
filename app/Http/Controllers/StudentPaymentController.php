@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use Barryvdh\DomPDF\PDF;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 use App\Services\TripayService;
@@ -52,5 +53,12 @@ class StudentPaymentController extends Controller
         $data = $this->GetDataSidebar();
         $data['payment'] = $payment;
         return view('dashboard.user.pages.payment.detail', $data);
+    }
+
+    public function invoice()
+    {
+        $pdf = app('dompdf.wrapper'); // Get an instance of the PDF wrapper
+        $pdf->loadView('pdf.invoice');
+        return $pdf->stream(); // or $pdf->download('invoice.pdf') to download
     }
 }

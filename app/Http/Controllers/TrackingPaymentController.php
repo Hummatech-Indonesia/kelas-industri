@@ -79,7 +79,7 @@ class TrackingPaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PaymentRequest $request)
     {
         $this->servicePayment->handleStore($request);
         return redirect()->back()->with('success', trans('alert.add_success'));
