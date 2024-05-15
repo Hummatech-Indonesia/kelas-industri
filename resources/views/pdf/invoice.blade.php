@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,126 +15,119 @@
             background-color: #fff;
         }
 
+        .text-right {
+            text-align: right;
+        }
+
+        hr {
+            display: block;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        .content-title {
+            padding-top: 20px;
+            font-weight: bold;
+        }
+
+        .value {
+            font-weight: bold;
+            padding-top: 10px;
+            font-size: 1.2rem;
+        }
+
         .invoice-container {
             background-color: #fff;
             padding: 20px;
             max-width: 800px;
-
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
+        .header .title {
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .title span {
+            font-size: 1.5rem;
         }
 
         .header img {
             max-width: 100px;
         }
 
-        .header .transaction-code {
+        .transaction-code {
             color: #007bff;
         }
 
         .content {
             margin-top: 20px;
         }
-
-        .content .row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .content .row div {
-            flex: 1;
-        }
-
-        .content .row div:first-child {
-            margin-right: 10px;
-        }
-
-        .content .row div:last-child {
-            margin-left: 10px;
-        }
-
-        .content .total {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        .content .total-amount {
-            color: #007bff;
-        }
     </style>
 </head>
-
 <body>
     <div class="invoice-container">
-        <div class="header">
-            <div style="display: flex; align-items: center;">
-                <img src="{{ public_path('app-assets/logo_file/Logo-Kelas-Industri.png') }}" alt="Logo Kelas Industri"
-                    style="margin-right: 10px;">
-                <h2 style="margin: 0;">Kelas Industri Hummatech</h2>
-            </div>
-            <div style="text-align: right;">
-                <p style="margin: 0;">Kode Transaksi</p>
-                <p class="transaction-code" style="margin: 0;">Azsexdcfghbjnkm265498</p>
-            </div>
-        </div>
-        <div class="content">
-            <div class="row">
-                <div>
-                    <p>Total Pembayaran</p>
-                    <p class="total-amount">Rp 000.000,00</p>
-                </div>
-                <div>
-                    <p>Metode Pembayaran</p>
-                    <p>Bank Hummatech</p>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div>
-                    <p>Tagihan Dibuat</p>
-                    <p>10 Desember 2024, 03:00</p>
-                </div>
-                <div>
-                    <p>Tagihan Dibayar</p>
-                    <p>11 Desember 2024, 04:00</p>
-                </div>
-            </div>
-            <div class="row">
-                <div>
-                    <p>Rincian Pesanan</p>
-                    <p>Paket Siswa</p>
-                    <p>(Semester Genap)</p>
-                </div>
-                <div>
-                    <p>Rp000.000,00</p>
-                </div>
-            </div>
-            <hr>
-            <div class="row total">
-                <div>
-                    <p>Subtotal Tagihan</p>
-                </div>
-                <div>
-                    <p>Rp000.000,00</p>
-                </div>
-            </div>
-            <div class="row total">
-                <div>
-                    <p>Total Pembayaran</p>
-                </div>
-                <div>
-                    <p class="total-amount">Rp000.000,00</p>
-                </div>
-            </div>
-        </div>
+        <table cellspacing="0" cellpadding="0" style="width: 100%;">
+            <thead>
+                <tr class="header">
+                    <th style="width: 100px;">
+                        <img src="{{ public_path('app-assets/logo_file/Logo-Kelas-Industri.png') }}"
+                            alt="Logo Kelas Industri" style="width: 100%;">
+                    </th>
+                    <th class="title"><span style="display: inline;">Kelas Industri<br>Hummatech</span></th>
+                    <th style="text-align: right;"><span>Kode Transaksi</span><br><span
+                            class="transaction-code">fsdfsdfsfsdfsdf</span></th>
+                </tr>
+            </thead>
+            <tbody class="content">
+                <tr>
+                    <td class="content-title" style="font-weight: normal;" colspan="2">Total Pembayaran</td>
+                    <td class="content-title text-right" style="font-weight: normal;">Metode Pembayaran</td>
+                </tr>
+                <tr>
+                    <td class="value" colspan="2">Rp. 342423424</td>
+                    <td class="value text-right">Bank Hummatech</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <table cellspacing="0" cellpadding="0" style="width: 100%;">
+            <tbody class="content">
+                <tr>
+                    <td class="content-title" colspan="2" style="font-weight: normal;">Tagihan Dibuat</td>
+                    <td class="content-title text-right" style="font-weight: normal;">Tagihan Dibayar</td>
+                </tr>
+                <tr>
+                    <td class="value" colspan="2">10 Desember 2024, 03:00</td>
+                    <td class="value text-right">11 Desember 2024, 04:00</td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 20px;">Rincian Pesanan</td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 10px; font-weight: bold;" colspan="2">Paket Siswa</td>
+                    <td class="text-right" style="font-weight: bold;" rowspan="2">Rp. 932423423</td>
+                </tr>
+                <tr>
+                    <td colspan="2">(Semester Genap)</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <table cellspacing="0" cellpadding="0" style="width: 100%;">
+            <tbody class="content">
+                <tr>
+                    <td class="content-title" style="font-weight: bold;" colspan="2">Subtotal Tagihan</td>
+                    <td class="content-title text-right" style="font-weight: bold;">Rp. 7742348374</td>
+                </tr>
+                <tr>
+                    <td class="value" colspan="2">Total Pembayaran</td>
+                    <td class="value text-right">Rp. 2423434234</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
     </div>
 </body>
-
 </html>
