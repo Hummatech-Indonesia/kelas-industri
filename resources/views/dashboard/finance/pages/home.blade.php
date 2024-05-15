@@ -71,7 +71,7 @@
         {{-- @endif --}}
 
         <div class="row gap-2 mt-4">
-            <div class="col-12 col-sm-3 h-100">
+            {{-- <div class="col-12 col-sm-3 h-100">
                 <div class="card shadow-sm p-5">
                     <h3 class="card-title">Absensi Mentor</h3>
                     <div class="row row-cols-1 gap-5 mt-4">
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="col">
                 <div class="card shadow-sm">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mx-4 mt-4 gap-2">

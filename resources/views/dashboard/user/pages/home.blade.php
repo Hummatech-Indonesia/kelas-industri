@@ -45,10 +45,12 @@
                                     Guru
                                 @endif)</h1>
                         </div>
-                        <div class="col">
-                            <span class="fs-5 pe-4">Gaji Anda bulan ini</span>
-                            <span class="fs-3">Rp. {{ $salary }}</span>
-                        </div>
+                        @if (auth()->user()->roles->pluck('name')[0] != 'student')
+                            <div class="col">
+                                <span class="fs-5 pe-4">Gaji Anda bulan ini</span>
+                                <span class="fs-3">Rp. {{ $salary }}</span>
+                            </div>
+                        @endif
                     </div>
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
                         <div class="covercard row gap-2 mt-4">
@@ -136,7 +138,8 @@
                                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                                         Total Tanggungan Semester Ini
                                         <div>
-                                            <span class="text-primary fw-bolder fs-2">{{ 'Rp ' . number_format($totalPayment, 0, ',', '.') }}</span>
+                                            <span
+                                                class="text-primary fw-bolder fs-2">{{ 'Rp ' . number_format($totalPayment, 0, ',', '.') }}</span>
                                         </div>
                                     </span>
                                 </div>
@@ -696,44 +699,49 @@
 
                                     <!--begin::Body-->
                                     <div class="card-body pt-6 mt-7">
-                                        @foreach ($presentationZoom as $presentation)
-                                            <!--begin::Item-->
-                                            <div class="d-flex flex-stack">
-                                                <!--begin::Symbol-->
-                                                <div class="symbol symbol-50px me-4">
-                                                    <div
-                                                        class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger p-6">
-                                                        Z
+                                        @if (count($presentationZoom) > 0)
+                                            @foreach ($presentationZoom as $presentation)
+                                                <!--begin::Item-->
+                                                <div class="d-flex flex-stack">
+                                                    <!--begin::Symbol-->
+                                                    <div class="symbol symbol-50px me-4">
+                                                        <div
+                                                            class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger p-6">
+                                                            Z
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!--end::Symbol-->
+                                                    <!--end::Symbol-->
 
-                                                <!--begin::Section-->
-                                                <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                                    <!--begin:Author-->
-                                                    <div class="flex-grow-1 me-2">
-                                                        <span href="/metronic8/demo1/pages/user-profile/overview.html"
-                                                            class="text-gray-800 fs-5 fw-bold">{{ $presentation->name }}</span>
-                                                        <span
-                                                            class="text-muted fw-semibold d-block fs-7">{{ $presentation->date }}</span>
+                                                    <!--begin::Section-->
+                                                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                                        <!--begin:Author-->
+                                                        <div class="flex-grow-1 me-2">
+                                                            <span href="/metronic8/demo1/pages/user-profile/overview.html"
+                                                                class="text-gray-800 fs-5 fw-bold">{{ $presentation->name }}</span>
+                                                            <span
+                                                                class="text-muted fw-semibold d-block fs-7">{{ $presentation->date }}</span>
+                                                        </div>
+                                                        <!--end:Author-->
+
+                                                        <!--begin::Actions-->
+                                                        <a href="https://us05web.zoom.us/j/89475402083?pwd=qpM8RxdJN7ZYTqZy9btmRWLvoGsLoC.1 "
+                                                            class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+                                                            <i class="bi bi-arrow-right-short fs-1"></i>
+                                                        </a>
+                                                        <!--begin::Actions-->
                                                     </div>
-                                                    <!--end:Author-->
-
-                                                    <!--begin::Actions-->
-                                                    <a href="https://us05web.zoom.us/j/89475402083?pwd=qpM8RxdJN7ZYTqZy9btmRWLvoGsLoC.1 "
-                                                        class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-                                                        <i class="bi bi-arrow-right-short fs-1"></i>
-                                                    </a>
-                                                    <!--begin::Actions-->
+                                                    <!--end::Section-->
                                                 </div>
-                                                <!--end::Section-->
-                                            </div>
-                                            <!--end::Item-->
+                                                <!--end::Item-->
 
-                                            <!--begin::Separator-->
-                                            <div class="separator separator-dashed my-4"></div>
-                                            <!--end::Separator-->
-                                        @endforeach
+                                                <!--begin::Separator-->
+                                                <div class="separator separator-dashed my-4"></div>
+                                                <!--end::Separator-->
+                                            @endforeach
+                                        @else
+                                            <x-empty-component title="jadwal zoom" />
+                                        @endif
+
                                     </div>
                                     <!--end::Body-->
                                 </div>

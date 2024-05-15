@@ -6,6 +6,7 @@ use App\Models\Challenge;
 use App\Models\Point;
 use App\Models\SubmitChallenge;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class ChallengeRepository extends BaseRepository
@@ -69,10 +70,16 @@ class ChallengeRepository extends BaseRepository
             ->orderBy('created_at', 'DESC')
             ->paginate($limit);
     }
-    public function get_challenge_by_mentor_latest(String $mentorId): mixed
+    public function get_challenge_by_mentor_occured(String $mentorId): mixed
     {
+        $now = Carbon::now();
         return $this->model->query()
-            ->where('created_by', $mentorId)->withCount('StudentChallenge')->limit(3)->get();
+            ->where('created_by', $mentorId)
+            ->where('start_date','>', $now)
+            ->where('end_date','<', $now)
+            ->withCount('StudentChallenge')
+            ->limit(3)
+            ->get();
     }
 
     public function updateSubmitChallengeByStudentId($data, int $studentId): void
