@@ -44,10 +44,12 @@ class TrackingPaymentController extends Controller
         $schools = $this->service->handleGetPaginate();
         $parameters = null;
 
-        if (request()->has('search')) {
-            $schools = $this->service->handleSearch(request()->search);
+        if (request()->has('status') || request()->has('search')) {
+            $schools = $this->service->handleFilter(request()->status, request()->search);
             $parameters = request()->query();
         }
+        $countStudents = null;
+
         foreach ($schools as $school) {
             $schoolId = $school->id;
             $countStudent = $this->service->handleCountStudent($schoolId);
@@ -79,8 +81,6 @@ class TrackingPaymentController extends Controller
      */
     public function store(PaymentRequest $request)
     {
-        //
-        $request->validated();
         $this->servicePayment->handleStore($request);
         return redirect()->back()->with('success', trans('alert.add_success'));
     }

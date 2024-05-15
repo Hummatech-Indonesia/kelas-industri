@@ -14,10 +14,10 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\TripayController;
 use App\Http\Controllers\CertifyController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PackageController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\StudentController;
@@ -41,11 +41,11 @@ use App\Http\Controllers\AdminitrasionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\UserClassroomController;
+use App\Http\Controllers\StudentPaymentController;
+use App\Http\Controllers\TripayCallbackController;
 use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\TrackingPaymentController;
 use App\Http\Controllers\SchoolPackageController;
-use App\Http\Controllers\StudentPaymentController;
-use App\Http\Controllers\TripayController;
 use FontLib\Table\Type\name;
 
 /*
@@ -221,7 +221,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('salary-mentor/show', [AdminitrasionController::class, 'showSalaryMentor'])->name('salary-mentor.show');
 
         Route::get('dependent/{school}', [DependentController::class, 'index'])->name('dependent.index');
-        Route::resource('dependent', DependentController::class)->only('store','update');
+        Route::resource('dependent', DependentController::class)->only('store', 'update');
         Route::resources([
             'tracking' => TrackingPaymentController::class,
             'package' => PackageController::class,
@@ -326,7 +326,6 @@ Route::middleware('auth.custom')->group(function () {
 
         // set presentation finish
         Route::post('finish-presentation/{projectId}', [PresentationFinishController::class, 'finish'])->name('presentationFinish');
-
     });
     //end mentor
 
@@ -336,7 +335,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
         Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
         Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
-        Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
+        Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial')->middleware('checkpayment');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
         Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
     });
@@ -347,8 +346,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/', function () {
             return view('dashboard.user.pages.material.index');
         });
-        Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
-        Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
+        Route::get('/ranking', [PointController::class, 'index'])->name('rankings')->middleware('checkpayment');
+        Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms')->middleware('checkpayment');
         Route::get('/create', [UserClassroomController::class, 'create'])->name('create');
         Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
         Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
@@ -373,10 +372,20 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('payment-channel', [TripayController::class,'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class,'store'])->name('request-transaction');
 
+        Route::get('detail-payment/{payment}', [StudentPaymentController::class, 'detail'])->name('detail-payment');
+        Route::get('invoice', [StudentPaymentController::class, 'invoice'])->name('invoice');
+        Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
+        Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
+        Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
+
+        Route::resource('challenges', ChallengeController::class)
+            ->only(['index', 'show'])->middleware('checkpayment');
+
+        Route::resource('rewards', RewardController::class)
+            ->only(['index'])->middleware('checkpayment');
+
         Route::resources([
             'submitRewards' => SubmitRewardController::class,
-            'challenges' => ChallengeController::class,
-            'rewards' => RewardController::class,
             'projects' => ProjectController::class,
             'presentation' => PresentationController::class,
             'notes' => NoteController::class,
@@ -385,7 +394,6 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
 
         Route::get('/{semester}/{user}', [HomeController::class, 'semester'])->name('total.dependent');
-
     });
     //end student
 
@@ -393,7 +401,8 @@ Route::middleware('auth.custom')->group(function () {
 
     Route::delete('delete-notification/{id}', [NotificationController::class, 'destroy']);
     Route::delete('delete-all-notification', [NotificationController::class, 'deleteAll'])->name('deleteAllNotification');
-    
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
-
+Route::post('callback', [TripayCallbackController::class, 'handle']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

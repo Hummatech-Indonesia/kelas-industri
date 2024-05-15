@@ -51,9 +51,13 @@ class PaymentService
     }
     public function handleStore(PaymentRequest $request): mixed
     {
+        // dd($request);
         $semester_tanggungan = $request->semester_tanggungan;
         $total = $request->total;
         $pengurangan = $semester_tanggungan - $total;
+
+        $data = $request->validated();
+        $data['invoice_status'] = 'PAID';
 
         if ($pengurangan == 0) {
             return redirect()->back()->with('error', 'Tanggungan anda sudah lunas');
@@ -64,8 +68,7 @@ class PaymentService
         if ($request->total_pay < 0) {
             return redirect()->back()->with('error', 'Jumlah pembayaran minimal Rp. 0');
         }
-        // dd($request->validated());
-        return $this->payment->store($request->validated());
+        return $this->payment->store($data);
     }
 
     public function handleGetByStudent(string $user)
@@ -96,5 +99,15 @@ class PaymentService
             $data[$month] = $amount;
         }
         return $data;
+    }
+
+    public function handleGetTotalPayment(String $semester, String $userId): mixed
+    {
+        return $this->payment->getTotalPayment($semester, $userId);
+    }
+
+    public function handleGetPaymentByStudet(String $userId): mixed
+    {
+        return $this->payment->getPaymentByStundet($userId);
     }
 }

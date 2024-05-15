@@ -4,28 +4,26 @@ namespace App\Repositories;
 
 use Carbon\Carbon;
 use App\Models\SchoolPackage;
-use App\Models\StudentSchool;
 use App\Repositories\BaseRepository;
 
 class SchoolPackageRepository extends BaseRepository
 {
-    private StudentSchool $school;
 
-    public function __construct(SchoolPackage $model, StudentSchool $school)
+    public function __construct(SchoolPackage $model)
     {
         $this->model = $model;
-        $this->school = $school;
     }
 
-    public function create(array $data): mixed
+    public function filter_paginate(String|null $schoolId, String|null $status, $limit)
     {
-        $countActiveStudent = $this->school->where('school_id', $data['school_id'])
-            ->whereRelation('student', 'status', 'active')
-            ->count();
-
-        $data['price'] = $countActiveStudent * $data['price'];
-
-        return $this->model->create($data);
+        return $this->model->query()
+            ->when($schoolId && $schoolId !== 'all', function ($query) use ($schoolId) {
+                $query->where('school_id', $schoolId);
+            })
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->paginate($limit);
     }
 
     public function getGroupByMonth(): mixed

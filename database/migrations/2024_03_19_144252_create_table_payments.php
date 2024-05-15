@@ -20,7 +20,10 @@ return new class extends Migration
             $table->integer('fee_amount')->nullable();
             $table->integer('paid_amount')->nullable();
             $table->timestamp('expired_date')->nullable();
-            $table->enum('invoice_status', ['paid', 'pending', 'expired', 'failed'])->default('pending');
+            $table->string('icon_url')->nullable();
+            $table->string('via')->nullable();
+            $table->string('reference')->nullable();
+            $table->enum('invoice_status', ['PAID', 'UNPAID', 'EXPIRED', 'FAILED'])->default('UNPAID');
             $table->integer('total_pay');
             $table->date('payment_date');
             $table->integer('semester');

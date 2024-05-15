@@ -39,4 +39,9 @@ class DependentService
     {
         return $this->repository->getAllByClassroom($classroom);
     }
+
+    public function handleGetTotalDependent(String $semester, String $classroomId)
+    {
+        return $this->repository->getTotalDependent($semester, $classroomId);
+    }
 }

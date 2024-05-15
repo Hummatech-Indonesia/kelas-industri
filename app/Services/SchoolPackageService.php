@@ -16,19 +16,22 @@ class SchoolPackageService
         $this->repository = $repository;
     }
 
-    public function handleGetAll()
+    public function handleFilter(String|null $schoolId, String|null $status)
     {
-        return $this->repository->getAll();
+        return $this->repository->filter_paginate($schoolId, $status, 10);
     }
+
     public function handleCreate(Request $request)
     {
-        $this->repository->create($request->all());
+        $this->repository->store($request->all());
     }
+
     public function handleUpdate(Request $request, $id)
     {
         $this->repository->update($id, $request->all());
     }
-    public function handleDelete(SchoolPackage $schoolPackage) : bool
+    
+    public function handleDelete(SchoolPackage $schoolPackage): bool
     {
         return $this->repository->destroy($schoolPackage->id);
     }

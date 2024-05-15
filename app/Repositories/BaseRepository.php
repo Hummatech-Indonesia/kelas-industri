@@ -35,6 +35,7 @@ abstract class BaseRepository implements BaseInterface
 
     public function store(array $data): mixed
     {
+        // dd($data);
         return $this->model->create($data);
     }
 
@@ -83,7 +84,6 @@ abstract class BaseRepository implements BaseInterface
             if ($e->errorInfo[1] == 1451) {
                 return false;
             }
-
         }
 
         return $destroy;
