@@ -520,10 +520,10 @@
                         url: "{{ route('student.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
                             .replace(':semester', semester).replace(':user', userId),
                         success: function(response) {
-                            $('#total_bayar').html(numberFormat(response.totalBayar));
-                            $('#tanggungan_pembayaran').html(numberFormat(response.nominal
+                            $('.total_bayar').html(numberFormat(response.totalBayar));
+                            $('.tanggungan_pembayaran').html(numberFormat(response.nominal
                                 .nominal));
-                            $('#total_sisa').html(numberFormat(response.nominal.nominal -
+                            $('.total_sisa').html(numberFormat(response.nominal.nominal -
                                 response.totalBayar));
                             $('#nominal').val(response.nominal.nominal -
                                 response.totalBayar);

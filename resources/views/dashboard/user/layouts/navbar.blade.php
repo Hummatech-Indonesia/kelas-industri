@@ -206,13 +206,13 @@
                                     <span class="menu-title">Peringkat</span></a>
                             </div>
                             @if (!$schoolPayment)
-                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <a href="{{ route('student.student-payment') }}"
-                                    class="menu-link {{ request()->routeIs('student.student-payment') ? 'active' : '' }}"><span
-                                        class="menu-title">Pembayaran</span></a>
-                                <!--end:Menu link-->
-                            </div>
+                                <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                    <!--begin:Menu link-->
+                                    <a href="{{ route('student.student-payment') }}"
+                                        class="menu-link {{ request()->routeIs('student.student-payment') ? 'active' : '' }}"><span
+                                            class="menu-title">Pembayaran</span></a>
+                                    <!--end:Menu link-->
+                                </div>
                             @endif
                         @endif
                     </div>
@@ -255,8 +255,8 @@
                                 <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg width="24"
                                         height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
-                                            fill="currentColor" />
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                            rx="10" fill="currentColor" />
                                         <rect x="11" y="14" width="7" height="2" rx="1"
                                             transform="rotate(-90 11 14)" fill="currentColor" />
                                         <rect x="11" y="17" width="2" height="2" rx="1"
@@ -273,7 +273,8 @@
                                 <!--end::Title-->
                                 <!--begin::Content-->
                                 <div class="text-black fw-bold">
-                                    Tuntaskan pembayaran di semester sebelumnya untuk mengakses menu yang tidak dapat diakses
+                                    Tuntaskan pembayaran di semester sebelumnya untuk mengakses menu yang tidak dapat
+                                    diakses
                                 </div>
 
                                 <!--end::Content-->
@@ -293,11 +294,7 @@
                         data-kt-menu-placement="bottom-end" id="kt_menu_item_wow">
                         @if (count($notifications) > 0)
                             <div class="d-flex">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z" />
-                                </svg>
+                                <i class="bi bi-droplet-half fs-5x"></i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                     fill="currentColor" class="bi bi-dot position-absolute" style="color: red;"
                                     viewBox="0 0 16 16">
@@ -305,11 +302,7 @@
                                 </svg>
                             </div>
                         @else
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z" />
-                            </svg>
+                            <i class="bi bi-envelope-fill fs-1x"></i>
                         @endif
                     </div>
                     <!--end::Menu-->
