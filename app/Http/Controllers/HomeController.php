@@ -218,14 +218,17 @@ class HomeController extends Controller
         $data = $this->GetDataSidebar();
         if ($role == 'student') {
             $currentSemester = SemesterHelper::get_current_semester(auth()->user()->studentSchool->studentClassroom->classroom_id);
+            $semester = $currentSemester == null ? 0 : $currentSemester->semester;
             $data['assignment'] = $this->assignmentService->handleCountAssignmentStudent();
             $data['challenge'] = $this->challengeService->handleCountChallengeStudent();
             $data['material'] = $this->materialService->handleCountMaterialUser();
             $data['point'] = $this->pointService->hanleCountPointStudent($userId);
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleStudent();
-            $payment = $this->paymentService->handleGetTotalPayment($currentSemester->semester, auth()->user()->id);
-            $dependent = $this->dependentService->handleGetTotalDependent($currentSemester->semester, auth()->user()->studentSchool->studentClassroom->classroom_id);
-            $data['totalPayment'] = $dependent->nominal - $payment;
+            $payment = $this->paymentService->handleGetTotalPayment($semester, auth()->user()->id);
+            $dependent = $this->dependentService->handleGetTotalDependent($semester, auth()->user()->studentSchool->studentClassroom->classroom_id);
+            $nominalPayment = $payment == null ? 0 : $payment;
+            $nominalDependent = $dependent == null ? 0 : $dependent->nominal;
+            $data['totalPayment'] = $nominalDependent - $nominalPayment;
 
             $assignments = Assignment::with('StudentSubmitAssignment')->whereRelation('submaterial.material', function ($query) {
                 $query->where('generation_id', Auth()->user()->studentSchool->studentClassroom->classroom->generation_id);

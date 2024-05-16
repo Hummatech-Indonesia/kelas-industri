@@ -230,6 +230,7 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('individual-package', [PackageController::class, 'indexSchool'])->name('individual-package');
 
+        
         Route::get('tracking/student-school/{school}', [TrackingPaymentController::class, 'allStudent'])->name('tracking.showStudent');
         Route::get('tracking/student-school/detail/{classroom}/{user}', [TrackingPaymentController::class, 'detailStudent'])->name('tracking.detailStudent');
         Route::post('tracking/student-school/detail/{user}/store', [TrackingPaymentController::class, 'store'])->name('tracking.detailStudent.store');
