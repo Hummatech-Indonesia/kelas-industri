@@ -110,4 +110,9 @@ class PaymentService
     {
         return $this->payment->getPaymentByStundet($userId);
     }
+
+    public function handleGetByReference($reference)
+    {
+        return $this->payment->getByReference($reference);
+    }
 }

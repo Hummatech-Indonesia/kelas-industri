@@ -206,13 +206,13 @@
                                     <span class="menu-title">Peringkat</span></a>
                             </div>
                             @if (!$schoolPayment)
-                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <a href="{{ route('student.student-payment') }}"
-                                    class="menu-link {{ request()->routeIs('student.student-payment') ? 'active' : '' }}"><span
-                                        class="menu-title">Pembayaran</span></a>
-                                <!--end:Menu link-->
-                            </div>
+                                <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                    <!--begin:Menu link-->
+                                    <a href="{{ route('student.student-payment') }}"
+                                        class="menu-link {{ request()->routeIs('student.student-payment') ? 'active' : '' }}"><span
+                                            class="menu-title">Pembayaran</span></a>
+                                    <!--end:Menu link-->
+                                </div>
                             @endif
                         @endif
                     </div>
@@ -226,65 +226,140 @@
             <div class="app-navbar flex-shrink-0">
 
                 <!--begin::My apps links-->
-
-                <!--end::My apps links-->
-                <div class="app-navbar-item ms-1 ms-md-4">
-                    <!--begin::Menu- wrapper-->
-                    <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-danger w-35px h-35px"
-                        data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
-                        data-kt-menu-placement="bottom-end" id="kt_menu_item_wow">
-                        <span class="svg-icon svg-icon-1 svg-icon-danger"><svg width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
-                                    fill="currentColor" />
-                                <rect x="11" y="14" width="7" height="2" rx="1"
-                                    transform="rotate(-90 11 14)" fill="currentColor" />
-                                <rect x="11" y="17" width="2" height="2" rx="1"
-                                    transform="rotate(-90 11 17)" fill="currentColor" />
-                            </svg>
-                        </span>
-                    </div>
-
-                    <!--begin::Menu-->
-                    <div class="menu menu-sub menu-sub-dropdown menu-column w-400px w-lg-500px" data-kt-menu="true"
-                        id="kt_menu_notifications" style="padding-top:10px;padding-left:10px;padding-right:10px;">
-                        <!--begin::Heading-->
-                        <div class="alert alert-danger d-flex align-items-center p-5">
-                            <!--begin::Icon-->
-                            <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
-                                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
-                                            fill="currentColor" />
-                                        <rect x="11" y="14" width="7" height="2" rx="1"
-                                            transform="rotate(-90 11 14)" fill="currentColor" />
-                                        <rect x="11" y="17" width="2" height="2" rx="1"
-                                            transform="rotate(-90 11 17)" fill="currentColor" />
-                                    </svg>
-                                </span>
-                            </span>
-                            <!--end::Icon-->
-
-                            <!--begin::Wrapper-->
-                            <div class="d-flex flex-column">
-                                <!--begin::Title-->
-                                <h4 class="mb-1 text-danger">Anda Belum Menyelesaikan Pembayar Semester</h4>
-                                <!--end::Title-->
-                                <!--begin::Content-->
-                                <div class="text-black fw-bold">
-                                    Tuntaskan pembayaran di semester sebelumnya untuk mengakses menu yang tidak dapat diakses
+                @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                    @if ($schoolPayment != null)
+                        @if ($schoolPayment->status == 'not_yet_paid')
+                            <div class="app-navbar-item ms-1 ms-md-4">
+                                <!--begin::Menu- wrapper-->
+                                <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-danger w-35px h-35px"
+                                    data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                                    data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end"
+                                    id="kt_menu_item_wow">
+                                    <span class="svg-icon svg-icon-1 svg-icon-danger"><svg width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                rx="10" fill="currentColor" />
+                                            <rect x="11" y="14" width="7" height="2" rx="1"
+                                                transform="rotate(-90 11 14)" fill="currentColor" />
+                                            <rect x="11" y="17" width="2" height="2" rx="1"
+                                                transform="rotate(-90 11 17)" fill="currentColor" />
+                                        </svg>
+                                    </span>
                                 </div>
 
-                                <!--end::Content-->
+                                <!--begin::Menu-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column w-400px w-lg-500px"
+                                    data-kt-menu="true" id="kt_menu_notifications"
+                                    style="padding-top:10px;padding-left:10px;padding-right:10px;">
+                                    <!--begin::Heading-->
+                                    <div class="alert alert-danger d-flex align-items-center p-5">
+                                        <!--begin::Icon-->
+                                        <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
+                                            <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                        rx="10" fill="currentColor" />
+                                                    <rect x="11" y="14" width="7" height="2" rx="1"
+                                                        transform="rotate(-90 11 14)" fill="currentColor" />
+                                                    <rect x="11" y="17" width="2" height="2" rx="1"
+                                                        transform="rotate(-90 11 17)" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <!--end::Icon-->
 
+                                        <!--begin::Wrapper-->
+                                        <div class="d-flex flex-column">
+                                            <!--begin::Title-->
+                                            <h4 class="mb-1 text-danger">Sekolah Anda Belum Menyelesaikan Pembayar
+                                                Semester!
+                                            </h4>
+                                            <!--end::Title-->
+                                            <!--begin::Content-->
+                                            <h6>
+                                                untuk dapat mengakses menu yang terlock silahkan konfirmasi pembayaran dengan
+                                                pihak sekolah
+                                            </h6>
+
+                                            <!--end::Content-->
+
+                                        </div>
+                                        <!--end::Wrapper-->
+                                    </div>
+                                    <!--end::Tab content-->
+                                </div>
                             </div>
-                            <!--end::Wrapper-->
-                        </div>
-                        <!--end::Tab content-->
-                    </div>
-                    <!--end::Menu--> <!--end::Menu wrapper-->
-                </div>
+                        @endif
+                    @else
+                        @if (!$isPaymentComplete)
+                            <div class="app-navbar-item ms-1 ms-md-4">
+                                <!--begin::Menu- wrapper-->
+                                <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-danger w-35px h-35px"
+                                    data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                                    data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end"
+                                    id="kt_menu_item_wow">
+                                    <span class="svg-icon svg-icon-1 svg-icon-danger"><svg width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                rx="10" fill="currentColor" />
+                                            <rect x="11" y="14" width="7" height="2" rx="1"
+                                                transform="rotate(-90 11 14)" fill="currentColor" />
+                                            <rect x="11" y="17" width="2" height="2" rx="1"
+                                                transform="rotate(-90 11 17)" fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                </div>
+
+                                <!--begin::Menu-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column w-400px w-lg-500px"
+                                    data-kt-menu="true" id="kt_menu_notifications"
+                                    style="padding-top:10px;padding-left:10px;padding-right:10px;">
+                                    <!--begin::Heading-->
+                                    <div class="alert alert-danger d-flex align-items-center p-5">
+                                        <!--begin::Icon-->
+                                        <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
+                                            <span class="svg-icon svg-icon-2hx svg-icon-danger me-4"><svg
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                        rx="10" fill="currentColor" />
+                                                    <rect x="11" y="14" width="7" height="2" rx="1"
+                                                        transform="rotate(-90 11 14)" fill="currentColor" />
+                                                    <rect x="11" y="17" width="2" height="2" rx="1"
+                                                        transform="rotate(-90 11 17)" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <!--end::Icon-->
+
+                                        <!--begin::Wrapper-->
+                                        <div class="d-flex flex-column">
+                                            <!--begin::Title-->
+                                            <h4 class="mb-1 text-danger">Anda Belum Menyelesaikan Pembayar Semester
+                                            </h4>
+                                            <!--end::Title-->
+                                            <!--begin::Content-->
+                                            <h6>
+                                                Tuntaskan pembayaran di semester sebelumnya untuk mengakses menu yang
+                                                tidak dapat
+                                                diakses
+                                            </h6>
+
+                                            <!--end::Content-->
+
+                                        </div>
+                                        <!--end::Wrapper-->
+                                    </div>
+                                    <!--end::Tab content-->
+                                </div>
+                            </div>
+                        @endif
+                    @endif
+                @endif
+
                 <!--begin::User menu-->
                 <div class="d-flex align-items-center ms-1">
                     <!--begin::Menu-->
