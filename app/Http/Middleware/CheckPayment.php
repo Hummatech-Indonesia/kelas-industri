@@ -36,6 +36,7 @@ class CheckPayment
                 $previousSemester = $dependent->semester - 1;
                 $studentPayment = Payment::where('user_id', $user->id)
                     ->where('semester', $previousSemester)
+                    ->where('invoice_status', 'PAID')
                     ->sum('total_pay');
                 $nominalRequired = $dependent->nominal;
 
@@ -47,9 +48,9 @@ class CheckPayment
                     ->orderBy('semester', 'desc')
                     ->first();
 
-                $nominalRequired = $previousDependent->nominal;
+                $nominalRequired = $previousDependent == null? 0 :$previousDependent->nominal;
                 $isPaymentComplete = $nominalRequired == $studentPayment;
-                
+
                 if (!$isPaymentComplete) {
                     return redirect()->route('home');
                 }

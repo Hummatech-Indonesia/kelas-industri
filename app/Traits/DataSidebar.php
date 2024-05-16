@@ -135,6 +135,7 @@ trait DataSidebar
 
                 $studentPayment = Payment::query()
                     ->where('user_id', auth()->user()->id)
+                    ->where('invoice_status', 'PAID')
                     ->where('semester', $previousSemester)
                     ->sum('total_pay');
 
@@ -145,7 +146,7 @@ trait DataSidebar
                     ->where('semester', $previousSemester)
                     ->orderBy('semester', 'desc')
                     ->first();
-                $nominalRequired = $previousDependent->nominal;
+                $nominalRequired = $previousDependent == null ? 0 : $previousDependent->nominal;
                 $isPaymentComplete = $nominalRequired == $studentPayment;
             }
             return $isPaymentComplete;

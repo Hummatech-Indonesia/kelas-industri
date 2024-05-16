@@ -57,7 +57,8 @@
                                     aria-selected="{{ $index === 0 ? 'true' : 'false' }}" role="tab" tabindex="-1"
                                     data-semester="{{ $li->semester }}" data-user="{{ Auth::user()->id }}">
                                     <!--begin::Subtitle-->
-                                    <span class="nav-text text-gray-700 fw-bold fs-6 lh-1">
+                                    <span class="nav-text text-gray-700 fw-bold fs-6 lh-1"
+                                        id="tab-semester-{{ $li->semester }}" data-semester="semester-{{ $li->semester }}">
                                         Semester {{ $li->semester }}
                                     </span>
                                     <!--end::Subtitle-->
@@ -161,7 +162,7 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <form action="{{ route('student.request-transaction') }}" method="post">
+                            <form action="{{ route('student.request-transaction') }}" method="post" id="payment_form">
                                 @csrf
                                 @method('POST')
                                 <!--begin::Pos order-->
@@ -181,7 +182,7 @@
                                             <!--begin::Content-->
                                             <div class="fs-6 fw-bold text-white">
                                                 <span class="d-block lh-1 mb-2">Pembayaran semester ini</span>
-                                                <span class="d-block mb-2">Tanggungan semester ini</span>
+                                                <span class="d-block mb-2">Metode Pembayaran</span>
                                                 <span class="d-block mb-9"></span>
                                                 <span class="d-block fs-1 lh-1">Total Tanggungan</span>
                                             </div>
@@ -189,13 +190,14 @@
 
                                             <!--begin::Content-->
                                             <div class="fs-6 fw-bold text-white text-end">
-                                                <span class="d-block lh-1 mb-2" data-kt-pos-element="total"
-                                                    id="total_bayar"></span>
-                                                <span class="d-block mb-2" data-kt-pos-element="discount"
-                                                    id="tanggungan_pembayaran"></span>
+                                                <span class="d-block lh-1 mb-2 total_bayar"
+                                                    data-kt-pos-element="total"></span>
+                                                <span class="d-block lh-1 mb-2 metode" data-kt-pos-element="method"></span>
+                                                <span class="d-block mb-2 tanggungan_pembayaran"
+                                                    data-kt-pos-element="discount"></span>
                                                 <span class="d-block mb-9" data-kt-pos-element="tax"></span>
-                                                <span class="d-block fs-1 lh-1" data-kt-pos-element="grant-total"
-                                                    id="total_sisa"></span>
+                                                <span class="d-block fs-1 lh-1 total_sisa"
+                                                    data-kt-pos-element="grant-total"></span>
                                             </div>
                                             <!--end::Content-->
                                         </div>
@@ -204,7 +206,8 @@
                                             <label for="flexCheckDefault" class="form-label">Pilih Semester</label>
                                             <select name="semester" class="form-select form-select-solid" id="">
                                                 @foreach ($dependents as $dependet)
-                                                    <option value="{{ $dependet->semester }}">Semester
+                                                    <option value="{{ $dependet->semester }}"
+                                                        id="semester-{{ $dependet->semester }}">Semester
                                                         {{ $dependet->semester }}</option>
                                                 @endforeach
                                             </select>
@@ -389,7 +392,9 @@
                                                 </div>
                                             </div>
                                             <!--begin::Actions-->
-                                            <button type="submit" class="btn btn-primary fs-1 w-100 py-4">Bayar</button>
+                                            <button type="button" class="btn btn-primary fs-1 w-100 py-4"
+                                                id="confirmation_btn" data-bs-toggle="modal"
+                                                data-bs-target="#confirmation_modal">Bayar</button>
                                             <!--end::Actions-->
                                         </div>
                                         <!--end::Payment Method-->
@@ -404,6 +409,52 @@
                     </div>
                 </div>
                 <!--end::Content container-->
+
+                <div class="modal fade" tabindex="-1" id="confirmation_modal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Anda yakin ingin melakukan pembayaran?</h3>
+
+                                <!--begin::Close-->
+                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
+                                            class="path2"></span></i>
+                                </div>
+                                <!--end::Close-->
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="d-flex flex-stack rounded-3 p-6 mb-11">
+                                    <!--begin::Content-->
+                                    <div class="fs-6 fw-bold text-black">
+                                        <span class="d-block mb-2">Tanggungan semester ini</span>
+                                        <span class="d-block mb-2"></span>
+                                        <span class="d-block mb-9"></span>
+                                        <span class="d-block fs-1 h-5">Total Pembayaran</span>
+                                    </div>
+
+
+                                    <!--begin::Content-->
+                                    <div class="fs-6 fw-bold text-black text-end">
+                                        <span class="d-block mb-2 tanggungan_pembayaran"
+                                            data-kt-pos-element="discount">Rp. 10.000</span>
+                                        <span class="d-block mb-9" data-kt-pos-element="tax"></span>
+                                        <span class="d-block fs-1 lh-1 total_sisa" data-kt-pos-element="grant-total">Rp.
+                                            10.000</span>
+                                    </div>
+                                    <!--end::Content-->
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-primary" id="submit_payment">Bayar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--end::Content-->
         </div>
@@ -420,9 +471,9 @@
                     url: "{{ route('student.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
                         .replace(':semester', semester).replace(':user', userId),
                     success: function(response) {
-                        $('#total_bayar').html(numberFormat(response.totalBayar));
-                        $('#tanggungan_pembayaran').html(numberFormat(response.nominal.nominal));
-                        $('#total_sisa').html(numberFormat(response.nominal.nominal - response
+                        $('.total_bayar').html(numberFormat(response.totalBayar));
+                        $('.tanggungan_pembayaran').html(numberFormat(response.nominal.nominal));
+                        $('.total_sisa').html(numberFormat(response.nominal.nominal - response
                             .totalBayar));
                         $('#nominal').val(response.nominal.nominal -
                             response.totalBayar);
@@ -453,6 +504,16 @@
             $('.nav-link').click(function() {
                 var semester = $(this).data('semester');
                 var userId = $(this).data('user');
+
+                const options = $('option[id^="semester-"]');
+                const option = $('#semester-' + semester);
+
+                options.each((i, e) => {
+                    e.removeAttribute("selected");
+                    console.log(e);
+                })
+                option.attr("selected", "selected");
+
                 if (semester && userId) {
                     $.ajax({
                         type: "GET",
@@ -487,6 +548,10 @@
                     $('#div-installment').hide();
                 }
             });
+        })
+
+        $('#submit_payment').click(function() {
+            $('#payment_form').submit();
         })
     </script>
 

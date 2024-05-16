@@ -34,9 +34,12 @@ class PaymentRepository extends BaseRepository
 
     public function getGroupByMonth(): mixed
     {
-        return $this->model->get(['payment_date', 'total_pay'])->groupBy(function ($val) {
-            return Carbon::parse($val->payday)->translatedFormat('M');
-        });
+        return $this->model->query()
+            ->where('invoice_status', 'PAID')
+            ->get(['payment_date', 'total_pay'])
+            ->groupBy(function ($val) {
+                return Carbon::parse($val->payday)->translatedFormat('M');
+            });
     }
 
     public function getGroupUser($semester): mixed
