@@ -70,4 +70,11 @@ class PaymentRepository extends BaseRepository
             ->where('user_id', $userId)
             ->get();
     }
+
+    public function getByReference($reference): mixed
+    {
+        return $this->model->query()
+        ->where('reference', $reference)
+        ->first();
+    }
 }

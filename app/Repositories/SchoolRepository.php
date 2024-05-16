@@ -47,18 +47,18 @@ class SchoolRepository extends  BaseRepository
      * @return mixed
      */
     public function status_paginate(string|null $status, string|null $search, int $limit): mixed
-{
-    return $this->model->query()
-        ->role('school')
-        ->where('name', 'like', '%' . $search . '%')
-        ->when($status == 'school_package', function ($query) {
-            $query->whereHas('schoolPackages');
-        })
-        ->when($status == 'student_package', function ($query) {
-            $query->whereDoesntHave('schoolPackages');
-        })
-        ->paginate($limit);
-}
+    {
+        return $this->model->query()
+            ->role('school')
+            ->where('name', 'like', '%' . $search . '%')
+            ->when($status == 'school_package', function ($query) {
+                $query->whereHas('schoolPackages');
+            })
+            ->when($status == 'student_package', function ($query) {
+                $query->whereDoesntHave('schoolPackages');
+            })
+            ->paginate($limit);
+    }
 
     public function getCount()
     {
@@ -77,15 +77,12 @@ class SchoolRepository extends  BaseRepository
             ->get();
     }
 
-    public function getCountStudentClassroom(string $classroom, string $school)
+    public function getCountStudentClassroom(string $classroom)
     {
         return $this->model->query()
             ->where('status', 'active')
-            ->whereHas('studentSchool', function ($query) use ($school, $classroom) {
-                $query->where('school_id', $school)
-                    ->whereHas('classrooms', function ($query) use ($classroom) {
-                        $query->where('classroom_id', $classroom);
-                    });
+            ->whereHas('studentSchool.classrooms', function ($query) use ($classroom) {
+                $query->where('classroom_id', $classroom);
             })
             ->get();
     }

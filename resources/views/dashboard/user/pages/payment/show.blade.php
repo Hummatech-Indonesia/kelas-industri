@@ -36,6 +36,77 @@
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
+
+                            <div class="btn btn-light-danger btn-sm" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                                data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="kt_menu_item_wow">
+                                <span class="svg-icon svg-icon-1 svg-icon-danger">Pemberitahuan <svg width="24"
+                                        height="24" viewBox="0 0 18 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                            fill="currentColor"></rect>
+                                        <rect x="11" y="14" width="7" height="2" rx="1"
+                                            transform="rotate(-90 11 14)" fill="currentColor"></rect>
+                                        <rect x="11" y="17" width="2" height="2" rx="1"
+                                            transform="rotate(-90 11 17)" fill="currentColor"></rect>
+                                    </svg>
+                                </span>
+                            </div>
+
+                            <div class="menu menu-sub menu-sub-dropdown menu-column w-400px w-lg-500px" data-kt-menu="true"
+                                id="kt_menu_notifications" style="padding-top:10px;padding-left:10px;padding-right:10px;">
+                                <!--begin::Heading-->
+                                <div class="alert alert-danger d-flex align-items-center p-5">
+                                    <!--begin::Icon-->
+                                    <span class="svg-icon svg-icon-2hx svg-icon-primary">
+                                        <span class="svg-icon svg-icon-2hx svg-icon-danger"><svg width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                    rx="10" fill="currentColor" />
+                                                <rect x="11" y="14" width="7" height="2" rx="1"
+                                                    transform="rotate(-90 11 14)" fill="currentColor" />
+                                                <rect x="11" y="17" width="2" height="2" rx="1"
+                                                    transform="rotate(-90 11 17)" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                    </span>
+                                    <!--end::Icon-->
+
+                                    <!--begin::Wrapper-->
+                                    <div class="d-flex flex-column">
+                                        <!--begin::Title-->
+                                        <h4 class="mb-1 text-danger">Informasi</h4>
+                                        <!--end::Title-->
+                                        <!--begin::Content-->
+                                        <ul>
+                                            <li>
+                                                <h6>
+                                                    Jangan keluar dari halaman ini sebelum menyelesaikan pembayaran, karena
+                                                    halaman ini tidak bisa diakses lagi nantinya
+                                                </h6>
+                                            </li>
+                                            <li>
+                                                <h6>
+                                                    Jika anda sudah berhasil menyelesakan pembayaran silahkan refresh
+                                                    halaman
+                                                    ini
+                                                </h6>
+                                            </li>
+                                            <li>
+                                                <h6>
+                                                    Setelah refresh halaman akan muncul button selesai, jika diklik akan
+                                                    mengarah kehalaman invoice pembayaran
+                                                </h6>
+                                            </li>
+                                        </ul>
+
+                                        <!--end::Content-->
+
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </div>
+                            </div>
+                            <!--end::Tab content-->
                             <!--end::Actions-->
                         </div>
                         <!--end::Toolbar wrapper-->
@@ -62,7 +133,7 @@
                                     <!--begin::Item-->
                                     <div class="d-flex flex-stack">
                                         <!--begin::Section-->
-                                        <div class="text-gray-700 fw-bold fw-semibold fs-6 me-2">Pembayaran Paket</div>
+                                        <div class=" fw-bold fs-6 me-2">Pembayaran Paket</div>
                                         <!--end::Section-->
 
                                         <!--begin::Statistics-->
@@ -84,7 +155,7 @@
                                     <!--begin::Item-->
                                     <div class="d-flex flex-stack">
                                         <!--begin::Section-->
-                                        <div class="text-gray-700 fw-bold fs-6 me-2">Biaya Layanan</div>
+                                        <div class="fw-bold fs-6 me-2">Biaya Layanan</div>
                                         <!--end::Section-->
 
                                         <!--begin::Statistics-->
@@ -105,7 +176,7 @@
                                     <!--begin::Item-->
                                     <div class="d-flex flex-stack">
                                         <!--begin::Section-->
-                                        <div class="text-gray-700 fw-bold fs-6 me-2">Total Pembayaran</div>
+                                        <div class="fw-bold fs-6 me-2">Total Pembayaran</div>
                                         <!--end::Section-->
 
                                         <!--begin::Statistics-->
@@ -127,7 +198,7 @@
                                     <!--begin::Item-->
                                     <div class="d-flex flex-stack">
                                         <!--begin::Section-->
-                                        <div class="text-gray-700 fw-bold fs-6 me-2">Kode Transaksi</div>
+                                        <div class="fw-bold fs-6 me-2">Kode Transaksi</div>
                                         <!--end::Section-->
 
                                         <!--begin::Statistics-->
@@ -148,7 +219,7 @@
                                     <!--begin::Item-->
                                     <div class="d-flex flex-stack">
                                         <!--begin::Section-->
-                                        <div class="text-gray-700 fw-bold fs-6 me-2">Bayar Sebelum Tanggal</div>
+                                        <div class="fw-bold fs-6 me-2">Bayar Sebelum Tanggal</div>
                                         <!--end::Section-->
 
                                         <!--begin::Statistics-->
@@ -169,11 +240,11 @@
 
                                     <div class="row">
                                         <div class="col-2">
-                                            <img src="https://assets.tripay.co.id/upload/payment-icon/n22Qsh8jMa1583433577.png"
-                                                alt="" class="img-fluid me-2" style="height: 25px;">
+                                            <img src="{{ $payment->icon_url }}" alt="" class="img-fluid me-2"
+                                                style="height: 25px;">
                                         </div>
                                         <div class="col">
-                                            <div class="text-gray-700 fw-bold fs-6 me-2">
+                                            <div class="fw-bold fs-5 me-2">
                                                 {{ $detailPayment->payment_method }}</div>
                                             <div class="separator separator-solid my-3"></div>
                                         </div>
@@ -184,9 +255,17 @@
                                         <div class="col-2">
 
                                         </div>
-                                        <div class="col">
-                                            <div class="text-gray-700 fw-bold fs-6 me-2">Kode Pembayaran</div>
-                                            <div class="text-primary fw-bold fs-3 me-2">{{ $detailPayment->pay_code }}</div>
+                                        <div class="col d-flex justify-content-between">
+                                            <div class="">
+                                                <div class="fw-bold fs-5 me-2">Kode Pembayaran</div>
+                                                <div class="text-primary fw-bold fs-3 me-2">{{ $detailPayment->pay_code }}
+                                                </div>
+                                            </div>
+                                            @if ($payment->invoice_status == 'PAID')
+                                                <div class="">
+                                                    <a href="" class="btn btn-light-primary btn-md">Selesai</a>
+                                                </div>
+                                            @endif
                                         </div>
                                         <!--end::Section-->
 
@@ -233,6 +312,7 @@
 
                                 {{-- </div> --}}
                             </div>
+
                         </div>
                     </div>
                 </div>

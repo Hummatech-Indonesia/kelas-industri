@@ -102,7 +102,7 @@ class SchoolController extends Controller
         } else {
             foreach ($classrooms as $classroom) {
                 $classroomId = $classroom->id;
-                $countStudentClassroom = $this->service->handleCountStudentClassroom($classroomId, $schools);
+                $countStudentClassroom = $this->service->handleCountStudentClassroom($classroomId);
                 $countStudents[$classroomId] = $countStudentClassroom->count();
             }
         }

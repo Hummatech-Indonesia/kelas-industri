@@ -22,6 +22,12 @@ class TripayController extends Controller
 
     public function store(Request $request)
     {
+        if ($request['installment_payment'] <= 10000) {
+            return redirect()->back()->with('error', 'Tidak bisa mencicil pembayaran kurang dari Rp. 10.000');
+        } else if ($request['installment_payment'] >= $request['nominal']) {
+            return redirect()->back()->with('error', 'Nominal yang anda bayarkan melebihi dari tanggungan semester ' . $request['semester']);
+        }
+
         $response = $this->service->requestTranscaction($request->all());
 
         return redirect()->route(

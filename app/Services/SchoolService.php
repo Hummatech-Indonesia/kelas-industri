@@ -54,9 +54,9 @@ class SchoolService
         return $this->repository->countAllStudentActive($id);
     }
 
-    public function handleCountStudentClassroom(string $classroom, string $school)
+    public function handleCountStudentClassroom(string $classroom)
     {
-        return $this->repository->getCountStudentClassroom($classroom, $school);
+        return $this->repository->getCountStudentClassroom($classroom);
     }
 
     public function handleCount()
