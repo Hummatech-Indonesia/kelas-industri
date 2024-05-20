@@ -136,13 +136,11 @@ class ChallengeController extends Controller
      */
     public function validChallenge(Request $request,$id): JsonResponse
     {
-
-    $currentSchoolYear = SchoolYearHelper::get_current_school_year();
     $submitChallenge = SubmitChallenge::findOrFail($id);
     $persen = floatval($request->persen);
 
     $poin = floatval($submitChallenge->challenge->point) * ($persen / 100.0);
-    // return response()->json($poin, 200);
+
     $this->service->handleUpadetValid($submitChallenge->id);
     $this->service->handleCreatePoint($poin, $submitChallenge->studentSchool->student->id);
         return response()->json();
@@ -157,7 +155,6 @@ class ChallengeController extends Controller
 
     public function validChallengeTeacher(Request $request, $id): JsonResponse
     {
-        $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         $submitChallenge = SubmitChallenge::findorfail($id);
         $persen = floatval($request->persen);
 

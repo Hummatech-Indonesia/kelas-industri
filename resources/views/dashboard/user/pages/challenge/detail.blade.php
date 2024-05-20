@@ -1,5 +1,11 @@
 @extends('dashboard.user.layouts.app')
-
+@section('css')
+    <style>
+        .kt_docs_sweetalert_html {
+            display: none;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <!--begin::Content wrapper-->
@@ -114,79 +120,80 @@
                         <div class="col-12">
 
                             <div class="card card-custom gutter-b">
-            
+
                                 <div class="card-body">
-            
+
                                     <div class="d-flex">
-            
+
                                         <!--begin: Pic-->
-            
+
                                         <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3 me-5">
-            
-            
+
+
                                             <div class="symbol symbol-50 symbol-lg-120 symbol-primary ">
-            
+
                                                 <span
                                                     class="font-size-h3 symbol-label font-weight-boldest">{{ substr($challenge->title, 0, 1) }}</span>
-            
+
                                             </div>
-            
+
                                         </div>
-            
+
                                         <!--end: Pic-->
-            
-            
+
+
                                         <!--begin: Info-->
-            
+
                                         <div class="flex-grow-1">
-            
+
                                             <!--begin: Title-->
-            
+
                                             <div class="d-flex align-items-center justify-content-between flex-wrap">
-            
+
                                                 <div class="mr-3">
-            
+
                                                     <!--begin::Name-->
-            
-                                                    <span class="d-flex align-items-center text-dark h4 font-weight-bold mr-3">
-            
-                                                    {{ $challenge->title }}
-            
-                                                </span>
-                                                </div>            
+
+                                                    <span
+                                                        class="d-flex align-items-center text-dark h4 font-weight-bold mr-3">
+
+                                                        {{ $challenge->title }}
+
+                                                    </span>
+                                                </div>
                                             </div>
-            
+
                                             <!--end: Title-->
-            
-            
+
+
                                             <!--begin: Content-->
-            
+
                                             <div class="d-flex align-items-center flex-wrap justify-content-between">
-            
+
                                                 <div class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
-            
+
                                                     <div style="width: 45vw">
-            
+
                                                         {!! $challenge->description !!}
                                                     </div>
-            
+
                                                 </div>
-            
+
                                             </div>
-            
+
                                             <!--end: Content-->
-            
+
                                         </div>
-            
+
                                         <!--end: Info-->
-            
+
                                     </div>
-            
-            
+
+
                                 </div>
-            
+
                             </div>
-            
+
                         </div>
                         @if (auth()->user()->roles->pluck('name')[0] == 'student')
 
@@ -282,29 +289,33 @@
                                             <span class="text-gray-400 mt-1 fw-semibold fs-6">Siswa Yang Telah Mengumpulkan
                                                 Tantangan.</span>
                                         </h3>
+                                        <button type="submit"
+                                            class="btn btn-sm btn-primary kt_docs_sweetalert_html mb-2">
+                                            Nilai
+                                        </button>
                                         <!--end::Title-->
                                     </div>
-
-
                                     <div class="card-body">
                                         <table id="kt_datatable_responsive"
                                             class="table table-striped border rounded gy-5 gs-7">
                                             <thead>
                                                 <tr class="fw-semibold fs-6 text-gray-800">
-
-                                                   <th>No</th>
+                                                    <th><input type="checkbox" name="" id=""
+                                                            onClick="toggle(this)"></th>
+                                                    <th>No</th>
                                                     <th class="min-w-200px" data-priority="1">Nama Siswa</th>
                                                     <th data-priority="2">File</th>
                                                     <th class="min-w-100px" data-priority="3">Status</th>
-                                                    <th class="min-w-100px" data-priority="4">Persen</th>
-                                                    <th data-priority="5">Aksi</th>
-
+                                                    <th class="min-w-100px" data-priority="4">Point</th>
                                                 </tr>
                                             </thead>
                                             @foreach ($student as $students)
                                                 <tbody>
                                                     <tr>
-
+                                                        <td>
+                                                            <input type="checkbox" class="checked" name="checkAll"
+                                                                id="">
+                                                        </td>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>
                                                             {{ $students->studentSchool->student->name }}
@@ -330,9 +341,11 @@
                                                         </td>
                                                         <td>
                                                             @if ($students->is_valid == 'not_valid')
-                                                                <span class="badge badge-light-danger">Not Valid</span>
+                                                                <span class="badge badge-light-danger">Belum di
+                                                                    Nilai</span>
                                                             @else
-                                                                <span class="badge badge-light-success">Valid</span>
+                                                                <span class="badge badge-light-success">Sudah
+                                                                    diNilai</span>
                                                             @endif
                                                         </td>
                                                         <td>
@@ -340,29 +353,11 @@
                                                                 <select name="persen"
                                                                     class="form-select form-select-solid"
                                                                     id="persen-{{ $students->id }}">
-                                                                    <option value="0">0%</option>
-                                                                    <option value="25">25%</option>
-                                                                    <option value="50">50%</option>
-                                                                    <option value="75">75%</option>
-                                                                    <option value="100">100%</option>
-                                                                </select>
-                                                            @else
-                                                                -
-                                                            @endif
-                                                        </td>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
 
-                                                        <td>
-                                                            @if ($challenge->created_by == auth()->user()->id)
-                                                                @if ($students->is_valid == 'not_valid')
-                                                                    <button type="button"
-                                                                        data-nama="{{ $students->studentSchool->student->name }}"
-                                                                        data-id="{{ $students->id }}"
-                                                                        class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto kt_docs_sweetalert_html">
-                                                                        Valid
-                                                                    </button>
-                                                                @else
-                                                                    -
-                                                                @endif
+                                                                </select>
                                                             @else
                                                                 -
                                                             @endif
@@ -518,7 +513,7 @@
         </div>
     @endsection
     @section('script')
-    <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+        <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
         <script>
             $("#kt_datatable_responsive").DataTable({
                 responsive: true
@@ -566,13 +561,10 @@
             })
 
             $('.kt_docs_sweetalert_html').click(function(e) {
-                var nama = $(this).data('nama');
                 var id = $(this).data('id');
-                var persen = parseFloat($('#persen-' + id).val());
 
                 Swal.fire({
-                    html: "Apakah Anda Yakin Challenge Dari Siswa " + nama + " Valid dengan persentase " +
-                        persen + "%?",
+                    html: "Apakah anda yakin ingin menilai siswa - siwa yang anda ceklist ",
                     icon: "info",
                     buttonsStyling: false,
                     showCancelButton: true,
@@ -589,7 +581,6 @@
                             type: 'POST',
                             data: {
                                 _token: '{{ csrf_token() }}',
-                                persen: persen,
                             },
                             success: function(response) {
                                 Swal.fire({
@@ -605,6 +596,34 @@
                     }
                 });
             });
+
+            function toggle(source) {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                var nilaiButton = document.querySelector('.kt_docs_sweetalert_html');
+
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i] !== source) {
+                        checkboxes[i].checked = source.checked;
+                    }
+                }
+
+                if (source.checked) {
+                    nilaiButton.style.display = 'block';
+                } else {
+                    nilaiButton.style.display = 'none';
+                }
+            }
+
+            var checkbox = document.querySelector('.checked');
+            var button = document.querySelector('.kt_docs_sweetalert_html');
+
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    button.style.display = 'block';
+                } else {
+                    button.style.display = 'none';
+                }
+            });
+
         </script>
     @endsection
-

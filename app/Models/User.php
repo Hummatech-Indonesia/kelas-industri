@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Point;
 use App\Models\Salary;
 use App\Models\SchoolPackage;
@@ -202,5 +201,10 @@ class User extends Authenticatable
     public function schoolPackages(): HasMany
     {
         return $this->hasMany(SchoolPackage::class, 'school_id');
+    }
+
+    public function submitAssignment(): HasOne
+    {
+        return $this->hasOne(SubmitAssignment::class, 'student_id');
     }
 }
