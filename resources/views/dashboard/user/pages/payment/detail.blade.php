@@ -182,8 +182,8 @@
 
                                     <!--begin::Separator-->
                                     <div class="separator separator-solid my-3"></div>
-                                    <a href="{{ route('student.invoice') }}"
-                                        class="text-primary text-center fw-bold fw-bold fs-3 me-2">
+                                    <a href="{{ route('student.invoice', ['reference' => $payment->reference]) }}"
+                                        class="text-primary text-center justify-content-center d-flex fw-bold fw-bold fs-3 me-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                             viewBox="0 0 24 24">
                                             <path fill="currentColor"

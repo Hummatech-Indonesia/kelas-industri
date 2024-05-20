@@ -25,8 +25,4 @@ class Payment extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function dependent(): BelongsTo {
-        return $this->belongsTo(Dependent::class);
-    }
 }

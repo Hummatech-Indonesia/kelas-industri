@@ -133,7 +133,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <a href="{{ route('student.detail-payment', $tracking->id) }}"
+                                                                    <a href="{{ route('student.detail-payment', $tracking->id) }}"
                                                                             class="btn btn-primary btn-sm">
                                                                             Detail
                                                                         </a>

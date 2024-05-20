@@ -65,4 +65,12 @@ class DependentRepository extends BaseRepository
         ->first();
     }
 
+    public function getByClassroomSemester(String $classroomId, String $semester): mixed
+    {
+        return $this->model->query()
+            ->where('classroom_id', $classroomId)
+            ->where('semester', $semester)
+            ->first();
+    }
+
 }
