@@ -227,7 +227,7 @@
                                                     Bayarkan</label>
                                                 <input type="number" name="installment_payment"
                                                     class="form-control form-control-solid" placeholder="Rp. 50.000"
-                                                    id="">
+                                                    id="installment">
                                             </div>
                                         </div>
                                         <!--begin::Payment Method-->
@@ -413,42 +413,29 @@
                 <div class="modal fade" tabindex="-1" id="confirmation_modal">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title">Anda yakin ingin melakukan pembayaran?</h3>
-
-                                <!--begin::Close-->
-                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                                    aria-label="Close">
-                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
-                                            class="path2"></span></i>
-                                </div>
-                                <!--end::Close-->
-                            </div>
+                            <h2 class="modal-title mt-6 mx-6">Anda yakin ingin melakukan pembayaran?</h2>
 
                             <div class="modal-body">
-                                <div class="d-flex flex-stack rounded-3 p-6 mb-11">
-                                    <!--begin::Content-->
-                                    <div class="fs-6 fw-bold text-black">
+                                <div class="fs-6 fw-bold text-light-black text-dark-white">
+                                    <div class="d-flex justify-content-between mb-7">
                                         <span class="d-block mb-2">Tanggungan semester ini</span>
-                                        <span class="d-block mb-2"></span>
-                                        <span class="d-block mb-9"></span>
-                                        <span class="d-block fs-1 h-5">Total Pembayaran</span>
-                                    </div>
-
-
-                                    <!--begin::Content-->
-                                    <div class="fs-6 fw-bold text-black text-end">
                                         <span class="d-block mb-2 tanggungan_pembayaran"
                                             data-kt-pos-element="discount">Rp. 10.000</span>
-                                        <span class="d-block mb-9" data-kt-pos-element="tax"></span>
-                                        <span class="d-block fs-1 lh-1 total_sisa" data-kt-pos-element="grant-total">Rp.
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex">
+                                            <span class="d-block mb-2 me-2"><img src="#" alt=""
+                                                    width="100" id="payment_method"></span>
+                                            <span class="d-block fs-1">Total Pembayaran</span>
+                                        </div>
+                                        <span class="d-block fs-1 lh-1 total_sisa total_sisa_modal"
+                                            data-kt-pos-element="grant-total">Rp.
                                             10.000</span>
                                     </div>
-                                    <!--end::Content-->
                                 </div>
                             </div>
 
-                            <div class="modal-footer">
+                            <div class="modal-footer border-0">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
                                 <button type="button" class="btn btn-primary" id="submit_payment">Bayar</button>
                             </div>
@@ -510,7 +497,6 @@
 
                 options.each((i, e) => {
                     e.removeAttribute("selected");
-                    console.log(e);
                 })
                 option.attr("selected", "selected");
 
@@ -536,6 +522,25 @@
                 $('.btn').removeClass('active');
                 $(this).parent().addClass('active');
             });
+
+
+            $('#confirmation_btn').click(function() {
+                const formData = $('#payment_form').serializeArray();
+                const method = formData.find(function(item) {
+                    return item.name === "icon_url";
+                });
+                const index = formData.findIndex(function(item) {
+                    return item.name === "method";
+                });
+                console.log(formData[index - 1]);
+                const check = $('#installmentCheckbox').is(":checked");
+
+                $('#payment_method').attr('src', formData[index - 1].value)
+                if (check) {
+                    const amount = $('#installment').val();
+                    $('.total_sisa_modal').html(numberFormat(amount))
+                }
+            })
         });
 
         $(document).ready(function() {
@@ -549,6 +554,7 @@
                 }
             });
         })
+
 
         $('#submit_payment').click(function() {
             $('#payment_form').submit();
