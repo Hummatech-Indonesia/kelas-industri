@@ -38,6 +38,7 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
+use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\UserClassroomController;
@@ -228,14 +229,20 @@ Route::middleware('auth.custom')->group(function () {
             'schoolPackage' => SchoolPackageController::class,
         ]);
 
+        Route::get('payment-monitoring', [TrackingPaymentController::class,'paymentMonitoring'])->name('payment-monitoring.index');
+        Route::get('payment-monitoring/{classroom}', [TrackingPaymentController::class,'paymentAllStudent'])->name('payment-student');
+        Route::get('payment-monitoring/{classroom}/{user}', [TrackingPaymentController::class,'monitoringDetailStudent'])->name('payment-detail-student');
+
         Route::get('individual-package', [PackageController::class, 'indexSchool'])->name('individual-package');
 
-        
+
         Route::get('tracking/student-school/{school}', [TrackingPaymentController::class, 'allStudent'])->name('tracking.showStudent');
         Route::get('tracking/student-school/detail/{classroom}/{user}', [TrackingPaymentController::class, 'detailStudent'])->name('tracking.detailStudent');
         Route::post('tracking/student-school/detail/{user}/store', [TrackingPaymentController::class, 'store'])->name('tracking.detailStudent.store');
         Route::put('tracking/student-school/detail/{user}/update', [TrackingPaymentController::class, 'update'])->name('tracking.detailStudent.update');
         Route::get('get-total-dependent/{semester}/{user}', [DependentController::class, 'semester'])->name('total.dependent');
+
+        Route::get('finance', [FinanceController::class,'get']);
     });
     //end finance
 

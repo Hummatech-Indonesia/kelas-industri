@@ -202,7 +202,7 @@ class HomeController extends Controller
                 'mentor' => count($this->userService->handleCountMentor()),
                 'schools' => $this->userService->handleGetAllSchoolWithPackage(),
                 'incomes' => $incomes,
-                'depts' => $depts,
+                'depts' => $depts,  
                 'spents' => $spents,
             ];
             $data['teachersJournal'] = $this->journalService->handleCountJournalByFilter($request, $data['schools'][0]->id, 'teacher');

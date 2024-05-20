@@ -242,4 +242,9 @@ class ClassroomRepository extends BaseRepository
             ->where('classroom_id', $classroomId)
             ->get();
     }
+
+
+    public function first() : mixed {
+        return $this->model->query()->orderBy("name", "DESC")->first();
+    }
 }

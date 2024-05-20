@@ -168,4 +168,47 @@ class TrackingPaymentController extends Controller
         ];
         return view('dashboard.admin.pages.trackingPayment.student', $data);
     }
+
+    public function paymentMonitoring()
+    {
+        $schools = $this->service->handleGetPaginate();
+        $parameters = null;
+
+        if (request()->has('status') || request()->has('search')) {
+            $schools = $this->service->handleFilter(request()->status, request()->search);
+            $parameters = request()->query();
+        }
+        $countStudents = null;
+
+        foreach ($schools as $school) {
+            $schoolId = $school->id;
+            $countStudent = $this->service->handleCountStudent($schoolId);
+            $countStudents[$schoolId] = $countStudent->count();
+        }
+        $data = [
+            'countStudents' => $countStudents,
+            'schools' => $schools,
+            'parameters' => $parameters,
+        ];
+        return view('dashboard.finance.pages.monitoringDependents.index', $data);
+    }
+
+    public function paymentAllStudent(Request $request, string $schoolId)
+    {
+        $data = [
+            'classrooms' => $this->classroomService->handleGetBySchool($schoolId),
+            'students' => $this->studentService->handleGetBySchoolPaymentWithDependent($schoolId, $request),
+            'school' => auth()->user(),
+        ];
+        return view('dashboard.finance.pages.monitoringDependents.student', $data);
+    }
+
+    public function monitoringDetailStudent(string $classroom, string $user)
+    {
+        $data['student'] = $this->userService->handleGetById($user);
+        $data['dependents'] = $this->serviceDependent->handleGetAllByClassroom($classroom);
+        $data['trackings'] = $this->servicePayment->handleGetByStudent($user);
+        $data['user'] = $user;
+        return view('dashboard.finance.pages.monitoringDependents.detailStudent', $data);
+    }
 }

@@ -91,8 +91,11 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mx-4 mt-4 gap-2">
-                        <h4 class="card-title">Keuangan</h4>
-                        <form action="#kt_jurnal_guru" method="GET" class="d-flex gap-2">
+                        <div class="flex">
+                            <h4 class="text-muted">Total Pemasukan | Pengeluaran | Piutang</h4>
+                            <h3><span class="text-primary">Rp. 1000.000</span></h3>
+                        </div>
+                            <form action="#kt_jurnal_guru" method="GET" class="d-flex gap-2">
                             <select class="form-select form-select-solid me-5" name="year" data-control="select2"
                                 data-placeholder="Tahun">
                                 <option></option>

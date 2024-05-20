@@ -1,4 +1,4 @@
-@extends('dashboard.admin.layouts.app')
+@extends('dashboard.finance.layout.app')
 @section('content')
     @php
         use Carbon\Carbon;
@@ -10,7 +10,8 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                {{ $student->name }} - {{ $student->studentSchool->studentClassroom->classroom->name }}
+                {{ $student->name }} - {{ $student->studentSchool->studentClassroom->classroom->name }} -
+                {{ $student->studentSchool->school->name }}
             </h1>
             <!--end::Title-->
 
@@ -77,8 +78,6 @@
                     <div class="tab-content">
                         <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
                             id="kt_stats_widget_2_tab_{{ $tabContent->id }}" role="tabpanel">
-                            <div class="d-flex">
-                            </div>
                             <!--begin::Table container-->
                             <div class="table-responsive">
                                 <!--begin::Table-->
@@ -88,7 +87,9 @@
                                         <tr class="fw-bold text-muted">
                                             <th class="min-w-50px">No</th>
                                             <th class="min-w-150px">Nominal</th>
+                                            <th class="min-w-150px">Tipe Pembayaran</th>
                                             <th class="min-w-150px">Waktu Pembayaran</th>
+                                            <th class="min-w-100px">Aksi</th>
                                         </tr>
                                     </thead>
                                     <!--end::Table head-->
@@ -118,10 +119,34 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="d-flex justify-content-start flex-column">
                                                             <div class="text-gray-900 fw-bold fs-7">
+                                                                {{ $tracking->via != null ? $tracking->via : 'Manual' }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="d-flex justify-content-start flex-column">
+                                                            <div class="text-gray-900 fw-bold fs-7">
                                                                 {{ Carbon::parse($tracking->payment_date)->translatedFormat('d F Y') }}
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </td>
+                                                <td>
+                                                    @if ($tracking->via == null)
+                                                        <button
+                                                            class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                                            data-id="{{ $tracking->id }}"
+                                                            data-user="{{ $tracking->user_id }}"
+                                                            data-total="{{ $tracking->total_pay }}"
+                                                            data-payment="{{ $tracking->payment_date }}"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data"
+                                                            data-kt-initialized="1">
+                                                            <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
+                                                        </button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @empty
@@ -147,9 +172,13 @@
         </div>
         <x-delete-modal-component />
 
-        <h4 class="fw-bolder fs-1 mb-4">Rincian Tanggungan</h4>
+        <h4 class="fw-bolder fs-1 mb-4">Rincian Pembayaran</h4>
         <div class="card shadow mb-5 bg-body-tertiary rounded">
             <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-gray-900 fw-medium fs-5">Total Pembayaran Anda pada semester ini</div>
+                    <div class="text-gray-900 fw-bolder fs-5" id="total_bayar"></div>
+                </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="text-gray-900 fw-medium fs-5">Tanggungan pembayaran pada semester ini</div>
                     <div class="text-gray-900 fw-bolder fs-5" id="tanggungan_pembayaran"></div>
@@ -180,8 +209,8 @@
                     <!--end::Close-->
                 </div>
                 <div class="modal-body row">
-                    <form action="{{ route('administration.tracking.detailStudent.store', $student->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('administration.tracking.detailStudent.store', $student->id) }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $student->id }}">
                         <input type="hidden" name="semester_tanggungan" id="semester_tanggungan">
@@ -252,7 +281,7 @@
                 console.log(semester, userId);
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('school.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
+                    url: "{{ route('administration.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
                         .replace(':semester', semester).replace(':user', userId),
                     success: function(response) {
                         console.log(response);

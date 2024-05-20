@@ -93,7 +93,7 @@
                                     class="menu-link {{ request()->routeIs('student.challenges.*') || request()->routeIs('student.submitChallenge') ? 'active' : '' }}"
                                     @if ($schoolPayment != null) @if ($schoolPayment->status == 'not_yet_paid')
                                             style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
-                                @else
+                                   @else
                                     @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
                                     @endif
                                     ><span class="menu-title">Tantangan</span></a>
