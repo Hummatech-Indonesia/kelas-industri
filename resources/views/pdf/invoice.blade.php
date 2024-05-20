@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,6 +67,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="invoice-container">
         <table cellspacing="0" cellpadding="0" style="width: 100%;">
@@ -77,7 +79,7 @@
                     </th>
                     <th class="title"><span style="display: inline;">Kelas Industri<br>Hummatech</span></th>
                     <th style="text-align: right;"><span>Kode Transaksi</span><br><span
-                            class="transaction-code">fsdfsdfsfsdfsdf</span></th>
+                            class="transaction-code">{{ $reference }}</span></th>
                 </tr>
             </thead>
             <tbody class="content">
@@ -86,8 +88,8 @@
                     <td class="content-title text-right" style="font-weight: normal;">Metode Pembayaran</td>
                 </tr>
                 <tr>
-                    <td class="value" colspan="2">Rp. 342423424</td>
-                    <td class="value text-right">Bank Hummatech</td>
+                    <td class="value" colspan="2">Rp. {{ $payment_total }}</td>
+                    <td class="value text-right">{{ $via }}</td>
                 </tr>
             </tbody>
         </table>
@@ -99,18 +101,18 @@
                     <td class="content-title text-right" style="font-weight: normal;">Tagihan Dibayar</td>
                 </tr>
                 <tr>
-                    <td class="value" colspan="2">10 Desember 2024, 03:00</td>
-                    <td class="value text-right">11 Desember 2024, 04:00</td>
+                    <td class="value" colspan="2">{{ $created_at }}</td>
+                    <td class="value text-right">{{ $updated_at }}</td>
                 </tr>
                 <tr>
                     <td style="padding-top: 20px;">Rincian Pesanan</td>
                 </tr>
                 <tr>
                     <td style="padding-top: 10px; font-weight: bold;" colspan="2">Paket Siswa</td>
-                    <td class="text-right" style="font-weight: bold;" rowspan="2">Rp. 932423423</td>
+                    <td class="text-right" style="font-weight: bold;" rowspan="2">Rp. {{ $dependet }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">(Semester Genap)</td>
+                    <td colspan="2">(Semester {{ $semester }})</td>
                 </tr>
             </tbody>
         </table>
@@ -119,15 +121,20 @@
             <tbody class="content">
                 <tr>
                     <td class="content-title" style="font-weight: bold;" colspan="2">Subtotal Tagihan</td>
-                    <td class="content-title text-right" style="font-weight: bold;">Rp. 7742348374</td>
+                    <td class="content-title text-right" style="font-weight: bold;">Rp. {{ $dependet }}</td>
+                </tr>
+                <tr>
+                    <td class="content-title" style="font-weight: bold;" colspan="2">Biaya Layanan</td>
+                    <td class="content-title text-right" style="font-weight: bold;">Rp. {{ $fee_amount }}</td>
                 </tr>
                 <tr>
                     <td class="value" colspan="2">Total Pembayaran</td>
-                    <td class="value text-right">Rp. 2423434234</td>
+                    <td class="value text-right">Rp. {{ $total }}</td>
                 </tr>
             </tbody>
         </table>
         <hr>
     </div>
 </body>
+
 </html>

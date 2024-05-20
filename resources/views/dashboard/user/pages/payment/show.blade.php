@@ -263,7 +263,7 @@
                                             </div>
                                             @if ($payment->invoice_status == 'PAID')
                                                 <div class="">
-                                                    <a href="" class="btn btn-light-primary btn-md">Selesai</a>
+                                                    <a href="{{ route('student.detail-payment', $payment->id) }}" class="btn btn-light-primary btn-md">Selesai</a>
                                                 </div>
                                             @endif
                                         </div>

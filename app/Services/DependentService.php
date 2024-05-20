@@ -44,4 +44,9 @@ class DependentService
     {
         return $this->repository->getTotalDependent($semester, $classroomId);
     }
+
+    public function handleGetByClassroomSemester(String $classroomId, String $semester): mixed
+    {
+        return $this->repository->getByClassroomSemester($classroomId, $semester);
+    }
 }
