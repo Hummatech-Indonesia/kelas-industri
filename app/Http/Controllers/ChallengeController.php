@@ -78,7 +78,7 @@ class ChallengeController extends Controller
         $data = $this->GetDataSidebar();
         $data['challenge'] = $challenge;
         $data['submitChallenge'] = $this->service->handleGetStudentSubmitChallenge(auth()->user()->students[0]->id, $challenge->id);
-        return \view ('dashboard.user.pages.challenge.store', $data);
+        return \view('dashboard.user.pages.challenge.store', $data);
     }
     /**
      * Store a newly created resource in storage.
@@ -117,7 +117,6 @@ class ChallengeController extends Controller
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $data['challenge'] = $challenge;
             $data['student'] =  $this->service->handleChallengeByTeacher($challenge->id);
-
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             $data['challenge'] = $challenge;
             $data['student'] =  $this->service->handleGetChallengeByMentor($challenge->id);
@@ -125,24 +124,28 @@ class ChallengeController extends Controller
             $data['challenge'] = $challenge;
         }
         $tanggal = Carbon::now()->format('Y-m-d H:i:s');
-        return \view('dashboard.user.pages.challenge.detail', $data ,compact('tanggal'));
+        return \view('dashboard.user.pages.challenge.detail', $data, compact('tanggal'));
     }
 
-        /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
      * @return JsonResponse
      */
-    public function validChallenge(Request $request,$id): JsonResponse
+    public function validChallenge(Request $request,): JsonResponse
     {
-    $submitChallenge = SubmitChallenge::findOrFail($id);
-    $persen = floatval($request->persen);
+        foreach ($request->ids as $data) {
+            $submitChallenge = SubmitChallenge::findOrFail($data['id']);
+            // $persen = floatval($request->persen);
 
-    $poin = floatval($submitChallenge->challenge->point) * ($persen / 100.0);
+            // $poin = floatval($submitChallenge->challenge->point) * ($persen / 100.0);
 
-    $this->service->handleUpadetValid($submitChallenge->id);
-    $this->service->handleCreatePoint($poin, $submitChallenge->studentSchool->student->id);
+            $poin = $data['point'];
+
+            $this->service->handleUpadetValid($submitChallenge->id);
+            $this->service->handleCreatePoint($poin, $submitChallenge->studentSchool->student->id);
+        }
         return response()->json();
     }
 
@@ -153,14 +156,18 @@ class ChallengeController extends Controller
      * @return JsonResponse
      */
 
-    public function validChallengeTeacher(Request $request, $id): JsonResponse
+    public function validChallengeTeacher(Request $request): JsonResponse
     {
-        $submitChallenge = SubmitChallenge::findorfail($id);
-        $persen = floatval($request->persen);
+        foreach ($request->ids as $data) {
 
-        $point = floatval($submitChallenge->challenge->point) * ($persen / 100.0);
+        $submitChallenge = SubmitChallenge::findorfail($data['id']);
+        // $persen = floatval($request->persen);
+        // $point = floatval($submitChallenge->challenge->point) * ($persen / 100.0);
+
+        $point = $data['point'];
         $this->service->handleUpadetValid($submitChallenge->id);
         $this->service->handleCreatePoint($point, $submitChallenge->studentSchool->student->id);
+        }
         return response()->json();
     }
 
@@ -181,8 +188,8 @@ class ChallengeController extends Controller
             $data['challenge'] = $challenge;
             $data['classrooms'] = $this->classroomService->handleGetByMentorCreateEdit(auth()->id());
         }
-//        dd($data);
-        return \view ('dashboard.user.pages.challenge.edit', $data);
+        //        dd($data);
+        return \view('dashboard.user.pages.challenge.edit', $data);
     }
 
     /**
@@ -201,7 +208,6 @@ class ChallengeController extends Controller
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             return to_route('mentor.challenges.index')->with('success', trans('alert.update_success'));
         }
-
     }
 
     /**
@@ -222,11 +228,9 @@ class ChallengeController extends Controller
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
 
             return to_route('teacher.challenges.index')->with('success', trans('alert.delete_success'));
-
         } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
 
             return to_route('mentor.challenges.index')->with('success', trans('alert.delete_success'));
-
         }
     }
 
@@ -266,7 +270,6 @@ class ChallengeController extends Controller
 
             return redirect()->back()->with('error', $errorMessage);
         }
-
     }
 
 

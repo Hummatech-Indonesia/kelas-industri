@@ -292,7 +292,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/report', [ReportController::class, 'index'])->name('report');
         Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
         Route::post('/storepoint', [AssignmentController::class, 'storePoint'])->name('storepoint');
-        Route::post('validChallengeTeacher/{submitChallenge}', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
+        Route::post('validChallengeTeacher/', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
         Route::post('storePointAssignment/{submitAssingnment}', [PointController::class, 'storePointAssignment'])->name('storePointAssignment');
         Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
         Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
@@ -318,7 +318,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         Route::get('/showStudentDetail/{student}/{generation}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
-        Route::post('validChallenge/{submitChallenge}', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
+        Route::post('validChallenge/', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
