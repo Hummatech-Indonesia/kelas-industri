@@ -291,7 +291,7 @@
                                         </h3>
                                         <button type="submit"
                                             class="btn btn-sm btn-primary kt_docs_sweetalert_html btn-mentor mb-2"
-                                            id="{{ $student[0]->challenge_id }}">
+                                            id="{{ count($student) > 0? $student[0]->challenge_id: "" }}">
                                             Nilai
                                         </button>
                                         <!--end::Title-->
@@ -412,7 +412,7 @@
                                         </h3>
                                         <button type="submit"
                                             class="btn btn-sm btn-primary kt_docs_sweetalert_html btn-teacher mb-2"
-                                            id="{{ $student[0]->challenge_id }}">
+                                            id="{{ count($student) > 0? $student[0]->challenge_id: "" }}">
                                             Nilai
                                         </button>
                                         <!--end::Title-->
@@ -623,6 +623,7 @@
                             point: point
                         });
                     })
+                    console.log(ids);
                 }
             })
             $('.btn-teacher').click(function() {

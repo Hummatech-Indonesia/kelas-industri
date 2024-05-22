@@ -88,26 +88,28 @@
                                             <!--end:Menu content-->
                                         </div>
                                         <!--end:Menu item-->
-                                        <!--begin:Menu item-->
-                                        <div class="menu-item">
-                                            <!--begin:Menu content-->
-                                            <div
-                                                class="menu-content gap-3 d-flex justify-content-around align-items-center">
-                                                <div class="d-flex gap-1 align-items-center">
-                                                    <div class="success"></div>
-                                                    <span class="menu-section py-1">Selesai</span>
+                                        @if (auth()->user()->role == 'student')
+                                            <!--begin:Menu item-->
+                                            <div class="menu-item">
+                                                <!--begin:Menu content-->
+                                                <div
+                                                    class="menu-content gap-3 d-flex justify-content-around align-items-center">
+                                                    <div class="d-flex gap-1 align-items-center">
+                                                        <div class="success"></div>
+                                                        <span class="menu-section py-1">Selesai</span>
+                                                    </div>
+                                                    <div class="d-flex gap-1 align-items-center">
+                                                        <div class="erorr"></div>
+                                                        <span class="menu-section py-1">Belum Selesai</span>
+                                                    </div>
+                                                    <div class="d-flex gap-1 align-items-center">
+                                                        <div class="warning"></div>
+                                                        <span class="menu-section py-1">Dikoreksi</span>
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex gap-1 align-items-center">
-                                                    <div class="erorr"></div>
-                                                    <span class="menu-section py-1">Belum Selesai</span>
-                                                </div>
-                                                <div class="d-flex gap-1 align-items-center">
-                                                    <div class="warning"></div>
-                                                    <span class="menu-section py-1">Dikoreksi</span>
-                                                </div>
+                                                <!--end:Menu content-->
                                             </div>
-                                            <!--end:Menu content-->
-                                        </div>
+                                        @endif
                                         <!--end:Menu item-->
                                         <!--begin:Menu item-->
                                         @foreach ($materials as $material)
@@ -128,11 +130,15 @@
                                                         </svg>
                                                     </span>
                                                     <span class="menu-title">{{ $material->title }}</span>
-                                                    <span
-                                                        id="total_material_assignment_{{ $material->id }}">{{ $totalMaterialSubmitAssigment }}</span>
-                                                    <span>/</span>
-                                                    <span>{{ count($material->subMaterials) }}</span>
+
+                                                    @if (auth()->user()->role == 'student')
+                                                        <span
+                                                            id="total_material_assignment_{{ $material->id }}">{{ $totalMaterialSubmitAssigment }}</span>
+                                                        <span>/</span>
+                                                        <span>{{ count($material->subMaterials) }}</span>
+                                                    @endif
                                                     <span class="menu-arrow"></span>
+
                                                 </span>
                                                 <!--end:Menu link-->
                                                 <!--begin:Menu sub-->
@@ -171,9 +177,11 @@
                                                                         @if (count($subMaterials['subMaterial']->assignments) == count($answerAssignments))
                                                                             @php $totalMaterialSubmitAssigment++ @endphp
                                                                         @endif
-                                                                        <span>{{ count($answerAssignments) }}</span>
-                                                                        <span>/</span>
-                                                                        <span>{{ count($subMaterials['subMaterial']->assignments) }}</span>
+                                                                        @if (auth()->user()->role == 'student')
+                                                                            <span>{{ count($answerAssignments) }}</span>
+                                                                            <span>/</span>
+                                                                            <span>{{ count($subMaterials['subMaterial']->assignments) }}</span>
+                                                                        @endif
                                                                         <span class="menu-arrow"></span>
                                                                     </a>
 
@@ -193,20 +201,27 @@
                                                                                         <span
                                                                                             class="bullet bullet-dot"></span>
                                                                                     </span>
-                                                                                    @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
-                                                                                        @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first()->point)
-                                                                                            <span
-                                                                                                class="menu-title text-warning">{{ $assigment->title }}</span>
-                                                                                            <span class="warning"></span>
+                                                                                    @if (auth()->user()->role == 'student')
+                                                                                        @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
+                                                                                            @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first()->point)
+                                                                                                <span
+                                                                                                    class="menu-title text-warning">{{ $assigment->title }}</span>
+                                                                                                <span
+                                                                                                    class="warning"></span>
+                                                                                            @else
+                                                                                                <span
+                                                                                                    class="menu-title text-success">{{ $assigment->title }}</span>
+                                                                                                <span
+                                                                                                    class="success"></span>
+                                                                                            @endif
                                                                                         @else
                                                                                             <span
-                                                                                                class="menu-title text-success">{{ $assigment->title }}</span>
-                                                                                            <span class="success"></span>
+                                                                                                class="menu-title text-danger">{{ $assigment->title }}</span>
+                                                                                            <span class="erorr"></span>
                                                                                         @endif
                                                                                     @else
                                                                                         <span
-                                                                                            class="menu-title text-danger">{{ $assigment->title }}</span>
-                                                                                        <span class="erorr"></span>
+                                                                                            class="menu-title">{{ $assigment->title }}</span>
                                                                                     @endif
                                                                                 </a>
                                                                             </div>
@@ -393,14 +408,6 @@
                                 {{-- {{dd($assigments)}} --}}
                                 {{-- assigment card --}}
                                 <div class="assigment-card card m-auto" style="width: 80%;">
-                                    <div class="card-header d-flex justify-content-between pt-7">
-                                        <!--begin::Title-->
-                                        <h3 class="card-title align-items-start flex-column">
-                                            <span class="card-label fw-bold text-gray-800">Silahkan Isi Tugas</span>
-                                            {{-- <span class="text-gray-400 mt-1 fw-semibold fs-6">list tugas anda.</span> --}}
-                                        </h3>
-                                    </div>
-
                                     <div class="card-body text-start">
                                         <div id="kt_datatable_responsive_wrapper"
                                             class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -410,74 +417,80 @@
                                             @foreach ($assigments as $assigment)
                                                 <div class="assigment-item row {{ $showAssigmentFirst ? 'show' : '' }}"
                                                     id="assigment_{{ $assigment->id }}">
-                                                    <div class="col">
+                                                    <div class="col border-end">
                                                         <h4>{{ $assigment->title }}</h4>
-                                                        <p>{{ $assigment->description }}</p>
+                                                        <p>{!! $assigment->description !!}</p>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col border-end">
                                                         <p class="fs-6">Tanggal Mulai</p>
                                                         <p class="text-success">
                                                             {{ \Carbon\Carbon::parse($assigment->end_date)->locale('id')->isoFormat('dddd, d-MMMM-Y') }}
                                                         </p>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col border-end">
                                                         <p class="fs-6">Batas Pengumpulan</p>
                                                         <p class="text-danger">
                                                             {{ \Carbon\Carbon::parse($assigment->end_date)->locale('id')->isoFormat('dddd, d-MMMM-Y') }}
                                                         </p>
                                                     </div>
-                                                    <div class="col text-center">
-                                                        @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
-                                                            <p class="text-success">Sudah Mengumpulkan</p>
-                                                        @else
-                                                            <p class="text-danger">Belum Mengumpulkan</p>
-                                                        @endif
-                                                        <button type="button" data-bs-toggle="modal"
-                                                            data-bs-target="#detail_modal_{{ $assigment->id }}"
-                                                            class="btn btn-primary">Detail</button>
-                                                    </div>
+                                                    @if (auth()->user()->role == 'student')
+                                                        <div class="col text-center">
+                                                            @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
+                                                                <p class="text-success">Sudah Mengumpulkan</p>
+                                                            @else
+                                                                <p class="text-danger">Belum Mengumpulkan</p>
+                                                            @endif
+                                                            <button type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#detail_modal_{{ $assigment->id }}"
+                                                                class="btn btn-primary">Detail</button>
+                                                            {{-- <a href="{{ route('mentor.showAssignment', [auth()->user()->studentSchool->studentClassroom->classroom_id, $assigment->id]) }}" class="btn btn-primary">Detail</a> --}}
+                                                        </div>
+                                                    @endif
                                                 </div>
 
                                                 @php
                                                     $showAssigmentFirst = false;
                                                 @endphp
 
-                                                <div class="modal fade" tabindex="-1"
-                                                    id="detail_modal_{{ $assigment->id }}">
-                                                    <div class="modal-dialog" style="width: 500px">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Detail Tugas</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <h2 class="mb-5">{{ $assigment->title }}</h2>
-                                                                <span class="h6">Deskripsi</span>
-                                                                <p class="mb-3">{{ $assigment->description }}</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assigment_id', $assigment->id)->first())
-                                                                    <a href="{{ route('student.submitAssignment', [
-                                                                        auth()->user()->studentSchool->studentClassroom->classroom_id,
-                                                                        $assigment->subMaterial->material->id,
-                                                                        $assigment->subMaterial->id,
-                                                                        $assigment->id,
-                                                                    ]) }}"
-                                                                        class="btn btn-primary">Lihat Tugas</a>
-                                                                @else
-                                                                    <a href="{{ route('student.submitAssignment', [
-                                                                        auth()->user()->studentSchool->studentClassroom->classroom_id,
-                                                                        $assigment->subMaterial->material->id,
-                                                                        $assigment->subMaterial->id,
-                                                                        $assigment->id,
-                                                                    ]) }}"
-                                                                        class="btn btn-primary">Kumpulkan</a>
-                                                                @endif
+                                                @if (auth()->user()->role == 'student')
+                                                    <div class="modal fade" tabindex="-1"
+                                                        id="detail_modal_{{ $assigment->id }}">
+                                                        <div class="modal-dialog" style="width: 500px">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Detail Tugas</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <h2 class="mb-5">{{ $assigment->title }}</h2>
+                                                                    <span class="h6">Deskripsi</span>
+                                                                    <p class="mb-3">{{ $assigment->description }}</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assigment_id', $assigment->id)->first())
+                                                                        <a href="{{ route('student.submitAssignment', [
+                                                                            auth()->user()->studentSchool->studentClassroom->classroom_id,
+                                                                            $assigment->subMaterial->material->id,
+                                                                            $assigment->subMaterial->id,
+                                                                            $assigment->id,
+                                                                        ]) }}"
+                                                                            class="btn btn-primary">Lihat Tugas</a>
+                                                                    @else
+                                                                        <a href="{{ route('student.submitAssignment', [
+                                                                            auth()->user()->studentSchool->studentClassroom->classroom_id,
+                                                                            $assigment->subMaterial->material->id,
+                                                                            $assigment->subMaterial->id,
+                                                                            $assigment->id,
+                                                                        ]) }}"
+                                                                            class="btn btn-primary">Kumpulkan</a>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                             @endforeach
                                         </div>
                                     </div>

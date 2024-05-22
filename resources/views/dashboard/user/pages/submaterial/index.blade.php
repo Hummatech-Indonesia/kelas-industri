@@ -61,8 +61,8 @@
                             <div class="alert alert-warning d-flex align-items-center p-5 w-100 mt-5">
                                 <!--begin::Icon-->
                                 <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
-                                    <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="24"
-                                            height="24" viewBox="0 0 24 24" fill="none"
+                                    <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="40"
+                                            height="40" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
                                                 fill="currentColor" />
@@ -78,10 +78,10 @@
                                 <!--begin::Wrapper-->
                                 <div class="d-flex flex-column">
                                     <!--begin::Title-->
-                                    <h4 class="mb-1 text-dark">Informasi</h4>
+                                    <h4 class="mb-1 text-warning">Informasi</h4>
                                     <!--end::Title-->
                                     <!--begin::Content-->
-                                    <ul>
+                                    <ul class="ps-4">
                                         <li>
                                             Jika kamu tidak bisa memilih materi yang ingin kamu pelajari kerjakanlah materi
                                             sebelumnya agar dapat membuka materi yang ingin anda pilih
