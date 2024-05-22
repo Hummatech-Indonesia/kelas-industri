@@ -291,7 +291,7 @@
                                         </h3>
                                         <button type="submit"
                                             class="btn btn-sm btn-primary kt_docs_sweetalert_html btn-mentor mb-2"
-                                            id="{{ count($student) > 0? $student[0]->challenge_id: "" }}">
+                                            id="{{ count($student) > 0 ? $student[0]->challenge_id : '' }}">
                                             Nilai
                                         </button>
                                         <!--end::Title-->
@@ -412,7 +412,7 @@
                                         </h3>
                                         <button type="submit"
                                             class="btn btn-sm btn-primary kt_docs_sweetalert_html btn-teacher mb-2"
-                                            id="{{ count($student) > 0? $student[0]->challenge_id: "" }}">
+                                            id="{{ count($student) > 0 ? $student[0]->challenge_id : '' }}">
                                             Nilai
                                         </button>
                                         <!--end::Title-->
@@ -432,7 +432,7 @@
                                                 </tr>
                                             </thead>
                                             @foreach ($student as $students)
-                                            {{-- {{ dd($students) }} --}}
+                                                {{-- {{ dd($students) }} --}}
                                                 <tbody>
                                                     <tr>
                                                         <td>
@@ -599,6 +599,12 @@
                 $('#checkAll').css("display", "none")
             }
 
+            $('[id^=point]').change(function(e) {
+                const point = this.id.split('-')[1];
+                console.log();
+                if(ids.length != 0) {
+                }
+            })
             $('.checked').change(function() {
                 if (this.checked) {
                     const id = parseInt(this.id)
