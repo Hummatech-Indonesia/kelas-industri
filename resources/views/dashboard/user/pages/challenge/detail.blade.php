@@ -600,9 +600,12 @@
             }
 
             $('[id^=point]').change(function(e) {
-                const point = this.id.split('-')[1];
-                console.log();
-                if(ids.length != 0) {
+                const id = parseInt(this.id.split('-')[1]);
+                if (ids.length != 0) {
+                    const submiteChallenge = ids.find(function(item) {
+                        return item.id === id;
+                    });
+                    ids[ids.indexOf(submiteChallenge)].point = this.value;
                 }
             })
             $('.checked').change(function() {
@@ -629,7 +632,6 @@
                             point: point
                         });
                     })
-                    console.log(ids);
                 }
             })
             $('.btn-teacher').click(function() {

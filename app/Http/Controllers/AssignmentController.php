@@ -124,7 +124,7 @@ class AssignmentController extends Controller
         foreach ($id as $index => $item) {
             $student = $this->service->handleShowSubmitAssignment($item);
             if ($student->point == null) {
-                $this->userService->handleCreatePoint(0.5, $student->student_id);
+                $this->userService->handleCreatePoint(1, $student->student_id);
             }
             $this->service->storePoint($item, $nilai[$index]);
         }

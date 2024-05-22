@@ -46,7 +46,7 @@
                         </div>
 
                         @if (auth()->user()->roles->pluck('name')[0] != 'student')
-                            <div class="col">
+                            <div class="col text-end">
                                 <span class="fs-5 pe-4">Gaji Anda bulan ini</span>
                                 <span class="fs-3">Rp. {{ $salary }}</span>
                             </div>

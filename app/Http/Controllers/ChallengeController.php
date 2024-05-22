@@ -137,12 +137,7 @@ class ChallengeController extends Controller
     {
         foreach ($request->ids as $data) {
             $submitChallenge = SubmitChallenge::findOrFail($data['id']);
-            // $persen = floatval($request->persen);
-
-            // $poin = floatval($submitChallenge->challenge->point) * ($persen / 100.0);
-
             $poin = $data['point'];
-
             $this->service->handleUpadetValid($submitChallenge->id);
             $this->service->handleCreatePoint($poin, $submitChallenge->studentSchool->student->id);
         }
@@ -159,14 +154,10 @@ class ChallengeController extends Controller
     public function validChallengeTeacher(Request $request): JsonResponse
     {
         foreach ($request->ids as $data) {
-
-        $submitChallenge = SubmitChallenge::findorfail($data['id']);
-        // $persen = floatval($request->persen);
-        // $point = floatval($submitChallenge->challenge->point) * ($persen / 100.0);
-
-        $point = $data['point'];
-        $this->service->handleUpadetValid($submitChallenge->id);
-        $this->service->handleCreatePoint($point, $submitChallenge->studentSchool->student->id);
+            $submitChallenge = SubmitChallenge::findorfail($data['id']);
+            $point = $data['point'];
+            $this->service->handleUpadetValid($submitChallenge->id);
+            $this->service->handleCreatePoint($point, $submitChallenge->studentSchool->student->id);
         }
         return response()->json();
     }
