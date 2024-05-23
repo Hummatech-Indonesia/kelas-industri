@@ -41,20 +41,21 @@ class PresentationFinishController extends Controller
      */
     public function finish(Request $request, $projectId)
     {
+        // dd(isset($request->progress));
         $next = false;
-        if ($request->design) {
+        if (isset($request->design)) {
             $this->service->setPresentationFinish($projectId, 'design');
             $next = true;
         }
-        if ($request->beginning) {
+        if (isset($request->beginning)) {
             $this->service->setPresentationFinish($projectId, 'beginning');
             $next = true;
         }
-        if ($request->progress) {
-            $this->service->setPresentationFinish($projectId, 'progres');
+        if (isset($request->progress)) {
+            $this->service->setPresentationFinish($projectId, 'progress');
             $next = true;
         }
-        if ($request->finalization) {
+        if (isset($request->finalization)) {
             $this->service->setPresentationFinish($projectId, 'finalization');
             $next = true;
         }

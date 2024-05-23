@@ -510,7 +510,7 @@
                                                 @endforeach
                                             </div>
                                             <a href="#" class="btn {{ in_array($project->status, ['not_approved', 'pending'])? 'btn-secondary': 'btn-primary'}} w-100 fs-6 px-8 py-4"
-                                                data-bs-toggle="modal" data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending'])? 'disabled': 'kt_modal_new_project'}}">Buat Tugas
+                                                data-bs-toggle="modal" data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending'])? 'disabled': 'kt_modal_new_target'}}">Buat Tugas
                                                 Baru</a>
                                         </div>
                                         <div class="col-md-3 col-lg-12 col-xl-3 me-5">

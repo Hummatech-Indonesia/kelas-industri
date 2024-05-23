@@ -75,10 +75,10 @@ class ChallengeRepository extends BaseRepository
         $now = Carbon::now();
         return $this->model->query()
             ->where('created_by', $mentorId)
-            ->where('start_date','>', $now)
-            ->where('end_date','<', $now)
+            ->where('start_date','<', $now)
+            ->where('end_date','>', $now)
             ->withCount('StudentChallenge')
-            ->limit(3)
+            ->limit(4)
             ->get();
     }
 

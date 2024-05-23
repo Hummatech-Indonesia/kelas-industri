@@ -114,7 +114,7 @@
                                                 <input type="file" class="form-control" name="photo" />
                                             </td>
                                             <td>
-                                                <button type="submit">gaji</button>
+                                                <button type="submit" class="btn btn-primary">gaji</button>
                                             </td>
                                         </tr>
                                     </form>

@@ -152,7 +152,7 @@ class UserClassroomController extends Controller
 
                     $previousSubMaterial = $this->subMaterialService->handlePreviousSubMaterial($subMaterial->material->id, $previousOrder);
 
-                    if ($previousSubMaterial) {
+                    if ($previousSubMaterial && auth()->user()->roles->pluck('name')[0] == 'student') {
                         $countAssignment = $this->assignmentService->countAssignments($previousSubMaterial->id, $previousOrder);
 
                         $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubMaterial->id, $previousOrder);

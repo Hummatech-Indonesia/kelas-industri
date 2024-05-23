@@ -988,7 +988,8 @@
                                                                                                     <span
                                                                                                         class="">Tanggal
                                                                                                         Presentasi
-                                                                                                        (Opsional)</span>
+                                                                                                        (Opsional)
+                                                                                                    </span>
 
 
                                                                                                     <span class="ms-1"
@@ -1140,7 +1141,7 @@
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
                                                         <input class="form-check-input" type="checkbox"
-                                                            {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation ? 'checked disabled' : "name='design'" }}>
+                                                            {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation ? 'checked disabled' : 'name=design' }}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1837,23 +1838,22 @@
 
                                                 <!--begin::Date-->
                                                 @forelse ($approvedPresentations as $index => $approvedPresentation)
-                                                    <li class="nav-item me-1" role="presentation">
-                                                        <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary {{ $index === 0 ? 'active' : '' }}"
-                                                            data-bs-toggle="tab"
-                                                            href="#kt_schedule_day_{{ $approvedPresentation->id }}"
-                                                            aria-selected="true" role="tab">
+                                                    @if (!$approvedPresentation->finish)
+                                                        <li class="nav-item me-1" role="presentation">
+                                                            <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary {{ $index === 0 ? 'active' : '' }}"
+                                                                data-bs-toggle="tab"
+                                                                href="#kt_schedule_day_{{ $approvedPresentation->id }}"
+                                                                aria-selected="true" role="tab">
 
-                                                            <span class="opacity-50 fs-7 fw-semibold">
-                                                                {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('dddd') }}
-                                                            </span>
-                                                            <span class="fs-6 fw-bold">
-                                                                {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('DD MMMM') }}
-                                                            </span>
-
-
-
-                                                        </a>
-                                                    </li>
+                                                                <span class="opacity-50 fs-7 fw-semibold">
+                                                                    {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('dddd') }}
+                                                                </span>
+                                                                <span class="fs-6 fw-bold">
+                                                                    {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('DD MMMM') }}
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
                                                 @empty
                                                     <div class="col-12 text-center">
                                                         <!--begin::Illustration-->
@@ -1881,6 +1881,7 @@
                                             <div class="tab-content">
                                                 <!--begin::Day-->
                                                 @foreach ($approvedPresentations as $index => $approvedPresentation)
+                                                @if (!$approvedPresentation->finish)
                                                     <div id="kt_schedule_day_{{ $approvedPresentation->id }}"
                                                         class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
                                                         role="tabpanel">
@@ -1925,6 +1926,7 @@
                                                         </div>
                                                         <!--end::Time-->
                                                     </div>
+                                                    @endif
                                                 @endforeach
                                                 <!--end::Day-->
                                             </div>

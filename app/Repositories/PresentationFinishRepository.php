@@ -20,6 +20,7 @@ class PresentationFinishRepository extends BaseRepository {
      * @return mixed
      */
     public function handleFinishPresentation(string $projectId, string $status) : mixed {
+        // dd($status == 'finalization');
         $presentation = $this->presentation->query()->where('status', 'approved')->where('presentation_status', $status)->whereRelation('project', 'id', $projectId)->orderBy('updated_at', 'desc')->first();
         if(!$presentation) {
             return redirect()->back()->with('error', 'tidak ada presentasi dengan status presentasi ' . $status);

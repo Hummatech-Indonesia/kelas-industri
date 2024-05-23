@@ -205,18 +205,18 @@
                                                                                         @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
                                                                                             @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first()->point)
                                                                                                 <span
-                                                                                                    class="menu-title text-warning">{{ $assigment->title }}</span>
+                                                                                                    class="sub-assigment-link menu-title text-warning">{{ $assigment->title }}</span>
                                                                                                 <span
                                                                                                     class="warning"></span>
                                                                                             @else
                                                                                                 <span
-                                                                                                    class="menu-title text-success">{{ $assigment->title }}</span>
+                                                                                                    class="sub-assigment-link menu-title text-success">{{ $assigment->title }}</span>
                                                                                                 <span
                                                                                                     class="success"></span>
                                                                                             @endif
                                                                                         @else
                                                                                             <span
-                                                                                                class="menu-title text-danger">{{ $assigment->title }}</span>
+                                                                                                class="sub-assigment-link menu-title text-danger">{{ $assigment->title }}</span>
                                                                                             <span class="erorr"></span>
                                                                                         @endif
                                                                                     @else
@@ -282,18 +282,18 @@
                                                                                             @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
                                                                                                 @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first()->point)
                                                                                                     <span
-                                                                                                        class="menu-title text-warning">{{ $assigment->title }}</span>
+                                                                                                        class="sub-assigment-link menu-title text-warning">{{ $assigment->title }}</span>
                                                                                                     <span
                                                                                                         class="warning"></span>
                                                                                                 @else
                                                                                                     <span
-                                                                                                        class="menu-title text-success">{{ $assigment->title }}</span>
+                                                                                                        class="sub-assigment-link menu-title text-success">{{ $assigment->title }}</span>
                                                                                                     <span
                                                                                                         class="success"></span>
                                                                                                 @endif
                                                                                             @else
                                                                                                 <span
-                                                                                                    class="menu-title text-danger">{{ $assigment->title }}</span>
+                                                                                                    class="sub-assigment-link menu-title text-danger">{{ $assigment->title }}</span>
                                                                                                 <span
                                                                                                     class="erorr"></span>
                                                                                             @endif
@@ -353,18 +353,18 @@
                                                                                         @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
                                                                                             @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first()->point)
                                                                                                 <span
-                                                                                                    class="menu-title text-warning">{{ $assigment->title }}</span>
+                                                                                                    class="sub-assigment-link menu-title text-warning">{{ $assigment->title }}</span>
                                                                                                 <span
                                                                                                     class="warning"></span>
                                                                                             @else
                                                                                                 <span
-                                                                                                    class="menu-title text-success">{{ $assigment->title }}</span>
+                                                                                                    class="sub-assigment-link menu-title text-success">{{ $assigment->title }}</span>
                                                                                                 <span
                                                                                                     class="success"></span>
                                                                                             @endif
                                                                                         @else
                                                                                             <span
-                                                                                                class="menu-title text-danger">{{ $assigment->title }}</span>
+                                                                                                class="sub-assigment-link menu-title text-danger">{{ $assigment->title }}</span>
                                                                                             <span class="erorr"></span>
                                                                                         @endif
                                                                                     </a>
@@ -496,7 +496,7 @@
                                                     id="assigment_{{ $assigment->id }}">
                                                     <div class="col border-end">
                                                         <h4>{{ $assigment->title }}</h4>
-                                                        <p>{{ $assigment->description }}</p>
+                                                        <p>{!! $assigment->description !!}</p>
                                                     </div>
                                                     <div class="col border-end">
                                                         <p class="fs-6">Tanggal Mulai</p>
@@ -504,7 +504,7 @@
                                                             {{ \Carbon\Carbon::parse($assigment->end_date)->locale('id')->isoFormat('dddd, d-MMMM-Y') }}
                                                         </p>
                                                     </div>
-                                                    <div class="col border-end">
+                                                    <div class="col">
                                                         <p class="fs-6">Batas Pengumpulan</p>
                                                         <p class="text-danger">
                                                             {{ \Carbon\Carbon::parse($assigment->end_date)->locale('id')->isoFormat('dddd, d-MMMM-Y') }}
@@ -513,19 +513,25 @@
                                                     <div class="col text-center">
                                                         @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
                                                             <p class="text-success">Sudah Mengumpulkan</p>
+                                                            <a href="{{ route('student.submitAssignment', [
+                                                                auth()->user()->studentSchool->studentClassroom->classroom_id,
+                                                                $assigment->subMaterial->material->id,
+                                                                $assigment->subMaterial->id,
+                                                                $assigment->id,
+                                                            ]) }}"
+                                                                class="btn btn-primary">Detail</a>
                                                         @else
                                                             <p class="text-danger">Belum Mengumpulkan</p>
+                                                            <button type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#detail_modal_{{ $assigment->id }}"
+                                                                class="btn btn-primary">Detail</button>
                                                         @endif
-                                                        <button type="button" data-bs-toggle="modal"
-                                                            data-bs-target="#detail_modal_{{ $assigment->id }}"
-                                                            class="btn btn-primary">Detail</button>
                                                     </div>
                                                 </div>
 
                                                 @php
                                                     $showAssigmentFirst = false;
                                                 @endphp
-
                                                 <div class="modal fade" tabindex="-1"
                                                     id="detail_modal_{{ $assigment->id }}">
                                                     <div class="modal-dialog" style="width: 500px">
@@ -603,7 +609,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @else
+                        @else
                             <div class="row row-cols-2 align-items-center container-fluid app-container mb-5">
                                 <div class="d-flex justify-content-start align-items-center color-gray-700 next-sub-materials">
                                     @foreach ($prevSubMaterials as $prevSubMaterial)
@@ -920,5 +926,12 @@
             }
         })
         //
+        console.log($('.assigment-link'));
+        $('.assigment-link').click(function() {
+            // $("html, body").animate({ scrollTop: $(".assigment-card").scrollTop() }, 100);
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $(".assigment-card").offset().top
+            }, 300);
+        })
     </script>
 @endsection

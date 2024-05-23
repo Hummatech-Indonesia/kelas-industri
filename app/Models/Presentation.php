@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -22,6 +23,16 @@ class Presentation extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    /**
+     * Get the user associated with the Presentation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function finish(): HasOne
+    {
+        return $this->hasOne(PresentationFinish::class);
     }
 }
 
