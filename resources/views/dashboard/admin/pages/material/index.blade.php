@@ -208,8 +208,8 @@
                                         class="fw-bold text-info ml-2">{{ count($material->subMaterials) }} Bab</a>
                                 </div>
                             </div>
-                            <a href="{{ route('admin.materials.show', $material->id) }}"
-                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                            <a href="{{ route('admin.questionBank', $material->id) }}"
+                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">bank soal</a>
                         </div>
 
                         <!--end::Footer-->

@@ -501,13 +501,13 @@
                                                     <div class="col border-end">
                                                         <p class="fs-6">Tanggal Mulai</p>
                                                         <p class="text-success">
-                                                            {{ \Carbon\Carbon::parse($assigment->end_date)->locale('id')->isoFormat('dddd, d-MMMM-Y') }}
+                                                            {{ \Carbon\Carbon::parse($assigment->start_date)->locale('id')->isoFormat('dddd, d MMMM Y H:m') }}
                                                         </p>
                                                     </div>
                                                     <div class="col">
                                                         <p class="fs-6">Batas Pengumpulan</p>
                                                         <p class="text-danger">
-                                                            {{ \Carbon\Carbon::parse($assigment->end_date)->locale('id')->isoFormat('dddd, d-MMMM-Y') }}
+                                                            {{ \Carbon\Carbon::parse($assigment->end_date)->locale('id')->isoFormat('dddd, d MMMM Y H:m') }}
                                                         </p>
                                                     </div>
                                                     <div class="col text-center">

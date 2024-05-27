@@ -42,6 +42,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationFinishController;
+use App\Http\Controllers\QuestionBankController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\StudentPaymentController;
@@ -144,9 +145,15 @@ Route::middleware('auth.custom')->group(function () {
             'news' => NewsController::class,
             'administrations' => AdminitrasionController::class,
             'devisions' => DevisionController::class,
+            'question-bank' => QuestionBankController::class,
             'schedules' => ScheduleController::class,
             'events' => EventController::class,
         ]);
+
+        Route::get('question-bank-multiplechoice/{submaterial}', [QuestionBankController::class, 'indexMultipleChoise'])->name('question-bank-multiplechoice');
+        Route::get('question-bank-essay/{submaterial}', [QuestionBankController::class, 'indexEssay'])->name('question-bank-essay');
+        Route::get('quetion-banks/{material}', [MaterialController::class, 'questionBank'])->name('questionBank');
+
         Route::patch('updateStatusNews/{news}', [NewsController::class, 'updateStatus'])->name('updateStatusNews');
         Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
         Route::get('create', [SalaryController::class, 'createTeacher'])->name('createSaleriesTeacher');
@@ -203,14 +210,16 @@ Route::middleware('auth.custom')->group(function () {
 
         //student
         Route::post('/import-students', [StudentController::class, 'importStudents'])->name('importStudents');
+
+        // Route::get('teacher-statistic', )
+        // Route::get('print-report', )
     });
     //end admin
 
     //finance
     Route::middleware(['auth', 'role:administration'])->prefix('administration')->name('administration.')->group(function () {
         Route::get('', [AdminitrasionController::class, 'dashFinance'])->name('');
-        Route::post('salary-mentor-teacher/create', [AdminitrasionController::class, 'createsalaryMentorTeacher'])->name('salaryMentorTeacherCreateAll');
-        Route::post('salary-mentor-teacher/createOne', [AdminitrasionController::class, 'createsalaryMentorTeacherOne'])->name('salary-mentor.create.one');
+        Route::post('salary-mentor-teacher/create', [AdminitrasionController::class, 'createsalaryMentorTeacher'])->name('salary-mentor.create');
 
         Route::get('teacher', [AdminitrasionController::class, 'teacher'])->name('teacher.index');
         Route::get('teacher/create', [AdminitrasionController::class, 'createTeacher'])->name('teacher.create');
