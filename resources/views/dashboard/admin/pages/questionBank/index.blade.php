@@ -181,7 +181,7 @@
                                 <div class="col-6">
                                     <a type="button"
                                         class="btn btn-warning btn-sm text-uppercase font-weight-bolder btn-create"
-                                        data-bs-toggle="modal" data-sumaterialid={{ $subMaterial->id }}"
+                                        data-bs-toggle="modal" data-sumaterialid={{ $subMaterial->id }}
                                         data-bs-target="#kt_modal_create">Tambah
                                         Soal</a>
                                 </div>
@@ -252,21 +252,23 @@
 @endsection
 @section('script')
     <script>
-        const sumaterialid = $(this).data('sumaterialid');
         const multipleChoiceRadio = document.getElementById('flexCheckDefault1');
         const essayRadio = document.getElementById('flexCheckChecked1');
         const pilihButton = document.querySelector('.modal-footer a');
+        let sumaterialid;
+        $('.btn-create').click(function() {
+            sumaterialid = $(this).data('sumaterialid');
+        })
 
         multipleChoiceRadio.addEventListener('change', function() {
             if (this.checked) {
-                pilihButton.href =
-                    `{{ route('admin.question-bank-multiplechoice', ['submaterial' => $subMaterial->id]) }}`;
+                pilihButton.href = `{{ route('admin.question-bank-multiplechoice', '') }}/${sumaterialid}`;
             }
         });
 
         essayRadio.addEventListener('change', function() {
             if (this.checked) {
-                pilihButton.href = "{{ route('admin.question-bank-essay', ['submaterial' => $subMaterial->id]) }}";
+                pilihButton.href = `{{ route('admin.question-bank-essay', '') }}/${sumaterialid}`;
             }
         });
     </script>
