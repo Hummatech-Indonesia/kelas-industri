@@ -19,6 +19,16 @@ class SchoolService
     }
 
     /**
+     * handle get all
+     *
+     * @return mixed
+     */
+    public function handleGetAll(): mixed
+    {
+        return $this->repository->getAll();
+    }
+
+    /**
      * handle get paginated
      *
      * @return mixed

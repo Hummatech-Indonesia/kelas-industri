@@ -16,8 +16,8 @@
             <p class="text-muted">
                 List siswa pada {{ auth()->user()->name }}.
             </p>
-            <!--end::Breadcrumb-->
-        </div>
+            <!--end::
+        </div>Breadcrumb-->
         <!--end::Page title-->
 
         <!--begin::Actions-->

@@ -96,35 +96,36 @@
                                                     <div class="col-lg-9 col-xl-9">
 
                                                         <input class="form-control form-control-solid form-control-lg"
-                                                            name="photo" type="file"
-                                                            placeholder="Masukkan Foto">
+                                                            name="photo" type="file" placeholder="Masukkan Foto">
 
                                                     </div>
 
                                                 </div>
 
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                <div class="form-group row mb-3">
+                                                    <div class="form-group row mb-3">
 
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
 
-                                                    <div class="col-lg-9 col-xl-9">
+                                                        <div class="col-lg-9 col-xl-9">
 
-                                                        <select name="classroom_id" class="form-select form-select-solid"
-                                                            data-control="select2" data-placeholder="Pilih kelas">
+                                                            <select name="classroom_id"
+                                                                class="form-select form-select-solid" data-control="select2"
+                                                                data-placeholder="Pilih kelas">
 
-                                                            @foreach ($classrooms as $classroom)
-                                                                <option
-                                                                    {{ old('classroom_id') == $classroom->classroom_id ? 'selected' : '' }}
-                                                                    value="{{ $classroom->classroom_id }}">
-                                                                    {{ $classroom->classroom->name }} - {{ $classroom->classroom->school->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
+                                                                @foreach ($classrooms as $classroom)
+                                                                    <option
+                                                                        {{ old('classroom_id') == $classroom->classroom_id ? 'selected' : '' }}
+                                                                        value="{{ $classroom->classroom_id }}">
+                                                                        {{ $classroom->classroom->name }} -
+                                                                        {{ $classroom->classroom->school->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+
+                                                        </div>
 
                                                     </div>
-
-                                                </div>
                                                 @endif
 
                                                 <div class="form-group row mb-3">
@@ -144,7 +145,66 @@
                                         </div>
 
                                     </div>
+                                </div>
 
+                                <div class="col-12 mt-5">
+                                    <div class="card card-custom card-sticky">
+                                        <div class="card-header" style="">
+
+                                            <div class="card-title">
+
+                                                <h3 class="card-label">
+
+                                                    Silakan Isi Data Absensi Siswa
+
+                                                </h3>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table gs-7 gy-7 gx-7">
+                                                    <thead>
+                                                        <tr
+                                                            class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                                                            <th>Nama</th>
+                                                            <th>Kelas</th>
+                                                            <th>Hadir</th>
+                                                            <th>Izin</th>
+                                                            <th>Alfa</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td class="text-center">
+                                                                <div
+                                                                    class="form-check form-check-custom form-check-success form-check-solid">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="attedance">
+                                                                </div>
+                                                            <td class="text-center">
+                                                                <div
+                                                                    class="form-check form-check-custom form-check-warning form-check-solid">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="attedance">
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div
+                                                                    class="form-check form-check-custom form-check-danger form-check-solid">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="attedance">
+                                                                </div>
+                                                            </td>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             </form>
@@ -179,7 +239,8 @@
                 <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
                         Kami</a></li>
 
-                <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank" class="menu-link px-2">Syarat &
+                <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                        class="menu-link px-2">Syarat &
                         Ketentuan</a></li>
 
                 <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"

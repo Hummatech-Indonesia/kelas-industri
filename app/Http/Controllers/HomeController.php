@@ -202,7 +202,7 @@ class HomeController extends Controller
                 'mentor' => count($this->userService->handleCountMentor()),
                 'schools' => $this->userService->handleGetAllSchoolWithPackage(),
                 'incomes' => $incomes,
-                'depts' => $depts,  
+                'depts' => $depts,
                 'spents' => $spents,
             ];
             $data['teachersJournal'] = $this->journalService->handleCountJournalByFilter($request, $data['schools'][0]->id, 'teacher');
@@ -310,5 +310,10 @@ class HomeController extends Controller
         $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', $userId)->sum('total_pay');
         $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', $user->studentSchool->studentClassroom->classroom->id)->select('nominal')->first();
         return response()->json($data);
+    }
+
+    public function showExam(): mixed {
+        $data = $this->GetDataSidebar();
+        return view('dashboard.user.pages.studentExam.index', $data);
     }
 }

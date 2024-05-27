@@ -38,9 +38,11 @@ use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationFinishController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\StudentPaymentController;
 use App\Http\Controllers\TripayCallbackController;
@@ -120,6 +122,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/gantiPassword/{student}/{school}', [StudentController::class, 'ChangePassword'])->name('gantiPassword');
         Route::patch('/updatePassword/{student}/{school}', [StudentController::class, 'updatePassword'])->name('updatePassword');
 
+        Route::get('schedules/get-all', [ScheduleController::class,'all'])->name('schedules.all');
+        Route::get('events/school', [EventController::class,'showSchools'])->name('events.schools');
+
         Route::resources([
             'schoolYears' => SchoolYearController::class,
             'generations' => GenerationController::class,
@@ -139,6 +144,8 @@ Route::middleware('auth.custom')->group(function () {
             'news' => NewsController::class,
             'administrations' => AdminitrasionController::class,
             'devisions' => DevisionController::class,
+            'schedules' => ScheduleController::class,
+            'events' => EventController::class,
         ]);
         Route::patch('updateStatusNews/{news}', [NewsController::class, 'updateStatus'])->name('updateStatusNews');
         Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
@@ -385,6 +392,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
+        Route::get('exams', [HomeController::class, 'showExam'])->name('exam');
 
         Route::resource('challenges', ChallengeController::class)
             ->only(['index', 'show'])->middleware('checkpayment');
