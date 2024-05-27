@@ -17,7 +17,7 @@ class Salary extends Model
     protected $table = 'salaries';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['user_id', 'payday', 'salary_amount', 'photo'];
+    protected $fillable = ['user_id', 'payday', 'salary_amount', 'photo', 'generation_id'];
 
     public function user(): BelongsTo
     {
@@ -28,5 +28,4 @@ class Salary extends Model
     {
         return $this->belongsTo(Generation::class);
     }
-
 }

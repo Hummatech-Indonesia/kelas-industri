@@ -147,4 +147,21 @@ class MaterialController extends Controller
 
         return to_route('admin.materials.index')->with('success', trans('alert.delete_success'));
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param Material $material
+     * @return View
+     */
+    public function questionBank(Material $material, Request $request): View
+    {
+        $data = [
+            'material'  => $material,
+            'subMaterials' => $this->subMaterialService->handleGetPaginate($material->id, $request),
+            'parameters' => [
+            'material'  => $material->id
+            ]
+        ];
+        return view('dashboard.admin.pages.questionBank.index', $data);
+    }
 }

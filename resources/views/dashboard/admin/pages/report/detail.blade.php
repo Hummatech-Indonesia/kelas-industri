@@ -39,7 +39,9 @@
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th data-priority="1">No</th>
                                         <th data-priority="2">Nama</th>
-                                        <th data-priority="3">Nilai</th>
+                                        <th data-priority="3">Nilai Tugas</th>
+                                        <th data-priority="4">Point Tantangan</th>
+                                        <th data-priority="5">Nilai UAS</th>
                                     </tr>
                                     <!--end::Table row-->
                                 </thead>
@@ -54,6 +56,8 @@
                                                 $point = $report->point / $totalAssignment[array_search($report->student->studentSchool->studentClassroom->classroom->generation_id, $totalAssignment->pluck('id')->toArray())]->total_assignments;
                                             @endphp
                                             <td>{{ round($point, 1) }}</td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
