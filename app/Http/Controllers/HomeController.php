@@ -314,6 +314,6 @@ class HomeController extends Controller
 
     public function showExam(): mixed {
         $data = $this->GetDataSidebar();
-        return view('dashboard.user.pages.studentExam.index', $data);
+        return view('dashboard.user.pages.studentExam.exam', $data);
     }
 }

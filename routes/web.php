@@ -39,6 +39,7 @@ use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ExamStudentController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationFinishController;
@@ -123,8 +124,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/gantiPassword/{student}/{school}', [StudentController::class, 'ChangePassword'])->name('gantiPassword');
         Route::patch('/updatePassword/{student}/{school}', [StudentController::class, 'updatePassword'])->name('updatePassword');
 
-        Route::get('schedules/get-all', [ScheduleController::class,'all'])->name('schedules.all');
-        Route::get('events/school', [EventController::class,'showSchools'])->name('events.schools');
+        Route::get('schedules/get-all', [ScheduleController::class, 'all'])->name('schedules.all');
+        Route::get('events/school', [EventController::class, 'showSchools'])->name('events.schools');
 
         Route::resources([
             'schoolYears' => SchoolYearController::class,
@@ -245,9 +246,9 @@ Route::middleware('auth.custom')->group(function () {
             'schoolPackage' => SchoolPackageController::class,
         ]);
 
-        Route::get('payment-monitoring', [TrackingPaymentController::class,'paymentMonitoring'])->name('payment-monitoring.index');
-        Route::get('payment-monitoring/{classroom}', [TrackingPaymentController::class,'paymentAllStudent'])->name('payment-student');
-        Route::get('payment-monitoring/{classroom}/{user}', [TrackingPaymentController::class,'monitoringDetailStudent'])->name('payment-detail-student');
+        Route::get('payment-monitoring', [TrackingPaymentController::class, 'paymentMonitoring'])->name('payment-monitoring.index');
+        Route::get('payment-monitoring/{classroom}', [TrackingPaymentController::class, 'paymentAllStudent'])->name('payment-student');
+        Route::get('payment-monitoring/{classroom}/{user}', [TrackingPaymentController::class, 'monitoringDetailStudent'])->name('payment-detail-student');
 
         Route::get('individual-package', [PackageController::class, 'indexSchool'])->name('individual-package');
 
@@ -258,7 +259,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::put('tracking/student-school/detail/{user}/update', [TrackingPaymentController::class, 'update'])->name('tracking.detailStudent.update');
         Route::get('get-total-dependent/{semester}/{user}', [DependentController::class, 'semester'])->name('total.dependent');
 
-        Route::get('finance', [FinanceController::class,'get']);
+        Route::get('finance', [FinanceController::class, 'get']);
     });
     //end finance
 
@@ -288,8 +289,8 @@ Route::middleware('auth.custom')->group(function () {
         //changepwsteacher
         Route::get('/gantiPasswordGuru/{teacher}', [TeacherController::class, 'ChangePasswordTeacher'])->name('gantiPasswordGuru');
         Route::patch('/updatePasswordGuru/{teacher}', [TeacherController::class, 'updatePasswordGuru'])->name('updatePasswordGuru');
-        Route::get('tracking', [TrackingPaymentController::class,'schoolAllStudent'])->name('tracking.showStudent');
-        Route::get('tracking/{classroom}/{user}', [TrackingPaymentController::class,'schoolDetailStudent'])->name('tracking.detailStudent');
+        Route::get('tracking', [TrackingPaymentController::class, 'schoolAllStudent'])->name('tracking.showStudent');
+        Route::get('tracking/{classroom}/{user}', [TrackingPaymentController::class, 'schoolDetailStudent'])->name('tracking.detailStudent');
         Route::get('{semester}/{user}', [HomeController::class, 'schoolTrackingSemester'])->name('total.dependent');
     });
     //end schools
@@ -393,15 +394,18 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('historyReward', [RewardController::class, 'historyReward'])->name('historyReward');
 
         Route::get('student-payment', [StudentPaymentController::class, 'index'])->name('student-payment');
-        Route::get('payment-channel', [TripayController::class,'index'])->name('payment-channel');
-        Route::post('request-transaction', [TripayController::class,'store'])->name('request-transaction');
+        Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
+        Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
 
         Route::get('detail-payment/{payment}', [StudentPaymentController::class, 'detail'])->name('detail-payment');
         Route::get('invoice/{reference}', [StudentPaymentController::class, 'invoice'])->name('invoice');
         Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
-        Route::get('exams', [HomeController::class, 'showExam'])->name('exam');
+        Route::get('exams/', [ExamStudentController::class, 'showMaterials'])->name('exams.index');
+        Route::get('exams/{material}', [ExamStudentController::class, 'show'])->name('exams.show');
+        Route::get('exams/submaterial/{material}', [ExamStudentController::class, 'showSubmaterial'])->name('exams.showMaterial');
+
 
         Route::resource('challenges', ChallengeController::class)
             ->only(['index', 'show'])->middleware('checkpayment');

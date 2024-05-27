@@ -79,8 +79,8 @@
                         </div>
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <a href="{{ auth()->user()->roles->pluck('name')[0] == 'student' ? route('student.classrooms') : route('common.classrooms') }}"
-                                class="menu-link {{ request()->routeIs('common.classrooms') || request()->routeIs('common.classrooms') || request()->routeIs('common.showClassrooms') || request()->routeIs('mentor.showStudentDetail') || request()->routeIs('common.materials') || request()->routeIs('common.showMaterial') || request()->routeIs('common.showSubMaterial') || request()->routeIs('common.showDocument') || request()->routeIs('teacher.showStudentDetail') || request()->routeIs('teacher.showAssignment') || request()->routeIs('mentor.showAssignment') || request()->routeIs('student.submitAssignment') || request()->routeIs('student.classrooms') ? 'active' : '' }}"
+                            <a href="{{ auth()->user()->roles->pluck('name')[0] == 'student' ? route('student.exams.index') : route('common.classrooms') }}"
+                                class="menu-link {{ request()->routeIs('student.exams.index') || request()->routeIs('common.classrooms')? 'active' : '' }}"
                                 @if (auth()->user()->roles->pluck('name')[0] == 'student') @if ($schoolPayment != null)
                                         @if ($schoolPayment->status == 'not_yet_paid')
                                             style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
