@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Journal extends Model
 {
@@ -31,6 +32,10 @@ class Journal extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class , 'created_by');
+    }
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(JournalAttendance::class, 'journal_id');
     }
 
 }

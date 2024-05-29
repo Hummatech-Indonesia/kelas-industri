@@ -109,14 +109,22 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $journal->title }}</td>
-                                                        <td><svg type="button" class="btn-photo" data-photo="{{ asset('storage/' . $journal->photo) }}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M8.5 13.498l2.5 3.006l3.5-4.506l4.5 6H5m16 1v-14a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z" fill="#474761"/></svg>  </td>
+                                                        <td><svg type="button" class="btn-photo"
+                                                                data-photo="{{ asset('storage/' . $journal->photo) }}"
+                                                                xmlns="http://www.w3.org/2000/svg" width="30"
+                                                                height="30" viewBox="0 0 24 24">
+                                                                <path
+                                                                    d="M8.5 13.498l2.5 3.006l3.5-4.506l4.5 6H5m16 1v-14a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"
+                                                                    fill="#474761" />
+                                                            </svg> </td>
                                                         <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}
                                                         </td>
                                                         <td>
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                            {{ $journal->classroom->name }} - {{ $journal->classroom->school->name }}
+                                                                {{ $journal->classroom->name }} -
+                                                                {{ $journal->classroom->school->name }}
                                                             @else
-                                                            {{ $journal->classroom->name }}
+                                                                {{ $journal->classroom->name }}
                                                             @endif
                                                         </td>
                                                         <td>
@@ -132,16 +140,27 @@
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                                 <a href="{{ Route('mentor.journal.edit', [$journal->id]) }}"
                                                                     class="btn btn-default btn-update btn-sm p-1">
-                                                                    <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
+                                                                    <i
+                                                                        class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
                                                                 </a>
                                                                 <button class="btn btn-default btn-sm p-1 btn-delete"
                                                                     data-id="{{ $journal->id }}">
                                                                     <i class="fonticon-trash-bin fs-2 text-danger"></i>
                                                                 </button>
                                                             @else
+                                                                <a
+                                                                    href="">
+                                                                    <button class="btn btn-default btn-sm p-1"
+                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        data-bs-custom-class="custom-tooltip"
+                                                                        data-bs-title="Detail Data">
+                                                                        <i class="fa fa-eye fs-3 text-muted"></i>
+                                                                    </button>
+                                                                </a>
                                                                 <a href="{{ Route('teacher.journal.edit', [$journal->id]) }}"
                                                                     class="btn btn-default btn-update btn-sm p-1">
-                                                                    <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
+                                                                    <i
+                                                                        class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
                                                                 </a>
                                                                 <button
                                                                     class="btn btn-default btn-sm p-1 btn-delete-teacher"
@@ -253,12 +272,12 @@
     {{--    end Update Statusl --}}
 @endsection
 @section('script')
-<script>
-    $("#kt_datatable_responsive").DataTable({
+    <script>
+        $("#kt_datatable_responsive").DataTable({
             responsive: true
         });
-</script>
-<script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    </script>
+    <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $('.btn-delete').click(function() {
             const url = "{{ route('mentor.journal.destroy', ':id') }}".replace(':id', $(this).data(

@@ -60,18 +60,18 @@ class JournalService
      * @param JournalRequest $request
      * @return void
      */
-    public function handleCreate(JournalRequest $request): void
+    public function handleCreate(JournalRequest $request): mixed
     {
         $data = $request->validated();
         if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             $data['date'] = Carbon::now();
             $data['photo'] = $request->file('photo')->store('journal_file', 'public');
-            $this->repository->store($data);
+            return $this->repository->store($data);
         } else if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $data['date'] = Carbon::now();
             $data['photo'] = $request->file('photo')->store('journal_file', 'public');
             $data['classroom_id'] = Auth()->user()->teacherSchool->teacherClassroom->classroom->id;
-            $this->repository->store($data);
+            return $this->repository->store($data);
         }
     }
 
@@ -152,5 +152,9 @@ class JournalService
         }
 
         return $transformedData;
+    }
+
+    public function handleGetWithAttendance($journal): mixed {
+        return $this->repository->get_with_attendance($journal);
     }
 }

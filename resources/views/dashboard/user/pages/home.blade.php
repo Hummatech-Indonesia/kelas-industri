@@ -1,5 +1,42 @@
 @php use Carbon\Carbon; @endphp
 @extends('dashboard.user.layouts.app')
+
+@section('css')
+    <style>
+        .carousel-indicators {
+            align-items: center;
+        }
+
+        .carousel-indicators button {
+            width: 10px !important;
+            height: 10px !important;
+            border-radius: 100%;
+            background-color: rgba(255, 255, 255, 0.507) !important;
+        }
+
+        .carousel-indicators button.active {
+            width: 15px !important;
+            height: 15px !important;
+            border-radius: 100%;
+            background-color: white !important;
+        }
+
+        .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .carousel-item:after {
+            position: absolute;
+            content: "";
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to bottom, rgba(255, 0, 0, 0), rgba(0, 0, 0, 0.65) 100%);
+        }
+    </style>
+@endsection
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <!--begin::Content wrapper-->
@@ -53,6 +90,35 @@
                         @endif
                     </div>
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                        <div id="carouselExampleIndicators" class="carousel slide rounded">
+                            <div class="carousel-indicators">
+                                @foreach ($events as $index => $event)
+                                    <button type="button" data-bs-target="#carouselExampleIndicators"
+                                        data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"
+                                        aria-current="true" aria-label="Slide 1"></button>
+                                    <div class="btn btn-light position-absolute" style="right: -10%;">Daftar</div>
+                                @endforeach
+                            </div>
+                            <div class="carousel-inner">
+                                @foreach ($events as $index => $event)
+                                    <div class="carousel-item rounded {{ $index == 0 ? 'active' : '' }}">
+                                        <div class="bg-white w-290px h-100 position-relative"></div>
+                                        <img src="{{ asset('storage/' . $event->photo) }}" class="d-block w-100 rounded-3"
+                                            alt="...">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                         <div class="covercard row gap-2 mt-4">
                             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">

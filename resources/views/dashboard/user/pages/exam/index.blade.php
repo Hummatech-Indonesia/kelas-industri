@@ -65,48 +65,50 @@
                 <div id="kt_content" class="app-container  container-fluid ">
                     <div class="row">
                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                        <form action="{{ route('mentor.exam.index') }}">
-                        @elseif(auth()->user()->roles->pluck('name')[0] == 'teacher')
-                        <form action="{{ route('teacher.exam.index') }}">
+                            <form action="{{ route('mentor.exam.index') }}">
+                            @elseif(auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <form action="{{ route('teacher.exam.index') }}">
                         @endif
-                            <!--begin::Card-->
-                            <div class="card mb-7">
-                                <!--begin::Card body-->
-                                <div class="card-body">
-                                    <!--begin::Compact form-->
-                                    <div class="searching align-items-center">
-                                        <!--begin::Input group-->
-                                        <div class="position-relative col-lg-10 col-md-12 me-2">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                            <select name="school_year" class="form-select form-select-solid"
-                                                data-control="select2" data-placeholder="Tahun Ajaran">
-                                                @foreach ($schoolYear as $year)
-                                                    <option {{ $schoolYearFilter == $year->id ? 'selected' : '' }}
-                                                        value="{{ $year->id }}">
-                                                        {{ $year->school_year }}</option>
-                                                @endforeach
-                                            </select>
-                                            <!--end::Svg Icon-->
-                                        </div>
-                                        <div class="col-lg-2 col-md-12">
-                                            <button type="submit" class="btn btn-primary">Cari</button>
-                                            @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                            <a href="{{ route('mentor.exam.index') }}" type="button"
-                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
-                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                            <a href="{{ route('teacher.exam.index') }}" type="button"
-                                                class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
-                                            @endif
-                                        </div>
-                                        <!--end::Input group-->
+                        <!--begin::Card-->
+                        <div class="card mb-7">
+                            <!--begin::Card body-->
+                            <div class="card-body">
+                                <!--begin::Compact form-->
+                                <div class="searching align-items-center">
+                                    <!--begin::Input group-->
+                                    <div class="position-relative col-lg-10 col-md-12 me-2">
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                        <select name="school_year" class="form-select form-select-solid"
+                                            data-control="select2" data-placeholder="Tahun Ajaran">
+                                            @foreach ($schoolYear as $year)
+                                                <option {{ $schoolYearFilter == $year->id ? 'selected' : '' }}
+                                                    value="{{ $year->id }}">
+                                                    {{ $year->school_year }}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Svg Icon-->
                                     </div>
-                                    <!--end::Compact form-->
+                                    <div class="col-lg-2 col-md-12">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                        @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                            <a href="{{ route('mentor.exam.index') }}" type="button"
+                                                class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
+                                        @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                            <a href="{{ route('teacher.exam.index') }}" type="button"
+                                                class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
+                                        @endif
+                                    </div>
+                                    <!--end::Input group-->
                                 </div>
-                                <!--end::Card body-->
+                                <!--end::Compact form-->
                             </div>
-                            <!--end::Card-->
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Card-->
                         </form>
                     </div>
                     <div class="row">
@@ -126,7 +128,7 @@
                                                     <th data-priority="1">No</th>
                                                     <th data-priority="2">Kelas</th>
                                                     @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                    <th data-priority="3">Sekolah</th>
+                                                        <th data-priority="3">Sekolah</th>
                                                     @endif
                                                     <th data-priority="4">Detail</th>
                                                 </tr>
@@ -141,21 +143,23 @@
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $classroom->classroom->name }}</td>
                                                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                        <td>{{ $classroom->classroom->school->name }}</td>
+                                                            <td>{{ $classroom->classroom->school->name }}</td>
                                                         @endif
                                                         <td>
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                            <a href="{{ route('mentor.showStudent', [$classroom->classroom->id]) }}">
-                                                                <button class="btn btn-default btn-sm p-1">
-                                                                    <i class="fa fa-eye fs-3 text-muted"></i>
-                                                                </button>
-                                                            </a>
+                                                                <a
+                                                                    href="{{ route('mentor.showStudent', [$classroom->classroom->id]) }}">
+                                                                    <button class="btn btn-default btn-sm p-1">
+                                                                        <i class="fa fa-eye fs-3 text-muted"></i>
+                                                                    </button>
+                                                                </a>
                                                             @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                            <a href="{{ route('teacher.showStudent', [$classroom->classroom->id]) }}">
-                                                                <button class="btn btn-default btn-sm p-1">
-                                                                    <i class="fa fa-eye fs-3 text-muted"></i>
-                                                                </button>
-                                                            </a>
+                                                                <a
+                                                                    href="{{ route('teacher.showStudent', [$classroom->classroom->id]) }}">
+                                                                    <button class="btn btn-default btn-sm p-1">
+                                                                        <i class="fa fa-eye fs-3 text-muted"></i>
+                                                                    </button>
+                                                                </a>
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -214,19 +218,20 @@
     {{--    end Update Statusl --}}
 @endsection
 @section('css')
-        <Style>
-            @media (max-width:639px){
-                .position-relative{
-                    margin-bottom: 10px;
-                }
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
             }
-            @media (min-width:640px){
-                .searching{
-                    display: flex;
-                }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
             }
-        </Style>
-    @endsection
+        }
+    </Style>
+@endsection
 @section('script')
     <script>
         $("#kt_datatable_responsive").DataTable({

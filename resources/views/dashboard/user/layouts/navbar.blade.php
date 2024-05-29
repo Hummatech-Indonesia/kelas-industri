@@ -77,18 +77,21 @@
                                 ><span class="menu-title">Kelas</span></a>
                             <!--end:Menu link-->
                         </div>
+
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                            <!--begin:Menu link-->
-                            <a href="{{ auth()->user()->roles->pluck('name')[0] == 'student' ? route('student.exams.index') : route('common.classrooms') }}"
-                                class="menu-link {{ request()->routeIs('student.exams.index') || request()->routeIs('common.classrooms')? 'active' : '' }}"
-                                @if (auth()->user()->roles->pluck('name')[0] == 'student') @if ($schoolPayment != null)
-                                        @if ($schoolPayment->status == 'not_yet_paid')
-                                            style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
-                            @else
-                                @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
-                                @endif
-                                @endif
-                                ><span class="menu-title">Ujian</span></a>
+                            @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                <!--begin:Menu link-->
+                                <a href="{{ auth()->user()->roles->pluck('name')[0] == 'student' ? route('student.exams.index') : route('common.classrooms') }}"
+                                    class="menu-link {{ request()->routeIs('student.exams.index') || request()->routeIs('common.classrooms') ? 'active' : '' }}"
+                                    @if (auth()->user()->roles->pluck('name')[0] == 'student') @if ($schoolPayment != null)
+                                @if ($schoolPayment->status == 'not_yet_paid')
+                                style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
+                                @else
+                                    @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
+                                    @endif
+                            @endif
+                            ><span class="menu-title">Ujian</span></a>
+                            @endif
                             <!--end:Menu link-->
                         </div>
 
@@ -107,7 +110,7 @@
                                     class="menu-link {{ request()->routeIs('student.challenges.*') || request()->routeIs('student.submitChallenge') ? 'active' : '' }}"
                                     @if ($schoolPayment != null) @if ($schoolPayment->status == 'not_yet_paid')
                                             style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
-                                   @else
+                                @else
                                     @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
                                     @endif
                                     ><span class="menu-title">Tantangan</span></a>
@@ -293,7 +296,8 @@
                                             <!--end::Title-->
                                             <!--begin::Content-->
                                             <h6>
-                                                untuk dapat mengakses menu yang terlock silahkan konfirmasi pembayaran dengan
+                                                untuk dapat mengakses menu yang terlock silahkan konfirmasi pembayaran
+                                                dengan
                                                 pihak sekolah
                                             </h6>
 

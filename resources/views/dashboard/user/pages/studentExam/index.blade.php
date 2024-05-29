@@ -157,11 +157,11 @@
 
                                                     <!--begin: Title-->
 
-                                                    {{-- <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                    <a href="{{ route('student.exams.showMaterial', ['material' => $material->id]) }}"
                                                         class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1">
 
                                                         {{ $material->title }}
-                                                    </a> --}}
+                                                    </a>
 
 
                                                     <span class="text-muted font-weight-bold">

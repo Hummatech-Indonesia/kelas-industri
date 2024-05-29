@@ -28,6 +28,7 @@ use App\Services\ClassroomService;
 use App\Services\DependentService;
 use App\Services\AssignmentService;
 use App\Services\AttendanceService;
+use App\Services\EventService;
 use App\Services\PresentationService;
 use App\Services\ZoomScheduleService;
 use App\Services\SchoolPackageService;
@@ -55,12 +56,13 @@ class HomeController extends Controller
     private SchoolPackageService $schoolPackageService;
     private AttendanceService $attendanceService;
     private PresentationService $presentationService;
+    private EventService $eventService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(TeacherService $teacherService, StudentService $studentService, UserServices $userService, AssignmentService $assignmentService, MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService, DependentService $dependentService, SalaryService $salaryService, PaymentService $paymentService, AttendanceService $attendanceService, SchoolPackageService $schoolPackageService, PresentationService $presentationService)
+    public function __construct(TeacherService $teacherService, StudentService $studentService, UserServices $userService, AssignmentService $assignmentService, MentorService $mentorService, ChallengeService $challengeService, MaterialService $materialService, PointService $pointService, ZoomScheduleService $zoomScheduleService, ClassroomService $classroomService, JournalService $journalService, SchoolService $schoolService, DependentService $dependentService, SalaryService $salaryService, PaymentService $paymentService, AttendanceService $attendanceService, SchoolPackageService $schoolPackageService, PresentationService $presentationService, EventService $eventService)
     {
         $this->middleware('auth');
         $this->assignmentService = $assignmentService;
@@ -80,6 +82,7 @@ class HomeController extends Controller
         $this->schoolPackageService = $schoolPackageService;
         $this->attendanceService = $attendanceService;
         $this->presentationService = $presentationService;
+        $this->eventService = $eventService;
     }
 
     /**
@@ -275,6 +278,7 @@ class HomeController extends Controller
             $data['sudahChallenge'] = count($challengeSudahDikerjakan);
             $data['belumChallenge'] = count($challengeBelumDikerjakan);
             $data['tidakChallenge'] = count($challengeTidakDikerjakan);
+            $data['events'] = $this->eventService->handleGetNotStarted();
         } elseif ($role == 'teacher') {
             $data['classroom'] = $this->classroomService->handleCountClassroomTeacher($userId);
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);

@@ -29,8 +29,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="content px-20 pt-10">
-                        <div class="d-flex justify-content-end pb-2 px-11">
-                            <div class="btn btn-filter me-1" style="background-color: #5CA7DB; color: white"
+                        <div class="d-flex justify-content-end pb-2">
+                            <div class="btn btn-filter" style="background-color: #5CA7DB; color: white"
                                 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                                 data-bs-title="Lihat Detail">
                                 Filter Tahun/Bulan

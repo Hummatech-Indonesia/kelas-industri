@@ -12,4 +12,8 @@ class EventRepository extends BaseRepository
     public function __construct(Event $model) {
         $this->model = $model;
     }
+
+    public function getNotStarted() {
+        return $this->model->query()->where('start_date', '>', now())->get();
+    }
 }

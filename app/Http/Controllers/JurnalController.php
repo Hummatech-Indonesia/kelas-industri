@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Http\Requests\JournalRequest;
-use App\Models\Classroom;
-use App\Models\Journal;
-use App\Models\User;
-use App\Services\ClassroomService;
-use App\Services\JournalService;
-use App\Services\PointService;
-use App\Services\SchoolYearService;
-use App\Traits\DataSidebar;
 use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Journal;
+use App\Models\Classroom;
 use Illuminate\View\View;
+use App\Traits\DataSidebar;
+use Illuminate\Http\Request;
+use App\Services\PointService;
+use App\Services\JournalService;
+use App\Helpers\SchoolYearHelper;
+use App\Services\ClassroomService;
+use App\Services\SchoolYearService;
+use App\Http\Requests\JournalRequest;
+use Illuminate\Http\RedirectResponse;
+use App\Services\JournalAttendanceService;
 
 class JurnalController extends Controller
 {
@@ -25,14 +26,15 @@ class JurnalController extends Controller
     private JournalService $journalService;
     private PointService $pointService;
     private SchoolYearService $schoolYearService;
+    private JournalAttendanceService $journalAttendaceService;
 
-    public function __construct(ClassroomService $classroomService, JournalService $journalService, PointService $pointService, SchoolYearService $schoolYearService)
+    public function __construct(ClassroomService $classroomService, JournalService $journalService, PointService $pointService, SchoolYearService $schoolYearService, JournalAttendanceService $journalAttendaceService)
     {
         $this->classroomService = $classroomService;
         $this->journalService = $journalService;
         $this->pointService = $pointService;
         $this->schoolYearService = $schoolYearService;
-
+        $this->journalAttendaceService = $journalAttendaceService;
     }
 
     public function index(Request $request)
@@ -64,26 +66,30 @@ class JurnalController extends Controller
             $data['journals'] = $this->journalService->handleGetJournalByUser();
             return view('dashboard.user.pages.jurnal.index', $data);
         }
-
     }
 
     public function create(): View
     {
         $data = $this->GetDataSidebar();
         $data['classrooms'] = $this->classroomService->handleGetClassroomByUserJurnal(auth()->id());
+        if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+            $data['students'] = $this->classroomService->handleGetStudent(Auth()->user()->teacherSchool->teacherClassroom->classroom->id);
+        }
         return view('dashboard.user.pages.jurnal.create', $data);
     }
 
     public function store(JournalRequest $request): RedirectResponse
     {
+        // dd($request->all());
         if ($request->photo != null) {
             if (Carbon::now()->format('l') == "sunday" && auth()->user()->roles->pluck('name')[0] == 'teacher') {
                 return redirect()->back()->with('error', trans('Tidak bisa mengisi jurnal, dikarenakan hari ini minggu!'));
             }
-            $this->journalService->handleCreate($request);
+            $journal = $this->journalService->handleCreate($request);
             if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
                 return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
             } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+                $this->journalAttendaceService->handleCreate($request->attendance, $journal->id);
                 return to_route('teacher.journal.index')->with('success', trans('alert.update_success'));
             }
         }
@@ -107,6 +113,12 @@ class JurnalController extends Controller
             'classrooms' => $this->classroomService->handleGetSchoolClassrooomJournal($journal->id, $selectedSchoolYear),
         ];
         return view('dashboard.admin.pages.jurnal.detail', $data);
+    }
+
+    public function detailTeacher($journalId): View {
+        $data = $this->GetDataSidebar();
+        $data['journal'] = $this->journalService->handleGetWithAttendance($journalId);
+        return view('dashboard.user.pages.jurnal.detail', $data);
     }
 
     public function detailJurnal(Classroom $classroom)
@@ -133,7 +145,6 @@ class JurnalController extends Controller
         } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             return to_route('teacher.journal.index')->with('success', trans('alert.update_success'));
         }
-
     }
 
     public function destroy(Journal $journal): RedirectResponse

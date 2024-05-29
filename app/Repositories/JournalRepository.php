@@ -71,6 +71,10 @@ class JournalRepository extends BaseRepository
             ]);
     }
 
+    public function get_with_attendance($journal): mixed {
+        return $this->model->query()->with('attendances')->findOrFail($journal);
+    }
+
     public function get_month_count(Request $request, string $TeacherId): mixed
     {
         return $this->model->query()

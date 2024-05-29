@@ -303,6 +303,7 @@ Route::middleware('auth.custom')->group(function () {
             'exam' => ExamController::class,
             'saleries' => SalaryController::class,
         ]);
+        Route::get('journal/{journal}', [JurnalController::class,'detailTeacher'])->name('journal.detail');
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
         Route::get('/showStudentReport/{classroom}', [ReportController::class, 'showStudent'])->name('showStudentReport');
         Route::get('/showClassroom', [ReportController::class, 'showClassroom'])->name('showClassroom');
