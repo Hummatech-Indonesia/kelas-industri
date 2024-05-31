@@ -51,6 +51,7 @@ use App\Http\Controllers\TripayCallbackController;
 use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\TrackingPaymentController;
 use App\Http\Controllers\SchoolPackageController;
+use App\Http\Controllers\TeacherStatisticController;
 use FontLib\Table\Type\name;
 
 /*
@@ -96,6 +97,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/detailSiswa/{classroom}', [ReportController::class, 'detail'])->name('detailSiswa');
         Route::resource('classrooms', ClassroomController::class)->only('show');
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
+
+        Route::get('/teacher-statistic',[TeacherStatisticController::class,'index'])->name('teacher.statistic.index');
+
 
         Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
         Route::get('studentRegistration/wrongInput', [ApprovalController::class, 'wrongInput'])->name('wrongInput');

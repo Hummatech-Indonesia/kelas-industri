@@ -632,8 +632,8 @@
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a href="{{ route('admin.gallerys.index') }}"
-                            class="menu-link {{ request()->routeIs('admin.gallerys.*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.teacher.statistic.index') }}"
+                            class="menu-link {{ request()->routeIs('admin.teacher.statistic.*') ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen037.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
