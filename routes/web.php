@@ -39,6 +39,8 @@ use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventDocumentationController;
+use App\Http\Controllers\EventPartisipantController;
 use App\Http\Controllers\ExamStudentController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
@@ -96,6 +98,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/detailSiswa/{classroom}', [ReportController::class, 'detail'])->name('detailSiswa');
         Route::resource('classrooms', ClassroomController::class)->only('show');
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
+        Route::get('/detailJurnal/{classroom}/{journal}', [JurnalController::class, 'detailAttendance'])->name('journal.attendance');
 
         Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
         Route::get('studentRegistration/wrongInput', [ApprovalController::class, 'wrongInput'])->name('wrongInput');
@@ -149,8 +152,10 @@ Route::middleware('auth.custom')->group(function () {
             'question-bank' => QuestionBankController::class,
             'schedules' => ScheduleController::class,
             'events' => EventController::class,
+            'eventDocumentation' => EventDocumentationController::class,
         ]);
 
+        Route::post('eventDocumentation/store/{event}', [EventDocumentationController::class, 'storeMultiple'])->name('eventDocumentation.store-img');
         Route::get('question-bank-multiplechoice/{submaterial}', [QuestionBankController::class, 'indexMultipleChoise'])->name('question-bank-multiplechoice');
         Route::get('question-bank-essay/{submaterial}', [QuestionBankController::class, 'indexEssay'])->name('question-bank-essay');
         Route::get('quetion-banks/{material}', [MaterialController::class, 'questionBank'])->name('questionBank');
@@ -303,7 +308,7 @@ Route::middleware('auth.custom')->group(function () {
             'exam' => ExamController::class,
             'saleries' => SalaryController::class,
         ]);
-        Route::get('journal/{journal}', [JurnalController::class,'detailTeacher'])->name('journal.detail');
+        Route::get('journal/{journal}', [JurnalController::class, 'detailTeacher'])->name('journal.detail');
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
         Route::get('/showStudentReport/{classroom}', [ReportController::class, 'showStudent'])->name('showStudentReport');
         Route::get('/showClassroom', [ReportController::class, 'showClassroom'])->name('showClassroom');
@@ -318,6 +323,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
+        Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
+        Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
     });
     //end teacher
 
@@ -406,6 +413,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('exams/', [ExamStudentController::class, 'showMaterials'])->name('exams.index');
         Route::get('exams/{material}', [ExamStudentController::class, 'show'])->name('exams.show');
         Route::get('exams/submaterial/{material}', [ExamStudentController::class, 'showSubmaterial'])->name('exams.showMaterial');
+        Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
+        Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
 
 
         Route::resource('challenges', ChallengeController::class)

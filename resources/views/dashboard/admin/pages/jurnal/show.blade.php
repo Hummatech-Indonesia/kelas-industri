@@ -19,7 +19,7 @@
             <!--end::Breadcrumb-->
         </div>
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{url()->previous()}}"
+            <a href="{{ url()->previous() }}"
                 class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                 <i class="bi bi-arrow-left me-2"></i> Kembali
             </a>
@@ -48,6 +48,7 @@
                                     <th>Judul</th>
                                     <th>Tanggal</th>
                                     <th>Detail</th>
+                                    <th>Absensi</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -60,19 +61,31 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $journal->user->name }}</td>
                                         <td>
-                                            <svg type="button" class="btn-photo" data-photo="{{ asset('storage/' . $journal->photo) }}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M8.5 13.498l2.5 3.006l3.5-4.506l4.5 6H5m16 1v-14a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z" fill="#474761"/></svg>  
+                                            <svg type="button" class="btn-photo"
+                                                data-photo="{{ asset('storage/' . $journal->photo) }}"
+                                                xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M8.5 13.498l2.5 3.006l3.5-4.506l4.5 6H5m16 1v-14a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"
+                                                    fill="#474761" />
+                                            </svg>
                                         </td>
                                         <td>{{ $journal->title }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}</td>
-                                            <td>
-                                                <svg fill="#474761" type="button"
-                                                    data-description="{{ $journal->description }}" class="btn-description"
-                                                    xmlns="http://www.w3.org/2000/svg" height="30"
-                                                    viewBox="0 -960 960 960" width="30">
-                                                    <path
-                                                        d="M319-250h322v-60H319v60Zm0-170h322v-60H319v60ZM220-80q-24 0-42-18t-18-42v-680q0-24 18-42t42-18h361l219 219v521q0 24-18 42t-42 18H220Zm331-554h189L551-820v186Z" />
-                                                </svg>
-                                            </td>
+                                        <td>{{ \Carbon\Carbon::parse($journal->date)->locale('id')->isoFormat('D MMMM YYYY') }}
+                                        </td>
+                                        <td>
+                                            <svg fill="#474761" type="button"
+                                                data-description="{{ $journal->description }}" class="btn-description"
+                                                xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960"
+                                                width="30">
+                                                <path
+                                                    d="M319-250h322v-60H319v60Zm0-170h322v-60H319v60ZM220-80q-24 0-42-18t-18-42v-680q0-24 18-42t42-18h361l219 219v521q0 24-18 42t-42 18H220Zm331-554h189L551-820v186Z" />
+                                            </svg>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.journal.attendance', ['classroom'=> $journal->classroom, 'journal' => $journal->id]) }}"
+                                                class="btn-absent btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Absensi</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -87,12 +100,33 @@
         </div>
         <x-delete-modal-component />
     </div>
+    <div class="modal fade" tabindex="-1" id="kt_modal_absent">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Absensi</h3>
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <svg fill="#474761" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960"
+                            width="30">
+                            <path
+                                d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+                        </svg>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <div class="modal-body" id="description">
+                    <h5></h5>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" tabindex="-1" id="kt_modal_description">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Deskripsi</h3>
-
+                    <h3 class="modal-title">Detail </h3>
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
                         aria-label="Close">

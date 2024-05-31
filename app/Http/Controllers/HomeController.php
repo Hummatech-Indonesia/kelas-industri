@@ -287,6 +287,7 @@ class HomeController extends Controller
             $data['zoom'] = $this->zoomScheduleService->handleGetZoomScheduleTeacher();
             $data['lastestChallenge'] = $this->challengeService->handleGetLatestByMentor($userId);
             $data['salary'] = $this->salaryService->handleByUserThisMonth($userId);
+            $data['events'] = $this->eventService->handleGetNotStarted();
         } elseif ($role == 'mentor') {
             $data['classroom'] = $this->classroomService->handleCountClassroomMentor($userId);
             $data['material'] = $this->materialService->handleCountMaterialUser($currentSchoolYear->id);

@@ -86,14 +86,14 @@
                                 @csrf
                                 <div class="row">
 
-                                    <div class="form-group row mb-3">
+                                    {{-- <div class="form-group row mb-3">
 
                                         <label class="col-xl-3 col-lg-3 col-form-label">Sekolah</label>
 
                                         <div class="col-lg-9 col-xl-9">
 
                                             <select name="school_id" class="form-select form-select-solid me-5"
-                                                data-control="select2" data-placeholder="Pilih Sekolah">
+                                                data-control="select2" data-placeholder="Pilih Sekolah (Opsional)">
                                                 <option value=""></option>
 
                                                 @foreach ($schools as $school)
@@ -104,7 +104,7 @@
 
                                         </div>
 
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group row mb-3">
 
@@ -126,7 +126,7 @@
 
                                         <div class="col-lg-9 col-xl-9">
 
-                                            <textarea id="kt_docs_ckeditor_classic" rows="5" name="description" type="text"
+                                            <textarea rows="5" name="description" type="text" class="form-control form-control-solid"
                                                 placeholder="deskripsi tantangan">{{ old('description') }}</textarea>
 
                                         </div>
@@ -139,6 +139,16 @@
                                         <div class="col-lg-9 col-xl-9">
                                             <input class="form-control form-control-solid form-control-lg" name="photo"
                                                 type="file" placeholder="Masukkan Foto">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
+
+                                        <label class="col-xl-3 col-lg-3 col-form-label">Batas Jumlah Peserta</label>
+
+                                        <div class="col-lg-9 col-xl-9">
+                                            <input class="form-control form-control-solid form-control-lg"
+                                                name="limit_participant" type="number" placeholder="Batas peserta (opsional)"
+                                                min="1" value="{{ old('limit_participant') }}">
                                         </div>
                                     </div>
 

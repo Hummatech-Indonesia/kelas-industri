@@ -149,7 +149,7 @@
                                                                 </button>
                                                             @else
                                                                 <a
-                                                                    href="">
+                                                                    href="{{ route('teacher.journal.detail', $journal->id) }}">
                                                                     <button class="btn btn-default btn-sm p-1"
                                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                                         data-bs-custom-class="custom-tooltip"

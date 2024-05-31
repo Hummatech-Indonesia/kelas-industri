@@ -2,6 +2,15 @@
     use Carbon\Carbon;
 @endphp
 @extends('dashboard.admin.layouts.app')
+
+@section('css')
+<style>
+    .card .card-img {
+        height: 130px;
+        object-fit: cover;
+    }
+</style>
+@endsection
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -10,14 +19,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Sekolah
+                Event
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">
-                List sekolah yang terdaftar di kelas industri.
+                List event yang terdaftar di kelas industri.
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -82,7 +91,7 @@
 
                     <div class="card card-custom gutter-b card-stretch">
                         <img src="{{ asset("storage/$event->photo") }}" alt=""
-                            class="card-img rounded-top-1 rounded-bottom-0">
+                            class="card-img rounded-top-1 rounded-bottom-0" />
 
                         <!--begin::Body-->
 

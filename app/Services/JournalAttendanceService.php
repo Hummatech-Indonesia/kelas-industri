@@ -12,7 +12,7 @@ class JournalAttendanceService
         $this->repository = $repository;
     }
 
-    public function halndeGetByJournal($journalId): mixed
+    public function handleGetByJournal($journalId): mixed
     {
         return $this->repository->getByJournal($journalId);
     }

@@ -129,6 +129,12 @@ class JurnalController extends Controller
         return view('dashboard.admin.pages.jurnal.show', $data);
     }
 
+    public function detailAttendance($classroom, $journalId) : View {
+        $data['attendances'] = $this->journalAttendaceService->handleGetByJournal($journalId);
+        $data['classroom'] = $classroom;
+        return view('dashboard.admin.pages.jurnal.absent', $data);
+    }
+
     public function edit(Journal $journal): View
     {
         $data = $this->GetDataSidebar();

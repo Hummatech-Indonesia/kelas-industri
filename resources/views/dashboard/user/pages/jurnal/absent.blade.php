@@ -19,6 +19,15 @@
                                 <x-errors-component />
                             @endif
                             <div class="row">
+                                @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                    <form action="{{ route('mentor.journal.store') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                        <form action="{{ route('teacher.journal.store') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                @endif
+
+                                @csrf
                                 <div class="col-12">
                                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
 
@@ -73,7 +82,9 @@
 
                                                     <div class="col-lg-9 col-xl-9">
 
-                                                        <p>{{ $journal->title }}</p>
+                                                        <input class="form-control form-control-solid form-control-lg"
+                                                            name="title" type="text" value="{{ old('title') }}"
+                                                            placeholder="Masukkan Judul" required="">
 
                                                     </div>
 
@@ -84,7 +95,8 @@
 
                                                     <div class="col-lg-9 col-xl-9">
 
-                                                        <img src="{{ asset('storage/' . $journal->photo) }}" alt="" class="w-100">
+                                                        <input class="form-control form-control-solid form-control-lg"
+                                                            name="photo" type="file" placeholder="Masukkan Foto">
 
                                                     </div>
 
@@ -122,7 +134,8 @@
 
                                                     <div class="col-lg-9 col-xl-9">
 
-                                                        <p>{{ $journal->description }}</p>
+                                                        <textarea class="form-control form-control-solid form-control-lg" rows="5" name="description" type="text"
+                                                            placeholder="deskripsi Jurnal" required="">{{ old('description') }}</textarea>
 
                                                     </div>
 
@@ -143,7 +156,7 @@
 
                                                     <h3 class="card-label">
 
-                                                        Silakan Isi Data Absensi Siswa
+                                                        Data Absensi Siswa
 
                                                     </h3>
 
@@ -157,26 +170,48 @@
                                                                 class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                                                                 <th>Nama</th>
                                                                 <th>Kelas</th>
-                                                                <th class="text-center">Kehadiran</th>
+                                                                <th>Hadir</th>
+                                                                <th>Ijin</th>
+                                                                <th>Sakit</th>
+                                                                <th>Alfa</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($journal->attendances as $attendance)
-                                                                @php
-                                                                    $student = $attendance->studentClassroom;
-                                                                @endphp
+                                                            @foreach ($students as $student)
+                                                                {{-- @dd($student) --}}
                                                                 <tr>
                                                                     <td>{{ $student->studentSchool->student->name }}</td>
                                                                     <td>{{ $student->classroom->name }}</td>
                                                                     <td class="text-center">
                                                                         <div
-                                                                            class="fs-7 badge
-                                                                        @if ($attendance->attendance == 'hadir') badge-success
-                                                                        @elseif($attendance->attendance == 'ijin')badge-warning
-                                                                        @elseif($attendance->attendance == 'sakit')badge-primary
-                                                                        @elseif($attendance->attendance == 'alfa')badge-danger @endif
-                                                                        ">
-                                                                            {{ ucfirst($attendance->attendance) }}
+                                                                            class="form-check form-check-custom form-check-success form-check-solid">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                value="hadir"
+                                                                                name="attendance[{{ $student->id }}]"
+                                                                                checked>
+                                                                        </div>
+                                                                    <td class="text-center">
+                                                                        <div
+                                                                            class="form-check form-check-custom form-check-warning form-check-solid">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                value="ijin"
+                                                                                name="attendance[{{ $student->id }}]">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <div
+                                                                            class="form-check form-check-custom form-check-danger form-check-solid">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                value="sakit"
+                                                                                name="attendance[{{ $student->id }}]">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <div
+                                                                            class="form-check form-check-custom form-check-danger form-check-solid">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                value="alfa"
+                                                                                name="attendance[{{ $student->id }}]">
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -188,49 +223,50 @@
                                         </div>
                                     </div>
                                 @endif
-                            </div>
-
+                            </form>
                         </div>
-                        <!--end::Toolbar wrapper-->
+
                     </div>
-                    <!--end::Toolbar container-->
+                    <!--end::Toolbar wrapper-->
                 </div>
-                <!--end::Content container-->
+                <!--end::Toolbar container-->
             </div>
-            <!--end::Content-->
+            <!--end::Content container-->
         </div>
-        <!--end::Content wrapper-->
+        <!--end::Content-->
+    </div>
+    <!--end::Content wrapper-->
 
 
-        <!--begin::Footer-->
-        <div id="kt_app_footer" class="app-footer ">
-            <!--begin::Footer container-->
-            <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
-                <!--begin::Copyright-->
-                <div class="text-dark order-2 order-md-1">
-                    <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
-                    <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
-                        Industri</a>
-                </div>
-                <!--end::Copyright-->
-
-                <!--begin::Menu-->
-                <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
-                            Kami</a></li>
-
-                    <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
-                            class="menu-link px-2">Syarat &
-                            Ketentuan</a></li>
-
-                    <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
-                            class="menu-link px-2">Kebijakan Privasi</a></li>
-                </ul>
-                <!--end::Menu-->
+    <!--begin::Footer-->
+    <div id="kt_app_footer" class="app-footer ">
+        <!--begin::Footer container-->
+        <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
+            <!--begin::Copyright-->
+            <div class="text-dark order-2 order-md-1">
+                <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
+                <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
+                    Industri</a>
             </div>
-            <!--end::Footer container-->
+            <!--end::Copyright-->
+
+            <!--begin::Menu-->
+            <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
+                <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
+                        Kami</a></li>
+
+                <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                        class="menu-link px-2">Syarat &
+                        Ketentuan</a></li>
+
+                <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                        class="menu-link px-2">Kebijakan Privasi</a></li>
+            </ul>
+            <!--end::Menu-->
         </div>
-        <!--end::Footer-->
+        <!--end::Footer container-->
+    </div>
+    <!--end::Footer-->
     </div>
 @endsection
 @section('script')

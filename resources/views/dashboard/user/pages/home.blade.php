@@ -22,8 +22,13 @@
         }
 
         .carousel-item img {
-            height: 400px;
+            height: 300px;
             object-fit: cover;
+            border-radius: 1rem !important;
+        }
+
+        .carousel-item .follow-event-btn {
+            z-index: 100;
         }
 
         .carousel-item:after {
@@ -90,35 +95,59 @@
                         @endif
                     </div>
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                        <div id="carouselExampleIndicators" class="carousel slide rounded">
-                            <div class="carousel-indicators">
-                                @foreach ($events as $index => $event)
-                                    <button type="button" data-bs-target="#carouselExampleIndicators"
-                                        data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"
-                                        aria-current="true" aria-label="Slide 1"></button>
-                                    <div class="btn btn-light position-absolute" style="right: -10%;">Daftar</div>
-                                @endforeach
+                        @if (count($events) > 0)
+                            <div id="carouselExampleIndicators" class="carousel slide rounded my-5">
+                                <div class="carousel-indicators">
+                                    @foreach ($events as $index => $event)
+                                        <button type="button" data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"
+                                            aria-current="true" aria-label="Slide 1"></button>
+                                    @endforeach
+                                </div>
+                                <div class="carousel-inner rounded-3">
+                                    @foreach ($events as $index => $event)
+                                        <div class="carousel-item rounded-3 {{ $index == 0 ? 'active' : '' }}">
+
+                                            <div class="bg-white w-290px h-100 position-relative"></div>
+
+                                            <img src="{{ asset('storage/' . $event->photo) }}"
+                                                class="d-block w-100 rounded-3" alt="...">
+
+
+                                            <div class="carousel-caption position-absolute d-none mb-7 d-md-block"
+                                                style="z-index: 10;">
+                                                <h5>First slide label</h5>
+                                                <p>Some representative placeholder content for the first slide.</p>
+                                                @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                                    <a href="{{ route('student.events.show', $event->id) }}"
+                                                        class="btn btn-primary follow-event-btn shadow-sm"
+                                                        data-title="{{ $event->title }}" data-event="{{ $event->id }}"
+                                                        style="right: -15%;">Selengkapnya</a>
+                                                @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                    <a href="{{ route('teacher.events.show', $event->id) }}"
+                                                        class="btn btn-primary follow-event-btn shadow-sm"
+                                                        data-title="{{ $event->title }}" data-event="{{ $event->id }}"
+                                                        style="right: -15%;">Selengkapnya</a>
+                                                @endif
+                                            </div>
+
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
-                            <div class="carousel-inner">
-                                @foreach ($events as $index => $event)
-                                    <div class="carousel-item rounded {{ $index == 0 ? 'active' : '' }}">
-                                        <div class="bg-white w-290px h-100 position-relative"></div>
-                                        <img src="{{ asset('storage/' . $event->photo) }}" class="d-block w-100 rounded-3"
-                                            alt="...">
-                                    </div>
-                                @endforeach
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                        @endif
+                    @endif
+                    @if (auth()->user()->roles->pluck('name')[0] == 'student')
                         <div class="covercard row gap-2 mt-4">
                             <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">

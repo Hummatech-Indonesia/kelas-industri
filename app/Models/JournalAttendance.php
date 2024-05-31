@@ -16,4 +16,14 @@ class JournalAttendance extends Model
     public function studentClassroom(): BelongsTo {
         return $this->belongsTo(StudentClassroom::class);
     }
+
+    /**
+     * Get the journal that owns the JournalAttendance
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function journal(): BelongsTo
+    {
+        return $this->belongsTo(Journal::class);
+    }
 }

@@ -14,6 +14,10 @@ class EventService
         $this->repository = $repository;
     }
 
+    public function handleShow($id): mixed {
+        return $this->repository->show($id);
+    }
+
     public function handleCreate(EventRequest $request): mixed
     {
         $data = $request->validated();

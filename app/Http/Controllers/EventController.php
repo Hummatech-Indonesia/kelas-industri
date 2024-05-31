@@ -9,9 +9,13 @@ use App\Http\Requests\EventRequest;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\UpdateEventRequest;
 use App\Services\EventService;
+use App\Traits\DataSidebar;
+
+use function PHPUnit\Framework\returnSelf;
 
 class EventController extends Controller
 {
+    use DataSidebar;
     private SchoolService $schoolService;
     private UserServices $userService;
     private EventService $service;
@@ -81,7 +85,14 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        $data = $this->GetDataSidebar();
+        $data['event'] = $event;
+
+        if (auth()->user()->roles->pluck('name')[0] == 'admin') {
+            return view('dashboard.admin.pages.event.detail', $data);
+        } else if (auth()->user()->roles->pluck('name')[0] == 'student') {
+            return view('dashboard.user.pages.event.detail', $data);
+        }
     }
 
     /**

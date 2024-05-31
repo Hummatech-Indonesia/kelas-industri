@@ -26,6 +26,8 @@ class EventRequest extends FormRequest
         return [
             "title" => "required",
             "description" => "required",
+            "limit_participant" => "nullable|integer",
+            "for_school" => "nullable",
             "photo" => "mimes:png,jpg,jpeg|max:2048",
             "start_date" => "required",
             "end_date" => "required",
