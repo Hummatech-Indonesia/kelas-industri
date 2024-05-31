@@ -381,6 +381,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial')->middleware('checkpayment');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 
+        Route::get('/event',[EventController::class,'studentEvent'])->name('event.index');
+
+
         Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
         Route::post('{classroom}/storeassignment/{material}/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
 

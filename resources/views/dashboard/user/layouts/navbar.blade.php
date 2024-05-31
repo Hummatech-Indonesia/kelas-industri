@@ -222,6 +222,16 @@
                                     @endif>
                                     <span class="menu-title">Peringkat</span></a>
                             </div>
+                            @if (auth()->user()->roles->pluck('name')[0] == 'student')
+
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <!--begin:Menu link-->
+                                <a href="{{ route('student.event.index') }}"
+                                    class="menu-link {{ request()->routeIs('student.event.index') ? 'active' : '' }}"><span
+                                        class="menu-title">Event</span></a>
+                                <!--end:Menu link-->
+                            </div>
+                            @endif
                             @if (!$schoolPayment)
                                 <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                     <!--begin:Menu link-->

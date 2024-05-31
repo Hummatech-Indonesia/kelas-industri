@@ -6,12 +6,14 @@ use App\Models\Event;
 use App\Services\UserServices;
 use App\Services\SchoolService;
 use App\Http\Requests\EventRequest;
+use App\Traits\DataSidebar;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\UpdateEventRequest;
 use App\Services\EventService;
 
 class EventController extends Controller
 {
+    use DataSidebar;
     private SchoolService $schoolService;
     private UserServices $userService;
     private EventService $service;
@@ -30,6 +32,11 @@ class EventController extends Controller
     public function index(): View
     {
         return view("dashboard.admin.pages.event.index");
+    }
+
+    public function studentEvent():View{
+        $data=$this->GetDataSidebar();
+        return view('dashboard.user.pages.event.index',$data);
     }
 
 
