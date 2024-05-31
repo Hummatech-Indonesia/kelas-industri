@@ -8,6 +8,6 @@ class TeacherStatisticController extends Controller
 {
     public function index()
     {
-        return view('teacher-statistic');
+        return view('dashboard.admin.pages.teacher-statistic.index');
     }
 }

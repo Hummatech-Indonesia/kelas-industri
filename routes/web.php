@@ -53,6 +53,7 @@ use App\Http\Controllers\TripayCallbackController;
 use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\TrackingPaymentController;
 use App\Http\Controllers\SchoolPackageController;
+use App\Http\Controllers\TeacherStatisticController;
 use FontLib\Table\Type\name;
 
 /*
@@ -99,6 +100,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::resource('classrooms', ClassroomController::class)->only('show');
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
         Route::get('/detailJurnal/{classroom}/{journal}', [JurnalController::class, 'detailAttendance'])->name('journal.attendance');
+
+        Route::get('/teacher-statistic',[TeacherStatisticController::class,'index'])->name('teacher.statistic.index');
+
 
         Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
         Route::get('studentRegistration/wrongInput', [ApprovalController::class, 'wrongInput'])->name('wrongInput');
@@ -387,6 +391,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
         Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial')->middleware('checkpayment');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+
+        Route::get('/event',[EventController::class,'studentEvent'])->name('event.index');
+
 
         Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
         Route::post('{classroom}/storeassignment/{material}/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
