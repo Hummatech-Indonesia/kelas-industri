@@ -68,6 +68,7 @@ use FontLib\Table\Type\name;
  */
 
 Route::get('/', [WelcomeController::class, 'index'])->name('landingPage');
+Route::get('/event', [WelcomeController::class, 'event'])->name('event');
 Route::get('/gallery', [WelcomeController::class, 'gallery'])->name('gallery');
 Route::get('/news', [WelcomeController::class, 'news'])->name('news');
 Route::get('/news/{slug}', [WelcomeController::class, 'detail'])->name('detail-news');

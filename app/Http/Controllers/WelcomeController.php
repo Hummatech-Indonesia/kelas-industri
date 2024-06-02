@@ -33,6 +33,17 @@ class WelcomeController extends Controller
         ];
         return view('welcome', $data);
     }
+    public function event()
+    {
+        $data = [
+            'school' => count($this->userService->handleGetAllSchool()),
+            'MOUS' => $this->userService->handleGetAllSchool(),
+            'classroom' => count($this->classroomService->handleGetAll()),
+            'material' => count($this->materialService->handleGetAll()),
+            'student' => count($this->userService->handleGetAllStudent()),
+        ];
+        return view('event', $data);
+    }
 
     public function gallery()
     {
