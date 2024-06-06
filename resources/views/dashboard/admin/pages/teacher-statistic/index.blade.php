@@ -68,24 +68,23 @@
                                     <th class="text-center">Nama Guru</th>
                                     <th class="text-center">Jurnal</th>
                                     <th class="text-center">Tugas Dikoreksi</th>
+                                    <th class="text-center">Challenge Dikoreksi</th>
+                                    <th class="text-center">Total Gaji</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($teachers as $teacher)
-                                {{-- @dd($teacher->teacher->journals->count()) --}}
-                                {{-- @dd($teacher->teacherschool) --}}
+                                @forelse ($teacherSchools as $teacherSchool)
                                     <tr>
                                         <td class="text-center align-middle">1</td>
-                                        <td class="text-center align-middle">{{ $teacher->name }}</td>
-                                        <td class="text-center align-middle">{{ $teacher->teacher->journals_count }}</td>
-                                        {{-- <td class="text-center align-middle">{{ $teacher->teacherschool->submit_assignments_count }}</td> --}}
-
-
+                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->name }}</td>
+                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->journals_count }}</td>
+                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->assignment_graded }}</td>
+                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->challenge_graded }}</td>
+                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->salary }}</td>
                                     </tr>
-                                    @empty
-                                    <x-empty-component title="guru"/>
+                                @empty
+                                    <x-empty-component title="guru" />
                                 @endif
-
                             </tbody>
                         </table>
 

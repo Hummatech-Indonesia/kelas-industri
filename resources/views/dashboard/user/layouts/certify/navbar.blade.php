@@ -6,7 +6,7 @@
         <!--begin::Header logo-->
         <div class="app-header-logo d-flex align-items-center ps-lg-2 me-lg-10">
             <!--begin::Mobile toggle-->
-            <div class="btn btn-icon btn-color-gray-500 btn-active-color-primary w-35px h-35px ms-n2 me-2 d-flex d-lg-none"
+            {{-- <div class="btn btn-icon btn-color-gray-500 btn-active-color-primary w-35px h-35px ms-n2 me-2 d-flex d-lg-none"
                 id="kt_app_sidebar_mobile_toggle">
                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs015.svg-->
                 <span class="svg-icon svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -19,12 +19,12 @@
                     </svg>
                 </span>
                 <!--end::Svg Icon-->
-            </div>
+            </div> --}}
             <!--end::Mobile toggle-->
 
             <!--begin::Logo image-->
-            <a href="{{ route('home') }}">
-                <img alt="Logo" src="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" class="h-50px" />
+            <a href="{{ route('landingPage') }}">
+                <img alt="Logo" src="{{ asset('app-assets/logo_file/logo kelas industri svg.svg') }}" id="logo" />
             </a>
             <!--end::Logo image-->
         </div>

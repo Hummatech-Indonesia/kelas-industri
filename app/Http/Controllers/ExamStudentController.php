@@ -31,6 +31,11 @@ class ExamStudentController extends Controller
     {
         return view('dashboard.user.pages.studentExam.exam');
     }
+
+    public function index(Request $request)
+    {
+
+    }
     public function showMaterials(Request $request): View
     {
         $data = $this->GetDataSidebar();

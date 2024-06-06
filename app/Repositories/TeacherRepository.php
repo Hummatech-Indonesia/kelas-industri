@@ -34,10 +34,11 @@ class TeacherRepository extends BaseRepository
     public function get_statistic(string|null $schoolId): mixed
     {
         return $this->model->query()
+            ->whereHas('teacherClassrooms')
             ->with(['teacher' => function ($query) {
                 $query->withCount('journals');
             }])
-            ->with(['teacherClassrooms.classroom'])
+            ->with(['teacherClassrooms.classroom.students'])
             ->get();
     }
 }

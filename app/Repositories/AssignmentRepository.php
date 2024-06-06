@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Assignment;
+use App\Models\Event;
 use App\Models\StudentClassroom;
 use App\Models\SubmitAssignment;
 use App\Models\User;
@@ -179,12 +180,13 @@ class AssignmentRepository extends BaseRepository
             ->count();
     }
 
-    public function countAssignmentsMaterial(string $material): int
+    public function countAssignmentsMaterial(string $material, User $user = null): int
     {
+        // dd($user);
         return $this->model->query()
             ->whereRelation('submaterial.material', 'id', $material)
-            ->whereHas('StudentSubmitAssignment', function ($query) {
-                $query->where('student_id', auth()->user()->studentSchool->student_id);
+            ->whereHas('StudentSubmitAssignment', function ($query) use ($user) {
+                $query->where('student_id', $user != null? $user->studentSchool->student_id :auth()->user()->studentSchool->student_id);
             })
             ->count();
     }

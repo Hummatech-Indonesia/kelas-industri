@@ -85,9 +85,12 @@
                                             </div>
                                         </div>
                                         <div class="ms-1">
-                                            <a href="{{ route('student.events.show', $event->id) }}"
-                                                class="text-hover-primary fw-bolder h6 mb-2">{{ $event->title }}
-                                            </a>
+                                            <div class="d-flex justify-content-between  mt-3 mb-2">
+                                                <a href="{{ route('student.events.show', $event->id) }}"
+                                                    class="text-hover-primary fw-bolder h6 mb-2">{{ $event->title }}
+                                                </a>
+                                                <div class="badge badge-light-primary">Diikuti</div>
+                                            </div>
                                             <p class="short-description">{{ $event->description }}</p>
                                         </div>
                                     </div>

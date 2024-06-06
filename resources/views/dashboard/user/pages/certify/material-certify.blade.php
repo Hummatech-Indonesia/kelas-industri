@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
             <div id="kt_app_content" class="app-content  flex-column-fluid ">
                 <div class="container">
-                    <div class="card">
+                    <div class="card bg-white bg-opacity-75">
                         <div class="card-header justify-content-center border-0">
                             <h1 class="card-title fw-bold mt-5" style="font-size: 2.5rem;">Verifikasi Sertifikasi</h1>
                         </div>
@@ -23,22 +23,27 @@ use Carbon\Carbon;
                                         <span>:</span>
                                     </div>
                                     <div class="col-8">
-                                        <div class="w-100 py-3 ps-8 border border-2 rounded">{{ $participant->user->name }}</div>
+                                        <div class="w-100 py-3 ps-8 border border-2 rounded">{{ $user->name }}</div>
                                     </div>
                                     <div class="col-3">Pemberi</div>
                                     <div class="col-1">
                                         <span>:</span>
                                     </div>
                                     <div class="col-8">
-                                        <div class="w-100 py-3 ps-8 border border-2 rounded">Hummatech</div>
+                                        <div class="w-100 py-3 ps-8 border border-2 rounded">PT Humma Teknologi Indonesia</div>
                                     </div>
                                     <div class="col-3">Tanggal Diberikan</div>
                                     <div class="col-1">
                                         <span>:</span>
                                     </div>
                                     <div class="col-8">
-                                        <div class="w-100 py-3 ps-8 border border-2 rounded">{{ Carbon::parse($participant->updated_at)->isoFormat('DD-mm-Y') }}</div>
+                                        {{-- <div class="w-100 py-3 ps-8 border border-2 rounded">{{ Carbon::parse($participant->updated_at)->isoFormat('DD-mm-Y') }}</div> --}}
+                                        <div class="w-100 py-3 ps-8 border border-2 rounded">23-04-2024</div>
                                     </div>
+                                    {{-- <div class="col-3">Type Sertivikat</div>
+                                    <div class="col-1">
+                                        <span>:</span>
+                                    </div> --}}
                                     <div class="col-3">Nomor Sertifikat</div>
                                     <div class="col-1">
                                         <span>:</span>
@@ -59,13 +64,30 @@ use Carbon\Carbon;
     </div>
 @endsection
 @section('css')
-    <style>
-        .card .wraper{
-            max-width: 60%;
-        }
+<style>
+    @media only screen and (max-width: 600px) {
 
-        #preview{
-            width: 60%;
+        .card .wraper {
+            max-width: 100%!important;
+            margin: 0!important;
         }
-    </style>
+        #preview {
+            width: 100%!important;
+        }
+        #logo {
+            width: 110px!important;
+        }
+    }
+
+    #logo {
+        width: 250px!important;
+    }
+    .card .wraper {
+        max-width: 60%;
+    }
+
+    #preview {
+        width: 60%;
+    }
+</style>
 @endsection

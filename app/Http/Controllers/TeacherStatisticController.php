@@ -17,8 +17,7 @@ class TeacherStatisticController extends Controller
     }
     public function index()
     {
-        $data['teachers'] = $this->teacherService->handleGetStatistic('acc3d7a7-fd17-345c-93b2-b6d5c195fbf0');
-        dd($data['teachers']);
+        $data['teacherSchools'] = $this->teacherService->handleGetStatistic('acc3d7a7-fd17-345c-93b2-b6d5c195fbf0');
         return view('dashboard.admin.pages.teacher-statistic.index', $data);
     }
 }

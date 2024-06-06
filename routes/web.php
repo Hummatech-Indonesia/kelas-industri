@@ -420,7 +420,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
-        Route::get('exams/', [ExamStudentController::class, 'showMaterials'])->name('exams.index');
+        Route::get('exams/', [ExamStudentController::class, 'index'])->name('exams.index');
         Route::get('exams/{material}', [ExamStudentController::class, 'show'])->name('exams.show');
         Route::get('exams/submaterial/{material}', [ExamStudentController::class, 'showSubmaterial'])->name('exams.showMaterial');
 
@@ -429,8 +429,6 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
         Route::delete('events/unfollow/{event}', [EventPartisipantController::class, 'destroy'])->name('events.unfollow');
         Route::get('certify/events/{event}/{participant}', [CertifyController::class, 'eventCertify'])->name('events.print-certify');
-        Route::get('certify/events/{participant}/{event}/{number}/verification', [CertifyController::class, 'verification'])->name('events.verify-certification');
-
 
         Route::resource('challenges', ChallengeController::class)
             ->only(['index', 'show'])->middleware('checkpayment');
@@ -460,3 +458,7 @@ Route::middleware('auth.custom')->group(function () {
 });
 Route::post('callback', [TripayCallbackController::class, 'handle']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('verify/{material}/{classroom}/{user}', [CertifyController::class, 'materialVerify'])->name('material.cerify-certification');
+// Route::post('certify/events/', [CertifyController::class, 'eventVerification'])->name('events.verify-certification');
+Route::get('certify/events/{participant}/{event}/verification', [CertifyController::class, 'eventVerification'])->name('events.verify-certification');
+

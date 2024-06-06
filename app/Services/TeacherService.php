@@ -129,7 +129,29 @@ class TeacherService
     }
     public function handleGetStatistic(string | null $teacherSchoolId): mixed
     {
-        $teacher = $this->repository->get_statistic($teacherSchoolId);
-        // $student = 
+        $teachers = $this->repository->get_statistic($teacherSchoolId);
+        $data = [];
+        $challenge_salary = 5000;
+        $assignment_salary = 10000;
+        $journal_salary = 1000;
+
+        foreach ($teachers as $teacher) {
+            $total = 0;
+            foreach ($teacher->teacherClassrooms as $teacherClassroom) {
+                foreach($teacherClassroom->classroom->challenges as $challenge) {
+                    $teacher->teacher->challenge_graded = $challenge->StudentChallenge->where('is_valid', 'valid')->count();
+                }
+                foreach($teacherClassroom->classroom->students as $student) {
+                    $teacher->teacher->assignment_graded = $student->studentSchool->student->submitAssignment->whereNotNull('point')->count();
+                }
+            }
+            $total += $teacher->teacher->challenge_graded * $challenge_salary;
+            $total += $teacher->teacher->journals_count * $journal_salary;
+            $total += $teacher->teacher->assignment_graded * $assignment_salary;
+            $teacher->teacher->salary = $total;
+            array_push($data, $teacher);
+        }
+
+        return $data;
     }
 }
