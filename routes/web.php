@@ -160,6 +160,8 @@ Route::middleware('auth.custom')->group(function () {
             'eventDocumentation' => EventDocumentationController::class,
         ]);
 
+        Route::get('events/{event}/participants', [EventController::class, 'showParticipants'])->name('events.participants');
+        Route::put('events/set-certificate/{event}', [EventPartisipantController::class, 'update'])->name('eventsParticipant.setCertificate');
         Route::post('eventDocumentation/store/{event}', [EventDocumentationController::class, 'storeMultiple'])->name('eventDocumentation.store-img');
         Route::get('question-bank-multiplechoice/{submaterial}', [QuestionBankController::class, 'indexMultipleChoise'])->name('question-bank-multiplechoice');
         Route::get('question-bank-essay/{submaterial}', [QuestionBankController::class, 'indexEssay'])->name('question-bank-essay');
@@ -328,8 +330,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
-        Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
-        Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
+        // Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
+        // Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
     });
     //end teacher
 
@@ -393,7 +395,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial')->middleware('checkpayment');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 
-        Route::get('/event',[EventController::class,'studentEvent'])->name('event.index');
+        Route::get('/event',[EventController::class,'studentEvent'])->name('events.index');
 
 
         Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
@@ -421,8 +423,13 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('exams/', [ExamStudentController::class, 'showMaterials'])->name('exams.index');
         Route::get('exams/{material}', [ExamStudentController::class, 'show'])->name('exams.show');
         Route::get('exams/submaterial/{material}', [ExamStudentController::class, 'showSubmaterial'])->name('exams.showMaterial');
+
+
         Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
         Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
+        Route::delete('events/unfollow/{event}', [EventPartisipantController::class, 'destroy'])->name('events.unfollow');
+        Route::get('certify/events/{event}/{participant}', [CertifyController::class, 'eventCertify'])->name('events.print-certify');
+        Route::get('certify/events/{participant}/{event}/{number}/verification', [CertifyController::class, 'verification'])->name('events.verify-certification');
 
 
         Route::resource('challenges', ChallengeController::class)

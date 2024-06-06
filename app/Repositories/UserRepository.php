@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
 use PhpParser\Builder\Class_;
+use PhpParser\Node\Expr\Cast\String_;
 use Svg\Tag\Rect;
 
 class UserRepository extends BaseRepository
@@ -251,6 +252,26 @@ class UserRepository extends BaseRepository
         return $this->model->query()
             ->where('id', $user)
             ->with('studentSchool.studentClassroom.classroom.dependent')
+            ->get();
+    }
+
+    public function teacherStatistic(string | null $schoolId): mixed
+    {
+        return $this->model->query()
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'teacher');
+            })
+            ->withCount(['journals'])
+            ->with(['teacherSchool.teacherClassrooms.classroom' => function ($query) {
+                $query->withCount([
+                //     'assignments as total_submissions' => function ($query) {
+                //     $query->withCount('StudentSubmitAssignment');
+                // },
+                'challenges as total_challenges' => function ($query) {
+                    $query->withCount('StudentChallenge');
+                }
+            ]);
+            }])
             ->get();
     }
 }

@@ -1,4 +1,3 @@
-'schools' => $this->userService->handleGetAllSchool(),
 @extends('dashboard.admin.layouts.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
@@ -29,7 +28,6 @@
         </div>
         <!--end::Actions-->
     </div>
-
     @if ($errors->any())
         <x-errors-component />
     @endif
@@ -92,6 +90,19 @@
                                         </div>
                                     </div> --}}
                                     <div class="form-group row mb-3">
+                                        <div class="preview w-100 my-3">
+                                            <img src="{{ asset("storage/$event->thumnail") }}" alt=""
+                                                class="thumbnail-preview rounded">
+                                        </div>
+
+                                        <label class="col-xl-3 col-lg-3 col-form-label">Thumbnail</label>
+
+                                        <div class="col-lg-9 col-xl-9">
+                                            <input class="form-control form-control-solid form-control-lg" name="thumnail"
+                                                type="file" placeholder="Masukkan Foto Thumnail" id="input-thumbnail">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
                                         <label class="col-xl-3 col-lg-3 col-form-label">Judul</label>
                                         <div class="col-lg-9 col-xl-9">
                                             <input class="form-control form-control-solid form-control-lg" name="title"
@@ -105,17 +116,31 @@
 
                                         <div class="col-lg-9 col-xl-9">
 
-                                            <textarea rows="5" name="description" type="text" class="form-control form-control-solid"
-                                                placeholder="deskripsi tantangan">{{ $event->description }}</textarea>
+                                            <textarea rows="5" name="description" class="form-control form-control-solid" placeholder="deskripsi tantangan"
+                                                id="kt_docs_ckeditor_classic">{{ $event->description }}</textarea>
 
                                         </div>
 
                                     </div>
+                                    {{-- @dd($event) --}}
                                     <div class="form-group row mb-3">
+
+                                        <label class="col-xl-3 col-lg-3 col-form-label">Lokasi</label>
+
+                                        <div class="col-lg-9 col-xl-9">
+                                            <textarea class="form-control form-control-solid form-control-lg" name="location" placeholder="Lokasi" min="1">{{ $event->location }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
+                                        <div class="preview  my-3">
+                                            <img src="{{ asset("storage/$event->photo") }}" alt=""
+                                                class="photo-preview rounded">
+                                        </div>
                                         <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
                                         <div class="col-lg-9 col-xl-9">
                                             <input class="form-control form-control-solid form-control-lg" name="photo"
-                                                type="file" placeholder="Masukkan Foto" value="{{ $event->photo }}">
+                                                type="file" placeholder="Masukkan Foto" value="{{ $event->photo }}"
+                                                id="input-photo">
                                         </div>
                                     </div>
 
@@ -150,8 +175,8 @@
                                     <div class="form-group row mb-3">
                                         <label class="col-xl-3 col-lg-3 col-form-label">Tanggal Berakhir</label>
                                         <div class="col-lg-9 col-xl-9">
-                                            <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
-                                                data-td-target-toggle="nearest">
+                                            <div class="input-group" id="kt_td_picker_simple"
+                                                data-td-target-input="nearest" data-td-target-toggle="nearest">
                                                 <input id="kt_td_picker_basic_2" name="end_date" type="text"
                                                     class="form-control" data-td-target="#kt_td_picker_basic"
                                                     placeholder="{{ $event->end_date }}" autocomplete="off"
@@ -169,11 +194,30 @@
                                     {{-- <div id="kt_docs_repeater_basic"> --}}
                                     <!--begin::Form group-->
                                     <div class="form-group px-6 row justify-content-center">
-                                        <div class="d-flex justify-content-between ps-0">
+                                        <div class="d-flex justify-content-between align-items-center flex-wrap ps-0">
                                             <!--begin::Title-->
-                                            <h3 class="card-title align-items-start flex-column">
+                                            <h3 class="card-title align-items-start flex-column px-3">
                                                 <span class="card-label fw-bold text-gray-800">Foto Dokumentasi</span>
                                             </h3>
+                                            <!--begin::Alert-->
+                                            @if ($event->is_start)
+                                                <div class="alert alert-warning d-flex align-items-center p-5">
+                                                    <!--begin::Icon-->
+                                                    <i class="ki-duotone ki-shield-tick fs-2hx text-success me-4"><span
+                                                            class="path1"></span><span class="path2"></span></i>
+                                                    <!--end::Icon-->
+
+                                                    <!--begin::Wrapper-->
+                                                    <div class="d-flex flex-column">
+                                                        <!--begin::Title-->
+                                                        <h4 class="mb-1 text-dark">Event Belum Dimulai</h4>
+                                                        <!--end::Title-->
+                                                    </div>
+                                                    <!--end::Wrapper-->
+                                                </div>
+
+                                                <!--end::Alert-->
+                                            @endif
 
                                             {{-- <span
                                                 class="badge bg-hover-success text-hover-white badge-light-success cursor-pointer"
@@ -181,12 +225,15 @@
                                             <!--end::Title-->
                                         </div>
 
-                                        <div class="row row-cols-3 w-100 mt-3" id="documentation-list">
+                                        <div class="row row-cols-3 justify-content-berween w-100 mt-3 p-0"
+                                            id="documentation-list">
                                             @foreach ($event->documentations as $documentation)
-                                                <div class="col wraper position-relative rounded p-0">
+                                                <div class="col wraper position-relative rounded"
+                                                    id="documentation-img-{{ $documentation->id }}">
                                                     <span
-                                                        class="delete-documentation position-absolute bg-danger text-white m-1 top-0 end-0 rounded-1"
-                                                        data-id="{{ $documentation->id }}"><svg
+                                                        class="delete-documentation position-absolute bg-danger text-white rounded-1"
+                                                        data-id="{{ $documentation->id }}"
+                                                        style="top: 5px; right: 15px;"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="20"
                                                             height="20" fill="currentColor" class="bi bi-dash-lg"
                                                             viewBox="0 0 16 16">
@@ -195,26 +242,27 @@
                                                         </svg></span>
                                                     <img class="w-100 rounded"
                                                         src="{{ asset('storage/' . $documentation->media) }}"
-                                                        alt="">
+                                                        alt="" style="aspect-ratio: 3/2; object-fit: cover;">
                                                 </div>
                                             @endforeach
                                         </div>
 
                                         <!--begin::Dropzone-->
-                                        <div class="dropzone mt-5" id="kt_dropzonejs_example_1">
-                                            <!--begin::Message-->
-                                            <div class="dz-message needsclick">
-                                                <i class="ki-duotone ki-file-up fs-3x text-primary"><span
-                                                        class="path1"></span><span class="path2"></span></i>
-
-                                                <!--begin::Info-->
-                                                <div class="ms-4">
-                                                    <h3 class="fs-5 fw-bold text-gray-900 mb-1">Drop files here or
-                                                        click to upload.</h3>
-                                                    <span class="fs-7 fw-semibold text-gray-500">Upload up to 10
-                                                        files</span>
+                                        <div class="px-3">
+                                            <div class="dropzone mt-5" id="kt_dropzonejs_example_1">
+                                                <!--begin::Message-->
+                                                <div class="dz-message needsclick">
+                                                    <i class="ki-duotone ki-file-up fs-3x text-primary"><span
+                                                            class="path1"></span><span class="path2"></span></i>
+                                                    <!--begin::Info-->
+                                                    <div class="ms-4">
+                                                        <h3 class="fs-5 fw-bold text-gray-900 mb-1">Drop files here or
+                                                            click to upload.</h3>
+                                                        <span class="fs-7 fw-semibold text-gray-500">Upload up to 10
+                                                            files</span>
+                                                    </div>
+                                                    <!--end::Info-->
                                                 </div>
-                                                <!--end::Info-->
                                             </div>
                                         </div>
                                         <!--end::Dropzone-->
@@ -240,6 +288,25 @@
         </form>
     </div>
     <x-delete-modal-component />
+@endsection
+@section('css')
+    <style>
+        .preview img {
+            width: 100%;
+        }
+
+        .thumbnail-preview {
+            aspect-ratio: 2.5/1;
+        }
+    </style>
+    @if ($event->is_start)
+        <style>
+            .dropzone {
+                cursor: not-allowed !important;
+                pointer-events: none;
+            }
+        </style>
+    @endif
 @endsection
 @section('script')
     <script src="{{ asset('app-assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
@@ -374,9 +441,13 @@
                             '_token': csrfToken,
                             'id': id
                         },
-                        dataType: "dataType",
-                        success: function(response) {
-                            location.reload();
+                        success: res => {
+                            console.log(res); // Ini akan menampilkan data respons di console
+                            $(`#documentation-img-${id}`).remove()
+                        },
+                        error: err => {
+                            console.error(err); // Menampilkan kesalahan jika ada
+                            alert('Terjadi kesalahan saat menghapus foto dokumentasi');
                         }
                     });
                 }
@@ -412,11 +483,41 @@
         });
 
         $('#submit-btn').click(function() {
-            if(myDropzone.getQueuedFiles().length > 0) {
+            if (myDropzone.getQueuedFiles().length > 0) {
                 myDropzone.processQueue();
             } else {
                 $('#update-form').submit();
             }
         })
+
+        // console.log($('#input-thumbnail'));
+        $('#input-thumbnail').change(function() {
+            var file = $(this)[0].files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                $('.thumbnail-preview').attr('src', reader.result);
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                $('.thumbnail-preview').attr('src', '');
+            }
+        });
+        $('#input-photo').change(function() {
+            var file = $(this)[0].files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                $('.photo-preview').attr('src', reader.result);
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                $('.photo-preview').attr('src', '');
+            }
+        });
     </script>
 @endsection

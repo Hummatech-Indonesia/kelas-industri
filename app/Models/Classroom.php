@@ -96,4 +96,14 @@ class Classroom extends Model
     {
         return $this->belongsTo(Devision::class, 'devision_id');
     }
+
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class, 'classroom_id');
+    }
+
+    public function challenges(): HasMany
+    {
+        return $this->hasMany(Challenge::class, 'classroom_id');
+    }
 }

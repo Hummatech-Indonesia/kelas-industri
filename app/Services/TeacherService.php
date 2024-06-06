@@ -9,6 +9,7 @@ use App\Http\Requests\TeacherRequest;
 use App\Repositories\TeacherRepository;
 use App\Http\Requests\UserPasswordRequest;
 use App\Repositories\TeacherClassroomRepository;
+use SebastianBergmann\Type\NullType;
 
 class TeacherService
 {
@@ -125,5 +126,10 @@ class TeacherService
     public function handleDeleteTeacherClassroom(int $teacherClassroomId): void
     {
         $this->teacherClassroomRepository->destroy($teacherClassroomId);
+    }
+    public function handleGetStatistic(string | null $teacherSchoolId): mixed
+    {
+        $teacher = $this->repository->get_statistic($teacherSchoolId);
+        // $student = 
     }
 }

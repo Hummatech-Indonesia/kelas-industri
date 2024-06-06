@@ -226,8 +226,8 @@
 
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
-                                <a href="{{ route('student.event.index') }}"
-                                    class="menu-link {{ request()->routeIs('student.event.index') ? 'active' : '' }}"><span
+                                <a href="{{ route('student.events.index') }}"
+                                    class="menu-link {{ request()->routeIs('student.events.index') || request()->routeIs('student.events.show') ? 'active' : '' }}"><span
                                         class="menu-title">Event</span></a>
                                 <!--end:Menu link-->
                             </div>

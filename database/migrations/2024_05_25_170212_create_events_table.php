@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('description');
             $table->string('thumnail');
             $table->string('photo');
+            $table->text('location');
             $table->integer('limit_participant')->unsigned()->nullable()->default(null);
             $table->foreignUuid('for_school')->nullable()->constrained('users')->default(null);
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
             $table->timestamps();
         });
     }

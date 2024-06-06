@@ -11,7 +11,8 @@ class EventPartisipantController extends Controller
 {
     private EventParticipantService $service;
 
-    public function __construct(EventParticipantService $service) {
+    public function __construct(EventParticipantService $service)
+    {
         $this->service = $service;
     }
     /**
@@ -42,8 +43,8 @@ class EventPartisipantController extends Controller
      */
     public function store(Event $event)
     {
-        if($this->service->handleCreate($event, auth()->user()->id) == 'limit') {
-            return redirect()->back()->with('error','Kuota peserta sudah penuh');
+        if ($this->service->handleCreate($event, auth()->user()->id) == 'limit') {
+            return redirect()->back()->with('error', 'Kuota peserta sudah penuh');
         }
         return redirect()->back()->with("success", "Berhasil mengikuti event");
     }
@@ -77,9 +78,10 @@ class EventPartisipantController extends Controller
      * @param  \App\Models\EventPartisipant  $eventPartisipant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EventPartisipant $eventPartisipant)
+    public function update(Request $request, $eventPartisipant)
     {
-        //
+        $this->service->handleSetCertificate($request, $eventPartisipant);
+        // return redirect()->back()->with("success","Berhasil memberikan sertifikat");
     }
 
     /**
@@ -88,8 +90,10 @@ class EventPartisipantController extends Controller
      * @param  \App\Models\EventPartisipant  $eventPartisipant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EventPartisipant $eventPartisipant)
+    public function destroy(Event $event)
     {
-        //
+        // dd($event->id);
+        $this->service->handleDelete($event->id, auth()->user()->id);
+        return redirect()->route('student.events.show', $event->id)->with('success','Sukses batal mengikuti');
     }
 }

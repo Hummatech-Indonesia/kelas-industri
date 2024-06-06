@@ -1,4 +1,6 @@
-'schools' => $this->userService->handleGetAllSchool(),
+@php
+    use Carbon\Carbon;
+@endphp
 @extends('dashboard.admin.layouts.app')
 @section('css')
     <link rel="stylesheet" href="{{ asset('owlcarousel/owl.carousel.min.css') }}">
@@ -12,20 +14,23 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Tambah Event
+                Detail Event
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman tambah event
+                Halaman detail event
             </p>
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
         <!--begin::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <a href="{{ route('admin.events.participants', $event->id) }}"
+                class="btn btn-primary btn-active-light-primary h-40px fs-7 fw-bold">Lihat Peserta
+            </a>
             <a href="{{ route('admin.events.index') }}"
                 class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                 <i class="bi bi-arrow-left me-2"></i> Kembali
@@ -80,26 +85,25 @@
             </div>
             <!--end::About-->
 
-            <!--begin::Section-->
-            <div class="mb-16">
-                <!--begin::Top-->
-                <div class="text-center mb-12">
-                    <!--begin::Title-->
-                    <h3 class="fs-2hx text-gray-900 mb-5">Dokumentasi Event</h3>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_documentattion">Tambah
-                        Dokumentasi</button>
-                    <!--end::Title-->
+            @if ($event->start_date >= Carbon::now())
+                <!--begin::Section-->
+                <div class="mb-16">
+                    <!--begin::Top-->
+                    <div class="text-center mb-12">
+                        <!--begin::Title-->
+                        <h3 class="fs-2hx text-gray-900 mb-5">Dokumentasi Event</h3>
+                        <!--end::Title-->
 
-                    <!--begin::Text-->
-                    {{-- <div class="fs-5 text-muted fw-semibold">
+                        <!--begin::Text-->
+                        {{-- <div class="fs-5 text-muted fw-semibold">
                         Dokumentasi hasil foto
                     </div> --}}
-                    <!--end::Text-->
-                </div>
-                <!--end::Top-->
+                        <!--end::Text-->
+                    </div>
+                    <!--end::Top-->
 
-                <!--begin::Row-->
-                {{-- <div class="row g-10">
+                    <!--begin::Row-->
+                    {{-- <div class="row g-10">
                     <!--begin::Col-->
                     <div class="col-md-4">
                         <!--begin::Publications post-->
@@ -278,19 +282,19 @@
                     <!--end::Col-->
                 </div> --}}
 
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 gap-3">
-                    @foreach ($event->documentations as $documentation)
-                        {{-- <div class="col"> --}}
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 gap-3">
+                        @foreach ($event->documentations as $documentation)
+                            {{-- <div class="col"> --}}
                             <img src="{{ asset('storage/' . $documentation->media) }}" alt=""
                                 class="documentation_image col w-300px m-auto"
                                 data-image="{{ asset('storage/' . $documentation->media) }}">
-                        {{-- </div> --}}
-                    @endforeach
+                            {{-- </div> --}}
+                        @endforeach
+                    </div>
+                    <!--end::Row-->
                 </div>
-                <!--end::Row-->
-            </div>
-            <!--end::Section-->
-
+                <!--end::Section-->
+            @endif
 
 
             <!--begin::Team-->
@@ -753,6 +757,27 @@
                 <!--end::Body-->
             </div> --}}
             <!--end::Card-->
+
+            <div class="mb-7">
+                <div class="row">
+                    <div class="col">
+                        <p>Acara</p>
+                    </div>
+                    <div class="col-11">: {{ $event->title }}</div>
+                    <div class="col">
+                        <p>Tanggal</p>
+                    </div>
+                    <div class="col-11">: {{ Carbon::parse($event->start_date)->format('H:m') }}</div>
+                    <div class="col">
+                        <p>Waktu</p>
+                    </div>
+                    <div class="col-11">: {{ $event->title }}</div>
+                    <div class="col">
+                        <p>Tempat</p>
+                    </div>
+                    <div class="col-11">: {{ $event->location }}</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -764,28 +789,6 @@
         </div>
     </div>
 
-    <div class="modal" tabindex="-1" id="add_documentattion">
-        <form action="{{ route('admin.eventDocumentation.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="event_id" value="{{ $event->id }}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title border-0">Modal title</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="photo" class="form-label">Foto Dokumentasi</label>
-                            <input type="file" class="form-control" name="photo" id="photo" />
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
     <x-delete-modal-component />
     @php
         $documentation_count = count($event->documentations);

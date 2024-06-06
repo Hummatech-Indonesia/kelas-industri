@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use App\Models\Event;
+use App\Traits\DataSidebar;
+use App\Services\EventService;
 use App\Services\UserServices;
 use App\Services\SchoolService;
 use App\Http\Requests\EventRequest;
-use App\Traits\DataSidebar;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\UpdateEventRequest;
-use App\Services\EventService;
-use App\Traits\DataSidebar;
+
+use App\Services\EventParticipantService;
+use Carbon\Carbon;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -20,12 +24,14 @@ class EventController extends Controller
     private SchoolService $schoolService;
     private UserServices $userService;
     private EventService $service;
+    private EventParticipantService $eventParticipantService;
 
-    public function __construct(SchoolService $schoolService, UserServices $userService, EventService $service)
+    public function __construct(SchoolService $schoolService, UserServices $userService, EventService $service, EventParticipantService $eventParticipantService)
     {
         $this->schoolService = $schoolService;
         $this->userService = $userService;
         $this->service = $service;
+        $this->eventParticipantService = $eventParticipantService;
     }
     /**
      * Display a listing of the resource.
@@ -34,12 +40,33 @@ class EventController extends Controller
      */
     public function index(): View
     {
-        return view("dashboard.admin.pages.event.index");
+        $schools = $this->schoolService->handleGetPaginate();
+        $parameters = null;
+
+        if (request()->has('search')) {
+            $schools = $this->schoolService->handleSearch(request()->search);
+            $parameters = request()->query();
+        }
+        $data = [
+            'schools' => $schools,
+            'parameters' => $parameters,
+            'events' => $this->service->handleGetPaginate(6),
+        ];
+        return view('dashboard.admin.pages.event.school', $data);
     }
 
-    public function studentEvent():View{
-        $data=$this->GetDataSidebar();
-        return view('dashboard.user.pages.event.index',$data);
+    public function studentEvent(): View
+    {
+        $data = $this->GetDataSidebar();
+        $data['events'] = $this->service->handleGetPaginate(6);
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('HTML.Allowed', '');
+        $purifier = new HTMLPurifier($config);
+
+        foreach ($data['events'] as $event) {
+            $event->description = $purifier->purify($event->description);
+        }
+        return view('dashboard.user.pages.event.index', $data);
     }
 
 
@@ -55,7 +82,7 @@ class EventController extends Controller
         $data = [
             'schools' => $schools,
             'parameters' => $parameters,
-            'events' => $this->service->handleGetPaginate(),
+            'events' => $this->service->handleGetPaginate(6),
         ];
         return view('dashboard.admin.pages.event.school', $data);
     }
@@ -93,12 +120,22 @@ class EventController extends Controller
     {
         $data = $this->GetDataSidebar();
         $data['event'] = $event;
+        // $data['event']->is_start = $event->start_date > now();
+        $data['participant'] = $this->eventParticipantService->checkFollowing($event->id, auth()->user()->id);
 
+        // dd($data);
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             return view('dashboard.admin.pages.event.detail', $data);
         } else if (auth()->user()->roles->pluck('name')[0] == 'student') {
             return view('dashboard.user.pages.event.detail', $data);
         }
+    }
+
+    public function showParticipants(Event $event)
+    {
+        $data['event'] = $event;
+
+        return view('dashboard.admin.pages.event.participant', $data);
     }
 
     /**
@@ -111,6 +148,7 @@ class EventController extends Controller
     {
         $data['schools'] = $this->userService->handleGetAllSchool();
         $data['event'] = $event;
+        $data['event']->is_start = $event->start_date < Carbon::now();
         return view('dashboard.admin.pages.event.edit', $data);
     }
 
@@ -121,11 +159,15 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(EventRequest $request, $id)
+    public function update(EventRequest $request, Event $event)
     {
-        $this->service->handleUpdate($id, $request);
+        // dd($request);
+        if ($event->start_date < now() && $request->file) {
+            return redirect()->back()->with('error', 'Belum Saatnya mengisi foto dokumentasi.');
+        }
+        $this->service->handleUpdate($event, $request);
 
-        return to_route('admin.events.edit', $id)->with('success', trans('update_success'));
+        return to_route('admin.events.edit', $event->id)->with('success', trans('update_success'));
     }
 
     /**
@@ -136,6 +178,7 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $this->service->handleDelete($event);
+        return back()->with('success', trans('alert.delete_success'));
     }
 }

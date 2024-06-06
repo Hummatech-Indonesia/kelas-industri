@@ -1,4 +1,3 @@
-'schools' => $this->userService->handleGetAllSchool(),
 @extends('dashboard.admin.layouts.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
@@ -53,16 +52,6 @@
                             </div>
 
                             <div class="card-toolbar">
-
-                                <a href="http://localhost:8000/admin/schools"
-                                    class="btn btn-light-primary font-weight-bolder me-2">
-
-                                    <i class="ki ki-long-arrow-back icon-sm"></i>
-
-                                    Kembali
-
-                                </a>
-
                                 <div class="btn-group">
 
                                     <button type="submit" class="btn btn-primary font-weight-bolder">
@@ -107,13 +96,25 @@
                                     </div> --}}
 
                                     <div class="form-group row mb-3">
+                                        <div class="preview w-100 my-3">
+                                            <img src="" alt="" class="thumbnail-preview d-none rounded">
+                                        </div>
+
+                                        <label class="col-xl-3 col-lg-3 col-form-label">Thumbnail</label>
+
+                                        <div class="col-lg-9 col-xl-9">
+                                            <input class="form-control form-control-solid form-control-lg" name="thumnail"
+                                                type="file" id="input-thumbnail" placeholder="Masukkan Foto Thumnail">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
 
                                         <label class="col-xl-3 col-lg-3 col-form-label">Judul</label>
 
                                         <div class="col-lg-9 col-xl-9">
 
                                             <input class="form-control form-control-solid form-control-lg" name="title"
-                                                type="text" value="{{ old('title') }}" placeholder="judul event"
+                                                type="text" value="{{ old('title') }}" placeholder="Judul event"
                                                 required="">
 
                                         </div>
@@ -121,24 +122,35 @@
                                     </div>
 
                                     <div class="form-group row mb-3">
+                                        <div class="preview  my-3">
+                                            <img src="" alt="" class="photo-preview d-none rounded">
+                                        </div>
+
+                                        <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
+
+                                        <div class="col-lg-9 col-xl-9">
+                                            <input class="form-control form-control-solid form-control-lg" name="photo"
+                                                type="file" id="input-photo" placeholder="Masukkan Foto">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
 
                                         <label class="col-xl-3 col-lg-3 col-form-label">Deskripsi</label>
 
                                         <div class="col-lg-9 col-xl-9">
 
                                             <textarea rows="5" name="description" type="text" class="form-control form-control-solid"
-                                                placeholder="deskripsi tantangan">{{ old('description') }}</textarea>
+                                                placeholder="Deskripsi tantangan" id="kt_docs_ckeditor_classic">{{ old('description') }}</textarea>
 
                                         </div>
-
                                     </div>
                                     <div class="form-group row mb-3">
 
-                                        <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
+                                        <label class="col-xl-3 col-lg-3 col-form-label">Lokasi</label>
 
                                         <div class="col-lg-9 col-xl-9">
-                                            <input class="form-control form-control-solid form-control-lg" name="photo"
-                                                type="file" placeholder="Masukkan Foto">
+                                            <textarea class="form-control form-control-solid form-control-lg" name="location" placeholder="Lokasi" min="1"
+                                                value="{{ old('limit_participant') }}"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row mb-3">
@@ -147,8 +159,9 @@
 
                                         <div class="col-lg-9 col-xl-9">
                                             <input class="form-control form-control-solid form-control-lg"
-                                                name="limit_participant" type="number" placeholder="Batas peserta (opsional)"
-                                                min="1" value="{{ old('limit_participant') }}">
+                                                name="limit_participant" type="number"
+                                                placeholder="Batas peserta (opsional)" min="1"
+                                                value="{{ old('limit_participant') }}">
                                         </div>
                                     </div>
 
@@ -179,8 +192,8 @@
 
                                         <div class="col-lg-9 col-xl-9">
 
-                                            <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
-                                                data-td-target-toggle="nearest">
+                                            <div class="input-group" id="kt_td_picker_simple"
+                                                data-td-target-input="nearest" data-td-target-toggle="nearest">
                                                 <input id="kt_td_picker_basic_2" name="end_date" type="text"
                                                     class="form-control" data-td-target="#kt_td_picker_basic"
                                                     placeholder="04/03/2023, 14.00" autocomplete="off" />
@@ -204,6 +217,17 @@
     </div>
     <x-delete-modal-component />
 @endsection
+@section('css')
+    <style>
+        .preview img {
+            width: 400px;
+        }
+
+        .thumbnail-preview {
+            aspect-ratio: 2.5/1;
+        }
+    </style>
+@endsection
 @section('script')
     <script src="{{ asset('app-assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
     <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
@@ -221,8 +245,9 @@
 
 
         $(document).on('click', '.delete', function() {
-            const url = "{{ route('admin.rollingMentor.deleteRollingMentor', ':id') }}".replace(':id', $(this).data(
-                'id'))
+            const url = "{{ route('admin.rollingMentor.deleteRollingMentor', ':id') }}".replace(':id', $(this)
+                .data(
+                    'id'))
             $('#form-delete').attr('action', url)
 
             $('#kt_modal_delete').modal('show')
@@ -234,5 +259,37 @@
             const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
             datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
         })
+
+
+        $('#input-thumbnail').change(function() {
+            var file = $(this)[0].files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                $('.thumbnail-preview').attr('src', reader.result);
+                $('.thumbnail-preview').removeClass('d-none');
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                $('.thumbnail-preview').attr('src', '');
+            }
+        });
+        $('#input-photo').change(function() {
+            var file = $(this)[0].files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                $('.photo-preview').attr('src', reader.result);
+                $('.photo-preview').removeClass('d-none');
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                $('.photo-preview').attr('src', '');
+            }
+        });
     </script>
 @endsection

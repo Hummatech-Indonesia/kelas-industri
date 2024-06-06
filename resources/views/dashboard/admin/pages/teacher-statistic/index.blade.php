@@ -66,27 +66,25 @@
                                 <tr class="fw-semibold fs-6 text-gray-800">
                                     <th class="text-center">No</th>
                                     <th class="text-center">Nama Guru</th>
+                                    <th class="text-center">Jurnal</th>
                                     <th class="text-center">Tugas Dikoreksi</th>
-                                    <th class="text-center">Tugas Belum Dikoreksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 0; $i < 10; $i++)
+                                @forelse ($teachers as $teacher)
+                                {{-- @dd($teacher->teacher->journals->count()) --}}
+                                {{-- @dd($teacher->teacherschool) --}}
                                     <tr>
                                         <td class="text-center align-middle">1</td>
-                                        <td class="text-center align-middle">Nama Siswa 1</td>
-                                        <td class="text-center align-middle">
-                                            <span class="badge"
-                                                style="color: #1ECA56; background-color: #D2FFE9;">10</span>
-                                        </td>
-                                        <td class="text-center align-middle">
-                                            <span class="badge"
-                                                style="color: #FF0000; background-color: #FFE4E4;">10</span>
-                                        </td>
+                                        <td class="text-center align-middle">{{ $teacher->name }}</td>
+                                        <td class="text-center align-middle">{{ $teacher->teacher->journals_count }}</td>
+                                        {{-- <td class="text-center align-middle">{{ $teacher->teacherschool->submit_assignments_count }}</td> --}}
 
 
                                     </tr>
-                                @endfor
+                                    @empty
+                                    <x-empty-component title="guru"/>
+                                @endif
 
                             </tbody>
                         </table>

@@ -313,4 +313,8 @@ class UserServices
     {
         return $this->repository->get_dependent_by_id($user);
     }
+
+    public function teacherStatistic(string | null $schoolId) {
+        return $this->repository->teacherStatistic($schoolId);
+    }
 }

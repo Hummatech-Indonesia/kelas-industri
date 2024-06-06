@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\EventRequest;
 use App\Repositories\EventRepository;
+use Illuminate\Support\Facades\Storage;
 
 class EventService
 {
@@ -14,7 +15,8 @@ class EventService
         $this->repository = $repository;
     }
 
-    public function handleShow($id): mixed {
+    public function handleShow($id): mixed
+    {
         return $this->repository->show($id);
     }
 
@@ -23,26 +25,39 @@ class EventService
         $data = $request->validated();
 
         $data['photo'] = $request->file('photo')->store('event', 'public');
+        $data['thumnail'] = $request->file('thumnail')->store('event', 'public');
         return $this->repository->store($data);
     }
-    public function handleUpdate($id, EventRequest $request): mixed
+    public function handleUpdate($event, EventRequest $request): mixed
     {
         $data = $request->validated();
+        // dd($data);
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('event', 'public');
+            $delete = Storage::delete('public/' . $event->photo);
         }
-        return $this->repository->update($id, $data);
+        if ($request->hasFile('thumnail')) {
+            $data['thumnail'] = $request->file('thumnail')->store('event', 'public');
+            $delete = Storage::delete('public/' . $event->thumnail);
+        }
+        return $this->repository->update($event->id, $data);
     }
     public function handleGetNotStarted(): mixed
     {
         return $this->repository->getNotStarted();
     }
-    public function handleDelete(int $id): mixed
+    public function handleDelete($event): mixed
     {
-        return $this->repository->destroy($id);
+        if ($event->photo) {
+            $delete = Storage::delete('public/' . $event->photo);
+        }
+        if ($event->thumnail) {
+            $delete = Storage::delete('public/' . $event->thumnail);
+        }
+        return $this->repository->destroy($event->id);
     }
-    public function handleGetPaginate(): mixed
+    public function handleGetPaginate(int $paginate): mixed
     {
-        return $this->repository->get_paginate(6);
+        return $this->repository->get_with_participant_paginate($paginate);
     }
 }

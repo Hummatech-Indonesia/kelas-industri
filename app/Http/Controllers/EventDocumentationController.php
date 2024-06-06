@@ -96,6 +96,6 @@ class EventDocumentationController extends Controller
     {
         $this->service->handleDelete($eventDocumentation);
         // return back()->with('success', 'Berhasil menghapus foto dokumentasi');
-        return response()->json();
+        return response()->json('sucess');
     }
 }

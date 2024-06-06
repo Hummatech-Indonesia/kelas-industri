@@ -30,4 +30,14 @@ class TeacherRepository extends BaseRepository
             ->where('school_id', 'like', '%' . $schoolId . '%')
             ->paginate($limit);
     }
+
+    public function get_statistic(string|null $schoolId): mixed
+    {
+        return $this->model->query()
+            ->with(['teacher' => function ($query) {
+                $query->withCount('journals');
+            }])
+            ->with(['teacherClassrooms.classroom'])
+            ->get();
+    }
 }
