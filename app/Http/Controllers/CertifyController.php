@@ -164,8 +164,8 @@ class CertifyController extends Controller
             $font->align('center');
             $font->valign('top');
         });
-        $text = $class . substr($classroom->generation->generation, 9) . Carbon::now()->locale('id')->format('ymd') . substr(auth()->user()->national_student_id, 6);
-        $spacedText = implode('  ', str_split($text));
+        $code = '23' . Carbon::now()->locale('id')->isoFormat('YYYYMMDD') . mt_rand(0, 9999);
+        $spacedText = implode('  ', str_split($code));
         $img->text($spacedText, 1045, 340, function ($font) {
             $font->file('fonts/poppins/Poppins-Regular.ttf');
             $font->size(42);
@@ -231,7 +231,7 @@ class CertifyController extends Controller
         // Generate QR code and store it in output buffer
         ob_start();
         // QrCode::size(100)->format('png')->generate('https://class.hummatech.com/', 'php://output');
-        QrCode::size(100)->format('png')->generate(route('student.events.verify-certification', ['participant' => EventPartisipant::where('user_id', auth()->user()->id)->first()->id, 'event' => $event->id]), 'php://output');
+        QrCode::size(100)->format('png')->generate(route('events.verify-certification', ['participant' => EventPartisipant::where('user_id', auth()->user()->id)->first()->id, 'event' => $event->id]), 'php://output');
         $qrImage = ob_get_clean();
 
         // Create image from the QR code string and place it at the bottom-right of the certificate
@@ -290,8 +290,8 @@ class CertifyController extends Controller
             $font->align('center');
             $font->valign('top');
         });
-        $text = $class . substr($classroom->generation->generation, 9) . Carbon::now()->locale('id')->format('ymd') . substr($participant->user->national_student_id, 6);
-        $spacedText = implode('  ', str_split($text));
+        $code = '23' . Carbon::now()->locale('id')->isoFormat('YYYYMMDD') . mt_rand(0, 9999);
+        $spacedText = implode('  ', str_split($code));
         $img->text($spacedText, 1045, 340, function ($font) {
             $font->file('fonts/poppins/Poppins-Regular.ttf');
             $font->size(42);
@@ -305,31 +305,38 @@ class CertifyController extends Controller
             $font->align('center');
             $font->valign('top');
         });
-        $img->text(auth()->user()->name, 975, 500, function ($font) {
-            $font->file('fonts/Pinyon_Script/PinyonScript-Regular.ttf');
+        $img->text($participant->user->name, 1000, 500, function ($font) {
+            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
             $font->size(140);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text('Dari ' . auth()->user()->studentSchool->school->name, 1000, 700, function ($font) {
+        $img->text('Sebagai', 1000, 660, function ($font) {
             $font->file('fonts/open-sans/OpenSans-Bold.ttf');
-            $font->size(34);
+            $font->size(30);
+            // $font->color('77838D');
             $font->align('center');
             $font->valign('top');
         });
-        $img->text('Telah berpatisipasi dalam acara', 1000, 775, function ($font) {
+        $img->text('Peserta', 1000, 710, function ($font) {
+            $font->file('fonts/open-sans/OpenSans-Bold.ttf');
+            $font->size(40);
+            $font->align('center');
+            $font->valign('top');
+        });
+        $img->text('Dalam ' . $event->title, 1000, 775, function ($font) {
             $font->file('fonts/open-sans/OpenSans-Regular.ttf');
             $font->size(30);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($event->title, 1000, 830, function ($font) {
+        $img->text('yang diselenggarakan oleh PT Humma Teknologi Indonesia', 1050, 830, function ($font) {
             $font->file('fonts/open-sans/OpenSans-Bold.ttf');
             $font->size(30);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text('Malang, ' . Carbon::parse($participant->updated_at)->locale('id')->isoFormat('D MMMM YYYY'), 1000, 885, function ($font) {
+        $img->text(Carbon::parse($participant->updated_at)->locale('id')->isoFormat('D MMMM YYYY'), 1000, 885, function ($font) {
             $font->file('fonts/open-sans/OpenSans-Regular.ttf');
             $font->size(30);
             $font->align('center');
@@ -345,12 +352,10 @@ class CertifyController extends Controller
             $font->size(30);
             $font->align('center');
         });
-
-        $code = $class . substr($classroom->generation->generation, 9) . Carbon::parse($participant->updated_at)->locale('id')->format('ymd') . substr(auth()->user()->national_student_id, 6);
         // Generate QR code and store it in output buffer
         ob_start();
         // QrCode::size(100)->format('png')->generate('https://class.hummatech.com/', 'php://output');
-        QrCode::size(100)->format('png')->generate(route('student.events.verify-certification', ['participant' => EventPartisipant::where('user_id', auth()->user()->id)->first()->id, 'event' => $event->id, 'number' => $code]), 'php://output');
+        QrCode::size(100)->format('png')->generate(route('events.verify-certification', ['participant' => $participant->user->id, 'event' => $event->id]), 'php://output');
         $qrImage = ob_get_clean();
 
         // Create image from the QR code string and place it at the bottom-right of the certificate
@@ -365,11 +370,8 @@ class CertifyController extends Controller
         $imgPath = $directory . '/sertifikat.png';
         $img->save($imgPath);
 
-        $tempPath = storage_path('app/public/storage/sertifikat/sertifikat.png');
-        $img->save($tempPath);
-
         // Convert the image to base64
-        $imageData = base64_encode(file_get_contents($tempPath));
+        $imageData = base64_encode(file_get_contents($imgPath));
         $src = 'data:image/png;base64,' . $imageData;
 
         $data['participant'] = $participant;

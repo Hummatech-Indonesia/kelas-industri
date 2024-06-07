@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
+use App\Traits\YajraTable;
 use App\Http\Requests\ZoomScheduleRequest;
 use App\Repositories\ZoomScheduleRepository;
-use App\Traits\YajraTable;
 
 class ZoomScheduleService
 {
@@ -36,6 +37,29 @@ class ZoomScheduleService
     public function handleCreate(ZoomScheduleRequest $request): void
     {
         $this->repository->store($request->validated());
+    }
+
+    public function handleCreateMultiple(ZoomScheduleRequest $request): void
+    {
+        $data = $request->validated();
+
+        // Tanggal mulai (misal 5 Juni 2024)
+        $startDate = Carbon::create($data['date']);
+
+        // Ambil tanggal pertama di bulan yang sama
+        $firstDayOfMonth = $startDate->copy()->startOfMonth();
+
+        // Ambil tanggal terakhir di bulan yang sama
+        $lastDayOfMonth = $startDate->copy()->endOfMonth();
+
+        // Loop dari tanggal mulai hingga akhir bulan
+        while ($startDate->lte($lastDayOfMonth)) {
+            $this->repository->store($data);
+            // dd($startDate->toDateTimeString());
+            // Tambah 1 minggu
+            $startDate->addWeek();
+            $data['date'] = $startDate->toDateTimeString();
+        }
     }
 
     /**

@@ -9,9 +9,9 @@
         <div class="d-flex flex-column flex-column-fluid">
             <!--begin::Content-->
 
-            <div id="kt_app_content" class="app-content  flex-column-fluid ">
+            <div id="kt_app_content" class="app-content position-relative flex-column-fluid ">
                 <div class="container">
-                    <div class="card opacity-50">
+                    <div class="card bg-white bg-opacity-50">
                         <div class="card-header justify-content-center border-0">
                             <h1 class="card-title fw-bold mt-5" style="font-size: 2.5rem;">Verifikasi Sertifikasi</h1>
                         </div>
@@ -23,7 +23,8 @@
                                         <span>:</span>
                                     </div>
                                     <div class="col-8">
-                                        <div class="w-100 py-3 ps-8 border border-2 rounded">{{ $participant->user->name }}
+                                        <div class="w-100 py-3 ps-2 ps-md-8 border border-2 rounded">
+                                            {{ $participant->user->name }}
                                         </div>
                                     </div>
                                     <div class="col-3">Pemberi</div>
@@ -31,22 +32,25 @@
                                         <span>:</span>
                                     </div>
                                     <div class="col-8">
-                                        <div class="w-100 py-3 ps-8 border border-2 rounded">Hummatech</div>
+                                        <div class="w-100 py-3 ps-2 ps-md-8 border border-2 rounded">PT Humma Teknologi
+                                            Indonesia</div>
                                     </div>
                                     <div class="col-3">Tanggal Diberikan</div>
                                     <div class="col-1">
                                         <span>:</span>
                                     </div>
                                     <div class="col-8">
-                                        <div class="w-100 py-3 ps-8 border border-2 rounded">
-                                            {{ Carbon::parse($participant->updated_at)->isoFormat('DD-mm-Y') }}</div>
+                                        <div class="w-100 py-3 ps-2 ps-md-8 border border-2 rounded">
+                                            {{ Carbon::parse($participant->updated_at)->locale('id')->format('d F Y') }}
+                                        </div>
                                     </div>
                                     <div class="col-3">Nomor Sertifikat</div>
                                     <div class="col-1">
                                         <span>:</span>
                                     </div>
                                     <div class="col-8">
-                                        <div class="w-100 py-3 ps-8 border border-2 rounded">{{ $number }}</div>
+                                        <div class="w-100 py-3 ps-2 ps-md-8 border border-2 rounded">{{ $number }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -56,6 +60,14 @@
                         </div>
                     </div>
                 </div>
+                <img src="{{ asset('storage/bg-sertifikat/event/bottom-left.png') }}" alt=""
+                    class="border-img bottom left">
+                <img src="{{ asset('storage/bg-sertifikat/event/bottom-right.png') }}" alt=""
+                    class="border-img bottom right">
+                <img src="{{ asset('storage/bg-sertifikat/event/top-left.png') }}" alt=""
+                    class="border-img top-left">
+                <img src="{{ asset('storage/bg-sertifikat/event/top-right.png') }}" alt=""
+                    class="border-img top-right">
             </div>
         </div>
     </div>
@@ -65,11 +77,40 @@
         @media only screen and (max-width: 600px) {
 
             .card .wraper {
-                max-width: 100%!important;
-                margin: 0!important;
+                max-width: 100% !important;
+                margin: 0 !important;
             }
+
             #preview {
-                width: 100%!important;
+                width: 100% !important;
+            }
+
+            #logo {
+                width: 140px !important;
+            }
+
+            .border-img.bottom {
+                width: 100px!important;
+            }
+
+            .border-img.bottom.left {
+                left: 0;
+            }
+
+            .border-img.bottom.right {
+                right: 0;
+            }
+
+            .border-img.top-left {
+                left: 10px!important;
+                top: 90px!important;
+                width: 50px!important;
+            }
+
+            .border-img.top-right {
+                right: 40px!important;
+                top: 80px!important;
+                width: 50px!important;
             }
         }
 
@@ -79,6 +120,37 @@
 
         #preview {
             width: 60%;
+        }
+
+        .border-img {
+            position: absolute;
+            z-index: -1;
+
+        }
+
+        .border-img.bottom {
+            width: 400px;
+            bottom: 0;
+        }
+
+        .border-img.bottom.left {
+            left: 0;
+        }
+
+        .border-img.bottom.right {
+            right: 0;
+        }
+
+        .border-img.top-left {
+            left: 120px;
+            top: 80px;
+            width: 150px;
+        }
+
+        .border-img.top-right {
+            right: 120px;
+            top: 50px;
+            width: 150px;
         }
     </style>
 @endsection
