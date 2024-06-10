@@ -241,7 +241,7 @@
             })
 
             $('#btn-search').click(function() {
-                window.location.href = "{{ route('admin.schools.index', 'search=' . ':id') }}".replace(
+                window.location.href = "{{ route('admin.events.index', 'search=' . ':id') }}".replace(
                     ':id', $("input[name='search']").val())
             })
         });

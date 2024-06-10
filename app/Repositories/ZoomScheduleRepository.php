@@ -40,4 +40,8 @@ class ZoomScheduleRepository extends BaseRepository
         ->orderBy('date', 'desc')
         ->first();
     }
+
+    public function get_latest(): mixed {
+        return $this->model->query()->latest()->first()->delete();
+    }
 }

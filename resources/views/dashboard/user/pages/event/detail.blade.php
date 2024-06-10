@@ -74,7 +74,7 @@
                                 <div class="overlay">
                                     <!--begin::Image-->
                                     <img class="w-100 h-500px card-rounded" src="{{ asset('storage/' . $event->photo) }}"
-                                        alt="">
+                                        alt="" style="">
                                     <!--end::Image-->
 
                                     <!--begin::Links-->

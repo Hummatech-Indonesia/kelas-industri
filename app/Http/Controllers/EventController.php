@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use HTMLPurifier;
-use HTMLPurifier_Config;
+use Carbon\Carbon;
 use App\Models\Event;
+use HTMLPurifier_Config;
 use App\Traits\DataSidebar;
+use Illuminate\Http\Request;
 use App\Services\EventService;
 use App\Services\UserServices;
 use App\Services\SchoolService;
 use App\Http\Requests\EventRequest;
+
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\UpdateEventRequest;
 
 use App\Services\EventParticipantService;
-use Carbon\Carbon;
-
 use function PHPUnit\Framework\returnSelf;
 
 class EventController extends Controller
@@ -38,7 +39,7 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $schools = $this->schoolService->handleGetPaginate();
         $parameters = null;
@@ -50,7 +51,7 @@ class EventController extends Controller
         $data = [
             'schools' => $schools,
             'parameters' => $parameters,
-            'events' => $this->service->handleGetPaginate(6),
+            'events' => $this->service->handleGetPaginate(6, $request->search),
         ];
         return view('dashboard.admin.pages.event.school', $data);
     }
@@ -58,7 +59,7 @@ class EventController extends Controller
     public function studentEvent(): View
     {
         $data = $this->GetDataSidebar();
-        $data['events'] = $this->service->handleGetPaginate(6);
+        $data['events'] = $this->service->handleGetPaginate(6, '');
         $config = HTMLPurifier_Config::createDefault();
         $config->set('HTML.Allowed', '');
         $purifier = new HTMLPurifier($config);

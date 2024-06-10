@@ -39,6 +39,7 @@ class TeacherRepository extends BaseRepository
                 $query->withCount('journals');
             }])
             ->with(['teacherClassrooms.classroom.students'])
+            ->where('school_id', $schoolId)
             ->get();
     }
 }

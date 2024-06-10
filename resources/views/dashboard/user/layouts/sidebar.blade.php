@@ -192,6 +192,41 @@
                                 </a>
                             @endif
                         @endif
+                        @if ($schoolPayment != null)
+                            @if ($schoolPayment->status == 'not_yet_paid')
+                                <a data-bs-toggle="tab" href="#kt_app_sidebar_schedule"
+                                    style="cursor: not-allowed; opacity: 0.5;" class="nav-link py-4 px-1"
+                                    @disabled(true)>
+                                    <i class="bi bi-file-earmark-text fs-1"></i>
+
+                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Ujian</span>
+                                </a>
+                            @else
+                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam"
+                                    class="nav-link py-4 px-1 btn">
+                                    <i class="bi bi-file-earmark-text fs-1"></i>
+
+                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold">Ujian</span>
+                                </a>
+                            @endif
+                        @else
+                            @if (!$isPaymentComplete)
+                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam"
+                                    style="cursor: not-allowed; opacity: 0.5;" class="nav-link py-4 px-1"
+                                    @disabled(true)>
+                                    <i class="bi bi-file-earmark-text fs-1"></i>
+
+                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Ujian</span>
+                                </a>
+                            @else
+                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam"
+                                    class="nav-link py-4 px-1 btn">
+                                    <i class="bi bi-file-earmark-text fs-1"></i>
+
+                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold">Ujian</span>
+                                </a>
+                            @endif
+                        @endif
                     @else
                         <a data-bs-toggle="tab" href="#kt_app_sidebar_schedule" class="nav-link py-4 px-1 btn">
                             <i class="bi bi-calendar3 fs-1"></i>
@@ -580,6 +615,69 @@
                                 </span>
                                 <!--end::Desctiption-->
                             @endforelse
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Collections-->
+                </div>
+                <!--end::Tab pane-->
+            </div>
+
+            <div class="tab-content px-5 px-lg-10">
+                <!--begin::Tab pane-->
+                <div class="tab-pane fade" id="kt_app_sidebar_exam" role="tabpanel">
+                    <!--begin::Collections-->
+                    <div class="card card-reset card-p-0">
+                        <div class="card-header pt-7 mb-5">
+                            <!--begin::Title-->
+                            <h3 class="card-title fw-bold text-gray-800">
+                                Ujian
+                            </h3>
+                            <!--end::Title-->
+                        </div>
+                        <!--begin::Body-->
+                        <div class="card-body">
+                            @foreach (range(0, 5) as $i)
+                                <div class="d-flex mb-3 flex-stack">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-40px me-4">
+                                        <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
+                                            {{ substr("PHP", 0, 1) }}
+                                        </div>
+                                    </div>
+                                    <!--end::Symbol-->
+
+                                    <!--begin::Section-->
+                                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                        <!--begin:Author-->
+                                        <div class="flex-grow-1 me-2">
+                                            <a href="#" target="blank"
+                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">Ujian PHP</a>
+
+                                            <span
+                                                class="text-muted fw-semibold d-block fs-7">{{ \Carbon\Carbon::now()->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
+                                        </div>
+                                        <!--end:Author-->
+                                    </div>
+                                    <!--end::Section-->
+                                </div>
+                                @endforeach
+                            {{-- @empty
+                                <!--begin::Illustration-->
+                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
+                                    alt="" />
+                                <!--end::Illustration-->
+
+                                <!--begin::Title-->
+                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                <!--end::Title-->
+
+                                <!--begin::Desctiption-->
+                                <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                    tidak ada ujian untuk saat ini.
+                                </span>
+                                <!--end::Desctiption-->
+                            @endforelse --}}
                         </div>
                         <!--end::Body-->
                     </div>

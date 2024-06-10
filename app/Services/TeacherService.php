@@ -127,9 +127,9 @@ class TeacherService
     {
         $this->teacherClassroomRepository->destroy($teacherClassroomId);
     }
-    public function handleGetStatistic(string | null $teacherSchoolId): mixed
+    public function handleGetStatistic(string | null $schoolId): mixed
     {
-        $teachers = $this->repository->get_statistic($teacherSchoolId);
+        $teachers = $this->repository->get_statistic($schoolId);
         $data = [];
         $challenge_salary = 5000;
         $assignment_salary = 10000;

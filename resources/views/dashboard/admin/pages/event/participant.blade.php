@@ -7,6 +7,7 @@
     </style>
 @endsection
 @section('content')
+{{-- @dd($event->participants) --}}
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
 
@@ -34,16 +35,19 @@
         </div>
     </div>
     <div class="content flex-column-fluid" id="kt_content">
-        <div class="row">
+        <div class="row gap-5">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header border-0">
+                        <h3 class="card-title">Daftar semua peserta</h3>
+                    </div>
 
                     <!--begin::Card body-->
                     <div class="card-body pt-0">
 
                         <!--begin::Table-->
 
-                        <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
+                        <table id="kt_datatable_all" class="table table-striped border rounded gy-5 gs-7">
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
@@ -69,20 +73,84 @@
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
                                 @foreach ($event->participants as $participant)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $participant->user->name }}</td>
-                                        <td>{{ $participant->user->studentSchool->school->name }}</td>
-                                        <td>{{ $participant->user->email }}</td>
-                                        <td>{{ $participant->user->phone_number }}</td>
-                                        <td>
-                                            <div class="form-check m-auto" style="width: fit-content;">
-                                                <input class="form-check-input check-certificate" type="checkbox"
-                                                    value="" id="flexCheckDefault"
-                                                    data-participant="{{ $participant->id }}" />
+                                    @if ($participant->get_cetificate != 1)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $participant->user->name }}</td>
+                                            <td>{{ $participant->user->studentSchool->school->name }}</td>
+                                            <td>{{ $participant->user->email }}</td>
+                                            <td>{{ $participant->user->phone_number }}</td>
+                                            <td>
+                                                <div class="form-check m-auto" style="width: fit-content;">
+                                                    <input class="form-check-input check-certificate" type="checkbox"
+                                                        value="" id="flexCheckDefault"
+                                                        data-participant="{{ $participant->id }}" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                    <!--end::Card body-->
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <h3 class="card-title">Daftar peserta yang mendapat sertifikat </h3>
+                    </div>
+
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0">
+
+                        <!--begin::Table-->
+
+                        <table id="kt_datatable_participat" class="table table-striped border rounded gy-5 gs-7">
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Asal Sekolah</th>
+                                    <th>Email</th>
+                                    <th>No Telp</th>
+                                    {{-- <th>
+                                        <div class="d-flex gap-3 justify-content-center">
+                                            Sertifkat
+                                            <div class="form-check">
+                                                <input class="form-check-input check-all" type="checkbox" value=""
+                                                    id="flexCheckDefault" id="check-all" />
                                             </div>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </th> --}}
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600">
+                                @foreach ($event->participants as $participant)
+                                    @if ($participant->get_cetificate == 1)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $participant->user->name }}</td>
+                                            <td>{{ $participant->user->studentSchool->school->name }}</td>
+                                            <td>{{ $participant->user->email }}</td>
+                                            <td>{{ $participant->user->phone_number }}</td>
+                                            {{-- <td>
+                                                <div class="form-check m-auto" style="width: fit-content;">
+                                                    <input class="form-check-input check-certificate" type="checkbox"
+                                                        value="" id="flexCheckDefault"
+                                                        data-participant="{{ $participant->id }}" />
+                                                </div>
+                                            </td> --}}
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                             <!--end::Table body-->
@@ -99,7 +167,10 @@
 @endsection
 @section('script')
     <script>
-        $("#kt_datatable_responsive").DataTable({
+        $("#kt_datatable_all").DataTable({
+            responsive: true
+        });
+        $("#kt_datatable_participat").DataTable({
             responsive: true
         });
     </script>

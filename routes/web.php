@@ -103,6 +103,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/detailJurnal/{classroom}/{journal}', [JurnalController::class, 'detailAttendance'])->name('journal.attendance');
 
         Route::get('/teacher-statistic',[TeacherStatisticController::class,'index'])->name('teacher.statistic.index');
+        Route::get('/teacher-statistic/{school}',[TeacherStatisticController::class,'show'])->name('teacher.statistic.show');
 
 
         Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
@@ -462,3 +463,4 @@ Route::get('verify/{material}/{classroom}/{user}', [CertifyController::class, 'm
 // Route::post('certify/events/', [CertifyController::class, 'eventVerification'])->name('events.verify-certification');
 Route::get('certify/events/{participant}/{event}/verification', [CertifyController::class, 'eventVerification'])->name('events.verify-certification');
 
+Route::get('zoom-testing', [ZoomScheduleController::class, 'first']);

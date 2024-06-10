@@ -99,4 +99,8 @@ class ZoomScheduleService
     {
         return $this->repository->get_zoom_schedule_mentor();
     }
+
+    public function handleGetLatest() {
+        return $this->repository->get_latest();
+    }
 }

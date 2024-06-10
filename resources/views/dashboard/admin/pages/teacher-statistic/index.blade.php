@@ -23,69 +23,40 @@
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form id="form-search" action="#">
-                <!--begin::Card-->
-                <div class="card mb-7">
-                    <!--begin::Card body-->
-                    <div class="card-body">
-                        <!--begin::Compact form-->
-                        <div class="d-flex align-items-center">
-                            <!--begin::Input group-->
-                            <div class="position-relative col-lg-10 col-md-12 me-3">
-                                <select name="filter" class="form-select form-select-solid" placeholder="Select an option"
-                                    data-control="select2">
-                                    <option value="">Semua Sekolah</option>
-                                    <option value="1">Sekolah A</option>
-                                    <option value="2">Sekolah B</option>
-                                    <option value="3">Sekolah C</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2 col-md-12 ms-3">
-                                <button type="submit" class="btn btn-primary">Cari</button>
-                                <a href="#" type="button" class="btn btn-light text-light ms-2"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="Muat Ulang">
-                                    <i class="fonticon-repeat"></i>
-                                </a>
-                            </div>
-                            <!--end::Input group-->
-                        </div>
-                        <!--end::Compact form-->
-                    </div>
-                    <!--end::Card body-->
-                </div>
-                <!--end::Card-->
-            </form>
-        </div>
-        <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="kt_datatable_responsive" class="table border rounded gy-5 gs-7">
+                        <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                             <thead>
-                                <tr class="fw-semibold fs-6 text-gray-800">
-                                    <th class="text-center">No</th>
-                                    <th class="text-center">Nama Guru</th>
-                                    <th class="text-center">Jurnal</th>
-                                    <th class="text-center">Tugas Dikoreksi</th>
-                                    <th class="text-center">Challenge Dikoreksi</th>
-                                    <th class="text-center">Total Gaji</th>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th data-priority="1">No</th>
+                                    <th data-priority="2">Sekolah</th>
+                                    <th data-priority="3">Detail</th>
                                 </tr>
+                                <!--end::Table row-->
                             </thead>
-                            <tbody>
-                                @forelse ($teacherSchools as $teacherSchool)
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600">
+                                @foreach ($schools as $school)
                                     <tr>
-                                        <td class="text-center align-middle">1</td>
-                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->name }}</td>
-                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->journals_count }}</td>
-                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->assignment_graded }}</td>
-                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->challenge_graded }}</td>
-                                        <td class="text-center align-middle">{{ $teacherSchool->teacher->salary }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+
+                                        <td>{{ $school->name }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.teacher.statistic.show', [$school->id]) }}">
+                                                <button class="btn btn-default btn-sm p-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                    data-bs-title="Detail Data">
+                                                    <i class="fa fa-eye fs-3 text-muted"></i>
+                                                </button>
+                                            </a>
+                                        </td>
                                     </tr>
-                                @empty
-                                    <x-empty-component title="guru" />
-                                @endif
+                                @endforeach
                             </tbody>
+                            <!--end::Table body-->
                         </table>
 
 
