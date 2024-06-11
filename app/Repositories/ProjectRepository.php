@@ -3,12 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Note;
-use App\Models\Project;
 use App\Models\Task;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class ProjectRepository extends BaseRepository
 {
+    private Note $note;
+    private Task $task;
+
     public function __construct(Project $project, Note $note, Task $task)
     {
         $this->model = $project;

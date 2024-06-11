@@ -19,6 +19,8 @@ use App\Models\Dependent;
 use App\Models\Assignment;
 use App\Models\Attendance;
 use App\Models\SubMaterial;
+use App\Models\QuestionBank;
+use App\Models\SubMaterialExam;
 use App\Observers\ExamObserver;
 use App\Observers\NewsObserver;
 use App\Observers\UserObserver;
@@ -37,6 +39,8 @@ use App\Observers\AssignmentObserver;
 use App\Observers\AttendanceObserver;
 use App\Observers\SubmaterialObserver;
 use Illuminate\Auth\Events\Registered;
+use App\Observers\QuestionBankObserver;
+use App\Observers\SubMaterialExamObserver;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -77,6 +81,8 @@ class EventServiceProvider extends ServiceProvider
         Dependent::observe(DependentObserver::class);
         Packages::observe(PackageObserver::class);
         Project::observe(ProjectObserver::class);
+        QuestionBank::observe(QuestionBankObserver::class);
+        SubMaterialExam::observe(SubMaterialExamObserver::class);
     }
 
     /**

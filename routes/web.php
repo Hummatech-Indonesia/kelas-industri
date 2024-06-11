@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\SubMaterialExam;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
@@ -44,16 +45,18 @@ use App\Http\Controllers\EventPartisipantController;
 use App\Http\Controllers\ExamStudentController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\QuestionBankController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\StudentPaymentController;
 use App\Http\Controllers\TripayCallbackController;
 use App\Http\Controllers\UserAssignmentController;
+use App\Http\Controllers\SubMaterialExamController;
 use App\Http\Controllers\TrackingPaymentController;
 use App\Http\Controllers\SchoolPackageController;
 use App\Http\Controllers\TeacherStatisticController;
+use App\Http\Controllers\PresentationFinishController;
+use App\Http\Controllers\SubMaterialExamQuestionController;
 use FontLib\Table\Type\name;
 
 /*
@@ -159,14 +162,29 @@ Route::middleware('auth.custom')->group(function () {
             'schedules' => ScheduleController::class,
             'events' => EventController::class,
             'eventDocumentation' => EventDocumentationController::class,
+            'sub-material-exam' => SubMaterialExamController::class,
         ]);
 
         Route::get('events/{event}/participants', [EventController::class, 'showParticipants'])->name('events.participants');
         Route::put('events/set-certificate/{event}', [EventPartisipantController::class, 'update'])->name('eventsParticipant.setCertificate');
         Route::post('eventDocumentation/store/{event}', [EventDocumentationController::class, 'storeMultiple'])->name('eventDocumentation.store-img');
+
+        Route::get('exam-taking-place', [SubMaterialExamController::class, 'examTakingPlace'])->name('exam-taking-place');
+        Route::get('exam-finnaly', [SubMaterialExamController::class, 'examFinnaly'])->name('exam-finnaly');
+
+        Route::get('exam-question/{subMaterialExam}', [SubMaterialExamController::class, 'examQuestion'])->name('exam-question');
+        Route::get('exam-question-manual/{submaterial}/{submaterialExam}', [SubMaterialExamController::class, 'examQuestionManual'])->name('exam-question-manual');
+
         Route::get('question-bank-multiplechoice/{submaterial}', [QuestionBankController::class, 'indexMultipleChoise'])->name('question-bank-multiplechoice');
         Route::get('question-bank-essay/{submaterial}', [QuestionBankController::class, 'indexEssay'])->name('question-bank-essay');
         Route::get('quetion-banks/{material}', [MaterialController::class, 'questionBank'])->name('questionBank');
+        Route::get('quetion-bank-detail/{submaterial}', [QuestionBankController::class, 'show'])->name('quetion-bank-detail');
+
+        Route::post('question-bank-manual/{submaterialExam}', [SubMaterialExamQuestionController::class, 'manual'])->name('questionBank.manual');
+        Route::post('question-bank-auto/{submaterialExam}', [SubMaterialExamQuestionController::class, 'auto'])->name('questionBank.auto');
+        Route::resource('submaterialExamQuestion', SubMaterialExamQuestionController::class)->only('destroy');
+
+        Route::post('question-bank-store-essay', [QuestionBankController::class, 'storeEssay'])->name('questionBank.storeEssay');
 
         Route::patch('updateStatusNews/{news}', [NewsController::class, 'updateStatus'])->name('updateStatusNews');
         Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
@@ -180,6 +198,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/showClassroom/{school}', [ExamController::class, 'showClassroom'])->name('showClassroom');
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
         Route::get('/showEvaluation/{student}', [ExamController::class, 'showEvaluation'])->name('showEvaluation');
+
+        Route::get('/showSubMaterial', [SubMaterialController::class, 'showSubMaterial'])->name('showSubMaterial');
+
 
         Route::prefix('rolling-mentor')->name('rollingMentor.')->group(function () {
             Route::get('/', [MentorController::class, 'rollingMentor'])->name('index');

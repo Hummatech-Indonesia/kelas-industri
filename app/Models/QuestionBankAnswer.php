@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\QuestionBank;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class QuestionBankAnswer extends Model
@@ -15,12 +15,12 @@ class QuestionBankAnswer extends Model
     protected $guarded = [];
 
     /**
-     * Get all of the questionBanks for the QuestionBankAnswer
+     * Get the questionBank that owns the QuestionBankAnswer
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function questionBanks(): HasMany
+    public function questionBank(): BelongsTo
     {
-        return $this->hasMany(QuestionBank::class);
+        return $this->belongsTo(QuestionBank::class);
     }
 }

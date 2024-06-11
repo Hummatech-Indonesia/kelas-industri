@@ -3,36 +3,37 @@
 namespace App\Models;
 
 use App\Models\SubMaterial;
-use App\Models\QuestionBankAnswer;
 use App\Models\SubMaterialExamQuestion;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class QuestionBank extends Model
+class SubMaterialExam extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     public $incrementing = false;
     public $keyType = 'char';
-    protected $table = 'question_banks';
+    protected $table = 'sub_material_exams';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'sub_material_id', 'question', 'option1', 'option2', 'option3', 'option4', 'option5', 'type'];
+    protected $fillable = ['id','sub_material_id','title','slug', 'total_multiple_choice', 'total_essay', 'multiple_choice_value', 'essay_value','start_at', 'end_at', 'cheating_detector', 'last_submit', 'time', 'status'];
 
     /**
-     * Get the submaterial that owns the QuestionBank
+     * Get the user that owns the SubMaterialExam
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function submaterial(): BelongsTo
+    public function subMaterial(): BelongsTo
     {
         return $this->belongsTo(SubMaterial::class);
     }
 
     /**
-     * Get all of the subMaterialExamQuestions for the QuestionBank
+     * Get all of the subMaterialExamQuestions for the SubMaterialExam
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -41,13 +42,12 @@ class QuestionBank extends Model
         return $this->hasMany(SubMaterialExamQuestion::class);
     }
 
-    /**
-     * Get all of the questionBankAnswers for the QuestionBank
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function questionBankAnswers(): HasMany
+    public function sluggable(): array
     {
-        return $this->hasMany(QuestionBankAnswer::class);
+        return [
+            'slug' => [
+                'source' => 'title',
+            ],
+        ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Material;
+use App\Models\QuestionBank;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,7 +19,7 @@ class SubMaterial extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = ['id','material_id','order','title', 'description', 'student_file', 'teacher_file'];
-    
+
     /**
      * one to many relationship
      *
@@ -32,5 +33,15 @@ class SubMaterial extends Model
     public function material() : BelongsTo
     {
         return $this->belongsTo(Material::class, 'material_id');
+    }
+
+    /**
+     * Get all of the submaterialExamQuestions for the SubMaterial
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function questionBanks(): HasMany
+    {
+        return $this->hasMany(QuestionBank::class);
     }
 }
