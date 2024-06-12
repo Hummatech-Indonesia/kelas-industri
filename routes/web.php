@@ -1,13 +1,16 @@
 <?php
 
+use FontLib\Table\Type\name;
 use App\Models\SubMaterialExam;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\StudentSubmaterialExam;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\MentorController;
@@ -17,6 +20,7 @@ use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\TripayController;
 use App\Http\Controllers\CertifyController;
+use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
@@ -27,6 +31,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\DevisionController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DependentController;
@@ -34,30 +39,27 @@ use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\ExamStudentController;
 use App\Http\Controllers\SubMaterialController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationController;
+use App\Http\Controllers\QuestionBankController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\EventDocumentationController;
-use App\Http\Controllers\EventPartisipantController;
-use App\Http\Controllers\ExamStudentController;
-use App\Http\Controllers\FinanceController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\QuestionBankController;
-use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SchoolPackageController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\StudentPaymentController;
 use App\Http\Controllers\TripayCallbackController;
 use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\SubMaterialExamController;
 use App\Http\Controllers\TrackingPaymentController;
-use App\Http\Controllers\SchoolPackageController;
+use App\Http\Controllers\EventPartisipantController;
 use App\Http\Controllers\TeacherStatisticController;
+use App\Http\Controllers\EventDocumentationController;
 use App\Http\Controllers\PresentationFinishController;
+use App\Http\Controllers\StudentSubmaterialExamController;
 use App\Http\Controllers\SubMaterialExamQuestionController;
-use FontLib\Table\Type\name;
 
 /*
 |--------------------------------------------------------------------------
@@ -447,7 +449,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('exams/', [ExamStudentController::class, 'showMaterials'])->name('exams.index');
         Route::get('exams/{material}', [ExamStudentController::class, 'show'])->name('exams.show');
         Route::get('exams/submaterial/{material}', [ExamStudentController::class, 'showSubmaterial'])->name('exams.showMaterial');
-
+        
+        Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');
 
         Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
         Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
