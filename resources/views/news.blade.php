@@ -195,6 +195,9 @@
                                 href="{{ route('landingPage', '#6') }}">Daftar</a>
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+                                href="{{ route('event') }}">Event</a>
+                        </li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
                                 href="{{ route('news') }}">Berita</a>
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
@@ -270,7 +273,7 @@
                                         </figure>
                                         <div class="space10"></div>
                                         <div class="post-content text-center">
-                                            <span class="post-title text-center mb-1"><a 
+                                            <span class="post-title text-center mb-1"><a
                                                     href="{{ route('detail-news', $primary_news->slug) }}" style="font-weight: 500; font-size: 25px; width: max-content;">{{ Str::limit($primary_news->title, 50, '...') }}</a>
                                             </span>
                                             <div class="text-center mt-1" style="display: flex; align-items: center; justify-content: center;"><i

@@ -23,6 +23,18 @@ class AssignmentRepository extends BaseRepository
         $this->submitAssignment = $submitAssignment;
     }
 
+    public function checkSubmit($studentId, $assignmentId)
+    {
+        return $this->submitAssignment->query()->where('student_id', $studentId)->where('assignment_id', $assignmentId)->first();
+    }
+
+    public function setStudentPoint($studentId): void
+    {
+        $student = $this->student->query()->findOrFail($studentId);
+        $student->point += 1;
+        $student->save();
+    }
+
     public function get_by_submaterial(string $submaterialId)
     {
         return $this->model->query()
@@ -72,10 +84,12 @@ class AssignmentRepository extends BaseRepository
             ->first();
     }
 
-    public function create_submit_assignment(array $data, string $studentId): void
+    public function create_submit_assignment(array $data, string $studentId): mixed
     {
-        $this->submitAssignment->updateOrCreate(
-            ['student_id' => $studentId, 'assignment_id' => $data['assignment_id']], $data);
+        return $this->submitAssignment->updateOrCreate(
+            ['student_id' => $studentId, 'assignment_id' => $data['assignment_id']],
+            $data
+        );
     }
 
     public function get_student_done_submit(string $assignmentId)
@@ -186,7 +200,7 @@ class AssignmentRepository extends BaseRepository
         return $this->model->query()
             ->whereRelation('submaterial.material', 'id', $material)
             ->whereHas('StudentSubmitAssignment', function ($query) use ($user) {
-                $query->where('student_id', $user != null? $user->studentSchool->student_id :auth()->user()->studentSchool->student_id);
+                $query->where('student_id', $user != null ? $user->studentSchool->student_id : auth()->user()->studentSchool->student_id);
             })
             ->count();
     }

@@ -8,6 +8,7 @@ use App\Repositories\AssignmentRepository;
 use App\Http\Requests\SubmitAssignmentRequest;
 use App\Models\Assignment;
 use App\Models\SubmitAssignment;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 
@@ -75,25 +76,36 @@ class AssignmentService
         $studentId = auth()->id();
 
         // Deleting old file if it exists
-        $oldAssignment = $this->repository->get_submit_assignment_student($studentId, $request->assignment_id);
-        if ($oldAssignment && Storage::disk('public')->exists($oldAssignment->file)) {
-            Storage::disk('public')->delete($oldAssignment->file);
-        }
+        // $oldAssignment = $this->repository->get_submit_assignment_student($studentId, $request->assignment_id);
+        // if ($oldAssignment && Storage::disk('public')->exists($oldAssignment->file)) {
+        //     Storage::disk('public')->delete($oldAssignment->file);
+        // }
 
-        // Save new file
-        if ($request->hasFile('file') && $request->file('file')->isValid()) {
-            $data['file'] = $request->file('file')->store('assignment_file', 'public');
-            if (!Storage::disk('public')->exists($data['file'])) {
-                return redirect()->back()->with('error', 'File gagal tersimpan, silahkan masukan kembali');
-            }
-        } else {
-            return redirect()->back()->with('error', 'File gagal tersimpan, silahkan masukan kembali');
-        }
+        // // Save new file
+        // if ($request->hasFile('file') && $request->file('file')->isValid()) {
+        //     $data['file'] = $request->file('file')->store('assignment_file', 'public');
+        //     if (!Storage::disk('public')->exists($data['file'])) {
+        //         return redirect()->back()->with('error', 'File gagal tersimpan, silahkan masukan kembali');
+        //     }
+        // } else {
+        //     return redirect()->back()->with('error', 'File gagal tersimpan, silahkan masukan kembali');
+        // }
 
         $data['student_id'] = $studentId;
+
+        // Set Default Nilai
+        $data['point'] = 90;
+        $this->setPoint($data['student_id'], $data['assignment_id']);
+
         return $this->repository->create_submit_assignment($data, $studentId);
     }
 
+    public function setPoint($userId, $assignmentId): void
+    {
+        if ($this->repository->checkSubmit($userId, $assignmentId) == null) {
+            $this->repository->setStudentPoint($userId);
+        }
+    }
 
     public function storePoint($id, $point): void
     {

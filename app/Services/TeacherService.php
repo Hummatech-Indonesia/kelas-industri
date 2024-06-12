@@ -97,7 +97,7 @@ class TeacherService
     {
         $data = $request->validate([
             'classroom_id' => 'required'
-        ],[
+        ], [
             'required' => 'Kelas tidak boleh kosong'
         ]);
         $data['teacher_school_id'] = $request->teacher_school_id;
@@ -138,11 +138,15 @@ class TeacherService
         foreach ($teachers as $teacher) {
             $total = 0;
             foreach ($teacher->teacherClassrooms as $teacherClassroom) {
-                foreach($teacherClassroom->classroom->challenges as $challenge) {
+                foreach ($teacherClassroom->classroom->challenges as $challenge) {
                     $teacher->teacher->challenge_graded = $challenge->StudentChallenge->where('is_valid', 'valid')->count();
                 }
-                foreach($teacherClassroom->classroom->students as $student) {
-                    $teacher->teacher->assignment_graded = $student->studentSchool->student->submitAssignment->whereNotNull('point')->count();
+                foreach ($teacherClassroom->classroom->students as $student) {
+                    if ($student->studentSchool->student->submitAssignment) {
+                        $teacher->teacher->assignment_graded = $student->studentSchool->student->submitAssignment->whereNotNull('point')->count();
+                    } else {
+                        $teacher->teacher->assignment_graded = 0;
+                    }
                 }
             }
             $total += $teacher->teacher->challenge_graded * $challenge_salary;

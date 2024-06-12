@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignUuid('assignment_id')->constrained('assignments')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignUuid('student_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->text('file');
+            $table->text('link')->nullable();
             $table->integer('point')->nullable();
             $table->timestamps();
         });

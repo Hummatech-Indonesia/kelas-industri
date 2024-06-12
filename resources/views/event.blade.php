@@ -138,6 +138,23 @@
         .img-figure-utama {
             height: 800px;
         }
+
+        .short-description {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            /* Batasi teks ke 2 baris */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .hover {
+            color: black;
+        }
+
+        .hover:hover {
+            color: #009EF7 !important;
+        }
     </style>
 </head>
 
@@ -195,6 +212,9 @@
                                 href="{{ route('landingPage', '#6') }}">Daftar</a>
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+                                href="{{ route('event') }}">Event</a>
+                        </li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
                                 href="{{ route('news') }}">Berita</a>
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
@@ -250,7 +270,7 @@
         </div>
         <!--/.modal -->
         <div class="wrapper light-wrapper">
-            <div class="container inner">
+            <div class="container inner pb-10">
                 <div class="d-flex justify-content-center">
                     <h1 class="title">Event Kelas Industri Hummatech</h1>
                 </div>
@@ -258,15 +278,15 @@
             </div>
             <div class="col-12 mt-5">
                 <div class="row g-2">
-                    @for ($i = 0; $i < 8; $i++)
+                    @foreach ($events as $event)
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="card p-3 mb-3">
                                 <div class="position-relative">
-                                    <img src="https://kodelisensi.com/storage/sliders//slider-kodelisensi-2024-04-05-09-55-44.jpg"
-                                         alt="Slider Image" class="img-fluid rounded shadow">
-                                    <div class="position-absolute bottom-0 start-0 bg-white px-3 m-2 rounded shadow mb-3"
-                                         style="bottom: -30%; left: 10px; color:#009EF7;">
-                                        12 Mei 2022
+                                    <img src="{{ asset("storage/$event->thumnail") }}"
+                                        alt="" class="img-fluid rounded shadow">
+                                    <div class="position-absolute bg-white rounded shadow mb-3"
+                                        style="bottom: -25%; color:#009EF7;">
+                                        {{ Carbon::parse($event->start_date)->isoFormat('DD MMMM Y') }}
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 ms-2 align-items-center my-2">
@@ -278,12 +298,15 @@
                                     </h5>
                                 </div>
                                 <div class="ms-1">
-                                    <h6 class="text-primary fw-bold mb-2">Lorem ipsum dolor sit amet</h6>
-                                    <p>Lorem ipsum dolor sit amet consectetur. sit amet consectetur. Lorem ipsum dolor sit amet consectetur. sit amet consectetur. Lorem ipsum dolor sit amet consectetur. sit amet consectetur. Lorem ipsum dolor sit amet consectetur. sit amet consectetur. Lorem...</p>
+                                    <a href="{{ route('detail-events', $event->id) }}"
+                                        class="hover fw-bold mb-2">
+                                        {{ $event->title }}
+                                    </a>
+                                    <div class="short-description">{!! $event->description !!}/div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
 

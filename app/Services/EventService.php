@@ -15,9 +15,17 @@ class EventService
         $this->repository = $repository;
     }
 
+    public function handleGetAll() {
+        return $this->repository->getAll();
+    }
+
     public function handleShow($id): mixed
     {
         return $this->repository->show($id);
+    }
+
+    public function handleGetNewer() : mixed {
+        return $this->repository->getNewer();
     }
 
     public function handleCreate(EventRequest $request): mixed

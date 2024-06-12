@@ -19,6 +19,10 @@ class EventRepository extends BaseRepository
         return $this->model->query()->where('start_date', '>', now())->get();
     }
 
+    public function getNewer() {
+        return $this->model->query()->orderBy('start_date', 'desc')->get();
+    }
+
     public function get_with_participant_paginate(int $limit, array $order = null, $search): mixed
     {
         if ($order) {

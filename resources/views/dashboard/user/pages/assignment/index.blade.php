@@ -98,7 +98,7 @@
                                 <!--begin::Content-->
                                 <ul>
                                     <li>Jika anda ingin mengedit nilai siswa, anda bisa langsung mengedit diinputan kolom
-                                        yang sudah anda berinilai sebelumnya.
+                                        yang sudah anda beri nilai sebelumnya.
                                     </li>
                                     <li>Setelah selesai edit diinputan anda bisa tekan tombol simpan nilai lagi</li>
                                 </ul>
@@ -168,9 +168,12 @@
                                         <div class="col-auto">
                                             <select name="filterShowing" id="filterShowing"
                                                 class="form-select form-select-sm">
-                                                <option value="10" {{ request('filterShowing') == 10 ? 'selected' : ''}}>10</option>
-                                                <option value="15" {{ request('filterShowing') == 15 ? 'selected' : ''}}>15</option>
-                                                <option value="35" {{ request('filterShowing') == 35 ? 'selected' : ''}}>35</option>
+                                                <option value="10"
+                                                    {{ request('filterShowing') == 10 ? 'selected' : '' }}>10</option>
+                                                <option value="15"
+                                                    {{ request('filterShowing') == 15 ? 'selected' : '' }}>15</option>
+                                                <option value="35"
+                                                    {{ request('filterShowing') == 35 ? 'selected' : '' }}>35</option>
                                             </select>
                                         </div>
                                         <div class="col-auto">
@@ -204,16 +207,24 @@
                                                     </td>
                                                     <td>{{ $student->name }}</td>
                                                     @if ($student->submitAssignment)
+                                                        {{-- @dd(count($student->submitAssignment->images)) --}}
                                                         <td>
                                                             @php
-                                                                $filePath = explode('/', $student->submitAssignment->file);
+                                                                $filePath = explode(
+                                                                    '/',
+                                                                    $student->submitAssignment->file,
+                                                                );
                                                                 $fileName = end($filePath);
-                                                                $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+                                                                $fileExtension = pathinfo(
+                                                                    $fileName,
+                                                                    PATHINFO_EXTENSION,
+                                                                );
                                                             @endphp
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                                @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg']))
+                                                                {{-- @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg'])) --}}
+                                                                @if (count($student->submitAssignment->images) == 1)
                                                                     <button class="btn btn-primary btn-sm btn-img"
-                                                                        data-file="{{ asset('storage/' . $student->submitAssignment->file) }}">
+                                                                        data-file="{{ asset('storage/' . $student->submitAssignment->images[0]->image) }}">
                                                                         <span
                                                                             class="svg-icon svg-icon-muted svg-icon-4"><svg
                                                                                 width="24" height="24"

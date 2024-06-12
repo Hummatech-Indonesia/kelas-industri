@@ -15,7 +15,7 @@ class SubmitAssignmentRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'file' => 'required|file|mimes:rar,zip,png,jpg,jpeg|max:5120',
+            'link' => 'nullable|url',
             'assignment_id' => 'required',
         ];
     }
@@ -23,11 +23,7 @@ class SubmitAssignmentRequest extends BaseRequest
     public function messages(): array
     {
         return [
-            'file.required' => 'File tidak boleh kosong!',
-            'file.file' => 'File harus dalam format rar atau zip!',
-            'file.mimes' => 'File harus memiliki ekstensi rar, zip atau PNG, JPG, dan JPEG!',
-            'file.max' => 'Ukuran foto tidak boleh melebihi 5 mb!',
+            'url' => 'Link harus berupa url penyimpanan tugas anda'
         ];
     }
-
 }

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}">
-    <title>Kelas Industri Hummatech</title>
+    <title>Kelas Industri</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/plugins.css') }}">
@@ -84,15 +84,6 @@
             background-color: transparent !important;
         }
 
-        .post-title {
-            font-size: 50px;
-        }
-
-        .awalan-berita {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
         @media(max-width: 768px) {
             body {
                 padding: 0;
@@ -115,32 +106,46 @@
             }
         }
 
-        body>div.content-wrapper.white-wrapper>div.wrapper.light-wrapper>div>div>div.col-lg-8>nav>div.d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between>div:nth-child(2)>ul {
-            display: flex;
+        body>div.content-wrapper.white-wrapper>div.wrapper.light-wrapper>div.container.inner>nav>div.d-none.flex-sm-fill.d-sm-flex.align-items-sm-center.justify-content-sm-between>div:nth-child(2)>ul {
+            display: flex !important;
         }
 
         .overlay.overlay1 {
             width: auto;
-            height: 254px;
+            height: 220px;
+            margin-bottom: 2px;
+        }
+
+        .img-figure {
+            height: 220px;
+            object-fit: cover;
         }
 
         .post-title {
             word-wrap: break-word;
-            line-height: 1.2;
+            height: 60px;
         }
 
-        .overlay.overlay1 {
-            height: 250px;
-            margin-bottom: 20px;
-        }
-
-        .owl-item {
+        .box {
             height: 400px;
+            margin-bottom: 30px;
         }
 
-        .img-figure {
-            height: 250px;
-            object-fit: cover;
+        .berita-utama {
+            margin-bottom: 30px;
+        }
+
+        .img-figure-utama {
+            height: 800px;
+        }
+
+        .short-description {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            /* Batasi teks ke 2 baris */
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
 </head>
@@ -257,95 +262,190 @@
         </div>
         <!--/.modal -->
         <div class="wrapper light-wrapper">
-            <div class="container inner">
+            <div class="container inner pb-10">
+                <div class="d-flex justify-content-center">
+                    <h1 class="title">Event Kelas Industri Hummatech</h1>
+                </div>
+
+            </div>
+            <div class="col-12 mt-5">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="blog classic-view">
-                            <div class="post">
-                                <div class="title">
-                                    <h1 class="post-title"><a href="">{{ $slug->title }}</a></h1>
-                                    <div class="meta"><span class="date"><i
-                                                class="jam jam-clock"></i>{{ Carbon::parse($slug->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
-                                    </div>
+                    <!-- detail -->
+                    <div class="col">
+                        {{-- <div class="card-body"> --}}
+                        <!--begin::About-->
+                        <div class="mb-18">
+                            <!--begin::Wrapper-->
+                            <div class="mb-10">
+                                <!--begin::Overlay-->
+                                <div class="overlay">
+                                    <!--begin::Image-->
+                                    <img class="w-100 h-500px card-rounded"
+                                        src="{{ asset('storage/' . $event->photo) }}" alt="" style="">
+                                    <!--end::Image-->
+                                    <!--begin::Links-->
+                                    {{-- <div class="overlay-layer card-rounded bg-dark bg-opacity-25" data-event="{{ $event->id }}">
+                                @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                    <form action="{{ route('student.events.follow', $event->id) }}" method="POST"
+                                        id="form-follow">
+                                        @csrf
+                                        <button type="button"
+                                            class="btn btn-light-primary ms-3 follow-event-btn">Daftar</button>
+                                    </form>
+                                @endif
+                            </div> --}}
+                                    <!--end::Links-->
                                 </div>
-                                <figure class="rounded d-flex justify-content-center"><img
-                                        style="width: 80%; height: 500px; object-fit: cover;"
-                                        src="{{ asset('storage/' . $slug->photo) }}" alt=""></figure>
-                                <div class="space40"></div>
-                                <div class="post-content">
-                                    <p><span class="awalan-berita">class.hummatech.com -
-                                        </span>{{ $slug->description }}</p>
-                                </div>
-                                <!-- /.post-content -->
+                                <!--end::Container-->
                             </div>
-                            <!-- /.post -->
+                            <!--end::Wrapper-->
+                            <!--begin::Description-->
+                            <div class="fs-5 fw-semibold text-gray-600">
+                                <h1 class="mb-4">{{ $event->title }}</h1>
+                                <!--begin::Text-->
+                                <div class="mb-8 fs-20">
+                                    {!! $event->description !!}
+                                </div>
+                                <!--end::Text-->
+                            </div>
+                            <!--end::Description-->
                         </div>
-                        <!-- /.pagination -->
+                        <!--end::About-->
+                        @if ($event->start_date >= Carbon::now())
+                            <!--begin::Section-->
+                            <div class="mb-16">
+                                <!--begin::Top-->
+                                <div class="text-center mb-12">
+                                    <!--begin::Title-->
+                                    <h3 class="fs-2hx text-gray-900 mb-5">Dokumentasi Event</h3>
+                                    <!--end::Title-->
+                                    <!--begin::Text-->
+                                    {{-- <div class="fs-5 text-muted fw-semibold">
+                            Dokumentasi hasil foto
+                        </div> --}}
+                                    <!--end::Text-->
+                                </div>
+                                <!--end::Top-->
+                                <!--begin::Row-->
+                                <div class="owl-carousel">
+                                    @foreach ($event->documentations as $documentation)
+                                        <div>
+                                            <img src="{{ asset('storage/' . $documentation->media) }}" alt=""
+                                                class="documentation_image col w-300px m-auto rounded"
+                                                data-image="{{ asset('storage/' . $documentation->media) }}">
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <!--end::Row-->
+                            </div>
+                            <!--end::Section-->
+                        @endif
+                        <!--begin::Team-->
+                        <!--end::Team-->
+                        <div class="mb-7">
+                            <div class="row">
+                                <div class="col-1">
+                                    <p>Acara</p>
+                                </div>
+                                <div class="col">: {{ $event->title }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <p>Tanggal</p>
+                                </div>
+                                <div class="col">:
+                                    {{ Carbon::parse($event->start_date)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <p>Waktu</p>
+                                </div>
+                                <div class="col">: {{ Carbon::parse($event->start_date)->format('H:m') }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <p>Tempat</p>
+                                </div>
+                                <div class="col">: {{ $event->location }}</div>
+                            </div>
+                        </div>
+
+                        {{-- @dd($event->start_date) --}}
+                        {{-- @if ($participant && $participant['following'])
+                                @if ($event->start_date > now())
+                                    <form action="{{ route('student.events.unfollow', $event->id) }}" method="POST"
+                                        class="text-end pb-16" id="unfollow-form">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="button" class="btn btn-danger py-2" id="unfollow-btn">Batal
+                                            Mengikuti</button>
+                                    </form>
+                                @else
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-light-primary py-2">Telah Mengikuti</button>
+                                    </div>
+                                @endif
+                            @elseif($event->start_date > Carbon::now()->locale('id'))
+                                <form action="{{ route('student.events.follow', $event->id) }}" method="POST"
+                                    class="text-end pb-16" id="follow-form">
+                                    @csrf
+                                    <button type="button" class="btn btn-primary py-2" id="follow-btn">Ikuti</button>
+                                </form>
+                            @else
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-light-warning py-2">Telah Dimulai</button>
+                                </div>
+                            @endif --}}
+                        <!--end::Card-->
+                        {{-- </div> --}}
+                    </div>
+                    <!-- other event -->
+                    <div class="col col-sm-4 px-4">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <h3 class="mb-30">Berita Lainnya</h3>
-                                <div class="grid-view">
-                                    <div class="carousel owl-carousel owl-loaded owl-drag" data-margin="30"
-                                        data-dots="true" data-autoplay="false" data-autoplay-timeout="5000"
-                                        data-responsive="{&quot;0&quot;:{&quot;items&quot;: &quot;1&quot;}, &quot;768&quot;:{&quot;items&quot;: &quot;2&quot;}, &quot;992&quot;:{&quot;items&quot;: &quot;3&quot;}}">
-                                        <div class="owl-stage-outer">
-                                            <div class="owl-stage"
-                                                style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: auto;">
-                                                @forelse ($news_random as $news)
-                                                    {{-- @dd($news_random) --}}
-                                                    <div class="owl-item"
-                                                        style="width: 295px; margin-right: 30px; height: 450px;">
-                                                        <div class="box bg-white shadow p-3">
-                                                            <figure class="overlay overlay1 rounded"><a
-                                                                    href="{{ route('detail-news', $news->slug) }}"><span
-                                                                        class="bg"></span> <img class="img-figure"
-                                                                        src={{ asset('storage/' . $news->photo) }}
-                                                                        alt=""></a>
-                                                                <figcaption>
-                                                                    <h5 class="from-top mb-0">Read More</h5>
-                                                                </figcaption>
-                                                            </figure>
-                                                            <h2 class="post-title"><a
-                                                                    href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 25) }}</a>
-                                                            </h2>
-                                                            <div class="meta mb-0 mt-1"><span class="date"><i
-                                                                        class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @empty
-                                                @endforelse
+                            @foreach ($events as $event)
+                                <div class="col p-0 border-bottom">
+                                    <div class="card pb-3 border-0 bg-transparent" style="max-width: 540px;">
+                                        <div class="row g-0">
+                                            <div class="col-md-4">
+                                                <img src="{{ asset("storage/$event->photo") }}"
+                                                    class="img-fluid rounded-start" alt="...">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body p-0">
+                                                    <a href="{{ route('detail-events', $event->id) }}"
+                                                        class="card-title text-dark">
+                                                        {{ $event->title }}
+                                                    </a>
+                                                    <p class="card-text fs-14 short-description">
+                                                        {{ $event->description }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="owl-nav disabled"><button type="button" role="presentation"
-                                                class="owl-prev"><span aria-label="Previous">‹</span></button><button
-                                                type="button" role="presentation" class="owl-next"><span
-                                                    aria-label="Next">›</span></button></div>
-                                        <div class="owl-dots"><button role="button"
-                                                class="owl-dot active"><span></span></button><button role="button"
-                                                class="owl-dot"><span></span></button><button role="button"
-                                                class="owl-dot"><span></span></button></div>
                                     </div>
-                                    <!-- /.owl-carousel -->
                                 </div>
-                                <!-- /.grid-view -->
-                            </div>
-                            <!-- /column -->
+                            @endforeach
                         </div>
-                        <!-- /.pagination -->
                     </div>
-                    <!--/column -->
                 </div>
-                <!--/.row -->
             </div>
-            <!-- /.container -->
-            <figure style="margin-bottom:-3px;"><img
-                    src="{{ asset('landing_kelas_industri/style/images/art/rocket1.png') }}" alt="" />
-            </figure>
+
         </div>
+        <!--/column -->
+        <div class="space30 d-none d-md-block d-lg-none"></div>
+        <!-- /.container -->
+        <figure style="margin-bottom:-3px;"><img
+                src="{{ asset('landing_kelas_industri/style/images/art/rocket1.png') }}" alt="" />
+        </figure>
         <!-- /.wrapper -->
         <footer class="white-wrapper">
             <div class="container">
+                <div class="visible-print text-center">
+                    {!! QrCode::size(100)->generate('https://class.hummatech.com/') !!}
+
+                    <p>Scan me to return to the original page.</p>
+                </div>
                 <div class="row">
 
                     <!-- /column -->
@@ -379,7 +479,8 @@
                             <h3 class="widget-title">Tentang Perusahaan</h3>
                             <ul class="list-unstyled">
                                 <li><a href="https://hummasoft.com/" class="nocolor">Hummasoft</a></li>
-                                <li><a href="https://hummasoft.com/kelas-industri/" class="nocolor">Kelas Industri</a>
+                                <li><a href="https://hummasoft.com/kelas-industri/" class="nocolor">Kelas
+                                        Industri</a>
                                 </li>
                                 <li><a href="https://hummasoft.com/course-category/web-development/" class="nocolor">E
                                         Learning</a></li>
@@ -398,7 +499,8 @@
                             <h3 class="widget-title">Butuh Bantuan?</h3>
                             <ul class="list-unstyled">
                                 <li><a href="https://wa.me/6282132560566" class="nocolor">Proposal</a></li>
-                                <li><a href="https://wa.me/6282132560566" class="nocolor">Kerjasama Industri</a></li>
+                                <li><a href="https://wa.me/6282132560566" class="nocolor">Kerjasama Industri</a>
+                                </li>
                                 <li><a href="https://wa.me/6282132560566" class="nocolor">Hubungi Kami</a></li>
                             </ul>
                         </div>

@@ -36,7 +36,7 @@ class LoginService
 
         if ($role == 'teacher' && !isset($user->teacherSchool->teacherClassroom)) {
             return redirect('/login')->with('error', 'Anda belum memiliki kelas.');
-        }
+        }           
 
          if ($role == 'admin' || $role == 'school' || $role == 'teacher' || $role == 'mentor' || $role == 'administration') {
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {

@@ -69,6 +69,7 @@ use FontLib\Table\Type\name;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('landingPage');
 Route::get('/event', [WelcomeController::class, 'event'])->name('event');
+Route::get('/event/{event}', [WelcomeController::class, 'eventDetail'])->name('detail-events');
 Route::get('/gallery', [WelcomeController::class, 'gallery'])->name('gallery');
 Route::get('/news', [WelcomeController::class, 'news'])->name('news');
 Route::get('/news/{slug}', [WelcomeController::class, 'detail'])->name('detail-news');
@@ -401,6 +402,7 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
         Route::post('{classroom}/storeassignment/{material}/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
+        Route::post('storeimageassignment/{submitAssignment}', [UserAssignmentController::class, 'storeImage'])->name('store-image-assignment');
 
         Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
         Route::post('storeChallenge', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
@@ -421,7 +423,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
-        Route::get('exams/', [ExamStudentController::class, 'index'])->name('exams.index');
+        Route::get('exams/', [ExamStudentController::class, 'showMaterials'])->name('exams.index');
         Route::get('exams/{material}', [ExamStudentController::class, 'show'])->name('exams.show');
         Route::get('exams/submaterial/{material}', [ExamStudentController::class, 'showSubmaterial'])->name('exams.showMaterial');
 
