@@ -16,8 +16,6 @@
 @endsection
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
-
-
         <!--begin::Page title-->
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
@@ -25,7 +23,6 @@
                 Sekolah
             </h1>
             <!--end::Title-->
-
 
             <!--begin::Breadcrumb-->
             <p class="text-muted">

@@ -468,7 +468,7 @@
                         <!--end:Menu link-->
                     </div>
                     <div data-kt-menu-trigger="click"
-                        class="menu-item {{ request()->routeIs('admin.sub-material-exam.*') || request()->routeIs('admin.exam-finnaly') || request()->routeIs('admin.exam-taking-place') ? 'show here' : '' }} menu-accordion">
+                        class="menu-item {{ request()->routeIs('admin.sub-material-exam.*') || request()->routeIs('admin.exam-finnaly') || request()->routeIs('admin.exam-taking-place') || request()->routeIs('admin.exam-statistic') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.exam-question') || request()->routeIs('admin.detail-exam-taking-place')  ? 'show here' : '' }} menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -494,19 +494,19 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.sub-material-exam.index') ? 'active' : '' }}"
+                                    <a class="menu-link {{ request()->routeIs('admin.sub-material-exam.index') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.exam-question') ? 'active' : '' }}"
                                         href="{{ route('admin.sub-material-exam.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Ujian</span>
                                     </a>
                                     <!--end:Menu link-->
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.exam-taking-place') ? 'active' : '' }}"
+                                    <a class="menu-link {{ request()->routeIs('admin.exam-taking-place') || request()->routeIs('admin.detail-exam-taking-place') ? 'active' : '' }}"
                                         href="{{ route('admin.exam-taking-place') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Ujian Berlangsung</span>
                                     </a>
-                                    <a class="menu-link {{ request()->routeIs('admin.exam-finnaly') ? 'active' : '' }}"
+                                    <a class="menu-link {{ request()->routeIs('admin.exam-finnaly') || request()->routeIs('admin.exam-statistic')  ? 'active' : '' }}"
                                         href="{{ route('admin.exam-finnaly') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Ujian Selesai</span>

@@ -135,10 +135,20 @@ class SubMaterialExamController extends Controller
         return view('dashboard.admin.pages.subMaterialExam.examFinnaly', compact('exams'));
     }
 
+    public function examStatistic()
+    {
+        return view('dashboard.admin.pages.subMaterialExam.examStatistic');
+    }
+
     public function examTakingPlace()
     {
         $exams = $this->repository->getExamTakingPlace(6);
         return view('dashboard.admin.pages.subMaterialExam.examTakingPlace', compact('exams'));
+    }
+
+    public function detailExamTakingPlace()
+    {
+        return view('dashboard.admin.pages.subMaterialExam.examDetailTakingPlace');
     }
 
 

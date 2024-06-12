@@ -121,7 +121,7 @@
             <tbody class="content">
                 <tr>
                     <td class="content-title" style="font-weight: bold;" colspan="2">Subtotal Tagihan</td>
-                    <td class="content-title text-right" style="font-weight: bold;">Rp. {{ $dependetp }}</td>
+                    <td class="content-title text-right" style="font-weight: bold;">Rp. {{ $dependet }}</td>
                 </tr>
                 <tr>
                     <td class="content-title" style="font-weight: bold;" colspan="2">Biaya Layanan</td>
