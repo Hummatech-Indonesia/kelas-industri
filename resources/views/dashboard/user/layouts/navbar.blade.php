@@ -78,7 +78,7 @@
                             <!--end:Menu link-->
                         </div>
 
-                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                        {{-- <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                 <!--begin:Menu link-->
                                 <a href="{{ auth()->user()->roles->pluck('name')[0] == 'student' ? route('student.exams.index') : route('common.classrooms') }}"
@@ -93,7 +93,7 @@
                             ><span class="menu-title">UAS</span></a>
                             @endif
                             <!--end:Menu link-->
-                        </div>
+                        </div> --}}
 
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
