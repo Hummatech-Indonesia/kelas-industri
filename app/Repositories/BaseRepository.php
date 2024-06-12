@@ -35,7 +35,6 @@ abstract class BaseRepository implements BaseInterface
 
     public function store(array $data): mixed
     {
-        // dd($data);
         return $this->model->create($data);
     }
 

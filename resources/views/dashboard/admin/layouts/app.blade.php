@@ -221,7 +221,7 @@ License: For each use you must have a valid license purchased only from above li
         @endif
         @if (Session::has('error'))
         const errorMessage = "{{ Session::get('error') }}";
-            if (successMessage) {
+            if (errorMessage) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "top-end",

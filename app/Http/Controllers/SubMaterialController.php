@@ -2,21 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubMaterialRequest;
 use App\Models\Material;
+use Illuminate\View\View;
 use App\Models\SubMaterial;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Services\SubMaterialService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
-use Illuminate\View\View;
+use App\Http\Requests\SubMaterialRequest;
+use App\Repositories\SubMaterialRepository;
 
 class SubMaterialController extends Controller
 {
     private SubMaterialService $service;
+    private SubMaterialRepository $repository;
 
-    public function __construct(SubMaterialService $service)
+    public function __construct(SubMaterialService $service, SubMaterialRepository $repository)
     {
         $this->service = $service;
+        $this->repository = $repository;
     }
 
     /**
@@ -117,4 +121,12 @@ class SubMaterialController extends Controller
     {
         return view('dashboard.admin.pages.submaterial.view', compact('submaterial', 'role'));
     }
+
+    public function showSubMaterial(Request $request)
+    {
+        if (request()->ajax()) {
+            return $this->repository->getByMaterial($request->materialId);
+        }
+    }
+
 }

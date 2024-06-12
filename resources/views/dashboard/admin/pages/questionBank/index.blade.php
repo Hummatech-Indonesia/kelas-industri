@@ -114,7 +114,7 @@
                                     <span class="text-muted font-weight-bold"
                                         style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
 
-                                        {{ $material->title }}
+                                        {{ $subMaterial->material->title }}
                                     </span>
 
                                     <!--end::Title-->
@@ -147,7 +147,7 @@
                                             fill="currentColor" />
                                     </svg>
                                 </span>
-                                Total Seluruh Soal
+                                {{ count($subMaterial->questionBanks) }} Total Seluruh Soal
                             </div>
                             <div class="mt-3">
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
@@ -160,7 +160,7 @@
                                             fill="currentColor" />
                                     </svg>
                                 </span>
-                                Soal anda inputkan
+                                {{ count($subMaterial->questionBanks) }} Soal anda inputkan
                             </div>
 
 
@@ -174,7 +174,7 @@
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-6">
-                                    <a href="{{ route('admin.submaterials.show', $subMaterial->id) }}"
+                                    <a href="{{ route('admin.quetion-bank-detail', $subMaterial->id) }}"
                                         class="btn btn-primary btn-sm text-uppercase font-weight-bolder">Lihat
                                         Soal</a>
                                 </div>

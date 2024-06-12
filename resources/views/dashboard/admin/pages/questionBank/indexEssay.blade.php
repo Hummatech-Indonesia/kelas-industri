@@ -14,7 +14,7 @@
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    Essay
+                    Buat soal Essay untuk Submateri {{ $submaterial->title }}
                 </li>
                 <!--end::Item-->
 
@@ -25,17 +25,23 @@
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <div class="card col-12">
-                <div class="card-body">
-                    <div class="fs-5 fw-bold mb-3">
-                        Tambahkan Soal Essay
-                    </div>
-                    <textarea id="kt_docs_ckeditor_classic" rows="5" name="description" type="text" placeholder="deskripsi tugas">{{ old('description') }}</textarea>
-                    <div class="btn btn-primary btn-sm mt-3">
-                        Buat Soal
+            <form action="{{ route('admin.questionBank.storeEssay') }}" method="post">
+                @csrf
+                @method('POST')
+                <input type="hidden" name="sub_material_id" value="{{ $submaterial->id }}">
+                <input type="hidden" name="type" value="{{ $submaterial->id }}">
+                <div class="card col-12">
+                    <div class="card-body">
+                        <div class="fs-5 fw-bold mb-3">
+                            Tambahkan Soal Essay
+                        </div>
+                        <textarea id="kt_docs_ckeditor_classic" rows="5" name="question" type="text" placeholder="deskripsi tugas">{{ old('description') }}</textarea>
+                        <button class="btn btn-primary btn-sm mt-3" type="submit">
+                            Buat Soal
+                        </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection

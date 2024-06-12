@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\SubMaterial;
+use App\Repositories\BaseRepository;
 
 class SubMaterialRepository extends BaseRepository
 {
@@ -71,6 +72,13 @@ class SubMaterialRepository extends BaseRepository
             ->where('order', $previousOrder)
             ->select('id')
             ->first();
+    }
+
+    public function getByMaterial(String $materialId): mixed
+    {
+        return $this->model->query()
+            ->where('material_id' , $materialId)
+            ->get();
     }
 
 }

@@ -3,10 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubMaterial;
+use App\Models\QuestionBank;
 use Illuminate\Http\Request;
+use App\Services\QuestionBankService;
+use App\Http\Requests\QuestionBankRequest;
+use App\Repositories\QuestionBankRepository;
+use App\Http\Requests\QuestionBankEssayRequest;
 
 class QuestionBankController extends Controller
 {
+    private QuestionBankRepository $repository;
+    private QuestionBankService $service;
+
+    public function __construct(QuestionBankRepository $repository, QuestionBankService $service)
+    {
+        $this->repository = $repository;
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +34,9 @@ class QuestionBankController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexMultipleChoise(SubMaterial $subMaterial)
+    public function indexMultipleChoise(SubMaterial $submaterial)
     {
-        return view('dashboard.admin.pages.questionBank.indexMultipleChoise', compact('subMaterial'));
+        return view('dashboard.admin.pages.questionBank.indexMultipleChoise', compact('submaterial'));
     }
 
     /**
@@ -31,19 +44,22 @@ class QuestionBankController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexEssay()
+    public function indexEssay(SubMaterial $submaterial)
     {
-        return view('dashboard.admin.pages.questionBank.indexEssay');
+        return view('dashboard.admin.pages.questionBank.indexEssay', compact('submaterial'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for storeEssay a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function storeEssay(QuestionBankEssayRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['type'] = 'essay';
+        $this->repository->store($data);
+        return redirect()->back()->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -52,9 +68,11 @@ class QuestionBankController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionBankRequest $request)
     {
-        //
+        $data = $request->validated();
+        $this->repository->store($data);
+        return redirect()->back()->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -63,9 +81,10 @@ class QuestionBankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(SubMaterial $submaterial)
     {
-        //
+        $questionBanks = $this->repository->handleGetBySubmaterial($submaterial->id, 10);
+        return view('dashboard.admin.pages.questionBank.detail', compact('submaterial','questionBanks'));
     }
 
     /**
@@ -97,8 +116,12 @@ class QuestionBankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(QuestionBank $questionBank)
     {
-        //
+        $data = $this->service->handleDelete($questionBank->id);
+
+        if (!$data) return back()->with('error', trans('alert.delete_constrained'));
+
+        return back()->with('success', trans('alert.delete_success'));
     }
 }

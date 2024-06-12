@@ -33,6 +33,7 @@ class EventRequest extends FormRequest
             "thumnail" => "mimes:png,jpg,jpeg|max:2048",
             "start_date" => "required",
             "end_date" => "required",
+            "school_id" => "nullable",
         ];
     }
 
