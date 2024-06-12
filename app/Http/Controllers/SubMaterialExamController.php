@@ -10,9 +10,12 @@ use App\Http\Requests\SubMaterialExamRequest;
 use App\Repositories\QuestionBankRepository;
 use App\Repositories\SubMaterialExamRepository;
 use App\Repositories\SubMaterialExamQuestionRepository;
+use App\Traits\DataSidebar;
+use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 
 class SubMaterialExamController extends Controller
 {
+    use DataSidebar;
     private MaterialRepository $materialRepository;
     private SubMaterialExamRepository $repository;
     private SubMaterialExamService $service;
@@ -47,9 +50,11 @@ class SubMaterialExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function examMentor()
     {
-        //
+        $data = $this->GetDataSidebar();
+
+        return view('dashboard.user.pages.studentExam.examMentor', $data);
     }
 
     /**
