@@ -16,9 +16,9 @@ class SubMaterialExamQuestionRepository extends BaseRepository
     public function getByExam(string $subMaterialExamQuestionId, int $limit): mixed
     {
         return $this->model->query()
-        ->where('sub_material_exam_id', $subMaterialExamQuestionId)
-        ->latest()
-        ->paginate($limit);
+            ->where('sub_material_exam_id', $subMaterialExamQuestionId)
+            ->latest()
+            ->paginate($limit);
     }
 
     /**
@@ -47,7 +47,7 @@ class SubMaterialExamQuestionRepository extends BaseRepository
             ->insert($data);
     }
 
-     /**
+    /**
      * getDataQuestionNumber
      *
      * @param  mixed $questionNumber
@@ -70,6 +70,7 @@ class SubMaterialExamQuestionRepository extends BaseRepository
      */
     public function getRandomOrderByExamMultipleChoice(string $examId): mixed
     {
+        // dd($examId);
         return $this->model->query()
             ->where('sub_material_exam_id', $examId)
             ->whereRelation('questionBank', 'type', QuestionTypeEnum::MULTIPLECHOICE->value)
@@ -99,8 +100,10 @@ class SubMaterialExamQuestionRepository extends BaseRepository
      */
     public function getWhereMultiple(array $data): mixed
     {
+        // dd($data);
         return $this->model->query()
             ->where('sub_material_exam_id', $data['sub_material_exam_id'])
+            ->whereRelation('questionBank', 'type', QuestionTypeEnum::MULTIPLECHOICE->value)
             ->orderByRaw('FIELD(question_number, ' . $data['orderQuestionMultipleChoice'] . ')')
             ->get();
     }
@@ -115,8 +118,8 @@ class SubMaterialExamQuestionRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('sub_material_exam_id', $data['sub_material_exam_id'])
+            ->whereRelation('questionBank', 'type', QuestionTypeEnum::ESSAY->value)
             ->orderByRaw('FIELD(question_number, ' . $data['orderQuestionEssay'] . ')')
             ->get();
     }
-
 }

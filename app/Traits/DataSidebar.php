@@ -10,6 +10,7 @@ use App\Models\Dependent;
 use App\Models\Assignment;
 use App\Models\ZoomSchedule;
 use App\Models\SchoolPackage;
+use App\Models\SubMaterialExam;
 
 trait DataSidebar
 {
@@ -164,6 +165,15 @@ trait DataSidebar
         }
     }
 
+    public function StudentExam()
+    {
+        if (auth()->user()->roles->pluck('name')[0] == 'student') {
+            $generation = auth()->user()->studentSchool->studentClassroom->classroom->generation->id;
+            $exam = SubMaterialExam::whereRelation('subMaterial.material', 'generation_id', $generation)->get();
+            return $exam;
+        }
+    }
+
     function GetDataSidebar()
     {
         $data = [
@@ -173,6 +183,7 @@ trait DataSidebar
             'SidebarSchedule' => $this->ScheduleMockup(),
             'SidebarAssignment' => $this->AssignmentMockup(),
             'SidebarChallenge' => $this->ChallengeMockup(),
+            'StudentExam' => $this->StudentExam()
         ];
         return $data;
     }

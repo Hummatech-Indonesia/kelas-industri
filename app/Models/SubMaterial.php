@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SubMaterial extends Model
 {
@@ -43,5 +44,15 @@ class SubMaterial extends Model
     public function questionBanks(): HasMany
     {
         return $this->hasMany(QuestionBank::class);
+    }
+
+    /**
+     * Get the exam that owns the SubMaterial
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function exam(): HasOne
+    {
+        return $this->hasOne(SubMaterialExam::class);
     }
 }

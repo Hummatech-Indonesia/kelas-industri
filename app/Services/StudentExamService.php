@@ -29,7 +29,8 @@ class StudentExamService
         $combinedIndicesStringEssay = implode(',', $indicesSequentialEssay);
 
         $data =  [
-            'exam_id' => $exam->id,
+            'sub_material_exam_id' => $exam->id,
+            'student_id' => auth()->user()->id,
             'order_of_question_multiple_choice' => $combinedIndicesStringMultipleChoice,
             'order_of_question_essay' => $combinedIndicesStringEssay,
             'deadline' => now()->addMinutes($exam->time)

@@ -11,58 +11,69 @@
         .hide {
             display: none !important;
         }
+
+        .answer {
+
+            p,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p {
+                margin: 0 !important;
+            }
+        }
+
+        .form-check.form-check-custom span {
+            margin-left: 10px;
+        }
     </style>
 @endsection
 
 @php
-    $questions = [
-        [
-            'id' => '123',
-            'question' => 'soal 1',
-            'option1' => 'A',
-            'option2' => 'B',
-            'option3' => 'C',
-            'option4' => 'D',
-            'option5' => 'E',
+    use Carbon\Carbon;
+    $start = Carbon::now();
+    $end = Carbon::make($student_exam->deadline);
+
+    $time = $start->diffInMinutes($end);
+
+    $hours = floor($time / 60);
+    $minutes = $time % 60;
+    $seconds = $start->diffInSeconds($end) % 60;
+
+    $questions = [];
+
+    foreach ($question_multiple_choice as $index => $question) {
+        array_push($questions, [
+            'number' => $index + 1,
+            'id' => $question->question_number,
+            'question' => $question->questionBank->question,
+            'option1' => $question->questionBank->option1,
+            'option2' => $question->questionBank->option2,
+            'option3' => $question->questionBank->option3,
+            'option4' => $question->questionBank->option4,
+            'option5' => $question->questionBank->option5,
             'type' => 'multiple_choice',
-        ],
-        [
-            'id' => '456',
-            'question' => 'soal 2',
-            'option1' => 'A',
-            'option2' => 'B',
-            'option3' => 'C',
-            'option4' => 'D',
-            'option5' => 'E',
-            'type' => 'multiple_choice',
-        ],
-        [
-            'id' => '789',
-            'question' => 'soal 3',
-            'option1' => 'A',
-            'option2' => 'B',
-            'option3' => 'C',
-            'option4' => 'D',
-            'option5' => 'E',
+        ]);
+    }
+    foreach ($question_essay as $index => $question) {
+        array_push($questions, [
+            'number' => $index + 1,
+            'id' => $question->question_number,
+            'question' => $question->questionBank->question,
             'type' => 'essay',
-        ],
-        [
-            'id' => '759',
-            'question' => 'soal 4',
-            'option1' => 'A',
-            'option2' => 'B',
-            'option3' => 'C',
-            'option4' => 'D',
-            'option5' => 'E',
-            'type' => 'essay',
-        ],
-    ];
+        ]);
+    }
+
+    // dd()
 
 @endphp
 @section('content')
     <div class="container mt-10">
         <div class="row gap-3">
-            <div class="col col-md-8 p-0">
+            <div class="col-12 col-md-8 p-0">
                 <div class="card" style="height: fit-content;">
                     <div class="tab-content" id="myTabContent">
                         @php
@@ -72,55 +83,65 @@
                             <div class="tab-pane fade show {{ $index == 0 ? 'active' : '' }}"
                                 id="question_{{ $index }}" data-type="{{ $question['type'] }}" role="tabpanel">
                                 <div class="bg-primary mx-0 py-5 px-3 p-0 rounded"><span
-                                        class="fw-bolder fs-5 text-white">{{ $number++ }}/{{ count($questions) }}
+                                        class="fw-bolder fs-5 text-white">{{ $question['number'] }}/{{ $question['type'] == 'multiple_choice' ? count($question_multiple_choice) : count($question_essay) }}
                                         ({{ $question['type'] == 'multiple_choice' ? 'Pilihan Ganda' : 'Essay' }})
                                     </span>
                                 </div>
                                 <div class="card-body">
                                     <div class="question mb-9">
-                                        <p class="fs-4">{{ $question['question'] }}</p>
+                                        <p class="fs-4">{!! $question['question'] !!}</p>
                                         {{-- <img src="{{ asset('storage/school-logo/Mask group.png') }}" alt=""> --}}
                                     </div>
                                     <div class="answer ">
                                         @if ($question['type'] == 'multiple_choice')
-                                            <div class="form-check form-check-custom form-check-solid form-check-sm mb-4">
+                                            <div
+                                                class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option1"
                                                     id="option1_{{ $index }}">
-                                                <label class="form-check-label text-dark fs-5" for="option1_{{ $index }}">
-                                                    {{ $question['option1'] }}
+                                                <label class="d-flex form-check-label text-dark fs-5"
+                                                    for="option1_{{ $index }}">
+                                                    A. {!! '<span></span>' . $question['option1'] !!}
                                                 </label>
                                             </div>
-                                            <div class="form-check form-check-custom form-check-solid form-check-sm mb-4">
+                                            <div
+                                                class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option2"
                                                     id="option2_{{ $index }}">
-                                                <label class="form-check-label text-dark fs-5" for="option2_{{ $index }}">
-                                                    {{ $question['option2'] }}
+                                                <label class="d-flex form-check-label text-dark fs-5"
+                                                    for="option2_{{ $index }}">
+                                                    B. {!! '<span></span>' . $question['option2'] !!}
                                                 </label>
                                             </div>
-                                            <div class="form-check form-check-custom form-check-solid form-check-sm mb-4">
+                                            <div
+                                                class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option3"
                                                     id="option3_{{ $index }}">
-                                                <label class="form-check-label text-dark fs-5" for="option3_{{ $index }}">
-                                                    {{ $question['option3'] }}
+                                                <label class="d-flex form-check-label text-dark fs-5"
+                                                    for="option3_{{ $index }}">
+                                                    C. {!! '<span></span>' . $question['option3'] !!}
                                                 </label>
                                             </div>
-                                            <div class="form-check form-check-custom form-check-solid form-check-sm mb-4">
+                                            <div
+                                                class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option4"
                                                     id="option4_{{ $index }}">
-                                                <label class="form-check-label text-dark fs-5" for="option4_{{ $index }}">
-                                                    {{ $question['option4'] }}
+                                                <label class="d-flex form-check-label text-dark fs-5"
+                                                    for="option4_{{ $index }}">
+                                                    D. {!! '<span></span>' . $question['option4'] !!}
                                                 </label>
                                             </div>
-                                            <div class="form-check form-check-custom form-check-solid form-check-sm mb-4">
+                                            <div
+                                                class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option5"
                                                     id="option5_{{ $index }}">
-                                                <label class="form-check-label text-dark" for="option5_{{ $index }}">
-                                                    {{ $question['option5'] }}
+                                                <label class="d-flex form-check-label text-dark"
+                                                    for="option5_{{ $index }}">
+                                                    E. {!! '<span></span>' . $question['option5'] !!}
                                                 </label>
                                             </div>
                                         @else
@@ -145,7 +166,8 @@
                                                         d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12 12 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A20 20 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a20 20 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
                                                 </svg>
                                             </span>
-                                            <span class="prev svg-icon svg-icon-white svg-icon-2hx bg-primary rounded {{ $index == 0 ? 'bg-secondary' : ' ' }}"
+                                            <span
+                                                class="prev svg-icon svg-icon-white svg-icon-2hx bg-primary rounded {{ $index == 0 ? 'bg-secondary' : ' ' }}"
                                                 data-index="{{ $index - 1 }}" data-type="{{ $question['type'] }}"
                                                 {{ $index == 0 ? 'disabled' : ' ' }}>
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -191,7 +213,8 @@
                     <div class="m-3 d-flex flex-column align-items-center text-warning fw-bolder bg-warning-subtle rounded"
                         style="width: 200px; height: fit-content;">
                         <span>Siswa Waktu</span>
-                        <span class="fs-3">00:00:00</span>
+                        <span class="fs-3"><span id="hour">00</span>:<span id="minute">00</span>:<span
+                                id="second">00</span></span>
                     </div>
                     <p class="w-100 mt-4 text-start">Pilihan Ganda</p>
                     <ul class="nav nav-tabs nav-line-tabs mb-5 p-0 pb-4 fs-6 row row-cols-5 gap-3 w-100">
@@ -255,12 +278,59 @@
 @endsection
 @section('script')
     <script>
+        const hourEl = document.getElementById('hour');
+        const minuteEl = document.getElementById('minute');
+        const secondEl = document.getElementById('second');
+
+        let hour = {{ $hours }};
+        let minute = {{ $minutes }};
+        let second = {{ $seconds }};
+
+        // Fungsi untuk memperbarui elemen waktu
+        function updateDisplay() {
+            hourEl.innerText = hour < 10 ? '0' + hour : hour;
+            minuteEl.innerText = minute < 10 ? '0' + minute : minute;
+            secondEl.innerText = second < 10 ? '0' + second : second;
+        }
+
+        // Inisialisasi tampilan awal
+        updateDisplay();
+
+        let count = setInterval(() => {
+            second--;
+
+            if (second < 0) {
+                second = 59;
+                minute--;
+            }
+
+            if (minute < 0) {
+                minute = 59;
+                hour--;
+            }
+
+            if (hour < 0) {
+                clearInterval(count);
+                hour = 0;
+                minute = 0;
+                second = 0;
+            }
+
+            updateDisplay();
+
+            // Jika waktu habis, hentikan interval
+            if (hour === 0 && minute === 0 && second === 0) {
+                clearInterval(count);
+            }
+        }, 1000);
+    </script>
+    <script>
         let prevQuestion = 0;
 
         const answers = [
             @foreach ($questions as $question)
                 {
-                    'question_id': '{{ $question['id'] }}',
+                    'question_number': '{{ $question['id'] }}',
                     'answer': ''
                 },
             @endforeach
@@ -278,7 +348,7 @@
                 }
             } else {
                 answerInput = $('#essay_answer_' + prevQuestion).val();
-                if (answerInput != 'undefined') {
+                if (answerInput != '') {
                     $('#btn_essay_' + index).toggleClass('bg-warning');
                 }
             }
@@ -353,6 +423,73 @@
                 prevBtn.removeClass('active')
                 setAnswer($(this).data('type'), index);
             }
+        });
+    </script>
+
+    {{-- check tab --}}
+    <script>
+        function showAllert() {
+            Swal.fire({
+                title: 'Anda terdeteksi membuka tab baru.',
+                text: 'Mohon kerjakan ujian dengan jujur.',
+                icon: 'error',
+                confirmButtonText: "Ok",
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: "btn btn-light-primary"
+                }
+            })
+        }
+
+        // Deteksi tab tidak aktif/aktif
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                console.log('Tab tidak aktif');
+                showAllert()
+            } else {
+                console.log('Tab aktif');
+            }
+        });
+
+        // Deteksi jendela tidak aktif/aktif
+        window.addEventListener('blur', () => {
+            console.log('Jendela tidak aktif');
+            showAllert()
+        });
+
+        window.addEventListener('focus', () => {
+            console.log('Jendela aktif');
+            showAllert()
+        });
+
+        // Deteksi developer tools terbuka
+        let devtoolsOpen = false;
+        const threshold = 160;
+
+        setInterval(() => {
+            if (window.outerHeight - window.innerHeight > threshold) {
+                if (!devtoolsOpen) {
+                    devtoolsOpen = true;
+                    console.log('Developer Tools terbuka');
+                }
+            } else {
+                if (devtoolsOpen) {
+                    devtoolsOpen = false;
+                    console.log('Developer Tools tertutup');
+                }
+            }
+        }, 1000);
+
+        // Deteksi pengguna mencoba meninggalkan halaman
+        window.addEventListener('beforeunload', (event) => {
+            console.log('Pengguna mencoba meninggalkan halaman');
+            event.returnValue = 'Are you sure you want to leave?';
+        });
+
+        window.addEventListener('popstate', function(event) {
+            alert('Anda mengklik tombol kembali!');
+            // Menambahkan state history kosong untuk tetap berada di halaman yang sama
+            history.pushState(null, '', location.href);
         });
     </script>
 @endsection

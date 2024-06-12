@@ -40,7 +40,7 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{route('common.showMaterial', ['classroom' => $classroom, 'material' => $material])}}"
+                                <a href="{{ route('common.showMaterial', ['classroom' => $classroom, 'material' => $material]) }}"
                                     class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
@@ -61,111 +61,189 @@
 
                                 <div class="card-body">
 
-                                    <div class="d-flex">
+                                    <!--begin::Section-->
+                                    <div class="row align-items-end">
 
-                                        <!--begin: Pic-->
+                                        <div class="col-12 col-md-7">
 
-                                        <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3 me-5">
+                                            <!--begin::Pic-->
 
+                                            <div class="d-flex align-items-center">
 
-                                            <div class="symbol symbol-50 symbol-lg-120 symbol-primary ">
-
-                                                <span
-                                                    class="font-size-h3 symbol-label font-weight-boldest">{{ substr($subMaterial->title, 0, 1) }}</span>
-
-                                            </div>
-
-                                        </div>
-
-                                        <!--end: Pic-->
-
-
-                                        <!--begin: Info-->
-
-                                        <div class="flex-grow-1">
-
-                                            <!--begin: Title-->
-
-                                            <div class="d-flex align-items-center justify-content-between flex-wrap">
-
-                                                <div class="mr-3">
-
-                                                    <!--begin::Name-->
-
+                                                <div class="flex-shrink-0 symbol symbol-65 symbol-circle me-5">
                                                     <span
-                                                        class="d-flex align-items-center text-dark h4 font-weight-bold mr-3">
-
-                                                        {{ $subMaterial->title }}
-
-                                                    </span>
-
-                                                    <!--end::Name-->
-
+                                                        class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest"
+                                                        style="width:60px;height:60px;">L</span>
                                                 </div>
 
-                                                <div class="my-lg-0 my-1">
-                                                    @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                        <a href="{{ route('common.showDocument', [$subMaterial->id, 'student']) }}"
-                                                            class="btn btn-danger btn-sm">Materi
-                                                        </a>
-                                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                        <a href="{{ route('common.showDocument', [$subMaterial->id, 'mentor']) }}"
-                                                            class="btn btn-danger btn-sm">Materi
-                                                        </a>
-                                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                        <a href="{{ route('common.showDocument', [$subMaterial->id, 'teacher']) }}"
-                                                            class="btn btn-danger btn-sm">Materi
-                                                        </a>
-                                                    @endif
+                                                <!--end::Pic-->
 
-                                                </div>
+                                                <!--begin::Info-->
 
+                                                <a href=""
+                                                    class="card-title text-hover-primary font-weight-bolder fs-3 fw-semibold text-dark mb-4">
+                                                    Laravel
+                                                </a>
                                             </div>
-
-                                            <!--end: Title-->
-
-
-                                            <!--begin: Content-->
-
-                                            <div class="d-flex align-items-center flex-wrap justify-content-between">
-
-                                                <div class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
-
-                                                    <div style="width: 45;" >
-
-                                                        {{ $subMaterial->description }}
+                                            @php
+                                                $exam = $subMaterial->exam;
+                                            @endphp
+                                            <div class="mt-3">
+                                                <div class="row align-items-center">
+                                                    <div class="col-4 col-md-3">Status</div>
+                                                    <div class="col">:
+                                                        <div class="badge badge-light-danger">Belum Dikerjakan</div>
                                                     </div>
-
                                                 </div>
-
+                                                <div class="row align-items-center">
+                                                    <div class="col-4 col-md-3">Mulai</div>
+                                                    <div class="col">:
+                                                        {{ Carbon::parse($exam->start_at)->isoFormat('dddd, D mmmm Y HH:s') }}</div>
+                                                </div>
+                                                <div class="row align-items-center">
+                                                    <div class="col-4 col-md-3">Berakhir</div>
+                                                    <div class="col">:
+                                                        {{ Carbon::parse($exam->end_at)->isoFormat('dddd, D mmmm Y HH:s') }}</div>
+                                                </div>
                                             </div>
-
-                                            <!--end: Content-->
-
+                                            <div class="row align-items-center">
+                                                <div class="col-4 col-md-3">Waktu Pengerjaan</div>
+                                                <div class="col">: {{ $exam->time }} Menit </div>
+                                            </div>
+                                            <div class="row align-items-center">
+                                                <div class="col-4 col-md-3">Jumlah Soal</div>
+                                                <div class="col">: {{ $exam->total_multiple_choice + $exam->total_essay }} </div>
+                                            </div>
                                         </div>
 
-                                        <!--end: Info-->
+                                        <!--end::Info-->
+
+                                        <div class="col mt-4">
+                                            <div class="d-flex justify-content-start justify-content-md-end">
+                                                <a href="{{ route('student.exam', $exam->id) }}"
+                                                    class="btn btn-primary btn-sm">
+                                                    Mulai Ujian
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Section-->
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-12 mt-5">
+
+                        <div class="card card-custom gutter-b">
+
+                            <div class="card-body">
+
+                                <div class="d-flex">
+
+                                    <!--begin: Pic-->
+
+                                    <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3 me-5">
+
+
+                                        <div class="symbol symbol-50 symbol-lg-120 symbol-primary ">
+
+                                            <span
+                                                class="font-size-h3 symbol-label font-weight-boldest">{{ substr($subMaterial->title, 0, 1) }}</span>
+
+                                        </div>
 
                                     </div>
 
+                                    <!--end: Pic-->
+
+
+                                    <!--begin: Info-->
+
+                                    <div class="flex-grow-1">
+
+                                        <!--begin: Title-->
+
+                                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+
+                                            <div class="mr-3">
+
+                                                <!--begin::Name-->
+
+                                                <span class="d-flex align-items-center text-dark h4 font-weight-bold mr-3">
+
+                                                    {{ $subMaterial->title }}
+
+                                                </span>
+
+                                                <!--end::Name-->
+
+                                            </div>
+
+                                            <div class="my-lg-0 my-1">
+                                                @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                                    <a href="{{ route('common.showDocument', [$subMaterial->id, 'student']) }}"
+                                                        class="btn btn-danger btn-sm">Materi
+                                                    </a>
+                                                @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                    <a href="{{ route('common.showDocument', [$subMaterial->id, 'mentor']) }}"
+                                                        class="btn btn-danger btn-sm">Materi
+                                                    </a>
+                                                @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                    <a href="{{ route('common.showDocument', [$subMaterial->id, 'teacher']) }}"
+                                                        class="btn btn-danger btn-sm">Materi
+                                                    </a>
+                                                @endif
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--end: Title-->
+
+
+                                        <!--begin: Content-->
+
+                                        <div class="d-flex align-items-center flex-wrap justify-content-between">
+
+                                            <div class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
+
+                                                <div style="width: 45;">
+
+                                                    {{ $subMaterial->description }}
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--end: Content-->
+
+                                    </div>
+
+                                    <!--end: Info-->
 
                                 </div>
+
 
                             </div>
 
                         </div>
-                        <div class="col-12 mt-5">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between pt-7">
-                                    <!--begin::Title-->
-                                    <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold text-gray-800">Tugas</span>
-                                        <span class="text-gray-400 mt-1 fw-semibold fs-6">list tugas anda.</span>
-                                    </h3>
-                                </div>
 
-                                <div class="card-body">
-                                    @if ($subMaterial->assignments->count() > 0)
+                    </div>
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between pt-7">
+                                <!--begin::Title-->
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="card-label fw-bold text-gray-800">Tugas</span>
+                                    <span class="text-gray-400 mt-1 fw-semibold fs-6">list tugas anda.</span>
+                                </h3>
+                            </div>
+
+                            <div class="card-body">
+                                @if ($subMaterial->assignments->count() > 0)
                                     <table id="kt_datatable_responsive"
                                         class="table table-striped border rounded gy-5 gs-7">
                                         <thead>
@@ -179,7 +257,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($subMaterial->assignments as $assignment)
+                                            @foreach ($subMaterial->assignments as $assignment)
                                                 <tr>
                                                     <td>{{ $assignment->title }}</td>
                                                     <td>{!! $assignment->description !!}</td>
@@ -210,7 +288,8 @@
                                                                                 array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
                                                                             ]->point === null)
                                                                             <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
-                                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Edit Tugas
+                                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Edit
+                                                                                Tugas
                                                                             </a>
                                                                         @else
                                                                             <span class="badge badge-light-danger">-</span>
@@ -237,8 +316,8 @@
                                                                     class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat</a>
                                                             @else
                                                                 <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
-                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat
-                                                            </a>
+                                                                    class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat
+                                                                </a>
                                                             @endif
                                                         @endif
                                                     </td>
@@ -247,50 +326,48 @@
 
                                         </tbody>
                                     </table>
-                                    @else
+                                @else
                                     <x-empty-component title="tugas" />
-                                    @endif
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!--end::Content container-->
+
             </div>
-            <!--end::Content-->
+            <!--end::Content container-->
         </div>
-        <!--end::Content wrapper-->
+        <!--end::Content-->
+    </div>
+    <!--end::Content wrapper-->
 
 
-        <!--begin::Footer-->
-        <div id="kt_app_footer" class="app-footer ">
-            <!--begin::Footer container-->
-            <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
-                <!--begin::Copyright-->
-                <div class="text-dark order-2 order-md-1">
-                    <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
-                    <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
-                        Industri</a>
-                </div>
-                <!--end::Copyright-->
-
-                <!--begin::Menu-->
-                <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
-                            Kami</a></li>
-
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Syarat & Ketentuan</a></li>
-
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Kebijakan Privasi</a></li>
-                </ul>
-                <!--end::Menu-->
+    <!--begin::Footer-->
+    <div id="kt_app_footer" class="app-footer ">
+        <!--begin::Footer container-->
+        <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
+            <!--begin::Copyright-->
+            <div class="text-dark order-2 order-md-1">
+                <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
+                <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
+                    Industri</a>
             </div>
-            <!--end::Footer container-->
+            <!--end::Copyright-->
+
+            <!--begin::Menu-->
+            <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
+                <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
+                        Kami</a></li>
+
+                <li class="menu-item"><a href="#" class="menu-link px-2">Syarat & Ketentuan</a></li>
+
+                <li class="menu-item"><a href="#" class="menu-link px-2">Kebijakan Privasi</a></li>
+            </ul>
+            <!--end::Menu-->
         </div>
-        <!--end::Footer-->
+        <!--end::Footer container-->
+    </div>
+    <!--end::Footer-->
     </div>
 @endsection
 @section('script')

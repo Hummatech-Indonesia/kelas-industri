@@ -202,8 +202,7 @@
                                     <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Ujian</span>
                                 </a>
                             @else
-                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam"
-                                    class="nav-link py-4 px-1 btn">
+                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam" class="nav-link py-4 px-1 btn">
                                     <i class="bi bi-file-earmark-text fs-1"></i>
 
                                     <span class="pt-2 fs-9 fs-lg-7 fw-bold">Ujian</span>
@@ -219,8 +218,7 @@
                                     <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Ujian</span>
                                 </a>
                             @else
-                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam"
-                                    class="nav-link py-4 px-1 btn">
+                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam" class="nav-link py-4 px-1 btn">
                                     <i class="bi bi-file-earmark-text fs-1"></i>
 
                                     <span class="pt-2 fs-9 fs-lg-7 fw-bold">Ujian</span>
@@ -637,12 +635,12 @@
                         </div>
                         <!--begin::Body-->
                         <div class="card-body">
-                            @foreach (range(0, 5) as $i)
+                            @foreach ($StudentExam as $exam)
                                 <div class="d-flex mb-3 flex-stack">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
                                         <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
-                                            {{ substr("PHP", 0, 1) }}
+                                            {{ substr($exam->title, 0, 1) }}
                                         </div>
                                     </div>
                                     <!--end::Symbol-->
@@ -651,8 +649,13 @@
                                     <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                                         <!--begin:Author-->
                                         <div class="flex-grow-1 me-2">
-                                            <a href="#" target="blank"
-                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">Ujian PHP</a>
+                                            <a href="{{ route('common.showSubMaterial', [
+                                            'classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id,
+                                            'material' => $exam->submaterial->material->id,
+                                            'submaterial' => $exam->sub_material_id]) }}" target="blank"
+                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $exam->title }}</a>
+                                            <span
+                                                class="text-muted fw-semibold d-block fs-">{{ $exam->submaterial->title }}</span>
 
                                             <span
                                                 class="text-muted fw-semibold d-block fs-7">{{ \Carbon\Carbon::now()->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
@@ -661,7 +664,7 @@
                                     </div>
                                     <!--end::Section-->
                                 </div>
-                                @endforeach
+                            @endforeach
                             {{-- @empty
                                 <!--begin::Illustration-->
                                 <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"

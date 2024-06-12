@@ -22,7 +22,7 @@ class StudentExamRepository extends BaseRepository
     public function whereIn(array $data): mixed
     {
         return $this->model->query()
-            ->where(['sub_material_exam_id' => $data['sub_material_exam_id'], 'student_id' => auth()->user()->student->id])->first();
+            ->where(['sub_material_exam_id' => $data['sub_material_exam_id'], 'student_id' => auth()->user()->id])->first();
     }
 
     /**
