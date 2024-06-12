@@ -496,7 +496,6 @@
                                                     id="assigment_{{ $assigment->id }}">
                                                     <div class="col border-end">
                                                         <h4>{{ $assigment->title }}</h4>
-                                                        <p>{!! $assigment->description !!}</p>
                                                     </div>
                                                     <div class="col border-end">
                                                         <p class="fs-6">Tanggal Mulai</p>
@@ -542,8 +541,7 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <h2 class="mb-5">{{ $assigment->title }}</h2>
-                                                                <span class="h6">Deskripsi</span>
+                                                                <h4>{{ $assigment->title }}</h4>
                                                                 <p class="mb-3">{!! $assigment->description !!}</p>
                                                             </div>
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'student')

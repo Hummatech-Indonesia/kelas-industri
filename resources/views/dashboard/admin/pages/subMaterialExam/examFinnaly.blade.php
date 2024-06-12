@@ -110,9 +110,9 @@
 
                             </div>
                             <div class="d-flex justify-content-end">
-                                
-                                <a href="{{ route('admin.exam-question', $exam->id) }}" class="btn btn-primary btn-sm">
-                                    Lihat Soal
+
+                                <a href="{{ route('admin.exam-statistic') }}" class="btn btn-primary btn-sm">
+                                    Detail Statistik
                                 </a>
                             </div>
                             <!--end::Section-->

@@ -90,7 +90,7 @@
                                     @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
                                     @endif
                             @endif
-                            ><span class="menu-title">Ujian</span></a>
+                            ><span class="menu-title">UAS</span></a>
                             @endif
                             <!--end:Menu link-->
                         </div>
@@ -171,15 +171,21 @@
                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
+                                <a href="{{ route('mentor.submaterialExam.index') }}"
+                                    class="menu-link {{ request()->routeIs('mentor.submaterialExam.index') ? 'active' : '' }}">
+                                    <span class="menu-title">Ujian</span></a>
+                            </div>
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <!--begin:Menu link-->
                                 <a href="{{ route('mentor.exam.index') }}"
                                     class="menu-link {{ request()->routeIs('mentor.exam.index') || request()->routeIs('mentor.showStudent') ? 'active' : '' }}">
-                                    <span class="menu-title">Ujian</span></a>
+                                    <span class="menu-title">UAS</span></a>
                             </div>
                         @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <a href="{{ route('teacher.exam.index') }}"
                                     class="menu-link {{ request()->routeIs('teacher.exam.index') || request()->routeIs('teacher.showStudent') ? 'active' : '' }}">
-                                    <span class="menu-title">Ujian</span></a>
+                                    <span class="menu-title">UAS</span></a>
                             </div>
                             <!--end:Menu link-->
                         @endif
@@ -224,13 +230,13 @@
                             </div>
                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
 
-                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <a href="{{ route('student.events.index') }}"
-                                    class="menu-link {{ request()->routeIs('student.events.index') || request()->routeIs('student.events.show') ? 'active' : '' }}"><span
-                                        class="menu-title">Event</span></a>
-                                <!--end:Menu link-->
-                            </div>
+                                <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                    <!--begin:Menu link-->
+                                    <a href="{{ route('student.events.index') }}"
+                                        class="menu-link {{ request()->routeIs('student.events.index') || request()->routeIs('student.events.show') ? 'active' : '' }}"><span
+                                            class="menu-title">Event</span></a>
+                                    <!--end:Menu link-->
+                                </div>
                             @endif
                             @if (!$schoolPayment)
                                 <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">

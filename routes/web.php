@@ -173,7 +173,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('eventDocumentation/store/{event}', [EventDocumentationController::class, 'storeMultiple'])->name('eventDocumentation.store-img');
 
         Route::get('exam-taking-place', [SubMaterialExamController::class, 'examTakingPlace'])->name('exam-taking-place');
+        Route::get('detail-exam-taking-place', [SubMaterialExamController::class, 'detailExamTakingPlace'])->name('detail-exam-taking-place');
         Route::get('exam-finnaly', [SubMaterialExamController::class, 'examFinnaly'])->name('exam-finnaly');
+        Route::get('exam-statistic', [SubMaterialExamController::class, 'examStatistic'])->name('exam-statistic');
 
         Route::get('exam-question/{subMaterialExam}', [SubMaterialExamController::class, 'examQuestion'])->name('exam-question');
         Route::get('exam-question-manual/{submaterial}/{submaterialExam}', [SubMaterialExamController::class, 'examQuestionManual'])->name('exam-question-manual');
@@ -370,6 +372,9 @@ Route::middleware('auth.custom')->group(function () {
             'saleries' => SalaryController::class,
         ]);
 
+        Route::get('submaterial-exam', [SubMaterialExamController::class, 'examMentor'])->name('submaterialExam.index');
+        Route::get('submaterial-exam-classroom', [SubMaterialExamController::class, 'examMentorClassroom'])->name('submaterialExamClassroom.index');
+
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
 
         Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
@@ -446,10 +451,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
-        Route::get('exams/', [ExamStudentController::class, 'showMaterials'])->name('exams.index');
-        Route::get('exams/{material}', [ExamStudentController::class, 'show'])->name('exams.show');
-        Route::get('exams/submaterial/{material}', [ExamStudentController::class, 'showSubmaterial'])->name('exams.showMaterial');
-        
+
         Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');
 
         Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
