@@ -93,6 +93,9 @@
                                                     <div class="row align-items-center">
                                                         <div class="col-4 col-md-3">Status</div>
                                                         <div class="col">:
+                                                            @if ($submaterial->exam->)
+
+                                                            @endif
                                                             <div class="badge badge-light-danger">Belum Dikerjakan</div>
                                                         </div>
                                                     </div>

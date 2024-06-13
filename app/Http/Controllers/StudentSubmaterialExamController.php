@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\View\View;
 use App\Models\SubMaterialExam;
 use App\Services\StudentExamService;
 use App\Services\SubMaterialService;
@@ -42,6 +43,8 @@ class StudentSubmaterialExamController extends Controller
         $studentExam = $this->studentExam->whereIn(['sub_material_exam_id' => $subMaterialExam->id]);
         if ($studentExam == null) {
             $this->service->store($subMaterialExam, $examQuestionsMultipleChoice, $examQuestionsEssay);
+            $studentExam = $this->studentExam->whereIn(['sub_material_exam_id' => $subMaterialExam->id]);
+            $data['student_exam'] = $studentExam;
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
             return view('dashboard.user.pages.studentExam.exam', $data);
@@ -79,6 +82,16 @@ class StudentSubmaterialExamController extends Controller
         $data = $this->service->calculate($request, $answerKey, $subMaterialExam);
 
         $this->studentExam->update($studentSubmaterialExam->id, $data);
+
+        return response()->json($data, 200);
+    }
+
+
+    public function showFinish(SubMaterialExam $subMaterialExam, StudentSubmaterialExam $studentSubmaterialExam): View
+    {
+        $data['subMaterialExam'] = $subMaterialExam;
+        $data['studentSubmaterialExam'] = $studentSubmaterialExam;
+        return view('dashboard.user.pages.studentExam.finish', $data);
     }
 
     /**
@@ -101,5 +114,16 @@ class StudentSubmaterialExamController extends Controller
         }
 
         return redirect()->back()->with('success', "Berhasil melakukan penilaian");
+    }
+    public function openTab(StudentSubmaterialExam $subMaterialExam)
+    {
+        $studentExam = $this->service->handleOpenTab($subMaterialExam);
+        return response()->json(['openTab' => $studentExam->open_tab], 200);
+    }
+
+    public function reset($subMaterialExam)
+    {
+        $delete = $this->service->reset($subMaterialExam);
+        return response()->json([], 200);
     }
 }

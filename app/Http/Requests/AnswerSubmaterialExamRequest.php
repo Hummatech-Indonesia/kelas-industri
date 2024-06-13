@@ -14,11 +14,10 @@ class AnswerSubmaterialExamRequest extends FormRequest
      */
     public function rules(): array
     {
-        $dailyExam = $this->route('dailyExam');
         return [
             'answer' => 'nullable|array',
             'answer.*' => 'nullable',
-            'answer_essay' => $dailyExam->total_essay != 0 ? 'nullable|array|max:2048' : 'array|max:2048',
+            'answer_essay' => 'nullable|array|max:2048',
         ];
     }
 

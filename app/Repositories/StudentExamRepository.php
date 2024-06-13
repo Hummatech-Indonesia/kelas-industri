@@ -13,7 +13,7 @@ class StudentExamRepository extends BaseRepository
         $this->model = $model;
     }
 
-     /**
+    /**
      * whereIn
      *
      * @param  mixed $data
@@ -25,29 +25,7 @@ class StudentExamRepository extends BaseRepository
             ->where(['sub_material_exam_id' => $data['sub_material_exam_id'], 'student_id' => auth()->user()->id])->first();
     }
 
-    /**
-     * update
-     *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return mixed
-     */
-    public function update(mixed $id, array $data): mixed
-    {
-        $studentExam = $this->model->query()->findOrFail($id);
-        if ($studentExam->exam->total_essay != 0) {
-            $orderOfQuestionEssay = explode(",", $studentExam->order_of_question_essay);
-            $studentExam->update($data);
-            for ($i = 0; $i < count($orderOfQuestionEssay); $i++) {
-                $data['answer'] = $data['answer_essay'][$i];
-                $data['student_question_number'] = $orderOfQuestionEssay[$i];
-                $studentExam->studentExamAnswers()->create($data);
-            }
-        } else {
-            $studentExam->update($data);
-        }
-        return $studentExam;
-    }
+    
 
     /**
      * getWhere
@@ -61,5 +39,11 @@ class StudentExamRepository extends BaseRepository
             ->where('sub_material_exam_id', $data[0])
             ->whereRelation('student', 'id', auth()->user()->id)
             ->first();
+    }
+    public function openTab($subMaterialExam): mixed
+    {
+        $subMaterialExam->open_tab += 1;
+        $subMaterialExam->save();
+        return $subMaterialExam;
     }
 }

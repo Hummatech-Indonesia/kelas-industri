@@ -43,29 +43,38 @@ class StudentExamService
     public function calculate(AnswerSubmaterialExamRequest $request, mixed $answerKeys, SubMaterialExam $subMaterialExam): mixed
     {
         if ($request->answer_essay) {
-            $studentDailyExam = $this->repository->getWhere([$subMaterialExam->id]);
+            $studentSubMaterialExam = $this->repository->getWhere([$subMaterialExam->id]);
             for ($i = 0; $i < count($request->answer_essay); $i++) {
                 $data['answer'] = $request->answer_essay[$i];
-                $studentDailyExam->studentDailyExamAnswers()->create($data);
+                $studentSubMaterialExam->studentSubMaterialExamAnswers()->create($data['answer']);
             }
         }
 
         $answers = $request->answer;
-
+        $answerArr = [];
         $true = 0;
         foreach ($answers as $i => $answer) {
             $correctAnswers = $answerKeys[$i]->questionBankAnswers->pluck('answer')->toArray();
-            if (in_array($answer, $correctAnswers)) {
+            array_push($answerArr, $answer['answer']);
+            if (in_array($answer['answer'], $correctAnswers)) {
                 $true++;
             }
         }
 
         return [
-            'answer' => implode(';', $request->answer),
+            'answer' => implode(';', $answerArr),
             'score' => ($subMaterialExam->multiple_choice_value / count($answerKeys) * $true),
             'true_answer' => $true,
             'finished_exam' => now(),
         ];
+    }
+    public function handleOpenTab($subMaterialExam): mixed
+    {
+        return $this->repository->openTab($subMaterialExam);
+    }
 
+    public function  reset($id): mixed
+    {
+        return $this->repository->destroy($id);
     }
 }

@@ -179,7 +179,7 @@
                                             </span>
                                             @if ($index == count($questions) - 1)
                                                 <span data-index="{{ $index + 1 }}" data-type="{{ $question['type'] }}"
-                                                    class="next bg-primary rounded d-flex align-items-center px-3"
+                                                    class="next bg-primary rounded d-flex align-items-center px-3 submit-btn"
                                                     {{ $index >= count($questions) - 1 ? 'disabled' : ' ' }}>
                                                     Selesai
                                                 </span>
@@ -269,7 +269,7 @@
                             @endif
                         @endforeach
                     </ul>
-                    <button class="btn btn-primary w-100">Selesai Ujian</button>
+                    <button class="btn btn-primary w-100 submit-btn">Selesai Ujian</button>
                 </div>
 
             </div>
@@ -277,6 +277,100 @@
     </div>
 @endsection
 @section('script')
+    @if ($student_exam->subMaterialExam->cheating_detector)
+        <script>
+            let openTab = false;
+
+            function showAllert() {
+                let countOpentTab = 0;
+                $.ajax({
+                    type: "PUT",
+                    url: "{{ route('student.exam.opentab', $student_exam->id) }}",
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    dataType: "json", // Mengubah dataType menjadi json
+                    success: function(response) {
+                        countOpentTab = response.openTab;
+                        openTab = false;
+                        Swal.fire({
+                            html: `<div id="alertElement"><p>Sisa kesempatan anda <span class="chance">${
+                    3 - countOpentTab
+                }</span></p><p class="message">Mohon kerjakan ujian dengan jujur.</p></div>`,
+                            title: "Anda terdeteksi membuka tab baru.",
+                            icon: "error",
+                            confirmButtonText: "Ok",
+                            buttonsStyling: false,
+                            customClass: {
+                                confirmButton: "btn btn-light-primary",
+                            },
+                        });
+
+                        if (countOpentTab >= 3) {
+                            $(".chance").text("habis");
+                            $(".message").text("Ujian Anda akan ditutup");
+                            setTimeout(() => {
+                                $.ajax({
+                                    type: "delete",
+                                    url: "{{ route('student.exam.reset', $student_exam->id) }}",
+                                    data: {
+                                        _token: $('meta[name="csrf-token"]').attr(
+                                            "content"
+                                        ),
+                                    },
+                                    dataType: "json",
+                                    success: function(res) {
+                                        window.location.replace(
+                                            "{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $student_exam->subMaterialExam->subMaterial->material_id, 'submaterial' => $student_exam->subMaterialExam->sub_material_id]) }}"
+                                        );
+                                    },
+                                });
+                            }, 5000);
+                        }
+                    },
+                });
+            }
+
+            // Deteksi jendela tidak aktif/aktif
+            window.addEventListener("blur", () => {
+                console.log("Jendela tidak aktif");
+                if (openTab == false) {
+                    openTab = true;
+                    showAllert();
+                }
+            });
+
+            // Deteksi developer tools terbuka
+            let devtoolsOpen = false;
+            const threshold = 160;
+
+            setInterval(() => {
+                if (window.outerHeight - window.innerHeight > threshold) {
+                    if (!devtoolsOpen) {
+                        devtoolsOpen = true;
+                        console.log("Developer Tools terbuka");
+                    }
+                } else {
+                    if (devtoolsOpen) {
+                        devtoolsOpen = false;
+                        console.log("Developer Tools tertutup");
+                    }
+                }
+            }, 1000);
+
+            // Deteksi pengguna mencoba meninggalkan halaman
+            // window.addEventListener('beforeunload', (event) => {
+            //     console.log('Pengguna mencoba meninggalkan halaman');
+            //     event.returnValue = 'Are you sure you want to leave?';
+            // });
+
+            window.addEventListener("popstate", function(event) {
+                alert("Anda mengklik tombol kembali!");
+                // Menambahkan state history kosong untuk tetap berada di halaman yang sama
+                history.pushState(null, "", location.href);
+            });
+        </script>
+    @endif
     <script>
         const hourEl = document.getElementById('hour');
         const minuteEl = document.getElementById('minute');
@@ -330,12 +424,16 @@
         const answers = [
             @foreach ($questions as $question)
                 {
-                    'question_number': '{{ $question['id'] }}',
-                    'answer': ''
+                    'student_question_number': '{{ $question['id'] }}',
+                    'answer': '',
+                    @if ($question['type'] == 'multiple_choice')
+                        'type': 'multiple_choice'
+                    @else
+                        'type': 'essay'
+                    @endif
                 },
             @endforeach
         ];
-
         $('.mark').click(function() {
             setMark($(this).data('index'));
         })
@@ -365,7 +463,6 @@
 
             if (typeof answerInput !== 'undefined' && answerInput !== '') {
                 answers[prevQuestion].answer = answerInput;
-
                 if ($('#question_' + prevQuestion).data('type') === 'multiple_choice') {
                     $('#btn_multiple_choice_' + prevQuestion).removeClass('bg-secondary');
                     $('#btn_multiple_choice_' + prevQuestion).addClass('bg-primary');
@@ -424,72 +521,45 @@
                 setAnswer($(this).data('type'), index);
             }
         });
-    </script>
 
-    {{-- check tab --}}
-    <script>
-        function showAllert() {
-            Swal.fire({
-                title: 'Anda terdeteksi membuka tab baru.',
-                text: 'Mohon kerjakan ujian dengan jujur.',
-                icon: 'error',
-                confirmButtonText: "Ok",
-                buttonsStyling: false,
-                customClass: {
-                    confirmButton: "btn btn-light-primary"
+        $('.submit-btn').on('click', function() {
+            const groupBy = (array, key) => {
+                return array.reduce((result, currentValue) => {
+                    // Ambil nilai dari properti yang dijadikan kunci
+                    const groupKey = currentValue[key];
+
+                    // Jika kunci belum ada dalam hasil, inisialisasi dengan array kosong
+                    if (!result[groupKey]) {
+                        result[groupKey] = [];
+                    }
+
+                    // Tambahkan objek saat ini ke dalam kelompok yang sesuai
+                    result[groupKey].push(currentValue);
+
+                    return result;
+                }, {}); // Inisialisasi hasil sebagai objek kosong
+            };
+
+            // Gunakan fungsi `groupBy` untuk membagi array `students` berdasarkan properti `grade`
+            const grupedType = groupBy(answers, 'type');
+            $.ajax({
+                type: "patch",
+                url: "{{ route('student.exam.submit', ['subMaterialExam' => $student_exam->sub_material_exam_id, 'studentSubmaterialExam' => $student_exam->id]) }}",
+                data: {
+                    '_token': $('meta[name="csrf-token"]').attr('content'),
+                    'answer': grupedType.multiple_choice,
+                    'answer_essay': grupedType.essay,
+                },
+                dataType: "json",
+                success: function(response) {
+                    window.location.replace(
+                        "{{ route('student.exam.show-finish', ['subMaterialExam' => $student_exam->sub_material_exam_id, 'studentSubmaterialExam' => $student_exam->id]) }}"
+                        );
+                },
+                error: function(err) {
+                    console.error(err);
                 }
-            })
-        }
-
-        // Deteksi tab tidak aktif/aktif
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                console.log('Tab tidak aktif');
-                showAllert()
-            } else {
-                console.log('Tab aktif');
-            }
-        });
-
-        // Deteksi jendela tidak aktif/aktif
-        window.addEventListener('blur', () => {
-            console.log('Jendela tidak aktif');
-            showAllert()
-        });
-
-        window.addEventListener('focus', () => {
-            console.log('Jendela aktif');
-            showAllert()
-        });
-
-        // Deteksi developer tools terbuka
-        let devtoolsOpen = false;
-        const threshold = 160;
-
-        setInterval(() => {
-            if (window.outerHeight - window.innerHeight > threshold) {
-                if (!devtoolsOpen) {
-                    devtoolsOpen = true;
-                    console.log('Developer Tools terbuka');
-                }
-            } else {
-                if (devtoolsOpen) {
-                    devtoolsOpen = false;
-                    console.log('Developer Tools tertutup');
-                }
-            }
-        }, 1000);
-
-        // Deteksi pengguna mencoba meninggalkan halaman
-        window.addEventListener('beforeunload', (event) => {
-            console.log('Pengguna mencoba meninggalkan halaman');
-            event.returnValue = 'Are you sure you want to leave?';
-        });
-
-        window.addEventListener('popstate', function(event) {
-            alert('Anda mengklik tombol kembali!');
-            // Menambahkan state history kosong untuk tetap berada di halaman yang sama
-            history.pushState(null, '', location.href);
-        });
+            });
+        })
     </script>
 @endsection

@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\SubMaterialExam;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\StudentSubmaterialExamAnswer;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -36,5 +39,15 @@ class StudentSubmaterialExam extends Model
     public function subMaterialExam(): BelongsTo
     {
         return $this->belongsTo(SubMaterialExam::class);
+    }
+
+    /**
+     * Get all of the studentSubmaterialExamAnswers for the StudentSubmaterialExam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function studentSubMaterialExamAnswers(): HasMany
+    {
+        return $this->hasMany(StudentSubmaterialExamAnswer::class);
     }
 }

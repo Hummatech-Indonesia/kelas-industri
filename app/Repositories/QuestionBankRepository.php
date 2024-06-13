@@ -119,7 +119,7 @@ class QuestionBankRepository extends BaseRepository
     public function getBySubmaterialExam(string $submaterialExamId): mixed
     {
         return $this->model->query()
-            ->whereRelation('subMaterialExamQuestions.dailyExam', 'id', $submaterialExamId)
+            ->whereRelation('subMaterialExamQuestions.subMaterialExam', 'id', $submaterialExamId)
             ->get();
     }
 

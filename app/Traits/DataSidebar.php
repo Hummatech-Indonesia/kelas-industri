@@ -169,7 +169,7 @@ trait DataSidebar
     {
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $generation = auth()->user()->studentSchool->studentClassroom->classroom->generation->id;
-            $exam = SubMaterialExam::whereRelation('subMaterial.material', 'generation_id', $generation)->get();
+            $exam = SubMaterialExam::whereRelation('subMaterial.material', 'generation_id', $generation)->where('start_at', '<', now())->where('end_at', '>', now())->get();
             return $exam;
         }
     }

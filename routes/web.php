@@ -107,8 +107,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
         Route::get('/detailJurnal/{classroom}/{journal}', [JurnalController::class, 'detailAttendance'])->name('journal.attendance');
 
-        Route::get('/teacher-statistic',[TeacherStatisticController::class,'index'])->name('teacher.statistic.index');
-        Route::get('/teacher-statistic/{school}',[TeacherStatisticController::class,'show'])->name('teacher.statistic.show');
+        Route::get('/teacher-statistic', [TeacherStatisticController::class, 'index'])->name('teacher.statistic.index');
+        Route::get('/teacher-statistic/{school}', [TeacherStatisticController::class, 'show'])->name('teacher.statistic.show');
 
 
         Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
@@ -425,7 +425,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial')->middleware('checkpayment');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 
-        Route::get('/event',[EventController::class,'studentEvent'])->name('events.index');
+        Route::get('/event', [EventController::class, 'studentEvent'])->name('events.index');
 
 
         Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
@@ -452,7 +452,12 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
 
+        // student exam
         Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');
+        Route::put('exam/{subMaterialExam}/opentab', [StudentSubmaterialExamController::class, 'openTab'])->name('exam.opentab');
+        Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
+        Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
+        Route::get('exam/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish');
 
         Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
         Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
@@ -467,7 +472,7 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::resources([
             'submitRewards' => SubmitRewardController::class,
-            'projects' => ProjectController::class,
+            'projectf' => ProjectController::class,
             'presentation' => PresentationController::class,
             'notes' => NoteController::class,
             'tasks' => TaskController::class,
