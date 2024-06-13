@@ -5,8 +5,6 @@
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <!--begin::Content wrapper-->
         <div class="d-flex flex-column flex-column-fluid">
-
-
             <!--begin::Content-->
             <div id="kt_app_content" class="app-content  flex-column-fluid ">
                 <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-8 ">
@@ -53,12 +51,12 @@
                 </div>
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
-
-                    <div class="row">
-                        @php
-                            $exam = $subMaterial->exam;
-                        @endphp
-                        @if ($exam)
+                    @php
+                        $exam = $subMaterial->exam;
+                        $studentSubmaterialExam = $studentSubmaterialExams[0];
+                    @endphp
+                    @if ($exam)
+                        <div class="row">
                             <div class="col-12">
 
                                 <div class="card card-custom gutter-b">
@@ -93,10 +91,15 @@
                                                     <div class="row align-items-center">
                                                         <div class="col-4 col-md-3">Status</div>
                                                         <div class="col">:
-                                                            @if ($submaterial->exam->)
-
+                                                            @if ($studentSubmaterialExam)
+                                                                <div class="badge badge-light-success">Sudah Dikerjakan
+                                                                </div>
+                                                            @elseif ($studentSubmaterialExam->score < 75)
+                                                                <div class="badge badge-light-danger">Remidi</div>
+                                                                {{-- @elseif ($studentSubmaterialExam->score < 75 && count($studentSubmaterialExams) == 3) --}}
+                                                            @else
+                                                                <div class="badge badge-light-danger">Sudah Dikerjakan</div>
                                                             @endif
-                                                            <div class="badge badge-light-danger">Belum Dikerjakan</div>
                                                         </div>
                                                     </div>
                                                     <div class="row align-items-center">
@@ -121,25 +124,38 @@
                                                     <div class="col">:
                                                         {{ $exam->total_multiple_choice + $exam->total_essay }} </div>
                                                 </div>
+                                                <div class="row align-items-center">
+                                                    <div class="col-4 col-md-3">Pilihan Ganda Benar</div>
+                                                    <div class="col">:
+                                                        {{ $studentSubmaterialExam->true_answer }} </div>
+                                                </div>
+                                                {{-- <div class="row align-items-center">
+                                                    <div class="col-4 col-md-3">Essay</div>
+                                                    <div class="col">:
+                                                        {{ $studentSubmaterialExam-> }} </div>
+                                                </div> --}}
                                             </div>
                                             <!--end::Info-->
 
-                                            <div class="col mt-4">
-                                                <div class="d-flex justify-content-start justify-content-md-end">
-                                                    <a href="{{ route('student.exam', $exam->id) }}"
-                                                        class="btn btn-primary btn-sm">
-                                                        Mulai Ujian
-                                                    </a>
+                                            {{-- @dd($studentSubmaterialExam->score < 75 && count($studentSubmaterialExams) < 3) --}}
+                                            @if (!$studentSubmaterialExam || ($studentSubmaterialExam->score < 75 && count($studentSubmaterialExams) < 3))
+                                                <div class="col mt-4">
+                                                    <div class="d-flex justify-content-start justify-content-md-end">
+                                                        <a href="{{ route('student.exam', $exam->id) }}"
+                                                            class="btn btn-primary btn-sm">
+                                                            Mulai Ujian
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <!--end::Section-->
                                 </div>
 
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                     <div class="col-12 mt-5">
 
                         <div class="card card-custom gutter-b">

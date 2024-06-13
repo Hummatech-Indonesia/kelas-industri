@@ -210,7 +210,7 @@
                         Soal</span>
                 </div>
                 <div class="card-body d-flex flex-column align-items-center">
-                    <div class="m-3 d-flex flex-column align-items-center text-warning fw-bolder bg-warning-subtle rounded"
+                    <div class="m-3 d-flex flex-column align-items-center text-warning fw-bolder bg-warning-subtle rounded" id="countdown"
                         style="width: 200px; height: fit-content;">
                         <span>Siswa Waktu</span>
                         <span class="fs-3"><span id="hour">00</span>:<span id="minute">00</span>:<span
@@ -371,6 +371,8 @@
             });
         </script>
     @endif
+
+    {{-- cout down --}}
     <script>
         const hourEl = document.getElementById('hour');
         const minuteEl = document.getElementById('minute');
@@ -385,6 +387,12 @@
             hourEl.innerText = hour < 10 ? '0' + hour : hour;
             minuteEl.innerText = minute < 10 ? '0' + minute : minute;
             secondEl.innerText = second < 10 ? '0' + second : second;
+
+            const countDown = $('#countdown');
+            if(hour == 0 && minute <= 1) {
+                countDown.toggleClass('bg-danger-subtle');
+                countDown.toggleClass('text-danger');
+            }
         }
 
         // Inisialisasi tampilan awal
@@ -415,6 +423,7 @@
             // Jika waktu habis, hentikan interval
             if (hour === 0 && minute === 0 && second === 0) {
                 clearInterval(count);
+                sumbitExam();
             }
         }, 1000);
     </script>
@@ -523,6 +532,26 @@
         });
 
         $('.submit-btn').on('click', function() {
+            Swal.fire({
+                title: "Apakah anda yakin ingin mengirim jawaban ujian?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Ya",
+                cancelButtonText: "Batal",
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: "btn btn-primary",
+                    cancelButton: "btn btn-danger",
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    sumbitExam();
+                }
+            });
+        })
+
+
+        function sumbitExam() {
             const groupBy = (array, key) => {
                 return array.reduce((result, currentValue) => {
                     // Ambil nilai dari properti yang dijadikan kunci
@@ -554,12 +583,11 @@
                 success: function(response) {
                     window.location.replace(
                         "{{ route('student.exam.show-finish', ['subMaterialExam' => $student_exam->sub_material_exam_id, 'studentSubmaterialExam' => $student_exam->id]) }}"
-                        );
+                    );
                 },
-                error: function(err) {
-                    console.error(err);
-                }
+                // error: function(err) {
+                // }
             });
-        })
+        }
     </script>
 @endsection

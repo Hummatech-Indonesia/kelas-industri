@@ -41,6 +41,12 @@
                                 class="me-1">:</span>{{ $subMaterialExam->total_multiple_choice + $subMaterialExam->total_essay }}
                         </div>
                     </div>
+                    <div class="row mt-3">
+                        <div class="col-5 col-sm-3 fw-bold">Jawaban Benar</div>
+                        <div class="col col-sm-9"><span
+                                class="me-1">:</span>{{ $studentSubmaterialExam->true_answer }}
+                        </div>
+                    </div>
 
                     <a href=
                     "{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $subMaterialExam->subMaterial->material_id, 'submaterial' => $subMaterialExam->sub_material_id]) }}"

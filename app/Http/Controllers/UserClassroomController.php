@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SchoolYearHelper;
-use App\Models\Classroom;
-use App\Models\Generation;
-use App\Models\Material;
-use App\Models\SubMaterial;
 use App\Models\User;
-use App\Services\AssignmentService;
-use App\Services\ClassroomService;
-use App\Services\MaterialService;
-use App\Services\PointService;
-use App\Services\StudentService;
-use App\Services\SubMaterialService;
-use App\Services\SubmitAssignmentService;
-use App\Services\SubmitChallengeService;
+use App\Models\Material;
+use App\Models\Classroom;
+use Illuminate\View\View;
+use App\Models\Generation;
+use App\Models\SubMaterial;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use App\Services\PointService;
+use App\Services\StudentService;
+use App\Helpers\SchoolYearHelper;
+use App\Services\MaterialService;
+use App\Services\ClassroomService;
+use App\Services\AssignmentService;
+use App\Services\SubMaterialService;
+use App\Services\SubmitChallengeService;
+use App\Services\SubmitAssignmentService;
+use App\Repositories\StudentSubmaterialExamRepository;
 
 class UserClassroomController extends Controller
 {
@@ -31,8 +32,9 @@ class UserClassroomController extends Controller
     private PointService $pointService;
     private SubmitChallengeService $submitChallengeService;
     private SubmitAssignmentService $submitAssignmentService;
+    private StudentSubmaterialExamRepository $studentSubmaterialExamRepository;
 
-    public function __construct(ClassroomService $classroomService, StudentService $studentService, MaterialService $materialService, SubMaterialService $subMaterialService, PointService $pointService, SubmitChallengeService $submitChallengeService, SubmitAssignmentService $submitAssignmentService, AssignmentService $assignmentService)
+    public function __construct(ClassroomService $classroomService, StudentService $studentService, MaterialService $materialService, SubMaterialService $subMaterialService, PointService $pointService, SubmitChallengeService $submitChallengeService, SubmitAssignmentService $submitAssignmentService, AssignmentService $assignmentService, StudentSubmaterialExamRepository $studentSubmaterialExamRepository)
     {
         $this->classroomService = $classroomService;
         $this->studentService = $studentService;
@@ -42,6 +44,7 @@ class UserClassroomController extends Controller
         $this->submitChallengeService = $submitChallengeService;
         $this->submitAssignmentService = $submitAssignmentService;
         $this->assignmentService = $assignmentService;
+        $this->studentSubmaterialExamRepository = $studentSubmaterialExamRepository;
     }
 
     public function index(Request $request): View
@@ -132,6 +135,7 @@ class UserClassroomController extends Controller
         $data['classroom'] = $classroom;
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
+        $data['studentSubmaterialExams'] = $this->studentSubmaterialExamRepository->get_user_submaterial_exam($submaterial->exam->id);
 
         return view('dashboard.user.pages.submaterial.detail', $data);
     }
