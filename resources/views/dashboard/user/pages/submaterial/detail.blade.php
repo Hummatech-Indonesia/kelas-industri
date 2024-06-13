@@ -55,84 +55,87 @@
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
 
                     <div class="row">
-                        <div class="col-12">
+                        @php
+                            $exam = $subMaterial->exam;
+                        @endphp
+                        @if ($exam)
+                            <div class="col-12">
 
-                            <div class="card card-custom gutter-b">
+                                <div class="card card-custom gutter-b">
 
-                                <div class="card-body">
+                                    <div class="card-body">
 
-                                    <!--begin::Section-->
-                                    <div class="row align-items-end">
+                                        <!--begin::Section-->
+                                        <div class="row align-items-end">
 
-                                        <div class="col-12 col-md-7">
+                                            <div class="col-12 col-md-7">
 
-                                            <!--begin::Pic-->
+                                                <!--begin::Pic-->
 
-                                            <div class="d-flex align-items-center">
+                                                <div class="d-flex align-items-center">
 
-                                                <div class="flex-shrink-0 symbol symbol-65 symbol-circle me-5">
-                                                    <span
-                                                        class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest"
-                                                        style="width:60px;height:60px;">L</span>
+                                                    <div class="flex-shrink-0 symbol symbol-65 symbol-circle me-5">
+                                                        <span
+                                                            class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest"
+                                                            style="width:60px;height:60px;">L</span>
+                                                    </div>
+
+                                                    <!--end::Pic-->
+
+                                                    <!--begin::Info-->
+
+                                                    <a href=""
+                                                        class="card-title text-hover-primary font-weight-bolder fs-3 fw-semibold text-dark mb-4">
+                                                        Laravel
+                                                    </a>
                                                 </div>
-
-                                                <!--end::Pic-->
-
-                                                <!--begin::Info-->
-
-                                                <a href=""
-                                                    class="card-title text-hover-primary font-weight-bolder fs-3 fw-semibold text-dark mb-4">
-                                                    Laravel
-                                                </a>
-                                            </div>
-                                            @php
-                                                $exam = $subMaterial->exam;
-                                            @endphp
-                                            <div class="mt-3">
-                                                <div class="row align-items-center">
-                                                    <div class="col-4 col-md-3">Status</div>
-                                                    <div class="col">:
-                                                        <div class="badge badge-light-danger">Belum Dikerjakan</div>
+                                                <div class="mt-3">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-4 col-md-3">Status</div>
+                                                        <div class="col">:
+                                                            <div class="badge badge-light-danger">Belum Dikerjakan</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-items-center">
+                                                        <div class="col-4 col-md-3">Mulai</div>
+                                                        <div class="col">:
+                                                            {{ Carbon::parse($exam->start_at)->isoFormat('dddd, D mmmm Y HH:s') }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-items-center">
+                                                        <div class="col-4 col-md-3">Berakhir</div>
+                                                        <div class="col">:
+                                                            {{ Carbon::parse($exam->end_at)->isoFormat('dddd, D mmmm Y HH:s') }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center">
-                                                    <div class="col-4 col-md-3">Mulai</div>
-                                                    <div class="col">:
-                                                        {{ Carbon::parse($exam->start_at)->isoFormat('dddd, D mmmm Y HH:s') }}</div>
+                                                    <div class="col-4 col-md-3">Waktu Pengerjaan</div>
+                                                    <div class="col">: {{ $exam->time }} Menit </div>
                                                 </div>
                                                 <div class="row align-items-center">
-                                                    <div class="col-4 col-md-3">Berakhir</div>
+                                                    <div class="col-4 col-md-3">Jumlah Soal</div>
                                                     <div class="col">:
-                                                        {{ Carbon::parse($exam->end_at)->isoFormat('dddd, D mmmm Y HH:s') }}</div>
+                                                        {{ $exam->total_multiple_choice + $exam->total_essay }} </div>
                                                 </div>
                                             </div>
-                                            <div class="row align-items-center">
-                                                <div class="col-4 col-md-3">Waktu Pengerjaan</div>
-                                                <div class="col">: {{ $exam->time }} Menit </div>
-                                            </div>
-                                            <div class="row align-items-center">
-                                                <div class="col-4 col-md-3">Jumlah Soal</div>
-                                                <div class="col">: {{ $exam->total_multiple_choice + $exam->total_essay }} </div>
-                                            </div>
-                                        </div>
+                                            <!--end::Info-->
 
-                                        <!--end::Info-->
-
-                                        <div class="col mt-4">
-                                            <div class="d-flex justify-content-start justify-content-md-end">
-                                                <a href="{{ route('student.exam', $exam->id) }}"
-                                                    class="btn btn-primary btn-sm">
-                                                    Mulai Ujian
-                                                </a>
+                                            <div class="col mt-4">
+                                                <div class="d-flex justify-content-start justify-content-md-end">
+                                                    <a href="{{ route('student.exam', $exam->id) }}"
+                                                        class="btn btn-primary btn-sm">
+                                                        Mulai Ujian
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!--end::Section-->
                                 </div>
-                                <!--end::Section-->
+
                             </div>
-
-                        </div>
-
+                        @endif
                     </div>
                     <div class="col-12 mt-5">
 
