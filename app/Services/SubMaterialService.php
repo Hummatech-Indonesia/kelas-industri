@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\SubMaterial;
+use App\Enums\QuestionTypeEnum;
 use App\Http\Requests\SubMaterialRequest;
 use App\Repositories\SubMaterialRepository;
-use App\Models\SubMaterial;
 
 class SubMaterialService
 {
@@ -82,6 +83,19 @@ class SubMaterialService
             $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
         }
         $this->repository->update($id, $data);
+    }
+
+    /**
+     * sortExamQuestion
+     *
+     * @param  mixed $questionBank
+     * @return mixed
+     */
+    public function sortDailyExamQuestion(mixed $questionBank): mixed
+    {
+        return $questionBank->sortBy(function ($item) {
+            return $item->subMaterialExamQuestions[0]->question_number;
+        })->where('type', QuestionTypeEnum::MULTIPLECHOICE->value)->values()->all();
     }
 
     /**

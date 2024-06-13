@@ -50,6 +50,29 @@ class SubMaterialExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function examMentorDetail()
+    {
+        $data = $this->GetDataSidebar();
+
+        return view('dashboard.user.pages.studentExam.examDetail', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function examMentorAssessment()
+    {
+        $data = $this->GetDataSidebar();
+
+        return view('dashboard.user.pages.studentExam.examAssessment', $data);
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function examMentor()
     {
         $data = $this->GetDataSidebar();

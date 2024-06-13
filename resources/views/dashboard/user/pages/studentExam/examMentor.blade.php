@@ -124,28 +124,57 @@
                                         <!--end::Title-->
                                     </div>
 
-                                    <div class="card-toolbar m-0">
-                                        <a href="" type="button"
-                                            class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary me-n3"
-                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                    <div class="card-toolbar">
+                                        <!--begin::Menu-->
+                                        <button
+                                            class="btn btn-icon btn-sm btn-color-gray-500 btn-active-color-primary justify-content-end"
+                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                            data-kt-menu-overflow="true">
+                                            <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="4" fill="currentColor"/>
+                                                <rect x="11" y="11" width="2.6" height="2.6" rx="1.3" fill="currentColor"/>
+                                                <rect x="15" y="11" width="2.6" height="2.6" rx="1.3" fill="currentColor"/>
+                                                <rect x="7" y="11" width="2.6" height="2.6" rx="1.3" fill="currentColor"/>
+                                                </svg>
+                                                </span>
+                                        </button>
+                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
+                                            data-kt-menu="true" style="">
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <div class="menu-content fs-6 text-gray-900 fw-bold px-3 py-4">Ujian Siswa
+                                                </div>
+                                            </div>
+                                            <!--end::Menu item-->
 
-                                            <span class="svg-icon svg-icon-2hx" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            data-bs-custom-class="custom-tooltip" data-bs-title="Detail Ujian"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
-                                                    viewBox="0 0 24 24">
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <rect x="5" y="5" width="5" height="5" rx="1"
-                                                            fill="currentColor" />
-                                                        <rect x="14" y="5" width="5" height="5" rx="1"
-                                                            fill="currentColor" opacity="0.3" />
-                                                        <rect x="5" y="14" width="5" height="5" rx="1"
-                                                            fill="currentColor" opacity="0.3" />
-                                                        <rect x="14" y="14" width="5" height="5" rx="1"
-                                                            fill="currentColor" opacity="0.3" />
-                                                    </g>
-                                                </svg></span>
+                                            <!--begin::Menu separator-->
+                                            <div class="separator mb-3 opacity-75"></div>
+                                            <!--end::Menu separator-->
 
-                                            </a>
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="{{ route('mentor.detailSubMaterialExam') }}" class="menu-link px-3">
+                                                    Detail Ujian
+                                                </a>
+                                            </div>
+                                            <!--end::Menu item-->
+
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="{{ route('mentor.examSubMaterialAssessment') }}" class="menu-link px-3">
+                                                    Penilaian Soal Essay
+                                                </a>
+                                            </div>
+                                            <!--end::Menu item-->
+
+                                        </div>
+
+
+                                        <!--begin::Menu 2-->
+
+                                        <!--end::Menu 2-->
+
+                                        <!--end::Menu-->
                                     </div>
                                     <!--end::Card title-->
                                 </div>

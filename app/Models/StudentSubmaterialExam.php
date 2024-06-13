@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\SubMaterialExam;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StudentSubmaterialExam extends Model
 {
@@ -15,4 +17,24 @@ class StudentSubmaterialExam extends Model
     protected $guarded = [];
     public $incrementing = false;
     public $keyType = 'char';
+
+    /**
+     * Get the student that owns the StudentSubmaterialExam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the subMaterialExam that owns the StudentSubmaterialExam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function subMaterialExam(): BelongsTo
+    {
+        return $this->belongsTo(SubMaterialExam::class);
+    }
 }

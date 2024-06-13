@@ -621,6 +621,7 @@
                 <!--end::Tab pane-->
             </div>
 
+            @if (auth()->user()->roles->pluck('name')[0] == 'student')
             <div class="tab-content px-5 px-lg-10">
                 <!--begin::Tab pane-->
                 <div class="tab-pane fade" id="kt_app_sidebar_exam" role="tabpanel">
@@ -635,7 +636,7 @@
                         </div>
                         <!--begin::Body-->
                         <div class="card-body">
-                            @foreach ($StudentExam as $exam)
+                            @forelse ($StudentExam as $exam)
                                 <div class="d-flex mb-3 flex-stack">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-40px me-4">
@@ -650,9 +651,11 @@
                                         <!--begin:Author-->
                                         <div class="flex-grow-1 me-2">
                                             <a href="{{ route('common.showSubMaterial', [
-                                            'classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id,
-                                            'material' => $exam->submaterial->material->id,
-                                            'submaterial' => $exam->sub_material_id]) }}" target="blank"
+                                                'classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id,
+                                                'material' => $exam->submaterial->material->id,
+                                                'submaterial' => $exam->sub_material_id,
+                                            ]) }}"
+                                                target="blank"
                                                 class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $exam->title }}</a>
                                             <span
                                                 class="text-muted fw-semibold d-block fs-">{{ $exam->submaterial->title }}</span>
@@ -664,8 +667,7 @@
                                     </div>
                                     <!--end::Section-->
                                 </div>
-                            @endforeach
-                            {{-- @empty
+                            @empty
                                 <!--begin::Illustration-->
                                 <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
                                     alt="" />
@@ -680,7 +682,7 @@
                                     tidak ada ujian untuk saat ini.
                                 </span>
                                 <!--end::Desctiption-->
-                            @endforelse --}}
+                            @endforelse
                         </div>
                         <!--end::Body-->
                     </div>
@@ -688,6 +690,7 @@
                 </div>
                 <!--end::Tab pane-->
             </div>
+            @endif
             <!--end::Tab content-->
         </div>
         <!--end::Sidebar menu--> '

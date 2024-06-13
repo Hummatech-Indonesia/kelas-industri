@@ -39,7 +39,6 @@ use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\SchoolYearController;
-use App\Http\Controllers\ExamStudentController;
 use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationController;
@@ -373,7 +372,8 @@ Route::middleware('auth.custom')->group(function () {
         ]);
 
         Route::get('submaterial-exam', [SubMaterialExamController::class, 'examMentor'])->name('submaterialExam.index');
-        Route::get('submaterial-exam-classroom', [SubMaterialExamController::class, 'examMentorClassroom'])->name('submaterialExamClassroom.index');
+        Route::get('detail-submaterial-exam', [SubMaterialExamController::class, 'examMentorDetail'])->name('detailSubMaterialExam');
+        Route::get('exam-submaterial-assessment', [SubMaterialExamController::class, 'examMentorAssessment'])->name('examSubMaterialAssessment');
 
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
 

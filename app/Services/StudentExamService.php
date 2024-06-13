@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\SubMaterialExam;
 use App\Repositories\StudentExamRepository;
+use App\Http\Requests\AnswerSubmaterialExamRequest;
 
 class StudentExamService
 {
@@ -37,5 +38,34 @@ class StudentExamService
         ];
 
         $this->repository->store($data);
+    }
+
+    public function calculate(AnswerSubmaterialExamRequest $request, mixed $answerKeys, SubMaterialExam $subMaterialExam): mixed
+    {
+        if ($request->answer_essay) {
+            $studentDailyExam = $this->repository->getWhere([$subMaterialExam->id]);
+            for ($i = 0; $i < count($request->answer_essay); $i++) {
+                $data['answer'] = $request->answer_essay[$i];
+                $studentDailyExam->studentDailyExamAnswers()->create($data);
+            }
+        }
+
+        $answers = $request->answer;
+
+        $true = 0;
+        foreach ($answers as $i => $answer) {
+            $correctAnswers = $answerKeys[$i]->questionBankAnswers->pluck('answer')->toArray();
+            if (in_array($answer, $correctAnswers)) {
+                $true++;
+            }
+        }
+
+        return [
+            'answer' => implode(';', $request->answer),
+            'score' => ($subMaterialExam->multiple_choice_value / count($answerKeys) * $true),
+            'true_answer' => $true,
+            'finished_exam' => now(),
+        ];
+
     }
 }

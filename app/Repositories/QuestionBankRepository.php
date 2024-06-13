@@ -10,7 +10,7 @@ use App\Repositories\BaseRepository;
 
 class QuestionBankRepository extends BaseRepository
 {
-    
+
     public function __construct(QuestionBank $model)
     {
         $this->model = $model;
@@ -108,5 +108,34 @@ class QuestionBankRepository extends BaseRepository
         });
 
         return $query->get();
+    }
+
+    /**
+     * getByDailyExam
+     *
+     * @param  mixed $dailyExamId
+     * @return mixed
+     */
+    public function getBySubmaterialExam(string $submaterialExamId): mixed
+    {
+        return $this->model->query()
+            ->whereRelation('subMaterialExamQuestions.dailyExam', 'id', $submaterialExamId)
+            ->get();
+    }
+
+    /**
+     * getByQuestion
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function getAnswerByQuestion(array $data): mixed
+    {
+        return $this->model->query()
+            ->whereRelation('questionBankAnswers', function ($query) use ($data) {
+                $query->whereIn('question_bank_id', $data);
+            })
+            ->with('questionBankAnswers')
+            ->get();
     }
 }

@@ -48,4 +48,18 @@ class StudentExamRepository extends BaseRepository
         }
         return $studentExam;
     }
+
+    /**
+     * getWhere
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function getWhere(array $data): mixed
+    {
+        return $this->model->query()
+            ->where('sub_material_exam_id', $data[0])
+            ->whereRelation('student', 'id', auth()->user()->id)
+            ->first();
+    }
 }

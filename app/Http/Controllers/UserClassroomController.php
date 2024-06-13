@@ -28,6 +28,9 @@ class UserClassroomController extends Controller
     private MaterialService $materialService;
     private SubMaterialService $subMaterialService;
     private AssignmentService $assignmentService;
+    private PointService $pointService;
+    private SubmitChallengeService $submitChallengeService;
+    private SubmitAssignmentService $submitAssignmentService;
 
     public function __construct(ClassroomService $classroomService, StudentService $studentService, MaterialService $materialService, SubMaterialService $subMaterialService, PointService $pointService, SubmitChallengeService $submitChallengeService, SubmitAssignmentService $submitAssignmentService, AssignmentService $assignmentService)
     {
