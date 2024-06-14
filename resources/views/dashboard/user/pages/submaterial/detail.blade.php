@@ -53,7 +53,8 @@
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     @php
                         $exam = $subMaterial->exam;
-                        $studentSubmaterialExam = $studentSubmaterialExams ? $studentSubmaterialExams[0] : null;
+                        // dd($studentSubmaterialExams[0]);
+                        // $studentSubmaterialExam = empty($studentSubmaterialExams) ? $studentSubmaterialExams[0] : null;
                     @endphp
                     @if ($exam)
                         <div class="row">
@@ -75,7 +76,7 @@
                                                     <div class="flex-shrink-0 symbol symbol-65 symbol-circle me-5">
                                                         <span
                                                             class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest"
-                                                            style="width:60px;height:60px;">L</span>
+                                                            style="width:60px;height:60px;">{{ substr($exam->title, 0, 1) }}</span>
                                                     </div>
 
                                                     <!--end::Pic-->
@@ -84,7 +85,7 @@
 
                                                     <a href=""
                                                         class="card-title text-hover-primary font-weight-bolder fs-3 fw-semibold text-dark mb-4">
-                                                        Laravel
+                                                        {{ $exam->title }}
                                                     </a>
                                                 </div>
                                                 <div class="mt-3">
@@ -92,26 +93,29 @@
                                                         <div class="col-4 col-md-3">Status</div>
                                                         <div class="col">:
                                                             @if ($studentSubmaterialExam)
-                                                                <div class="badge badge-light-success">Sudah Dikerjakan
-                                                                </div>
-                                                            @elseif ($studentSubmaterialExam->score < 75)
-                                                                <div class="badge badge-light-danger">Remidi</div>
-                                                                {{-- @elseif ($studentSubmaterialExam->score < 75 && count($studentSubmaterialExams) == 3) --}}
+                                                                @if ($studentSubmaterialExam->score > 75)
+                                                                    <div class="badge badge-light-success">Sudah
+                                                                        Dikerjakan
+                                                                    </div>
+                                                                @else
+                                                                    <div class="badge badge-light-warning">Remidi</div>
+                                                                @endif
                                                             @else
-                                                                <div class="badge badge-light-danger">Sudah Dikerjakan</div>
+                                                                <div class="badge badge-light-danger">Belum Dikerjakan
+                                                                </div>
                                                             @endif
                                                         </div>
                                                     </div>
                                                     <div class="row align-items-center">
                                                         <div class="col-4 col-md-3">Mulai</div>
                                                         <div class="col">:
-                                                            {{ Carbon::parse($exam->start_at)->isoFormat('dddd, D mmmm Y HH:s') }}
+                                                            {{ Carbon::parse($exam->start_at)->isoFormat('dddd, D MMMM YYYY, HH:s') }}
                                                         </div>
                                                     </div>
                                                     <div class="row align-items-center">
                                                         <div class="col-4 col-md-3">Berakhir</div>
                                                         <div class="col">:
-                                                            {{ Carbon::parse($exam->end_at)->isoFormat('dddd, D mmmm Y HH:s') }}
+                                                            {{ Carbon::parse($exam->end_at)->isoFormat('dddd, D MMMM YYYY, HH:s') }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -127,7 +131,8 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-4 col-md-3">Pilihan Ganda Benar</div>
                                                     <div class="col">:
-                                                        {{ $studentSubmaterialExam->true_answer }} </div>
+                                                        {{ $studentSubmaterialExam ? $studentSubmaterialExam->true_answer : 0 }}
+                                                    </div>
                                                 </div>
                                                 {{-- <div class="row align-items-center">
                                                     <div class="col-4 col-md-3">Essay</div>
@@ -138,7 +143,7 @@
                                             <!--end::Info-->
 
                                             {{-- @dd($studentSubmaterialExam->score < 75 && count($studentSubmaterialExams) < 3) --}}
-                                            @if (!$studentSubmaterialExam || ($studentSubmaterialExam->score < 75 && count($studentSubmaterialExams) < 3))
+                                            @if (!$studentSubmaterialExam || $studentSubmaterialExam->score < 75 )
                                                 <div class="col mt-4">
                                                     <div class="d-flex justify-content-start justify-content-md-end">
                                                         <a href="{{ route('student.exam', $exam->id) }}"
