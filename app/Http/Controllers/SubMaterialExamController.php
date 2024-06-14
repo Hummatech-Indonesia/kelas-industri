@@ -168,6 +168,11 @@ class SubMaterialExamController extends Controller
         return view('dashboard.admin.pages.subMaterialExam.examStatistic');
     }
 
+    public function examDetailStudent()
+    {
+        return view('dashboard.admin.pages.subMaterialExam.examDetailStudent');
+    }
+
     public function examTakingPlace()
     {
         $exams = $this->repository->getExamTakingPlace(6);

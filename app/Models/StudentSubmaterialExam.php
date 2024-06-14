@@ -42,7 +42,7 @@ class StudentSubmaterialExam extends Model
     }
 
     /**
-     * Get all of the studentSubmaterialExamAnswers for the StudentSubmaterialExam
+     * Get all of the studentSubMaterialExamAnswers for the StudentSubmaterialExam
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

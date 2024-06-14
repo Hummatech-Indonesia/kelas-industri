@@ -131,7 +131,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <!--begin::Header-->
-                                <div class="card-header justify-content-center bg-primary text-center" style="min-height:50px;border-radius:10px">
+                                <div class="card-header justify-content-center bg-primary text-center"
+                                    style="min-height:50px;border-radius:10px">
                                     <h3 class="card-title text-white">Daftar siswa pada ujian
                                     </h3>
                                 </div>
@@ -175,7 +176,8 @@
                                                     <span class="badge py-3 px-4 fs-7 badge-light-danger">2</span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <span class="badge py-3 px-4 fs-7 badge-light-warning">Belum Dinilai</span>
+                                                    <span class="badge py-3 px-4 fs-7 badge-light-warning">Belum
+                                                        Dinilai</span>
                                                 </td>
                                                 <td class="text-center">
                                                     <span class="badge py-3 px-4 fs-7 badge-light-primary">90</span>

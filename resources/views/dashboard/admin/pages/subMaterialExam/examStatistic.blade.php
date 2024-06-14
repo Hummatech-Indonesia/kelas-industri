@@ -220,7 +220,11 @@
                                 </tr>
                             </tbody>
                         </table>
-
+                        <div class="row">
+                            <div class="col-12">
+                                <a class="btn w-100 btn-md btn-primary" href="{{ route('admin.exam-detail-student') }}">Lihat Selengkapnya</a>
+                            </div>
+                        </div>
                     </div>
                     <!--end::Body-->
                 </div>
