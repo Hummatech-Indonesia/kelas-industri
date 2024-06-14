@@ -135,7 +135,11 @@ class UserClassroomController extends Controller
         $data['classroom'] = $classroom;
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
-        $data['studentSubmaterialExams'] = $this->studentSubmaterialExamRepository->get_user_submaterial_exam($submaterial->exam->id);
+        if ($submaterial->exam) {
+            $data['studentSubmaterialExams'] = $this->studentSubmaterialExamRepository->get_user_submaterial_exam($submaterial->exam->id);
+        } else {
+            $data['studentSubmaterialExams'] = null;
+        }
 
         return view('dashboard.user.pages.submaterial.detail', $data);
     }
