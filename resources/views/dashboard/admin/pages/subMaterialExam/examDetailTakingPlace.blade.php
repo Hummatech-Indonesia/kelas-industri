@@ -37,20 +37,25 @@
                         </tr>
                     </thead>
                     <tbody class="fw-semibold">
-                        <tr>
-                            <td class="text-center">
-                                1
-                            </td>
-                            <td class="text-center">
-                                Alfian Fahrul Himawan S. Tr. Kom
-                            </td>
-                            <td class="text-center">
-                                X RPL A
-                            </td>
-                            <td class="text-center">
-                                <span class="badge py-3 px-4 fs-7 badge-light-danger">10</span>
-                            </td>
-                        </tr>
+                        @forelse ($submaterialExam->studentSubmaterialExams as $studentSubamaterialExam)
+                            <tr>
+                                <td class="text-center">
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $studentSubamaterialExam->student->name }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $studentSubamaterialExam->student->studentSchool->studentClassroom->classroom->name }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge py-3 px-4 fs-7 badge-light-danger">10</span>
+                                </td>
+                            </tr>
+                        @empty
+                            <x-empty-component title="siswa" />
+                        @endforelse
+
                     </tbody>
                 </table>
             </div>

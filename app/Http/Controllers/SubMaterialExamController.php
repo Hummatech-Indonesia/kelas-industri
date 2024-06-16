@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 use App\Models\SubMaterialExam;
 use App\Repositories\MaterialRepository;
 use App\Services\SubMaterialExamService;
-use App\Http\Requests\SubMaterialExamRequest;
 use App\Repositories\QuestionBankRepository;
-use App\Repositories\SubMaterialExamRepository;
-use App\Repositories\SubMaterialExamQuestionRepository;
-use App\Traits\DataSidebar;
+use App\Http\Requests\SubMaterialExamRequest;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
+use App\Repositories\SubMaterialExamRepository;
+use App\Services\StudentSubMaterialExamService;
+use App\Repositories\SubMaterialExamQuestionRepository;
+use App\Services\SchoolService;
+use App\Services\UserServices;
 
 class SubMaterialExamController extends Controller
 {
@@ -21,14 +24,28 @@ class SubMaterialExamController extends Controller
     private SubMaterialExamService $service;
     private QuestionBankRepository $questionBankRepository;
     private SubMaterialExamQuestionRepository $examQuestionRepository;
+    private SubMaterialExamService $subMaterialExamService;
+    private StudentSubMaterialExamService $studentSubMaterialExamService;
+    private UserServices $userServices;
 
-    public function __construct(MaterialRepository $materialRepository, SubMaterialExamService $service, SubMaterialExamRepository $repository, SubMaterialExamQuestionRepository $examQuestionRepository, QuestionBankRepository $questionBankRepository)
-    {
+    public function __construct(
+        MaterialRepository $materialRepository,
+        SubMaterialExamService $service,
+        SubMaterialExamRepository $repository,
+        SubMaterialExamQuestionRepository $examQuestionRepository,
+        QuestionBankRepository $questionBankRepository,
+        SubMaterialExamService $subMaterialExamService,
+        StudentSubMaterialExamService $studentSubMaterialExamService,
+        UserServices $userServices
+    ) {
         $this->materialRepository = $materialRepository;
         $this->service = $service;
         $this->repository = $repository;
         $this->examQuestionRepository = $examQuestionRepository;
         $this->questionBankRepository = $questionBankRepository;
+        $this->subMaterialExamService = $subMaterialExamService;
+        $this->studentSubMaterialExamService = $studentSubMaterialExamService;
+        $this->userServices = $userServices;
     }
     /**
      * Display a listing of the resource.
@@ -147,7 +164,7 @@ class SubMaterialExamController extends Controller
     public function examQuestion(SubMaterialExam $subMaterialExam)
     {
         $examQuestions = $this->examQuestionRepository->getByExam($subMaterialExam->id, 10);
-        return view('dashboard.admin.pages.subMaterialExam.question', compact('subMaterialExam','examQuestions'));
+        return view('dashboard.admin.pages.subMaterialExam.question', compact('subMaterialExam', 'examQuestions'));
     }
 
     public function examQuestionManual(Request $request, $submaterialId, $submaterialExamId)
@@ -163,14 +180,22 @@ class SubMaterialExamController extends Controller
         return view('dashboard.admin.pages.subMaterialExam.examFinnaly', compact('exams'));
     }
 
-    public function examStatistic()
+    public function examStatistic($slug)
     {
-        return view('dashboard.admin.pages.subMaterialExam.examStatistic');
+        $data['submaterialExam'] = $this->service->handleGetBySlug($slug);
+        $data['studentExams'] = $data['submaterialExam']->studentSubmaterialExams->sortByDesc('score')->take(5);
+        $data['avgScoreClassrooms'] = $this->studentSubMaterialExamService->handleGetAllStudentSubmit($data['submaterialExam']->id);
+
+        return view('dashboard.admin.pages.subMaterialExam.examStatistic', $data);
     }
 
-    public function examDetailStudent()
+    public function examDetailStudent(Request $request, $submaterialExam)
     {
-        return view('dashboard.admin.pages.subMaterialExam.examDetailStudent');
+        // dd($request);
+        $data['search'] = $request->search;
+        $data['schools'] = $this->userServices->handleGetAllSchool();
+        $data['studentSubMaterialExams'] = $this->studentSubMaterialExamService->halndeGetBySubmaterialExam($request, $submaterialExam);
+        return view('dashboard.admin.pages.subMaterialExam.examDetailStudent', $data);
     }
 
     public function examTakingPlace()
@@ -179,10 +204,9 @@ class SubMaterialExamController extends Controller
         return view('dashboard.admin.pages.subMaterialExam.examTakingPlace', compact('exams'));
     }
 
-    public function detailExamTakingPlace()
+    public function detailExamTakingPlace($slug)
     {
-        return view('dashboard.admin.pages.subMaterialExam.examDetailTakingPlace');
+        $submaterialExam = $this->service->handleGetBySlug($slug);
+        return view('dashboard.admin.pages.subMaterialExam.examDetailTakingPlace', compact('submaterialExam'));
     }
-
-
 }

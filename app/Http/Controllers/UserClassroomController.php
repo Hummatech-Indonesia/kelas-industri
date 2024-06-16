@@ -19,7 +19,9 @@ use App\Services\AssignmentService;
 use App\Services\SubMaterialService;
 use App\Services\SubmitChallengeService;
 use App\Services\SubmitAssignmentService;
+use App\Services\StudentSubMaterialExamService;
 use App\Repositories\StudentSubmaterialExamRepository;
+use App\Services\StudentSubmaterialExamAnswerService;
 
 class UserClassroomController extends Controller
 {
@@ -33,9 +35,22 @@ class UserClassroomController extends Controller
     private SubmitChallengeService $submitChallengeService;
     private SubmitAssignmentService $submitAssignmentService;
     private StudentSubmaterialExamRepository $studentSubmaterialExamRepository;
+    private StudentSubMaterialExamService $studentSubmaterialExamService;
+    private StudentSubmaterialExamAnswerService $studentSubmaterialExamAnswerService;
 
-    public function __construct(ClassroomService $classroomService, StudentService $studentService, MaterialService $materialService, SubMaterialService $subMaterialService, PointService $pointService, SubmitChallengeService $submitChallengeService, SubmitAssignmentService $submitAssignmentService, AssignmentService $assignmentService, StudentSubmaterialExamRepository $studentSubmaterialExamRepository)
-    {
+    public function __construct(
+        ClassroomService $classroomService,
+        StudentService $studentService,
+        MaterialService $materialService,
+        SubMaterialService $subMaterialService,
+        PointService $pointService,
+        SubmitChallengeService $submitChallengeService,
+        SubmitAssignmentService $submitAssignmentService,
+        AssignmentService $assignmentService,
+        StudentSubmaterialExamRepository $studentSubmaterialExamRepository,
+        StudentSubMaterialExamService $studentSubmaterialExamService,
+        StudentSubmaterialExamAnswerService $studentSubmaterialExamAnswerService
+    ) {
         $this->classroomService = $classroomService;
         $this->studentService = $studentService;
         $this->materialService = $materialService;
@@ -45,6 +60,8 @@ class UserClassroomController extends Controller
         $this->submitAssignmentService = $submitAssignmentService;
         $this->assignmentService = $assignmentService;
         $this->studentSubmaterialExamRepository = $studentSubmaterialExamRepository;
+        $this->studentSubmaterialExamService = $studentSubmaterialExamService;
+        $this->studentSubmaterialExamAnswerService = $studentSubmaterialExamAnswerService;
     }
 
     public function index(Request $request): View
@@ -137,10 +154,13 @@ class UserClassroomController extends Controller
         $data['subMaterial'] = $submaterial;
         if ($submaterial->exam) {
             $data['studentSubmaterialExams'] = $this->studentSubmaterialExamRepository->get_user_submaterial_exam($submaterial->exam->id);
+            if (empty($data['studentSubmaterialExams'])) {
+                $data['isRemedial'] = $this->studentSubmaterialExamService->checkRemedial($submaterial->exam->id);
+                $data['essayGraded'] = $this->studentSubmaterialExamAnswerService->essay_graded($data['studentSubmaterialExams']->first());
+            }
         } else {
             $data['studentSubmaterialExams'] = null;
         }
-
         return view('dashboard.user.pages.submaterial.detail', $data);
     }
 

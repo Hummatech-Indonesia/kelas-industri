@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Http\Requests\SubMaterialExamRequest;
+use App\Models\StudentSubmaterialExam;
 use App\Repositories\SubMaterialExamRepository;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 class SubMaterialExamService
 {
@@ -37,5 +39,9 @@ class SubMaterialExamService
     public function handleDelete(string $id): bool
     {
         return $this->repository->destroy($id);
+    }
+
+    public function handleGetBySlug(string $slug): mixed {
+        return $this->repository->getBySlug($slug);
     }
 }

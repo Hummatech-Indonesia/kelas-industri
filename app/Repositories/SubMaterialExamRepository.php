@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+
 use App\Models\SubMaterialExam;
 
 class SubMaterialExamRepository extends BaseRepository
@@ -13,32 +14,39 @@ class SubMaterialExamRepository extends BaseRepository
     public function getBeforeFinished(): mixed
     {
         return $this->model->query()
-        ->where('end_at', '>', now())
-        ->latest()
-        ->get();
+            ->where('end_at', '>', now())
+            ->latest()
+            ->get();
     }
 
     public function getExamById(string $id): mixed
     {
         return $this->model->query()
-        ->where('id', $id)
-        ->first();
+            ->where('id', $id)
+            ->first();
     }
 
     public function getExamFinnaly(int $limit): mixed
     {
         return $this->model->query()
-        ->where('end_at', '<=', now())
-        ->latest()
-        ->paginate($limit);
+            ->where('end_at', '<=', now())
+            ->latest()
+            ->paginate($limit);
     }
 
     public function getExamTakingPlace(int $limit): mixed
     {
         return $this->model->query()
-        ->where('end_at', '>=', now())
-        ->where('start_at', '<=', now())
-        ->latest()
-        ->paginate($limit);
+            ->where('end_at', '>=', now())
+            ->where('start_at', '<=', now())
+            ->latest()
+            ->paginate($limit);
+    }
+
+    public function getBySlug(string $slug): mixed {
+        return $this->model->query()
+        ->with('studentSubmaterialExams.student.studentSchool.studentClassroom')
+        ->where('slug', $slug)
+        ->first();
     }
 }

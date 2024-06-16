@@ -53,8 +53,8 @@
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     @php
                         $exam = $subMaterial->exam;
-                        // dd($studentSubmaterialExams[0]);
-                        // $studentSubmaterialExam = empty($studentSubmaterialExams) ? $studentSubmaterialExams[0] : null;
+                        $studentSubmaterialExam =
+                            $studentSubmaterialExams != null ? $studentSubmaterialExams->first() : null;
                     @endphp
                     @if ($exam)
                         <div class="row">

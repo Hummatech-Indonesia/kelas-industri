@@ -42,6 +42,16 @@ class SubMaterialExam extends Model
         return $this->hasMany(SubMaterialExamQuestion::class);
     }
 
+    /**
+     * Get all of the studentSubmaterialExam for the SubMaterialExam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function studentSubmaterialExams(): HasMany
+    {
+        return $this->hasMany(studentSubmaterialExam::class);
+    }
+
     public function sluggable(): array
     {
         return [

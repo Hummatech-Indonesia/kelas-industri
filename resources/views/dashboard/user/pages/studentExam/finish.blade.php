@@ -42,9 +42,18 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-5 col-sm-3 fw-bold">Jawaban Benar</div>
-                        <div class="col col-sm-9"><span
-                                class="me-1">:</span>{{ $studentSubmaterialExam->true_answer }}
+                        <div class="col-5 col-sm-3 fw-bold">Pilihan Ganda Benar</div>
+                        <div class="col col-sm-9"><span class="me-1">:</span>{{ $studentSubmaterialExam->true_answer }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-5 col-sm-3 fw-bold">Nilai</div>
+                        <div class="col col-sm-9"><span class="me-1">:</span>
+                            @if ($studentSubmaterialExam->submaterialExam->total_essay == 0)
+                                {{ $studentSubmaterialExam->score }}
+                            @else
+                                <div class="badge badge-light-warning">Proses</div>
+                            @endif
                         </div>
                     </div>
 

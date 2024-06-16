@@ -9,6 +9,7 @@ use App\Models\StudentSubmaterialExamAnswer;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class StudentSubmaterialExam extends Model
 {
@@ -46,8 +47,8 @@ class StudentSubmaterialExam extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function studentSubMaterialExamAnswers(): HasMany
+    public function studentSubMaterialExamAnswers(): HasOne
     {
-        return $this->hasMany(StudentSubmaterialExamAnswer::class);
+        return $this->hasOne(StudentSubmaterialExamAnswer::class);
     }
 }

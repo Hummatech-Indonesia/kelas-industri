@@ -124,48 +124,53 @@
                     <div class="card-body">
                         <!--begin::Item-->
                         <div id="rangking">
-                            <div class="d-flex justify-content-between mt-2">
-                                <div class="d-flex justify-content-header">
-                                    <div class="">
-                                        <div
-                                            class="p-3 bg-light-info rounded-2 d-flex align-items-center justify-content-center me-4">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
-                                                viewBox="0 0 44 44" fill="none">
-                                                <path
-                                                    d="M28.6031 13.1996C28.6031 16.8447 25.6482 19.7996 22.0031 19.7996C18.358 19.7996 15.4031 16.8447 15.4031 13.1996C15.4031 9.55453 18.358 6.59961 22.0031 6.59961C25.6482 6.59961 28.6031 9.55453 28.6031 13.1996Z"
-                                                    fill="#5D87FF"></path>
-                                                <path
-                                                    d="M39.6031 17.5996C39.6031 20.0297 37.6332 21.9996 35.2031 21.9996C32.7731 21.9996 30.8031 20.0297 30.8031 17.5996C30.8031 15.1696 32.7731 13.1996 35.2031 13.1996C37.6332 13.1996 39.6031 15.1696 39.6031 17.5996Z"
-                                                    fill="#5D87FF"></path>
-                                                <path
-                                                    d="M30.8031 32.9996C30.8031 28.1395 26.8632 24.1996 22.0031 24.1996C17.143 24.1996 13.2031 28.1395 13.2031 32.9996V39.5996H30.8031V32.9996Z"
-                                                    fill="#5D87FF"></path>
-                                                <path
-                                                    d="M13.2031 17.5996C13.2031 20.0297 11.2332 21.9996 8.80312 21.9996C6.37307 21.9996 4.40312 20.0297 4.40312 17.5996C4.40312 15.1696 6.37307 13.1996 8.80312 13.1996C11.2332 13.1996 13.2031 15.1696 13.2031 17.5996Z"
-                                                    fill="#5D87FF"></path>
-                                                <path
-                                                    d="M35.2031 39.5996V32.9996C35.2031 30.6805 34.6051 28.5011 33.5547 26.6071C34.0816 26.4717 34.634 26.3996 35.2031 26.3996C38.8482 26.3996 41.8031 29.3545 41.8031 32.9996V39.5996H35.2031Z"
-                                                    fill="#5D87FF"></path>
-                                                <path
-                                                    d="M10.4515 26.6071C9.40119 28.5011 8.80312 30.6805 8.80312 32.9996V39.5996H2.20312V32.9996C2.20312 29.3545 5.15805 26.3996 8.80312 26.3996C9.37229 26.3996 9.92462 26.4717 10.4515 26.6071Z"
-                                                    fill="#5D87FF"></path>
-                                            </svg>
+                            @forelse ($avgScoreClassrooms as $index => $classroom)
+                                <div class="d-flex justify-content-between mt-2">
+                                    <div class="d-flex justify-content-header">
+                                        <div class="">
+                                            <div
+                                                class="p-3 bg-light-info rounded-2 d-flex align-items-center justify-content-center me-4">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                                    viewBox="0 0 44 44" fill="none">
+                                                    <path
+                                                        d="M28.6031 13.1996C28.6031 16.8447 25.6482 19.7996 22.0031 19.7996C18.358 19.7996 15.4031 16.8447 15.4031 13.1996C15.4031 9.55453 18.358 6.59961 22.0031 6.59961C25.6482 6.59961 28.6031 9.55453 28.6031 13.1996Z"
+                                                        fill="#5D87FF"></path>
+                                                    <path
+                                                        d="M39.6031 17.5996C39.6031 20.0297 37.6332 21.9996 35.2031 21.9996C32.7731 21.9996 30.8031 20.0297 30.8031 17.5996C30.8031 15.1696 32.7731 13.1996 35.2031 13.1996C37.6332 13.1996 39.6031 15.1696 39.6031 17.5996Z"
+                                                        fill="#5D87FF"></path>
+                                                    <path
+                                                        d="M30.8031 32.9996C30.8031 28.1395 26.8632 24.1996 22.0031 24.1996C17.143 24.1996 13.2031 28.1395 13.2031 32.9996V39.5996H30.8031V32.9996Z"
+                                                        fill="#5D87FF"></path>
+                                                    <path
+                                                        d="M13.2031 17.5996C13.2031 20.0297 11.2332 21.9996 8.80312 21.9996C6.37307 21.9996 4.40312 20.0297 4.40312 17.5996C4.40312 15.1696 6.37307 13.1996 8.80312 13.1996C11.2332 13.1996 13.2031 15.1696 13.2031 17.5996Z"
+                                                        fill="#5D87FF"></path>
+                                                    <path
+                                                        d="M35.2031 39.5996V32.9996C35.2031 30.6805 34.6051 28.5011 33.5547 26.6071C34.0816 26.4717 34.634 26.3996 35.2031 26.3996C38.8482 26.3996 41.8031 29.3545 41.8031 32.9996V39.5996H35.2031Z"
+                                                        fill="#5D87FF"></path>
+                                                    <path
+                                                        d="M10.4515 26.6071C9.40119 28.5011 8.80312 30.6805 8.80312 32.9996V39.5996H2.20312V32.9996C2.20312 29.3545 5.15805 26.3996 8.80312 26.3996C9.37229 26.3996 9.92462 26.4717 10.4515 26.6071Z"
+                                                        fill="#5D87FF"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="fs-4 text-dark" style="font-weight: 600;">
+                                                {{ $index }}
+                                            </div>
+                                            <span class="fs-6 fw-semibold">{{ $classroom['school']['name'] }}</span>
                                         </div>
                                     </div>
-                                    <div class="">
-                                        <div class="fs-4 text-dark" style="font-weight: 600;">
-                                            X RPL 1
-                                        </div>
-                                        <span class="fs-6 fw-semibold">SMKN 1 Kepanjen</span>
+                                    <div
+                                        class="p-2 px-4 bg-light-info rounded-2 d-flex align-items-center justify-content-center">
+                                        <h4 class="text-info mb-0 fs-5" style="font-weight: 900">
+                                            {{ $classroom['average_score'] }}
+                                        </h4>
                                     </div>
                                 </div>
-                                <div
-                                    class="p-2 px-4 bg-light-info rounded-2 d-flex align-items-center justify-content-center">
-                                    <h4 class="text-info mb-0 fs-5" style="font-weight: 900">
-                                        0
-                                    </h4>
-                                </div>
-                            </div>
+                            @empty
+                                <x-empty-component />
+                            @endforelse
+
                         </div>
 
                     </div>
@@ -203,26 +208,31 @@
                                 </tr>
                             </thead>
                             <tbody class="fw-semibold">
-                                <tr>
-                                    <td class="text-center">
-                                        <img width="30px" src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
-                                            alt="">
-                                    </td>
-                                    <td class="text-center">
-                                        Alfian Fahrul Himawan S. Tr. Kom
-                                        <div class="">
-                                            <span class="fw-semibold" style="font-size: 12px;">X RPL A - SMKN 1 Kepanjen</span>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="badge py-3 px-4 fs-7 badge-light-primary">90</span>
-                                    </td>
-                                </tr>
+                                @forelse ($studentExams as $student)
+                                    <tr>
+                                        <td class="text-center">
+                                            <img width="30px" src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
+                                                alt="">
+                                        </td>
+                                        <td class="text-center">
+                                            {{ $student->student->name }}
+                                            <div class="">
+                                                <span class="fw-semibold" style="font-size: 12px;">{{ $student->student->studentSchool->school->name }}</span>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->score }}</span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <x-empty-component title="siswa" />
+                                @endforelse
                             </tbody>
                         </table>
                         <div class="row">
                             <div class="col-12">
-                                <a class="btn w-100 btn-md btn-primary" href="{{ route('admin.exam-detail-student') }}">Lihat Selengkapnya</a>
+                                <a class="btn w-100 btn-md btn-primary"
+                                    href="{{ route('admin.exam-detail-student', $submaterialExam->id) }}">Lihat Selengkapnya</a>
                             </div>
                         </div>
                     </div>

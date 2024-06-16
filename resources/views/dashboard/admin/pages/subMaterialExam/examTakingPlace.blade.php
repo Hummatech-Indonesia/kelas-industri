@@ -107,7 +107,7 @@
 
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('admin.detail-exam-taking-place') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('admin.detail-exam-taking-place', $exam->slug) }}" class="btn btn-primary btn-sm">
                                     Lihat Siswa
                                 </a>
                             </div>

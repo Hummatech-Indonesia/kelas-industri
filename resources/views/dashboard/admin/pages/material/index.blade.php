@@ -74,7 +74,7 @@
                                     <option value=""></option>
                                 </select>
                             </div>
-                            <div class="col-lg-2 col-md-12">
+                            <div class="col-lg-2 col-md-12 ">
                                 <button type="submit" class="btn btn-primary">Cari</button>
                                 <a href="{{ route('admin.materials.index') }}" type="button"
                                     class="btn btn-light text-light ms-2" data-bs-toggle="tooltip" data-bs-placement="top"

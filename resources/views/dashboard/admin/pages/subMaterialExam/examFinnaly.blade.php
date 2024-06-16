@@ -111,7 +111,7 @@
                             </div>
                             <div class="d-flex justify-content-end">
 
-                                <a href="{{ route('admin.exam-statistic') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('admin.exam-statistic', $exam->slug) }}" class="btn btn-primary btn-sm">
                                     Detail Statistik
                                 </a>
                             </div>
