@@ -210,8 +210,8 @@
                         Soal</span>
                 </div>
                 <div class="card-body d-flex flex-column align-items-center">
-                    <div class="m-3 d-flex flex-column align-items-center text-warning fw-bolder bg-warning-subtle rounded" id="countdown"
-                        style="width: 200px; height: fit-content;">
+                    <div class="m-3 d-flex flex-column align-items-center text-warning fw-bolder bg-warning-subtle rounded"
+                        id="countdown" style="width: 200px; height: fit-content;">
                         <span>Siswa Waktu</span>
                         <span class="fs-3"><span id="hour">00</span>:<span id="minute">00</span>:<span
                                 id="second">00</span></span>
@@ -389,7 +389,7 @@
             secondEl.innerText = second < 10 ? '0' + second : second;
 
             const countDown = $('#countdown');
-            if(hour == 0 && minute <= 1) {
+            if (hour == 0 && minute <= 1) {
                 countDown.toggleClass('bg-danger-subtle');
                 countDown.toggleClass('text-danger');
             }
@@ -532,6 +532,9 @@
         });
 
         $('.submit-btn').on('click', function() {
+            var type = $('#question_' + prevQuestion).data('type')
+            setAnswer(type, prevQuestion)
+
             Swal.fire({
                 title: "Apakah anda yakin ingin mengirim jawaban ujian?",
                 icon: "warning",

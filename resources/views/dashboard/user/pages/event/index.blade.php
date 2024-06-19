@@ -38,13 +38,12 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Tantangan
+                                    Event
                                 </h1>
                                 <!--end::Title-->
 
                                 <!--begin::Breadcrumb-->
-                                <p class="fw-semibold fs-7 my-0 text-muted">List
-                                    tantangan {{ auth()->user()->name }}</p>
+                                <p class="fw-semibold fs-7 my-0 text-muted">List tantangan</p>
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ScheduleService;
 use App\Services\UserServices;
+use App\Traits\DataSidebar;
 
 class ScheduleController extends Controller
 {
+    use DataSidebar;
     private ScheduleService $service;
     private UserServices $userServices;
     public function __construct(ScheduleService $service, UserServices $userServices)
@@ -26,6 +28,14 @@ class ScheduleController extends Controller
             'schools' => $this->userServices->handleGetAllSchool(),
         ];
         return view('dashboard.admin.pages.schedule.index', $data);
+    }
+    public function indexStudent()
+    {
+        $data = $this->GetDataSidebar();
+        // $data = [
+        //     'schools' => $this->userServices->handleGetAllSchool(),
+        // ];
+        return view('dashboard.user.pages.schedule.index', $data);
     }
 
     /**

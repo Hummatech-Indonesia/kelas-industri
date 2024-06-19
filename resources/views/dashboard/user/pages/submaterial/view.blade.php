@@ -114,7 +114,7 @@
                                         @endif
 
                                         <!--begin:Menu item-->
-                                        @foreach ($materials as $material)
+                                        @foreach ($materials as $index => $material)
                                             @php
                                                 $totalMaterialSubmitAssigment = 0;
                                                 $submaterialIds = $material->subMaterials->pluck('id')->toArray();
@@ -160,7 +160,7 @@
                                                                     data-kt-menu-trigger="click">
                                                                     <!--begin:Menu link-->
                                                                     <a role="link" class="menu-link"
-                                                                        {{-- style="@if (count($subMaterials['subMaterial']->assignments) != $countAnswerAssignments) pointer-events: none; @endif" --}}>
+                                                                        style="@if (count($subMaterials['subMaterial']->assignments) != $totalMaterialSubmitAssigment && $index > 0) pointer-events: none; @endif">
                                                                         <span class="menu-bullet">
                                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                                 fill="none" viewBox="0 0 24 24"
@@ -237,7 +237,7 @@
                                                                         data-kt-menu-trigger="click">
                                                                         <!--begin:Menu link-->
                                                                         <a role="link" class="menu-link"
-                                                                            {{-- style="@if (count($subMaterials['subMaterial']->assignments) != $countAnswerAssignments) pointer-events: none; @endif" --}}>
+                                                                            style="@if (count($subMaterials['subMaterial']->assignments) != $totalMaterialSubmitAssigment && $index > 0) pointer-events: none; @endif">
                                                                             <span class="menu-bullet">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                                     fill="none" viewBox="0 0 24 24"

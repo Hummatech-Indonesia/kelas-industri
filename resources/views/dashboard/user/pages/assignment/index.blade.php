@@ -110,8 +110,6 @@
                     </div>
                 @endif
                 <!--begin::Content container-->
-
-                @dd('sdfsdfsfdsdf')
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     <div class="row">
                         <div class="col-12 mt-5">

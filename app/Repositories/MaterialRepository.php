@@ -101,6 +101,7 @@ class MaterialRepository extends BaseRepository
                 $query->oldest();
             })
             ->where('devision_id', $devisionId)
+            ->whereRelation('generation', 'id', auth()->user()->studentSchool->studentClassroom->classroom->generation_id)
             ->get();
     }
 }

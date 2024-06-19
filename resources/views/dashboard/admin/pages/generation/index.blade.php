@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-12">
                             <label class="mb-3" for="">Angkatan</label>
-                            <input type="text" class="form-control" name="generation" placeholder="Angkatan 11">
+                            <input type="text" class="form-control" name="generation" placeholder="Kelas 11">
                         </div>
                         <div class="col-12 mt-5">
                             <label class="mb-3" for="">Tahun Ajaran</label>

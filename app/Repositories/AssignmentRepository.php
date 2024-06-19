@@ -69,7 +69,8 @@ class AssignmentRepository extends BaseRepository
     {
         return $this->student->query()
             ->with('submitAssignment', function ($q) use ($assignmentId) {
-                $q->where('assignment_id', $assignmentId);
+                $q->where('assignment_id', $assignmentId)
+                ->with('images');
             })
             ->whereRelation('studentSchool.classrooms', function ($q) use ($classroomId) {
                 $q->where('classroom_id', $classroomId);

@@ -182,20 +182,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control mb-5" name="event_name" placeholder="Acara" /><input
-                        type="text" class="form-control" name="event_description" placeholder="deskripsi" />
-                    <div>
-                        <select name="school_id" class="form-select form-select-solid me-5 mt-3" data-control="select2"
-                            data-placeholder="Select an option" id="school">
-                            <option value="">Sekolah (opsional)</option>
-                            @foreach ($schools as $school)
-                                <option {{ old('school_id') == $school->id ? 'selected' : '' }}
-                                    value="{{ $school->id }}">
-                                    {{ $school->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <input type="text" class="form-control mb-5" name="event_name" placeholder="Acara" />
+                    <textarea class="form-control" name="event_description" placeholder="deskripsi"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

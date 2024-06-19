@@ -56,7 +56,8 @@
                         $studentSubmaterialExam =
                             $studentSubmaterialExams != null ? $studentSubmaterialExams->first() : null;
                     @endphp
-                    @if ($exam)
+                    {{-- @dd(now()) --}}
+                    @if ($exam && $exam->start_at < now() && $exam->end_at > now())
                         <div class="row">
                             <div class="col-12">
 
@@ -143,7 +144,7 @@
                                             <!--end::Info-->
 
                                             {{-- @dd($studentSubmaterialExam->score < 75 && count($studentSubmaterialExams) < 3) --}}
-                                            @if (!$studentSubmaterialExam || $studentSubmaterialExam->score < 75 )
+                                            @if (!$studentSubmaterialExam || $studentSubmaterialExam->score < 75)
                                                 <div class="col mt-4">
                                                     <div class="d-flex justify-content-start justify-content-md-end">
                                                         <a href="{{ route('student.exam', $exam->id) }}"

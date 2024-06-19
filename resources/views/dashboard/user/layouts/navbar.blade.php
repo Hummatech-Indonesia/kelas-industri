@@ -233,8 +233,26 @@
                                 <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                     <!--begin:Menu link-->
                                     <a href="{{ route('student.events.index') }}"
-                                        class="menu-link {{ request()->routeIs('student.events.index') || request()->routeIs('student.events.show') ? 'active' : '' }}"><span
-                                            class="menu-title">Event</span></a>
+                                        class="menu-link {{ request()->routeIs('student.events.index') || request()->routeIs('student.events.show') ? 'active' : '' }}"
+                                        @if ($schoolPayment != null) @if ($schoolPayment->status == 'not_yet_paid')
+                                        style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
+                                    @else
+                                        @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
+                                        @endif><span class="menu-title">Event</span></a>
+                                    <!--end:Menu link-->
+                                </div>
+                            @endif
+                            @if (auth()->user()->roles->pluck('name')[0] == 'student')
+
+                                <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                    <!--begin:Menu link-->
+                                    <a href="{{ route('student.schedules.index') }}"
+                                        class="menu-link {{ request()->routeIs('student.schedules.index') ? 'active' : '' }}"
+                                        @if ($schoolPayment != null) @if ($schoolPayment->status == 'not_yet_paid')
+                                        style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
+                                    @else
+                                        @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
+                                        @endif><span class="menu-title">Jadwal</span></a>
                                     <!--end:Menu link-->
                                 </div>
                             @endif

@@ -164,7 +164,7 @@
                                     @disabled(true)>
                                     <i class="bi bi-calendar3 fs-1"></i>
 
-                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Jadwal</span>
+                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Zoom</span>
                                 </a>
                             @else
                                 <a data-bs-toggle="tab" href="#kt_app_sidebar_schedule"
@@ -181,14 +181,14 @@
                                     @disabled(true)>
                                     <i class="bi bi-calendar3 fs-1"></i>
 
-                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Jadwal</span>
+                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Zoom</span>
                                 </a>
                             @else
                                 <a data-bs-toggle="tab" href="#kt_app_sidebar_schedule"
                                     class="nav-link py-4 px-1 btn">
                                     <i class="bi bi-calendar3 fs-1"></i>
 
-                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold">Jadwal</span>
+                                    <span class="pt-2 fs-9 fs-lg-7 fw-bold">Zoom</span>
                                 </a>
                             @endif
                         @endif
@@ -228,7 +228,7 @@
                     @else
                         <a data-bs-toggle="tab" href="#kt_app_sidebar_schedule" class="nav-link py-4 px-1 btn">
                             <i class="bi bi-calendar3 fs-1"></i>
-                            <span class="pt-2 fs-9 fs-lg-7 fw-bold">Jadwal</span>
+                            <span class="pt-2 fs-9 fs-lg-7 fw-bold">Zoom</span>
                         </a>
                     @endif
 
@@ -567,7 +567,7 @@
                         <div class="card-header pt-7 mb-5">
                             <!--begin::Title-->
                             <h3 class="card-title fw-bold text-gray-800">
-                                Jadwal
+                                Zoom
                             </h3>
                             <!--end::Title-->
                         </div>

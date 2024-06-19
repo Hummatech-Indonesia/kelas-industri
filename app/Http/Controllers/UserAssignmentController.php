@@ -125,22 +125,24 @@ class UserAssignmentController extends Controller
 
         if (count($files) > 0) {
             $zipName = 'Assignment.zip';
-            $zipPath = storage_path('app/public/' . $zipName);
+            $zipPath = public_path("app/public/" . $zipName);
             $zip = new ZipArchive;
 
             if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
                 $filesToAdd = [];
 
                 foreach ($files as $file) {
-                    if ($file->submitAssignment) {
-                        $filePath = storage_path('app/public/' . $file->submitAssignment->file);
+                    if ($file->submitAssignment && $file->submitAssignment->images) {
+                        $filePath = public_path('app/public/' . $file->submitAssignment->file);
                         $extension = pathinfo($filePath, PATHINFO_EXTENSION);
 
-                        if (file_exists($filePath)) {
-                            $filesToAdd[] = [
-                                'path' => $filePath,
-                                'name' => $file->name . '.' . $extension,
-                            ];
+                        foreach ($file->submitAssignment->images as $image) {
+                            if (file_exists($filePath)) {
+                                $filesToAdd[] = [
+                                    'path' => $filePath,
+                                    'name' => $file->name . '/' . $image->id . '.' . $extension,
+                                ];
+                            }
                         }
                     }
                 }

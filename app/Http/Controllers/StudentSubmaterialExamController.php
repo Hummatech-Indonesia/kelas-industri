@@ -109,7 +109,6 @@ class StudentSubmaterialExamController extends Controller
         $essayValue = $subMaterialExam->essay_value;
         $score = 0;
         $data = $request;
-        dd($data);
         for ($i = 0; $i < count($data['student_submaterial_exam_answer_id']); $i++) {
             $score += $data['answer_value'][$i];
             $this->studentSubMaterialExamAnswer->update($data['student_submaterial_exam_answer_id'][$i], ['answer_value' => $data['answer_value'][$i]]);

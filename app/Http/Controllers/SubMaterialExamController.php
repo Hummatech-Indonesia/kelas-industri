@@ -99,6 +99,7 @@ class SubMaterialExamController extends Controller
         $data['students'] = $this->studentRepository->getByClassroomArray($classroomId, $request, 10);
         $data['answers'] = $this->studentExamAnswerRepository->getAnswerBySubMaterial($subMaterialExam->id);
         $data['subMaterialExam'] = $subMaterialExam;
+        $data['studentAnswers'] = $data['answers']->groupBy('studentSubmaterialExam.id');
         return view('dashboard.user.pages.studentExam.examAssessment', $data);
     }
     /**

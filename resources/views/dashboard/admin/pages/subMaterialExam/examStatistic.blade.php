@@ -30,7 +30,7 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Siswa Mengerjakan 2
+                        Siswa Mengerjakan {{ count($submaterialExam->studentSubmaterialExams) }}
                     </span>
                 </div>
             </a>
@@ -50,7 +50,9 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Rata-Rata Nilai 1
+                        Rata-Rata Nilai
+                        {{ empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sum('score') / count($submaterialExam->studentSubmaterialExams) : 0 }}
+
                     </span>
                 </div>
             </a>
@@ -75,7 +77,8 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Nilai Tertinggi 1
+                        Nilai Tertinggi
+                        {{ empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sortByDesc('score')->first()->score : 0 }}
                     </span>
                 </div>
             </a>
@@ -100,7 +103,9 @@
                     </span>
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                        Nilai Terendah 1.5
+                        Nilai Terendah
+                        {{ empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sortBy('score')->first()->score : 0 }}
+
 
                     </span>
                 </div>
@@ -168,7 +173,36 @@
                                     </div>
                                 </div>
                             @empty
-                                <x-empty-component />
+                                <div class="col-12 text-center">
+
+                                    <!--begin::Illustration-->
+
+                                    <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
+                                        alt="" />
+
+                                    <!--end::Illustration-->
+
+
+
+                                    <!--begin::Title-->
+
+                                    <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+
+                                    <!--end::Title-->
+
+
+
+                                    <!--begin::Desctiption-->
+
+                                    <span class="fw-semibold text-gray-700 mb-4 d-block">
+
+                                        belum ada hasil untuk saat ini.
+
+                                    </span>
+
+                                    <!--end::Desctiption-->
+
+                                </div>
                             @endforelse
 
                         </div>
@@ -217,22 +251,54 @@
                                         <td class="text-center">
                                             {{ $student->student->name }}
                                             <div class="">
-                                                <span class="fw-semibold" style="font-size: 12px;">{{ $student->student->studentSchool->school->name }}</span>
+                                                <span class="fw-semibold"
+                                                    style="font-size: 12px;">{{ $student->student->studentSchool->school->name }}</span>
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <span class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->score }}</span>
+                                            <span
+                                                class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->score }}</span>
                                         </td>
                                     </tr>
                                 @empty
-                                    <x-empty-component title="siswa" />
+                                    <div class="col-12 text-center">
+
+                                        <!--begin::Illustration-->
+
+                                        <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
+                                            alt="" />
+
+                                        <!--end::Illustration-->
+
+
+
+                                        <!--begin::Title-->
+
+                                        <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+
+                                        <!--end::Title-->
+
+
+
+                                        <!--begin::Desctiption-->
+
+                                        <span class="fw-semibold text-gray-700 mb-4 d-block">
+
+                                            belum ada hasil untuk saat ini.
+
+                                        </span>
+
+                                        <!--end::Desctiption-->
+
+                                    </div>
                                 @endforelse
                             </tbody>
                         </table>
                         <div class="row">
                             <div class="col-12">
                                 <a class="btn w-100 btn-md btn-primary"
-                                    href="{{ route('admin.exam-detail-student', $submaterialExam->id) }}">Lihat Selengkapnya</a>
+                                    href="{{ route('admin.exam-detail-student', $submaterialExam->id) }}">Lihat
+                                    Selengkapnya</a>
                             </div>
                         </div>
                     </div>
