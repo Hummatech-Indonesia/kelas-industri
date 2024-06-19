@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="row">
-                        @forelse ($subMaterialExams as $subMaterialExam)
+                        @forelse ($exams as $exam)
                             <div class="col-sm-6 col-xl-4">
                                 <!--begin::Card-->
                                 <div class="card h-100 ">
@@ -113,14 +113,14 @@
                                             <!--begin::Icon-->
                                             <div class="symbol bg-primary symbol-45px w-45px me-3">
                                                 <div class="p-3 text-white text-center">
-                                                    {{ substr($subMaterialExam->title, 0, 1) }}
+                                                    {{ substr($exam->title, 0, 1) }}
                                                 </div>
                                             </div>
                                             <!--end::Icon-->
 
                                             <!--begin::Title-->
                                             <a href="#" class="fs-5 fw-semibold text-hover-primary text-black m-0">
-                                                {{ $subMaterialExam->title }}</a>
+                                                {{ $exam->title }}</a>
                                             <!--end::Title-->
                                         </div>
 
@@ -169,23 +169,15 @@
 
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="{{ route('mentor.examSubMaterialAssessment') }}"
+                                                    <a href="{{ route('mentor.examSubMaterialAssessment', $exam->id) }}"
                                                         class="menu-link px-3">
                                                         Penilaian Soal Essay
                                                     </a>
                                                 </div>
                                                 <!--end::Menu item-->
-
                                             </div>
-
-
-                                            <!--begin::Menu 2-->
-
-                                            <!--end::Menu 2-->
-
-                                            <!--end::Menu-->
                                         </div>
-                                        <!--end::Card title-->
+                                        <!--end::Card header-->
                                     </div>
                                     <!--end::Card header-->
 
@@ -204,7 +196,9 @@
                                                         stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round" />
                                                 </svg>
-                                                (Mulai) {{ Carbon::parse($subMaterialExam->start_at)->isoFormat('dddd, D-M-Y') }}
+                                                (Mulai)
+                                                {{ Carbon::parse($exam->start_at)->locale('id')->isoFormat('DD MMMM YYYY, HH:ss') }}
+
                                             </span>
                                         </div>
                                         <div class="fs-4 fw-bold">
@@ -220,7 +214,8 @@
                                                         stroke="black" stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round" />
                                                 </svg>
-                                                (Selesai) {{ Carbon::parse($subMaterialExam->start_at)->isoFormat('dddd, D-M-Y') }}
+                                                (Selesai)
+                                                {{ Carbon::parse($exam->end_at)->locale('id')->isoFormat('DD MMMM YYYY, HH:ss') }}
 
                                             </span>
                                         </div>
@@ -231,7 +226,7 @@
                                                     <path fill="currentColor"
                                                         d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5c-1.65 0-3.35.3-4.75 1.05c-.1.05-.15.05-.25.05c-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1c1.11-.35 2.33-.5 3.5-.5c1.95 0 4.05.4 5.5 1.5c1.45-1.1 3.55-1.5 5.5-1.5c1.17 0 2.39.15 3.5.5c.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5c-.1 0-.15 0-.25-.05c-1.4-.75-3.1-1.05-4.75-1.05c-1.7 0-4.15.65-5.5 1.5m-1-14c-1.36-.6-3.16-1-4.5-1c-1.2 0-2.4.15-3.5.5v11.5c1.1-.35 2.3-.5 3.5-.5c1.34 0 3.14.4 4.5 1zM13 19c1.36-.6 3.16-1 4.5-1c1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5c-1.34 0-3.14.4-4.5 1zm1-2.65c.96-.35 2.12-.52 3.5-.52c1.04 0 1.88.08 2.5.24v-1.5a13.9 13.9 0 0 0-6 .19zm0-2.66c.96-.35 2.12-.53 3.5-.53c1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23c-1.28 0-2.45.15-3.5.45zM14 11c.96-.33 2.12-.5 3.5-.5c.91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23c-1.32 0-2.5.15-3.5.46z" />
                                                 </svg>
-                                                {{ $subMaterialExam->subMaterial->title }}
+                                                {{ $exam->subMaterial->title }}
                                             </span>
                                         </div>
                                         <div class="fs-4 fw-semibold d-flex">
@@ -241,7 +236,7 @@
                                                     <path fill="currentColor"
                                                         d="M10.54 14.53L8.41 12.4l-1.06 1.06l3.18 3.18l6-6l-1.06-1.06zM12 20a7 7 0 0 1-7-7a7 7 0 0 1 7-7a7 7 0 0 1 7 7a7 7 0 0 1-7 7m0-16a9 9 0 0 0-9 9a9 9 0 0 0 9 9a9 9 0 0 0 9-9a9 9 0 0 0-9-9m-4.12-.61L6.6 1.86L2 5.71l1.29 1.53zM22 5.72l-4.6-3.86l-1.29 1.53l4.6 3.86z" />
                                                 </svg>
-                                                {{ $subMaterialExam->time }} Menit
+                                                {{ $exam->time }} Menit
                                             </span>
                                         </div>
                                         <div class="fs-4 fw-semibold d-flex">
@@ -251,7 +246,7 @@
                                                     <path fill="currentColor"
                                                         d="M10 21H5c-1.11 0-2-.89-2-2V5c0-1.11.89-2 2-2h14c1.11 0 2 .89 2 2v5.33c-.3-.12-.63-.19-.96-.19c-.37 0-.72.08-1.04.23V5H5v14h5.11l-.11.11zM7 9h10V7H7zm0 8h5.11L14 15.12V15H7zm0-4h9.12l.88-.88V11H7zm14.7.58l-1.28-1.28a.55.55 0 0 0-.77 0l-1 1l2.05 2.05l1-1a.55.55 0 0 0 0-.77M12 22h2.06l6.05-6.07l-2.05-2.05L12 19.94z" />
                                                 </svg>
-                                                {{ $subMaterialExam->total_essay + $subMaterialExam->total_multiple_choice }} Soal
+                                                {{ $exam->total_multiple_choice + $exam->total_essay }} Soal
                                             </span>
                                         </div>
                                         <!--end::Card body-->
@@ -259,9 +254,12 @@
                                     <!--end::Card-->
                                 </div>
                             </div>
-
                         @empty
-                            <x-empty-component title="ujian" />
+                            <div class="col-lg-12 text-center">
+                                <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 250px;"
+                                    alt="" />
+                                <h4>Belum ada ujian yang selesai</h4>
+                            </div>
                         @endforelse
                     </div>
                     <!--end::Content container-->

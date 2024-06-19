@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 use App\Models\SubMaterialExam;
 use App\Services\StudentExamService;
 use App\Services\SubMaterialService;
@@ -13,6 +14,7 @@ use App\Repositories\QuestionBankRepository;
 use App\Http\Requests\AnswerSubmaterialExamRequest;
 use App\Repositories\SubMaterialExamQuestionRepository;
 use App\Http\Requests\StudentSubMaterialExamScoreRequest;
+use App\Repositories\StudentSubMaterialExamAnswerRepository;
 
 class StudentSubmaterialExamController extends Controller
 {
@@ -21,14 +23,16 @@ class StudentSubmaterialExamController extends Controller
     private StudentExamService $service;
     private SubMaterialService $subMaterialService;
     private QuestionBankRepository $questionBank;
+    private StudentSubMaterialExamAnswerRepository $studentSubMaterialExamAnswer;
 
-    public function __construct(SubMaterialExamQuestionRepository $examQuestion, StudentExamRepository $studentExam, StudentExamService $service, QuestionBankRepository $questionBank, SubMaterialService $subMaterialService)
+    public function __construct(SubMaterialExamQuestionRepository $examQuestion, StudentExamRepository $studentExam, StudentExamService $service, QuestionBankRepository $questionBank, SubMaterialService $subMaterialService, StudentSubMaterialExamAnswerRepository $studentSubMaterialExamAnswer)
     {
         $this->examQuestion = $examQuestion;
         $this->studentExam = $studentExam;
         $this->service = $service;
         $this->questionBank = $questionBank;
         $this->subMaterialService = $subMaterialService;
+        $this->studentSubMaterialExamAnswer = $studentSubMaterialExamAnswer;
     }
     /**
      * index
@@ -100,14 +104,15 @@ class StudentSubmaterialExamController extends Controller
      * @param  mixed $request
      * @return JsonResponse
      */
-    public function studentDailyExamEssayScore(StudentSubMaterialExamScoreRequest $request, StudentSubmaterialExam $studentSubmaterialExam): mixed
+    public function studentSubMaterialExamEssayScore(Request $request, SubMaterialExam $subMaterialExam): mixed
     {
-        $essayValue = $studentSubmaterialExam->subMaterialExam->essay_value;
+        $essayValue = $subMaterialExam->essay_value;
         $score = 0;
-        $data = $request->validated();
+        $data = $request;
+        dd($data);
         for ($i = 0; $i < count($data['student_submaterial_exam_answer_id']); $i++) {
             $score += $data['answer_value'][$i];
-            $this->studentSubMaterialExamAnswer->update($data['student_daily_exam_answer_id'][$i], ['answer_value' => $data['answer_value'][$i]]);
+            $this->studentSubMaterialExamAnswer->update($data['student_submaterial_exam_answer_id'][$i], ['answer_value' => $data['answer_value'][$i]]);
         }
         if ($score >= $essayValue) {
             return redirect()->back()->with('error', "Total nilai yang anda tambahkan untuk essay maksimal " . $essayValue . " sedangkan total nilai yang anda inputkan " . $score);
@@ -115,6 +120,7 @@ class StudentSubmaterialExamController extends Controller
 
         return redirect()->back()->with('success', "Berhasil melakukan penilaian");
     }
+
     public function openTab(StudentSubmaterialExam $subMaterialExam)
     {
         $studentExam = $this->service->handleOpenTab($subMaterialExam);

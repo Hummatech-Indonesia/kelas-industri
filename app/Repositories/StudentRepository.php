@@ -53,14 +53,28 @@ class StudentRepository extends BaseRepository
             ->get();
     }
 
-    public function get_by_classroom(string $classroomId): mixed
+    public function get_by_classroom(string $classroomId, int $limit): mixed
     {
-        return $this->model->newQuery()
+        return $this->model->query()
             ->whereHas('studentClassroom', function ($query) use ($classroomId) {
                 $query->where('classroom_id', $classroomId);
             })
             ->whereRelation('student', 'status', 'active')
-            ->paginate(6);
+            ->paginate($limit);
+    }
+
+    public function getByClassroomArray(mixed $classroomId, Request $request, int $limit): mixed
+    {
+        return $this->model->query()
+            ->whereHas('studentClassroom', function ($query) use ($classroomId) {
+                $query->whereIn('classroom_id', $classroomId);
+            })
+            ->with('studentClassroom.studentSchool.student')
+            ->when($request->classroom_id, function ($q) use ($request) {
+                $q->whereRelation('studentClassroom', 'classroom_id', $request->classroom_id);
+            })
+            ->whereRelation('student', 'status', 'active')
+            ->paginate($limit);
     }
 
     /**
@@ -108,6 +122,7 @@ class StudentRepository extends BaseRepository
             ->whereRelation('student', 'status', 'active')
             ->paginate(10);
     }
+
     public function getBySchoolWithDependent(string $school, Request $request)
     {
         return $this->model->query()

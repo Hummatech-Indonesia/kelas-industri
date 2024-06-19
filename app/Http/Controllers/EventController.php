@@ -51,7 +51,7 @@ class EventController extends Controller
         $data = [
             'schools' => $schools,
             'parameters' => $parameters,
-            'events' => $this->service->handleGetPaginate(6, $request->search),
+            'events' => $this->service->handleGetPaginate($request->search),
         ];
         return view('dashboard.admin.pages.event.school', $data);
     }

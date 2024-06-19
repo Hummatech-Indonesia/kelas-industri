@@ -48,9 +48,9 @@ class StudentService
         return $this->repository->get_by_school_ajax($schoolId, $request);
     }
 
-    public function handleGetByClassroom(string $schoolId): mixed
+    public function handleGetByClassroom(string $classroomId): mixed
     {
-        return $this->repository->get_by_classroom($schoolId);
+        return $this->repository->get_by_classroom($classroomId, 6);
     }
 
     public function handleUpdateSchool(Request $request): mixed

@@ -23,15 +23,8 @@ class EventRepository extends BaseRepository
         return $this->model->query()->orderBy('start_date', 'desc')->get();
     }
 
-    public function get_with_participant_paginate(int $limit, array $order = null, $search): mixed
+    public function get_with_participant_paginate(int $limit, $search): mixed
     {
-        if ($order) {
-            return $this->model->query()
-                ->withCount('participants')
-                ->orderBy($order['key'], $order['value'])
-                ->where('title', 'LIKE', '%' . $search . '%')
-                ->paginate($limit);
-        }
         return $this->model->query()
             ->withCount('participants')
             ->where('title', 'LIKE', '%' . $search . '%')

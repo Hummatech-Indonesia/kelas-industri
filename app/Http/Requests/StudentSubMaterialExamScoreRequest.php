@@ -18,7 +18,6 @@ class StudentSubMaterialExamScoreRequest extends FormRequest
             'student_submaterial_exam_answer_id' => 'required|array',
             'student_submaterial_exam_answer_id.*' => 'required|exists:student_submaterial_exam_answers,id',
             'answer_value' => 'required|array',
-            'answer_value.*' => 'required',
         ];
     }
 
@@ -28,7 +27,6 @@ class StudentSubMaterialExamScoreRequest extends FormRequest
             'student_submaterial_exam_answer_id.required' => 'Pilih minimal satu siswa yang ingin anda nilai',
             'student_submaterial_exam_answer_id.*.exists' => 'id yang anda pilih tidak sesuai',
             'answer_value.array' => 'Nilai harus bertipe array',
-            'answer_value.required' => 'Nilai wajib diisi',
         ];
     }
 }

@@ -148,7 +148,6 @@ class UserClassroomController extends Controller
     public function showSubMaterial(Classroom $classroom, Material $material, SubMaterial $submaterial)
     {
         $data = $this->GetDataSidebar();
-        $order = $submaterial->order;
         $data['classroom'] = $classroom;
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
@@ -159,7 +158,7 @@ class UserClassroomController extends Controller
                 $data['essayGraded'] = $this->studentSubmaterialExamAnswerService->essay_graded($data['studentSubmaterialExams']->first());
             }
         } else {
-            $data['studentSubmaterialExams'] = null;
+            $data['studentSubmaterialExam'] = null;
         }
         return view('dashboard.user.pages.submaterial.detail', $data);
     }

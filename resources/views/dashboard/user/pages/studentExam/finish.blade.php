@@ -20,19 +20,19 @@
                     <div class="row mt-3">
                         <div class="col-5 col-sm-3 fw-bold">Tanggal Ujian</div>
                         <div class="col col-sm-9"><spanclass="me-1">:
-                                </span>{{ Carbon::parse($subMaterialExam->start_at)->isoFormat('dddd, D F Y pukul HH:ss') }}
+                                </span>{{ Carbon::parse($subMaterialExam->start_at)->locale('id')->isoFormat('dddd, DD MMMM YYYY, HH:ss') }}
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-5 col-sm-3 fw-bold">Mulai Ujian</div>
                         <div class="col col-sm-9"><span
-                                class="me-1">:</span>{{ Carbon::parse($studentSubmaterialExam->created_at)->isoFormat('HH:ss') }}
+                                class="me-1">:</span>{{ Carbon::parse($studentSubmaterialExam->created_at)->format('H:i') }}
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-5 col-sm-3 fw-bold">Selesai Ujian</div>
                         <div class="col col-sm-9"><span
-                                class="me-1">:</span>{{ Carbon::parse($studentSubmaterialExam->finished_at)->isoFormat('HH:ss') }}
+                                class="me-1">:</span>{{ Carbon::parse($studentSubmaterialExam->finished_exam)->format('H:i') }}
                         </div>
                     </div>
                     <div class="row mt-3">

@@ -12,6 +12,9 @@ class ClassroomRepository extends BaseRepository
 {
 
     private StudentClassroom $studentClassroom;
+    private MentorClassroom $mentorClassroom;
+    private TeacherClassroom $teacherClassroom;
+    private Generation $generation;
 
     public function __construct(Classroom $model, StudentClassroom $studentClassroom, MentorClassroom $mentorClassroom, TeacherClassroom $teacherClassroom, Generation $generation)
     {

@@ -30,6 +30,17 @@ class SubMaterialExamService
         return $this->repository->store($data);
     }
 
+    public function generationMentorClassroom(): mixed
+    {
+        $generations = auth()->user()->mentorClassrooms;
+        $generationArr = [];
+        foreach ($generations as $generation) {
+            $generationId = $generation->classroom->generation->generation;
+            array_push($generationArr, $generationId);
+        }
+        return $generationArr;
+    }
+
     /**
      * handle delete task
      *

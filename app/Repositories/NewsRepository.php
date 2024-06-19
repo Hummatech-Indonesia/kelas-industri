@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\News;
-use App\Repositories\NewsRepository;
-use Illuminate\Cache\RateLimiting\Limit;
 
 class NewsRepository extends BaseRepository
 {
@@ -32,7 +30,7 @@ class NewsRepository extends BaseRepository
     {
         return $this->model->query()
             ->paginate($limit);
-            
+
     }
     public function get_by_slug(string $slug): mixed
     {

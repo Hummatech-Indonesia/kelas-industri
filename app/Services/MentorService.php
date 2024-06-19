@@ -58,4 +58,15 @@ class MentorService
     {
         $this->repository->destroy($id);
     }
+
+    public function handleArrClassroom(mixed $classrooms): mixed
+    {
+        $classroomArryId = [];
+        foreach ($classrooms as $classroom) {
+            $classroomId = $classroom->classroom_id;
+            array_push($classroomArryId, $classroomId);
+        }
+
+        return $classroomArryId;
+    }
 }

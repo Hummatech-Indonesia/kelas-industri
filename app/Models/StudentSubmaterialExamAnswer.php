@@ -23,7 +23,7 @@ class StudentSubmaterialExamAnswer extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function studentSubMaterialExam(): BelongsTo
+    public function studentSubmaterialExam(): BelongsTo
     {
         return $this->belongsTo(StudentSubmaterialExam::class);
     }
