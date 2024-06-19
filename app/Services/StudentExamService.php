@@ -5,13 +5,16 @@ namespace App\Services;
 use App\Models\SubMaterialExam;
 use App\Repositories\StudentExamRepository;
 use App\Http\Requests\AnswerSubmaterialExamRequest;
+use App\Repositories\StudentSubMaterialExamAnswerRepository;
 
 class StudentExamService
 {
     private StudentExamRepository $repository;
+    private StudentSubMaterialExamAnswerRepository $studentExamAnswerRepository;
 
-    public function __construct(StudentExamRepository $repository)
+    public function __construct(StudentExamRepository $repository, StudentSubMaterialExamAnswerRepository $studentExamAnswerRepository)
     {
+        $this->studentExamAnswerRepository = $studentExamAnswerRepository;
         $this->repository = $repository;
     }
 
@@ -76,5 +79,14 @@ class StudentExamService
     public function  reset($id): mixed
     {
         return $this->repository->destroy($id);
+    }
+
+    public function handleUpdate(string $id,$question_number ,array $data): void
+    {
+        $scores = $this->repository->whereId($id);
+        $scoreEssay = $this->studentExamAnswerRepository->scoreAnswerValue($id, $question_number)->answer_value;
+        $currentScore = $scores->score - $scoreEssay;
+        $totalScore = $data['score'] + $currentScore;
+        $this->repository->update($id, ['score' => $totalScore]);
     }
 }

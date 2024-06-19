@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
+use App\Services\UserServices;
 use App\Models\SubMaterialExam;
 use App\Services\MentorService;
+use App\Services\SchoolService;
 use App\Repositories\StudentRepository;
 use App\Repositories\MaterialRepository;
 use App\Services\SubMaterialExamService;
@@ -14,9 +16,8 @@ use App\Http\Requests\SubMaterialExamRequest;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use App\Repositories\SubMaterialExamRepository;
 use App\Services\StudentSubMaterialExamService;
+use App\Repositories\StudentSubmaterialExamRepository;
 use App\Repositories\SubMaterialExamQuestionRepository;
-use App\Services\SchoolService;
-use App\Services\UserServices;
 use App\Repositories\StudentSubMaterialExamAnswerRepository;
 
 class SubMaterialExamController extends Controller
@@ -27,12 +28,12 @@ class SubMaterialExamController extends Controller
     private SubMaterialExamService $service;
     private QuestionBankRepository $questionBankRepository;
     private SubMaterialExamQuestionRepository $examQuestionRepository;
-    private SubMaterialExamService $subMaterialExamService;
     private StudentSubMaterialExamService $studentSubMaterialExamService;
     private UserServices $userServices;
     private MentorService $mentorService;
     private StudentRepository $studentRepository;
     private StudentSubMaterialExamAnswerRepository $studentExamAnswerRepository;
+    private StudentSubmaterialExamRepository $studentExamRepository;
 
     public function __construct(
         MaterialRepository $materialRepository,
@@ -40,24 +41,24 @@ class SubMaterialExamController extends Controller
         SubMaterialExamRepository $repository,
         SubMaterialExamQuestionRepository $examQuestionRepository,
         QuestionBankRepository $questionBankRepository,
-        SubMaterialExamService $subMaterialExamService,
         StudentSubMaterialExamService $studentSubMaterialExamService,
         UserServices $userServices,
         MentorService $mentorService,
         StudentRepository $studentRepository,
-        StudentSubMaterialExamAnswerRepository $studentExamAnswerRepository
+        StudentSubMaterialExamAnswerRepository $studentExamAnswerRepository,
+        StudentSubmaterialExamRepository $studentExamRepository
     ) {
         $this->materialRepository = $materialRepository;
         $this->service = $service;
         $this->repository = $repository;
         $this->examQuestionRepository = $examQuestionRepository;
         $this->questionBankRepository = $questionBankRepository;
-        $this->subMaterialExamService = $subMaterialExamService;
         $this->studentSubMaterialExamService = $studentSubMaterialExamService;
         $this->userServices = $userServices;
         $this->mentorService = $mentorService;
         $this->studentRepository = $studentRepository;
         $this->studentExamAnswerRepository = $studentExamAnswerRepository;
+        $this->studentExamRepository = $studentExamRepository;
     }
     /**
      * Display a listing of the resource.
@@ -79,10 +80,13 @@ class SubMaterialExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function examMentorDetail()
+    public function examMentorDetail(SubMaterialExam $subMaterialExam)
     {
         $data = $this->GetDataSidebar();
-
+        $data['students'] = $this->studentExamRepository->getAllStudent($subMaterialExam->id);
+        $data['lowValue'] = $this->studentExamRepository->getMinValue($subMaterialExam->id);
+        $data['highValue'] = $this->studentExamRepository->getMaxValue($subMaterialExam->id);
+        $data['averageValue'] = $this->studentExamRepository->getAvgValue($subMaterialExam->id);
         return view('dashboard.user.pages.studentExam.examDetail', $data);
     }
 

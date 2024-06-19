@@ -160,7 +160,7 @@
 
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="{{ route('mentor.detailSubMaterialExam') }}"
+                                                    <a href="{{ route('mentor.detailSubMaterialExam', $exam->id) }}"
                                                         class="menu-link px-3">
                                                         Detail Ujian
                                                     </a>

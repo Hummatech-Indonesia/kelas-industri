@@ -373,7 +373,7 @@ Route::middleware('auth.custom')->group(function () {
         ]);
 
         Route::get('submaterial-exam', [SubMaterialExamController::class, 'examMentor'])->name('submaterialExam.index');
-        Route::get('detail-submaterial-exam', [SubMaterialExamController::class, 'examMentorDetail'])->name('detailSubMaterialExam');
+        Route::get('detail-submaterial-exam/{subMaterialExam}', [SubMaterialExamController::class, 'examMentorDetail'])->name('detailSubMaterialExam');
         Route::get('exam-submaterial-assessment/{subMaterialExam}', [SubMaterialExamController::class, 'examMentorAssessment'])->name('examSubMaterialAssessment');
 
         Route::post('student-sub-material-exam-essay-score/{subMaterialExam}', [StudentSubMaterialExamController::class, 'studentSubMaterialExamEssayScore'])->name('studentSubMaterialExamEssayScore');

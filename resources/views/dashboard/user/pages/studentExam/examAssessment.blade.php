@@ -160,6 +160,7 @@
                                                                             <input type="hidden"
                                                                                 name="student_submaterial_exam_answer_id[]"
                                                                                 value="{{ $answer->studentSubmaterialExam->id }}">
+                                                                                <input type="hidden" name="student_question_number[]" value="{{ $answer->student_question_number }}">
                                                                         </div>
                                                                     </div>
                                                                     <div class="mt-3 fw-semibold fs-6">

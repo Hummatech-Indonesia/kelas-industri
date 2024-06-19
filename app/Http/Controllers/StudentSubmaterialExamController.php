@@ -106,15 +106,27 @@ class StudentSubmaterialExamController extends Controller
      */
     public function studentSubMaterialExamEssayScore(Request $request, SubMaterialExam $subMaterialExam): mixed
     {
+        // dd($request);
         $essayValue = $subMaterialExam->essay_value;
         $score = 0;
         $data = $request;
+
+        $scoreByAnswerId = [];
+
+        foreach ($data['student_submaterial_exam_answer_id'] as $index => $answerId) {
+            $scoreByAnswerId[$answerId] = isset($scoreByAnswerId[$answerId]) ? $scoreByAnswerId[$answerId] + $data['answer_value'][$index] : $data['answer_value'][$index];
+        }
+
+        foreach ($scoreByAnswerId as $answerId => $totalScore) {
+            if ($totalScore > $essayValue) {
+                return redirect()->back()->with('error', "Total nilai yang anda tambahkan untuk essay maksimal " . $essayValue . " sedangkan total nilai yang anda inputkan " . $totalScore);
+            }
+        }
+
         for ($i = 0; $i < count($data['student_submaterial_exam_answer_id']); $i++) {
             $score += $data['answer_value'][$i];
-            $this->studentSubMaterialExamAnswer->update($data['student_submaterial_exam_answer_id'][$i], ['answer_value' => $data['answer_value'][$i]]);
-        }
-        if ($score >= $essayValue) {
-            return redirect()->back()->with('error', "Total nilai yang anda tambahkan untuk essay maksimal " . $essayValue . " sedangkan total nilai yang anda inputkan " . $score);
+            $this->service->handleUpdate($data['student_submaterial_exam_answer_id'][$i], ['question_number' => $data['student_question_number'][$i]],['score' => $data['answer_value'][$i]]);
+            $this->studentSubMaterialExamAnswer->updateValue($data['student_submaterial_exam_answer_id'][$i],['question_number' => $data['student_question_number'][$i]], ['answer_value' => $data['answer_value'][$i]]);
         }
 
         return redirect()->back()->with('success', "Berhasil melakukan penilaian");

@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <p class="fs-4 text-info mb-4 high-grade" style="font-weight: 1000;">16</p>
+                                    <p class="fs-4 text-info mb-4 high-grade" style="font-weight: 1000;">{{ $highValue }}</p>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <p class="fs-4 text-info mb-4 mid-grade" style="font-weight: 1000;">16</p>
+                                    <p class="fs-4 text-info mb-4 mid-grade" style="font-weight: 1000;">{{$averageValue}}</p>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <p class="fs-4 text-info mb-4 low-grade" style="font-weight: 1000;">16</p>
+                                    <p class="fs-4 text-info mb-4 low-grade" style="font-weight: 1000;">{{ $lowValue }}</p>
                                 </div>
                             </div>
                         </div>
@@ -165,24 +165,38 @@
                                             </tr>
                                         </thead>
                                         <tbody class="fw-semibold">
-                                            <tr>
-                                                <td class="text-center">
-                                                    Alfian Fahrul Himawan S. Tr. Kom
-                                                </td>
-                                                <td class="text-center">
-                                                    <span class="badge py-3 px-4 fs-7 badge-light-success">10</span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <span class="badge py-3 px-4 fs-7 badge-light-danger">2</span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <span class="badge py-3 px-4 fs-7 badge-light-warning">Belum
-                                                        Dinilai</span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <span class="badge py-3 px-4 fs-7 badge-light-primary">90</span>
-                                                </td>
-                                            </tr>
+                                            @forelse ($students as $student)
+                                                <tr>
+                                                    <td class="text-center">
+                                                        {{ $student->student->name }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span
+                                                            class="badge py-3 px-4 fs-7 badge-light-success">{{ $student->true_answer }}</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span
+                                                            class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->subMaterialExam->total_multiple_choice - $student->true_answer }}</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($student->subMaterialExam->studentSubmaterialExams == null)
+                                                            <span class="badge py-3 px-4 fs-7 badge-light-danger">Belum Ujian</span>
+                                                            @elseif ($student->studentSubMaterialExamAnswers[0]->answer_value == null)
+                                                            <span class="badge py-3 px-4 fs-7 badge-light-warning">Belum
+                                                                Dinilai</span>
+                                                            @else
+                                                            <span class="badge py-3 px-4 fs-7 badge-light-success">Sudah
+                                                                Dinilai</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span
+                                                            class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->score }}</span>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                            @endforelse
+
                                         </tbody>
                                     </table>
 

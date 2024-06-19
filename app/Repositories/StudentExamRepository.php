@@ -25,7 +25,13 @@ class StudentExamRepository extends BaseRepository
             ->where(['sub_material_exam_id' => $data['sub_material_exam_id'], 'student_id' => auth()->user()->id])->first();
     }
 
-    
+    public function whereId(mixed $id): mixed
+    {
+        return $this->model->query()
+        ->where('id', $id)
+        ->select('score')
+        ->first();
+    }
 
     /**
      * getWhere
@@ -40,10 +46,16 @@ class StudentExamRepository extends BaseRepository
             ->whereRelation('student', 'id', auth()->user()->id)
             ->first();
     }
+
     public function openTab($subMaterialExam): mixed
     {
         $subMaterialExam->open_tab += 1;
         $subMaterialExam->save();
         return $subMaterialExam;
+    }
+
+    public function update(mixed $id, array $data): mixed
+    {
+        return $this->show($id)->update($data);
     }
 }

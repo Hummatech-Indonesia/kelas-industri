@@ -47,8 +47,8 @@ class StudentSubmaterialExam extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function studentSubMaterialExamAnswers(): HasOne
+    public function studentSubMaterialExamAnswers(): HasMany
     {
-        return $this->hasOne(StudentSubmaterialExamAnswer::class);
+        return $this->hasMany(StudentSubmaterialExamAnswer::class);
     }
 }

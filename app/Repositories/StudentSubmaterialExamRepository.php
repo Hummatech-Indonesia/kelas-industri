@@ -52,4 +52,41 @@ class StudentSubmaterialExamRepository extends BaseRepository
 
         return $result->paginate($paginate);
     }
+
+    public function getAllStudent(string $subMaterialExamId):mixed
+    {
+        return $this->model->query()
+        ->with(['student', 'subMaterialExam', 'studentSubMaterialExamAnswers'])
+        ->where('sub_material_exam_id', $subMaterialExamId)
+        ->get();
+    }
+
+    public function getMinValue(string $subMaterialExamId):mixed
+    {
+        return $this->model->query()
+        ->where('sub_material_exam_id', $subMaterialExamId)
+        ->min('score');
+    }
+
+    public function getMaxValue(string $subMaterialExamId):mixed
+    {
+        return $this->model->query()
+        ->where('sub_material_exam_id', $subMaterialExamId)
+        ->max('score');
+    }
+
+    public function getAvgValue(string $subMaterialExamId):mixed
+    {
+        $classroomArry = [];
+        foreach (auth()->user()->mentorClassrooms as $classroom) {
+            array_push($classroomArry, $classroom->classroom_id);
+        }
+        
+        return $this->model->query()
+        ->whereRelation('student.studentSchool.studentClassroom', function ($query) use ($classroomArry){
+            $query->whereIn('classroom_id', $classroomArry);
+        })
+        ->where('sub_material_exam_id', $subMaterialExamId)
+        ->avg('score');
+    }
 }

@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::yvsze03Sj3QMOIwX',
+            '_route' => 'generated::r4nyM04OfhmSF4pM',
           ),
           1 => NULL,
           2 => 
@@ -259,7 +259,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::xcgahlRKv0dFkPJa',
+            '_route' => 'generated::8MvO3rI9uYjooOYK',
           ),
           1 => NULL,
           2 => 
@@ -314,7 +314,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::09Y5bpBJEqx8h5MS',
+            '_route' => 'generated::o075tVZnSq3xAQt2',
           ),
           1 => NULL,
           2 => 
@@ -405,7 +405,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::QcUxXFZcg7iGBcsb',
+            '_route' => 'generated::bpFuQB8HfCD4aor3',
           ),
           1 => NULL,
           2 => 
@@ -1964,26 +1964,6 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/admin/detail-exam-taking-place' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'admin.detail-exam-taking-place',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
       '/admin/exam-finnaly' => 
       array (
         0 => 
@@ -1991,46 +1971,6 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'admin.exam-finnaly',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      '/admin/exam-statistic' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'admin.exam-statistic',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      '/admin/exam-detail-student' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'admin.exam-detail-student',
           ),
           1 => NULL,
           2 => 
@@ -2668,7 +2608,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'administration.generated::5lkAuu2StcPMnxdb',
+            '_route' => 'administration.generated::9XNsmz4UM49syGqp',
           ),
           1 => NULL,
           2 => 
@@ -3684,26 +3624,6 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/mentor/detail-submaterial-exam' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'mentor.detailSubMaterialExam',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
       '/mentor/ranking' => 
       array (
         0 => 
@@ -4346,7 +4266,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::OiDahZKQtlYtslzG',
+            '_route' => 'generated::hArZ1WRs2oQ0Rd5B',
           ),
           1 => NULL,
           2 => 
@@ -4365,7 +4285,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::AZTgHNBQ4igt5Rqb',
+            '_route' => 'generated::19velRgNP0MQaqJz',
           ),
           1 => NULL,
           2 => 
@@ -4382,7 +4302,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/event/([^/]++)(*:22)|/news/([^/]++)(*:43)|/c(?|ertify/([^/]++)/([^/]++)(*:79)|lassrooms/([^/]++)(*:104))|/p(?|assword/reset/([^/]++)(*:140)|rofile/update\\-p(?|rofile/([^/]++)(*:182)|assword/([^/]++)(*:206)))|/admin(?|/(?|a(?|bsent/([^/]++)(*:247)|pprove\\-student/([^/]++)(*:279)|ssignments/([^/]++)(?|(*:309)|/edit(*:322)|(*:330))|ttendance/([^/]++)(?|(*:360)|/edit(*:373)|(*:381))|dministrations/([^/]++)(?|(*:416)|/edit(*:429)|(*:437)))|de(?|tail(?|Kelas/([^/]++)(*:473)|Siswa/([^/]++)(*:495)|Jurnal/([^/]++)(?|(*:521)|/([^/]++)(*:538)))|visions/([^/]++)(?|(*:567)|/edit(*:580)|(*:588))|lete/([^/]++)(*:610))|c(?|lassrooms/(?|([^/]++)(*:644)|create/([^/]++)(*:667)|store/([^/]++)(*:689)|([^/]++)(?|/([^/]++)(?|/edit(*:725)|(*:733))|(*:742)))|reateExam/([^/]++)(*:770))|teacher(?|\\-statistic/([^/]++)(*:809)|s/(?|create/([^/]++)(*:837)|store/([^/]++)(*:859)|edit/([^/]++)/([^/]++)(*:889)|update/([^/]++)/([^/]++)(*:921)|([^/]++)(*:937)))|s(?|tudents/(?|([^/]++)(*:970)|create/([^/]++)(*:993)|store/([^/]++)(*:1015)|edit/([^/]++)/([^/]++)(*:1046)|update/([^/]++)/([^/]++)(*:1079)|([^/]++)(*:1096))|ch(?|ool(?|Years/([^/]++)(?|(*:1134)|/edit(*:1148)|(*:1157))|s/([^/]++)(?|(*:1180)|/edit(*:1194)|(*:1203)))|edules/([^/]++)(?|(*:1232)|/edit(*:1246)|(*:1255)))|ub(?|m(?|aterial(?|s/(?|([^/]++)(?|(*:1301)|/edit(*:1315)|(*:1324))|assignments/([^/]++)/create(*:1361)|([^/]++)/view/([^/]++)(*:1392))|ExamQuestion/([^/]++)(*:1423))|itRewards/([^/]++)(?|(*:1454)|/edit(*:1468)|(*:1477)))|\\-material\\-exam/([^/]++)(?|(*:1516)|/edit(*:1530)|(*:1539)))|aleries/([^/]++)(?|(*:1569)|/edit(*:1583)|(*:1592))|how(?|Classroom/([^/]++)(*:1626)|Student/([^/]++)(*:1651)|Evaluation/([^/]++)(*:1679)))|g(?|a(?|ntiPassword(?|/([^/]++)/([^/]++)(*:1730)|Mentor/([^/]++)(*:1754)|Guru/([^/]++)(*:1776))|llerys/([^/]++)(?|(*:1804)|/edit(*:1818)|(*:1827)))|enerations/([^/]++)(?|(*:1860)|/edit(*:1874)|(*:1883)))|update(?|Password(?|/([^/]++)/([^/]++)(*:1932)|Mentor/([^/]++)(*:1956)|Guru/([^/]++)(*:1978))|StatusNews/([^/]++)(*:2007)|/([^/]++)(*:2025))|m(?|aterials/([^/]++)(?|(*:2059)|/(?|edit(*:2076)|create(*:2091)|([^/]++)(*:2108))|(*:2118))|entors/([^/]++)(?|(*:2146)|/edit(*:2160)|(*:2169)))|zoomSchedules/([^/]++)(?|(*:2205)|/edit(*:2219)|(*:2228))|journal/([^/]++)(?|(*:2257)|/edit(*:2271)|(*:2280))|e(?|xam(?|/([^/]++)(?|(*:2312)|/edit(*:2326)|(*:2335))|\\-question(?|/([^/]++)(*:2367)|\\-manual/([^/]++)/([^/]++)(*:2402)))|vent(?|s/(?|([^/]++)(?|(*:2436)|/(?|edit(*:2453)|participants(*:2474))|(*:2484))|set\\-certificate/([^/]++)(*:2519))|Documentation/(?|([^/]++)(?|(*:2557)|/edit(*:2571)|(*:2580))|store/([^/]++)(*:2604)))|dit/([^/]++)(*:2627))|r(?|ewards/([^/]++)(?|(*:2659)|/edit(*:2673)|(*:2682))|olling\\-(?|mentor/(?|([^/]++)(*:2721)|get\\-classrooms(*:2745)|action\\-rolling\\-mentor(*:2777)|delete\\-rolling\\-mentor/([^/]++)(*:2818))|teacher/(?|([^/]++)(*:2847)|a(?|ddRollingTeacher/([^/]++)(*:2885)|ction\\-rolling\\-teacher(*:2917))|delete\\-rolling\\-teacher/([^/]++)(*:2960))))|news/([^/]++)(?|(*:2988)|/edit(*:3002)|(*:3011))|que(?|stion\\-bank(?|/([^/]++)(?|(*:3053)|/edit(*:3067)|(*:3076))|\\-(?|m(?|ultiplechoice/([^/]++)(*:3117)|anual/([^/]++)(*:3140))|essay/([^/]++)(*:3164)|auto/([^/]++)(*:3186)))|tion\\-bank(?|s/([^/]++)(*:3220)|\\-detail/([^/]++)(*:3246)))|validStatus/([^/]++)(*:3277))|istration/(?|t(?|eacher/([^/]++)(?|(*:3322)|/month(*:3337))|racking/(?|([^/]++)(?|(*:3369)|/edit(*:3383)|(*:3392))|student\\-school/(?|([^/]++)(*:3429)|detail/([^/]++)/(?|([^/]++)(*:3465)|store(*:3479)|update(*:3494)))))|mentor/([^/]++)(?|(*:3525)|/month(*:3540))|dependent/([^/]++)(?|(*:3571)|(*:3580))|pa(?|ckage/([^/]++)(?|(*:3612)|/edit(*:3626)|(*:3635))|yment\\-monitoring/([^/]++)(?|(*:3674)|/([^/]++)(*:3692)))|schoolPackage/([^/]++)(?|(*:3728)|/edit(*:3742)|(*:3751))|get\\-total\\-dependent/([^/]++)/([^/]++)(*:3800)))|/school/(?|detailJurnal/([^/]++)(*:3843)|classrooms/([^/]++)(?|(*:3874)|/edit(*:3888)|(*:3897))|t(?|eachers/([^/]++)(?|(*:3930)|/edit(*:3944)|(*:3953))|racking/([^/]++)/([^/]++)(*:3988))|journal/([^/]++)(?|(*:4017)|/edit(*:4031)|(*:4040))|exam/([^/]++)(?|(*:4066)|/edit(*:4080)|(*:4089))|packages/([^/]++)(?|(*:4119)|/edit(*:4133)|(*:4142))|showStudent/([^/]++)(*:4172)|gantiPasswordGuru/([^/]++)(*:4207)|updatePasswordGuru/([^/]++)(*:4243)|([^/]++)/([^/]++)(*:4269))|/teacher/(?|challenges/([^/]++)(?|(*:4313)|/edit(*:4327)|(*:4336))|journal/([^/]++)(?|(*:4365)|/edit(*:4379)|(*:4388))|exam/([^/]++)(?|(*:4414)|/edit(*:4428)|(*:4437))|s(?|aleries/([^/]++)(?|(*:4470)|/edit(*:4484)|(*:4493))|howStudent(?|/([^/]++)(*:4525)|Report/([^/]++)(*:4549)))|([^/]++)/assignment/([^/]++)(*:4588)|s(?|torePointAssignment/([^/]++)(*:4629)|howStudentDetail/([^/]++)/([^/]++)(*:4672))|download(?|AllFile/([^/]++)(?|/([^/]++)(*:4721)|(*:4730))|File(?|/([^/]++)(*:4756)|Challenge/([^/]++)(*:4783))))|/m(?|entor/(?|challenges/([^/]++)(?|(*:4831)|/edit(*:4845)|(*:4854))|attendance/([^/]++)(?|(*:4886)|/edit(*:4900)|(*:4909))|journal/([^/]++)(?|(*:4938)|/edit(*:4952)|(*:4961))|exam(?|/([^/]++)(?|(*:4990)|/edit(*:5004)|(*:5013))|\\-submaterial\\-assessment/([^/]++)(*:5057))|s(?|aleries/([^/]++)(?|(*:5090)|/edit(*:5104)|(*:5113))|tudent\\-sub\\-material\\-exam\\-essay\\-score/([^/]++)(*:5173)|howStudent/([^/]++)(*:5201))|([^/]++)/assignment/([^/]++)(*:5239)|s(?|how(?|StudentDetail/([^/]++)/([^/]++)(*:5289)|Document/([^/]++)/([^/]++)(*:5324))|tudent\\-project/([^/]++)(*:5358))|download(?|AllFile/([^/]++)(?|(*:5398)|/([^/]++)(*:5416))|File(?|Challenge/([^/]++)(*:5451)|/([^/]++)(*:5469)))|approval\\-student\\-pr(?|oject/([^/]++)(*:5518)|esentation/([^/]++)(*:5546))|reject\\-student\\-pr(?|oject/([^/]++)(*:5592)|esentation/([^/]++)(*:5620))|finish\\-presentation/([^/]++)(*:5659))|aterials/([^/]++)(*:5686))|/([^/]++)/show(?|Material/([^/]++)(*:5730)|SubMaterial/([^/]++)/([^/]++)(*:5768))|/s(?|howDocument/([^/]++)/([^/]++)(*:5812)|tudent/(?|classrooms/([^/]++)(*:5850)|materials/([^/]++)(*:5877)|show(?|Material/([^/]++)(*:5910)|SubMaterial/([^/]++)(*:5939)|Document/([^/]++)/([^/]++)(*:5974))|([^/]++)/s(?|ubmitAssignment/([^/]++)/([^/]++)/([^/]++)(*:6039)|toreassignment/([^/]++)/([^/]++)(*:6080))|s(?|toreimageassignment/([^/]++)(*:6122)|ubmit(?|Challenge/([^/]++)(*:6157)|Reward(?|/([^/]++)(*:6184)|s/([^/]++)(?|(*:6206)|/edit(*:6220)|(*:6229)))))|absen/([^/]++)(*:6256)|d(?|ownloadFile(?|Challenge/([^/]++)(*:6301)|Assignment/([^/]++)(*:6329))|etail\\-(?|payment/([^/]++)(*:6365)|transaction/([^/]++)(*:6394)))|invoice/([^/]++)(*:6421)|e(?|xam/([^/]++)(?|(*:6449)|/(?|opentab(*:6469)|([^/]++)(?|(*:6489)|/finish(*:6505)))|(*:6516))|vents/(?|([^/]++)(*:6543)|follow/([^/]++)(*:6567)|unfollow/([^/]++)(*:6593)))|c(?|ertify/events/([^/]++)/([^/]++)(*:6639)|hallenges/([^/]++)(*:6666))|pr(?|ojectf/([^/]++)(?|(*:6699)|/edit(*:6713)|(*:6722))|esentation/([^/]++)(?|(*:6754)|/edit(*:6768)|(*:6777)))|notes/([^/]++)(?|(*:6805)|/edit(*:6819)|(*:6828))|tasks/([^/]++)(?|(*:6855)|/edit(*:6869)|(*:6878))|([^/]++)/([^/]++)(*:6905)))|/de(?|tail\\-student\\-project/([^/]++)(*:6953)|lete\\-notification/([^/]++)(*:6989))|/verify/([^/]++)/([^/]++)/([^/]++)(*:7033)|/certify/events/([^/]++)/([^/]++)/verification(*:7088))/?$}sDu',
+      0 => '{^(?|/event/([^/]++)(*:22)|/news/([^/]++)(*:43)|/c(?|ertify/([^/]++)/([^/]++)(*:79)|lassrooms/([^/]++)(*:104))|/p(?|assword/reset/([^/]++)(*:140)|rofile/update\\-p(?|rofile/([^/]++)(*:182)|assword/([^/]++)(*:206)))|/admin(?|/(?|a(?|bsent/([^/]++)(*:247)|pprove\\-student/([^/]++)(*:279)|ssignments/([^/]++)(?|(*:309)|/edit(*:322)|(*:330))|ttendance/([^/]++)(?|(*:360)|/edit(*:373)|(*:381))|dministrations/([^/]++)(?|(*:416)|/edit(*:429)|(*:437)))|de(?|tail(?|Kelas/([^/]++)(*:473)|Siswa/([^/]++)(*:495)|Jurnal/([^/]++)(?|(*:521)|/([^/]++)(*:538))|\\-exam\\-taking\\-place/([^/]++)(*:577))|visions/([^/]++)(?|(*:605)|/edit(*:618)|(*:626))|lete/([^/]++)(*:648))|c(?|lassrooms/(?|([^/]++)(*:682)|create/([^/]++)(*:705)|store/([^/]++)(*:727)|([^/]++)(?|/([^/]++)(?|/edit(*:763)|(*:771))|(*:780)))|reateExam/([^/]++)(*:808))|teacher(?|\\-statistic/([^/]++)(*:847)|s/(?|create/([^/]++)(*:875)|store/([^/]++)(*:897)|edit/([^/]++)/([^/]++)(*:927)|update/([^/]++)/([^/]++)(*:959)|([^/]++)(*:975)))|s(?|tudents/(?|([^/]++)(*:1008)|create/([^/]++)(*:1032)|store/([^/]++)(*:1055)|edit/([^/]++)/([^/]++)(*:1086)|update/([^/]++)/([^/]++)(*:1119)|([^/]++)(*:1136))|ch(?|ool(?|Years/([^/]++)(?|(*:1174)|/edit(*:1188)|(*:1197))|s/([^/]++)(?|(*:1220)|/edit(*:1234)|(*:1243)))|edules/([^/]++)(?|(*:1272)|/edit(*:1286)|(*:1295)))|ub(?|m(?|aterial(?|s/(?|([^/]++)(?|(*:1341)|/edit(*:1355)|(*:1364))|assignments/([^/]++)/create(*:1401)|([^/]++)/view/([^/]++)(*:1432))|ExamQuestion/([^/]++)(*:1463))|itRewards/([^/]++)(?|(*:1494)|/edit(*:1508)|(*:1517)))|\\-material\\-exam/([^/]++)(?|(*:1556)|/edit(*:1570)|(*:1579)))|aleries/([^/]++)(?|(*:1609)|/edit(*:1623)|(*:1632))|how(?|Classroom/([^/]++)(*:1666)|Student/([^/]++)(*:1691)|Evaluation/([^/]++)(*:1719)))|g(?|a(?|ntiPassword(?|/([^/]++)/([^/]++)(*:1770)|Mentor/([^/]++)(*:1794)|Guru/([^/]++)(*:1816))|llerys/([^/]++)(?|(*:1844)|/edit(*:1858)|(*:1867)))|enerations/([^/]++)(?|(*:1900)|/edit(*:1914)|(*:1923)))|update(?|Password(?|/([^/]++)/([^/]++)(*:1972)|Mentor/([^/]++)(*:1996)|Guru/([^/]++)(*:2018))|StatusNews/([^/]++)(*:2047)|/([^/]++)(*:2065))|m(?|aterials/([^/]++)(?|(*:2099)|/(?|edit(*:2116)|create(*:2131)|([^/]++)(*:2148))|(*:2158))|entors/([^/]++)(?|(*:2186)|/edit(*:2200)|(*:2209)))|zoomSchedules/([^/]++)(?|(*:2245)|/edit(*:2259)|(*:2268))|journal/([^/]++)(?|(*:2297)|/edit(*:2311)|(*:2320))|e(?|xam(?|/([^/]++)(?|(*:2352)|/edit(*:2366)|(*:2375))|\\-(?|statistic/([^/]++)(*:2408)|detail\\-student/([^/]++)(*:2441)|question(?|/([^/]++)(*:2470)|\\-manual/([^/]++)/([^/]++)(*:2505))))|vent(?|s/(?|([^/]++)(?|(*:2540)|/(?|edit(*:2557)|participants(*:2578))|(*:2588))|set\\-certificate/([^/]++)(*:2623))|Documentation/(?|([^/]++)(?|(*:2661)|/edit(*:2675)|(*:2684))|store/([^/]++)(*:2708)))|dit/([^/]++)(*:2731))|r(?|ewards/([^/]++)(?|(*:2763)|/edit(*:2777)|(*:2786))|olling\\-(?|mentor/(?|([^/]++)(*:2825)|get\\-classrooms(*:2849)|action\\-rolling\\-mentor(*:2881)|delete\\-rolling\\-mentor/([^/]++)(*:2922))|teacher/(?|([^/]++)(*:2951)|a(?|ddRollingTeacher/([^/]++)(*:2989)|ction\\-rolling\\-teacher(*:3021))|delete\\-rolling\\-teacher/([^/]++)(*:3064))))|news/([^/]++)(?|(*:3092)|/edit(*:3106)|(*:3115))|que(?|stion\\-bank(?|/([^/]++)(?|(*:3157)|/edit(*:3171)|(*:3180))|\\-(?|m(?|ultiplechoice/([^/]++)(*:3221)|anual/([^/]++)(*:3244))|essay/([^/]++)(*:3268)|auto/([^/]++)(*:3290)))|tion\\-bank(?|s/([^/]++)(*:3324)|\\-detail/([^/]++)(*:3350)))|validStatus/([^/]++)(*:3381))|istration/(?|t(?|eacher/([^/]++)(?|(*:3426)|/month(*:3441))|racking/(?|([^/]++)(?|(*:3473)|/edit(*:3487)|(*:3496))|student\\-school/(?|([^/]++)(*:3533)|detail/([^/]++)/(?|([^/]++)(*:3569)|store(*:3583)|update(*:3598)))))|mentor/([^/]++)(?|(*:3629)|/month(*:3644))|dependent/([^/]++)(?|(*:3675)|(*:3684))|pa(?|ckage/([^/]++)(?|(*:3716)|/edit(*:3730)|(*:3739))|yment\\-monitoring/([^/]++)(?|(*:3778)|/([^/]++)(*:3796)))|schoolPackage/([^/]++)(?|(*:3832)|/edit(*:3846)|(*:3855))|get\\-total\\-dependent/([^/]++)/([^/]++)(*:3904)))|/school/(?|detailJurnal/([^/]++)(*:3947)|classrooms/([^/]++)(?|(*:3978)|/edit(*:3992)|(*:4001))|t(?|eachers/([^/]++)(?|(*:4034)|/edit(*:4048)|(*:4057))|racking/([^/]++)/([^/]++)(*:4092))|journal/([^/]++)(?|(*:4121)|/edit(*:4135)|(*:4144))|exam/([^/]++)(?|(*:4170)|/edit(*:4184)|(*:4193))|packages/([^/]++)(?|(*:4223)|/edit(*:4237)|(*:4246))|showStudent/([^/]++)(*:4276)|gantiPasswordGuru/([^/]++)(*:4311)|updatePasswordGuru/([^/]++)(*:4347)|([^/]++)/([^/]++)(*:4373))|/teacher/(?|challenges/([^/]++)(?|(*:4417)|/edit(*:4431)|(*:4440))|journal/([^/]++)(?|(*:4469)|/edit(*:4483)|(*:4492))|exam/([^/]++)(?|(*:4518)|/edit(*:4532)|(*:4541))|s(?|aleries/([^/]++)(?|(*:4574)|/edit(*:4588)|(*:4597))|howStudent(?|/([^/]++)(*:4629)|Report/([^/]++)(*:4653)))|([^/]++)/assignment/([^/]++)(*:4692)|s(?|torePointAssignment/([^/]++)(*:4733)|howStudentDetail/([^/]++)/([^/]++)(*:4776))|download(?|AllFile/([^/]++)(?|/([^/]++)(*:4825)|(*:4834))|File(?|/([^/]++)(*:4860)|Challenge/([^/]++)(*:4887))))|/m(?|entor/(?|challenges/([^/]++)(?|(*:4935)|/edit(*:4949)|(*:4958))|attendance/([^/]++)(?|(*:4990)|/edit(*:5004)|(*:5013))|journal/([^/]++)(?|(*:5042)|/edit(*:5056)|(*:5065))|exam(?|/([^/]++)(?|(*:5094)|/edit(*:5108)|(*:5117))|\\-submaterial\\-assessment/([^/]++)(*:5161))|s(?|aleries/([^/]++)(?|(*:5194)|/edit(*:5208)|(*:5217))|tudent\\-sub\\-material\\-exam\\-essay\\-score/([^/]++)(*:5277)|howStudent/([^/]++)(*:5305))|detail\\-submaterial\\-exam/([^/]++)(*:5349)|([^/]++)/assignment/([^/]++)(*:5386)|s(?|how(?|StudentDetail/([^/]++)/([^/]++)(*:5436)|Document/([^/]++)/([^/]++)(*:5471))|tudent\\-project/([^/]++)(*:5505))|download(?|AllFile/([^/]++)(?|(*:5545)|/([^/]++)(*:5563))|File(?|Challenge/([^/]++)(*:5598)|/([^/]++)(*:5616)))|approval\\-student\\-pr(?|oject/([^/]++)(*:5665)|esentation/([^/]++)(*:5693))|reject\\-student\\-pr(?|oject/([^/]++)(*:5739)|esentation/([^/]++)(*:5767))|finish\\-presentation/([^/]++)(*:5806))|aterials/([^/]++)(*:5833))|/([^/]++)/show(?|Material/([^/]++)(*:5877)|SubMaterial/([^/]++)/([^/]++)(*:5915))|/s(?|howDocument/([^/]++)/([^/]++)(*:5959)|tudent/(?|classrooms/([^/]++)(*:5997)|materials/([^/]++)(*:6024)|show(?|Material/([^/]++)(*:6057)|SubMaterial/([^/]++)(*:6086)|Document/([^/]++)/([^/]++)(*:6121))|([^/]++)/s(?|ubmitAssignment/([^/]++)/([^/]++)/([^/]++)(*:6186)|toreassignment/([^/]++)/([^/]++)(*:6227))|s(?|toreimageassignment/([^/]++)(*:6269)|ubmit(?|Challenge/([^/]++)(*:6304)|Reward(?|/([^/]++)(*:6331)|s/([^/]++)(?|(*:6353)|/edit(*:6367)|(*:6376)))))|absen/([^/]++)(*:6403)|d(?|ownloadFile(?|Challenge/([^/]++)(*:6448)|Assignment/([^/]++)(*:6476))|etail\\-(?|payment/([^/]++)(*:6512)|transaction/([^/]++)(*:6541)))|invoice/([^/]++)(*:6568)|e(?|xam/([^/]++)(?|(*:6596)|/(?|opentab(*:6616)|([^/]++)(?|(*:6636)|/finish(*:6652)))|(*:6663))|vents/(?|([^/]++)(*:6690)|follow/([^/]++)(*:6714)|unfollow/([^/]++)(*:6740)))|c(?|ertify/events/([^/]++)/([^/]++)(*:6786)|hallenges/([^/]++)(*:6813))|pr(?|ojectf/([^/]++)(?|(*:6846)|/edit(*:6860)|(*:6869))|esentation/([^/]++)(?|(*:6901)|/edit(*:6915)|(*:6924)))|notes/([^/]++)(?|(*:6952)|/edit(*:6966)|(*:6975))|tasks/([^/]++)(?|(*:7002)|/edit(*:7016)|(*:7025))|([^/]++)/([^/]++)(*:7052)))|/de(?|tail\\-student\\-project/([^/]++)(*:7100)|lete\\-notification/([^/]++)(*:7136))|/verify/([^/]++)/([^/]++)/([^/]++)(*:7180)|/certify/events/([^/]++)/([^/]++)/verification(*:7235))/?$}sDu',
     ),
     3 => 
     array (
@@ -4575,7 +4495,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'admin.generated::ObfbbrIrUXU8RBTg',
+            '_route' => 'admin.generated::dcGZ70E0po7mDaO1',
           ),
           1 => 
           array (
@@ -4948,7 +4868,30 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      567 => 
+      577 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.detail-exam-taking-place',
+          ),
+          1 => 
+          array (
+            0 => 'slug',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      605 => 
       array (
         0 => 
         array (
@@ -4971,7 +4914,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      580 => 
+      618 => 
       array (
         0 => 
         array (
@@ -4994,7 +4937,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      588 => 
+      626 => 
       array (
         0 => 
         array (
@@ -5036,7 +4979,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      610 => 
+      648 => 
       array (
         0 => 
         array (
@@ -5058,7 +5001,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      644 => 
+      682 => 
       array (
         0 => 
         array (
@@ -5081,7 +5024,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      667 => 
+      705 => 
       array (
         0 => 
         array (
@@ -5104,7 +5047,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      689 => 
+      727 => 
       array (
         0 => 
         array (
@@ -5126,7 +5069,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      725 => 
+      763 => 
       array (
         0 => 
         array (
@@ -5150,7 +5093,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      733 => 
+      771 => 
       array (
         0 => 
         array (
@@ -5173,7 +5116,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      742 => 
+      780 => 
       array (
         0 => 
         array (
@@ -5195,7 +5138,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      770 => 
+      808 => 
       array (
         0 => 
         array (
@@ -5218,7 +5161,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      809 => 
+      847 => 
       array (
         0 => 
         array (
@@ -5241,7 +5184,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      837 => 
+      875 => 
       array (
         0 => 
         array (
@@ -5264,7 +5207,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      859 => 
+      897 => 
       array (
         0 => 
         array (
@@ -5286,7 +5229,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      889 => 
+      927 => 
       array (
         0 => 
         array (
@@ -5310,7 +5253,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      921 => 
+      959 => 
       array (
         0 => 
         array (
@@ -5333,7 +5276,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      937 => 
+      975 => 
       array (
         0 => 
         array (
@@ -5355,7 +5298,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      970 => 
+      1008 => 
       array (
         0 => 
         array (
@@ -5378,7 +5321,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      993 => 
+      1032 => 
       array (
         0 => 
         array (
@@ -5401,7 +5344,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1015 => 
+      1055 => 
       array (
         0 => 
         array (
@@ -5423,7 +5366,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1046 => 
+      1086 => 
       array (
         0 => 
         array (
@@ -5447,7 +5390,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1079 => 
+      1119 => 
       array (
         0 => 
         array (
@@ -5470,7 +5413,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1096 => 
+      1136 => 
       array (
         0 => 
         array (
@@ -5492,7 +5435,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1134 => 
+      1174 => 
       array (
         0 => 
         array (
@@ -5515,7 +5458,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1148 => 
+      1188 => 
       array (
         0 => 
         array (
@@ -5538,7 +5481,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1157 => 
+      1197 => 
       array (
         0 => 
         array (
@@ -5580,7 +5523,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1180 => 
+      1220 => 
       array (
         0 => 
         array (
@@ -5603,7 +5546,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1194 => 
+      1234 => 
       array (
         0 => 
         array (
@@ -5626,7 +5569,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1203 => 
+      1243 => 
       array (
         0 => 
         array (
@@ -5668,7 +5611,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1232 => 
+      1272 => 
       array (
         0 => 
         array (
@@ -5691,7 +5634,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1246 => 
+      1286 => 
       array (
         0 => 
         array (
@@ -5714,7 +5657,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1255 => 
+      1295 => 
       array (
         0 => 
         array (
@@ -5756,7 +5699,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1301 => 
+      1341 => 
       array (
         0 => 
         array (
@@ -5779,7 +5722,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1315 => 
+      1355 => 
       array (
         0 => 
         array (
@@ -5802,7 +5745,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1324 => 
+      1364 => 
       array (
         0 => 
         array (
@@ -5844,7 +5787,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1361 => 
+      1401 => 
       array (
         0 => 
         array (
@@ -5867,7 +5810,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1392 => 
+      1432 => 
       array (
         0 => 
         array (
@@ -5891,7 +5834,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1423 => 
+      1463 => 
       array (
         0 => 
         array (
@@ -5913,7 +5856,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1454 => 
+      1494 => 
       array (
         0 => 
         array (
@@ -5936,7 +5879,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1468 => 
+      1508 => 
       array (
         0 => 
         array (
@@ -5959,7 +5902,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1477 => 
+      1517 => 
       array (
         0 => 
         array (
@@ -6001,7 +5944,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1516 => 
+      1556 => 
       array (
         0 => 
         array (
@@ -6024,7 +5967,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1530 => 
+      1570 => 
       array (
         0 => 
         array (
@@ -6047,7 +5990,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1539 => 
+      1579 => 
       array (
         0 => 
         array (
@@ -6089,7 +6032,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1569 => 
+      1609 => 
       array (
         0 => 
         array (
@@ -6112,7 +6055,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1583 => 
+      1623 => 
       array (
         0 => 
         array (
@@ -6135,7 +6078,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1592 => 
+      1632 => 
       array (
         0 => 
         array (
@@ -6177,7 +6120,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1626 => 
+      1666 => 
       array (
         0 => 
         array (
@@ -6200,7 +6143,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1651 => 
+      1691 => 
       array (
         0 => 
         array (
@@ -6223,7 +6166,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1679 => 
+      1719 => 
       array (
         0 => 
         array (
@@ -6246,7 +6189,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1730 => 
+      1770 => 
       array (
         0 => 
         array (
@@ -6270,7 +6213,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1754 => 
+      1794 => 
       array (
         0 => 
         array (
@@ -6293,7 +6236,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1776 => 
+      1816 => 
       array (
         0 => 
         array (
@@ -6316,7 +6259,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1804 => 
+      1844 => 
       array (
         0 => 
         array (
@@ -6339,7 +6282,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1818 => 
+      1858 => 
       array (
         0 => 
         array (
@@ -6362,7 +6305,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1827 => 
+      1867 => 
       array (
         0 => 
         array (
@@ -6404,7 +6347,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1860 => 
+      1900 => 
       array (
         0 => 
         array (
@@ -6427,7 +6370,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1874 => 
+      1914 => 
       array (
         0 => 
         array (
@@ -6450,7 +6393,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1883 => 
+      1923 => 
       array (
         0 => 
         array (
@@ -6492,7 +6435,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1932 => 
+      1972 => 
       array (
         0 => 
         array (
@@ -6515,7 +6458,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1956 => 
+      1996 => 
       array (
         0 => 
         array (
@@ -6537,7 +6480,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1978 => 
+      2018 => 
       array (
         0 => 
         array (
@@ -6559,7 +6502,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2007 => 
+      2047 => 
       array (
         0 => 
         array (
@@ -6581,7 +6524,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2025 => 
+      2065 => 
       array (
         0 => 
         array (
@@ -6603,7 +6546,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2059 => 
+      2099 => 
       array (
         0 => 
         array (
@@ -6626,7 +6569,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2076 => 
+      2116 => 
       array (
         0 => 
         array (
@@ -6649,7 +6592,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2091 => 
+      2131 => 
       array (
         0 => 
         array (
@@ -6672,7 +6615,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2108 => 
+      2148 => 
       array (
         0 => 
         array (
@@ -6696,7 +6639,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2118 => 
+      2158 => 
       array (
         0 => 
         array (
@@ -6738,7 +6681,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2146 => 
+      2186 => 
       array (
         0 => 
         array (
@@ -6761,7 +6704,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2160 => 
+      2200 => 
       array (
         0 => 
         array (
@@ -6784,7 +6727,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2169 => 
+      2209 => 
       array (
         0 => 
         array (
@@ -6826,7 +6769,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2205 => 
+      2245 => 
       array (
         0 => 
         array (
@@ -6849,7 +6792,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2219 => 
+      2259 => 
       array (
         0 => 
         array (
@@ -6872,7 +6815,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2228 => 
+      2268 => 
       array (
         0 => 
         array (
@@ -6914,7 +6857,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2257 => 
+      2297 => 
       array (
         0 => 
         array (
@@ -6937,7 +6880,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2271 => 
+      2311 => 
       array (
         0 => 
         array (
@@ -6960,7 +6903,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2280 => 
+      2320 => 
       array (
         0 => 
         array (
@@ -7002,7 +6945,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2312 => 
+      2352 => 
       array (
         0 => 
         array (
@@ -7025,7 +6968,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2326 => 
+      2366 => 
       array (
         0 => 
         array (
@@ -7048,7 +6991,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2335 => 
+      2375 => 
       array (
         0 => 
         array (
@@ -7090,7 +7033,53 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2367 => 
+      2408 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.exam-statistic',
+          ),
+          1 => 
+          array (
+            0 => 'slug',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2441 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.exam-detail-student',
+          ),
+          1 => 
+          array (
+            0 => 'submaterialExam',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      2470 => 
       array (
         0 => 
         array (
@@ -7113,7 +7102,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2402 => 
+      2505 => 
       array (
         0 => 
         array (
@@ -7137,7 +7126,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2436 => 
+      2540 => 
       array (
         0 => 
         array (
@@ -7160,7 +7149,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2453 => 
+      2557 => 
       array (
         0 => 
         array (
@@ -7183,7 +7172,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2474 => 
+      2578 => 
       array (
         0 => 
         array (
@@ -7206,7 +7195,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2484 => 
+      2588 => 
       array (
         0 => 
         array (
@@ -7248,7 +7237,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2519 => 
+      2623 => 
       array (
         0 => 
         array (
@@ -7270,7 +7259,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2557 => 
+      2661 => 
       array (
         0 => 
         array (
@@ -7293,7 +7282,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2571 => 
+      2675 => 
       array (
         0 => 
         array (
@@ -7316,7 +7305,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2580 => 
+      2684 => 
       array (
         0 => 
         array (
@@ -7358,7 +7347,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2604 => 
+      2708 => 
       array (
         0 => 
         array (
@@ -7380,7 +7369,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2627 => 
+      2731 => 
       array (
         0 => 
         array (
@@ -7403,7 +7392,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2659 => 
+      2763 => 
       array (
         0 => 
         array (
@@ -7426,7 +7415,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2673 => 
+      2777 => 
       array (
         0 => 
         array (
@@ -7449,7 +7438,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2682 => 
+      2786 => 
       array (
         0 => 
         array (
@@ -7491,7 +7480,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2721 => 
+      2825 => 
       array (
         0 => 
         array (
@@ -7514,7 +7503,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2745 => 
+      2849 => 
       array (
         0 => 
         array (
@@ -7535,7 +7524,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2777 => 
+      2881 => 
       array (
         0 => 
         array (
@@ -7556,7 +7545,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2818 => 
+      2922 => 
       array (
         0 => 
         array (
@@ -7578,7 +7567,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2847 => 
+      2951 => 
       array (
         0 => 
         array (
@@ -7601,7 +7590,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2885 => 
+      2989 => 
       array (
         0 => 
         array (
@@ -7624,7 +7613,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2917 => 
+      3021 => 
       array (
         0 => 
         array (
@@ -7645,7 +7634,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2960 => 
+      3064 => 
       array (
         0 => 
         array (
@@ -7667,7 +7656,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      2988 => 
+      3092 => 
       array (
         0 => 
         array (
@@ -7690,7 +7679,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3002 => 
+      3106 => 
       array (
         0 => 
         array (
@@ -7713,7 +7702,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3011 => 
+      3115 => 
       array (
         0 => 
         array (
@@ -7755,7 +7744,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3053 => 
+      3157 => 
       array (
         0 => 
         array (
@@ -7778,7 +7767,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3067 => 
+      3171 => 
       array (
         0 => 
         array (
@@ -7801,7 +7790,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3076 => 
+      3180 => 
       array (
         0 => 
         array (
@@ -7843,7 +7832,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3117 => 
+      3221 => 
       array (
         0 => 
         array (
@@ -7866,7 +7855,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3140 => 
+      3244 => 
       array (
         0 => 
         array (
@@ -7888,7 +7877,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3164 => 
+      3268 => 
       array (
         0 => 
         array (
@@ -7911,7 +7900,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3186 => 
+      3290 => 
       array (
         0 => 
         array (
@@ -7933,7 +7922,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3220 => 
+      3324 => 
       array (
         0 => 
         array (
@@ -7956,7 +7945,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3246 => 
+      3350 => 
       array (
         0 => 
         array (
@@ -7979,7 +7968,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3277 => 
+      3381 => 
       array (
         0 => 
         array (
@@ -8001,7 +7990,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3322 => 
+      3426 => 
       array (
         0 => 
         array (
@@ -8024,7 +8013,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3337 => 
+      3441 => 
       array (
         0 => 
         array (
@@ -8046,7 +8035,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3369 => 
+      3473 => 
       array (
         0 => 
         array (
@@ -8069,7 +8058,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3383 => 
+      3487 => 
       array (
         0 => 
         array (
@@ -8092,7 +8081,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3392 => 
+      3496 => 
       array (
         0 => 
         array (
@@ -8134,7 +8123,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3429 => 
+      3533 => 
       array (
         0 => 
         array (
@@ -8157,7 +8146,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3465 => 
+      3569 => 
       array (
         0 => 
         array (
@@ -8181,7 +8170,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3479 => 
+      3583 => 
       array (
         0 => 
         array (
@@ -8203,7 +8192,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3494 => 
+      3598 => 
       array (
         0 => 
         array (
@@ -8225,7 +8214,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3525 => 
+      3629 => 
       array (
         0 => 
         array (
@@ -8248,7 +8237,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3540 => 
+      3644 => 
       array (
         0 => 
         array (
@@ -8270,7 +8259,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3571 => 
+      3675 => 
       array (
         0 => 
         array (
@@ -8293,7 +8282,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3580 => 
+      3684 => 
       array (
         0 => 
         array (
@@ -8316,7 +8305,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3612 => 
+      3716 => 
       array (
         0 => 
         array (
@@ -8339,7 +8328,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3626 => 
+      3730 => 
       array (
         0 => 
         array (
@@ -8362,7 +8351,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3635 => 
+      3739 => 
       array (
         0 => 
         array (
@@ -8404,7 +8393,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3674 => 
+      3778 => 
       array (
         0 => 
         array (
@@ -8427,7 +8416,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3692 => 
+      3796 => 
       array (
         0 => 
         array (
@@ -8451,7 +8440,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3728 => 
+      3832 => 
       array (
         0 => 
         array (
@@ -8474,7 +8463,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3742 => 
+      3846 => 
       array (
         0 => 
         array (
@@ -8497,7 +8486,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3751 => 
+      3855 => 
       array (
         0 => 
         array (
@@ -8539,7 +8528,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3800 => 
+      3904 => 
       array (
         0 => 
         array (
@@ -8563,7 +8552,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3843 => 
+      3947 => 
       array (
         0 => 
         array (
@@ -8586,7 +8575,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3874 => 
+      3978 => 
       array (
         0 => 
         array (
@@ -8609,7 +8598,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3888 => 
+      3992 => 
       array (
         0 => 
         array (
@@ -8632,7 +8621,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3897 => 
+      4001 => 
       array (
         0 => 
         array (
@@ -8674,7 +8663,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3930 => 
+      4034 => 
       array (
         0 => 
         array (
@@ -8697,7 +8686,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3944 => 
+      4048 => 
       array (
         0 => 
         array (
@@ -8720,7 +8709,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3953 => 
+      4057 => 
       array (
         0 => 
         array (
@@ -8762,7 +8751,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      3988 => 
+      4092 => 
       array (
         0 => 
         array (
@@ -8786,7 +8775,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4017 => 
+      4121 => 
       array (
         0 => 
         array (
@@ -8809,7 +8798,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4031 => 
+      4135 => 
       array (
         0 => 
         array (
@@ -8832,7 +8821,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4040 => 
+      4144 => 
       array (
         0 => 
         array (
@@ -8874,7 +8863,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4066 => 
+      4170 => 
       array (
         0 => 
         array (
@@ -8897,7 +8886,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4080 => 
+      4184 => 
       array (
         0 => 
         array (
@@ -8920,7 +8909,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4089 => 
+      4193 => 
       array (
         0 => 
         array (
@@ -8962,7 +8951,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4119 => 
+      4223 => 
       array (
         0 => 
         array (
@@ -8985,7 +8974,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4133 => 
+      4237 => 
       array (
         0 => 
         array (
@@ -9008,7 +8997,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4142 => 
+      4246 => 
       array (
         0 => 
         array (
@@ -9050,7 +9039,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4172 => 
+      4276 => 
       array (
         0 => 
         array (
@@ -9073,7 +9062,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4207 => 
+      4311 => 
       array (
         0 => 
         array (
@@ -9096,7 +9085,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4243 => 
+      4347 => 
       array (
         0 => 
         array (
@@ -9118,7 +9107,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4269 => 
+      4373 => 
       array (
         0 => 
         array (
@@ -9142,7 +9131,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4313 => 
+      4417 => 
       array (
         0 => 
         array (
@@ -9165,7 +9154,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4327 => 
+      4431 => 
       array (
         0 => 
         array (
@@ -9188,7 +9177,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4336 => 
+      4440 => 
       array (
         0 => 
         array (
@@ -9230,7 +9219,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4365 => 
+      4469 => 
       array (
         0 => 
         array (
@@ -9253,7 +9242,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4379 => 
+      4483 => 
       array (
         0 => 
         array (
@@ -9276,7 +9265,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4388 => 
+      4492 => 
       array (
         0 => 
         array (
@@ -9318,7 +9307,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4414 => 
+      4518 => 
       array (
         0 => 
         array (
@@ -9341,7 +9330,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4428 => 
+      4532 => 
       array (
         0 => 
         array (
@@ -9364,7 +9353,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4437 => 
+      4541 => 
       array (
         0 => 
         array (
@@ -9406,7 +9395,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4470 => 
+      4574 => 
       array (
         0 => 
         array (
@@ -9429,7 +9418,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4484 => 
+      4588 => 
       array (
         0 => 
         array (
@@ -9452,7 +9441,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4493 => 
+      4597 => 
       array (
         0 => 
         array (
@@ -9494,7 +9483,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4525 => 
+      4629 => 
       array (
         0 => 
         array (
@@ -9517,7 +9506,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4549 => 
+      4653 => 
       array (
         0 => 
         array (
@@ -9540,7 +9529,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4588 => 
+      4692 => 
       array (
         0 => 
         array (
@@ -9564,7 +9553,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4629 => 
+      4733 => 
       array (
         0 => 
         array (
@@ -9586,7 +9575,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4672 => 
+      4776 => 
       array (
         0 => 
         array (
@@ -9610,7 +9599,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4721 => 
+      4825 => 
       array (
         0 => 
         array (
@@ -9634,7 +9623,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4730 => 
+      4834 => 
       array (
         0 => 
         array (
@@ -9657,7 +9646,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4756 => 
+      4860 => 
       array (
         0 => 
         array (
@@ -9680,7 +9669,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4783 => 
+      4887 => 
       array (
         0 => 
         array (
@@ -9703,7 +9692,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4831 => 
+      4935 => 
       array (
         0 => 
         array (
@@ -9726,7 +9715,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4845 => 
+      4949 => 
       array (
         0 => 
         array (
@@ -9749,7 +9738,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4854 => 
+      4958 => 
       array (
         0 => 
         array (
@@ -9791,7 +9780,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4886 => 
+      4990 => 
       array (
         0 => 
         array (
@@ -9814,7 +9803,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4900 => 
+      5004 => 
       array (
         0 => 
         array (
@@ -9837,7 +9826,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4909 => 
+      5013 => 
       array (
         0 => 
         array (
@@ -9879,7 +9868,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4938 => 
+      5042 => 
       array (
         0 => 
         array (
@@ -9902,7 +9891,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4952 => 
+      5056 => 
       array (
         0 => 
         array (
@@ -9925,7 +9914,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4961 => 
+      5065 => 
       array (
         0 => 
         array (
@@ -9967,7 +9956,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      4990 => 
+      5094 => 
       array (
         0 => 
         array (
@@ -9990,7 +9979,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5004 => 
+      5108 => 
       array (
         0 => 
         array (
@@ -10013,7 +10002,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5013 => 
+      5117 => 
       array (
         0 => 
         array (
@@ -10055,7 +10044,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5057 => 
+      5161 => 
       array (
         0 => 
         array (
@@ -10078,7 +10067,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5090 => 
+      5194 => 
       array (
         0 => 
         array (
@@ -10101,7 +10090,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5104 => 
+      5208 => 
       array (
         0 => 
         array (
@@ -10124,7 +10113,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5113 => 
+      5217 => 
       array (
         0 => 
         array (
@@ -10166,7 +10155,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5173 => 
+      5277 => 
       array (
         0 => 
         array (
@@ -10188,7 +10177,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5201 => 
+      5305 => 
       array (
         0 => 
         array (
@@ -10211,7 +10200,30 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5239 => 
+      5349 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'mentor.detailSubMaterialExam',
+          ),
+          1 => 
+          array (
+            0 => 'subMaterialExam',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      5386 => 
       array (
         0 => 
         array (
@@ -10235,7 +10247,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5289 => 
+      5436 => 
       array (
         0 => 
         array (
@@ -10259,7 +10271,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5324 => 
+      5471 => 
       array (
         0 => 
         array (
@@ -10283,7 +10295,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5358 => 
+      5505 => 
       array (
         0 => 
         array (
@@ -10306,7 +10318,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5398 => 
+      5545 => 
       array (
         0 => 
         array (
@@ -10329,7 +10341,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5416 => 
+      5563 => 
       array (
         0 => 
         array (
@@ -10353,7 +10365,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5451 => 
+      5598 => 
       array (
         0 => 
         array (
@@ -10376,7 +10388,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5469 => 
+      5616 => 
       array (
         0 => 
         array (
@@ -10399,7 +10411,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5518 => 
+      5665 => 
       array (
         0 => 
         array (
@@ -10421,7 +10433,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5546 => 
+      5693 => 
       array (
         0 => 
         array (
@@ -10443,7 +10455,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5592 => 
+      5739 => 
       array (
         0 => 
         array (
@@ -10465,7 +10477,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5620 => 
+      5767 => 
       array (
         0 => 
         array (
@@ -10487,7 +10499,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5659 => 
+      5806 => 
       array (
         0 => 
         array (
@@ -10509,7 +10521,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5686 => 
+      5833 => 
       array (
         0 => 
         array (
@@ -10532,7 +10544,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5730 => 
+      5877 => 
       array (
         0 => 
         array (
@@ -10556,7 +10568,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5768 => 
+      5915 => 
       array (
         0 => 
         array (
@@ -10581,7 +10593,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5812 => 
+      5959 => 
       array (
         0 => 
         array (
@@ -10605,7 +10617,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5850 => 
+      5997 => 
       array (
         0 => 
         array (
@@ -10628,7 +10640,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5877 => 
+      6024 => 
       array (
         0 => 
         array (
@@ -10651,7 +10663,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5910 => 
+      6057 => 
       array (
         0 => 
         array (
@@ -10674,7 +10686,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5939 => 
+      6086 => 
       array (
         0 => 
         array (
@@ -10697,7 +10709,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      5974 => 
+      6121 => 
       array (
         0 => 
         array (
@@ -10721,7 +10733,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6039 => 
+      6186 => 
       array (
         0 => 
         array (
@@ -10747,7 +10759,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6080 => 
+      6227 => 
       array (
         0 => 
         array (
@@ -10771,7 +10783,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6122 => 
+      6269 => 
       array (
         0 => 
         array (
@@ -10793,7 +10805,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6157 => 
+      6304 => 
       array (
         0 => 
         array (
@@ -10816,7 +10828,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6184 => 
+      6331 => 
       array (
         0 => 
         array (
@@ -10838,7 +10850,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6206 => 
+      6353 => 
       array (
         0 => 
         array (
@@ -10861,7 +10873,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6220 => 
+      6367 => 
       array (
         0 => 
         array (
@@ -10884,7 +10896,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6229 => 
+      6376 => 
       array (
         0 => 
         array (
@@ -10926,13 +10938,13 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6256 => 
+      6403 => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'student.generated::iVT0AG5FB0vQVBu7',
+            '_route' => 'student.generated::YUAnBLZLXp5jve5t',
           ),
           1 => 
           array (
@@ -10949,7 +10961,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6301 => 
+      6448 => 
       array (
         0 => 
         array (
@@ -10972,7 +10984,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6329 => 
+      6476 => 
       array (
         0 => 
         array (
@@ -10995,7 +11007,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6365 => 
+      6512 => 
       array (
         0 => 
         array (
@@ -11018,7 +11030,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6394 => 
+      6541 => 
       array (
         0 => 
         array (
@@ -11041,7 +11053,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6421 => 
+      6568 => 
       array (
         0 => 
         array (
@@ -11064,7 +11076,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6449 => 
+      6596 => 
       array (
         0 => 
         array (
@@ -11087,7 +11099,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6469 => 
+      6616 => 
       array (
         0 => 
         array (
@@ -11109,7 +11121,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6489 => 
+      6636 => 
       array (
         0 => 
         array (
@@ -11132,7 +11144,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6505 => 
+      6652 => 
       array (
         0 => 
         array (
@@ -11156,7 +11168,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6516 => 
+      6663 => 
       array (
         0 => 
         array (
@@ -11178,7 +11190,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6543 => 
+      6690 => 
       array (
         0 => 
         array (
@@ -11201,7 +11213,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6567 => 
+      6714 => 
       array (
         0 => 
         array (
@@ -11223,7 +11235,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6593 => 
+      6740 => 
       array (
         0 => 
         array (
@@ -11245,7 +11257,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6639 => 
+      6786 => 
       array (
         0 => 
         array (
@@ -11269,7 +11281,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6666 => 
+      6813 => 
       array (
         0 => 
         array (
@@ -11292,7 +11304,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6699 => 
+      6846 => 
       array (
         0 => 
         array (
@@ -11315,7 +11327,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6713 => 
+      6860 => 
       array (
         0 => 
         array (
@@ -11338,7 +11350,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6722 => 
+      6869 => 
       array (
         0 => 
         array (
@@ -11380,7 +11392,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6754 => 
+      6901 => 
       array (
         0 => 
         array (
@@ -11403,7 +11415,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6768 => 
+      6915 => 
       array (
         0 => 
         array (
@@ -11426,7 +11438,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6777 => 
+      6924 => 
       array (
         0 => 
         array (
@@ -11468,7 +11480,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6805 => 
+      6952 => 
       array (
         0 => 
         array (
@@ -11491,7 +11503,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6819 => 
+      6966 => 
       array (
         0 => 
         array (
@@ -11514,7 +11526,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6828 => 
+      6975 => 
       array (
         0 => 
         array (
@@ -11556,7 +11568,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6855 => 
+      7002 => 
       array (
         0 => 
         array (
@@ -11579,7 +11591,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6869 => 
+      7016 => 
       array (
         0 => 
         array (
@@ -11602,7 +11614,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6878 => 
+      7025 => 
       array (
         0 => 
         array (
@@ -11644,7 +11656,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6905 => 
+      7052 => 
       array (
         0 => 
         array (
@@ -11668,7 +11680,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6953 => 
+      7100 => 
       array (
         0 => 
         array (
@@ -11691,13 +11703,13 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      6989 => 
+      7136 => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'generated::5eSt7aQhJLMw5oeJ',
+            '_route' => 'generated::WemMYtfxO0VfU0xS',
           ),
           1 => 
           array (
@@ -11713,7 +11725,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7033 => 
+      7180 => 
       array (
         0 => 
         array (
@@ -11738,7 +11750,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7088 => 
+      7235 => 
       array (
         0 => 
         array (
@@ -11923,7 +11935,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::yvsze03Sj3QMOIwX' => 
+    'generated::r4nyM04OfhmSF4pM' => 
     array (
       'methods' => 
       array (
@@ -11940,13 +11952,13 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:297:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:79:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000e100000000000000000";}";s:4:"hash";s:44:"99gVNntMK5wBD3OQg9FlCEWaYj5blnabadlfwPkqIy4=";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000005eb0000000000000000";}";s:4:"hash";s:44:"WtmBTlmyfdxcHpNQVHGrTSYdBU8Z4UBTv/ModieRvCE=";}}',
         'namespace' => NULL,
         'prefix' => 'api',
         'where' => 
         array (
         ),
-        'as' => 'generated::yvsze03Sj3QMOIwX',
+        'as' => 'generated::r4nyM04OfhmSF4pM',
       ),
       'fallback' => false,
       'defaults' => 
@@ -12332,7 +12344,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::xcgahlRKv0dFkPJa' => 
+    'generated::8MvO3rI9uYjooOYK' => 
     array (
       'methods' => 
       array (
@@ -12352,7 +12364,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::xcgahlRKv0dFkPJa',
+        'as' => 'generated::8MvO3rI9uYjooOYK',
       ),
       'fallback' => false,
       'defaults' => 
@@ -12441,7 +12453,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::09Y5bpBJEqx8h5MS' => 
+    'generated::o075tVZnSq3xAQt2' => 
     array (
       'methods' => 
       array (
@@ -12461,7 +12473,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::09Y5bpBJEqx8h5MS',
+        'as' => 'generated::o075tVZnSq3xAQt2',
       ),
       'fallback' => false,
       'defaults' => 
@@ -12660,7 +12672,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::QcUxXFZcg7iGBcsb' => 
+    'generated::bpFuQB8HfCD4aor3' => 
     array (
       'methods' => 
       array (
@@ -12680,7 +12692,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::QcUxXFZcg7iGBcsb',
+        'as' => 'generated::bpFuQB8HfCD4aor3',
       ),
       'fallback' => false,
       'defaults' => 
@@ -12827,7 +12839,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:298:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:80:"function () {
             return \\view(\'dashboard.admin.layouts.app\');
-        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000e2d0000000000000000";}";s:4:"hash";s:44:"sP0YnQ+GuiVAO/CoDOQETUY1ATvwIeIgXN12FxoO/gs=";}}',
+        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000006080000000000000000";}";s:4:"hash";s:44:"4ozhAYwctoshV1S6gKQGNG4e1ayZIjWJ8n2GkW+Fw0g=";}}',
         'as' => 'admin.',
         'namespace' => NULL,
         'prefix' => '/admin',
@@ -13447,7 +13459,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'admin.generated::ObfbbrIrUXU8RBTg' => 
+    'admin.generated::dcGZ70E0po7mDaO1' => 
     array (
       'methods' => 
       array (
@@ -13465,7 +13477,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\ApprovalController@approve',
         'controller' => 'App\\Http\\Controllers\\ApprovalController@approve',
-        'as' => 'admin.generated::ObfbbrIrUXU8RBTg',
+        'as' => 'admin.generated::dcGZ70E0po7mDaO1',
         'namespace' => NULL,
         'prefix' => '/admin',
         'where' => 
@@ -20835,7 +20847,7 @@ app('router')->setCompiledRoutes(
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'admin/detail-exam-taking-place',
+      'uri' => 'admin/detail-exam-taking-place/{slug}',
       'action' => 
       array (
         'middleware' => 
@@ -20915,7 +20927,7 @@ app('router')->setCompiledRoutes(
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'admin/exam-statistic',
+      'uri' => 'admin/exam-statistic/{slug}',
       'action' => 
       array (
         'middleware' => 
@@ -20955,7 +20967,7 @@ app('router')->setCompiledRoutes(
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'admin/exam-detail-student',
+      'uri' => 'admin/exam-detail-student/{submaterialExam}',
       'action' => 
       array (
         'middleware' => 
@@ -24597,7 +24609,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'administration.generated::5lkAuu2StcPMnxdb' => 
+    'administration.generated::9XNsmz4UM49syGqp' => 
     array (
       'methods' => 
       array (
@@ -24616,7 +24628,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\FinanceController@get',
         'controller' => 'App\\Http\\Controllers\\FinanceController@get',
-        'as' => 'administration.generated::5lkAuu2StcPMnxdb',
+        'as' => 'administration.generated::9XNsmz4UM49syGqp',
         'namespace' => NULL,
         'prefix' => '/administration',
         'where' => 
@@ -24656,7 +24668,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:298:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:80:"function () {
             return \\view(\'dashboard.admin.layouts.app\');
-        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000f580000000000000000";}";s:4:"hash";s:44:"/IYfKMVEb7OuNrb0Ega1N2VUWFfpMbaIJHsuj28VluE=";}}',
+        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000af20000000000000000";}";s:4:"hash";s:44:"htuC1jB222Fj29n/jWaJ8NH5UDv99L5Iug0oyZzRH3o=";}}',
         'as' => 'school.',
         'namespace' => NULL,
         'prefix' => '/school',
@@ -29573,7 +29585,7 @@ app('router')->setCompiledRoutes(
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'mentor/detail-submaterial-exam',
+      'uri' => 'mentor/detail-submaterial-exam/{subMaterialExam}',
       'action' => 
       array (
         'middleware' => 
@@ -30604,7 +30616,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:306:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:88:"function () {
             return \\view(\'dashboard.user.pages.material.index\');
-        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000ff10000000000000000";}";s:4:"hash";s:44:"+ZqEu0ai7q1CEV/eYDoW5C6KnYBZyKPlCMcTbFERIdA=";}}',
+        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000b8b0000000000000000";}";s:4:"hash";s:44:"4UfSVc6Q4NF+Ax5GlcBsb+8//Zs0TotwvixiulOR+6w=";}}',
         'as' => 'student.',
         'namespace' => NULL,
         'prefix' => '/student',
@@ -31186,7 +31198,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'student.generated::iVT0AG5FB0vQVBu7' => 
+    'student.generated::YUAnBLZLXp5jve5t' => 
     array (
       'methods' => 
       array (
@@ -31205,7 +31217,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\AttendanceController@submit',
         'controller' => 'App\\Http\\Controllers\\AttendanceController@submit',
-        'as' => 'student.generated::iVT0AG5FB0vQVBu7',
+        'as' => 'student.generated::YUAnBLZLXp5jve5t',
         'namespace' => NULL,
         'prefix' => '/student',
         'where' => 
@@ -33572,7 +33584,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::5eSt7aQhJLMw5oeJ' => 
+    'generated::WemMYtfxO0VfU0xS' => 
     array (
       'methods' => 
       array (
@@ -33593,7 +33605,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::5eSt7aQhJLMw5oeJ',
+        'as' => 'generated::WemMYtfxO0VfU0xS',
       ),
       'fallback' => false,
       'defaults' => 
@@ -33683,7 +33695,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::OiDahZKQtlYtslzG' => 
+    'generated::hArZ1WRs2oQ0Rd5B' => 
     array (
       'methods' => 
       array (
@@ -33703,7 +33715,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::OiDahZKQtlYtslzG',
+        'as' => 'generated::hArZ1WRs2oQ0Rd5B',
       ),
       'fallback' => false,
       'defaults' => 
@@ -33793,7 +33805,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::AZTgHNBQ4igt5Rqb' => 
+    'generated::19velRgNP0MQaqJz' => 
     array (
       'methods' => 
       array (
@@ -33814,7 +33826,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::AZTgHNBQ4igt5Rqb',
+        'as' => 'generated::19velRgNP0MQaqJz',
       ),
       'fallback' => false,
       'defaults' => 

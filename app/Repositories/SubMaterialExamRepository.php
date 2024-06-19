@@ -60,5 +60,4 @@ class SubMaterialExamRepository extends BaseRepository
         ->latest()
         ->get();
     }
-    
 }
