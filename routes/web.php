@@ -196,7 +196,6 @@ Route::middleware('auth.custom')->group(function () {
         
         Route::post('question-bank-store-essay', [QuestionBankController::class, 'storeEssay'])->name('questionBank.storeEssay');
 
-
         Route::patch('updateStatusNews/{news}', [NewsController::class, 'updateStatus'])->name('updateStatusNews');
         Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
         Route::get('create', [SalaryController::class, 'createTeacher'])->name('createSaleriesTeacher');
@@ -211,7 +210,6 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/showEvaluation/{student}', [ExamController::class, 'showEvaluation'])->name('showEvaluation');
 
         Route::get('/showSubMaterial', [SubMaterialController::class, 'showSubMaterial'])->name('showSubMaterial');
-
 
         Route::prefix('rolling-mentor')->name('rollingMentor.')->group(function () {
             Route::get('/', [MentorController::class, 'rollingMentor'])->name('index');
@@ -495,7 +493,6 @@ Route::middleware('auth.custom')->group(function () {
     //end student
 
     // notification
-
     Route::delete('delete-notification/{id}', [NotificationController::class, 'destroy']);
     Route::delete('delete-all-notification', [NotificationController::class, 'deleteAll'])->name('deleteAllNotification');
 
