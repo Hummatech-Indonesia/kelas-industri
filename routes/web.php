@@ -42,6 +42,7 @@ use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\QuestionBankController;
+use App\Http\Controllers\Spk\CriteriaController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
@@ -165,6 +166,11 @@ Route::middleware('auth.custom')->group(function () {
             'eventDocumentation' => EventDocumentationController::class,
             'sub-material-exam' => SubMaterialExamController::class,
         ]);
+
+        Route::get('criterias/{devision}',[CriteriaController::class,'index'])->name('criterias.index');
+        Route::post('criterias',[CriteriaController::class,'store'])->name('criterias.store');
+        Route::delete('criterias/{criterias}',[CriteriaController::class,'destroy'])->name('criterias.destroy');
+        Route::put('criterias/{criterias}',[CriteriaController::class,'update'])->name('criterias.update');
         
         Route::get('events/{event}/participants', [EventController::class, 'showParticipants'])->name('events.participants');
         Route::put('events/set-certificate/{event}', [EventPartisipantController::class, 'update'])->name('eventsParticipant.setCertificate');
