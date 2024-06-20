@@ -41,6 +41,7 @@ use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\SubMaterialController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationController;
+use App\Http\Controllers\QuestionBankController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
@@ -53,8 +54,10 @@ use App\Http\Controllers\SubMaterialExamController;
 use App\Http\Controllers\TrackingPaymentController;
 use App\Http\Controllers\EventPartisipantController;
 use App\Http\Controllers\TeacherStatisticController;
+use App\Http\Controllers\EventDocumentationController;
 use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\StudentSubmaterialExamController;
+use App\Http\Controllers\SubMaterialExamQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -156,7 +159,38 @@ Route::middleware('auth.custom')->group(function () {
             'news' => NewsController::class,
             'administrations' => AdminitrasionController::class,
             'devisions' => DevisionController::class,
+            'question-bank' => QuestionBankController::class,
+            'schedules' => ScheduleController::class,
+            'events' => EventController::class,
+            'eventDocumentation' => EventDocumentationController::class,
+            'sub-material-exam' => SubMaterialExamController::class,
         ]);
+        
+        Route::get('events/{event}/participants', [EventController::class, 'showParticipants'])->name('events.participants');
+        Route::put('events/set-certificate/{event}', [EventPartisipantController::class, 'update'])->name('eventsParticipant.setCertificate');
+        Route::post('eventDocumentation/store/{event}', [EventDocumentationController::class, 'storeMultiple'])->name('eventDocumentation.store-img');
+        
+        Route::get('exam-taking-place', [SubMaterialExamController::class, 'examTakingPlace'])->name('exam-taking-place');
+        Route::get('detail-exam-taking-place/{slug}', [SubMaterialExamController::class, 'detailExamTakingPlace'])->name('detail-exam-taking-place');
+        Route::get('exam-finnaly', [SubMaterialExamController::class, 'examFinnaly'])->name('exam-finnaly');
+        Route::get('exam-statistic/{slug}', [SubMaterialExamController::class, 'examStatistic'])->name('exam-statistic');
+        Route::get('exam-detail-student/{submaterialExam}', [SubMaterialExamController::class, 'examDetailStudent'])->name('exam-detail-student');
+        
+        Route::get('exam-question/{subMaterialExam}', [SubMaterialExamController::class, 'examQuestion'])->name('exam-question');
+        Route::get('exam-question-manual/{submaterial}/{submaterialExam}', [SubMaterialExamController::class, 'examQuestionManual'])->name('exam-question-manual');
+        
+        Route::get('question-bank-multiplechoice/{submaterial}', [QuestionBankController::class, 'indexMultipleChoise'])->name('question-bank-multiplechoice');
+        Route::get('question-bank-essay/{submaterial}', [QuestionBankController::class, 'indexEssay'])->name('question-bank-essay');
+        Route::get('quetion-banks/{material}', [MaterialController::class, 'questionBank'])->name('questionBank');
+        Route::get('quetion-bank-detail/{submaterial}', [QuestionBankController::class, 'show'])->name('quetion-bank-detail');
+        
+        Route::post('question-bank-manual/{submaterialExam}', [SubMaterialExamQuestionController::class, 'manual'])->name('questionBank.manual');
+        Route::post('question-bank-auto/{submaterialExam}', [SubMaterialExamQuestionController::class, 'auto'])->name('questionBank.auto');
+        Route::resource('submaterialExamQuestion', SubMaterialExamQuestionController::class)->only('destroy');
+        
+        Route::post('question-bank-store-essay', [QuestionBankController::class, 'storeEssay'])->name('questionBank.storeEssay');
+
+
         Route::patch('updateStatusNews/{news}', [NewsController::class, 'updateStatus'])->name('updateStatusNews');
         Route::get('saleriesTeacher', [SalaryController::class, 'indexTeacher'])->name('saleriesTeacher');
         Route::get('create', [SalaryController::class, 'createTeacher'])->name('createSaleriesTeacher');
