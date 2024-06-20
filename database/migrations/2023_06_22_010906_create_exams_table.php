@@ -21,11 +21,7 @@ return new class extends Migration
             ->on('student_classrooms')
             ->cascadeOnDelete();
             $table->enum('exam_type', ['uts', 'uas']);
-            $table->integer('complexity');
-            $table->integer('code_cleanliness');
-            $table->integer('design');
-            $table->integer('presentation');
-            $table->integer('understanding');
+            $table->enum('semester',['ganjil','genap']);
             $table->enum('task_level', ['easy', 'medium', 'advance']);
             $table->timestamps();
         });

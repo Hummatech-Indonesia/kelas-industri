@@ -18,6 +18,7 @@ use App\Models\Classroom;
 use App\Models\Dependent;
 use App\Models\Assignment;
 use App\Models\Attendance;
+use App\Models\Batch;
 use App\Models\SubMaterial;
 use App\Models\QuestionBank;
 use App\Models\StudentSubmaterialExam;
@@ -38,6 +39,7 @@ use App\Observers\ClassroomObserver;
 use App\Observers\DependentObserver;
 use App\Observers\AssignmentObserver;
 use App\Observers\AttendanceObserver;
+use App\Observers\BatchObserver;
 use App\Observers\SubmaterialObserver;
 use Illuminate\Auth\Events\Registered;
 use App\Observers\QuestionBankObserver;
@@ -86,6 +88,7 @@ class EventServiceProvider extends ServiceProvider
         QuestionBank::observe(QuestionBankObserver::class);
         SubMaterialExam::observe(SubMaterialExamObserver::class);
         StudentSubmaterialExam::observe(StudentSubmaterialExamObserver::class);
+        Batch::observe(BatchObserver::class);
     }
 
     /**

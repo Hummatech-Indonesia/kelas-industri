@@ -20,10 +20,20 @@ class Exam extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id','student_classroom_id', 'exam_type', 'complexity', 'code_cleanliness', 'design','presentation','understanding','task_level'];
+    protected $fillable = ['id','student_classroom_id', 'exam_type','task_level','semester'];
 
     public function studentClassroom():BelongsTo
     {
         return $this->belongsTo(StudentClassroom::class, 'student_classroom_id');
+    }
+
+    /**
+     * Get all of the examCriterias for the Exam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function examCriterias(): HasMany
+    {
+        return $this->hasMany(ExamCriteria::class);
     }
 }

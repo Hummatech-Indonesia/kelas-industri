@@ -44,6 +44,9 @@
                                 <tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="text-start">No</th>
                                     <th class="text-center">Nama</th>
+                                    <th class="text-center">Jumlah Kriteria</th>
+                                    <th class="text-center">Total Bobot SPK</th>
+                                    <th class="text-center">Kriteria</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -67,6 +70,32 @@
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <div class="d-flex flex-column">
                                                     <div class="text-gray-900 fw-bold fs-7">{{ $devision->name }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-gray-900 fw-bold fs-7">{{ count($devision->criterias) }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <div class="d-flex flex-column">
+                                                        <div class="text-gray-900 fw-bold fs-7"><span class="badge {{ $devision->criterias()->sum('weight')  == 100 ? "bg-success text-light-success" : "bg-danger text-light-danger"}}">{{ $devision->criterias()->sum('weight') }}</span> </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <div class="d-flex flex-column">
+                                                    <a href="{{route('admin.criterias.index',$devision->id)}}">
+                                                        <!--begin::Button-->
+                                                    <button class="btn btn-primary btn fw-bold">
+                                                        Lihat Kriteria </button>
+                                                    <!--end::Button-->
+                                                    </a>
                                                 </div>
                                             </div>
                                         </td>
