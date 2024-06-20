@@ -15,6 +15,7 @@ use App\Http\Requests\AnswerSubmaterialExamRequest;
 use App\Repositories\SubMaterialExamQuestionRepository;
 use App\Http\Requests\StudentSubMaterialExamScoreRequest;
 use App\Repositories\StudentSubMaterialExamAnswerRepository;
+use App\Services\StudentSubmaterialExamAnswerService;
 
 class StudentSubmaterialExamController extends Controller
 {
@@ -24,15 +25,16 @@ class StudentSubmaterialExamController extends Controller
     private SubMaterialService $subMaterialService;
     private QuestionBankRepository $questionBank;
     private StudentSubMaterialExamAnswerRepository $studentSubMaterialExamAnswer;
+    private StudentSubmaterialExamAnswerService $studentSubMaterialExamAnswerService;
 
-    public function __construct(SubMaterialExamQuestionRepository $examQuestion, StudentExamRepository $studentExam, StudentExamService $service, QuestionBankRepository $questionBank, SubMaterialService $subMaterialService, StudentSubMaterialExamAnswerRepository $studentSubMaterialExamAnswer)
-    {
+    public function __construct(SubMaterialExamQuestionRepository $examQuestion, StudentExamRepository $studentExam, StudentExamService $service, QuestionBankRepository $questionBank, SubMaterialService $subMaterialService, StudentSubMaterialExamAnswerRepository $studentSubMaterialExamAnswer, StudentSubmaterialExamAnswerService $studentSubMaterialExamAnswerService)    {
         $this->examQuestion = $examQuestion;
         $this->studentExam = $studentExam;
         $this->service = $service;
         $this->questionBank = $questionBank;
         $this->subMaterialService = $subMaterialService;
         $this->studentSubMaterialExamAnswer = $studentSubMaterialExamAnswer;
+        $this->studentSubMaterialExamAnswerService = $studentSubMaterialExamAnswerService;
     }
     /**
      * index
@@ -53,6 +55,14 @@ class StudentSubmaterialExamController extends Controller
             $data['question_essay'] = $examQuestionsEssay;
             return view('dashboard.user.pages.studentExam.exam', $data);
         } else {
+            $studentExam->update([
+                'score' => null,
+                'deadline' => now()->addMinutes($subMaterialExam->time),
+                'finished_exam' => null,
+                'true_answer' => null,
+                'answer' => null
+            ]);
+            $studentExam->studentSubMaterialExamAnswers()->delete();
             if (now() < Carbon::parse($subMaterialExam->start_at)) {
                 return redirect()->back()->with('error', 'Ujian Belum Dimulai..');
             }
@@ -85,6 +95,8 @@ class StudentSubmaterialExamController extends Controller
 
         $data = $this->service->calculate($request, $answerKey, $subMaterialExam);
 
+        $data['finished_count'] = $studentSubmaterialExam->finished_count + 1;
+
         $this->studentExam->update($studentSubmaterialExam->id, $data);
 
         return response()->json($data, 200);
@@ -95,6 +107,7 @@ class StudentSubmaterialExamController extends Controller
     {
         $data['subMaterialExam'] = $subMaterialExam;
         $data['studentSubmaterialExam'] = $studentSubmaterialExam;
+        $data['essayGraded'] = $this->studentSubMaterialExamAnswerService->essay_graded($data['studentSubmaterialExam']);
         return view('dashboard.user.pages.studentExam.finish', $data);
     }
 

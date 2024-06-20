@@ -44,4 +44,10 @@ class StudentSubMaterialExamAnswerRepository extends BaseRepository
         ->where('student_question_number', $question_number)
         ->update($data);
     }
+    public function get_graded_answer($studentSubMaterialExamId): mixed {
+        return $this->model->query()
+        ->whereRelation('studentSubmaterialExam', 'id', $studentSubMaterialExamId)
+        ->whereNotNull('answer_value')
+        ->count();
+    }
 }

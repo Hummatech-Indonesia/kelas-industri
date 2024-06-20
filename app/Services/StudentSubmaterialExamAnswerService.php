@@ -16,8 +16,9 @@ class StudentSubmaterialExamAnswerService
 
     public function essay_graded(StudentSubmaterialExam $studentSubmaterialExam): mixed
     {
-        $essayAnswers = $this->repository->get_graded_answer($studentSubmaterialExam->id);
-        if (count($essayAnswers) < $studentSubmaterialExam->subMaterialExam->total_essay) {
+        // dd($studentSubmaterialExam);
+        $essayAnswerCount = $this->repository->get_graded_answer($studentSubmaterialExam->id);
+        if ($essayAnswerCount < $studentSubmaterialExam->subMaterialExam->total_essay) {
             return false;
         } else {
             return true;

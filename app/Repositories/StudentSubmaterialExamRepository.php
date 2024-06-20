@@ -19,7 +19,7 @@ class StudentSubmaterialExamRepository extends BaseRepository
             ->where('student_id', auth()->user()->id)
             ->where('sub_material_exam_id', $submaterialExamId)
             ->latest()
-            ->get();
+            ->first();
     }
 
     public function getAllStudentSubmit($submaterialExamId): mixed
@@ -81,7 +81,7 @@ class StudentSubmaterialExamRepository extends BaseRepository
         foreach (auth()->user()->mentorClassrooms as $classroom) {
             array_push($classroomArry, $classroom->classroom_id);
         }
-        
+
         return $this->model->query()
         ->whereRelation('student.studentSchool.studentClassroom', function ($query) use ($classroomArry){
             $query->whereIn('classroom_id', $classroomArry);

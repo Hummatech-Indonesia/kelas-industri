@@ -207,13 +207,11 @@ class SubMaterialExamController extends Controller
         $data['submaterialExam'] = $this->service->handleGetBySlug($slug);
         $data['studentExams'] = $data['submaterialExam']->studentSubmaterialExams->sortByDesc('score')->take(5);
         $data['avgScoreClassrooms'] = $this->studentSubMaterialExamService->handleGetAllStudentSubmit($data['submaterialExam']->id);
-
         return view('dashboard.admin.pages.subMaterialExam.examStatistic', $data);
     }
 
     public function examDetailStudent(Request $request, $submaterialExam)
     {
-        // dd($request);
         $data['search'] = $request->search;
         $data['schools'] = $this->userServices->handleGetAllSchool();
         $data['studentSubMaterialExams'] = $this->studentSubMaterialExamService->halndeGetBySubmaterialExam($request, $submaterialExam);

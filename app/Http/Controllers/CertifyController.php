@@ -32,7 +32,7 @@ class CertifyController extends Controller
     {
         $countAssignmentByMaterial = $this->assignmentService->handleAssignmentByMaterialCertify($material->id);
 
-        $countAssignment = $this->assignmentService->countAssignmentsByMaterial($material->id);
+        $countAssignment = $this->assignmentService->countAssignmentsByMaterial($material->id, auth()->user());
 
         // if ($countAssignmentByMaterial == $countAssignment) {
 
@@ -113,7 +113,7 @@ class CertifyController extends Controller
 
         // Generate QR code and store it in output buffer
         ob_start();
-        QrCode::size(100)->format('png')->generate(route('student.material.cerify-certification', ['material' => $material->id, 'classroom' => $classroom->id, 'user' => auth()->user()->id]), 'php://output');
+        QrCode::size(100)->format('png')->generate(route('material.cerify-certification', ['material' => $material->id, 'classroom' => $classroom->id, 'user' => auth()->user()->id]), 'php://output');
         // QrCode::size(100)->format('png')->generate('https//class.hummatech.com', 'php://output');
         $qrImage = ob_get_clean();
 

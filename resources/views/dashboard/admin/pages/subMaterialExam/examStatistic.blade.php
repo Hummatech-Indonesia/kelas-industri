@@ -51,7 +51,7 @@
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                         Rata-Rata Nilai
-                        {{ empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sum('score') / count($submaterialExam->studentSubmaterialExams) : 0 }}
+                        {{ !empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->avg('score') : 0 }}
 
                     </span>
                 </div>
@@ -78,7 +78,7 @@
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                         Nilai Tertinggi
-                        {{ empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sortByDesc('score')->first()->score : 0 }}
+                        {{ !empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sortByDesc('score')->first()->score : 0 }}
                     </span>
                 </div>
             </a>
@@ -104,7 +104,7 @@
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                         Nilai Terendah
-                        {{ empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sortBy('score')->first()->score : 0 }}
+                        {{ !empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sortBy('score')->first()->score : 0 }}
 
 
                     </span>
@@ -242,11 +242,32 @@
                                 </tr>
                             </thead>
                             <tbody class="fw-semibold">
-                                @forelse ($studentExams as $student)
+                                @forelse ($studentExams as $index => $student)
                                     <tr>
                                         <td class="text-center">
-                                            <img width="30px" src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
-                                                alt="">
+                                            @if ($index == 0)
+                                                <img width="30px"
+                                                    src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
+                                                    alt="">
+                                            @elseif ($index == 1)
+                                                <img width="30px"
+                                                    src="{{ asset('app-assets/medal_file/silver-medal.png') }}"
+                                                    alt="">
+                                            @elseif ($index == 2)
+                                                <img width="30px"
+                                                    src="{{ asset('app-assets/medal_file/bronze-medal.png') }}"
+                                                    alt="">
+                                            @elseif ($index == 3)
+                                                <div class="d-flex justify-content-center items-center"
+                                                    style="width:40px; height:50px; ">
+                                                    <p>4</p>
+                                                </div>
+                                            @elseif ($index == 4)
+                                                <div class="d-flex justify-content-center items-center"
+                                                    style="width:40px; height:50px; ">
+                                                    <p>5</p>
+                                                </div>
+                                            @endif
                                         </td>
                                         <td class="text-center">
                                             {{ $student->student->name }}

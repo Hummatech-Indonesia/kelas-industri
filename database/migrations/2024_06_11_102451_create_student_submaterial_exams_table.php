@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('true_answer')->nullable();
             $table->integer('open_tab')->default(0);
             $table->datetime('finished_exam')->nullable();
+            $table->integer('finished_count')->default(0);
             $table->dateTime('deadline')->nullable();
             $table->timestamps();
         });

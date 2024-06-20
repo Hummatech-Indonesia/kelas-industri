@@ -53,11 +53,9 @@
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     @php
                         $exam = $subMaterial->exam;
-                        $studentSubmaterialExam =
-                            $studentSubmaterialExams != null ? $studentSubmaterialExams->first() : null;
                     @endphp
                     {{-- @dd(now()) --}}
-                    @if ($exam && $exam->start_at < now() && $exam->end_at > now())
+                    @if ($exam && $exam->start_at < now())
                         <div class="row">
                             <div class="col-12">
 
@@ -94,12 +92,14 @@
                                                         <div class="col-4 col-md-3">Status</div>
                                                         <div class="col">:
                                                             @if ($studentSubmaterialExam)
-                                                                @if ($studentSubmaterialExam->score > 75)
-                                                                    <div class="badge badge-light-success">Sudah
-                                                                        Dikerjakan
+                                                                @if (isset($isRemedial) && $isRemedial == 'remedial')
+                                                                    <div class="badge badge-light-warning">Remidi</div>
+                                                                @elseif ($essayGraded)
+                                                                    <div class="badge badge-light-success">Sudah Dikerjakan
                                                                     </div>
                                                                 @else
-                                                                    <div class="badge badge-light-warning">Remidi</div>
+                                                                    <div class="badge badge-light-success">Sudah Dikerjakan
+                                                                    </div> - Dikoreksi
                                                                 @endif
                                                             @else
                                                                 <div class="badge badge-light-danger">Belum Dikerjakan
@@ -129,22 +129,10 @@
                                                     <div class="col">:
                                                         {{ $exam->total_multiple_choice + $exam->total_essay }} </div>
                                                 </div>
-                                                <div class="row align-items-center">
-                                                    <div class="col-4 col-md-3">Pilihan Ganda Benar</div>
-                                                    <div class="col">:
-                                                        {{ $studentSubmaterialExam ? $studentSubmaterialExam->true_answer : 0 }}
-                                                    </div>
-                                                </div>
-                                                {{-- <div class="row align-items-center">
-                                                    <div class="col-4 col-md-3">Essay</div>
-                                                    <div class="col">:
-                                                        {{ $studentSubmaterialExam-> }} </div>
-                                                </div> --}}
                                             </div>
                                             <!--end::Info-->
-
                                             {{-- @dd($studentSubmaterialExam->score < 75 && count($studentSubmaterialExams) < 3) --}}
-                                            @if (!$studentSubmaterialExam || $studentSubmaterialExam->score < 75)
+                                            {{-- @if (!$studentSubmaterialExam || $studentSubmaterialExam->score < 75)
                                                 <div class="col mt-4">
                                                     <div class="d-flex justify-content-start justify-content-md-end">
                                                         <a href="{{ route('student.exam', $exam->id) }}"
@@ -153,12 +141,27 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                            @endif
+                                            @endif --}}
+                                            <div class="col mt-4">
+                                                <div class="d-flex justify-content-start justify-content-md-end gap-3">
+                                                    @if ($studentSubmaterialExam && $studentSubmaterialExam->finished_exam)
+                                                        <a href="{{ route('student.exam.show-finish', ['subMaterialExam' => $exam->id, 'studentSubmaterialExam' => $studentSubmaterialExam->id]) }}"
+                                                            class="btn btn-primary btn-sm">
+                                                            Lihat
+                                                        </a>
+                                                    @endif
+                                                    @if ((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam)
+                                                        <a href="{{ route('student.exam', $exam->id) }}"
+                                                            class="btn btn-primary btn-sm">
+                                                            Mulai Ujian
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <!--end::Section-->
                                         </div>
                                     </div>
-                                    <!--end::Section-->
                                 </div>
-
                             </div>
                         </div>
                     @endif

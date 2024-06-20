@@ -152,10 +152,12 @@ class UserClassroomController extends Controller
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
         if ($submaterial->exam) {
-            $data['studentSubmaterialExams'] = $this->studentSubmaterialExamRepository->get_user_submaterial_exam($submaterial->exam->id);
-            if (empty($data['studentSubmaterialExams'])) {
-                $data['isRemedial'] = $this->studentSubmaterialExamService->checkRemedial($submaterial->exam->id);
-                $data['essayGraded'] = $this->studentSubmaterialExamAnswerService->essay_graded($data['studentSubmaterialExams']->first());
+            $data['studentSubmaterialExam'] = $this->studentSubmaterialExamRepository->get_user_submaterial_exam($submaterial->exam->id);
+            if ($data['studentSubmaterialExam']) {
+                $data['essayGraded'] = $this->studentSubmaterialExamAnswerService->essay_graded($data['studentSubmaterialExam']);
+                if ($data['essayGraded']) {
+                    $data['isRemedial'] = $this->studentSubmaterialExamService->checkRemedial($submaterial->exam->id);
+                }
             }
         } else {
             $data['studentSubmaterialExam'] = null;
@@ -174,7 +176,6 @@ class UserClassroomController extends Controller
             $materials = $this->materialService->handleGetMaterialByDevision($submaterial->material->devision_id);
 
             foreach ($materials as $material) {
-                # code...
                 foreach ($material->subMaterials as $subMaterial) {
                     $order = $subMaterial->order;
 

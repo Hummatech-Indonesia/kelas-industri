@@ -18,10 +18,10 @@ class StudentSubMaterialExamService
     public function checkRemedial($submaterialExamId): mixed
     {
         $studentExam = $this->repository->get_user_submaterial_exam($submaterialExamId);
-        // dd($studentExam->first());
-        if (count($studentExam) >= 3) {
+
+        if ($studentExam->finished_count >= 3) {
             return 'limit';
-        } elseif ($studentExam->first()->score < 75) {
+        } elseif ($studentExam->score < 75) {
             return 'remedial';
         } else {
             return 'passed';

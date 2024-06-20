@@ -55,15 +55,23 @@
         .assigment-card .show {
             display: flex !important;
         }
+
+        .short-description {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 @endsection
 @section('content')
     <div style="width: 99%;">
         <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
             <div class="content flex-column-fluid" id="kt_content">
-                <div class="d-flex">
-                    <div class="w-20">
-                        <div class="card rounded mt-5 ms-5">
+                <div class="d-flex justify-content-between">
+                    <div class="w-md-25 w-lg-20 position-relative">
+                        <div class="card rounded mt-5 ms-5 position-fixed">
                             <!--begin::sidebar-panel-->
                             <div id="kt_app_sidebar_panel" class="app-sidebar-panel d-flex card rounded" data-kt-drawer="true"
                                 data-kt-drawer-name="app-sidebar-panel" data-kt-drawer-activate="{default: true, lg: false}"
@@ -112,7 +120,6 @@
                                             </div>
                                             <!--end:Menu item-->
                                         @endif
-
                                         <!--begin:Menu item-->
                                         @foreach ($materials as $index => $material)
                                             @php
@@ -194,7 +201,8 @@
                                                                             @endphp
                                                                             <!--begin::Menu item-->
                                                                             <div class="menu-item">
-                                                                                <a href="#assigment_{{ $assigment->id }}"
+                                                                                <a @if ($assigment->sub_material_id != $submaterial->id) href="{{ route('student.showDocument', [$assigment->sub_material_id, 'student']) }}#assigment_{{ $assigment->id }}"
+                                                                                @else href="#assigment_{{ $assigment->id }}" @endif
                                                                                     id="assigment_link_{{ $assigment->id }}"
                                                                                     class="menu-link assigment-link py-3">
                                                                                     <span class="menu-bullet">
@@ -271,7 +279,8 @@
                                                                                 @endphp
                                                                                 <!--begin::Menu item-->
                                                                                 <div class="menu-item">
-                                                                                    <a href="#assigment_{{ $assigment->id }}"
+                                                                                    <a @if ($assigment->sub_material_id != $submaterial->id) href="{{ route('student.showDocument', [$assigment->sub_material_id, 'student']) }}#assigment_{{ $assigment->id }}"
+                                                                                        @else href="#assigment_{{ $assigment->id }}" @endif
                                                                                         id="assigment_link_{{ $assigment->id }}"
                                                                                         class="menu-link assigment-link py-3">
                                                                                         <span class="menu-bullet">
@@ -344,7 +353,8 @@
                                                                             @foreach ($subMaterials['subMaterial']->assignments as $assigment)
                                                                                 <!--begin::Menu item-->
                                                                                 <div class="menu-item">
-                                                                                    <a href="#{{ $assigment->id }}"
+                                                                                    <a @if ($assigment->sub_material_id != $submaterial->id) href="{{ route('student.showDocument', [$assigment->sub_material_id, 'student']) }}#assigment_{{ $assigment->id }}"
+                                                                                        @else href="#assigment_{{ $assigment->id }}" @endif
                                                                                         class="menu-link py-3">
                                                                                         <span class="menu-bullet">
                                                                                             <span
@@ -426,7 +436,7 @@
                             <!--end::sidebar-panel-->
                         </div>
                     </div>
-                    <div class="w-80">
+                    <div class="w-md-75 w-lg-80">
                         <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-8 ">
 
                             <!--begin::Toolbar container-->
@@ -491,11 +501,14 @@
                                             @php
                                                 $showAssigmentFirst = true;
                                             @endphp
-                                            @foreach ($assigments as $assigment)
+                                            @foreach ($submaterial->assignments as $assigment)
                                                 <div class="assigment-item row {{ $showAssigmentFirst ? 'show' : '' }}"
                                                     id="assigment_{{ $assigment->id }}">
                                                     <div class="col border-end">
                                                         <h4>{{ $assigment->title }}</h4>
+                                                        <div class="short-description">
+                                                            {!! $assigment->description !!}
+                                                        </div>
                                                     </div>
                                                     <div class="col border-end">
                                                         <p class="fs-6">Tanggal Mulai</p>
@@ -536,12 +549,12 @@
                                                     <div class="modal-dialog" style="width: 500px">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Detail Tugas</h5>
+                                                                <h5 class="modal-title">{{ $assigment->title }}</h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <h4>{{ $assigment->title }}</h4>
+                                                                <h6>Deskripsi</h6>
                                                                 <p class="mb-3">{!! $assigment->description !!}</p>
                                                             </div>
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
@@ -677,7 +690,7 @@
     <!--begin::Engage-->
     <div class="app-engage " id="kt_app_engage">
         <!--begin::Prebuilts toggle-->
-        <a href="#" id="prev" class="app-engage-btn hover-primary">
+        <a id="prev" class="app-engage-btn hover-primary">
             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-30-131017/core/html/src/media/icons/duotune/arrows/arr074.svg-->
             <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24"
                     fill="none" xmlns="http://www.33.o3g/2000/svg">
@@ -692,7 +705,7 @@
         <!--end::Prebuilts toggle-->
 
         <!--begin::Prebuilts toggle-->
-        <a href="#" id="zoom-in" class="app-engage-btn hover-primary">
+        <a id="zoom-in" class="app-engage-btn hover-primary">
             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-30-131017/core/html/src/media/icons/duotune/arrows/arr075.svg-->
             <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24"
                     fill="none" xmlns="http://www.33.o3g/2000/svg">
@@ -706,7 +719,7 @@
         <!--end::Prebuilts toggle-->
 
         <!--begin::Prebuilts toggle-->
-        <a href="#" id="zoom-out" class="app-engage-btn hover-primary">
+        <a id="zoom-out" class="app-engage-btn hover-primary">
             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-30-131017/core/html/src/media/icons/duotune/arrows/arr089.svg-->
             <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24"
                     fill="none" xmlns="http://www.33.o3g/2000/svg">
@@ -719,7 +732,7 @@
         <!--end::Prebuilts toggle-->
 
         <!--begin::Prebuilts toggle-->
-        <a href="#" id="next" class="app-engage-btn hover-primary">
+        <a id="next" class="app-engage-btn hover-primary">
             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-30-131017/core/html/src/media/icons/duotune/arrows/arr071.svg-->
             <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24"
                     fill="none" xmlns="http://www.33.o3g/2000/svg">

@@ -76,6 +76,8 @@ class StudentPaymentController extends Controller
             'created_at' => Carbon::parse($data->created_at)->locale('id')->isoFormat('D MMMM YYYY HH:mm'),
             'updated_at' => Carbon::parse($data->updated_at)->locale('id')->isoFormat('D MMMM YYYY HH:mm'),
         ];
+
+        // return view('pdf.invoice', $list);
         $pdf = app('dompdf.wrapper'); // Get an instance of the PDF wrapper
         $pdf->loadView('pdf.invoice', $list);
         return $pdf->download('invoice.pdf'); // or $pdf->download('invoice.pdf') to download

@@ -43,6 +43,9 @@
             background-color: #fff;
             padding: 20px;
             max-width: 800px;
+            position: relative;
+            display: block;
+            background: transparent;
         }
 
         .header .title {
@@ -65,11 +68,38 @@
         .content {
             margin-top: 20px;
         }
+
+        .invoice-container .background {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: -10;
+            background-image: url('/app-assets/logo_file/watermark.png');
+            background-size: 600px;
+            background-repeat: repeat-y;
+            background-position: center;
+            background-origin: content-box;
+            transform: rotate(-18deg);
+        }
     </style>
 </head>
 
 <body>
     <div class="invoice-container">
+        <div class="background"
+            style="
+        width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: -10;
+            background-image: url('/app-assets/logo_file/watermark.png');
+            background-size: 600px;
+            background-repeat: repeat-y;
+            background-position: center;
+            background-origin: content-box;
+            transform: rotate(-18deg);
+        ">
+        </div>
         <table cellspacing="0" cellpadding="0" style="width: 100%;">
             <thead>
                 <tr class="header">
