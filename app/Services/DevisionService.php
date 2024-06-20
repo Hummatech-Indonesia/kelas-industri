@@ -27,7 +27,31 @@ class DevisionService
 
     public function handleStoreDevision(DevisionRequest $request)
     {
-        $this->repository->store($request->validated());
+        $devision = $this->repository->store($request->validated());
+
+        $devision->criterias()->insert([
+                [
+                    'devision_id' => $devision->id,
+                    'name' => 'Absensi',
+                    'type' => 'BENEFIT',
+                    'weight' => 10,
+                    'is_default' => 1
+                ],
+                [
+                    'devision_id' => $devision->id,
+                    'name' => 'Tantangan',
+                    'type' => 'BENEFIT',
+                    'weight' => 10,
+                    'is_default' => 1
+                ],
+                [
+                    'devision_id' => $devision->id,
+                    'name' => 'Tugas',
+                    'type' => 'BENEFIT',
+                    'weight' => 10,
+                    'is_default' => 1
+                ],
+            ]);
     }
 
     public function handleUpdateDevision(DevisionRequest $request, Devision $devision)

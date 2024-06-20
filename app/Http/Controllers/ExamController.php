@@ -6,7 +6,6 @@ use App\Models\Exam;
 use App\Models\User;
 use App\Models\Classroom;
 use Illuminate\View\View;
-use App\Models\SchoolYear;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 use App\Services\ExamService;
@@ -106,8 +105,7 @@ class ExamController extends Controller
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $classrooms = StudentClassroom::where('classroom_id', $classroom->id)->get();
             $data = [
-            'examUTS' => $this->examService->handleGetStudentByExamUTS($classroom->id),
-            'examUAS' => $this->examService->handleGetStudentByExamUAS($classroom->id),
+            'exams' => $this->examService->handleGetByClassroom($classroom->id),
             'classroom' => $classroom,
             'students' => $classrooms
             ];
@@ -115,21 +113,22 @@ class ExamController extends Controller
         } elseif (auth()->user()->roles->pluck('name')[0] == 'school') {
             $classrooms = StudentClassroom::where('classroom_id', $classroom->id)->get();
             $data = [
-                'examUTS' => $this->examService->handleGetStudentByExamUTS($classroom->id),
-                'examUAS' => $this->examService->handleGetStudentByExamUAS($classroom->id),
+                'exams' => $this->examService->handleGetByClassroom($classroom->id),
                 'students' => $classrooms,
+                'classroom' => $classroom
             ];
             return view('dashboard.admin.pages.exam.showStudent', $data);
         } else {
             $data = $this->GetDataSidebar();
             $classrooms = StudentClassroom::where('classroom_id', $classroom->id)->get();
             $data['students'] = $classrooms;
-            $data['examUTS'] = $this->examService->handleGetStudentByExamUTS($classroom->id);
-            $data['examUAS'] = $this->examService->handleGetStudentByExamUAS($classroom->id);
+            $data['exams'] = $this->examService->handleGetByClassroom($classroom->id);
+            $data['classroom'] = $classroom;
             return view('dashboard.user.pages.exam.showStudent', $data);
         }
 
     }
+
 
     public function showEvaluation(User $student): view
     {
@@ -158,8 +157,9 @@ class ExamController extends Controller
     {
         $data = [
             'students' => $this->classroomService->handleGetStudent($classroom->id),
-            'classroom' => $classroom
+            'classroom' => $classroom,
         ];
+
         return view('dashboard.admin.pages.exam.create', $data);
     }
 

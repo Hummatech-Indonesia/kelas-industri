@@ -20,4 +20,14 @@ class Devision extends Model
     {
         return $this->hasMany(Classroom::class);
     }
+
+    /**
+     * Get all of the criterias for the Devision
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function criterias(): HasMany
+    {
+        return $this->hasMany(Criteria::class);
+    }
 }

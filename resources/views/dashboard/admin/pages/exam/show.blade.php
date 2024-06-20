@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Tambah Sekolah
+                Edit Ujian
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman tambah sekolah
+                Halaman Edit Nilai Ujian
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -94,13 +94,31 @@
 
                                         <select name="exam_type" class="form-select form-select-solid me-5"
                                             data-control="select2" data-placeholder="">
-                                            <option {{ $exam->exam_type == 'uts' ? 'selected' : '' }}
-                                            value="uts">
+                                            <option value="uts" {{ $exam->exam_type == 'uts' ? 'selected' : ''}}>
                                                 UTS
                                             </option>
-                                            <option {{ $exam->exam_type == 'uas' ? 'selected' : '' }}
-                                            value="uas">
+                                            <option value="uas" {{ $exam->exam_type == 'uas' ? 'selected' : ''}}>
                                                 UAS
+                                            </option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row mb-3">
+
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Semester</label>
+
+                                    <div class="col-lg-9 col-xl-9">
+
+                                        <select name="semester" class="form-select form-select-solid me-5"
+                                            data-control="select2" data-placeholder="">
+                                            <option value="ganjil" {{ $exam->semester == 'ganjil' ? 'selected' : ''}}>
+                                                Ganjil
+                                            </option>
+                                            <option value="genap" {{ $exam->semester == 'genap' ? 'selected' : ''}}>
+                                                Genap
                                             </option>
                                         </select>
 
@@ -116,16 +134,13 @@
 
                                         <select name="task_level" class="form-select form-select-solid me-5"
                                             data-control="select2" data-placeholder="">
-                                            <option {{ $exam->task_level == 'easy' ? 'selected' : '' }}
-                                            value="easy">
+                                            <option value="easy" {{ $exam->task_level == 'easy' ? 'selected' : ''}}>
                                                 Easy
                                             </option>
-                                            <option {{ $exam->task_level == 'medium' ? 'selected' : '' }}
-                                            value="medium">
+                                            <option value="medium" {{ $exam->task_level == 'medium' ? 'selected' : ''}}>
                                                 Medium
                                             </option>
-                                            <option {{ $exam->task_level == 'advance' ? 'selected' : ''}}
-                                            value="advance">
+                                            <option value="advance" {{ $exam->task_level == 'advance' ? 'selected' : ''}}>
                                                 Advance
                                             </option>
                                         </select>
@@ -134,71 +149,22 @@
 
                                 </div>
 
+                                @foreach ($exam->studentClassroom->classroom->devision->criterias()->where('is_default',0)->get() as $criteria)
                                 <div class="form-group row mb-3">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Kompleksitas</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">{{ $criteria->name }}</label>
 
                                     <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg" name="complexity"
-                                            type="number" value="{{$exam->complexity}}" placeholder="" required="">
+                                        @php
+                                            $examCriteria = $exam->examCriterias()->where('criteria_id',$criteria->id)->first()
+                                        @endphp
+                                        <input class="form-control form-control-solid form-control-lg" name="{{$criteria->id}}"
+                                            type="number" value="{{ $examCriteria->score}}" placeholder="" required="">
 
                                     </div>
 
                                 </div>
-
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Kerapian Kode</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg"
-                                            name="code_cleanliness" type="number" value="{{$exam->code_cleanliness}}"
-                                            placeholder="" required="">
-
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Desain</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg" name="design"
-                                            type="number" value="{{$exam->design}}" placeholder="" required="">
-
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Presentasi</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg" name="presentation"
-                                            type="number" value="{{$exam->presentation}}" placeholder="" required="">
-
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Pemahaman</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg" name="understanding"
-                                            type="number" value="{{$exam->understanding}}" placeholder="" required="">
-
-                                    </div>
-
-                                </div>
+                                @endforeach
 
                             </div>
 

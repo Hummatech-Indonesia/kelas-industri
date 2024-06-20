@@ -15,23 +15,16 @@ class ExamRequest extends FormRequest
     public function rules()
     {
         return [
-            'complexity' => 'required',
-            'code_cleanliness' => 'required',
-            'design' => 'required',
-            'presentation' => 'required',
-            'understanding' => 'required',
-            'task_level' => 'required',
+            'student_classroom_id' => 'required',
+            'exam_type' => 'required',
+            'semester' => 'required',
+            'task_level' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'complexity.required' => 'Komplksitas tidak boleh kosong!',
-            'code_cleanliness.required' => 'Kerapian Kode baru tidak boleh kosong!',
-            'design.required' => 'Desain tidak boleh kosong!',
-            'presentation.required' => 'Presentasi tidak boleh kosong!',
-            'understanding.required' => 'Pemahaman tidak boleh kosong!',
         ];
     }
 }

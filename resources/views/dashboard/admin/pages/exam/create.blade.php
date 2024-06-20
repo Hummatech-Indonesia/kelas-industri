@@ -122,6 +122,26 @@
 
                                 <div class="form-group row mb-3">
 
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Semester</label>
+
+                                    <div class="col-lg-9 col-xl-9">
+
+                                        <select name="semester" class="form-select form-select-solid me-5"
+                                            data-control="select2" data-placeholder="">
+                                            <option value="ganjil">
+                                                Ganjil
+                                            </option>
+                                            <option value="genap">
+                                                Genap
+                                            </option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row mb-3">
+
                                     <label class="col-xl-3 col-lg-3 col-form-label">Level Tugas</label>
 
                                     <div class="col-lg-9 col-xl-9">
@@ -143,72 +163,21 @@
 
                                 </div>
 
+                                @foreach ($classroom->devision->criterias()->where('is_default',0)->get() as $criteria)
                                 <div class="form-group row mb-3">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Kompleksitas</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">{{ $criteria->name }}</label>
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <input class="form-control form-control-solid form-control-lg" name="complexity"
-                                            type="number" value="{{ old('complexity') }}" placeholder="" required="">
+                                        <input class="form-control form-control-solid form-control-lg" name="{{$criteria->id}}"
+                                            type="number" value="{{ old($criteria->id) }}" placeholder="" required="">
 
                                     </div>
 
                                 </div>
-
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Kerapian Kode</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg"
-                                            name="code_cleanliness" type="number" value="{{ old('code_cleanliness') }}"
-                                            placeholder="" required="">
-
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Desain</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg" name="design"
-                                            type="number" value="{{ old('design') }}" placeholder="" required="">
-
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Presentasi</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg" name="presentation"
-                                            type="number" value="{{ old('presentation') }}" placeholder="" required="">
-
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Pemahaman</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg" name="understanding"
-                                            type="number" value="{{ old('understanding') }}" placeholder="" required="">
-
-                                    </div>
-
-                                </div>
-
+                                @endforeach
+                                
                             </div>
 
                         </div>
