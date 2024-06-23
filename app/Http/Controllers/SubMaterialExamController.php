@@ -118,6 +118,13 @@ class SubMaterialExamController extends Controller
         $data['exams'] = $this->repository->getBeforeFinishedByGeneration($generation);
         return view('dashboard.user.pages.studentExam.examMentor', $data);
     }
+    public function examTeacher()
+    {
+        $data = $this->GetDataSidebar();
+        $generation = $this->service->generationTeacherClassroom();
+        $data['exams'] = $this->repository->getBeforeFinishedByGeneration($generation);
+        return view('dashboard.user.pages.studentExam.examMentor', $data);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -161,9 +168,10 @@ class SubMaterialExamController extends Controller
      * @param  \App\Models\SubMaterialExam  $subMaterialExam
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubMaterialExam $subMaterialExam)
+    public function update(SubMaterialExamRequest $request, SubMaterialExam $subMaterialExam)
     {
-        //
+        $this->service->handleUpdate($request, $subMaterialExam->id);
+        return redirect()->back()->with('success', trans('alert.add_success'));
     }
 
     /**

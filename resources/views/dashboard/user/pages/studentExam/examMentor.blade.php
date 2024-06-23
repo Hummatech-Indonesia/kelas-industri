@@ -158,23 +158,36 @@
                                                 <div class="separator mb-3 opacity-75"></div>
                                                 <!--end::Menu separator-->
 
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('mentor.detailSubMaterialExam', $exam->id) }}"
-                                                        class="menu-link px-3">
-                                                        Detail Ujian
-                                                    </a>
-                                                </div>
-                                                <!--end::Menu item-->
+                                                @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('teacher.detailSubMaterialExam', $exam->id) }}"
+                                                            class="menu-link px-3">
+                                                            Detail Ujian
+                                                        </a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                @else
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('mentor.detailSubMaterialExam', $exam->id) }}"
+                                                            class="menu-link px-3">
+                                                            Detail Ujian
+                                                        </a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                @endif
 
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('mentor.examSubMaterialAssessment', $exam->id) }}"
-                                                        class="menu-link px-3">
-                                                        Penilaian Soal Essay
-                                                    </a>
-                                                </div>
-                                                <!--end::Menu item-->
+                                                @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('mentor.examSubMaterialAssessment', $exam->id) }}"
+                                                            class="menu-link px-3">
+                                                            Penilaian Soal Essay
+                                                        </a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                @endif
                                             </div>
                                         </div>
                                         <!--end::Card header-->

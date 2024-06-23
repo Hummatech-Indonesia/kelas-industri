@@ -28,7 +28,7 @@ class QuestionBank extends Model
      */
     public function submaterial(): BelongsTo
     {
-        return $this->belongsTo(SubMaterial::class);
+        return $this->belongsTo(SubMaterial::class, 'sub_material_id');
     }
 
     /**
