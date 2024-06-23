@@ -84,7 +84,7 @@ class QuestionBankController extends Controller
     public function show(SubMaterial $submaterial)
     {
         $questionBanks = $this->repository->handleGetBySubmaterial($submaterial->id, 10);
-        return view('dashboard.admin.pages.questionBank.detail', compact('submaterial','questionBanks'));
+        return view('dashboard.admin.pages.questionBank.detail', compact('submaterial', 'questionBanks'));
     }
 
     /**
@@ -93,9 +93,14 @@ class QuestionBankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(QuestionBank $questionBank)
     {
-        //
+        $questionBank->with('questionBankAnswers', 'submaterial');
+        if ($questionBank->type == 'essay') {
+            return view('dashboard.admin.pages.questionBank.editEssay', compact('questionBank'));
+        } else {
+            return view('dashboard.admin.pages.questionBank.editMultipleChoise', compact('questionBank'));
+        }
     }
 
     /**
@@ -105,9 +110,11 @@ class QuestionBankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionBankRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        $this->repository->updateQuestion($data, $id);
+        return redirect()->back()->with('success', trans('alert.update_success'));
     }
 
     /**

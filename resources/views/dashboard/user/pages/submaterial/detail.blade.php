@@ -20,7 +20,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    {{ $subMaterial->title }}
+                                    {{ $subMaterial->material->title }} - {{ $subMaterial->title }}
                                 </h1>
                                 <!--end::Title-->
 
@@ -53,9 +53,9 @@
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     @php
                         $exam = $subMaterial->exam;
+                        // dd($exam)
                     @endphp
-                    {{-- @dd(now()) --}}
-                    @if ($exam && $exam->start_at < now())
+                    @if ($exam && $exam->start_at < now() && auth()->user()->pluck('name')[0] == 'student')
                         <div class="row">
                             <div class="col-12">
 
@@ -88,7 +88,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="mt-3">
-                                                    <div class="row align-items-center">
+                                                    <div class="row align-items-center mb-3">
                                                         <div class="col-4 col-md-3">Status</div>
                                                         <div class="col">:
                                                             @if ($studentSubmaterialExam)
@@ -107,24 +107,24 @@
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    <div class="row align-items-center">
+                                                    <div class="row align-items-center mb-3">
                                                         <div class="col-4 col-md-3">Mulai</div>
                                                         <div class="col">:
                                                             {{ Carbon::parse($exam->start_at)->isoFormat('dddd, D MMMM YYYY, HH:s') }}
                                                         </div>
                                                     </div>
-                                                    <div class="row align-items-center">
+                                                    <div class="row align-items-center mb-3">
                                                         <div class="col-4 col-md-3">Berakhir</div>
                                                         <div class="col">:
                                                             {{ Carbon::parse($exam->end_at)->isoFormat('dddd, D MMMM YYYY, HH:s') }}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row align-items-center">
+                                                <div class="row align-items-center mb-3">
                                                     <div class="col-4 col-md-3">Waktu Pengerjaan</div>
                                                     <div class="col">: {{ $exam->time }} Menit </div>
                                                 </div>
-                                                <div class="row align-items-center">
+                                                <div class="row align-items-center mb-3">
                                                     <div class="col-4 col-md-3">Jumlah Soal</div>
                                                     <div class="col">:
                                                         {{ $exam->total_multiple_choice + $exam->total_essay }} </div>

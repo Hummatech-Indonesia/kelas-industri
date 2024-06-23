@@ -167,7 +167,14 @@
                                 <!--end:Menu link-->
                             </div>
                         @endif
-
+                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                <!--begin:Menu link-->
+                                <a href="{{ route('teacher.submaterialExam.index') }}"
+                                    class="menu-link {{ request()->routeIs('mentor.submaterialExam.index') ? 'active' : '' }}">
+                                    <span class="menu-title">Ujian</span></a>
+                            </div>
+                        @endif
                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->

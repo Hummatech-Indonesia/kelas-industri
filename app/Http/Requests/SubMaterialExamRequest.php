@@ -25,8 +25,8 @@ class SubMaterialExamRequest extends FormRequest
             'start_at' => 'required|date|after_or_equal:now',
             'end_at' => 'required|date|after_or_equal:start_at',
             'time' => 'required|regex:/^[0-9]*$/',
-            'last_submit' => 'required|boolean',
-            'cheating_detector' => 'required|boolean',
+            'last_submit' => 'nullable|boolean',
+            'cheating_detector' => 'nullable|boolean',
         ];
     }
 }

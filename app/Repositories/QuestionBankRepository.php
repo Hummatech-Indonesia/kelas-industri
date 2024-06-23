@@ -38,6 +38,25 @@ class QuestionBankRepository extends BaseRepository
         return $questionBank;
     }
 
+    public function updateQuestion(array $data, $questionBank): mixed
+    {
+        if (isset($data['answer'])) {
+            $questionBank = $this->model->query()->find($questionBank);
+
+            $questionBank->update($data);
+            $questionBank->questionBankAnswers()->delete();
+
+            foreach ($data['answer'] as $answer) {
+                $data['answer'] = $answer;
+                $questionBank->questionBankAnswers()->create($data);
+            }
+        } else {
+            $questionBank = $this->model->query()
+                ->update($data);
+        }
+        return $questionBank;
+    }
+
     public function handleGetBySubmaterial(String $submaterialId, int $limit)
     {
         return $this->model->query()

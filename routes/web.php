@@ -187,6 +187,8 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('question-bank-multiplechoice/{submaterial}', [QuestionBankController::class, 'indexMultipleChoise'])->name('question-bank-multiplechoice');
         Route::get('question-bank-essay/{submaterial}', [QuestionBankController::class, 'indexEssay'])->name('question-bank-essay');
+        Route::get('question-bank/{questionBank}/edit', [QuestionBankController::class, 'edit'])->name('question-bank-edit');
+        Route::put('question-bank/{questionBank}', [QuestionBankController::class, 'update'])->name('question-bank-update');
         Route::get('quetion-banks/{material}', [MaterialController::class, 'questionBank'])->name('questionBank');
         Route::get('quetion-bank-detail/{submaterial}', [QuestionBankController::class, 'show'])->name('quetion-bank-detail');
 
@@ -361,8 +363,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
-        // Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
-        // Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
+        Route::get('submaterial-exam', [SubMaterialExamController::class, 'examTeacher'])->name('submaterialExam.index');
+        Route::get('detail-submaterial-exam/{subMaterialExam}', [SubMaterialExamController::class, 'examMentorDetail'])->name('detailSubMaterialExam');
     });
     //end teacher
 

@@ -121,7 +121,15 @@
                                 </div>
                                 <div class="btn btn-warning btn-sm me-2 btn-edit" data-id="{{ $exam->id }}"
                                     data-title="{{ $exam->title }}" data-start_at="{{ $exam->start_at }}"
-                                    data-end_at="{{ $exam->end_at }}">
+                                    data-end_at="{{ $exam->end_at }}"
+                                    data-material_id="{{ $exam->submaterial->material->id }}"
+                                    data-submaterial_id ="{{ $exam->sub_material_id }}" data-time="{{ $exam->time }}"
+                                    data-multiple_choice_value="{{ $exam->multiple_choice_value }}"
+                                    data-essay_value="{{ $exam->essay_value }}"
+                                    data-total_multiple_choice="{{ $exam->total_multiple_choice }}"
+                                    data-total_essay="{{ $exam->total_essay }}"
+                                    data-cheating_detector="{{ $exam->cheating_detector }}"
+                                    data-last_submit="{{ $exam->last_submit }}">
                                     Edit
                                 </div>
                                 <a href="{{ route('admin.exam-question', $exam->id) }}" class="btn btn-primary btn-sm">
@@ -211,11 +219,11 @@
                                             class="required form-label @error('sub_material_id') is-invalid @enderror mb-3">Materi
                                             Ujian</label>
                                         <select class="form-select form-select-solid mb-3" data-control="select2"
-                                            data-placeholder="Pilih Materi" id="select-material">
+                                            data-placeholder="Pilih Materi" data-type="add" id="select-material-add">
                                         </select>
-                                        <select class="form-select form-select-solid" data-control="select2"
-                                            data-placeholder="Pilih Submateri" name="sub_material_id"
-                                            id="select-sub-material">
+                                        <select class="form-select form-select-solid select-sub-material"
+                                            data-control="select2" data-placeholder="Pilih Submateri"
+                                            name="sub_material_id" id="select-sub-material-add">
 
                                         </select>
                                         @error('sub_material_id')
@@ -338,8 +346,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-check form-switch col-6">
-                                            <input class="form-check-input" name="last_submit" value="0"
-                                                type="checkbox" role="switch" id="last_submit_switch">
+                                            <input class="form-check-input last_submit_switch" name="last_submit"
+                                                value="0" type="checkbox" role="switch"
+                                                id="last_submit_switch-add">
                                             @error('last_submit')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -366,8 +375,9 @@
                                             </div>
                                         </div>
                                         <div class="form-check form-switch col-6">
-                                            <input class="form-check-input" name="cheating_detector" value="0"
-                                                type="checkbox" role="switch" id="cheating_detector_switch">
+                                            <input class="form-check-input cheating_detector_switch"
+                                                name="cheating_detector" value="0" type="checkbox" role="switch"
+                                                id="cheating_detector_switch">
                                             @error('cheating_detector')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -420,11 +430,11 @@
 
                                 <!--begin::Wrapper-->
                                 <div>
-                                    <button type="submit">
+                                    <button type="submit" class="btn btn-primary">
                                         Kirim
                                     </button>
-
-                                    <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
+                                    <button type="button" class="btn btn-lg btn-light-primary"
+                                        data-kt-stepper-action="next">
                                         Selanjutnya
                                         <span class="svg-icon svg-icon-muted icon-size-1"><svg width="24"
                                                 height="24" viewBox="0 0 24 24" fill="none"
@@ -468,11 +478,14 @@
                     <!--end::Close-->
                 </div>
                 <!--begin::Modal header-->
-
+                {{--
+                @if ($errors->any())
+                    @dd($errors->messages)
+                @endif --}}
                 <!--begin::Modal body-->
                 <div class="modal-body">
                     <!--begin::Stepper-->
-                    <div class="stepper stepper-links d-flex flex-column" id="kt_modal_create_campaign_stepper"
+                    <div class="stepper stepper-links d-flex flex-column" id="kt_modal_edit_campaign_stepper"
                         data-kt-stepper="true">
                         <!--begin::Nav-->
                         <div class="stepper-nav justify-content-center">
@@ -519,11 +532,11 @@
                                             class="required form-label @error('sub_material_id') is-invalid @enderror mb-3">Materi
                                             Ujian</label>
                                         <select class="form-select form-select-solid mb-3" data-control="select2"
-                                            data-placeholder="Pilih Materi" id="select-material">
+                                            data-placeholder="Pilih Materi" data-type="edit" id="select-material-edit">
                                         </select>
-                                        <select class="form-select form-select-solid" data-control="select2"
-                                            data-placeholder="Pilih Submateri" name="sub_material_id"
-                                            id="select-sub-material">
+                                        <select class="form-select form-select-solid select-sub-material"
+                                            data-control="select2" data-placeholder="Pilih Submateri"
+                                            name="sub_material_id" id="select-sub-material-edit">
 
                                         </select>
                                         @error('sub_material_id')
@@ -587,7 +600,7 @@
                                             class="required form-label @error('end_at') is-invalid @enderror mb-3">Waktu
                                             pengerjaan (Menit)</label>
                                         <input type="number" name="time" class="form-control form-control-solid mb-3"
-                                            id="">
+                                            id="time-edit">
                                         @error('end_at')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -601,7 +614,8 @@
                                                 class="required form-label @error('end_at') is-invalid @enderror mb-3">Bobot
                                                 Nilai Pilihan Ganda</label>
                                             <input type="number" name="multiple_choice_value"
-                                                class="form-control form-control-solid mb-3" id="">
+                                                class="form-control form-control-solid mb-3"
+                                                id="multiple_choice_value_edit">
                                             @error('end_at')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -613,7 +627,7 @@
                                                 class="required form-label @error('essay_value') is-invalid @enderror mb-3">Bobot
                                                 Nilai Essay</label>
                                             <input type="number" name="essay_value"
-                                                class="form-control form-control-solid mb-3" id="">
+                                                class="form-control form-control-solid mb-3" id="essay_value_edit">
                                             @error('essay_value')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -625,7 +639,8 @@
                                                 class="required form-label @error('total_multiple_choice') is-invalid @enderror mb-3">Total
                                                 Soal Pilihan Ganda</label>
                                             <input type="number" name="total_multiple_choice"
-                                                class="form-control form-control-solid mb-3" id="">
+                                                class="form-control form-control-solid mb-3"
+                                                id="total_multiple_choice_edit">
                                             @error('total_multiple_choice')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -637,7 +652,7 @@
                                                 class="required form-label @error('total_essay') is-invalid @enderror mb-3">Total
                                                 Soal Essay</label>
                                             <input type="number" name="total_essay"
-                                                class="form-control form-control-solid mb-3" id="">
+                                                class="form-control form-control-solid mb-3" id="total_essay_edit">
                                             @error('total_essay')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -647,8 +662,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-check form-switch col-6">
-                                            <input class="form-check-input" name="last_submit" value="0"
-                                                type="checkbox" role="switch" id="last_submit_switch">
+                                            <input class="form-check-input last_submit_switch" name="last_submit"
+                                                value="0" type="checkbox" role="switch"
+                                                id="last_submit_switch-edit">
                                             @error('last_submit')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -675,8 +691,9 @@
                                             </div>
                                         </div>
                                         <div class="form-check form-switch col-6">
-                                            <input class="form-check-input" name="cheating_detector" value="0"
-                                                type="checkbox" role="switch" id="cheating_detector_switch">
+                                            <input class="form-check-input cheating_detector_switch"
+                                                name="cheating_detector" value="0" type="checkbox" role="switch"
+                                                id="cheating_detector_switch-edit">
                                             @error('cheating_detector')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -729,11 +746,12 @@
 
                                 <!--begin::Wrapper-->
                                 <div>
-                                    <button type="submit">
+                                    <button type="submit" class="btn btn-primary">
                                         Kirim
                                     </button>
 
-                                    <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
+                                    <button type="button" class="btn btn-lg btn-light-primary"
+                                        data-kt-stepper-action="next">
                                         Selanjutnya
                                         <span class="svg-icon svg-icon-muted icon-size-1"><svg width="24"
                                                 height="24" viewBox="0 0 24 24" fill="none"
@@ -791,16 +809,36 @@
                 $('#kt_modal_delete').modal('show')
             })
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Stepper lement
+            var element = document.querySelector("#kt_modal_edit_campaign_stepper");
+
+            // Initialize Stepper
+            var stepper = new KTStepper(element);
+
+            // Handle next step
+            stepper.on("kt.stepper.next", function(stepper) {
+                stepper.goNext(); // go next step
+            });
+
+            // Handle previous step
+            stepper.on("kt.stepper.previous", function(stepper) {
+                stepper.goPrevious(); // go previous step
+            });
+        });
     </script>
     <script>
         $(document).ready(function() {
-            getMaterial();
+            getMaterial($('#select-material-edit'));
+            getMaterial($('#select-material-add'));
 
-            $('#select-material').change(function() {
-                getSubMaterial();
+            $('#select-material-add, #select-material-edit').change(function() {
+                
+                getSubMaterial($(this));
             });
 
-            function getMaterial() {
+            function getMaterial(select) {
                 $.ajax({
                     method: 'GET',
                     url: "{{ route('admin.sub-material-exam.index') }}",
@@ -808,54 +846,79 @@
                         $.each(response, function(index, item) {
                             var option = '<option value="' + item.id + '">' + item.title +
                                 '</option>';
-                            $('#select-material').append(option);
+                            select.append(option);
                         });
-                        getSubMaterial();
+                        getSubMaterial(select);
                     },
                 });
             }
 
-            function getSubMaterial() {
+            function getSubMaterial(select) {
                 $.ajax({
                     url: "{{ route('admin.showSubMaterial') }}",
                     type: 'GET',
                     data: {
-                        materialId: $('#select-material').val()
+                        materialId: select.val()
                     },
                     success: function(response) {
-                        $('#select-sub-material').html('');
+                        $('#select-sub-material-' + select.data('type')).html('');
                         $.each(response, function(index, item) {
                             var option = '<option value="' + item.id + '">' + item.title +
                                 '</option>';
-                            $('#select-sub-material').append(option);
+                            
+                            $('#select-sub-material-' + select.data('type')).append(option);
                         });
                     }
                 });
             }
         });
 
-        const lastSubmitSwitch = document.getElementById('last_submit_switch');
-        const cheatingDetectorSwitch = document.getElementById('cheating_detector_switch');
-
-        lastSubmitSwitch.addEventListener('change', function() {
-            this.value = this.checked ? '1' : '0';
+        $('.last_submit_switch').change(function() {
+            $(this).val(this.checked ? '1' : '0');
         });
-
-        cheatingDetectorSwitch.addEventListener('change', function() {
-            this.value = this.checked ? '1' : '0';
+        $('.cheating_detector_switch').change(function() {
+            $(this).val(this.checked ? '1' : '0');
         });
 
         $('.btn-edit').click(function() {
+            
             var id = $(this).data('id')
             var title = $(this).data('title')
             var start_at = $(this).data('start_at')
             var end_at = $(this).data('end_at')
+            var material_id = $(this).data('material_id')
+            var time = $(this).data('time')
+            var total_essay = $(this).data('total_essay')
+            var total_multiple_choice = $(this).data('total_multiple_choice')
+            var multiple_choice_value = $(this).data('multiple_choice_value')
+            var essay_value = $(this).data('essay_value')
+            var cheating_detector = $(this).data('cheating_detector')
+            var last_submit = $(this).data('last_submit')
+            var cheating_detector = $(this).data('cheating_detector')
             $('#title-edit').val(title)
+            $('#select-material-edit').val(material_id).trigger('change');
             $('.start_at-edit').val(start_at)
             $('.end_at-edit').val(end_at)
+            $('#time-edit').val(time)
+            $('#total_multiple_choice_edit').val(total_multiple_choice)
+            $('#multiple_choice_value_edit').val(multiple_choice_value)
+            $('#essay_value_edit').val(essay_value)
+            $('#total_essay_edit').val(total_essay)
+            $('#total_essay_edit').val(total_essay)
             $('#form_edit').attr('action', "{{ route('admin.sub-material-exam.update', ':id') }}".replace(':id',
                 id))
             $('#kt_modal_edit').modal('show')
+
+            if (last_submit) {
+                $('#last_submit_switch-edit').attr('checked', true)
+            } else {
+                $('#last_submit_switch-edit').attr('checked', false)
+            }
+            if (cheating_detector) {
+                $('#cheating_detector_switch-edit').attr('checked', true)
+            } else {
+                $('#cheating_detector_switch-edit').attr('checked', false)
+            }
         })
     </script>
 @endsection
