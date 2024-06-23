@@ -63,20 +63,6 @@ class StudentRepository extends BaseRepository
             ->paginate($limit);
     }
 
-    public function getByClassroomArray(mixed $classroomId, Request $request, int $limit): mixed
-    {
-        return $this->model->query()
-            ->whereHas('studentClassroom', function ($query) use ($classroomId) {
-                $query->whereIn('classroom_id', $classroomId);
-            })
-            ->with('studentClassroom.studentSchool.student')
-            ->when($request->classroom_id, function ($q) use ($request) {
-                $q->whereRelation('studentClassroom', 'classroom_id', $request->classroom_id);
-            })
-            ->whereRelation('student', 'status', 'active')
-            ->paginate($limit);
-    }
-
     /**
      * store
      *

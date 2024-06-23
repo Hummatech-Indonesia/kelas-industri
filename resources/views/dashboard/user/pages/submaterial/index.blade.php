@@ -48,6 +48,13 @@
                                             Download Sertifikat
                                         </button>
                                     </form>
+                                    <form
+                                        action="{{ route('certifyCompetenceTest') }}"
+                                        method="get">
+                                        <button class="btn btn-primary h-40px fs-7 fw-bold">
+                                            Download Sertifikat
+                                        </button>
+                                    </form>
                                 </div>
                                 <a href="{{ route('common.materials', ['classroom' => $classroom]) }}"
                                     class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">

@@ -172,7 +172,7 @@
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
                                 <a href="{{ route('mentor.submaterialExam.index') }}"
-                                    class="menu-link {{ request()->routeIs('mentor.submaterialExam.index') ? 'active' : '' }}">
+                                    class="menu-link {{ request()->routeIs('mentor.submaterialExam.index') || request()->routeIs('mentor.detailSubMaterialExam') || request()->routeIs('mentor.examSubMaterialAssessment') ? 'active' : '' }}">
                                     <span class="menu-title">Ujian</span></a>
                             </div>
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">

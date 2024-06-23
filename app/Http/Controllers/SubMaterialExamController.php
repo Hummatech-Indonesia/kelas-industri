@@ -100,7 +100,7 @@ class SubMaterialExamController extends Controller
         $data = $this->GetDataSidebar();
         $data['classrooms'] = $this->mentorService->handleGetMentorClassrooms(auth()->user()->id);
         $classroomId = $this->mentorService->handleArrClassroom($data['classrooms']);
-        $data['students'] = $this->studentRepository->getByClassroomArray($classroomId, $request, 10);
+        $data['students'] = $this->studentExamRepository->getByClassroomArray($subMaterialExam->id, $classroomId, $request, 10);
         $data['answers'] = $this->studentExamAnswerRepository->getAnswerBySubMaterial($subMaterialExam->id);
         $data['subMaterialExam'] = $subMaterialExam;
         $data['studentAnswers'] = $data['answers']->groupBy('studentSubmaterialExam.id');

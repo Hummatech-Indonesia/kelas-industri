@@ -49,7 +49,7 @@ class SubMaterialExam extends Model
      */
     public function studentSubmaterialExams(): HasMany
     {
-        return $this->hasMany(studentSubmaterialExam::class);
+        return $this->hasMany(studentSubmaterialExam::class, 'sub_material_exam_id');
     }
 
     public function sluggable(): array

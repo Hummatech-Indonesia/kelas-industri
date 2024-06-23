@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
-use App\Models\Event;
-use App\Models\EventPartisipant;
-use App\Models\Material;
-use App\Models\User;
-use App\Services\AssignmentService;
 use Carbon\Carbon;
-use Illuminate\Contracts\View\View;
+use App\Models\User;
+use App\Models\Event;
+use App\Models\Material;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
+use App\Models\EventPartisipant;
+use App\Services\AssignmentService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Intervention\Image\Geometry\Factories\LineFactory;
+use Intervention\Image\Geometry\Factories\RectangleFactory;
 
 class CertifyController extends Controller
 {
@@ -30,7 +32,7 @@ class CertifyController extends Controller
      */
     public function certify(Request $request, Material $material, Classroom $classroom)
     {
-        $countAssignmentByMaterial = $this->assignmentService->handleAssignmentByMaterialCertify($material->id);
+        // $countAssignmentByMaterial = $this->assignmentService->handleAssignmentByMaterialCertify($material->id);
 
         $countAssignment = $this->assignmentService->countAssignmentsByMaterial($material->id, auth()->user());
 
@@ -137,6 +139,197 @@ class CertifyController extends Controller
         // return redirect()->back()->with('error', trans('Tidak bisa mengunduh sertifikat karena anda belum menyelesaikan semua tugas pada materi ' . $material->title));
     }
 
+
+    public function certifyCompetenceTest()
+    {
+        $studentScores = Material::with([
+            'subMaterials.subMaterialExams.studentSubmaterialExams' => function ($query) {
+                $query->where('student_id', auth()->user()->id)
+                    ->select('sub_material_exam_id', 'score');
+            }
+        ])->get();
+
+        $groupedScores = $studentScores->map(function ($material) {
+            $subMaterialScores = $material->subMaterials->flatMap(function ($subMaterial) {
+                return $subMaterial->subMaterialExams->flatMap(function ($subMaterialExam) {
+                    return $subMaterialExam->studentSubmaterialExams->map(function ($studentSubmaterialExam) {
+                        return [
+                            'sub_material_exam_id' => $studentSubmaterialExam->sub_material_exam_id,
+                            'score' => $studentSubmaterialExam->score,
+                            'sub_material_id' => $studentSubmaterialExam->subMaterialExam->sub_material_id,
+                        ];
+                    });
+                });
+            })->groupBy('sub_material_id')
+                ->map(function ($scores) {
+                    return [
+                        'total_score' => $scores->sum('score'),
+                    ];
+                });
+
+            $assignmentScores = $material->subMaterials->flatMap(function ($subMaterial) {
+                return $subMaterial->assignments->flatMap(function ($assignment) {
+                    return $assignment->StudentSubmitAssignment->where('student_id', auth()->id())->map(function ($studentAssignment) {
+                        return [
+                            'assignment_id' => $studentAssignment->assignment_id,
+                            'point' => $studentAssignment->point,
+                        ];
+                    });
+                });
+            })->groupBy('assignment_id')
+                ->map(function ($scores) {
+                    return [
+                        'total_score' => $scores->sum('point'),
+                    ];
+                })->avg('total_score');
+
+            $totalExamScore = $subMaterialScores->reduce(function ($carry, $item) {
+                return $carry + $item['total_score'];
+            }, 0);
+
+            // $totalAssignmentScore = $assignmentScores->reduce(function ($carry, $item) {
+            //     return $carry + $item['total_score'];
+            // }, 0);
+
+            $totalScore = ($totalExamScore * 0.6) + ($assignmentScores * 0.4);
+
+            return [
+                'material' => $material->title,
+                'total_score' => $totalScore,
+            ];
+        });
+
+        dd($groupedScores);
+
+
+        $img = ImageManager::gd()->read('templateSertifikat/nilaiUas.png');
+        $text = 'struktur program';
+        $text = strtoupper($text);
+        $spacedText = implode('', str_split($text));
+        $img->text($spacedText, 1010, 330, function ($font) {
+            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
+            $font->size(90);
+            $font->align('center');
+            $font->valign('top');
+        });
+
+        // Draw the table
+        $img->drawRectangle(240, 450, function (RectangleFactory $rectangle) {
+            $rectangle->size(1500, 100); // width & height of rectangle
+            $rectangle->background('#00b1f0'); // background color of rectangle
+            $rectangle->border('black', 2); // border color & size of rectangle
+        });
+
+        $img->drawLine(function (LineFactory $line) {
+            $line->from(350, 450); // starting point of line
+            $line->to(350, 550); // ending point
+            $line->color('black'); // color of line
+            $line->width(5); // line width in pixels
+        });
+
+        $img->drawLine(function (LineFactory $line) {
+            $line->from(1580, 450); // starting point of line
+            $line->to(1580, 550); // ending point
+            $line->color('black'); // color of line
+            $line->width(5); // line width in pixels
+        });
+
+        // Add table headers
+        $img->text('No', 270, 485, function ($font) {
+            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
+            $font->size(40);
+            $font->color('white');
+            $font->align('left');
+            $font->valign('top');
+        });
+        $img->text('Materi', 1030, 485, function ($font) {
+            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
+            $font->size(40);
+            $font->color('white');
+            $font->align('right');
+            $font->valign('top');
+        });
+        $img->text('Nilai', 1700, 485, function ($font) {
+            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
+            $font->size(40);
+            $font->color('white');
+            $font->align('right');
+            $font->valign('top');
+        });
+
+        $vertical = 100;
+
+        $img->drawRectangle(240, 550, function (RectangleFactory $rectangle) {
+            $rectangle->size(1500, 100); // width & height of rectangle
+            $rectangle->background('#FFF8EF'); // background color of rectangle
+            $rectangle->border('black', 2); // border color & size of rectangle
+        });
+
+        $img->drawRectangle(240, 550 + $vertical, function (RectangleFactory $rectangle) {
+            $rectangle->size(1500, 100); // width & height of rectangle
+            $rectangle->background('#FFF8EF'); // background color of rectangle
+            $rectangle->border('black', 2); // border color & size of rectangle
+        });
+
+        // Add table headers
+        $img->text('1.', 290, 585, function ($font) {
+            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
+            $font->size(40);
+            $font->color('black');
+            $font->align('center');
+            $font->valign('top');
+        });
+        $img->text('Fundamental Jawa Terbaru', 950, 585, function ($font) {
+            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
+            $font->size(40);
+            $font->color('black');
+            $font->align('center');
+            $font->valign('top');
+        });
+        $img->text('80', 1650, 585, function ($font) {
+            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
+            $font->size(40);
+            $font->color('black');
+            $font->align('center');
+            $font->valign('top');
+        });
+
+        $img->drawLine(function (LineFactory $line) use ($vertical) {
+            $line->from(350, 550 + $vertical); // starting point of line
+            $line->to(350, 650 + $vertical); // ending point
+            $line->color('black'); // color of line
+            $line->width(5); // line width in pixels
+        });
+
+        $img->drawLine(function (LineFactory $line) use ($vertical) {
+            $line->from(1580, 550 + $vertical); // starting point of line
+            $line->to(1580, 650 + $vertical); // ending point
+            $line->color('black'); // color of line
+            $line->width(5); // line width in pixels
+        });
+
+        $img->drawLine(function (LineFactory $line) {
+            $line->from(350, 550); // starting point of line
+            $line->to(350, 650); // ending point
+            $line->color('black'); // color of line
+            $line->width(5); // line width in pixels
+        });
+
+        $img->drawLine(function (LineFactory $line) {
+            $line->from(1580, 550); // starting point of line
+            $line->to(1580, 650); // ending point
+            $line->color('black'); // color of line
+            $line->width(5); // line width in pixels
+        });
+
+
+
+        $content = $img->toPng();
+        return response()->make($content, 200, [
+            'Content-Type' => 'image/png',
+            'Content-Disposition' => 'inline; filename="certificate.png"'
+        ]);
+    }
 
     public function eventCertify(Request $request, Event $event, EventPartisipant $participant)
     {

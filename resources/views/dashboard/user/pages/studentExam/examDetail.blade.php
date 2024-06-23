@@ -42,7 +42,7 @@
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('common.classrooms') }}"
+                                    <a href="{{ route('mentor.submaterialExam.index') }}"
                                         class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                         <i class="bi bi-arrow-left me-2"></i> Kembali
                                     </a>
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <p class="fs-4 text-info mb-4 all-student" style="font-weight: 1000;">45</p>
+                                    <p class="fs-4 text-info mb-4 all-student" style="font-weight: 1000;">{{ count($students) }}</p>
                                 </div>
                             </div>
                         </div>
@@ -147,10 +147,13 @@
                                     <table class="table align-middle table-row-dashed fs-6 gy-3 dataTable">
                                         <thead>
                                             <tr>
-                                                <th class="min-w-50px text-center">
-                                                    <span class="dt-column-title fw-bold">Nama Siswa</span>
+                                                <th class="min-w-150px text-center">
+                                                    <span class="dt-column-title fw-bold">Nama</span>
                                                 </th>
-                                                <th class="min-w-200px text-center">
+                                                <th class="min-w-50px text-center">
+                                                    <span class="dt-column-title fw-bold">Kelas</span>
+                                                </th>
+                                                <th class="min-w-50px text-center">
                                                     <span class="dt-column-title fw-bold">Soal Benar</span>
                                                 </th>
                                                 <th class="min-w-50px text-center">
@@ -169,6 +172,9 @@
                                                 <tr>
                                                     <td class="text-center">
                                                         {{ $student->student->name }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $student->student->studentSchool->studentClassroom->classroom->name }}
                                                     </td>
                                                     <td class="text-center">
                                                         <span

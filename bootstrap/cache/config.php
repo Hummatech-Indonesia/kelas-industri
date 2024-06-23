@@ -4,7 +4,7 @@
     'name' => 'KelasIndustri',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://10.11.111.49:80',
+    'url' => 'http://localhost',
     'asset_url' => NULL,
     'timezone' => 'UTC',
     'locale' => 'id',
@@ -201,7 +201,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\framework/cache/data',
+        'path' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -429,10 +429,10 @@
     'convert_entities' => true,
     'options' => 
     array (
-      'font_dir' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\fonts',
-      'font_cache' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\fonts',
-      'temp_dir' => 'C:\\Users\\Alfian\\AppData\\Local\\Temp',
-      'chroot' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri',
+      'font_dir' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\fonts',
+      'font_cache' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\fonts',
+      'temp_dir' => 'C:\\Users\\HP\\AppData\\Local\\Temp',
+      'chroot' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri',
       'allowed_protocols' => 
       array (
         'file://' => 
@@ -575,7 +575,7 @@
     ),
     'temporary_files' => 
     array (
-      'local_path' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\framework/cache/laravel-excel',
+      'local_path' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\framework/cache/laravel-excel',
       'remote_disk' => NULL,
       'remote_prefix' => NULL,
       'force_resync_remote' => NULL,
@@ -589,14 +589,14 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\app',
+        'root' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\app',
         'throw' => false,
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\app/public',
-        'url' => 'http://10.11.111.49:80/storage',
+        'root' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\app/public',
+        'url' => 'http://localhost/storage',
         'visibility' => 'public',
         'throw' => false,
       ),
@@ -615,7 +615,7 @@
     ),
     'links' => 
     array (
-      'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\public\\storage' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\app/public',
+      'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\public\\storage' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -654,13 +654,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -712,7 +712,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -778,7 +778,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\resources\\views/vendor/mail',
+        0 => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -883,7 +883,7 @@
       2 => '127.0.0.1',
       3 => '127.0.0.1:8000',
       4 => '::1',
-      5 => '10.11.111.49:80',
+      5 => 'localhost',
     ),
     'guard' => 
     array (
@@ -923,7 +923,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\framework/sessions',
+    'files' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -966,9 +966,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\resources\\views',
+      0 => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\resources\\views',
     ),
-    'compiled' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri\\storage\\framework\\views',
+    'compiled' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri\\storage\\framework\\views',
   ),
   'flare' => 
   array (
@@ -1043,7 +1043,7 @@
     array (
     ),
     'enable_runnable_solutions' => NULL,
-    'remote_sites_path' => 'C:\\Users\\Alfian\\Documents\\Projects\\kelas-industri',
+    'remote_sites_path' => 'C:\\Users\\HP\\Documents\\GitHub\\kelas-industri',
     'local_sites_path' => '',
     'housekeeping_endpoint_prefix' => '_ignition',
     'settings_file_path' => '',

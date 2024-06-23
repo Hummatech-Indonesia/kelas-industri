@@ -506,4 +506,7 @@ Route::get('verify/{material}/{classroom}/{user}', [CertifyController::class, 'm
 Route::get('certify/events/{participant}/{event}/verification', [CertifyController::class, 'eventVerification'])->name('events.verify-certification');
 
 Route::get('zoom-testing', [ZoomScheduleController::class, 'first']);
+
+Route::get('certifyCompetenceTest', [CertifyController::class, 'certifyCompetenceTest'])->name('certifyCompetenceTest');
+
 require __DIR__ . '/spk.php';

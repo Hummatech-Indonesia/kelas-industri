@@ -6,6 +6,7 @@ use App\Models\Point;
 use App\Models\Salary;
 use App\Models\SchoolPackage;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\StudentSubmaterialExam;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -210,5 +211,15 @@ class User extends Authenticatable
 
     public function EventParticipants(): HasMany {
         return $this->hasMany(EventPartisipant::class);
+    }
+
+    /**
+     * Get all of the studentSubmaterialExam for the SubMaterialExam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function studentSubmaterialExams(): HasMany
+    {
+        return $this->hasMany(StudentSubmaterialExam::class);
     }
 }

@@ -43,7 +43,7 @@
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                    <a href="http://127.0.0.1:8000/classrooms"
+                                    <a href="{{ route('mentor.submaterialExam.index') }}"
                                         class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                         <i class="bi bi-arrow-left me-2"></i> Kembali
                                     </a>
@@ -53,18 +53,18 @@
                         </div>
                         <!--end::Toolbar wrapper-->
                         <div id="kt_content" class="container">
-                            <form action="{{ route('mentor.studentSubMaterialExamEssayScore', $subMaterialExam->id) }}"
-                                method="post">
-                                @csrf
-                                <div class="mt-4">
-                                    <div class="d-flex justify-content-between">
+                            @csrf
+                            <div class="mt-4">
+                                <div class="d-flex justify-content-between">
+                                    <form action="" method="get">
                                         <div class="d-flex">
-                                            <select name="" id="" class="form-select me-2">
+                                            <select name="classroom_id" class="form-select me-2">
                                                 @foreach ($classrooms as $classroom)
-                                                    <option value="">{{ $classroom->classroom->name }}</option>
+                                                    <option value="{{ $classroom->classroom_id }}">
+                                                        {{ $classroom->classroom->name }}</option>
                                                 @endforeach
                                             </select>
-                                            <div class="btn btn-light-primary btn-md">
+                                            <button type="submit" class="btn btn-light-primary btn-md">
                                                 <span class="svg-icon svg-icon-1"><svg width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -76,16 +76,19 @@
                                                             fill="currentColor" />
                                                     </svg>
                                                 </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="">
-                                            <button type="submit" class="btn btn-primary btn-md">
-                                                Simpan
                                             </button>
                                         </div>
+                                    </form>
+
+                                    <div class="">
+                                        <button type="submit" class="btn btn-primary btn-md">
+                                            Simpan
+                                        </button>
                                     </div>
                                 </div>
+                            </div>
+                            <form action="{{ route('mentor.studentSubMaterialExamEssayScore', $subMaterialExam->id) }}"
+                                method="post">
                                 @php
                                     $questionNumberArry = [];
                                     foreach ($answers as $answer) {
@@ -122,10 +125,7 @@
                                                                     'student_question_number',
                                                                     $question->question_number,
                                                                 )
-                                                                ->where(
-                                                                    'student_submaterial_exam_id',
-                                                                    $studentExam->id,
-                                                                )
+                                                                ->where('student_submaterial_exam_id', $studentExam->id)
                                                                 ->first();
                                                             $value = StudentSubmaterialExamAnswer::query()
                                                                 ->where(
@@ -160,7 +160,9 @@
                                                                             <input type="hidden"
                                                                                 name="student_submaterial_exam_answer_id[]"
                                                                                 value="{{ $answer->studentSubmaterialExam->id }}">
-                                                                                <input type="hidden" name="student_question_number[]" value="{{ $answer->student_question_number }}">
+                                                                            <input type="hidden"
+                                                                                name="student_question_number[]"
+                                                                                value="{{ $answer->student_question_number }}">
                                                                         </div>
                                                                     </div>
                                                                     <div class="mt-3 fw-semibold fs-6">
@@ -205,16 +207,15 @@
                                                     </thead>
                                                     <tbody class="fw-semibold">
                                                         @forelse ($students as $index => $student)
-                                                            {{-- @dd($student->student->id) --}}
                                                             <tr>
                                                                 <td class="">
                                                                     {{ $loop->iteration }}
                                                                 </td>
                                                                 <td class="">
-                                                                    {{ $student->studentClassroom->studentSchool->student->name }}
+                                                                    {{ $student->student->name }}
                                                                 </td>
                                                                 <td class="">
-                                                                    {{ $student->studentClassroom->classroom->name }}
+                                                                    {{ $student->student->studentSchool->studentClassroom->classroom->name }}
                                                                 </td>
                                                                 <td class="">
                                                                     <a class="nav-link {{ $index == 0 ? 'active' : '' }} btn-sm btn-light-primary btn"

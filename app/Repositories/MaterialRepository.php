@@ -10,7 +10,7 @@ class MaterialRepository extends BaseRepository
     {
         $this->model = $materials;
     }
-
+    
     /**
      * get_paginate_by_school_year
      *
