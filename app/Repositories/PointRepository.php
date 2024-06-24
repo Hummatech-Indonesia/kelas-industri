@@ -65,6 +65,7 @@ class PointRepository extends BaseRepository
                             $query->where('id', $schoolId);
                         });
                     })
+            ->limit(5)
             ->get();
     }
 

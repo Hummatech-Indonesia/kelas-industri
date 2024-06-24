@@ -49,7 +49,7 @@
                                         </button>
                                     </form>
                                     <form
-                                        action="{{ route('certifyCompetenceTest') }}"
+                                        action="{{ route('certifyCompetenceTest', auth()->user()->studentSchool->studentClassroom->classroom_id) }}"
                                         method="get">
                                         <button class="btn btn-primary h-40px fs-7 fw-bold">
                                             Download Sertifikat

@@ -89,6 +89,15 @@ class SubMaterialExamController extends Controller
         $data['averageValue'] = $this->studentExamRepository->getAvgValue($subMaterialExam->id);
         return view('dashboard.user.pages.studentExam.examDetail', $data);
     }
+    public function examSchoolDetail(SubMaterialExam $subMaterialExam)
+    {
+        $data = $this->GetDataSidebar();
+        $data['students'] = $this->studentExamRepository->getAllStudent($subMaterialExam->id);
+        $data['lowValue'] = $this->studentExamRepository->getMinValue($subMaterialExam->id);
+        $data['highValue'] = $this->studentExamRepository->getMaxValue($subMaterialExam->id);
+        $data['averageValue'] = $this->studentExamRepository->getAvgValue($subMaterialExam->id);
+        return view('dashboard.user.pages.studentExam.examDetail', $data);
+    }
 
     /**
      * Show the form for creating a new resource.

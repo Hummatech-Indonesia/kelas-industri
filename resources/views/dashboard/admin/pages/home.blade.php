@@ -95,14 +95,14 @@
                 </a>
             </div>
 
-            <div class="card card-bordered mt-5">
+            {{-- <div class="card card-bordered mt-5">
                 <div class="card-body">
                     <div id="kt_keuangan"></div>
                 </div>
-            </div>
+            </div> --}}
             <div class="row row-cols-md-2 mt-5">
                 <div class="col">
-                    <div class="card" style="height: 368px">
+                    <div class="card" style="height: 368px;">
                         <!--begin::Body-->
                         <div class="card-body">
                             <!--begin::Title-->
@@ -110,42 +110,48 @@
                                 Peringkat
                             </h3>
                             <!--end::Title-->
-                            @foreach ($rankings as $index => $ranking)
-                                <div class="d-flex mb-3 flex-stack">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-40px me-4">
-                                        @if ($index == 0)
-                                            <img width="50px"
-                                                src="http://127.0.0.1:8000/app-assets/medal_file/gold-medal.png"
-                                                alt="">
-                                        @elseif ($index == 1)
-                                            <img width="50px"
-                                                src="http://127.0.0.1:8000/app-assets/medal_file/silver-medal.png"
-                                                alt="">
-                                        @elseif ($index == 2)
-                                            <img width="50px"
-                                                src="http://127.0.0.1:8000/app-assets/medal_file/bronze-medal.png"
-                                                alt="">
-                                        @endif
-
-                                    </div>
-                                    <!--end::Symbol-->
-
-                                    <!--begin::Section-->
-                                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                        <!--begin:Author-->
-                                        <div class="flex-grow-1 me-2">
-                                            <a href="http://127.0.0.1:8000/student/ranking"
-                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $ranking->name }}</a>
-                                            <span
-                                                class="text-muted fw-semibold d-block fs-7">{{ $ranking->studentSchool->school->name }}</span>
-                                            <span class="text-muted fw-semibold d-block fs-7">{{ $ranking->point }}</span>
+                            <div class="overflow-auto" style="max-height: 300px;">
+                                @foreach ($rankings as $index => $ranking)
+                                    <div class="d-flex mb-3 flex-stack">
+                                        <!--begin::Symbol-->
+                                        <div class="symbol symbol-40px me-4">
+                                            @if ($index == 0)
+                                                <img width="50px"
+                                                    src="http://127.0.0.1:8000/app-assets/medal_file/gold-medal.png"
+                                                    alt="">
+                                            @elseif ($index == 1)
+                                                <img width="50px"
+                                                    src="http://127.0.0.1:8000/app-assets/medal_file/silver-medal.png"
+                                                    alt="">
+                                            @elseif ($index == 2)
+                                                <img width="50px"
+                                                    src="http://127.0.0.1:8000/app-assets/medal_file/bronze-medal.png"
+                                                    alt="">
+                                            @else
+                                                <div class="d-flex justify-content-center items-center"
+                                                    style="width:40px; height:50px; ">
+                                                    <p>{{ $index + 1 }}</p>
+                                                </div>
+                                            @endif
                                         </div>
-                                        <!--end:Author-->
+                                        <!--end::Symbol-->
+                                        <!--begin::Section-->
+                                        <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                            <!--begin:Author-->
+                                            <div class="flex-grow-1 me-2">
+                                                <a href="http://127.0.0.1:8000/student/ranking"
+                                                    class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $ranking->name }}</a>
+                                                <span
+                                                    class="text-muted fw-semibold d-block fs-7">{{ $ranking->studentSchool->school->name }}</span>
+                                                <span
+                                                    class="text-muted fw-semibold d-block fs-7">{{ $ranking->point }}</span>
+                                            </div>
+                                            <!--end:Author-->
+                                        </div>
+                                        <!--end::Section-->
                                     </div>
-                                    <!--end::Section-->
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                         <!--end::Body-->
                     </div>
@@ -155,15 +161,15 @@
                         <h5 class="card-title">Pembayaran siswa</h5>
                         <div class="row row-cols-1 gap-5 mt-4">
                             <div class="col">
-                                    <div class="card border-4 border-start border-primary shadow-sm">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between">
-                                                <h3 class="card-title">Total Siswa</h3>
-                                                <h3>{{ $student }}</h3>
-                                            </div>
+                                <div class="card border-4 border-start border-primary shadow-sm">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Total Siswa</h3>
+                                            <h3>{{ $student }}</h3>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             <div class="col">
                                 <div class="card border-4 border-start border-primary shadow-sm">
                                     <div class="card-body">
@@ -332,8 +338,7 @@
             }, {
                 name: 'Hutang',
                 data: deptData
-            }
-        ],
+            }],
             xaxis: {
                 type: 'category'
             },

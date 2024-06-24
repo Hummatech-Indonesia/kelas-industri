@@ -60,13 +60,13 @@
                         </div>
                     </div>
                 </div>
-                <img src="{{ asset('storage/bg-sertifikat/materi/bottom-left.png') }}" alt=""
+                <img src="{{ asset('certificate/bg-sertifikat/materi/bottom-left.png') }}" alt=""
                     class="border-img bottom left">
-                <img src="{{ asset('storage/bg-sertifikat/materi/bottom-right.png') }}" alt=""
+                <img src="{{ asset('certificate/bg-sertifikat/materi/bottom-right.png') }}" alt=""
                     class="border-img bottom right">
-                <img src="{{ asset('storage/bg-sertifikat/materi/top-left.png') }}" alt=""
+                <img src="{{ asset('certificate/bg-sertifikat/materi/top-left.png') }}" alt=""
                     class="border-img top-left">
-                <img src="{{ asset('storage/bg-sertifikat/materi/top-right.png') }}" alt=""
+                <img src="{{ asset('certificate/bg-sertifikat/materi/top-right.png') }}" alt=""
                     class="border-img top-right">
             </div>
         </div>
