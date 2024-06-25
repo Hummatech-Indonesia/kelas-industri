@@ -10,7 +10,7 @@ class MaterialRepository extends BaseRepository
     {
         $this->model = $materials;
     }
-    
+
     /**
      * get_paginate_by_school_year
      *
@@ -96,12 +96,17 @@ class MaterialRepository extends BaseRepository
 
     public function getByDevision(string $devisionId)
     {
-        return $this->model->query()
+        $data = $this->model->query()
             ->with('subMaterials.assignments', function ($query) {
                 $query->oldest();
             })
-            ->where('devision_id', $devisionId)
-            ->whereRelation('generation', 'id', auth()->user()->studentSchool->studentClassroom->classroom->generation_id)
-            ->get();
+            ->where('devision_id', $devisionId);
+
+
+        if (auth()->user()->roles->pluck('name')[0] == 'student') {
+            $data->whereRelation('generation', 'id', auth()->user()->studentSchool->studentClassroom->classroom->generation_id);
+        }
+
+        return $data->get();
     }
 }

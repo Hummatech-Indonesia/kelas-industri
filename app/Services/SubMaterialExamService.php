@@ -29,7 +29,7 @@ class SubMaterialExamService
         }
         return $this->repository->store($data);
     }
-    public function handleUpdate(SubMaterialExamRequest $request, mixed $id): mixed
+    public function handleUpdate($request, mixed $id): mixed
     {
         $data = $request->validated();
         if ($data['total_essay'] == 0) {

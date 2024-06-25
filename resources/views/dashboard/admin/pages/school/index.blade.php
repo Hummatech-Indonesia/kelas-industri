@@ -60,7 +60,7 @@
                             <div class="col-lg-2 col-md-4 col-6">
                                 <button class="btn btn-primary" id="btn-search">Cari</button>
                                 <a href="{{ route('admin.schools.index') }}" type="button"
-                                class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
+                                    class="btn btn-light text-light ms-2"><i class="fonticon-repeat"></i></a>
                             </div>
                             <!--end::Input group-->
                         </div>
@@ -113,7 +113,8 @@
                                         {{ $school->name }}
                                     </a>
 
-                                    <span class="text-muted font-weight-bold" style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
+                                    <span class="text-muted font-weight-bold"
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
                                         {{ $school->address }}
                                     </span>
 
@@ -122,31 +123,48 @@
                                 </div>
 
                                 <!--end::Info-->
-
                                 <div class="card-toolbar mb-7 text-end">
 
-                                    <button type="submit" class="btn btn-sm btn-delete text-end"
-                                        data-id="{{ $school->id }}" title="Hapus" data-toggle="modal"
-                                        data-target="#hapus1">
-
-                                        <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/abstract/abs012.svg-->
-                                        <span class="svg-icon svg-icon-danger svg-icon-2x"><svg width="24"
-                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path opacity="0.3"
-                                                    d="M6.7 19.4L5.3 18C4.9 17.6 4.9 17 5.3 16.6L16.6 5.3C17 4.9 17.6 4.9 18 5.3L19.4 6.7C19.8 7.1 19.8 7.7 19.4 8.1L8.1 19.4C7.8 19.8 7.1 19.8 6.7 19.4Z"
+                                    <!--begin::Menu-->
+                                    <button
+                                        class="btn btn-icon btn-sm btn-color-gray-500 btn-active-color-primary justify-content-end"
+                                        data-kt-menu-trigger="hover" data-kt-menu-placement="bottom-end"
+                                        data-kt-menu-overflow="true">
+                                        <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                    rx="4" fill="currentColor" />
+                                                <rect x="11" y="11" width="2.6" height="2.6" rx="1.3"
                                                     fill="currentColor" />
-                                                <path
-                                                    d="M19.5 18L18.1 19.4C17.7 19.8 17.1 19.8 16.7 19.4L5.40001 8.1C5.00001 7.7 5.00001 7.1 5.40001 6.7L6.80001 5.3C7.20001 4.9 7.80001 4.9 8.20001 5.3L19.5 16.6C19.9 16.9 19.9 17.6 19.5 18Z"
+                                                <rect x="15" y="11" width="2.6" height="2.6" rx="1.3"
+                                                    fill="currentColor" />
+                                                <rect x="7" y="11" width="2.6" height="2.6" rx="1.3"
                                                     fill="currentColor" />
                                             </svg>
                                         </span>
-                                        <!--end::Svg Icon-->
-
                                     </button>
 
-                                </div>
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
+                                        data-kt-menu="true" style="">
+                                        <!--begin::Menu separator-->
+                                        <div class="separator mb-3 opacity-75"></div>
+                                        <!--end::Menu separator-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="{{ route('admin.schools.edit', $school->id) }}" class="menu-link px-3">
+                                                edit
+                                            </a>
+                                        </div>
+                                        <div class="menu-item px-3">
+                                            <a type="submit" class="btn-delete menu-link" data-id="{{ $school->id }}"
+                                                title="Hapus" data-toggle="modal" data-target="#hapus1">
+                                                Hapus
+                                            </a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
 
+                                </div>
 
                             </div>
 
@@ -216,31 +234,6 @@
                         <div class="card-footer d-flex align-items-center flex-row justify-content-between">
 
                             <div class="d-flex">
-
-                                <div class="d-flex align-items-center">
-
-                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen055.svg-->
-                                    <span class="svg-icon svg-icon-primary svg-icon-2x"><svg width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z"
-                                                fill="currentColor" />
-                                            <path
-                                                d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z"
-                                                fill="currentColor" />
-                                            <path
-                                                d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z"
-                                                fill="currentColor" />
-                                        </svg>
-                                    </span>
-                                    <!--end::Svg Icon-->
-
-                                    <a href="{{ route('admin.schools.edit', $school->id) }}"
-                                        class="fw-bold text-primary ms-2">Edit</a>
-
-                                </div>
-
-
                             </div>
 
                             <a href="{{ route('admin.schools.show', $school->id) }}"
@@ -288,16 +281,17 @@
     </script>
 @endsection
 @section('css')
-        <Style>
-            @media (max-width:639px){
-                .position-relative{
-                    margin-bottom: 10px;
-                }
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
             }
-            @media (min-width:640px){
-                .searching{
-                    display: flex;
-                }
+        }
+
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
             }
-        </Style>
-    @endsection
+        }
+    </Style>
+@endsection

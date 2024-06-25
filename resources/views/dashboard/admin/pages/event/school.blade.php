@@ -164,7 +164,7 @@
 
                                 <div class="d-flex align-items-center">
 
-                                    <button type="submit" class="btn btn-sm text-danger text-end"
+                                    <button type="submit" class="btn btn-sm btn-delete text-danger text-end"
                                         data-id="{{ $event->id }}" title="Hapus" data-toggle="modal"
                                         data-target="#hapus{{ $index }}">
 

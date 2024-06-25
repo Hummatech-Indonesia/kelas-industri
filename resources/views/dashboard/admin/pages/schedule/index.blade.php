@@ -183,7 +183,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="text" class="form-control mb-5" name="event_name" placeholder="Acara" />
-                    <textarea class="form-control" name="event_description" placeholder="deskripsi"></textarea>
+                    <textarea class="form-control" name="event_description" id="description-input" placeholder="deskripsi"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -250,17 +250,15 @@
 
                 // Create new event
                 select: function(arg) {
-                    $('#create_modal').modal('show')
-                    $('#create_modal #submit_btn').click(function() {
-                        var title = document.querySelector('input[name="event_name"]')
-                            .value;
-                        var description = document.querySelector(
-                                'input[name="event_description"]')
-                            .value;
+                    $('#create_modal').modal('show');
+                    $('#create_modal #submit_btn').off('click').on('click',
+                function() { // Menggunakan .off() untuk menghapus event handler sebelumnya
+                        var title = document.querySelector('input[name="event_name"]').value;
+                        var description = document.getElementById('description-input').value;
                         if (title) {
                             const event = {
                                 title: title,
-                                description: description? description : "",
+                                description: description ? description : "",
                                 start: arg.start,
                                 end: arg.end,
                                 allDay: arg.allDay
@@ -279,8 +277,8 @@
                                         "content")
                                 },
                                 success: function(response) {
-                                    calendar.unselect()
-                                    calendar.addEvent(event)
+                                    calendar.unselect();
+                                    calendar.addEvent(event);
                                     Swal.fire({
                                         text: 'Jadwal berhasil ditambahkan',
                                         icon: "success",
@@ -288,9 +286,9 @@
                                         customClass: {
                                             confirmButton: "btn btn-primary",
                                         }
-                                    })
-                                    $('#create_modal').modal('hide')
-
+                                    });
+                                    calendar.unselect();
+                                    $('#create_modal').modal('hide');
                                 },
                                 error: function(param) {
                                     Swal.fire({
@@ -300,17 +298,21 @@
                                         customClass: {
                                             confirmButton: "btn btn-primary",
                                         }
-                                    })
-                                    calendar.unselect()
+                                    });
+                                    calendar.unselect();
                                     console.log(param);
                                 }
-                            })
+                            });
                         }
-                    })
+                    });
+                    calendar.unselect();
                 },
 
                 // Delete event
                 eventClick: function(arg) {
+                    console.log();
+                    $('#detail_modal .description').text(arg.event.title);
+                    $('#detail_modal .title').text(arg.event.title);
                     $('#detail_modal').modal('show')
                     $('#delete_btn').click(function() {
                         Swal.fire({

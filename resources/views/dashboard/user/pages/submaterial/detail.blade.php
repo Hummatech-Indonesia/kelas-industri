@@ -53,9 +53,9 @@
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     @php
                         $exam = $subMaterial->exam;
-                        // dd($exam)
+                        // dd($exam->start_at < now())
                     @endphp
-                    @if ($exam && $exam->start_at < now() && auth()->user()->pluck('name')[0] == 'student')
+                    @if ($exam && $exam->start_at < now() && auth()->user()->roles->pluck('name')[0] == 'student')
                         <div class="row">
                             <div class="col-12">
 

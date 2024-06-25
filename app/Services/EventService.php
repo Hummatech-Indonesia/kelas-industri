@@ -64,7 +64,7 @@ class EventService
         }
         return $this->repository->destroy($event->id);
     }
-    public function handleGetPaginate(string $search): mixed
+    public function handleGetPaginate(string | null $search): mixed
     {
         return $this->repository->get_with_participant_paginate(6, $search);
     }

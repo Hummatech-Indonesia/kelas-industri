@@ -56,10 +56,10 @@ class EventController extends Controller
         return view('dashboard.admin.pages.event.school', $data);
     }
 
-    public function studentEvent(): View
+    public function studentEvent(Request $request): View
     {
         $data = $this->GetDataSidebar();
-        $data['events'] = $this->service->handleGetPaginate(6, '');
+        $data['events'] = $this->service->handleGetPaginate($request->search);
         $config = HTMLPurifier_Config::createDefault();
         $config->set('HTML.Allowed', '');
         $purifier = new HTMLPurifier($config);
@@ -108,7 +108,7 @@ class EventController extends Controller
     public function store(EventRequest $request)
     {
         $this->service->handleCreate($request);
-        return to_route('admin.events.schools')->with('success', trans('alert.add_success'));
+        return to_route('admin.events.index')->with('success', trans('alert.add_success'));
     }
 
     /**

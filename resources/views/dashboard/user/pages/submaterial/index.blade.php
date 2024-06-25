@@ -41,20 +41,15 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 <div class="d-flex align-items-center me-4">
-                                    <form
-                                        action="{{ route('certify', ['material' => $material->id, 'classroom' => $classroom->id]) }}"
-                                        method="get">
-                                        <button class="btn btn-primary h-40px fs-7 fw-bold">
-                                            Download Sertifikat
-                                        </button>
-                                    </form>
-                                    <form
-                                        action="{{ route('certifyCompetenceTest', auth()->user()->studentSchool->studentClassroom->classroom_id) }}"
-                                        method="get">
-                                        <button class="btn btn-primary h-40px fs-7 fw-bold">
-                                            Download Sertifikat
-                                        </button>
-                                    </form>
+                                    @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                        <form
+                                            action="{{ route('certify', ['material' => $material->id, 'classroom' => $classroom->id]) }}"
+                                            method="get">
+                                            <button class="btn btn-primary h-40px fs-7 fw-bold">
+                                                Download Sertifikat
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                                 <a href="{{ route('common.materials', ['classroom' => $classroom]) }}"
                                     class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">

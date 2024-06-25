@@ -423,6 +423,7 @@
             // Jika waktu habis, hentikan interval
             if (hour === 0 && minute === 0 && second === 0) {
                 clearInterval(count);
+                setAnswer($('#question_' + prevQuestion).data('type'), prevQuestion);
                 sumbitExam();
             }
         }, 1000);
@@ -434,7 +435,7 @@
             @foreach ($questions as $question)
                 {
                     'student_question_number': '{{ $question['id'] }}',
-                    'answer': '',
+                    'answer': null,
                     @if ($question['type'] == 'multiple_choice')
                         'type': 'multiple_choice'
                     @else

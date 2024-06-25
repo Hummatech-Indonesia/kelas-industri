@@ -7,14 +7,14 @@
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
             <h1 class="d-flex text-dark fw-bold my-1 fs-3">
-                Tambah Bukti Gaji
+                Tambah Hadian
             </h1>
             <!--end::Title-->
 
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman Bukti Gaji
+                Halaman Tambah Hadiah
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -41,7 +41,7 @@
 
                                 <h3 class="card-label">
 
-                                    Silakan Isi Data Bukti Gaji
+                                    Silakan Isi Data Hadiah
 
                                 </h3>
 

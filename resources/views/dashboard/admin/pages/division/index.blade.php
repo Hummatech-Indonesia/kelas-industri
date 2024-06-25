@@ -61,7 +61,8 @@
                                             <div class="d-flex align-items-center justify-content-start">
                                                 <div class="d-flex flex-column">
                                                     <div class="text-gray-900 fw-bold fs-7">
-                                                        {{ ($devisions->firstItem() - $loop->iteration) + 1 }}
+                                                        {{-- {{ ($devisions->firstItem() - $loop->iteration) + 1 }} --}}
+                                                        {{ $loop->iteration }}
                                                     </div>
                                                 </div>
                                             </div>

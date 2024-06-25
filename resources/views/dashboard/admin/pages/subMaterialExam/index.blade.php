@@ -146,6 +146,7 @@
 
                 </div>
             @empty
+            <x-empty-component title="ujian"/>
             @endforelse
 
         </div>
@@ -834,7 +835,7 @@
             getMaterial($('#select-material-add'));
 
             $('#select-material-add, #select-material-edit').change(function() {
-                
+
                 getSubMaterial($(this));
             });
 
@@ -865,7 +866,7 @@
                         $.each(response, function(index, item) {
                             var option = '<option value="' + item.id + '">' + item.title +
                                 '</option>';
-                            
+
                             $('#select-sub-material-' + select.data('type')).append(option);
                         });
                     }
@@ -881,7 +882,7 @@
         });
 
         $('.btn-edit').click(function() {
-            
+
             var id = $(this).data('id')
             var title = $(this).data('title')
             var start_at = $(this).data('start_at')

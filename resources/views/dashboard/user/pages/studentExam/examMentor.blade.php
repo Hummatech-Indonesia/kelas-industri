@@ -119,7 +119,7 @@
                                             <!--end::Icon-->
 
                                             <!--begin::Title-->
-                                            <a href="#" class="fs-5 fw-semibold text-hover-primary text-black m-0">
+                                            <a href="#" class="fs-5 fw-semibold text-hover-primary text-dark m-0">
                                                 {{ $exam->title }}</a>
                                             <!--end::Title-->
                                         </div>
@@ -198,14 +198,14 @@
                                     <div class="card-body d-flex flex-column px-9 pt-6 pb-8">
                                         <!--begin::Heading-->
                                         <div class="fs-4 fw-bold">
-                                            <span class="text-black fw-semibold d-flex fs-6 mb-3">
+                                            <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
                                                 <svg class="me-2" width="20" height="20" viewBox="0 0 20 20"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z"
-                                                        stroke="black" stroke-width="2" stroke-linecap="round"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round" />
-                                                    <path d="M10 4.59961V9.99961L13.6 11.7996" stroke="black"
+                                                    <path d="M10 4.59961V9.99961L13.6 11.7996" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round" />
                                                 </svg>
@@ -215,16 +215,16 @@
                                             </span>
                                         </div>
                                         <div class="fs-4 fw-bold">
-                                            <span class="text-black fw-semibold d-flex fs-6 mb-3">
+                                            <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
                                                 <svg width="20" height="20" class="me-2" viewBox="0 0 20 20"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M18.0526 9.52632C18.0526 7.83997 17.5526 6.1915 16.6157 4.78935C15.6788 3.38721 14.3472 2.29437 12.7892 1.64903C11.2312 1.00369 9.51686 0.834845 7.86292 1.16383C6.20897 1.49282 4.68973 2.30488 3.4973 3.4973C2.30488 4.68973 1.49282 6.20897 1.16383 7.86292C0.834845 9.51686 1.00369 11.2312 1.64903 12.7892C2.29437 14.3472 3.38721 15.6788 4.78935 16.6157C6.1915 17.5526 7.83997 18.0526 9.52632 18.0526"
-                                                        stroke="black" stroke-width="2" stroke-linecap="round"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round" />
                                                     <path
                                                         d="M9.52539 4.78906V9.5259L11.4201 11.4206M13.3149 13.3154H18.9991V18.9996H13.3149V13.3154Z"
-                                                        stroke="black" stroke-width="2" stroke-linecap="round"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round" />
                                                 </svg>
                                                 (Selesai)
@@ -233,7 +233,7 @@
                                             </span>
                                         </div>
                                         <div class="fs-4 fw-bold">
-                                            <span class="text-black fw-semibold d-flex fs-6 mb-3">
+                                            <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="22"
                                                     height="22" viewBox="0 0 24 24">
                                                     <path fill="currentColor"
@@ -243,7 +243,7 @@
                                             </span>
                                         </div>
                                         <div class="fs-4 fw-semibold d-flex">
-                                            <span class="text-black fw-semibold d-flex fs-6 mb-3">
+                                            <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="me-1" width="24"
                                                     height="24" viewBox="0 0 24 24">
                                                     <path fill="currentColor"
@@ -253,7 +253,7 @@
                                             </span>
                                         </div>
                                         <div class="fs-4 fw-semibold d-flex">
-                                            <span class="text-black fw-semibold d-flex fs-6 mb-3">
+                                            <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="me-1" width="24"
                                                     height="24" viewBox="0 0 24 24">
                                                     <path fill="currentColor"

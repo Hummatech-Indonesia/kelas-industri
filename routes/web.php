@@ -139,7 +139,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::patch('/updatePassword/{student}/{school}', [StudentController::class, 'updatePassword'])->name('updatePassword');
 
         Route::get('schedules/get-all', [ScheduleController::class, 'all'])->name('schedules.all');
-        Route::get('events/school', [EventController::class, 'showSchools'])->name('events.schools');
+        // Route::get('events/school', [EventController::class, 'showSchools'])->name('events.schools');
 
         Route::resources([
             'schoolYears' => SchoolYearController::class,

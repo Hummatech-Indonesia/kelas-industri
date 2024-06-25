@@ -21,7 +21,7 @@
         <!--end::Page title-->
         <!--begin::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ route('admin.events.schools') }}"
+            <a href="{{ route('admin.events.index') }}"
                 class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                 <i class="bi bi-arrow-left me-2"></i> Kembali
             </a>

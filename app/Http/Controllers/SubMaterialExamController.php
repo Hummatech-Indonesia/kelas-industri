@@ -13,6 +13,7 @@ use App\Repositories\MaterialRepository;
 use App\Services\SubMaterialExamService;
 use App\Repositories\QuestionBankRepository;
 use App\Http\Requests\SubMaterialExamRequest;
+use App\Http\Requests\SubMaterialExamUpdateRequest;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use App\Repositories\SubMaterialExamRepository;
 use App\Services\StudentSubMaterialExamService;
@@ -177,10 +178,10 @@ class SubMaterialExamController extends Controller
      * @param  \App\Models\SubMaterialExam  $subMaterialExam
      * @return \Illuminate\Http\Response
      */
-    public function update(SubMaterialExamRequest $request, SubMaterialExam $subMaterialExam)
+    public function update(SubMaterialExamUpdateRequest $request, SubMaterialExam $subMaterialExam)
     {
         $this->service->handleUpdate($request, $subMaterialExam->id);
-        return redirect()->back()->with('success', trans('alert.add_success'));
+        return redirect()->back()->with('success', trans('alert.update_success'));
     }
 
     /**

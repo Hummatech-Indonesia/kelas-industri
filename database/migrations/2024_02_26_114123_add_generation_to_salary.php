@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('salaries', function (Blueprint $table) {
-            //
-            $table->foreignId('generation_id')->constrained('generations')->cascadeOnUpdate()->cascadeOnDelete()->after('user_id')->nullable();
+            $table->foreignId('generation_id')->nullable()->constrained('generations')->cascadeOnUpdate()->cascadeOnDelete()->after('user_id');
         });
     }
 

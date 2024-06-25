@@ -637,7 +637,7 @@
                                                                     @if (Carbon::parse($challenge->end_date)->locale('id')->isPast())
                                                                         <span
                                                                             class="badge py-3 px-4 fs-7 badge-light-danger">Ditutup</span>
-                                                                    @elseif (!Carbon::parse($challenge->start_date)->locale('id')->isPast())
+                                                                    @elseif (!Carbon::parse($challenge->start_date)->locale('id') < now())
                                                                         <span
                                                                             class="badge py-3 px-4 fs-7 badge-light-success">Berlangsung</span>
                                                                     @else
@@ -661,7 +661,7 @@
                                                                 </td>
 
                                                                 <td class="text-end">
-                                                                    <a href="{{ route('mentor.challenges.show', $challenge->id) }}"
+                                                                    <a href="{{ route('teacher.challenges.show', $challenge->id) }}"
                                                                         class="btn btn-sm btn-icon btn-bg-light btn-active-color-warning w-30px h-30px">
                                                                         <i class="bi bi-eye"></i>
                                                                     </a>
@@ -897,17 +897,19 @@
                                                                 </td>
 
                                                                 <td class="text-center">
-                                                                    @if (Carbon::parse($challenge->end_date)->locale('id')->isPast())
+                                                                    {{-- @if (Carbon::parse($challenge->end_date)->locale('id') < now())
                                                                         <span
                                                                             class="badge py-3 px-4 fs-7 badge-light-danger">Ditutup</span>
-                                                                    @elseif (!Carbon::parse($challenge->start_date)->locale('id')->isPast())
+                                                                    @elseif (!Carbon::parse($challenge->start_date)->locale('id') < now())
                                                                         <span
                                                                             class="badge py-3 px-4 fs-7 badge-light-success">Berlangsung</span>
-                                                                    @else
-                                                                        <span
+                                                                            @else
+                                                                            <span
                                                                             class="badge py-3 px-4 fs-7 badge-light-warning">Belum
                                                                             Dimulai</span>
-                                                                    @endif
+                                                                            @endif --}}
+                                                                    <span
+                                                                        class="badge py-3 px-4 fs-7 badge-light-success">Berlangsung</span>
                                                                 </td>
 
                                                                 <td class="text-center pe-12">

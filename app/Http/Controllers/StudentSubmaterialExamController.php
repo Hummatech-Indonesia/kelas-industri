@@ -93,6 +93,7 @@ class StudentSubmaterialExamController extends Controller
 
         $answerKey = $this->questionBank->getAnswerByQuestion(collect($sortedQuestionsMultipleChoice)->pluck('id')->toArray());
 
+        dd($request);
         $data = $this->service->calculate($request, $answerKey, $subMaterialExam);
 
         $data['finished_count'] = $studentSubmaterialExam->finished_count + 1;

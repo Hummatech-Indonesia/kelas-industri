@@ -369,7 +369,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('admin.studentRegistration') ? 'active' : '' }}"
+                        <a class="menu-link {{ request()->routeIs('admin.studentRegistration') || request()->routeIs('admin.wrongInput') ? 'active' : '' }}"
                             href="{{ route('admin.studentRegistration') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
@@ -409,8 +409,8 @@
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('admin.events.schools') ? 'active' : '' }}"
-                            href="{{ route('admin.events.schools') }}">
+                        <a class="menu-link {{ request()->routeIs('admin.events.index') ? 'active' : '' }}"
+                            href="{{ route('admin.events.index') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
                                 <i class="bi bi-megaphone-fill fs-1"></i>
@@ -440,7 +440,7 @@
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('admin.exam.*') || request()->routeIs('admin.showClassroom') || request()->routeIs('admin.showStudent') || request()->routeIs('admin.showEvaluation') ? 'active' : '' }}"
+                        <a class="menu-link {{ request()->routeIs('admin.exam.*') || request()->routeIs('admin.showClassroom') || request()->routeIs('admin.showStudent') || request()->routeIs('admin.showEvaluation') || request()->routeIs('admin.createExam') ? 'active' : '' }}"
                             href="{{ route('admin.exam.index') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
