@@ -45,10 +45,14 @@ class StudentExamService
 
     public function calculate(AnswerSubmaterialExamRequest $request, mixed $answerKeys, SubMaterialExam $subMaterialExam): mixed
     {
+        // dd($request);
         if ($request->answer_essay) {
             $studentSubMaterialExam = $this->repository->getWhere([$subMaterialExam->id]);
             for ($i = 0; $i < count($request->answer_essay); $i++) {
                 $data['answer'] = $request->answer_essay[$i];
+                if($data['answer']['answer'] == null)  {
+                    $data['answer']['answer_value'] = 0;
+                }
                 $studentSubMaterialExam->studentSubMaterialExamAnswers()->create($data['answer']);
             }
         }

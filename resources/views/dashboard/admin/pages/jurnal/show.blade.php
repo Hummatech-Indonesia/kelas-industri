@@ -83,8 +83,13 @@
                                             </svg>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.journal.attendance', ['classroom'=> $journal->classroom, 'journal' => $journal->id]) }}"
-                                                class="btn-absent btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Absensi</a>
+                                            @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                                                <a href="{{ route('admin.journal.attendance', ['classroom' => $journal->classroom, 'journal' => $journal->id]) }}"
+                                                    class="btn-absent btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Absensi</a>
+                                            @elseif (auth()->user()->roles->pluck('name')[0] == 'school')
+                                                <a href="{{ route('school.journal.attendance', ['classroom' => $journal->classroom, 'journal' => $journal->id]) }}"
+                                                    class="btn-absent btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Absensi</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -100,7 +105,7 @@
         </div>
         <x-delete-modal-component />
     </div>
-    <div class="modal fade" tabindex="-1" id="kt_modal_absent">
+    {{-- <div class="modal fade" tabindex="-1" id="kt_modal_absent">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -121,7 +126,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="modal fade" tabindex="-1" id="kt_modal_description">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -184,7 +189,7 @@
 
         $('.btn-description').click(function() {
             var description = $(this).data('description')
-            $('#description').html(description)
+            $('#description').text(description)
             $('#kt_modal_description').modal('show')
         });
 

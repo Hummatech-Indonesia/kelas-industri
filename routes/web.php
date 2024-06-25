@@ -316,6 +316,7 @@ Route::middleware('auth.custom')->group(function () {
         });
 
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
+        Route::get('/detailJurnal/{classroom}/{journal}', [JurnalController::class, 'detailAttendance'])->name('journal.attendance');
 
         Route::resource('teachers', TeacherController::class)->only('index');
         Route::resource('students', StudentController::class)->only('index');

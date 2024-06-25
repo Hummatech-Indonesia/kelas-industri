@@ -34,18 +34,22 @@ class PaymentService
     }
     public function handleBySchoolGroupUser($dependent, $schoolId): mixed
     {
-        $data = $this->payment->getBySchoolGroupUser($dependent->semester, $schoolId);
-        $totalPayment = 0;
-        $studentPayment =  ['paid_off' => 0, 'not_yet_paid_off' => 0];
-        foreach ($data as $user => $payments) {
-            foreach ($payments as $payment) {
-                $totalPayment += $payment->total_pay;
+        if (isset($dependent->semester)) {
+            $data = $this->payment->getBySchoolGroupUser($dependent->semester, $schoolId);
+            $totalPayment = 0;
+            $studentPayment =  ['paid_off' => 0, 'not_yet_paid_off' => 0];
+            foreach ($data as $user => $payments) {
+                foreach ($payments as $payment) {
+                    $totalPayment += $payment->total_pay;
+                }
+                if ($totalPayment == $dependent->nominal) {
+                    $studentPayment['paid_off']++;
+                } else {
+                    $studentPayment['not_yet_paid_off']++;
+                }
             }
-            if ($totalPayment == $dependent->nominal) {
-                $studentPayment['paid_off']++;
-            } else {
-                $studentPayment['not_yet_paid_off']++;
-            }
+        } else {
+            $studentPayment =  ['paid_off' => 0, 'not_yet_paid_off' => 0];
         }
         return $studentPayment;
     }

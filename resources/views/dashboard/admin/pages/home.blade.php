@@ -111,7 +111,7 @@
                             </h3>
                             <!--end::Title-->
                             <div class="overflow-auto" style="max-height: 300px;">
-                                @foreach ($rankings as $index => $ranking)
+                                @forelse ($rankings as $index => $ranking)
                                     <div class="d-flex mb-3 flex-stack">
                                         <!--begin::Symbol-->
                                         <div class="symbol symbol-40px me-4">
@@ -150,7 +150,9 @@
                                         </div>
                                         <!--end::Section-->
                                     </div>
-                                @endforeach
+                                @empty
+                                <x-empty-component title="siswa" />
+                                @endforelse
                             </div>
                         </div>
                         <!--end::Body-->

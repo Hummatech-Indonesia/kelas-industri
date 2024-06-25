@@ -184,7 +184,11 @@
                                                                         Jawaban
                                                                     </div>
                                                                     <div class="mt-3 fw-semibold fs-6">
-                                                                        {{ $answer->answer }}
+                                                                        @if ($answer->answer)
+                                                                            {{ $answer->answer }}
+                                                                        @else
+                                                                            <span class="badge badge-danger">Tidak dijawab</span>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
 
