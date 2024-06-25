@@ -33,111 +33,110 @@ class CertifyController extends Controller
      */
     public function certify(Request $request, Material $material, Classroom $classroom)
     {
-        // $countAssignmentByMaterial = $this->assignmentService->handleAssignmentByMaterialCertify($material->id);
+        $countAssignmentByMaterial = $this->assignmentService->handleAssignmentByMaterialCertify($material->id);
 
         $countAssignment = $this->assignmentService->countAssignmentsByMaterial($material->id, auth()->user());
 
-        // if ($countAssignmentByMaterial == $countAssignment) {
+        if ($countAssignmentByMaterial == $countAssignment) {
 
-        $class = $this->convertRomanToNumber(substr($classroom->name, 0, 1));
+            $class = $this->convertRomanToNumber(substr($classroom->name, 0, 1));
 
-        $img = ImageManager::gd()->read('certificate/templateSertifikat/materi.png');
+            $img = ImageManager::gd()->read('certificate/templateSertifikat/materi.png');
 
-        $text = 'sertifikat';
-        $text = strtoupper($text);
-        $spacedText = implode(' ', str_split($text));
-        $img->text($spacedText, 1010, 230, function ($font) {
-            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
-            $font->size(100);
-            $font->align('center');
-            $font->valign('top');
-        });
-        $img->text('No .', 680, 340, function ($font) {
-            $font->file('fonts/merriweather/Merriweather-Regular.ttf');
-            $font->size(42);
-            $font->align('center');
-            $font->valign('top');
-        });
-        $text = $class . substr($classroom->generation->generation, 9) . Carbon::now()->locale('id')->format('ymd') . substr(auth()->user()->national_student_id, 6);
-        $spacedText = implode('  ', str_split($text));
-        $img->text($spacedText, 1045, 340, function ($font) {
-            $font->file('fonts/poppins/Poppins-Regular.ttf');
-            $font->size(42);
-            $font->align('center');
-            $font->valign('top');
-        });
-        $img->text('diberikan kepada :', 995, 420, function ($font) {
-            $font->file('fonts/open-sans/OpenSans-Italic.ttf');
-            $font->size(40);
-            $font->color('77838D');
-            $font->align('center');
-            $font->valign('top');
-        });
-        $img->text(auth()->user()->name, 1000, 500, function ($font) {
-            $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
-            $font->size(140);
-            $font->align('center');
-            $font->valign('top');
-        });
-        $img->text('Dari ' . auth()->user()->studentSchool->school->name, 1000, 700, function ($font) {
-            $font->file('fonts/open-sans/OpenSans-Bold.ttf');
-            $font->size(34);
-            $font->align('center');
-            $font->valign('top');
-        });
-        $img->text('Telah menyelesaikan materi', 1000, 775, function ($font) {
-            $font->file('fonts/open-sans/OpenSans-Regular.ttf');
-            $font->size(30);
-            $font->align('center');
-            $font->valign('top');
-        });
-        $img->text($material->title, 1000, 830, function ($font) {
-            $font->file('fonts/open-sans/OpenSans-Bold.ttf');
-            $font->size(30);
-            $font->align('center');
-            $font->valign('top');
-        });
-        $img->text(Carbon::parse(now())->locale('id')->isoFormat('D MMMM YYYY'), 1000, 885, function ($font) {
-            $font->file('fonts/open-sans/OpenSans-Regular.ttf');
-            $font->size(30);
-            $font->align('center');
-            $font->valign('top');
-        });
-        $img->text('Verifikasi Sertifikat', 1505, 1185, function ($font) {
-            $font->file('fonts/open-sans/OpenSans-Bold.ttf');
-            $font->size(30);
-            $font->align('center');
-        });
-        $img->text('class.hummatech.com/sertifikat/example', 1360, 1240, function ($font) {
-            $font->file('fonts/open-sans/OpenSans-Regular.ttf');
-            $font->size(30);
-            $font->align('center');
-        });
+            $text = 'sertifikat';
+            $text = strtoupper($text);
+            $spacedText = implode(' ', str_split($text));
+            $img->text($spacedText, 1010, 230, function ($font) {
+                $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
+                $font->size(100);
+                $font->align('center');
+                $font->valign('top');
+            });
+            $img->text('No .', 680, 340, function ($font) {
+                $font->file('fonts/merriweather/Merriweather-Regular.ttf');
+                $font->size(42);
+                $font->align('center');
+                $font->valign('top');
+            });
+            $text = $class . substr($classroom->generation->generation, 9) . Carbon::now()->locale('id')->format('ymd') . substr(auth()->user()->national_student_id, 6);
+            $spacedText = implode('  ', str_split($text));
+            $img->text($spacedText, 1045, 340, function ($font) {
+                $font->file('fonts/poppins/Poppins-Regular.ttf');
+                $font->size(42);
+                $font->align('center');
+                $font->valign('top');
+            });
+            $img->text('diberikan kepada :', 995, 420, function ($font) {
+                $font->file('fonts/open-sans/OpenSans-Italic.ttf');
+                $font->size(40);
+                $font->color('77838D');
+                $font->align('center');
+                $font->valign('top');
+            });
+            $img->text(auth()->user()->name, 1000, 500, function ($font) {
+                $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
+                $font->size(140);
+                $font->align('center');
+                $font->valign('top');
+            });
+            $img->text('Dari ' . auth()->user()->studentSchool->school->name, 1000, 700, function ($font) {
+                $font->file('fonts/open-sans/OpenSans-Bold.ttf');
+                $font->size(34);
+                $font->align('center');
+                $font->valign('top');
+            });
+            $img->text('Telah menyelesaikan materi', 1000, 775, function ($font) {
+                $font->file('fonts/open-sans/OpenSans-Regular.ttf');
+                $font->size(30);
+                $font->align('center');
+                $font->valign('top');
+            });
+            $img->text($material->title, 1000, 830, function ($font) {
+                $font->file('fonts/open-sans/OpenSans-Bold.ttf');
+                $font->size(30);
+                $font->align('center');
+                $font->valign('top');
+            });
+            $img->text(Carbon::parse(now())->locale('id')->isoFormat('D MMMM YYYY'), 1000, 885, function ($font) {
+                $font->file('fonts/open-sans/OpenSans-Regular.ttf');
+                $font->size(30);
+                $font->align('center');
+                $font->valign('top');
+            });
+            $img->text('Verifikasi Sertifikat', 1505, 1185, function ($font) {
+                $font->file('fonts/open-sans/OpenSans-Bold.ttf');
+                $font->size(30);
+                $font->align('center');
+            });
+            $img->text('class.hummatech.com/sertifikat/example', 1360, 1240, function ($font) {
+                $font->file('fonts/open-sans/OpenSans-Regular.ttf');
+                $font->size(30);
+                $font->align('center');
+            });
 
-        // Generate QR code and store it in output buffer
-        ob_start();
-        QrCode::size(100)->format('png')->generate(route('material.cerify-certification', ['material' => $material->id, 'classroom' => $classroom->id, 'user' => auth()->user()->id]), 'php://output');
-        // QrCode::size(100)->format('png')->generate('https//class.hummatech.com', 'php://output');
-        $qrImage = ob_get_clean();
+            // Generate QR code and store it in output buffer
+            ob_start();
+            QrCode::size(100)->format('png')->generate(route('material.cerify-certification', ['material' => $material->id, 'classroom' => $classroom->id, 'user' => auth()->user()->id]), 'php://output');
+            // QrCode::size(100)->format('png')->generate('https//class.hummatech.com', 'php://output');
+            $qrImage = ob_get_clean();
 
-        // Create image from the QR code string and place it at the bottom-right of the certificate
-        $qrcode = ImageManager::gd()->read($qrImage);
-        $img->place($qrcode, 'bottom-right', 200, 170);
+            // Create image from the QR code string and place it at the bottom-right of the certificate
+            $qrcode = ImageManager::gd()->read($qrImage);
+            $img->place($qrcode, 'bottom-right', 200, 170);
 
-        // Membuat direktori jika belum ada
-        $directory = storage_path('app/public/storage/sertifikat');
-        File::makeDirectory($directory, $mode = 0777, true, true);
+            // Membuat direktori jika belum ada
+            $directory = storage_path('app/public/storage/sertifikat');
+            File::makeDirectory($directory, $mode = 0777, true, true);
 
-        // Simpan gambar
-        $imgPath = $directory . '/sertifikat.png';
-        $img->save($imgPath);
+            // Simpan gambar
+            $imgPath = $directory . '/sertifikat.png';
+            $img->save($imgPath);
 
-        // Return response download
-        return response()->download($imgPath, 'sertifikat.png');
-        // return response()->file($imgPath, ['Content-Type' => 'image/png']);
-        // }
-
-        // return redirect()->back()->with('error', trans('Tidak bisa mengunduh sertifikat karena anda belum menyelesaikan semua tugas pada materi ' . $material->title));
+            // Return response download
+            return response()->download($imgPath, 'sertifikat.png');
+        } else {
+            return redirect()->back()->with('error', trans('Tidak bisa mengunduh sertifikat karena anda belum menyelesaikan semua tugas pada materi ' . $material->title));
+        }
     }
 
 
@@ -147,10 +146,24 @@ class CertifyController extends Controller
             'subMaterials.subMaterialExams.studentSubmaterialExams' => function ($query) {
                 $query->where('student_id', auth()->user()->id)
                     ->select('sub_material_exam_id', 'score');
+            },
+            'subMaterials.assignments.StudentSubmitAssignment' => function ($query) {
+                $query->where('student_id', auth()->user()->id)
+                    ->select('assignment_id', 'point');
             }
-        ])->get();
+        ])->where('generation_id', $classroom->generation_id)
+            ->get();
 
         $groupedScores = $studentScores->map(function ($material) {
+
+            $totalAssignmentCount = $material->subMaterials->sum(function ($subMaterial) {
+                return $subMaterial->assignments->count();
+            });
+
+            $totalExamCount = $material->subMaterials->sum(function ($subMaterial) {
+                return $subMaterial->subMaterialExams->count();
+            });
+
             $subMaterialScores = $material->subMaterials->flatMap(function ($subMaterial) {
                 return $subMaterial->subMaterialExams->flatMap(function ($subMaterialExam) {
                     return $subMaterialExam->studentSubmaterialExams->map(function ($studentSubmaterialExam) {
@@ -170,7 +183,7 @@ class CertifyController extends Controller
 
             $assignmentScores = $material->subMaterials->flatMap(function ($subMaterial) {
                 return $subMaterial->assignments->flatMap(function ($assignment) {
-                    return $assignment->StudentSubmitAssignment->where('student_id', auth()->id())->map(function ($studentAssignment) {
+                    return $assignment->StudentSubmitAssignment->map(function ($studentAssignment) {
                         return [
                             'assignment_id' => $studentAssignment->assignment_id,
                             'point' => $studentAssignment->point,
@@ -182,25 +195,27 @@ class CertifyController extends Controller
                     return [
                         'total_score' => $scores->sum('point'),
                     ];
-                })->avg('total_score');
+                });
 
             $totalExamScore = $subMaterialScores->reduce(function ($carry, $item) {
                 return $carry + $item['total_score'];
             }, 0);
 
-            // $totalAssignmentScore = $assignmentScores->reduce(function ($carry, $item) {
-            //     return $carry + $item['total_score'];
-            // }, 0);
+            $totalAssignmentScore = $assignmentScores->reduce(function ($carry, $item) {
+                return $carry + $item['total_score'];
+            }, 0);
 
-            $totalScore = ($totalExamScore * 0.6) + ($assignmentScores * 0.4);
+            $assignmentScore = $totalAssignmentScore / $totalAssignmentCount;
+
+            $examScore = $totalExamScore / $totalExamCount;
+
+            $totalScore = ($examScore * 0.6) + ($assignmentScore * 0.4);
 
             return [
                 'material' => $material->title,
-                'total_score' => $totalScore,
+                'total_score' => intval($totalScore),
             ];
         });
-
-        // dd($groupedScores);
 
         // halaman awal
 
@@ -208,12 +223,12 @@ class CertifyController extends Controller
 
         $img = ImageManager::gd()->read('certificate/templateSertifikat/uas.png');
 
-        $text = 'sertifikat';
+        $text = 'uji kompetensi';
         $text = strtoupper($text);
         $spacedText = implode(' ', str_split($text));
         $img->text($spacedText, 1010, 230, function ($font) {
             $font->file('fonts/tex-gyre-termes/texgyretermes-regular.otf');
-            $font->size(100);
+            $font->size(80);
             $font->align('center');
             $font->valign('top');
         });
@@ -250,18 +265,13 @@ class CertifyController extends Controller
             $font->align('center');
             $font->valign('top');
         });
-        $img->text('Telah menyelesaikan materi', 1000, 775, function ($font) {
+        $img->text('Telah Menyelesaikan Semua Materi di Kelas ' . $class, 1000, 775, function ($font) {
             $font->file('fonts/open-sans/OpenSans-Regular.ttf');
             $font->size(30);
             $font->align('center');
             $font->valign('top');
         });
-        // $img->text($material->title, 1000, 830, function ($font) {
-        //     $font->file('fonts/open-sans/OpenSans-Bold.ttf');
-        //     $font->size(30);
-        //     $font->align('center');
-        //     $font->valign('top');
-        // });
+
         $img->text(Carbon::parse(now())->locale('id')->isoFormat('D MMMM YYYY'), 1000, 885, function ($font) {
             $font->file('fonts/open-sans/OpenSans-Regular.ttf');
             $font->size(30);
@@ -400,7 +410,7 @@ class CertifyController extends Controller
         $pdf->setPaper('a4', 'landscape'); // Set the paper size and orientation
         $pdf->setPaper([0, 0, 841.89, 595.28]);
         $pdf->loadHTML('<html><body style="margin: 0; padding: 0;"><img src="data:image/png;base64,' . base64_encode($img->toPng()) . '" style="width:100%;"><br><img src="data:image/png;base64,' . base64_encode($scoreImg->toPng()) . '" style="width:100%;"></body></html>');
-        return $pdf->download('certificate.pdf');
+        return $pdf->download('certifyCompetenceTest.pdf');
     }
 
     public function eventCertify(Request $request, Event $event, EventPartisipant $participant)

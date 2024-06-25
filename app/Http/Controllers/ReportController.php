@@ -67,7 +67,7 @@ class ReportController extends Controller
     public function detail(Classroom $classroom){
         $reports = $this->submitAssignmentService->handleGetReportStudent($classroom->id);
         $totalAssignment = $this->submitAssignmentService->handleGetTotalAssignment();
-        $totalAcceptAssignment = $this->submitAssignmentService->handleGetTotalAcceptAssignment();
+        // $totalAcceptAssignment = $this->submitAssignmentService->handleGetTotalAcceptAssignment();
         // dd($totalAcceptAssignment);
         return view('dashboard.admin.pages.report.detail', compact('reports','totalAssignment'));
     }

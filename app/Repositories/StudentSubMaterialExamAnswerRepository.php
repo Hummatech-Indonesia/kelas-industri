@@ -25,7 +25,7 @@ class StudentSubMaterialExamAnswerRepository extends BaseRepository
     public function scoreAnswerValue(mixed $id, $question_number):mixed
     {
         return $this->model->query()
-        ->where('student_submaterial_exam_id', $id)
+        ->where('student_exam_id', $id)
         ->where('student_question_number', $question_number)
         ->first();
     }
@@ -40,11 +40,11 @@ class StudentSubMaterialExamAnswerRepository extends BaseRepository
     public function updateValue(mixed $id, $question_number, array $data): mixed
     {
         return $this->model->query()
-        ->where('student_submaterial_exam_id', $id)
+        ->where('student_exam_id', $id)
         ->where('student_question_number', $question_number)
         ->update($data);
     }
-    
+
     public function get_graded_answer($studentSubMaterialExamId): mixed {
         return $this->model->query()
         ->whereRelation('studentSubmaterialExam', 'id', $studentSubMaterialExamId)

@@ -43,8 +43,8 @@
         </div>
 
     </div>
-     <!--begin::Content container-->
-     <div id="kt_content" class="app-container  container-fluid ">
+    <!--begin::Content container-->
+    <div id="kt_content" class="app-container  container-fluid ">
         <div class="row">
             <div class="card ">
                 <div class="card-header card-header-stretch">
@@ -52,16 +52,20 @@
                     <div class="card-toolbar">
                         <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0">
                             <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_uts_ganjil">UTS Semester Ganjil</a>
+                                <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_uts_ganjil">UTS Semester
+                                    Ganjil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_uts_genap">UTS Semester Genap</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_uts_genap">UTS Semester
+                                    Genap</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_uas_ganjil">UAS Semester Ganjil</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_uas_ganjil">UAS Semester
+                                    Ganjil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_uas_genap">UAS Semester Genap</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_uas_genap">UAS Semester
+                                    Genap</a>
                             </li>
                         </ul>
                     </div>
@@ -69,7 +73,11 @@
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="kt_tab_pane_uts_ganjil" role="tabpanel">
-                            @if ($exams->where('exam_type','uts')->where('semester','ganjil')->count() > 0)
+                            @if ($exams->where('exam_type', 'uts')->where('semester', 'ganjil')->count() > 0)
+                                <a href="{{ route('admin.exportUAS', ['exam' => 'uts', 'semester' => 'ganjil']) }}"
+                                    class="btn btn-sm btn-success mb-3">
+                                    Export Excel
+                                </a>
                                 <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                     <thead>
                                         <!--begin::Table row-->
@@ -77,8 +85,8 @@
                                             <th data-priority="1">No</th>
                                             <th data-priority="2">Nama</th>
                                             <th data-priority="3">Tingkat Kesulitan</th>
-                                            @foreach ($classroom->devision->criterias()->where('is_default',0)->get() as $criteria) 
-                                              <th data-priority="{{ $loop->iteration + 3}}">{{ $criteria->name }}</th>
+                                            @foreach ($classroom->devision->criterias()->where('is_default', 0)->get() as $criteria)
+                                                <th data-priority="{{ $loop->iteration + 3 }}">{{ $criteria->name }}</th>
                                             @endforeach
                                             @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                                 <th>Aksi</th>
@@ -89,13 +97,13 @@
                                     <!--end::Table head-->
                                     <!--begin::Table body-->
                                     <tbody class="fw-semibold text-gray-600">
-                                        @foreach ($exams->where('exam_type','uts')->where('semester','ganjil') as $exam)
+                                        @foreach ($exams->where('exam_type', 'uts')->where('semester', 'ganjil') as $exam)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $exam->studentClassroom->studentSchool->student->name }}</td>
                                                 <td>{{ $exam->task_level }}</td>
                                                 @foreach ($exam->examCriterias as $criteria)
-                                                   <td>{{ $criteria->score }}</td> 
+                                                    <td>{{ $criteria->score }}</td>
                                                 @endforeach
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                                     <td>
@@ -104,7 +112,8 @@
                                                                 <i class="fonticon-setting fs-3 text-warning"></i>
                                                             </button>
                                                         </a>
-                                                        <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{$exam->id}}">
+                                                        <button class="btn btn-default btn-sm p-1 btn-delete"
+                                                            data-id="{{ $exam->id }}">
                                                             <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
                                                     </td>
                                                 @endif
@@ -118,7 +127,11 @@
                             @endif
                         </div>
                         <div class="tab-pane fade show" id="kt_tab_pane_uts_genap" role="tabpanel">
-                            @if ($exams->where('exam_type','uts')->where('semester','genap')->count() > 0)
+                            @if ($exams->where('exam_type', 'uts')->where('semester', 'genap')->count() > 0)
+                                <a href="{{ route('admin.exportUAS', ['exam' => 'uts', 'semester' => 'genap']) }}"
+                                    class="btn btn-sm btn-success mb-3">
+                                    Export Excel
+                                </a>
                                 <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                     <thead>
                                         <!--begin::Table row-->
@@ -126,8 +139,8 @@
                                             <th data-priority="1">No</th>
                                             <th data-priority="2">Nama</th>
                                             <th data-priority="3">Tingkat Kesulitan</th>
-                                            @foreach ($classroom->devision->criterias()->where('is_default',0)->get() as $criteria) 
-                                              <th data-priority="{{ $loop->iteration + 3}}">{{ $criteria->name }}</th>
+                                            @foreach ($classroom->devision->criterias()->where('is_default', 0)->get() as $criteria)
+                                                <th data-priority="{{ $loop->iteration + 3 }}">{{ $criteria->name }}</th>
                                             @endforeach
                                             @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                                 <th>Aksi</th>
@@ -138,13 +151,13 @@
                                     <!--end::Table head-->
                                     <!--begin::Table body-->
                                     <tbody class="fw-semibold text-gray-600">
-                                        @foreach ($exams->where('exam_type','uts')->where('semester','genap') as $exam)
+                                        @foreach ($exams->where('exam_type', 'uts')->where('semester', 'genap') as $exam)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $exam->studentClassroom->studentSchool->student->name }}</td>
                                                 <td>{{ $exam->task_level }}</td>
                                                 @foreach ($exam->examCriterias as $criteria)
-                                                   <td>{{ $criteria->score }}</td> 
+                                                    <td>{{ $criteria->score }}</td>
                                                 @endforeach
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                                     <td>
@@ -153,7 +166,8 @@
                                                                 <i class="fonticon-setting fs-3 text-warning"></i>
                                                             </button>
                                                         </a>
-                                                        <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{$exam->id}}">
+                                                        <button class="btn btn-default btn-sm p-1 btn-delete"
+                                                            data-id="{{ $exam->id }}">
                                                             <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
                                                     </td>
                                                 @endif
@@ -167,7 +181,11 @@
                             @endif
                         </div>
                         <div class="tab-pane fade show" id="kt_tab_pane_uas_ganjil" role="tabpanel">
-                            @if ($exams->where('exam_type','uas')->where('semester','ganjil')->count() > 0)
+                            @if ($exams->where('exam_type', 'uas')->where('semester', 'ganjil')->count() > 0)
+                                <a href="{{ route('admin.exportUAS', ['exam' => 'uas', 'semester' => 'ganjil']) }}"
+                                    class="btn btn-sm btn-success mb-3">
+                                    Export Excel
+                                </a>
                                 <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                     <thead>
                                         <!--begin::Table row-->
@@ -175,8 +193,8 @@
                                             <th data-priority="1">No</th>
                                             <th data-priority="2">Nama</th>
                                             <th data-priority="3">Tingkat Kesulitan</th>
-                                            @foreach ($classroom->devision->criterias()->where('is_default',0)->get() as $criteria) 
-                                              <th data-priority="{{ $loop->iteration + 3}}">{{ $criteria->name }}</th>
+                                            @foreach ($classroom->devision->criterias()->where('is_default', 0)->get() as $criteria)
+                                                <th data-priority="{{ $loop->iteration + 3 }}">{{ $criteria->name }}</th>
                                             @endforeach
                                             @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                                 <th>Aksi</th>
@@ -187,13 +205,13 @@
                                     <!--end::Table head-->
                                     <!--begin::Table body-->
                                     <tbody class="fw-semibold text-gray-600">
-                                        @foreach ($exams->where('exam_type','uas')->where('semester','ganjil') as $exam)
+                                        @foreach ($exams->where('exam_type', 'uas')->where('semester', 'ganjil') as $exam)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $exam->studentClassroom->studentSchool->student->name }}</td>
                                                 <td>{{ $exam->task_level }}</td>
                                                 @foreach ($exam->examCriterias as $criteria)
-                                                   <td>{{ $criteria->score }}</td> 
+                                                    <td>{{ $criteria->score }}</td>
                                                 @endforeach
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                                     <td>
@@ -202,7 +220,8 @@
                                                                 <i class="fonticon-setting fs-3 text-warning"></i>
                                                             </button>
                                                         </a>
-                                                        <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{$exam->id}}">
+                                                        <button class="btn btn-default btn-sm p-1 btn-delete"
+                                                            data-id="{{ $exam->id }}">
                                                             <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
                                                     </td>
                                                 @endif
@@ -216,7 +235,11 @@
                             @endif
                         </div>
                         <div class="tab-pane fade show" id="kt_tab_pane_uas_genap" role="tabpanel">
-                            @if ($exams->where('exam_type','uas')->where('semester','genap')->count() > 0)
+                            @if ($exams->where('exam_type', 'uas')->where('semester', 'genap')->count() > 0)
+                                <a href="{{ route('admin.exportUAS', ['exam' => 'uas', 'semester' => 'genap']) }}"
+                                    class="btn btn-sm btn-success mb-3">
+                                    Export Excel
+                                </a>
                                 <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                     <thead>
                                         <!--begin::Table row-->
@@ -224,8 +247,8 @@
                                             <th data-priority="1">No</th>
                                             <th data-priority="2">Nama</th>
                                             <th data-priority="3">Tingkat Kesulitan</th>
-                                            @foreach ($classroom->devision->criterias()->where('is_default',0)->get() as $criteria) 
-                                              <th data-priority="{{ $loop->iteration + 3}}">{{ $criteria->name }}</th>
+                                            @foreach ($classroom->devision->criterias()->where('is_default', 0)->get() as $criteria)
+                                                <th data-priority="{{ $loop->iteration + 3 }}">{{ $criteria->name }}</th>
                                             @endforeach
                                             @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                                 <th>Aksi</th>
@@ -236,13 +259,13 @@
                                     <!--end::Table head-->
                                     <!--begin::Table body-->
                                     <tbody class="fw-semibold text-gray-600">
-                                        @foreach ($exams->where('exam_type','uas')->where('semester','genap') as $exam)
+                                        @foreach ($exams->where('exam_type', 'uas')->where('semester', 'genap') as $exam)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $exam->studentClassroom->studentSchool->student->name }}</td>
                                                 <td>{{ $exam->task_level }}</td>
                                                 @foreach ($exam->examCriterias as $criteria)
-                                                   <td>{{ $criteria->score }}</td> 
+                                                    <td>{{ $criteria->score }}</td>
                                                 @endforeach
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'admin')
                                                     <td>
@@ -251,7 +274,8 @@
                                                                 <i class="fonticon-setting fs-3 text-warning"></i>
                                                             </button>
                                                         </a>
-                                                        <button class="btn btn-default btn-sm p-1 btn-delete" data-id="{{$exam->id}}">
+                                                        <button class="btn btn-default btn-sm p-1 btn-delete"
+                                                            data-id="{{ $exam->id }}">
                                                             <i class="fonticon-trash-bin fs-2 text-danger"></i></button>
                                                     </td>
                                                 @endif

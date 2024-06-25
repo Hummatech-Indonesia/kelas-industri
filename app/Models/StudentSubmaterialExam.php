@@ -48,6 +48,6 @@ class StudentSubmaterialExam extends Model
      */
     public function studentSubMaterialExamAnswers(): HasMany
     {
-        return $this->hasMany(StudentSubmaterialExamAnswer::class);
+        return $this->hasMany(StudentSubmaterialExamAnswer::class, 'student_exam_id');
     }
 }

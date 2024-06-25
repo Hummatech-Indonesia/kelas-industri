@@ -125,7 +125,7 @@
                                                                     'student_question_number',
                                                                     $question->question_number,
                                                                 )
-                                                                ->where('student_submaterial_exam_id', $studentExam->id)
+                                                                ->where('student_exam_id', $studentExam->id)
                                                                 ->first();
                                                             $value = StudentSubmaterialExamAnswer::query()
                                                                 ->where(
@@ -133,7 +133,7 @@
                                                                     $question->question_number,
                                                                 )
                                                                 ->where(
-                                                                    'student_submaterial_exam_id',
+                                                                    'student_exam_id',
                                                                     $answer->studentSubmaterialExam->id,
                                                                 )
                                                                 ->select('answer_value')

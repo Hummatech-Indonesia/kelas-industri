@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('student_submaterial_exam_answers', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('student_submaterial_exam_id')->constrained('student_submaterial_exams')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('student_exam_id')->constrained('student_submaterial_exams')->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('student_question_number');
             $table->text('answer');
             $table->integer('answer_value')->nullable();

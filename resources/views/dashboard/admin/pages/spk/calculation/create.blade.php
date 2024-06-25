@@ -99,7 +99,7 @@
                                                 class="form-select rounded-start-0" data-control="select2"
                                                 data-placeholder="Pilih Kelas">
                                                 <option></option>
-                                                
+
                                             </select>
                                         </div>
                                         @else

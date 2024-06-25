@@ -257,6 +257,7 @@ Route::middleware('auth.custom')->group(function () {
         //student
         Route::post('/import-students', [StudentController::class, 'importStudents'])->name('importStudents');
 
+        Route::get('export/UAS/{exam}/{semester}', [ExamController::class, 'export'])->name('exportUAS');
         // Route::get('teacher-statistic', )
         // Route::get('print-report', )
     });

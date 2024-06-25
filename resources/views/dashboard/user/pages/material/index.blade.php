@@ -63,6 +63,14 @@
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
+                                <form class="me-3"
+                                        action="{{ route('certifyCompetenceTest', ['classroom' => $classroom->id]) }}"
+                                        method="get">
+                                        <button class="btn btn-primary h-40px fs-7 fw-bold">
+                                            Download Sertifikat Uji Kompetensi
+                                        </button>
+                                    </form>
+
                                     <a href="{{ route('common.classrooms') }}"
                                         class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                         <i class="bi bi-arrow-left me-2"></i> Kembali
@@ -108,9 +116,9 @@
                                         <div class="col-lg-2 col-md-12 ms-3">
                                             <button type="submit" class="btn btn-primary">Cari</button>
                                             <a href="{{ route('common.materials', ['classroom' => $classroom]) }}"
-                                                type="button" class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i
-                                                    class="fonticon-repeat"></i></a>
+                                                type="button" class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                         </div>
                                         <!--end::Input group-->
                                     </div>

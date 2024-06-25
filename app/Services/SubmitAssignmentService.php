@@ -29,10 +29,10 @@ class SubmitAssignmentService
         return $this->repository->getTotalAssignment();
     }
 
-    public function handleGetTotalAcceptAssignment()
-    {
-        return $this->repository->getCountAcceptAssignments();
-    }
+    // public function handleGetTotalAcceptAssignment()
+    // {
+    //     return $this->repository->getCountAcceptAssignments();
+    // }
 }
 
 

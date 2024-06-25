@@ -8,6 +8,7 @@ use App\Models\Classroom;
 use Illuminate\View\View;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
+use App\Exports\ReportExport;
 use App\Services\ExamService;
 use App\Services\UserServices;
 use App\Models\StudentClassroom;
@@ -15,6 +16,7 @@ use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\ExamRequest;
 use App\Services\ClassroomService;
 use App\Services\SchoolYearService;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
 {
@@ -227,5 +229,10 @@ class ExamController extends Controller
         if(!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+    public function export($exam, $semester)
+    {
+        return Excel::download(new ReportExport($exam, $semester), 'exam.xlsx');
     }
 }

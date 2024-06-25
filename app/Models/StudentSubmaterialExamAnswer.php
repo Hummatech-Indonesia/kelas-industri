@@ -15,7 +15,7 @@ class StudentSubmaterialExamAnswer extends Model
     protected $table = "student_submaterial_exam_answers";
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id', 'student_submaterial_exam_id', 'student_question_number', 'answer', 'answer_value'
+        'id', 'student_exam_id', 'student_question_number', 'answer', 'answer_value'
     ];
 
     /**
@@ -25,7 +25,7 @@ class StudentSubmaterialExamAnswer extends Model
      */
     public function studentSubmaterialExam(): BelongsTo
     {
-        return $this->belongsTo(StudentSubmaterialExam::class);
+        return $this->belongsTo(StudentSubmaterialExam::class, 'student_exam_id');
     }
 
     /**

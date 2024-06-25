@@ -32,7 +32,7 @@
                     <div class="card-body pt-0">
 
                         <!--begin::Table-->
-                        @if ($reports->count() > 0)
+                    @if ($reports->count() > 0)
                             <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                 <thead>
                                     <!--begin::Table row-->
