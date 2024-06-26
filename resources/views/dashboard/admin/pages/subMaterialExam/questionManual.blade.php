@@ -119,6 +119,8 @@
                                                 <input class="form-check-input" type="checkbox"
                                                     value="{{ $subMaterialQuestion->id }}" name="question_bank_id[]"
                                                     id="flexRadioLg" />
+                                                <input type="hidden" name="type" value="multiplechoice" id="">
+
                                             </div>
                                         </div>
 
@@ -150,7 +152,7 @@
                                                 <input class="form-check-input" type="checkbox"
                                                     value="{{ $subMaterialQuestion->id }}" name="question_bank_id[]"
                                                     id="flexRadioLg" />
-                                            
+
                                             </div>
                                         </div>
 

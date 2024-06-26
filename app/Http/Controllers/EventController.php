@@ -12,12 +12,8 @@ use App\Services\EventService;
 use App\Services\UserServices;
 use App\Services\SchoolService;
 use App\Http\Requests\EventRequest;
-
 use Illuminate\Contracts\View\View;
-use App\Http\Requests\UpdateEventRequest;
-
 use App\Services\EventParticipantService;
-use function PHPUnit\Framework\returnSelf;
 
 class EventController extends Controller
 {
@@ -60,13 +56,13 @@ class EventController extends Controller
     {
         $data = $this->GetDataSidebar();
         $data['events'] = $this->service->handleGetPaginate($request->search);
-        $config = HTMLPurifier_Config::createDefault();
-        $config->set('HTML.Allowed', '');
-        $purifier = new HTMLPurifier($config);
+        // $config = HTMLPurifier_Config::createDefault();
+        // $config->set('HTML.Allowed', '');
+        // $purifier = new HTMLPurifier($config);
 
-        foreach ($data['events'] as $event) {
-            $event->description = $purifier->purify($event->description);
-        }
+        // foreach ($data['events'] as $event) {
+        //     $event->description = $purifier->purify($event->description);
+        // }
         return view('dashboard.user.pages.event.index', $data);
     }
 

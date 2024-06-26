@@ -4,6 +4,7 @@ namespace App\Services;
 
 use HTMLPurifier;
 use HTMLPurifier_Config;
+use Illuminate\Http\Request;
 use App\Enums\ExamStatusEnum;
 use App\Enums\QuestionTypeEnum;
 use App\Models\SubMaterialExam;
@@ -22,25 +23,13 @@ class SubMaterialExamQuestionService
         $this->questionBankRepository = $questionBankRepository;
     }
 
-    public function fillManual(SubMaterialExam $submaterialExam, SubmaterialExamQuestionRequest $request): mixed
+    public function fillManual(SubMaterialExam $submaterialExam, Request $request): mixed
     {
-        $data = $request->validated();
-        $questionBanks = $this->questionBankRepository->whereIn($request->question_bank_id);
-        $config = HTMLPurifier_Config::createDefault();
-        $config->set('HTML.Allowed', '');
-        $purifier = new HTMLPurifier($config);
-
-        foreach ($questionBanks as $questionBank) {
-            if ($questionBank->type != $request->type) {
-                return redirect()->back()->with('error', 'Tipe soal ' . $purifier->purify($questionBank->question) . ' tidak bertipe ' . $request->type);
-            }
-        }
-
         $missingQuestionMultipleChoice = $this->getMissingQuestionMultipleChoice($submaterialExam);
         $missingQuestionEssay = $this->getMissingQuestionEssay($submaterialExam);
         $totalExamQuestion = $this->getTotalQuestion($submaterialExam);
 
-        if ($data['type'] == QuestionTypeEnum::MULTIPLECHOICE->value) {
+        if ($request->type == QuestionTypeEnum::MULTIPLECHOICE->value) {
             if ($missingQuestionMultipleChoice == 0) {
                 return redirect()->back()->with('error', 'Anda tidak bisa menambah soal pilihan ganda lagi karena soal sudah mencapai maksimal');
             } else if (count($request->question_bank_id) > $missingQuestionMultipleChoice) {

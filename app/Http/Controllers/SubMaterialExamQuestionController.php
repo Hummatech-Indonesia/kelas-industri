@@ -55,7 +55,7 @@ class SubMaterialExamQuestionController extends Controller
      * @param  Exam $exam
      * @return JsonResponse
      */
-    public function manual(SubMaterialExam $submaterialExam, SubmaterialExamQuestionRequest $request): mixed
+    public function manual(SubMaterialExam $submaterialExam, Request $request): mixed
     {
         $data = $this->service->fillManual($submaterialExam, $request);
         if (gettype($data) == 'array') {

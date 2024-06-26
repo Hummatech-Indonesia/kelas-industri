@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Gallery;
-use App\Services\GalleryService;
 use App\Http\Requests\GalleryRequest;
 use App\Repositories\GalleryRepository;
 use Illuminate\Support\Facades\Storage;

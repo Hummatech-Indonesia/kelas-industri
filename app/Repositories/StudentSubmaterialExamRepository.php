@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Helpers\RoleHelper;
+use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use App\Models\StudentSubmaterialExam;
-use Illuminate\Http\Request;
 
 class StudentSubmaterialExamRepository extends BaseRepository
 {
@@ -78,9 +79,10 @@ class StudentSubmaterialExamRepository extends BaseRepository
 
     public function getAvgValue(string $subMaterialExamId): mixed
     {
-        $classroomArry = [];
-        foreach (auth()->user()->mentorClassrooms as $classroom) {
-            array_push($classroomArry, $classroom->classroom_id);
+        if (RoleHelper::get_role() == 'mentor') {
+            $classroomArry = auth()->user()->mentorClassrooms->pluck('classroom_id')->toArray();
+        }else{
+            $classroomArry = auth()->user()->teacherSchool->teacherClassrooms->pluck('classroom_id')->toArray();
         }
 
         return $this->model->query()

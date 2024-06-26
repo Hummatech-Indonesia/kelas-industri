@@ -369,11 +369,6 @@
             <!-- /.wrapper -->
             <footer class="white-wrapper">
                 <div class="container">
-                    <div class="visible-print text-center">
-                        {!! QrCode::size(100)->generate('https://class.hummatech.com/') !!}
-
-                        <p>Scan me to return to the original page.</p>
-                    </div>
                     <div class="row">
 
                         <!-- /column -->

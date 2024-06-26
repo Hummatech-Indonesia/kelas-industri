@@ -14,6 +14,13 @@ use App\Services\ClassroomService;
 
 class WelcomeController extends Controller
 {
+    private UserServices $userService;
+    private ClassroomService $classroomService;
+    private MaterialService $materialService;
+    private MentorService $mentorService;
+    private GalleryService $galleryService;
+    private NewsService $newsService;
+    private EventService $eventService;
 
     public function __construct(UserServices $userService, ClassroomService $classroomService, MaterialService $materialService, MentorService $mentorService, GalleryService $galleryService, NewsService $newsService, EventService $eventService)
     {
@@ -42,13 +49,13 @@ class WelcomeController extends Controller
         $data = [
             'events' => $this->eventService->handleGetAll()
         ];
-        $config = HTMLPurifier_Config::createDefault();
-        $config->set('HTML.Allowed', '');
-        $purifier = new HTMLPurifier($config);
+        // $config = HTMLPurifier_Config::createDefault();
+        // $config->set('HTML.Allowed', '');
+        // $purifier = new HTMLPurifier($config);
 
-        foreach ($data['events'] as $event) {
-            $event->description = $purifier->purify($event->description);
-        }
+        // foreach ($data['events'] as $event) {
+        //     $event->description = $purifier->purify($event->description);
+        // }
         return view('event', $data);
     }
     public function eventDetail($event)

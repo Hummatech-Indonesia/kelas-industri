@@ -30,14 +30,10 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    {{ $event->id }}
+                                    {{-- Selamat datang, {{ auth()->user()->name }} --}}
+                                    Detail Event
                                 </h1>
                                 <!--end::Title-->
-
-                                <!--begin::Breadcrumb-->
-                                {{-- <p class="fw-semibold fs-7 my-0 text-muted">List
-                                    tantangan {{ auth()->user()->name }}</p> --}}
-                                <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
@@ -171,7 +167,7 @@
                         </div>
                         {{-- @dd($event->start_date) --}}
                         @if ($participant && $participant['following'])
-                            @if ($event->start_date > now())
+                            @if ($event->start_date < now())
                                 <form action="{{ route('student.events.unfollow', $event->id) }}" method="POST"
                                     class="text-end pb-16" id="unfollow-form">
                                     @method('delete')
@@ -184,7 +180,7 @@
                                     <button class="btn btn-light-primary py-2">Telah Mengikuti</button>
                                 </div>
                             @endif
-                        @elseif($event->start_date > Carbon::now()->locale('id'))
+                        @elseif($event->start_date < Carbon::now()->locale('id'))
                             <form action="{{ route('student.events.follow', $event->id) }}" method="POST"
                                 class="text-end pb-16" id="follow-form">
                                 @csrf

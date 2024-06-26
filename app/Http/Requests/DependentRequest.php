@@ -18,7 +18,7 @@ class DependentRequest extends FormRequest
         return [
             'semester' => 'required',
             'classroom_id' => [
-                'required',
+                'nullable',
                 Rule::unique('dependents')->where(function ($query) {
                     return $query->where('semester', $this->semester);
                 }),
@@ -31,7 +31,6 @@ class DependentRequest extends FormRequest
     {
         return [
             'semester.required' => 'Semester wajib diisi',
-            'classroom_id.required' => 'Kelas wajib diisi',
             'classroom_id.unique' => 'Semester yang anda  masukkan sudah ada pada kelas yang anda pilih',
             'nominal.required' => 'Nominal wajib diisi',
             'nominal.numeric' => 'Nominal harus diisi angka',

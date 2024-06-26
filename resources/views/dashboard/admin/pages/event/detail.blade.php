@@ -760,22 +760,26 @@
 
             <div class="mb-7">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-2">
                         <p>Acara</p>
                     </div>
-                    <div class="col-11">: {{ $event->title }}</div>
-                    <div class="col">
-                        <p>Tanggal</p>
+                    <div class="col-10">: {{ $event->title }}</div>
+                    <div class="col-2">
+                        <p>Tanggal Mulai</p>
                     </div>
-                    <div class="col-11">: {{ Carbon::parse($event->start_date)->format('H:m') }}</div>
-                    <div class="col">
-                        <p>Waktu</p>
+                    <div class="col-10">: {{ Carbon::parse($event->start_date)->locale('id')->isoFormat('D MMMM YYYY') }}</div>
+                    <div class="col-2">
+                        <p>Tanggal Berakhir</p>
                     </div>
-                    <div class="col-11">: {{ $event->title }}</div>
-                    <div class="col">
+                    <div class="col-10">: {{ Carbon::parse($event->end_date)->locale('id')->isoFormat('D MMMM YYYY') }}</div>
+                    <div class="col-2">
+                        <p>Batas Peserta</p>
+                    </div>
+                    <div class="col-10">: {{ $event->limit_participant }} Orang</div>
+                    <div class="col-2">
                         <p>Tempat</p>
                     </div>
-                    <div class="col-11">: {{ $event->location }}</div>
+                    <div class="col-10">: {{ $event->location }}</div>
                 </div>
             </div>
         </div>

@@ -88,9 +88,9 @@
                                                 <a href="{{ route('student.events.show', $event->id) }}"
                                                     class="text-hover-primary fw-bolder h6 mb-2">{{ $event->title }}
                                                 </a>
-                                                <div class="badge badge-light-primary">Diikuti</div>
+                                                {{-- <div class="badge badge-light-primary">Diikuti</div> --}}
                                             </div>
-                                            <p class="short-description">{{ $event->description }}</p>
+                                            <p class="short-description">{!! $event->description !!}</p>
                                         </div>
                                     </div>
                                 </div>

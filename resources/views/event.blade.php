@@ -278,14 +278,14 @@
             </div>
             <div class="col-12 mt-5">
                 <div class="row g-2">
-                    @foreach ($events as $event)
+                    @forelse ($events as $event)
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="card p-3 mb-3">
                                 <div class="position-relative">
-                                    <img src="{{ asset("storage/$event->thumnail") }}"
-                                        alt="" class="img-fluid rounded shadow">
-                                    <div class="position-absolute bg-white rounded shadow mb-3"
-                                        style="bottom: -25%; color:#009EF7;">
+                                    <img src="{{ asset("storage/$event->thumnail") }}" alt=""
+                                        class="img-fluid rounded shadow">
+                                    <div class="position-absolute bg-white rounded shadow"
+                                        style="bottom: -5%; color:#009EF7;">
                                         {{ Carbon::parse($event->start_date)->isoFormat('DD MMMM Y') }}
                                     </div>
                                 </div>
@@ -298,15 +298,20 @@
                                     </h5>
                                 </div>
                                 <div class="ms-1">
-                                    <a href="{{ route('detail-events', $event->id) }}"
-                                        class="hover fw-bold mb-2">
+                                    <a href="{{ route('detail-events', $event->id) }}" class="hover fw-bold mb-2">
                                         {{ $event->title }}
                                     </a>
                                     <div class="short-description">{!! $event->description !!}/div>
                                     </div>
                                 </div>
                             </div>
-                    @endforeach
+                        @empty
+                            <div class="col-lg-12 text-center">
+                                <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 300px;"
+                                    alt="" />
+                                <h4>Belum ada Event yang dibuat</h4>
+                            </div>
+                    @endforelse
                 </div>
             </div>
 
@@ -320,11 +325,6 @@
         <!-- /.wrapper -->
         <footer class="white-wrapper">
             <div class="container">
-                <div class="visible-print text-center">
-                    {!! QrCode::size(100)->generate('https://class.hummatech.com/') !!}
-
-                    <p>Scan me to return to the original page.</p>
-                </div>
                 <div class="row">
 
                     <!-- /column -->
