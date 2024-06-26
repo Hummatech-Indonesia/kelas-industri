@@ -505,7 +505,7 @@ Route::middleware('auth.custom')->group(function () {
 Route::post('callback', [TripayCallbackController::class, 'handle']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('verify/{material}/{classroom}/{user}', [CertifyController::class, 'materialVerify'])->name('material.cerify-certification');
-Route::get('verify/{material}/{classroom}/{user}', [CertifyController::class, 'materialVerify'])->name('material.cerify-certification');
+Route::get('verify-competence/{classroom}/{user}', [CertifyController::class, 'competenceTestVerify'])->name('competence-verifycation');
 
 // Route::post('certify/events/', [CertifyController::class, 'eventVerification'])->name('events.verify-certification');
 Route::get('certify/events/{participant}/{event}/verification', [CertifyController::class, 'eventVerification'])->name('events.verify-certification');

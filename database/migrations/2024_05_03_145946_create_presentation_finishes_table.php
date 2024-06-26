@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('presentation_finishes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('presentation_id')->constrained('presentations');
-            $table->boolean('finished');
             $table->timestamps();
         });
     }

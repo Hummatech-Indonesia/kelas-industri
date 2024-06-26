@@ -35,15 +35,6 @@
                                         <div class="w-100 py-3 ps-2 ps-md-8 border border-2 rounded">PT Humma Teknologi
                                             Indonesia</div>
                                     </div>
-                                    <div class="col-3">Tanggal Diberikan</div>
-                                    <div class="col-1">
-                                        <span>:</span>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="w-100 py-3 ps-2 ps-md-8 border border-2 rounded">
-                                            {{ Carbon::parse($participant->updated_at)->locale('id')->format('d F Y') }}
-                                        </div>
-                                    </div>
                                     <div class="col-3">Nomor Sertifikat</div>
                                     <div class="col-1">
                                         <span>:</span>

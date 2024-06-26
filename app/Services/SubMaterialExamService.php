@@ -4,16 +4,19 @@ namespace App\Services;
 
 use App\Http\Requests\SubMaterialExamRequest;
 use App\Models\StudentSubmaterialExam;
+use App\Repositories\ScheduleRepository;
 use App\Repositories\SubMaterialExamRepository;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 class SubMaterialExamService
 {
     private SubMaterialExamRepository $repository;
+    private ScheduleRepository $scheduleRepository;
 
-    public function __construct(SubMaterialExamRepository $repository)
+    public function __construct(SubMaterialExamRepository $repository, ScheduleRepository $scheduleRepository)
     {
         $this->repository = $repository;
+        $this->scheduleRepository = $scheduleRepository;
     }
 
     public function handleCreate(SubMaterialExamRequest $request): mixed
@@ -27,6 +30,7 @@ class SubMaterialExamService
         if ($data['multiple_choice_value'] + $data['essay_value'] != 100) {
             return redirect()->back()->with('error', 'Total bobot nilai harus 100');
         }
+        $this->scheduleRepository->store(['title' => 'Ujian' . $data['title'], 'start' => $data['start_at'], 'end' => $data['end_at']]);
         return $this->repository->store($data);
     }
     public function handleUpdate($request, mixed $id): mixed

@@ -1838,22 +1838,20 @@
 
                                                 <!--begin::Date-->
                                                 @forelse ($approvedPresentations as $index => $approvedPresentation)
-                                                    @if (!$approvedPresentation->finish)
-                                                        <li class="nav-item me-1" role="presentation">
-                                                            <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary {{ $index === 0 ? 'active' : '' }}"
-                                                                data-bs-toggle="tab"
-                                                                href="#kt_schedule_day_{{ $approvedPresentation->id }}"
-                                                                aria-selected="true" role="tab">
+                                                    <li class="nav-item me-1" role="presentation">
+                                                        <a class="nav-link btn d-flex flex-column flex-center rounded-pill min-w-45px me-2 py-4 px-3 btn-active-primary {{ $index === 0 ? 'active' : '' }}"
+                                                            data-bs-toggle="pill"
+                                                            href="#kt_schedule_day_{{ $approvedPresentation->id }}"
+                                                            aria-selected="true" role="tab">
 
-                                                                <span class="opacity-50 fs-7 fw-semibold">
-                                                                    {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('dddd') }}
-                                                                </span>
-                                                                <span class="fs-6 fw-bold">
-                                                                    {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('DD MMMM') }}
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                    @endif
+                                                            <span class="opacity-50 fs-7 fw-semibold">
+                                                                {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('dddd') }}
+                                                            </span>
+                                                            <span class="fs-6 fw-bold">
+                                                                {{ \Carbon\Carbon::parse($approvedPresentation->date)->locale('id')->isoFormat('DD MMMM') }}
+                                                            </span>
+                                                        </a>
+                                                    </li>
                                                 @empty
                                                     <div class="col-12 text-center">
                                                         <!--begin::Illustration-->
@@ -1881,7 +1879,6 @@
                                             <div class="tab-content">
                                                 <!--begin::Day-->
                                                 @foreach ($approvedPresentations as $index => $approvedPresentation)
-                                                @if (!$approvedPresentation->finish)
                                                     <div id="kt_schedule_day_{{ $approvedPresentation->id }}"
                                                         class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
                                                         role="tabpanel">
@@ -1908,13 +1905,6 @@
                                                                     {{ $approvedPresentation->name }} </a>
                                                                 <!--end::Title-->
 
-                                                                <!--begin::User-->
-                                                                <div class="text-gray-500">
-                                                                    {{ $approvedPresentation->description }}
-                                                                </div>
-
-
-                                                                <!--end::User-->
                                                             </div>
                                                             <!--end::Info-->
 
@@ -1926,7 +1916,6 @@
                                                         </div>
                                                         <!--end::Time-->
                                                     </div>
-                                                    @endif
                                                 @endforeach
                                                 <!--end::Day-->
                                             </div>

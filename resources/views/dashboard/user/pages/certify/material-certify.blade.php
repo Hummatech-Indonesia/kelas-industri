@@ -33,18 +33,6 @@
                                         <div class="w-100 py-3 ps-8 border border-2 rounded">PT Humma Teknologi Indonesia
                                         </div>
                                     </div>
-                                    <div class="col-3">Tanggal Diberikan</div>
-                                    <div class="col-1">
-                                        <span>:</span>
-                                    </div>
-                                    <div class="col-8">
-                                        {{-- <div class="w-100 py-3 ps-8 border border-2 rounded">{{ Carbon::parse($participant->updated_at)->isoFormat('DD-mm-Y') }}</div> --}}
-                                        <div class="w-100 py-3 ps-8 border border-2 rounded">23-04-2024</div>
-                                    </div>
-                                    {{-- <div class="col-3">Type Sertivikat</div>
-                                    <div class="col-1">
-                                        <span>:</span>
-                                    </div> --}}
                                     <div class="col-3">Nomor Sertifikat</div>
                                     <div class="col-1">
                                         <span>:</span>
