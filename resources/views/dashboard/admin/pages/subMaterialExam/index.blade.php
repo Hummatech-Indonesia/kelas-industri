@@ -219,10 +219,15 @@
                                         <label
                                             class="required form-label @error('sub_material_id') is-invalid @enderror mb-3">Materi
                                             Ujian</label>
-                                        <select class="form-select form-select-solid mb-3" data-control="select2"
+                                        <select class="form-select form-select-solid mb-3 @error('material_id') is-invalid @enderror" data-control="select2"
                                             data-placeholder="Pilih Materi" data-type="add" id="select-material-add">
                                         </select>
-                                        <select class="form-select form-select-solid select-sub-material"
+                                        @error('material_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        <select class="form-select form-select-solid select-sub-material @error('material_id') is-invalid @enderror"
                                             data-control="select2" data-placeholder="Pilih Submateri"
                                             name="sub_material_id" id="select-sub-material-add">
 
@@ -235,12 +240,12 @@
                                     </div>
                                     <div class="mb-3">
                                         <label
-                                            class="required form-label @error('start_at') is-invalid @enderror mb-3">Tanggal
+                                            class="required form-label mb-3">Tanggal
                                             Mulai Ujian</label>
                                         <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
                                             data-td-target-toggle="nearest">
                                             <input id="kt_td_picker_basic_2" name="start_at" type="text"
-                                                class="form-control" data-td-target="#kt_td_picker_basic"
+                                                class="form-control  @error('start_at') is-invalid @enderror " data-td-target="#kt_td_picker_basic"
                                                 placeholder="04/03/2023, 14.00" autocomplete="off" />
                                             <span class="input-group-text" data-td-target="#kt_td_picker_basic"
                                                 data-td-toggle="datetimepicker">
@@ -255,12 +260,12 @@
                                     </div>
                                     <div class="mb-3">
                                         <label
-                                            class="required form-label @error('end_at') is-invalid @enderror mb-3">Tanggl
+                                            class="required form-label mb-3">Tanggl
                                             Selesai Ujian</label>
                                         <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
                                             data-td-target-toggle="nearest">
                                             <input id="kt_td_picker_basic_1" name="end_at" type="text"
-                                                class="form-control" data-td-target="#kt_td_picker_basic"
+                                                class="form-control  @error('end_at') is-invalid @enderror " data-td-target="#kt_td_picker_basic"
                                                 placeholder="04/03/2023, 14.00" autocomplete="off" />
                                             <span class="input-group-text" data-td-target="#kt_td_picker_basic"
                                                 data-td-toggle="datetimepicker">
@@ -284,11 +289,11 @@
                                 <!--begin::Wrapper-->
                                 <div class="w-100">
                                     <div class="mb-3">
-                                        <label class="required form-label @error('end_at') is-invalid @enderror mb-3">Waktu
+                                        <label class="required form-label @error('time') is-invalid @enderror mb-3">Waktu
                                             pengerjaan (Menit)</label>
                                         <input type="number" name="time" class="form-control form-control-solid mb-3"
                                             id="">
-                                        @error('end_at')
+                                        @error('time')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -298,11 +303,11 @@
                                     <div class="row mb-3">
                                         <div class="col-6">
                                             <label
-                                                class="required form-label @error('end_at') is-invalid @enderror mb-3">Bobot
+                                                class="required form-label  mb-3">Bobot
                                                 Nilai Pilihan Ganda</label>
                                             <input type="number" name="multiple_choice_value"
-                                                class="form-control form-control-solid mb-3" id="">
-                                            @error('end_at')
+                                                class="form-control form-control-solid mb-3 @error('multiple_choice_value') is-invalid @enderror" id="">
+                                            @error('multiple_choice_value')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -530,9 +535,9 @@
                                     </div>
                                     <div class="mb-3">
                                         <label
-                                            class="required form-label @error('sub_material_id') is-invalid @enderror mb-3">Materi
+                                            class="required form-label  mb-3">Materi
                                             Ujian</label>
-                                        <select class="form-select form-select-solid mb-3" data-control="select2"
+                                        <select class="form-select form-select-solid mb-3 @error('sub_material_id') is-invalid @enderror" data-control="select2"
                                             data-placeholder="Pilih Materi" data-type="edit" id="select-material-edit">
                                         </select>
                                         <select class="form-select form-select-solid select-sub-material"
