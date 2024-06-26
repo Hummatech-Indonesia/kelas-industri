@@ -101,6 +101,9 @@
                                                                     <div class="badge badge-light-success">Sudah Dikerjakan
                                                                     </div> - Dikoreksi
                                                                 @endif
+                                                            @elseif (!$studentSubmaterialExam && $exam->end_at < now())
+                                                                <div class="badge badge-light-danger">Tidak Dikerjakan
+                                                                </div>
                                                             @else
                                                                 <div class="badge badge-light-danger">Belum Dikerjakan
                                                                 </div>
@@ -131,17 +134,6 @@
                                                 </div>
                                             </div>
                                             <!--end::Info-->
-                                            {{-- @dd($studentSubmaterialExam->score < 75 && count($studentSubmaterialExams) < 3) --}}
-                                            {{-- @if (!$studentSubmaterialExam || $studentSubmaterialExam->score < 75)
-                                                <div class="col mt-4">
-                                                    <div class="d-flex justify-content-start justify-content-md-end">
-                                                        <a href="{{ route('student.exam', $exam->id) }}"
-                                                            class="btn btn-primary btn-sm">
-                                                            Mulai Ujian
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            @endif --}}
                                             <div class="col mt-4">
                                                 <div class="d-flex justify-content-start justify-content-md-end gap-3">
                                                     @if ($studentSubmaterialExam && $studentSubmaterialExam->finished_exam)
@@ -150,7 +142,7 @@
                                                             Lihat
                                                         </a>
                                                     @endif
-                                                    @if ((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam)
+                                                    @if (((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) && $exam->end_at > now())
                                                         <a href="{{ route('student.exam', $exam->id) }}"
                                                             class="btn btn-primary btn-sm">
                                                             Mulai Ujian
