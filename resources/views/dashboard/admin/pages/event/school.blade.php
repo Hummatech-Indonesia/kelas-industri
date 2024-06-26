@@ -139,13 +139,15 @@
 
                                     </span>
 
+                                    @if (now() >= $event->start_date && now() <= $event->end_date)
                                     <span class="btn btn-light-success btn-sm font-weight-bold btn-upper btn-text">
-                                        @if (now() >= $event->start_date && now() <= $event->end_date)
                                         Aktif
-                                        @else
-                                        Non Aktif
-                                        @endif
                                     </span>
+                                    @else
+                                    <span class="btn btn-light-danger btn-sm font-weight-bold btn-upper btn-text">
+                                        non aktif
+                                    </span>
+                                    @endif
 
                                 </div>
 

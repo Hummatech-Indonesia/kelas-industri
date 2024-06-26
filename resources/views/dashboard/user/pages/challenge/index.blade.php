@@ -86,8 +86,9 @@
                                             <div class="col-lg-2 col-md-12">
                                                 <button type="submit" class="btn btn-primary">Cari</button>
                                                 <a href="{{ route('mentor.challenges.index') }}" type="button"
-                                                    class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
+                                                    class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                    data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                             </div>
                                             <!--end::Input group-->
                                         </div>
@@ -128,8 +129,9 @@
                                             <div class="col-lg-2 col-md-12">
                                                 <button type="submit" class="btn btn-primary">Cari</button>
                                                 <a href="{{ route('teacher.challenges.index') }}" type="button"
-                                                    class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
+                                                    class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                    data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                             </div>
                                             <!--end::Input group-->
                                         </div>
@@ -168,27 +170,35 @@
                                                     name="search" value="{{ $search }}" placeholder="Search">
                                             </div>
                                             <div class="position-relative col-lg-3 col-md-12 me-2">
-                                                <select name="status" class="form-select form-select-solid me-5" data-control="select2"
-                                                    data-placeholder="Status">
-                                                    <option value="-1" {{$status == '-1' ? 'selected' : ''}}>Semua Status</option>
-                                                    <option value="Sudah" {{$status == 'Sudah' ? 'selected' : ''}}>Sudah Dikerjakan</option>
-                                                    <option value="Belum" {{$status == 'Belum' ? 'selected' : ''}}>Belum Dikerjakan</option>
+                                                <select name="status" class="form-select form-select-solid me-5"
+                                                    data-control="select2" data-placeholder="Status">
+                                                    <option value="-1" {{ $status == '-1' ? 'selected' : '' }}>Semua
+                                                        Status</option>
+                                                    <option value="Sudah" {{ $status == 'Sudah' ? 'selected' : '' }}>
+                                                        Sudah Dikerjakan</option>
+                                                    <option value="Belum" {{ $status == 'Belum' ? 'selected' : '' }}>
+                                                        Belum Dikerjakan</option>
                                                 </select>
                                             </div>
                                             <div class="position-relative col-lg-2 col-md-12 me-2">
-                                                <select name="difficulty" class="form-select form-select-solid me-5" data-control="select2"
-                                                    data-placeholder="Status">
-                                                    <option value="-1" {{$difficulty == '-1' ? 'selected' : ''}}>Semua Kesulitan</option>
-                                                    <option value="mudah"  {{$difficulty == 'mudah' ? 'selected' : ''}}>Mudah</option>
-                                                    <option value="sedang"  {{$difficulty == 'sedang' ? 'selected' : ''}}>Sedang</option>
-                                                    <option value="sulit"  {{$difficulty == 'sulit' ? 'selected' : ''}}>Sulit</option>
+                                                <select name="difficulty" class="form-select form-select-solid me-5"
+                                                    data-control="select2" data-placeholder="Status">
+                                                    <option value="-1" {{ $difficulty == '-1' ? 'selected' : '' }}>
+                                                        Semua Kesulitan</option>
+                                                    <option value="mudah" {{ $difficulty == 'mudah' ? 'selected' : '' }}>
+                                                        Mudah</option>
+                                                    <option value="sedang"
+                                                        {{ $difficulty == 'sedang' ? 'selected' : '' }}>Sedang</option>
+                                                    <option value="sulit" {{ $difficulty == 'sulit' ? 'selected' : '' }}>
+                                                        Sulit</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-2 col-md-12">
                                                 <button type="submit" class="btn btn-primary">Cari</button>
                                                 <a href="{{ route('student.challenges.index') }}" type="button"
-                                                    class="btn btn-light text-light" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-bs-custom-class="custom-tooltip" data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
+                                                    class="btn btn-light text-light" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                    data-bs-title="Muat Ulang Data"><i class="fonticon-repeat"></i></a>
                                             </div>
                                             <!--end::Input group-->
                                         </div>
@@ -310,12 +320,14 @@
                                         <!--end::Info-->
                                         <div class="mt-3 font-weight-bold">
                                             @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                {{$challenge->classroom->name}} - {{ $challenge->classroom->school->name }}
-                                        @endif
+                                                {{ $challenge->classroom->name }} -
+                                                {{ $challenge->classroom->school->name }}
+                                            @endif
                                         </div>
                                         <!--begin::Description-->
 
-                                        <div class="mb-10 mt-5 font-weight-bold" style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                        <div class="mb-10 mt-5 font-weight-bold"
+                                            style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
                                             {!! Str::limit($challenge->description, 20, '...') !!}
                                         </div>
 
@@ -323,26 +335,26 @@
 
 
                                         @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
 
-                                            <span class="text-dark-75 font-weight-bolder mr-2">Kesulitan :
-                                                @if ($challenge->difficulty == 'sulit')
-                                                    <span
-                                                        class="badge badge-light-danger font-weight-bold btn-upper btn-text">
-                                                        Sulit</span>
-                                                @elseif ($challenge->difficulty == 'sedang')
-                                                    <span
-                                                        class="badge badge-light-warning font-weight-bold btn-upper btn-text">
-                                                        Sedang</span>
-                                                @else
-                                                <span
-                                                        class="badge badge-light-success font-weight-bold btn-upper btn-text">
-                                                        Mudah</span>
-                                                @endif
-                                            </span>
-                                            {{-- @dd($challenge->StudentSubmitChallenge) --}}
+                                                <span class="text-dark-75 font-weight-bolder mr-2">Kesulitan :
+                                                    @if ($challenge->difficulty == 'sulit')
+                                                        <span
+                                                            class="badge badge-light-danger font-weight-bold btn-upper btn-text">
+                                                            Sulit</span>
+                                                    @elseif ($challenge->difficulty == 'sedang')
+                                                        <span
+                                                            class="badge badge-light-warning font-weight-bold btn-upper btn-text">
+                                                            Sedang</span>
+                                                    @else
+                                                        <span
+                                                            class="badge badge-light-success font-weight-bold btn-upper btn-text">
+                                                            Mudah</span>
+                                                    @endif
+                                                </span>
+                                                {{-- @dd($challenge->StudentSubmitChallenge) --}}
 
-                                        </div>
+                                            </div>
                                             <div class="d-flex justify-content-between align-items-center">
 
                                                 <span class="text-dark-75 font-weight-bolder mr-2">Status :
@@ -400,6 +412,7 @@
 
                                 </div>
                             </div>
+                    </div>
                         @empty
                             <x-empty-component title="Tantangan" />
                         @endforelse
@@ -449,13 +462,14 @@
     @endsection
     @section('css')
         <Style>
-            @media (max-width:639px){
-                .position-relative{
+            @media (max-width:639px) {
+                .position-relative {
                     margin-bottom: 10px;
                 }
             }
-            @media (min-width:640px){
-                .searching{
+
+            @media (min-width:640px) {
+                .searching {
                     display: flex;
                 }
             }

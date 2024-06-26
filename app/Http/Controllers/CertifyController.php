@@ -128,15 +128,16 @@ class CertifyController extends Controller
             $img->place($qrcode, 'bottom-right', 200, 170);
 
             // Membuat direktori jika belum ada
-            $directory = storage_path('app/public/storage/sertifikat');
-            File::makeDirectory($directory, $mode = 0777, true, true);
-
-            // Simpan gambar
-            $imgPath = $directory . '/sertifikat.png';
-            $img->save($imgPath);
-
-            // Return response download
-            return response()->download($imgPath, 'sertifikat.png');
+            $pdf = app('dompdf.wrapper');
+            $pdf->setPaper('a4', 'landscape');
+            $pdf->setPaper([0, 0, 841.89, 595.28]);
+            $pdf->loadHTML('<html><head><style>@page {
+                margin-top:  0mm;
+                margin-bottom:  0mm;
+                margin-left:  0mm;
+                margin-right:  0mm;
+            }</style><body style="margin: 0; padding: 0;"><img src="data:image/png;base64,' . base64_encode($img->toPng()) . '" style="width:100%;"></body></html>');
+            return $pdf->download('certifyCompetenceTest.pdf');
         } else {
             return redirect()->back()->with('error', trans('Tidak bisa mengunduh sertifikat karena anda belum menyelesaikan semua tugas pada materi ' . $material->title));
         }
@@ -331,7 +332,12 @@ class CertifyController extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->setPaper('a4', 'landscape');
         $pdf->setPaper([0, 0, 841.89, 595.28]);
-        $pdf->loadHTML('<html><body style="margin: 0; padding: 0;"><img src="data:image/png;base64,' . base64_encode($img->toPng()) . '" style="width:100%;"><br><img src="data:image/png;base64,' . base64_encode($scoreImg->toPng()) . '" style="width:100%;"></body></html>');
+        $pdf->loadHTML('<html><head><style>@page {
+            margin-top:  0mm;
+            margin-bottom:  0mm;
+            margin-left:  0mm;
+            margin-right:  0mm;
+        }</style></head><body style="margin: 0; padding: 0;"><img src="data:image/png;base64,' . base64_encode($img->toPng()) . '" style="width:100%;"><br><img src="data:image/png;base64,' . base64_encode($scoreImg->toPng()) . '" style="width:100%;"></body></html>');
         return $pdf->download('certifyCompetenceTest.pdf');
     }
 
@@ -436,19 +442,26 @@ class CertifyController extends Controller
         $img->place($qrcode, 'bottom-right', 200, 170);
 
         // Membuat direktori jika belum ada
-        $directory = storage_path('app/public/storage/sertifikat');
-        File::makeDirectory($directory, $mode = 0777, true, true);
-
-        // Simpan gambar
-        $imgPath = $directory . '/sertifikat.png';
-        $img->save($imgPath);
-
-        // Return response download
-        return response()->download($imgPath, 'sertifikat.png');
-        // return response()->file($imgPath, ['Content-Type' => 'image/png']);
-        // }
-
-        // return redirect()->back()->with('error', trans('Tidak bisa mengunduh sertifikat karena anda belum menyelesaikan semua tugas pada materi ' . $material->title));
+        $pdf = app('dompdf.wrapper');
+        $pdf->setPaper('a4', 'landscape');
+        $pdf->setPaper([0, 0, 841.89, 595.28]);
+        $pdf->loadHTML(
+            '<html>
+            <head>
+                <style>
+                @page {
+                    margin-top:  0mm;
+                    margin-bottom:  0mm;
+                    margin-left:  0mm;
+                    margin-right:  0mm;
+                }
+                </style>
+            </head>
+            <body style="margin: 0px!important; padding: 0px!important;">
+            <img src="data:image/png;base64,' . base64_encode($img->toPng()) . '" style="margin: 0px!important; padding: 0px!important;width: 297mm;height: auto;"></body></html>
+            '
+        );
+        return $pdf->download('certifyCompetenceTest.pdf');
     }
 
     public function convertRomanToNumber($roman)
