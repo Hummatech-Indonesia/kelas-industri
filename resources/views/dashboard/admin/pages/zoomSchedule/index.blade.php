@@ -24,7 +24,7 @@
         <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <a href="{{ route('admin.zoomSchedules.create') }}" class="btn btn-dark fw-bold">
+            <a href="{{ route('admin.zoomSchedules.create') }}" class="btn btn-primary fw-bold">
                 Tambah </a>
             <!--end::Button-->
         </div>
