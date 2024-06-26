@@ -11,6 +11,7 @@ use App\Models\Classroom;
 use Illuminate\Http\Request;
 use App\Models\EventPartisipant;
 use App\Services\AssignmentService;
+use App\Services\CertifyService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
@@ -21,10 +22,12 @@ use Intervention\Image\Geometry\Factories\RectangleFactory;
 class CertifyController extends Controller
 {
     private AssignmentService $assignmentService;
+    private CertifyService $certifyService;
 
-    public function __construct(AssignmentService $assignmentService)
+    public function __construct(AssignmentService $assignmentService, CertifyService $certifyService)
     {
         $this->assignmentService = $assignmentService;
+        $this->certifyService = $certifyService;
     }
     /**
      * certity
@@ -142,85 +145,10 @@ class CertifyController extends Controller
 
     public function certifyCompetenceTest(Classroom $classroom)
     {
-        $studentScores = Material::with([
-            'subMaterials.subMaterialExams.studentSubmaterialExams' => function ($query) {
-                $query->where('student_id', auth()->user()->id)
-                    ->select('sub_material_exam_id', 'score');
-            },
-            'subMaterials.assignments.StudentSubmitAssignment' => function ($query) {
-                $query->where('student_id', auth()->user()->id)
-                    ->select('assignment_id', 'point');
-            }
-        ])->where('generation_id', $classroom->generation_id)
-            ->get();
-
-        $groupedScores = $studentScores->map(function ($material) {
-
-            $totalAssignmentCount = $material->subMaterials->sum(function ($subMaterial) {
-                return $subMaterial->assignments->count();
-            });
-
-            $totalExamCount = $material->subMaterials->sum(function ($subMaterial) {
-                return $subMaterial->subMaterialExams->count();
-            });
-
-            $subMaterialScores = $material->subMaterials->flatMap(function ($subMaterial) {
-                return $subMaterial->subMaterialExams->flatMap(function ($subMaterialExam) {
-                    return $subMaterialExam->studentSubmaterialExams->map(function ($studentSubmaterialExam) {
-                        return [
-                            'sub_material_exam_id' => $studentSubmaterialExam->sub_material_exam_id,
-                            'score' => $studentSubmaterialExam->score,
-                            'sub_material_id' => $studentSubmaterialExam->subMaterialExam->sub_material_id,
-                        ];
-                    });
-                });
-            })->groupBy('sub_material_id')
-                ->map(function ($scores) {
-                    return [
-                        'total_score' => $scores->sum('score'),
-                    ];
-                });
-
-            $assignmentScores = $material->subMaterials->flatMap(function ($subMaterial) {
-                return $subMaterial->assignments->flatMap(function ($assignment) {
-                    return $assignment->StudentSubmitAssignment->map(function ($studentAssignment) {
-                        return [
-                            'assignment_id' => $studentAssignment->assignment_id,
-                            'point' => $studentAssignment->point,
-                        ];
-                    });
-                });
-            })->groupBy('assignment_id')
-                ->map(function ($scores) {
-                    return [
-                        'total_score' => $scores->sum('point'),
-                    ];
-                });
-
-            $totalExamScore = $subMaterialScores->reduce(function ($carry, $item) {
-                return $carry + $item['total_score'];
-            }, 0);
-
-            $totalAssignmentScore = $assignmentScores->reduce(function ($carry, $item) {
-                return $carry + $item['total_score'];
-            }, 0);
-
-            $assignmentScore = $totalAssignmentScore / $totalAssignmentCount;
-
-            $examScore = $totalExamScore / $totalExamCount;
-
-            $totalScore = ($examScore * 0.6) + ($assignmentScore * 0.4);
-
-            return [
-                'material' => $material->title,
-                'total_score' => intval($totalScore),
-            ];
-        });
+        $groupedScores = $this->certifyService->studentScore($classroom);
 
         // halaman awal
-
         $class = $this->convertRomanToNumber(substr($classroom->name, 0, 1));
-
         $img = ImageManager::gd()->read('certificate/templateSertifikat/uas.png');
 
         $text = 'uji kompetensi';
@@ -289,13 +217,10 @@ class CertifyController extends Controller
             $font->align('center');
         });
 
-        // Generate QR code and store it in output buffer
         ob_start();
-        // QrCode::size(100)->format('png')->generate(route('landingPage', 'php://output'));
         QrCode::size(100)->format('png')->generate('https//class.hummatech.com', 'php://output');
         $qrImage = ob_get_clean();
 
-        // Create image from the QR code string and place it at the bottom-right of the certificate
         $qrcode = ImageManager::gd()->read($qrImage);
         $img->place($qrcode, 'bottom-right', 200, 170);
 
@@ -403,9 +328,6 @@ class CertifyController extends Controller
             $vertical += 100;
         }
 
-        // $certificateHtml = '<img src="data:image/png;base64,' . base64_encode($scoreImg->toPng()) . '">';
-
-        // Save the combined image as a PDF with appropriate dimensions to prevent cropping
         $pdf = app('dompdf.wrapper'); // Get an instance of the PDF wrapper
         $pdf->setPaper('a4', 'landscape'); // Set the paper size and orientation
         $pdf->setPaper([0, 0, 841.89, 595.28]);
@@ -660,12 +582,6 @@ class CertifyController extends Controller
 
     public function materialVerify(Request $request, Material $material, Classroom $classroom, User $user)
     {
-        $countAssignmentByMaterial = $this->assignmentService->handleAssignmentByMaterialCertify($material->id);
-
-        $countAssignment = $this->assignmentService->countAssignmentsByMaterial($material->id, $user);
-
-        // if ($countAssignmentByMaterial == $countAssignment) {
-
         $class = $this->convertRomanToNumber(substr($classroom->name, 0, 1));
 
         $img = ImageManager::gd()->read('certificate/templateSertifikat/materi.png');
@@ -771,5 +687,9 @@ class CertifyController extends Controller
         $data['number'] = $code;
         return view('dashboard.user.pages.certify.material-certify', $data);
         // return redirect()->back()->with('error', trans('Tidak bisa mengunduh sertifikat karena anda belum menyelesaikan semua tugas pada materi ' . $material->title));
+    }
+
+    public function competenceTestVerify($classroom){
+        
     }
 }
