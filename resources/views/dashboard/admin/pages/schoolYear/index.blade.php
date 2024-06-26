@@ -23,7 +23,7 @@
         <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <button class="btn btn-dark fw-bold"  data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+            <button class="btn btn-primary fw-bold"  data-bs-toggle="modal" data-bs-target="#kt_modal_1">
                 Tambah            </button>
             <!--end::Button-->
         </div>

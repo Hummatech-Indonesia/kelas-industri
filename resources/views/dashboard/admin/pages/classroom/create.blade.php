@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="form-group row mb-3">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama kelas</label>
 
                                     <div class="col-lg-9 col-xl-9">
 

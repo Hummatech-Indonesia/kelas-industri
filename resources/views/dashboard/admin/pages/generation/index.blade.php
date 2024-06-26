@@ -30,7 +30,7 @@
             </select>
             <!--end::school yeaer-->
             <!--begin::Button-->
-            <button class="btn btn-dark fw-bold ms-5"  data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+            <button class="btn btn-primary fw-bold ms-5"  data-bs-toggle="modal" data-bs-target="#kt_modal_1">
                 Tambah
             </button>
             <!--end::Button-->

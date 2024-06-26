@@ -257,7 +257,7 @@
                                 class="btn btn-dark fw-bold mb-2">
                                 Rooling Guru </a>
                             <a href="{{ route('admin.teachers.create', [$school->id]) }}"
-                                class="btn btn-dark fw-bold mb-2">
+                                class="btn btn-primary fw-bold mb-2">
                                 Tambah </a>
                         </div>
                         <!--end::Title-->
@@ -326,7 +326,7 @@
                     <!--end::Breadcrumb-->
                 </div>
                 <!--end::Page title-->
-                <a href="{{ route('admin.classrooms.create', ['school' => $school->id]) }}" class="btn btn-dark fw-bold">
+                <a href="{{ route('admin.classrooms.create', ['school' => $school->id]) }}" class="btn btn-primary fw-bold">
                     Tambah </a>
 
                 <!--end::Actions-->
@@ -554,7 +554,7 @@
                         Import </a>
                     <!--end::Button-->
                     <!--begin::Button-->
-                    <a href="{{ route('admin.students.create', $school->id) }}" class="btn btn-dark fw-bold">
+                    <a href="{{ route('admin.students.create', $school->id) }}" class="btn btn-primary fw-bold">
                         Tambah </a>
                 </div>
 

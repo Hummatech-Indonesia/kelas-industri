@@ -26,7 +26,7 @@
         <!--begin::Actions-->
         <!--end::Actions-->
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ route('admin.gallerys.create') }}" class="btn btn-dark fw-bold h-40px fs-7">
+            <a href="{{ route('admin.gallerys.create') }}" class="btn btn-primary fw-bold h-40px fs-7">
                 Tambah
             </a>
         </div>

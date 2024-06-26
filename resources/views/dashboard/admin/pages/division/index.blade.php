@@ -22,7 +22,7 @@
         <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <button class="btn btn-dark btn-plus fw-bold">
+            <button class="btn btn-primary btn-plus fw-bold">
                 Tambah </button>
             <!--end::Button-->
         </div>
