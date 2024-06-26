@@ -204,9 +204,9 @@ class HomeController extends Controller
                 'guru' => count($this->userService->handleCountTeacher()),
                 'mentor' => count($this->userService->handleCountMentor()),
                 'schools' => $this->userService->handleGetAllSchoolWithPackage(),
-                'incomes' => $incomes,
-                'depts' => $depts,
-                'spents' => $spents,
+                'incomes' => collect($incomes),
+                'depts' => collect($depts),
+                'spents' => collect($spents),
             ];
             $data['teachersJournal'] = $this->journalService->handleCountJournalByFilter($request, $data['schools'][0]->id, 'teacher');
             $data['mentorsJournal'] = $this->journalService->handleCountJournalByFilter($request, $data['schools'][0]->id, 'mentor');

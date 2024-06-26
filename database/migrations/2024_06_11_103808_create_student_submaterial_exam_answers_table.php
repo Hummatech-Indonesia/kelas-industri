@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('student_exam_id')->constrained('student_submaterial_exams')->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('student_question_number');
-            $table->text('answer');
+            $table->text('answer')->nullable()->default(null);
             $table->integer('answer_value')->nullable();
             $table->timestamps();
         });

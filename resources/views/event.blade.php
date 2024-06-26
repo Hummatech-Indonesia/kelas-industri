@@ -302,7 +302,7 @@
                                         class="hover fw-bold mb-2">
                                         {{ $event->title }}
                                     </a>
-                                    <div class="short-description">{!! $event->description !!}/div>
+                                    <div class="short-description">{!! $event->description !!}</div>
                                     </div>
                                 </div>
                             </div>

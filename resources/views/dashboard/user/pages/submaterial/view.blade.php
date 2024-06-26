@@ -494,97 +494,101 @@
                                 </div>
                                 {{-- {{dd($assigments)}} --}}
                                 {{-- assigment card --}}
-                                <div class="assigment-card card m-auto mb-8" style="width: 80%;">
-                                    <div class="card-body text-start">
-                                        <div id="kt_datatable_responsive_wrapper"
-                                            class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                            @php
-                                                $showAssigmentFirst = true;
-                                            @endphp
-                                            @foreach ($submaterial->assignments as $assigment)
-                                                <div class="assigment-item row {{ $showAssigmentFirst ? 'show' : '' }}"
-                                                    id="assigment_{{ $assigment->id }}">
-                                                    <div class="col border-end">
-                                                        <h4>{{ $assigment->title }}</h4>
-                                                        <div class="short-description">
-                                                            {!! $assigment->description !!}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col border-end">
-                                                        <p class="fs-6">Tanggal Mulai</p>
-                                                        <p class="text-success">
-                                                            {{ \Carbon\Carbon::parse($assigment->start_date)->locale('id')->isoFormat('dddd, d MMMM Y H:m') }}
-                                                        </p>
-                                                    </div>
-                                                    <div class="col">
-                                                        <p class="fs-6">Batas Pengumpulan</p>
-                                                        <p class="text-danger">
-                                                            {{ \Carbon\Carbon::parse($assigment->end_date)->locale('id')->isoFormat('dddd, d MMMM Y H:m') }}
-                                                        </p>
-                                                    </div>
-                                                    <div class="col text-center">
-                                                        @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
-                                                            <p class="text-success">Sudah Mengumpulkan</p>
-                                                            <a href="{{ route('student.submitAssignment', [
-                                                                auth()->user()->studentSchool->studentClassroom->classroom_id,
-                                                                $assigment->subMaterial->material->id,
-                                                                $assigment->subMaterial->id,
-                                                                $assigment->id,
-                                                            ]) }}"
-                                                                class="btn btn-primary">Detail</a>
-                                                        @else
-                                                            <p class="text-danger">Belum Mengumpulkan</p>
-                                                            <button type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#detail_modal_{{ $assigment->id }}"
-                                                                class="btn btn-primary">Detail</button>
-                                                        @endif
-                                                    </div>
-                                                </div>
-
+                                @if (count($submaterial->assignments) > 0)
+                                    <div class="assigment-card card m-auto mb-8" style="width: 80%;">
+                                        <div class="card-body text-start">
+                                            <div id="kt_datatable_responsive_wrapper"
+                                                class="dataTables_wrapper dt-bootstrap4 no-footer">
                                                 @php
-                                                    $showAssigmentFirst = false;
+                                                    $showAssigmentFirst = true;
                                                 @endphp
-                                                <div class="modal fade" tabindex="-1"
-                                                    id="detail_modal_{{ $assigment->id }}">
-                                                    <div class="modal-dialog" style="width: 500px">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">{{ $assigment->title }}</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                @foreach ($submaterial->assignments as $assigment)
+                                                    <div class="assigment-item row {{ $showAssigmentFirst ? 'show' : '' }}"
+                                                        id="assigment_{{ $assigment->id }}">
+                                                        <div class="col border-end">
+                                                            <h4>{{ $assigment->title }}</h4>
+                                                            <div class="short-description">
+                                                                {!! $assigment->description !!}
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <h6>Deskripsi</h6>
-                                                                <p class="mb-3">{!! $assigment->description !!}</p>
-                                                            </div>
-                                                            @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                                <div class="modal-footer">
-                                                                    @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assigment_id', $assigment->id)->first())
-                                                                        <a href="{{ route('student.submitAssignment', [
-                                                                            auth()->user()->studentSchool->studentClassroom->classroom_id,
-                                                                            $assigment->subMaterial->material->id,
-                                                                            $assigment->subMaterial->id,
-                                                                            $assigment->id,
-                                                                        ]) }}"
-                                                                            class="btn btn-primary">Lihat Tugas</a>
-                                                                    @else
-                                                                        <a href="{{ route('student.submitAssignment', [
-                                                                            auth()->user()->studentSchool->studentClassroom->classroom_id,
-                                                                            $assigment->subMaterial->material->id,
-                                                                            $assigment->subMaterial->id,
-                                                                            $assigment->id,
-                                                                        ]) }}"
-                                                                            class="btn btn-primary">Kumpulkan</a>
-                                                                    @endif
-                                                                </div>
+                                                        </div>
+                                                        <div class="col border-end">
+                                                            <p class="fs-6">Tanggal Mulai</p>
+                                                            <p class="text-success">
+                                                                {{ \Carbon\Carbon::parse($assigment->start_date)->locale('id')->isoFormat('dddd, d MMMM Y H:m') }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p class="fs-6">Batas Pengumpulan</p>
+                                                            <p class="text-danger">
+                                                                {{ \Carbon\Carbon::parse($assigment->end_date)->locale('id')->isoFormat('dddd, d MMMM Y H:m') }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="col text-center">
+                                                            @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
+                                                                <p class="text-success">Sudah Mengumpulkan</p>
+                                                                <a href="{{ route('student.submitAssignment', [
+                                                                    auth()->user()->studentSchool->studentClassroom->classroom_id,
+                                                                    $assigment->subMaterial->material->id,
+                                                                    $assigment->subMaterial->id,
+                                                                    $assigment->id,
+                                                                ]) }}"
+                                                                    class="btn btn-primary">Detail</a>
+                                                            @else
+                                                                <p class="text-danger">Belum Mengumpulkan</p>
+                                                                <button type="button" data-bs-toggle="modal"
+                                                                    data-bs-target="#detail_modal_{{ $assigment->id }}"
+                                                                    class="btn btn-primary">Detail</button>
                                                             @endif
                                                         </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+
+                                                    @php
+                                                        $showAssigmentFirst = false;
+                                                    @endphp
+                                                    <div class="modal fade" tabindex="-1"
+                                                        id="detail_modal_{{ $assigment->id }}">
+                                                        <div class="modal-dialog" style="width: 500px">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">{{ $assigment->title }}</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <h6>Deskripsi</h6>
+                                                                    <p class="mb-3">{!! $assigment->description !!}</p>
+                                                                </div>
+                                                                @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                                                    <div class="modal-footer">
+                                                                        @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assigment_id', $assigment->id)->first())
+                                                                            <a href="{{ route('student.submitAssignment', [
+                                                                                auth()->user()->studentSchool->studentClassroom->classroom_id,
+                                                                                $assigment->subMaterial->material->id,
+                                                                                $assigment->subMaterial->id,
+                                                                                $assigment->id,
+                                                                            ]) }}"
+                                                                                class="btn btn-primary">Lihat Tugas</a>
+                                                                        @else
+                                                                            <a href="{{ route('student.submitAssignment', [
+                                                                                auth()->user()->studentSchool->studentClassroom->classroom_id,
+                                                                                $assigment->subMaterial->material->id,
+                                                                                $assigment->subMaterial->id,
+                                                                                $assigment->id,
+                                                                            ]) }}"
+                                                                                class="btn btn-primary">Kumpulkan</a>
+                                                                        @endif
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
+
                             </div>
                         </div>
                         @empty($listSubMaterials->count())

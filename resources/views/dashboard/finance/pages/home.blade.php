@@ -91,11 +91,21 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mx-4 mt-4 gap-2">
-                        <div class="flex">
-                            <h4 class="text-muted">Total Pemasukan | Pengeluaran | Piutang</h4>
-                            <h3><span class="text-primary">Rp. 1000.000</span></h3>
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="text-muted">Total Pemasukan</h4>
+                                <h3><span class="text-primary">Rp. {{ $incomes->sum() }}</span></h3>
+                            </div>
+                            <div class="col border-2 border-start border-end">
+                                <h4 class="text-muted">Total Pengeluaran</h4>
+                                <h3><span class="text-primary">Rp. {{ $spents->sum() }}</span></h3>
+                            </div>
+                            <div class="col">
+                                <h4 class="text-muted">Total Piutang</h4>
+                                <h3><span class="text-primary">Rp. {{ $depts->sum() }}</span></h3>
+                            </div>
                         </div>
-                            <form action="#kt_jurnal_guru" method="GET" class="d-flex gap-2">
+                        <form action="#kt_jurnal_guru" method="GET" class="d-flex gap-2">
                             <select class="form-select form-select-solid me-5" name="year" data-control="select2"
                                 data-placeholder="Tahun">
                                 <option></option>
@@ -237,7 +247,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <h3 class="card-title">Dibayar</h3>
-                                        <h3>{{ isset($schoolPackages['already_paid']) ? $schoolPackages['already_paid'] : 0 }}</h3>
+                                        <h3>{{ isset($schoolPackages['already_paid']) ? $schoolPackages['already_paid'] : 0 }}
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
