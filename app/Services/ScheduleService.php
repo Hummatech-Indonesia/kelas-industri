@@ -21,7 +21,8 @@ class ScheduleService
     }
     public function handleGetAll(Request $request): mixed
     {
-        return $this->repository->all();
+        $data = $this->repository->all();
+        return $data;
     }
     public function handleDelete(int $id): mixed
     {

@@ -164,23 +164,26 @@
 
                                 <div class="d-flex align-items-center">
 
-                                    <button type="submit" class="btn btn-sm btn-delete text-danger text-end"
+                                    <button type="submit" class="btn btn-sm btn-danger btn-delete px-3 ms-2 text-center"
                                         data-id="{{ $event->id }}" title="Hapus" data-toggle="modal"
                                         data-target="#hapus{{ $index }}">
 
                                         <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/abstract/abs012.svg-->
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                                        </svg>
-                                        <!--end::Svg Icon-->
+                                    <span class="svg-icon svg-icon-white svg-icon-1x m-0"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
 
                                     </button>
                                     <a href="{{ route('admin.events.edit', $event->id) }}"
-                                        class="fw-bold text-primary ms-2">
+                                        class="ffw-bold btn btn-sm btn-warning px-3 ms-2 text-center">
                                         <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen055.svg-->
-                                        <span class="svg-icon svg-icon-primary svg-icon-2x"><svg width="24"
+                                        <span class="svg-icon svg-icon-primary svg-icon-1x m-0"><svg width="24"
                                                 height="24" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"

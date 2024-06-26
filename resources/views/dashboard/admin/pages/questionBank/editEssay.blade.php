@@ -20,7 +20,14 @@
 
             </ul>
             <!--end::Breadcrumb-->
+
         </div>
+        <!--begin::Button-->
+            <a href="{{ route('admin.questionBank', $submaterial->material_id) }}" class="btn btn-dark fw-bold">
+                Kembali </a>
+            <!--end::Button-->
+        </div>
+        <!--end::Actions-->
         <!--end::Page title-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">
