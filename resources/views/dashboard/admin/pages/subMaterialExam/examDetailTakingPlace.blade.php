@@ -53,7 +53,11 @@
                                 </td>
                             </tr>
                         @empty
-                            <x-empty-component title="siswa" />
+                        <tr>
+                            <td colspan="4">
+                                <x-empty-component title="siswa" />     
+                            </td>
+                        </tr>
                         @endforelse
 
                     </tbody>

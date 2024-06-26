@@ -224,14 +224,20 @@
                     <div class="tz-gallery">
                         <h3 class="display-3 text-center">Galeri Kelas Industri</h3>
                         <div class="row">
-                            @foreach ($gallerys as $gallery)
+                            @forelse ($gallerys as $gallery)
                                 <div class="col-sm-12 col-md-4">
                                     <a class="lightbox" href="{{ asset('storage/' . $gallery->photo) }}">
                                         <img src="{{ asset('storage/' . $gallery->photo) }}"
                                             alt="{!! $gallery->description !!}">
                                     </a>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="col-lg-12 text-center">
+                                    <img src="{{ asset('user-assets/media/misc/no-data.png') }}"
+                                        style="width: 300px;" alt="" />
+                                    <h4>Belum ada Gallery yang diUpload</h4>
+                                </div>
+                            @endforelse
                             <!-- /.item -->
                         </div>
                         <!-- /.row -->

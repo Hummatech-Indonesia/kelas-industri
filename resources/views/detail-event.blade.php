@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}">
     <title>Kelas Industri</title>
-
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/plugins.css') }}">
     <link rel="stylesheet" type="text/css"
@@ -16,7 +15,7 @@
         href="{{ asset('landing_kelas_industri/style/revolution/css/navigation.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/type/type.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/color/blue.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('landing_kelas_industri/style/css/color/blu∟e.css') }}">
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
@@ -418,7 +417,7 @@
                                                         {{ $event->title }}
                                                     </a>
                                                     <p class="card-text fs-14 short-description">
-                                                        {{ $event->description }}
+                                                        {!! $event->description !!}
                                                     </p>
                                                 </div>
                                             </div>
@@ -441,11 +440,6 @@
         <!-- /.wrapper -->
         <footer class="white-wrapper">
             <div class="container">
-                <div class="visible-print text-center">
-                    {!! QrCode::size(100)->generate('https://class.hummatech.com/') !!}
-
-                    <p>Scan me to return to the original page.</p>
-                </div>
                 <div class="row">
 
                     <!-- /column -->

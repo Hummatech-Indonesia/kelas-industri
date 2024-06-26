@@ -108,8 +108,8 @@
                                 {{ $event->title }}
                             </a>
                             <div class="card-title fw-normal fs-8 text-dark mb-1">
-                                {{ Carbon::parse($event->start_date)->locale('id')->format('d-m-Y') }} -
-                                {{ Carbon::parse($event->end_date)->locale('id')->format('d-m-Y') }}
+                                {{ Carbon::parse($event->start_date)->locale('id')->isoFormat('D MMMM YYYY') }} -
+                                {{ Carbon::parse($event->end_date)->locale('id')->isoFormat('D MMMM YYYY') }}
                             </div>
 
                             <!--begin::Content-->
@@ -140,7 +140,11 @@
                                     </span>
 
                                     <span class="btn btn-light-success btn-sm font-weight-bold btn-upper btn-text">
+                                        @if (now() >= $event->start_date && now() <= $event->end_date)
                                         Aktif
+                                        @else
+                                        Non Aktif
+                                        @endif
                                     </span>
 
                                 </div>
