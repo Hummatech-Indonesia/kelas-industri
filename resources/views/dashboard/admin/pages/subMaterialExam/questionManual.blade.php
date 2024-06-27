@@ -35,24 +35,32 @@
     </div>
     <!--end::Alert-->
 
-    <div class="d-flex justify-content-start mb-3">
-        <div class="me-2">
-            <label for="" class="form-label">Tanggal Mulai</label>
-            <input type="date" name="" id="" class="form-control form-control-solid">
+    <form action="">
+        <div class="d-flex justify-content-start align-items-end mb-3">
+            <div class="me-2">
+                <label for="" class="form-label">Tanggal Mulai</label>
+                <input type="date" name="start_at" id="" class="form-control form-control-solid" value="{{ request()->start_at }}">
+            </div>
+            <div class="me-2">
+                <label for="" class="form-label">Tanggal Selesai</label>
+                <input type="date" name="end_at" id="" class="form-control form-control-solid" value="{{ request()->end_at }}">
+            </div>
+            <div class="me-2">
+                <label for="" class="form-label">Tipe Soal</label>
+                <select name="type" class="form-select form-select-solid" id="">
+                    <option value="">Pilih Tipe</option>
+                    <option value="multiple_choice" {{ isset(request()->type) && request()->type == 'multiple_choice'? 'selected': '' }}>Pilihan Ganda</option>
+                    <option value="essay" {{ isset(request()->type) && request()->type == 'essay'? 'selected': '' }}>Essay</option>
+                </select>
+            </div>
+            <div class="me-2">
+                <button type="submit" class="btn btn-sm btn-primary" style="padding-top: 11px; padding-bottom: 11px;    ">Filter</button>
+            </div>
+            <div class="me-2">
+                <a href="{{ route('admin.exam-question-manual', ['submaterial' => request()->submaterial, 'submaterialExam' => request()->submaterialExam]) }}" class="btn btn-sm btn-primary" style="padding-top: 11px; padding-bottom: 11px;    ">Reset</a>
+            </div>
         </div>
-        <div class="me-2">
-            <label for="" class="form-label">Tanggal Selesai</label>
-            <input type="date" name="" id="" class="form-control form-control-solid">
-        </div>
-        <div class="">
-            <label for="" class="form-label">Tipe Soal</label>
-            <select name="" class="form-select form-select-solid" id="">
-                <option value="">Pilih Tipe</option>
-                <option value="">Pilihan Ganda</option>
-                <option value="">Essay</option>
-            </select>
-        </div>
-    </div>
+    </form>
 
     <div class="content flex-column-fluid" id="kt_content">
         <form action="{{ route('admin.questionBank.manual', $submaterialExam->id) }}" method="post">

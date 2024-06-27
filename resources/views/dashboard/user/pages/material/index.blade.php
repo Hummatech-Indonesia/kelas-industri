@@ -63,13 +63,15 @@
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                <form class="me-3"
-                                        action="{{ route('certifyCompetenceTest', ['classroom' => $classroom->id]) }}"
-                                        method="get">
-                                        <button class="btn btn-primary h-40px fs-7 fw-bold">
-                                            Download Sertifikat Uji Kompetensi
-                                        </button>
-                                    </form>
+                                    @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                                        <form class="me-3"
+                                            action="{{ route('certifyCompetenceTest', ['classroom' => $classroom->id]) }}"
+                                            method="get">
+                                            <button class="btn btn-primary h-40px fs-7 fw-bold">
+                                                Download Sertifikat Uji Kompetensi
+                                            </button>
+                                        </form>
+                                    @endif
 
                                     <a href="{{ route('common.classrooms') }}"
                                         class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
