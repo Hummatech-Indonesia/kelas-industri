@@ -270,7 +270,7 @@
             <div class="col-12 mt-5">
                 <div class="row">
                     <!-- detail -->
-                    <div class="col">
+                    <div class="col col-md-9">
                         {{-- <div class="card-body"> --}}
                         <!--begin::About-->
                         <div class="mb-18">
@@ -310,9 +310,9 @@
                             <!--end::Description-->
                         </div>
                         <!--end::About-->
-                        @if ($event->start_date >= Carbon::now())
+                        @if ($event->start_date <= Carbon::now())
                             <!--begin::Section-->
-                            <div class="mb-16">
+                            <div class="mb-16 max-w-100">
                                 <!--begin::Top-->
                                 <div class="text-center mb-12">
                                     <!--begin::Title-->
@@ -400,7 +400,7 @@
                         {{-- </div> --}}
                     </div>
                     <!-- other event -->
-                    <div class="col col-sm-4 px-4">
+                    <div class="col col-md-3 px-4">
                         <div class="row">
                             @foreach ($events as $event)
                                 <div class="col p-0 border-bottom">
@@ -553,6 +553,24 @@
             captions: function(element) {
                 return element.getElementsByTagName('img')[0].alt;
             }
+        });
+        @php
+            $documentation_count = count($event->documentations);
+        @endphp
+        $(document).ready(function() {
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                items: {{ $documentation_count < 2 ? $documentation_count : 3 }},
+                loop: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplaySpeed: 2000,
+                autoplayHoverPause: true,
+                fixedWidth: 300,
+                autoWidth: false,
+                center: true,
+            });
         });
     </script>
 </body>

@@ -22,8 +22,8 @@ return new class extends Migration
             $table->text('location');
             $table->integer('limit_participant')->unsigned()->nullable()->default(null);
             $table->foreignUuid('for_school')->nullable()->constrained('users')->default(null);
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->timestamps();
         });
     }

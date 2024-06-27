@@ -145,7 +145,8 @@ class EventController extends Controller
     {
         $data['schools'] = $this->userService->handleGetAllSchool();
         $data['event'] = $event;
-        $data['event']->is_start = $event->start_date < Carbon::now();
+        $data['event']->is_start = $event->start_date >= Carbon::now();
+    // dd($data['event']['is_start']);
         return view('dashboard.admin.pages.event.edit', $data);
     }
 

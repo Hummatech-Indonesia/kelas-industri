@@ -161,7 +161,7 @@
                                         <div class="col-lg-9 col-xl-9">
                                             <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
                                                 data-td-target-toggle="nearest">
-                                                <input id="kt_td_picker_basic_2" name="start_date" type="text"
+                                                <input id="kt_td_picker_basic" name="start_date" type="text"
                                                     class="form-control" data-td-target="#kt_td_picker_basic"
                                                     placeholder="{{ $event->start_date }}" autocomplete="off"
                                                     value="{{ $event->start_date }}" />
@@ -200,6 +200,7 @@
                                                 <span class="card-label fw-bold text-gray-800">Foto Dokumentasi</span>
                                             </h3>
                                             <!--begin::Alert-->
+                                            {{-- @dd($event->start_date > now()) --}}
                                             @if ($event->is_start)
                                                 <div class="alert alert-warning d-flex align-items-center p-5">
                                                     <!--begin::Icon-->
@@ -275,15 +276,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-12 mt-3">
-
-                    <div class="card">
-                        <div class="card-body">
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </form>
     </div>
@@ -332,13 +324,6 @@
 
             $('#kt_modal_delete').modal('show')
         })
-
-        $(document).ready(function() {
-            const datepicker = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"));
-            datepicker.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
-            const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
-            datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
-        })
     </script>
 
 
@@ -385,39 +370,6 @@
                 $(this).closest('div[data-repeater-item]').remove();
             });
         }
-
-        //     function addNewNoteInput(description = '') {
-        //         var $container = $('#notes-container');
-        //         var newItem = `
-    //     <div data-repeater-item class="form-group row mb-3">
-    //         <div class="col-md-10">
-    //             <label class="form-label">Foto :</label>
-    //             <input type="file" name="documentation" class="form-control mb-2 mb-md-0" placeholder="Masukkan catatan" value="${description}">
-    //         </div>
-    //         <div class="col-md-2">
-    //             <a href="javascript:;" data-repeater-delete class="btn btn-sm btn-light-danger mt-3 mt-md-8">
-    //                 <span class="svg-icon svg-icon-muted svg-icon-3"><svg
-    //                                                                         width="24" height="24"
-    //                                                                         viewBox="0 0 24 24" fill="none"
-    //                                                                         xmlns="http://www.w3.org/2000/svg">
-    //                                                                         <path
-    //                                                                             d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-    //                                                                             fill="currentColor" />
-    //                                                                         <path opacity="0.5"
-    //                                                                             d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-    //                                                                             fill="currentColor" />
-    //                                                                         <path opacity="0.5"
-    //                                                                             d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-    //                                                                             fill="currentColor" />
-    //                                                                     </svg>
-    //                                                                 </span>Hapus
-    //             </a>
-    //         </div>
-    //     </div>
-    // `;
-        //         $container.append(newItem);
-        //         initializeDeleteButtons();
-        //     }
 
         $('.delete-documentation').click(function(param) {
             var id = $(this).data('id');

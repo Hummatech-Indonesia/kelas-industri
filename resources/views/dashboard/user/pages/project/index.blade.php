@@ -2199,7 +2199,9 @@
 
                                     <!--begin::Form-->
                                     <form id="kt_project_settings_form"
+                                    action="{{ route('student.projects.store') }}" method="post"
                                         class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+                                        @csrf
                                         <!--begin::Card body-->
                                         <div class="card-body p-9">
                                             <!--begin::Row-->
@@ -2383,8 +2385,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="total_pay" class="mb-2">Deskripsi Project</label>
-                            <textarea name="description" class="form-control" id="" cols="30"
-                                placeholder="Masukkan deskripsi project" rows="5">{{ $project ? $project->description : '' }}</textarea>
+                            <textarea name="description" class="form-control" id="" cols="30"placeholder="Masukkan deskripsi project" rows="5">{{ $project ? $project->description : '' }}</textarea>
                         </div>
                         <div class="mb-5">
                             <label for="payment_date" class="mb-2">Tenggat Project</label>

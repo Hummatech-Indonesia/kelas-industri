@@ -85,7 +85,7 @@
             </div>
             <!--end::About-->
 
-            @if ($event->start_date >= Carbon::now())
+            @if ($event->start_date <= Carbon::now())
                 <!--begin::Section-->
                 <div class="mb-16">
                     <!--begin::Top-->

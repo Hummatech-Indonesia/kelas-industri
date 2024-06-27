@@ -5,6 +5,11 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('owlcarousel/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('owlcarousel/owl.theme.default.min.css') }}">
+    <style>
+        .owl-carousel.owl-loaded owl-drag {
+            height: 100px !important;
+        }
+    </style>
 @endsection
 @section('content')
     @if ($errors->any())
@@ -104,7 +109,7 @@
                         </div>
                         <!--end::About-->
 
-                        @if ($event->start_date >= Carbon::now())
+                        @if ($event->start_date <= Carbon::now())
                             <!--begin::Section-->
                             <div class="mb-16">
                                 <!--begin::Top-->
@@ -205,29 +210,6 @@
             </div>
         </div>
     </div>
-
-    {{-- <div class="modal" tabindex="-1" id="add_documentattion">
-        <form action="{{ route('admin.eventDocumentation.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="event_id" value="{{ $event->id }}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title border-0">Modal title</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="photo" class="form-label">Foto Dokumentasi</label>
-                            <input type="file" class="form-control" name="photo" id="photo" />
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div> --}}
     <x-delete-modal-component />
     @php
         $documentation_count = count($event->documentations);
@@ -248,6 +230,7 @@
                 autoplaySpeed: 2000,
                 autoplayHoverPause: true,
                 fixedWidth: 300,
+                fixedHight: 100,
                 autoWidth: false,
                 center: true,
             });
