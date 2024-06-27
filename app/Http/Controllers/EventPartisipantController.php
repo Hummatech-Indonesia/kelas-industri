@@ -79,10 +79,14 @@ class EventPartisipantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $eventPartisipant)
-    {
+{
+    try {
         $this->service->handleSetCertificate($request, $eventPartisipant);
-        // return redirect()->back()->with("success","Berhasil memberikan sertifikat");
+        return response()->json(['success' => true, 'message' => 'Berhasil memberikan sertifikat']);
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat memperbarui sertifikat'], 500);
     }
+}
 
     /**
      * Remove the specified resource from storage.

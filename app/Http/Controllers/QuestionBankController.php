@@ -118,6 +118,19 @@ class QuestionBankController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEssay(Request $request, $id)
+    {
+        $this->service->getRequest($request, $id);
+        return redirect()->back()->with('success', trans('alert.update_success'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

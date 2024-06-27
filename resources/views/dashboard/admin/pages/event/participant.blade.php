@@ -7,7 +7,7 @@
     </style>
 @endsection
 @section('content')
-{{-- @dd($event->participants) --}}
+    {{-- @dd($event->participants) --}}
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
 
@@ -203,18 +203,25 @@
 
         $('#set-certificate-btn').click(function() {
             $.ajax({
-                type: "put",
+                type: "PUT",
                 url: "{{ route('admin.eventsParticipant.setCertificate', $event->id) }}",
                 data: {
                     'id': ids,
                     '_token': $('meta[name="csrf-token"]').attr('content')
                 },
-                dataType: "dataType",
+                dataType: "json",
                 success: function(response) {
-
+                    if (response.success) {
+                        location.reload();
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    toastr.error('Terjadi kesalahan saat memperbarui sertifikat: ' + error);
                 }
             });
-        })
-        // })
+        });
     </script>
 @endsection

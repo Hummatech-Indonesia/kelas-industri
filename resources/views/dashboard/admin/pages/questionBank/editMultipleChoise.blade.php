@@ -10,7 +10,7 @@
         <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
             <!--begin::Title-->
             <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                Buat Soal Multiple choisce
+                Edit Soal Multiple choisce
             </h1>
             <!--end::Title-->
 
@@ -18,7 +18,7 @@
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    Buat soal Multiple Choisce untuk Submateri {{ $submaterial->title }}
+                    Edit soal Multiple Choisce untuk Submateri {{ $submaterial->title }}
                 </li>
                 <!--end::Item-->
 
@@ -29,7 +29,7 @@
         <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <a href="{{ route('admin.questionBank', $submaterial->material_id) }}" class="btn btn-dark fw-bold">
+            <a href="{{ route('admin.quetion-bank-detail', $submaterial->id) }}" class="btn btn-dark fw-bold">
                 Kembali </a>
             <!--end::Button-->
         </div>
@@ -48,7 +48,7 @@
                 <div class="card col-7">
                     <div class="card-body">
                         <div class="fs-5 fw-bold mb-3">
-                            Tambahkan Soal
+                            Edit Soal
                         </div>
                         <textarea id="kt_docs_ckeditor_classic" rows="5" name="question" type="text" placeholder="Masukkan Soal">{{ $questionBank->question }}</textarea>
                     </div>
@@ -100,7 +100,7 @@
 
                         <div class="row">
                             <button class="btn btn-primary btn-sm col-12" type="submit">
-                                Buat Soal
+                                Edit Soal
                             </button>
                         </div>
                     </div>
