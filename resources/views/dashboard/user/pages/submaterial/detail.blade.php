@@ -1,4 +1,7 @@
-@php use Carbon\Carbon; @endphp
+@php
+    use Carbon\Carbon;
+    use App\Models\SubmitAssignment;
+@endphp
 @extends('dashboard.user.layouts.app')
 
 @section('content')
@@ -142,7 +145,20 @@
                                                             Lihat
                                                         </a>
                                                     @endif
-                                                    @if (((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) && $exam->end_at > now())
+                                                    @php
+                                                        $assignment = SubmitAssignment::query()
+                                                            ->where('student_id', auth()->user()->id)
+                                                            ->whereRelation(
+                                                                'assignment.submaterial',
+                                                                'sub_material_id',
+                                                                $subMaterial->id,
+                                                            )
+                                                            ->count();
+                                                    @endphp
+                                                    @if (
+                                                        ((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) &&
+                                                            $exam->end_at > now() &&
+                                                            $subMaterial->assignments->count() == $assignment)
                                                         <a href="{{ route('student.exam', $exam->id) }}"
                                                             class="btn btn-primary btn-sm">
                                                             Mulai Ujian

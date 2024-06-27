@@ -344,13 +344,13 @@
                         <div class="mb-7">
                             <div class="row">
                                 <div class="col-1">
-                                    <p>Acara</p>
+                                    <p style="font-weight: 700;">Acara</p>
                                 </div>
                                 <div class="col">: {{ $event->title }}</div>
                             </div>
                             <div class="row">
                                 <div class="col-1">
-                                    <p>Tanggal</p>
+                                    <p style="font-weight: 700;">Tanggal</p>
                                 </div>
                                 <div class="col">:
                                     {{ Carbon::parse($event->start_date)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
@@ -358,13 +358,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-1">
-                                    <p>Waktu</p>
+                                    <p style="font-weight: 700;">Waktu</p>
                                 </div>
                                 <div class="col">: {{ Carbon::parse($event->start_date)->format('H:m') }}</div>
                             </div>
                             <div class="row">
                                 <div class="col-1">
-                                    <p>Tempat</p>
+                                    <p style="font-weight: 700;">Tempat</p>
                                 </div>
                                 <div class="col">: {{ $event->location }}</div>
                             </div>
@@ -416,9 +416,6 @@
                                                         class="card-title text-dark">
                                                         {{ $event->title }}
                                                     </a>
-                                                    <p class="card-text fs-14 short-description">
-                                                        {!! $event->description !!}
-                                                    </p>
                                                 </div>
                                             </div>
                                         </div>

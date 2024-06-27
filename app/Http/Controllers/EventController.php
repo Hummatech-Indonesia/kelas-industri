@@ -165,7 +165,7 @@ class EventController extends Controller
         }
         $this->service->handleUpdate($event, $request);
 
-        return to_route('admin.events.edit', $event->id)->with('success', trans('update_success'));
+        return to_route('admin.events.edit', $event->id)->with('success', trans('alert.update_success'));
     }
 
     /**

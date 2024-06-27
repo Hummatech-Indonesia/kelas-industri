@@ -761,23 +761,23 @@
             <div class="mb-7">
                 <div class="row">
                     <div class="col-2">
-                        <p>Acara</p>
+                        <p class="fw-bold">Acara</p>
                     </div>
                     <div class="col-10">: {{ $event->title }}</div>
                     <div class="col-2">
-                        <p>Tanggal Mulai</p>
+                        <p class="fw-bold">Tanggal Mulai</p>
                     </div>
                     <div class="col-10">: {{ Carbon::parse($event->start_date)->locale('id')->isoFormat('D MMMM YYYY') }}</div>
                     <div class="col-2">
-                        <p>Tanggal Berakhir</p>
+                        <p class="fw-bold">Tanggal Berakhir</p>
                     </div>
                     <div class="col-10">: {{ Carbon::parse($event->end_date)->locale('id')->isoFormat('D MMMM YYYY') }}</div>
                     <div class="col-2">
-                        <p>Batas Peserta</p>
+                        <p class="fw-bold">Batas Peserta</p>
                     </div>
                     <div class="col-10">: {{ $event->limit_participant }} Orang</div>
                     <div class="col-2">
-                        <p>Tempat</p>
+                        <p class="fw-bold">Tempat</p>
                     </div>
                     <div class="col-10">: {{ $event->location }}</div>
                 </div>
