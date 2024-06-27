@@ -95,6 +95,29 @@
                         @endif
                     </div>
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
+                        {{-- @if ($StudentExam)
+                            <!--begin::Alert-->
+                            <div class="alert alert-danger d-flex align-items-center p-5">
+                                <!--begin::Icon-->
+                                <i class="ki-duotone ki-shield-tick fs-2hx text-success me-4"><span
+                                        class="path1"></span><span class="path2"></span></i>
+                                <!--end::Icon-->
+
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column">
+                                    <!--begin::Title-->
+                                    <h4 class="mb-1 text-danger">ANDA TIDAK DAPAT MENGIKUTI UJIAN !</h4>
+                                    <!--end::Title-->
+
+                                    <!--begin::Content-->
+                                    <span class="text-dark">Anda perlu menuntaskan tugas anda pada sub materi yang akan di
+                                        ujiankan</span>
+                                    <!--end::Content-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Alert-->
+                        @endif --}}
                         @if (count($events) > 0)
                             <div id="carouselExampleIndicators" class="carousel slide rounded my-5">
                                 <div class="carousel-indicators">
@@ -215,8 +238,28 @@
                                 </div>
                             </a>
                         </div>
-                        @if (!$schoolPayment)
-                            <div class="covercard row gap-2 mt-4">
+                        <div class="covercard row gap-2 mt-4">
+                            <a href="#" class="card hover-elevate-up col col-lg-3 shadow-sm parent-hover">
+                                <div class="card-body d-flex align-items">
+                                    <span class="w-4 h-4 my-auto fs-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="m3 14l.5.07L8.07 9.5a1.95 1.95 0 0 1 .52-1.91c.78-.79 2.04-.79 2.82 0c.53.52.7 1.26.52 1.91l2.57 2.57l.5-.07c.18 0 .35 0 .5.07l3.57-3.57C19 8.35 19 8.18 19 8a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2c-.18 0-.35 0-.5-.07l-3.57 3.57c.07.15.07.32.07.5a2 2 0 0 1-2 2a2 2 0 0 1-2-2l.07-.5l-2.57-2.57c-.32.07-.68.07-1 0L4.93 15.5L5 16a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2Z" />
+                                        </svg>
+                                    </span>
+
+                                    <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
+                                        @if (auth()->user()->EventParticipants)
+                                            Event Diikuti {{ auth()->user()->EventParticipants->count() }}
+                                        @else
+                                            Event Diikuti 0
+                                        @endif
+
+                                    </span>
+                                </div>
+                            </a>
+                            @if (!$schoolPayment)
                                 <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                     <div class="card-body d-flex align-items">
                                         <span class="w-4 h-4 my-auto fs-1">
@@ -240,33 +283,8 @@
                                         </span>
                                     </div>
                                 </a>
-                            </div>
-                            <div class="covercard row gap-2 mt-4">
-                                <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
-                                    <div class="card-body d-flex align-items">
-                                        <span class="w-4 h-4 my-auto fs-1">
-                                            <svg width="32" height="32" viewBox="0 0 37 38" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M18.5002 20.8629C16.8647 20.8629 15.2961 21.5126 14.1397 22.669C12.9832 23.8255 12.3335 25.394 12.3335 27.0295C12.3335 28.665 12.9832 30.2335 14.1397 31.39C15.2961 32.5465 16.8647 33.1962 18.5002 33.1962C20.1357 33.1962 21.7042 32.5465 22.8607 31.39C24.0171 30.2335 24.6668 28.665 24.6668 27.0295C24.6668 25.394 24.0171 23.8255 22.8607 22.669C21.7042 21.5126 20.1357 20.8629 18.5002 20.8629ZM15.8573 27.0295C15.8573 26.3286 16.1357 25.6564 16.6314 25.1607C17.127 24.6651 17.7992 24.3867 18.5002 24.3867C19.2011 24.3867 19.8733 24.6651 20.3689 25.1607C20.8646 25.6564 21.143 26.3286 21.143 27.0295C21.143 27.7304 20.8646 28.4027 20.3689 28.8983C19.8733 29.3939 19.2011 29.6724 18.5002 29.6724C17.7992 29.6724 17.127 29.3939 16.6314 28.8983C16.1357 28.4027 15.8573 27.7304 15.8573 27.0295Z"
-                                                    fill="#009EF7" />
-                                                <path
-                                                    d="M28.2363 7.85281L22.6352 0L2.04029 16.4527L0.898571 16.4403V16.458H0V37.6008H37V16.458H35.305L31.9328 6.59305L28.2363 7.85281ZM31.5821 16.458H13.9138L27.0734 11.9721L29.755 11.1141L31.5821 16.458ZM24.7548 9.04033L11.1705 13.6706L21.9287 5.07605L24.7548 9.04033ZM3.52381 30.851V23.2043C4.26715 22.9409 4.94233 22.5149 5.50013 21.9574C6.05793 21.3999 6.48428 20.725 6.7481 19.9818H30.2519C30.5156 20.7252 30.9419 21.4005 31.4997 21.9583C32.0575 22.5161 32.7327 22.9423 33.4762 23.206V30.8527C32.7327 31.1164 32.0575 31.5427 31.4997 32.1005C30.9419 32.6583 30.5156 33.3335 30.2519 34.077H6.75162C6.48766 33.3329 6.06089 32.6571 5.50246 32.099C4.94404 31.5409 4.26804 31.1145 3.52381 30.851Z"
-                                                    fill="#009EF7" />
-                                            </svg>
-                                        </span>
-
-                                        <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
-                                            Total Tanggungan Semester Ini
-                                            <div>
-                                                <span
-                                                    class="text-primary fw-bolder fs-2">{{ 'Rp ' . number_format($totalPayment, 0, ',', '.') }}</span>
-                                            </div>
-                                        </span>
-                                    </div>
-                                </a>
-                            </div>
-                        @endif
+                            @endif
+                        </div>
                         <div class="row mt-5">
                             @if ($zoom)
                                 <a href="{{ $zoom->link }}" target="blank"
