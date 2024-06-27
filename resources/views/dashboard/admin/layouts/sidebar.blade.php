@@ -148,7 +148,7 @@
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div data-kt-menu-trigger="click"
-                        class="menu-item {{ request()->routeIs('admin.materials.*') || request()->routeIs('admin.submaterials.*') ? 'show here' : '' }} menu-accordion">
+                        class="menu-item {{ request()->routeIs('admin.materials.*') || request()->routeIs('admin.submaterials.*') || request()->routeIs('admin.questionBank') || request()->routeIs('admin.quetion-bank-detail') ? 'show here' : '' }} menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -180,7 +180,7 @@
                                     </a>
                                     <!--end:Menu link-->
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.materials.index') || request()->routeIs('admin.submaterials.*') || request()->routeIs('admin.materials.show') ? 'active' : '' }}"
+                                    <a class="menu-link {{ request()->routeIs('admin.materials.index') || request()->routeIs('admin.submaterials.*') || request()->routeIs('admin.materials.show') || request()->routeIs('admin.questionBank') || request()->routeIs('admin.quetion-bank-detail') ? 'active' : '' }}"
                                         href="{{ route('admin.materials.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">List Materi</span>
@@ -934,8 +934,8 @@
                     <!--end:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('school.classrooms.index') ? 'active' : '' }}"
-                            href="{{ route('school.tracking.showStudent') }}">
+                        <a class="menu-link {{ request()->routeIs('school.tracking.showStudent') || request()->routeIs('school.tracking.detailStudent') ? 'active' : '' }}"
+                            href="{{ route('school.tracking.showStudent')  }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/communication/com014.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"

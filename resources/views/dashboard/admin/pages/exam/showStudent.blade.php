@@ -74,10 +74,12 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="kt_tab_pane_uts_ganjil" role="tabpanel">
                             @if ($exams->where('exam_type', 'uts')->where('semester', 'ganjil')->count() > 0)
-                                <a href="{{ route('admin.exportUAS', ['exam' => 'uts', 'semester' => 'ganjil']) }}"
-                                    class="btn btn-sm btn-success mb-3">
-                                    Export Excel
-                                </a>
+                                @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                                    <a href="{{ route('admin.exportUAS', ['exam' => 'uts', 'semester' => 'ganjil']) }}"
+                                        class="btn btn-sm btn-success mb-3">
+                                        Export Excel
+                                    </a>
+                                @endif
                                 <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                     <thead>
                                         <!--begin::Table row-->
@@ -128,10 +130,12 @@
                         </div>
                         <div class="tab-pane fade show" id="kt_tab_pane_uts_genap" role="tabpanel">
                             @if ($exams->where('exam_type', 'uts')->where('semester', 'genap')->count() > 0)
-                                <a href="{{ route('admin.exportUAS', ['exam' => 'uts', 'semester' => 'genap']) }}"
-                                    class="btn btn-sm btn-success mb-3">
-                                    Export Excel
-                                </a>
+                                @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                                    <a href="{{ route('admin.exportUAS', ['exam' => 'uts', 'semester' => 'genap']) }}"
+                                        class="btn btn-sm btn-success mb-3">
+                                        Export Excel
+                                    </a>
+                                @endif
                                 <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                     <thead>
                                         <!--begin::Table row-->
@@ -182,10 +186,12 @@
                         </div>
                         <div class="tab-pane fade show" id="kt_tab_pane_uas_ganjil" role="tabpanel">
                             @if ($exams->where('exam_type', 'uas')->where('semester', 'ganjil')->count() > 0)
-                                <a href="{{ route('admin.exportUAS', ['exam' => 'uas', 'semester' => 'ganjil']) }}"
-                                    class="btn btn-sm btn-success mb-3">
-                                    Export Excel
-                                </a>
+                                @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                                    <a href="{{ route('admin.exportUAS', ['exam' => 'uas', 'semester' => 'ganjil']) }}"
+                                        class="btn btn-sm btn-success mb-3">
+                                        Export Excel
+                                    </a>
+                                @endif
                                 <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                     <thead>
                                         <!--begin::Table row-->
@@ -236,10 +242,12 @@
                         </div>
                         <div class="tab-pane fade show" id="kt_tab_pane_uas_genap" role="tabpanel">
                             @if ($exams->where('exam_type', 'uas')->where('semester', 'genap')->count() > 0)
-                                <a href="{{ route('admin.exportUAS', ['exam' => 'uas', 'semester' => 'genap']) }}"
-                                    class="btn btn-sm btn-success mb-3">
-                                    Export Excel
-                                </a>
+                                @if (auth()->user()->roles->pluck('name')[0] == 'admin')
+                                    <a href="{{ route('admin.exportUAS', ['exam' => 'uas', 'semester' => 'genap']) }}"
+                                        class="btn btn-sm btn-success mb-3">
+                                        Export Excel
+                                    </a>
+                                @endif
                                 <table id="kt_datatable_responsive" class="table table-striped border rounded gy-5 gs-7">
                                     <thead>
                                         <!--begin::Table row-->

@@ -213,7 +213,7 @@
 
                     <div class="row">
                         @forelse($challenges as $challenge)
-                            <div class="col-xl-4 mb-5   ">
+                            <div class="col-xl-4 mb-5">
 
                                 <!--begin::Card-->
 
@@ -412,96 +412,96 @@
 
                                 </div>
                             </div>
-                    </div>
                         @empty
                             <x-empty-component title="Tantangan" />
                         @endforelse
                     </div>
-                    <!--end::Content container-->
                 </div>
-                <div class="row">
-                    {{ $challenges->appends(request()->query())->links() }}
-                </div>
-                <!--end::Content-->
+                <!--end::Content container-->
             </div>
-            <!--end::Content wrapper-->
-
-            <!--begin::Footer-->
-            <div id="kt_app_footer" class="app-footer ">
-                <!--begin::Footer container-->
-                <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
-                    <!--begin::Copyright-->
-                    <div class="text-dark order-2 order-md-1">
-                        <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
-                        <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
-                            Industri</a>
-                    </div>
-                    <!--end::Copyright-->
-
-                    <!--begin::Menu-->
-                    <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                        <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
-                                class="menu-link px-2">Tentang
-                                Kami</a></li>
-
-                        <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
-                                class="menu-link px-2">Syarat & Ketentuan</a></li>
-
-                        <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
-                                class="menu-link px-2">Kebijakan Privasi</a></li>
-                    </ul>
-                    <!--end::Menu-->
-                </div>
-                <!--end::Footer container-->
+            <div class="row">
+                {{ $challenges->appends(request()->query())->links() }}
             </div>
-
-
-            <x-delete-modal-component />
-            <!--end::Footer-->
+            <!--end::Content-->
         </div>
-    @endsection
-    @section('css')
-        <Style>
-            @media (max-width:639px) {
-                .position-relative {
-                    margin-bottom: 10px;
-                }
+        <!--end::Content wrapper-->
+
+        <!--begin::Footer-->
+        <div id="kt_app_footer" class="app-footer ">
+            <!--begin::Footer container-->
+            <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
+                <!--begin::Copyright-->
+                <div class="text-dark order-2 order-md-1">
+                    <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
+                    <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
+                        Industri</a>
+                </div>
+                <!--end::Copyright-->
+
+                <!--begin::Menu-->
+                <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
+                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
+                            class="menu-link px-2">Tentang
+                            Kami</a></li>
+
+                    <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                            class="menu-link px-2">Syarat & Ketentuan</a></li>
+
+                    <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                            class="menu-link px-2">Kebijakan Privasi</a></li>
+                </ul>
+                <!--end::Menu-->
+            </div>
+            <!--end::Footer container-->
+        </div>
+
+
+        <x-delete-modal-component />
+        <!--end::Footer-->
+    </div>
+@endsection
+@section('css')
+    <Style>
+        @media (max-width:639px) {
+            .position-relative {
+                margin-bottom: 10px;
             }
+        }
 
-            @media (min-width:640px) {
-                .searching {
-                    display: flex;
-                }
+        @media (min-width:640px) {
+            .searching {
+                display: flex;
             }
-        </Style>
-    @endsection
-    @section('script')
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
+        }
+    </Style>
+@endsection
+@section('script')
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
-                $('.btn-delete').click(function() {
-                    const url = "{{ route('teacher.challenges.destroy', ':id') }}".replace(':id', $(this).data(
-                        'id'))
-                    $('#form-delete').attr('action', url)
+            $('.btn-delete').click(function() {
+                const url = "{{ route('teacher.challenges.destroy', ':id') }}".replace(':id', $(this).data(
+                    'id'))
+                $('#form-delete').attr('action', url)
 
-                    $('#kt_modal_delete').modal('show')
-                })
+                $('#kt_modal_delete').modal('show')
+            })
 
-                $('.btn-delete-mentor').click(function() {
-                    const url = "{{ route('mentor.challenges.destroy', ':id') }}".replace(':id', $(this).data(
-                        'id'))
-                    $('#form-delete').attr('action', url)
+            $('.btn-delete-mentor').click(function() {
+                const url = "{{ route('mentor.challenges.destroy', ':id') }}".replace(':id', $(this).data(
+                    'id'))
+                $('#form-delete').attr('action', url)
 
-                    $('#kt_modal_delete').modal('show')
-                })
+                $('#kt_modal_delete').modal('show')
+            })
 
-                $('#btn-search').click(function() {
-                    window.location.href = "{{ route('teacher.challenges.index', 'search=' . ':id') }}"
-                        .replace(
-                            ':id', $("input[name='search']").val())
-                })
+            $('#btn-search').click(function() {
+                window.location.href = "{{ route('teacher.challenges.index', 'search=' . ':id') }}"
+                    .replace(
+                        ':id', $("input[name='search']").val())
+            })
 
 
-            });
-        </script>
-    @endsection
+        });
+    </script>
+@endsection

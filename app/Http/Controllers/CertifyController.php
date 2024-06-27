@@ -282,7 +282,7 @@ class CertifyController extends Controller
         $vertical = 550;
 
         foreach ($groupedScores as $index => $score) {
-
+ 
             $scoreImg->drawRectangle(240, $vertical, function (RectangleFactory $rectangle) {
                 $rectangle->size(1500, 100); // width & height of rectangle
                 $rectangle->background('#FFF8EF'); // background color of rectangle
