@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="{{ asset('owlcarousel/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('owlcarousel/owl.theme.default.min.css') }}">
     <style>
-        .owl-carousel.owl-loaded owl-drag {
-            height: 100px !important;
+        .owl-carousel.owl-loaded.owl-drag {
+            height: 150px !important;
+            margin-bottom: 1rem;
         }
     </style>
 @endsection

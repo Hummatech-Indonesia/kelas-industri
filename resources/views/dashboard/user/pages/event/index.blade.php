@@ -8,11 +8,15 @@
     <style>
         .short-description {
             display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical !important;
+            -webkit-line-clamp: 3 !important;
             /* Batasi teks ke 2 baris */
-            overflow: hidden;
-            text-overflow: ellipsis;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+        .card-img {
+            height: 150px;
+            object-fit: cover;
         }
     </style>
 @endsection
@@ -74,7 +78,7 @@
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="card p-3 shadow">
                                         <img src="{{ asset("storage/$event->thumnail") }}" alt="Slider Image"
-                                            class="img-fluid rounded">
+                                            class="img-fluid rounded card-img">
                                         <div class="d-flex gap-2 ms-2 align-items-center my-2">
                                             <img alt="Logo"
                                                 src="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}"
@@ -90,7 +94,7 @@
                                                 </a>
                                                 {{-- <div class="badge badge-light-primary">Diikuti</div> --}}
                                             </div>
-                                            <p class="short-description">{!! $event->description !!}</p>
+                                            <div class="short-description">{!! $event->description !!}</div>
                                         </div>
                                     </div>
                                 </div>
