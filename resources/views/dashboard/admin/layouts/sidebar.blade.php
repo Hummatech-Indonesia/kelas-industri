@@ -833,7 +833,7 @@
                             <span class="menu-title">Siswa</span></a>
                         <!--end:Menu link-->
                     </div>
-                    <div class="menu-item">
+                    {{-- <div class="menu-item">
                         <!--begin:Menu link-->
                         <a class="menu-link {{ request()->routeIs('school.exam.*') || request()->routeIs('school.showStudent') ? 'active' : '' }}"
                             href="{{ route('school.exam.index') }}">
@@ -861,7 +861,7 @@
                             </span>
                             <span class="menu-title">Ujian</span></a>
                         <!--end:Menu link-->
-                    </div>
+                    </div> --}}
                     <div class="menu-item">
                         <!--begin:Menu link-->
                         <a class="menu-link {{ request()->routeIs('school.exam.*') || request()->routeIs('school.showStudent') ? 'active' : '' }}"
