@@ -87,8 +87,8 @@
                                                     <th data-priority="3">Tanggal</th>
                                                     <th data-priority="4">Link</th>
                                                     <th data-priority="5">Status</th>
-                                                    <th data-priority="6">Aksi</th>
-                                                    <th data-priority="7">Detail</th>
+                                                    <th data-priority="6" class="text-center ">Aksi</th>
+                                                    
                                                 </tr>
                                                 <!--end::Table row-->
                                             </thead>
@@ -121,25 +121,23 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            <div class="justify-content-end">
+                                                            <div class="d-flex justify-content-center">
                                                                 @if ($attendance->status == 'open')
                                                                     <button class="btn btn-default btn-update btn-sm p-1"
                                                                         data-id="{{ $attendance->id }}">
-                                                                        <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i>
+                                                                        <i class="text-warning fs-3 bi bi-slash-circle"></i>
                                                                     </button>
                                                                 @endif
                                                                 <button class="btn btn-default btn-sm p-1 btn-delete"
                                                                     data-id="{{ $attendance->id }}">
                                                                     <i class="fonticon-trash-bin fs-2 text-danger"></i>
                                                                 </button>
+                                                                <a href="{{route('mentor.attendance.show', [$attendance->id])}}">
+                                                                    <button class="btn btn-default btn-sm p-1">
+                                                                        <i class=" fa fa-eye fs-3 text-primary "></i>
+                                                                    </button>
+                                                                </a>
                                                             </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{route('mentor.attendance.show', [$attendance->id])}}">
-                                                                <button class="btn btn-default btn-sm p-1">
-                                                                    <i class="fa fa-eye fs-3 text-muted"></i>
-                                                                </button>
-                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

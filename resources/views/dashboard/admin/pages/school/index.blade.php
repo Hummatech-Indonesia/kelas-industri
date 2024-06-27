@@ -148,7 +148,7 @@
 
                                     </span>
 
-                                    <span class="btn btn-light-danger btn-sm font-weight-bold btn-upper btn-text">
+                                    <span class="badge badge-light-success fs-5 p-3 font-weight-bold btn-upper btn-text">
                                         {{ $countStudents[$school->id] }}
                                     </span>
 
@@ -162,7 +162,7 @@
 
                                     </span>
 
-                                    <span class="btn btn-light-warning btn-sm font-weight-bold btn-upper btn-text">
+                                    <span class="badge badge-light-warning fs-5 p-3 font-weight-bold btn-upper btn-text">
                                         {{ count($school->teachers) }}
                                     </span>
 
@@ -176,7 +176,7 @@
 
                                     </span>
 
-                                    <span class="btn btn-light-success btn-sm font-weight-bold btn-upper btn-text">
+                                    <span class="badge badge-light-primary fs-5 p-3 font-weight-medium btn-upper btn-text">
                                         {{ count($school->classrooms) }}
                                     </span>
 
