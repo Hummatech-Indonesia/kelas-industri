@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Spk\BatchController;
 use App\Http\Controllers\Spk\CriteriaController;
 use App\Http\Controllers\Spk\BatchResultController;
-use App\Http\Controllers\Api\GenerateExcelController;
+use App\Http\Controllers\Spk\GenerateExcelController;
 use App\Http\Controllers\Spk\AlternativeCriteriaController;
 
 Route::middleware('auth')->prefix('admin/spk')->name('admin.spk.')->group(function(){

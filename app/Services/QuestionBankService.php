@@ -23,4 +23,12 @@ class QuestionBankService
     {
         return $this->repository->destroy($id);
     }
+
+    public function getRequest($request, $id) : mixed
+    {
+        $data = [
+            'question' => $request->question,
+        ];
+        return $this->repository->update($id , $data);
+    }
 }

@@ -188,7 +188,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('question-bank-multiplechoice/{submaterial}', [QuestionBankController::class, 'indexMultipleChoise'])->name('question-bank-multiplechoice');
         Route::get('question-bank-essay/{submaterial}', [QuestionBankController::class, 'indexEssay'])->name('question-bank-essay');
         Route::get('question-bank/{questionBank}/edit', [QuestionBankController::class, 'edit'])->name('question-bank-edit');
-        Route::put('question-bank/{questionBank}', [QuestionBankController::class, 'update'])->name('question-bank-update');
+        Route::put('update-essay/{questionBank}', [QuestionBankController::class, 'updateEssay'])->name('updateEssay');
         Route::get('quetion-banks/{material}', [MaterialController::class, 'questionBank'])->name('questionBank');
         Route::get('quetion-bank-detail/{submaterial}', [QuestionBankController::class, 'show'])->name('quetion-bank-detail');
 

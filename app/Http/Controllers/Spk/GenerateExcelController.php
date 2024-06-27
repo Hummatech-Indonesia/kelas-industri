@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Spk;
 
 use App\Models\Batch;
 use App\Models\Generation;
@@ -11,8 +11,8 @@ use App\Imports\ImportDataset;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Requests\ImportExcelRequest;
 use App\Repositories\Spk\CriteriaRepository;
+use App\Http\Requests\Spk\ImportExcelRequest;
 use App\Repositories\Spk\AlternativeRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;

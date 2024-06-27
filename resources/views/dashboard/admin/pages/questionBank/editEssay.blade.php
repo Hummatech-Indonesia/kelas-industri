@@ -14,16 +14,18 @@
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    Buat soal Essay untuk Submateri {{ $questionBank->submaterial->title }}
+                    Edit soal Essay untuk Submateri {{ $questionBank->submaterial->title }}
                 </li>
                 <!--end::Item-->
 
             </ul>
             <!--end::Breadcrumb-->
-
         </div>
-        <!--begin::Button-->
-            <a href="{{ route('admin.questionBank', $submaterial->material_id) }}" class="btn btn-dark fw-bold">
+        <!--begin::Actions-->
+        <div class="d-flex align-items-center py-2 py-md-1">
+
+            <!--begin::Button-->
+            <a href="{{ route('admin.quetion-bank-detail', $questionBank->submaterial->id) }}" class="btn btn-dark fw-bold">
                 Kembali </a>
             <!--end::Button-->
         </div>
@@ -32,19 +34,17 @@
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('admin.questionBank.storeEssay') }}" method="post">
+            <form action="{{ route('admin.updateEssay', $questionBank->id) }}" method="post">
                 @csrf
-                @method('POST')
-                <input type="hidden" name="sub_material_id" value="{{ $questionBank->submaterial->id }}">
-                <input type="hidden" name="type" value="{{ $questionBank->submaterial->id }}">
+                @method('PUT')
                 <div class="card col-12">
                     <div class="card-body">
                         <div class="fs-5 fw-bold mb-3">
-                            Tambahkan Soal Essay
+                            Edit Soal Essay
                         </div>
                         <textarea id="kt_docs_ckeditor_classic" rows="5" name="question" type="text" placeholder="deskripsi tugas">{{ $questionBank->question }}</textarea>
                         <button class="btn btn-primary btn-sm mt-3" type="submit">
-                            Buat Soal
+                            Edit Soal
                         </button>
                     </div>
                 </div>
