@@ -73,7 +73,7 @@ class QuestionBankRepository extends BaseRepository
      */
     public function paginateUnusedQuestion(Request $request,string $submaterialId, string $slug, int $pagination): mixed
     {
-        return $this->model->query()
+        $data = $this->model->query()
             ->where('sub_material_id', $submaterialId)
             ->whereDoesntHave('subMaterialExamQuestions', function ($query) use ($slug) {
                 $query->whereRelation('subMaterialExam', 'slug', $slug);
@@ -83,8 +83,20 @@ class QuestionBankRepository extends BaseRepository
             })
             ->when($request->essay, function ($query) {
                 $query->where('type', QuestionTypeEnum::ESSAY->value);
-            })
-            ->paginate($pagination);
+            });
+
+
+            if($request->start_at) {
+                $data->where('created_at', '>=', $request->start_at);
+            }
+            if($request->end_at) {
+                $data->where('updated_at', '<=', $request->end_at);
+            }
+            if ($request->type) {
+                $data->where('type', $request->type);
+            }
+
+            return $data->paginate($pagination);
     }
 
     /**
