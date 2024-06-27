@@ -195,32 +195,61 @@
                         @if ($schoolPayment != null)
                             @if ($schoolPayment->status == 'not_yet_paid')
                                 <a data-bs-toggle="tab" href="#kt_app_sidebar_schedule"
-                                    style="cursor: not-allowed; opacity: 0.5;" class="nav-link py-4 px-1"
+                                    style="cursor: not-allowed; opacity: 0.5;" class="nav-link py-4 px-1 position-relative"
                                     @disabled(true)>
                                     <i class="bi bi-file-earmark-text fs-1"></i>
 
+                                    @if (count($StudentExam) > 0)
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            fill="currentColor" class="bi bi-dot position-absolute"
+                                            style="color: red; top: 0;right:0; z-index: 10;" viewBox="0 0 16 16">
+                                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                                        </svg>
+                                    @endif
                                     <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Ujian</span>
                                 </a>
                             @else
-                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam" class="nav-link py-4 px-1 btn">
+                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam" class="nav-link py-4 px-1 position-relative">
                                     <i class="bi bi-file-earmark-text fs-1"></i>
 
+                                    @if (count($StudentExam) > 0)
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            fill="currentColor" class="bi bi-dot position-absolute"
+                                            style="color: red; top: 0;right:0; z-index: 10;" viewBox="0 0 16 16">
+                                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                                        </svg>
+                                    @endif
                                     <span class="pt-2 fs-9 fs-lg-7 fw-bold">Ujian</span>
                                 </a>
                             @endif
                         @else
                             @if (!$isPaymentComplete)
                                 <a data-bs-toggle="tab" href="#kt_app_sidebar_exam"
-                                    style="cursor: not-allowed; opacity: 0.5;" class="nav-link py-4 px-1"
+                                    style="cursor: not-allowed; opacity: 0.5;" class="nav-link py-4 px-1 position-relative"
                                     @disabled(true)>
                                     <i class="bi bi-file-earmark-text fs-1"></i>
 
+                                    @if (count($StudentExam) > 0)
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            fill="currentColor" class="bi bi-dot position-absolute"
+                                            style="color: red; top: 0;right:0; z-index: 10;" viewBox="0 0 16 16">
+                                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                                        </svg>
+                                    @endif
                                     <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Ujian</span>
                                 </a>
                             @else
-                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam" class="nav-link py-4 px-1 btn">
+                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam"
+                                    class="nav-link py-4 px-1 position-relative btn">
                                     <i class="bi bi-file-earmark-text fs-1"></i>
 
+                                    @if (count($StudentExam) > 0)
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            fill="currentColor" class="bi bi-dot position-absolute"
+                                            style="color: red; top: 0;right:0; z-index: 10;" viewBox="0 0 16 16">
+                                            <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                                        </svg>
+                                    @endif
                                     <span class="pt-2 fs-9 fs-lg-7 fw-bold">Ujian</span>
                                 </a>
                             @endif
@@ -622,74 +651,74 @@
             </div>
 
             @if (auth()->user()->roles->pluck('name')[0] == 'student')
-            <div class="tab-content px-5 px-lg-10">
-                <!--begin::Tab pane-->
-                <div class="tab-pane fade" id="kt_app_sidebar_exam" role="tabpanel">
-                    <!--begin::Collections-->
-                    <div class="card card-reset card-p-0">
-                        <div class="card-header pt-7 mb-5">
-                            <!--begin::Title-->
-                            <h3 class="card-title fw-bold text-gray-800">
-                                Ujian
-                            </h3>
-                            <!--end::Title-->
-                        </div>
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            @forelse ($StudentExam as $exam)
-                                <div class="d-flex mb-3 flex-stack">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-40px me-4">
-                                        <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
-                                            {{ substr($exam->title, 0, 1) }}
-                                        </div>
-                                    </div>
-                                    <!--end::Symbol-->
-
-                                    <!--begin::Section-->
-                                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                        <!--begin:Author-->
-                                        <div class="flex-grow-1 me-2">
-                                            <a href="{{ route('common.showSubMaterial', [
-                                                'classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id,
-                                                'material' => $exam->submaterial->material->id,
-                                                'submaterial' => $exam->sub_material_id,
-                                            ]) }}"
-                                                target="blank"
-                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $exam->title }}</a>
-                                            <span
-                                                class="text-muted fw-semibold d-block fs-">{{ $exam->submaterial->title }}</span>
-
-                                            <span
-                                                class="text-muted fw-semibold d-block fs-7">{{ \Carbon\Carbon::now()->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
-                                        </div>
-                                        <!--end:Author-->
-                                    </div>
-                                    <!--end::Section-->
-                                </div>
-                            @empty
-                                <!--begin::Illustration-->
-                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
-                                    alt="" />
-                                <!--end::Illustration-->
-
+                <div class="tab-content px-5 px-lg-10">
+                    <!--begin::Tab pane-->
+                    <div class="tab-pane fade" id="kt_app_sidebar_exam" role="tabpanel">
+                        <!--begin::Collections-->
+                        <div class="card card-reset card-p-0">
+                            <div class="card-header pt-7 mb-5">
                                 <!--begin::Title-->
-                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                <h3 class="card-title fw-bold text-gray-800">
+                                    Ujian
+                                </h3>
                                 <!--end::Title-->
+                            </div>
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                @forelse ($StudentExam as $exam)
+                                    <div class="d-flex mb-3 flex-stack">
+                                        <!--begin::Symbol-->
+                                        <div class="symbol symbol-40px me-4">
+                                            <div class="symbol-label fs-2 fw-semibold bg-primary text-inverse-danger">
+                                                {{ substr($exam->title, 0, 1) }}
+                                            </div>
+                                        </div>
+                                        <!--end::Symbol-->
 
-                                <!--begin::Desctiption-->
-                                <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                    tidak ada ujian untuk saat ini.
-                                </span>
-                                <!--end::Desctiption-->
-                            @endforelse
+                                        <!--begin::Section-->
+                                        <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                            <!--begin:Author-->
+                                            <div class="flex-grow-1 me-2">
+                                                <a href="{{ route('common.showSubMaterial', [
+                                                    'classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id,
+                                                    'material' => $exam->submaterial->material->id,
+                                                    'submaterial' => $exam->sub_material_id,
+                                                ]) }}"
+                                                    target="blank"
+                                                    class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $exam->title }}</a>
+                                                <span
+                                                    class="text-muted fw-semibold d-block fs-">{{ $exam->submaterial->title }}</span>
+
+                                                <span
+                                                    class="text-muted fw-semibold d-block fs-7">{{ \Carbon\Carbon::now()->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
+                                            </div>
+                                            <!--end:Author-->
+                                        </div>
+                                        <!--end::Section-->
+                                    </div>
+                                @empty
+                                    <!--begin::Illustration-->
+                                    <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
+                                        alt="" />
+                                    <!--end::Illustration-->
+
+                                    <!--begin::Title-->
+                                    <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                    <!--end::Title-->
+
+                                    <!--begin::Desctiption-->
+                                    <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                        tidak ada ujian untuk saat ini.
+                                    </span>
+                                    <!--end::Desctiption-->
+                                @endforelse
+                            </div>
+                            <!--end::Body-->
                         </div>
-                        <!--end::Body-->
+                        <!--end::Collections-->
                     </div>
-                    <!--end::Collections-->
+                    <!--end::Tab pane-->
                 </div>
-                <!--end::Tab pane-->
-            </div>
             @endif
             <!--end::Tab content-->
         </div>

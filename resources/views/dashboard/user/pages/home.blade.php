@@ -1,4 +1,6 @@
-@php use Carbon\Carbon; @endphp
+@php
+use App\Models\Assignment;
+ use App\Models\SubmitAssignment; use Carbon\Carbon; @endphp
 @extends('dashboard.user.layouts.app')
 
 @section('css')
@@ -95,14 +97,14 @@
                         @endif
                     </div>
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                        {{-- @if ($StudentExam)
+                        @php
+                            $exam = $StudentExam->first();
+                            $assignmentCount = Assignment::whereRelation('submaterial', 'id', $exam->sub_material_id)->count();
+                            $submitAssignmenCount = SubmitAssignment::whereRelation('assignment.submaterial', 'id', $exam->sub_material_id)->where('student_id', auth()->user()->id)->count();
+                        @endphp
+                        @if ($schoolPayment != null && $schoolPayment != null && $StudentExam && ($assignmentCount > $submitAssignmenCount ))
                             <!--begin::Alert-->
-                            <div class="alert alert-danger d-flex align-items-center p-5">
-                                <!--begin::Icon-->
-                                <i class="ki-duotone ki-shield-tick fs-2hx text-success me-4"><span
-                                        class="path1"></span><span class="path2"></span></i>
-                                <!--end::Icon-->
-
+                            <div class="alert alert-danger d-flex align-items-center justify-content-between p-5">
                                 <!--begin::Wrapper-->
                                 <div class="d-flex flex-column">
                                     <!--begin::Title-->
@@ -114,10 +116,16 @@
                                         ujiankan</span>
                                     <!--end::Content-->
                                 </div>
+
+                                <a href="{{ route('common.showSubMaterial', [
+                                    'classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id,
+                                    'material' => $exam->submaterial->material->id,
+                                    'submaterial' => $exam->sub_material_id,
+                                ]) }}#list-tugas" class="btn btn-sm btn-primary">Kerjakan</a>
                                 <!--end::Wrapper-->
                             </div>
                             <!--end::Alert-->
-                        @endif --}}
+                        @endif
                         @if (count($events) > 0)
                             <div id="carouselExampleIndicators" class="carousel slide rounded my-5">
                                 <div class="carousel-indicators">

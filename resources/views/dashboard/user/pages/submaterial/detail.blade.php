@@ -256,7 +256,6 @@
                                             </div>
 
                                         </div>
-
                                         <!--end: Content-->
 
                                     </div>
@@ -272,7 +271,7 @@
 
                     </div>
                     <div class="col-12 mt-5">
-                        <div class="card">
+                        <div class="card" id="list-tugas">
                             <div class="card-header d-flex justify-content-between pt-7">
                                 <!--begin::Title-->
                                 <h3 class="card-title align-items-start flex-column">
