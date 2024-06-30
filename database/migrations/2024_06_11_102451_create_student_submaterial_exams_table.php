@@ -17,8 +17,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('sub_material_exam_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('student_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->text('order_of_question_multiple_choice');
-            $table->text('order_of_question_essay');
+            $table->text('order_of_question_multiple_choice')->nullable();
+            $table->text('order_of_question_essay')->nullable();
             $table->text('answer')->nullable();
             $table->double('score')->nullable();
             $table->integer('true_answer')->nullable();

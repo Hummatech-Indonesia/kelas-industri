@@ -117,10 +117,8 @@ class EventController extends Controller
     {
         $data = $this->GetDataSidebar();
         $data['event'] = $event;
-        // $data['event']->is_start = $event->start_date > now();
         $data['participant'] = $this->eventParticipantService->checkFollowing($event->id, auth()->user()->id);
 
-        // dd($data);
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             return view('dashboard.admin.pages.event.detail', $data);
         } else if (auth()->user()->roles->pluck('name')[0] == 'student') {

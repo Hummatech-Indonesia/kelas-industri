@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="form-group row mb-3">
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Kelas Materi</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Divisi</label>
 
                                     <div class="col-lg-9 col-xl-9">
 

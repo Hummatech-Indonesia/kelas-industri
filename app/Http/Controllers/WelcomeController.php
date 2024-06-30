@@ -64,7 +64,7 @@ class WelcomeController extends Controller
             'events' => $this->eventService->handleGetNewer(),
             'event' => $this->eventService->handleShow($event)
         ];
-        return view('detail -event', $data);
+        return view('detail-event', $data);
     }
 
     public function gallery()

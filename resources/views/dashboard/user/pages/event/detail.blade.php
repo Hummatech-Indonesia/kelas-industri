@@ -6,10 +6,14 @@
     <link rel="stylesheet" href="{{ asset('owlcarousel/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('owlcarousel/owl.theme.default.min.css') }}">
     <style>
-        .owl-carousel.owl-loaded.owl-drag {
+        /* .owl-carousel.owl-loaded.owl-drag {
             height: 150px !important;
             margin-bottom: 1rem;
         }
+
+        .owl-stage-outer {
+            height: 100%;
+        } */
     </style>
 @endsection
 @section('content')
@@ -69,9 +73,9 @@
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     <div class="card-body">
                         <!--begin::About-->
-                        <div class="mb-18">
+                        <div class="mb-5">
                             <!--begin::Wrapper-->
-                            <div class="mb-10">
+                            <div class="mb-5">
                                 <!--begin::Overlay-->
                                 <div class="overlay">
                                     <!--begin::Image-->
@@ -80,16 +84,7 @@
                                     <!--end::Image-->
 
                                     <!--begin::Links-->
-                                    {{-- <div class="overlay-layer card-rounded bg-dark bg-opacity-25" data-event="{{ $event->id }}">
-                            @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                <form action="{{ route('student.events.follow', $event->id) }}" method="POST"
-                                    id="form-follow">
-                                    @csrf
-                                    <button type="button"
-                                        class="btn btn-light-primary ms-3 follow-event-btn">Daftar</button>
-                                </form>
-                            @endif
-                        </div> --}}
+
                                     <!--end::Links-->
                                 </div>
                                 <!--end::Container-->
@@ -112,18 +107,12 @@
 
                         @if ($event->start_date <= Carbon::now())
                             <!--begin::Section-->
-                            <div class="mb-16">
+                            <div class="mb-5">
                                 <!--begin::Top-->
-                                <div class="text-center mb-12">
+                                <div class="text-center">
                                     <!--begin::Title-->
-                                    <h3 class="fs-2hx text-gray-900 mb-5">Dokumentasi Event</h3>
-                                    <!--end::Title-->
+                                    <h4 class="fs-2hx text-gray-900 mb-5">Dokumentasi Event</h4>
 
-                                    <!--begin::Text-->
-                                    {{-- <div class="fs-5 text-muted fw-semibold">
-                        Dokumentasi hasil foto
-                    </div> --}}
-                                    <!--end::Text-->
                                 </div>
                                 <!--end::Top-->
 
@@ -141,32 +130,26 @@
                             </div>
                             <!--end::Section-->
                         @endif
-
-
                         <!--begin::Team-->
                         <!--end::Team-->
-
-
-
-
-                        <div class="mb-7">
+                        <div>
                             <div class="row">
                                 <div class="col">
-                                    <p>Acara</p>
+                                    <p class="fw-bold fs-4">Acara</p>
                                 </div>
                                 <div class="col-11">: {{ $event->title }}</div>
                                 <div class="col">
-                                    <p>Tanggal</p>
+                                    <p class="fw-bold fs-4">Tanggal</p>
                                 </div>
                                 <div class="col-11">:
                                     {{ Carbon::parse($event->start_date)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
                                 </div>
                                 <div class="col">
-                                    <p>Waktu</p>
+                                    <p class="fw-bold fs-4">Waktu</p>
                                 </div>
                                 <div class="col-11">: {{ Carbon::parse($event->start_date)->format('H:m') }}</div>
                                 <div class="col">
-                                    <p>Tempat</p>
+                                    <p class="fw-bold fs-4">Tempat</p>
                                 </div>
                                 <div class="col-11">: {{ $event->location }}</div>
                             </div>

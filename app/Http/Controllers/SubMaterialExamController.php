@@ -76,6 +76,11 @@ class SubMaterialExamController extends Controller
         return view('dashboard.admin.pages.subMaterialExam.index', compact('exams'));
     }
 
+    public function registrationExam()
+    {
+        return view('dashboard.admin.pages.registrationExam.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -137,28 +142,6 @@ class SubMaterialExamController extends Controller
         $this->service->handleCreate($request);
 
         return redirect()->back()->with('success', trans('alert.add_success'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\SubMaterialExam  $subMaterialExam
-     * @return \Illuminate\Http\Response
-     */
-    public function show(SubMaterialExam $subMaterialExam)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\SubMaterialExam  $subMaterialExam
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(SubMaterialExam $subMaterialExam)
-    {
-        //
     }
 
     /**

@@ -182,6 +182,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('exam-statistic/{slug}', [SubMaterialExamController::class, 'examStatistic'])->name('exam-statistic');
         Route::get('exam-detail-student/{submaterialExam}', [SubMaterialExamController::class, 'examDetailStudent'])->name('exam-detail-student');
 
+        Route::get('exam-registration', [SubMaterialExamController::class, 'registrationExam'])->name('exam-registration');
+
         Route::get('exam-question/{subMaterialExam}', [SubMaterialExamController::class, 'examQuestion'])->name('exam-question');
         Route::get('exam-question-manual/{submaterial}/{submaterialExam}', [SubMaterialExamController::class, 'examQuestionManual'])->name('exam-question-manual');
 

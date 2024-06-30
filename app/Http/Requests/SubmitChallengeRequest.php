@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\SubmitChallengeRequest;
-
 class SubmitChallengeRequest extends BaseRequest
 {
     /**
