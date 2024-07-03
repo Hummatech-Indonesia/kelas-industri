@@ -39,12 +39,13 @@ class MaterialRepository extends BaseRepository
     public function get_by_classroom(mixed $classroom, string | null $search, int $limit)
     {
         return $this->model->query()
-            ->where('title', 'LIKE', '%' . $search . '%')
-            ->whereRelation('generation', function ($q) use ($classroom) {
-                return $q->where('generation', $classroom->generation->generation);
-            })
-            ->where('devision_id', $classroom->devision_id)
-            ->paginate($limit);
+        ->where('title', 'LIKE', '%' . $search . '%')
+        ->whereRelation('generation', function ($q) use ($classroom) {
+            return $q->where('generation', $classroom->generation->generation);
+        })
+        ->where('devision_id', $classroom->devision_id)
+        ->with(['exams.studentMaterialExams'])
+        ->paginate($limit);
     }
 
     public function search_paginate(string | null $search, string | null $generation, string | null $filter, string $year, int $limit): mixed

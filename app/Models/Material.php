@@ -39,6 +39,16 @@ class Material extends Model
     }
 
     /**
+     * Get all of the exams for the Material
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function exams(): HasMany
+    {
+        return $this->hasMany(MaterialExam::class);
+    }
+
+    /**
      * many to one relationship
      *
      * @return BelongsTo

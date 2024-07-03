@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\StudentMaterialExam;
 use App\Repositories\BaseRepository;
 
-class StudentExamRepository extends BaseRepository
+class StudentMaterialExamRepository extends BaseRepository
 {
 
     public function __construct(StudentMaterialExam $model)
@@ -28,9 +28,9 @@ class StudentExamRepository extends BaseRepository
     public function whereId(mixed $id): mixed
     {
         return $this->model->query()
-            ->where('id', $id)
-            ->select('score')
-            ->first();
+        ->where('id', $id)
+        ->select('score')
+        ->first();
     }
 
     /**

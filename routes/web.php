@@ -39,6 +39,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\GenerationController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\SubMaterialController;
+use App\Http\Controllers\MaterialExamController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\QuestionBankController;
@@ -57,6 +58,8 @@ use App\Http\Controllers\EventPartisipantController;
 use App\Http\Controllers\TeacherStatisticController;
 use App\Http\Controllers\EventDocumentationController;
 use App\Http\Controllers\PresentationFinishController;
+use App\Http\Controllers\MaterialExamQuestionController;
+use App\Http\Controllers\StudentMaterialExamController;
 use App\Http\Controllers\StudentSubmaterialExamController;
 use App\Http\Controllers\SubMaterialExamQuestionController;
 
@@ -165,6 +168,7 @@ Route::middleware('auth.custom')->group(function () {
             'events' => EventController::class,
             'eventDocumentation' => EventDocumentationController::class,
             'sub-material-exam' => SubMaterialExamController::class,
+            'material-exam' => MaterialExamController::class,
         ]);
 
         Route::get('criterias/{devision}',[CriteriaController::class,'index'])->name('criterias.index');
@@ -186,6 +190,9 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('exam-question/{subMaterialExam}', [SubMaterialExamController::class, 'examQuestion'])->name('exam-question');
         Route::get('exam-question-manual/{submaterial}/{submaterialExam}', [SubMaterialExamController::class, 'examQuestionManual'])->name('exam-question-manual');
+        Route::get('matarial-exam-question-manual/{material}/{materialExam}', [MaterialExamController::class, 'examQuestionManual'])->name('material-exam-question-manual');
+
+        Route::get('material-exam-question/{materialExam}', [MaterialExamController::class, 'examQuestion'])->name('materialExam-question');
 
         Route::get('question-bank-multiplechoice/{submaterial}', [QuestionBankController::class, 'indexMultipleChoise'])->name('question-bank-multiplechoice');
         Route::get('question-bank-essay/{submaterial}', [QuestionBankController::class, 'indexEssay'])->name('question-bank-essay');
@@ -195,7 +202,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('quetion-bank-detail/{submaterial}', [QuestionBankController::class, 'show'])->name('quetion-bank-detail');
 
         Route::post('question-bank-manual/{submaterialExam}', [SubMaterialExamQuestionController::class, 'manual'])->name('questionBank.manual');
+        Route::post('material-question-bank-manual/{materialExam}', [MaterialExamQuestionController::class, 'manual'])->name('material-questionBank.manual');
         Route::post('question-bank-auto/{submaterialExam}', [SubMaterialExamQuestionController::class, 'auto'])->name('questionBank.auto');
+        Route::post('material-question-bank-auto/{materialExam}', [MaterialExamQuestionController::class, 'auto'])->name('material-questionBank.auto');
         Route::resource('submaterialExamQuestion', SubMaterialExamQuestionController::class)->only('destroy');
 
         Route::post('question-bank-store-essay', [QuestionBankController::class, 'storeEssay'])->name('questionBank.storeEssay');
@@ -467,6 +476,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
 
+        // student material exam
+        Route::get('material-exam/{materialExam}', [StudentMaterialExamController::class, 'index'])->name('material-exam');
         // student exam
         Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');
         Route::put('exam/{subMaterialExam}/opentab', [StudentSubmaterialExamController::class, 'openTab'])->name('exam.opentab');

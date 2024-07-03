@@ -98,6 +98,34 @@ class QuestionBankRepository extends BaseRepository
 
             return $data->paginate($pagination);
     }
+    public function paginateUnusedQuestionMaterial(Request $request,string $materialId, int $pagination): mixed
+    {
+        $data = $this->model->query()
+            ->whereRelation('submaterial.material', 'id', $materialId)
+            ->whereDoesntHave('materialExamQuestions', function ($query) use ($materialId) {
+                $query->whereRelation('materialExam.material', 'id', $materialId);
+            })
+            ;
+            // ->when($request->multiple_choice, function ($query) {
+            //     $query->where('type', QuestionTypeEnum::MULTIPLECHOICE->value);
+            // })
+            // ->when($request->essay, function ($query) {
+            //     $query->where('type', QuestionTypeEnum::ESSAY->value);
+            // });
+
+
+            // if($request->start_at) {
+            //     $data->where('created_at', '>=', $request->start_at);
+            // }
+            // if($request->end_at) {
+            //     $data->where('updated_at', '<=', $request->end_at);
+            // }
+            // if ($request->type) {
+            //     $data->where('type', $request->type);
+            // }
+
+            return $data->paginate($pagination);
+    }
 
     /**
      * whereIn
@@ -126,6 +154,36 @@ class QuestionBankRepository extends BaseRepository
     {
         $query = $this->model->query()
             ->where('sub_material_id' , $submaterialId)
+            ->when($type, function ($query) use ($type) {
+                $query->where('type', $type);
+            })
+            ->whereNotIn('id', $usedQuestions)
+            ->inRandomOrder()
+            ->take($amount);
+        $query->when($request->filled(['start_date', 'end_date']), function ($query) use ($request) {
+            $startDate = Carbon::parse($request->start_date)->startOfDay();
+            $endDate = Carbon::parse($request->end_date)->endOfDay();
+            return $query->whereBetween('created_at', [$startDate, $endDate]);
+        });
+
+        return $query->get();
+    }
+
+    /**
+     * getRandomOrder
+     *
+     * @param  Request $request
+     * @param  string $levelId
+     * @param  string $lessonId
+     * @param  int $amount
+     * @param  array $usedQuestions
+     * @return mixed
+     */
+    public function getMaterialRandomOrder(Request $request, string $materialId, int $amount, array $usedQuestions, string $type = null): mixed
+    {
+        // dd($materialId);
+        $query = $this->model->query()
+            ->whereRelation('submaterial.material', 'id' , $materialId)
             ->when($type, function ($query) use ($type) {
                 $query->where('type', $type);
             })

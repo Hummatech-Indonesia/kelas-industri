@@ -42,7 +42,7 @@ class StudentSubmaterialExamController extends Controller
      * @param  mixed $subMaterialExam
      * @return mixed
      */
-    public function index(SubMaterialExam $subMaterialExam): mixed
+        public function index(SubMaterialExam $subMaterialExam): mixed
     {
         $examQuestionsMultipleChoice = $this->examQuestion->getRandomOrderByExamMultipleChoice($subMaterialExam->id);
         $examQuestionsEssay = $this->examQuestion->getRandomOrderByExamEssay($subMaterialExam->id);

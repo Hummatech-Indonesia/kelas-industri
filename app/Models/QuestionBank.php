@@ -40,6 +40,15 @@ class QuestionBank extends Model
     {
         return $this->hasMany(SubMaterialExamQuestion::class);
     }
+    /**
+     * Get all of the MaterialExamQuestions for the QuestionBank
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function materialExamQuestions(): HasMany
+    {
+        return $this->hasMany(MaterialExamQuestion::class);
+    }
 
     /**
      * Get all of the questionBankAnswers for the QuestionBank
