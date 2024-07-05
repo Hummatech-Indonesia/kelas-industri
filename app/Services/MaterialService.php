@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
+use App\Enums\QuestionTypeEnum;
 use App\Http\Requests\MaterialRequest;
 use App\Repositories\MaterialRepository;
-use Illuminate\Http\Request;
 
 class MaterialService
 {
@@ -93,5 +94,12 @@ class MaterialService
     public function handleCountMaterialAdmin()
     {
         return $this->repository->get_count_material_admin();
+    }
+
+    public function sortDailyExamQuestion(mixed $questionBank): mixed
+    {
+        return $questionBank->sortBy(function ($item) {
+            return $item->subMaterialExamQuestions[0]->question_number;
+        })->where('type', QuestionTypeEnum::MULTIPLECHOICE->value)->values()->all();
     }
 }

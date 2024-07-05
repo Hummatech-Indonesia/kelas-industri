@@ -51,7 +51,7 @@ class SchoolService
 
     public function handleFilter(String|null $status, string|null $search): mixed
     {
-        return $this->repository->status_paginate($status,$search, 6);
+        return $this->repository->status_paginate($status, $search, 6);
     }
 
     public function handleCountStudent(string $id)
@@ -80,7 +80,7 @@ class SchoolService
      * @param SchoolRequest $request
      * @return void
      */
-    public function handleCreate(SchoolRequest $request): void
+    public function handleCreate(SchoolRequest $request): mixed
     {
         $data = $request->validated();
         $data['photo'] = $request->file('photo')->store('school-logo', 'public');
@@ -88,6 +88,18 @@ class SchoolService
 
         $school = $this->repository->store($data);
         $school->assignRole('school');
+        return $school;
+    }
+
+    public function handleCreateTester(User $school, $amount): void
+    {
+        for ($i = 1; $i <= $amount; $i++) {
+            $user['name'] = strtolower(str_replace(' ', '', $school->name)) . str_pad($i, 3, '0', STR_PAD_LEFT);
+            $user['email'] = strtolower(str_replace(' ', '', $school->name)) . str_pad($i, 3, '0', STR_PAD_LEFT) . '@hummatech.com';
+            $user['password'] = bcrypt('password');
+            $data = $this->repository->store($user);
+            $data->assignRole('tester');
+        }
     }
 
     /**
@@ -125,5 +137,13 @@ class SchoolService
     public function handleGetAllClassroom(User $school, Request $request): mixed
     {
         return $this->repository->getAllClassroom($school, $request);
+    }
+
+
+    public function  handleDeleteRegristationExamStudent($school): mixed
+    {
+        return User::whereHas('students', function ($q) use ($school) {
+            $q->where('school_id', $school->id);
+        })->delete();
     }
 }

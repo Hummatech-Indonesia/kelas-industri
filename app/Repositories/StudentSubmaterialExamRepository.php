@@ -107,4 +107,15 @@ class StudentSubmaterialExamRepository extends BaseRepository
             ->whereRelation('student', 'status', 'active')
             ->paginate($limit);
     }
+
+
+    public function getTester($schoolId) : mixed {
+        return $this->model->query()
+        ->with('student')
+        ->whereHas('subMaterialExam', function($q) {
+            return $q->where('slug', 'tester');
+        })
+        ->whereRelation('student.studentSchool.school', 'id', $schoolId)
+        ->get();
+    }
 }

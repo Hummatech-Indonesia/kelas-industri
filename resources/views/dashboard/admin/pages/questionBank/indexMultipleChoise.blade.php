@@ -60,36 +60,36 @@
                     <div class="card-body">
                         <div class="form-check form-check-custom form-check-solid form-check-sm mb-4">
                             <input class="form-check-input" type="checkbox" name="answer[]" value="option1"
-                                id="flexRadioLg" />
-                            <label class="form-check-label" for="flexRadioLg">
+                                id="option1" />
+                            <label class="form-check-label" for="option1">
                                 Jawaban A
                             </label>
                         </div>
                         <div class="form-check form-check-custom form-check-solid form-check-sm mb-4">
                             <input class="form-check-input" type="checkbox" name="answer[]" value="option2"
-                                id="flexRadioLg" />
-                            <label class="form-check-label" for="flexRadioLg">
+                                id="option2" />
+                            <label class="form-check-label" for="option2">
                                 Jawaban B
                             </label>
                         </div>
                         <div class="form-check form-check-custom form-check-solid form-check-sm mb-4">
                             <input class="form-check-input" type="checkbox" name="answer[]" value="option3"
-                                id="flexRadioLg" />
-                            <label class="form-check-label" for="flexRadioLg">
+                                id="option3" />
+                            <label class="form-check-label" for="option3">
                                 Jawaban C
                             </label>
                         </div>
                         <div class="form-check form-check-custom form-check-solid form-check-sm mb-4">
                             <input class="form-check-input" type="checkbox" name="answer[]" value="option4"
-                                id="flexRadioLg" />
-                            <label class="form-check-label" for="flexRadioLg">
+                                id="option4" />
+                            <label class="form-check-label" for="option4">
                                 Jawaban D
                             </label>
                         </div>
                         <div class="form-check form-check-custom form-check-solid form-check-sm mb-5">
                             <input class="form-check-input" type="checkbox" name="answer[]" value="option5"
-                                id="flexRadioLg" />
-                            <label class="form-check-label" for="flexRadioLg">
+                                id="option5" />
+                            <label class="form-check-label" for="option5">
                                 Jawaban E
                             </label>
                         </div>

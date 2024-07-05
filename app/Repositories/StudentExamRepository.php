@@ -4,11 +4,12 @@ namespace App\Repositories;
 
 use App\Models\StudentMaterialExam;
 use App\Repositories\BaseRepository;
+use App\Models\StudentSubmaterialExam;
 
 class StudentExamRepository extends BaseRepository
 {
 
-    public function __construct(StudentMaterialExam $model)
+    public function __construct(StudentSubmaterialExam $model)
     {
         $this->model = $model;
     }
@@ -22,7 +23,7 @@ class StudentExamRepository extends BaseRepository
     public function whereIn(array $data): mixed
     {
         return $this->model->query()
-            ->where(['material_exam_id' => $data['material_exam_id'], 'student_id' => auth()->user()->id])->first();
+            ->where(['sub_material_exam_id' => $data['sub_material_exam_id'], 'student_id' => auth()->user()->id])->first();
     }
 
     public function whereId(mixed $id): mixed
@@ -42,7 +43,7 @@ class StudentExamRepository extends BaseRepository
     public function getWhere(array $data): mixed
     {
         return $this->model->query()
-            ->where('material_exam_id', $data[0])
+            ->where('sub_material_exam_id', $data[0])
             ->whereRelation('student', 'id', auth()->user()->id)
             ->first();
     }

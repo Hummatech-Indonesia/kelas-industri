@@ -51,6 +51,10 @@ class UserServices
         $this->repository->update($user->id, $data);
     }
 
+    public function handleUpdateName(Request $request, string $user) : mixed {
+        return $this->repository->update($user, ['name' => $request->name]);
+    }
+
     public function handleUpdatePassword(PasswordRequest $request, User $user): mixed
     {
         $data = $request->validated();
@@ -83,7 +87,8 @@ class UserServices
     {
         return $this->repository->get_schools_with_package();
     }
-    public function handleCountSchoolPackages($schools): mixed {
+    public function handleCountSchoolPackages($schools): mixed
+    {
         $data = [
             'already_paid' => 0,
             'not_yet_paid' => 0,
@@ -91,19 +96,20 @@ class UserServices
         ];
         foreach ($schools as $school) {
             foreach ($school->schoolPackages as $package) {
-                if($package->status == 'already_paid') {
-                    $data['already_paid'] ++;
-                } else if($package->status == 'not_yet_paid') {
-                    $data['not_yet_paid'] ++;
-                } if($package->status == 'dept') {
-                    $data['dept'] ++;
+                if ($package->status == 'already_paid') {
+                    $data['already_paid']++;
+                } else if ($package->status == 'not_yet_paid') {
+                    $data['not_yet_paid']++;
+                }
+                if ($package->status == 'dept') {
+                    $data['dept']++;
                 }
             }
         }
         return $data;
     }
 
-     /**
+    /**
      * handle get all school
      *
      * @return mixed
@@ -205,7 +211,8 @@ class UserServices
     public function handleDeleteMentor(User $mentor): bool
     {
         return $this->repository->destroy($mentor->id);
-    }   /**
+    }
+    /**
      * handle get mentors
      *
      * @return mixed
@@ -314,7 +321,8 @@ class UserServices
         return $this->repository->get_dependent_by_id($user);
     }
 
-    public function teacherStatistic(string | null $schoolId) {
+    public function teacherStatistic(string | null $schoolId)
+    {
         return $this->repository->teacherStatistic($schoolId);
     }
 }

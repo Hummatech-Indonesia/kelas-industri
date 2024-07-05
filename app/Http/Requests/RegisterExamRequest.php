@@ -6,8 +6,17 @@ use Illuminate\Validation\Rule;
 use App\Enums\SubMaterialExamTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubMaterialExamRequest extends FormRequest
+class RegisterExamRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -19,14 +28,14 @@ class SubMaterialExamRequest extends FormRequest
         return [
             'title' => 'required|max:150',
             'sub_material_id' => ['required', Rule::exists('sub_materials', 'id')],
-            'total_multiple_choice' => 'required|integer',
-            'total_essay' => 'required|integer',
+            'total_multiple_choice' => 'nullable|integer',
+            'total_essay' => 'nullable|integer',
             'type' => ['required', Rule::in([SubMaterialExamTypeEnum::REGISTER->value, SubMaterialExamTypeEnum::QUIZ->value])],
-            'multiple_choice_value' => 'required|integer',
-            'essay_value' => 'required|integer',
-            'start_at' => 'required|date|after_or_equal:now',
-            'end_at' => 'required|date|after_or_equal:start_at',
-            'time' => 'required|regex:/^[0-9]*$/',
+            'multiple_choice_value' => 'nullable|integer',
+            'essay_value' => 'nullable|integer',
+            'start_at' => 'nullable|date|after_or_equal:now',
+            'end_at' => 'nullable|date|after_or_equal:start_at',
+            'time' => 'nullable|regex:/^[0-9]*$/',
             'last_submit' => 'nullable|boolean',
             'cheating_detector' => 'nullable|boolean',
         ];

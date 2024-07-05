@@ -8,15 +8,17 @@ use App\Services\UserServices;
 use App\Models\SubMaterialExam;
 use App\Services\MentorService;
 use App\Services\SchoolService;
+use App\Services\RegisterExamService;
 use App\Repositories\StudentRepository;
 use App\Repositories\MaterialRepository;
 use App\Services\SubMaterialExamService;
+use App\Http\Requests\RegisterExamRequest;
 use App\Repositories\QuestionBankRepository;
 use App\Http\Requests\SubMaterialExamRequest;
-use App\Http\Requests\SubMaterialExamUpdateRequest;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use App\Repositories\SubMaterialExamRepository;
 use App\Services\StudentSubMaterialExamService;
+use App\Http\Requests\SubMaterialExamUpdateRequest;
 use App\Repositories\StudentSubmaterialExamRepository;
 use App\Repositories\SubMaterialExamQuestionRepository;
 use App\Repositories\StudentSubMaterialExamAnswerRepository;
@@ -27,6 +29,7 @@ class SubMaterialExamController extends Controller
     private MaterialRepository $materialRepository;
     private SubMaterialExamRepository $repository;
     private SubMaterialExamService $service;
+    private RegisterExamService $registerExamService;
     private QuestionBankRepository $questionBankRepository;
     private SubMaterialExamQuestionRepository $examQuestionRepository;
     private StudentSubMaterialExamService $studentSubMaterialExamService;
@@ -39,6 +42,7 @@ class SubMaterialExamController extends Controller
     public function __construct(
         MaterialRepository $materialRepository,
         SubMaterialExamService $service,
+        RegisterExamService $registerExamService,
         SubMaterialExamRepository $repository,
         SubMaterialExamQuestionRepository $examQuestionRepository,
         QuestionBankRepository $questionBankRepository,
@@ -51,6 +55,7 @@ class SubMaterialExamController extends Controller
     ) {
         $this->materialRepository = $materialRepository;
         $this->service = $service;
+        $this->registerExamService = $registerExamService;
         $this->repository = $repository;
         $this->examQuestionRepository = $examQuestionRepository;
         $this->questionBankRepository = $questionBankRepository;
@@ -78,7 +83,8 @@ class SubMaterialExamController extends Controller
 
     public function registrationExam()
     {
-        return view('dashboard.admin.pages.registrationExam.index');
+        $exams = $this->repository->getRegisterExam();
+        return view('dashboard.admin.pages.registrationExam.index', compact('exams'));
     }
 
     /**
@@ -143,7 +149,31 @@ class SubMaterialExamController extends Controller
 
         return redirect()->back()->with('success', trans('alert.add_success'));
     }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function registerExamStore(RegisterExamRequest $request)
+    {
+        $this->registerExamService->handleCreate($request);
 
+        return redirect()->back()->with('success', trans('alert.add_success'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\SubMaterialExam  $subMaterialExam
+     * @return \Illuminate\Http\Response
+     */
+    public function registerExamupdate(RegisterExamRequest $request, SubMaterialExam $subMaterialExam)
+    {
+        $this->registerExamService->handleUpdate($request, $subMaterialExam->id);
+        return redirect()->back()->with('success', trans('alert.update_success'));
+    }
     /**
      * Update the specified resource in storage.
      *

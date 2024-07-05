@@ -85,10 +85,15 @@ use Carbon\Carbon; @endphp
                             <div class="alert alert-warning d-flex align-items-center p-5 w-100 mt-5">
                                 <!--begin::Icon-->
                                 <span class="svg-icon svg-icon-2hx svg-icon-primary me-3">
-                                    <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect>
-                                            <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor"></rect>
-                                            <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor"></rect>
+                                    <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="40"
+                                            height="40" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                fill="currentColor"></rect>
+                                            <rect x="11" y="14" width="7" height="2" rx="1"
+                                                transform="rotate(-90 11 14)" fill="currentColor"></rect>
+                                            <rect x="11" y="17" width="2" height="2" rx="1"
+                                                transform="rotate(-90 11 17)" fill="currentColor"></rect>
                                         </svg>
                                     </span>
                                 </span>
@@ -102,7 +107,8 @@ use Carbon\Carbon; @endphp
                                     <!--begin::Content-->
                                     <ul class="ps-4">
                                         <li>
-                                            Kamu harus mengerjakan test terlebih dahulu sebelum membuka materi untuk pertama kali
+                                            Kamu harus mengerjakan test terlebih dahulu sebelum membuka materi untuk pertama
+                                            kali
                                         </li>
                                         <li>
                                             Jika kamu tidak bisa memilih materi yang ingin kamu pelajari kerjakanlah materi
@@ -258,10 +264,10 @@ use Carbon\Carbon; @endphp
                                                     <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24"
                                                             height="24" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
-                                                            <rect opacity="0.5" x="7" y="2" width="14" height="16"
+                                                            <rect opacity="0.5" x="7" y="2" width="14"
+                                                                height="16" rx="3" fill="currentColor" />
+                                                            <rect x="3" y="6" width="14" height="16"
                                                                 rx="3" fill="currentColor" />
-                                                            <rect x="3" y="6" width="14" height="16" rx="3"
-                                                                fill="currentColor" />
                                                         </svg>
                                                     </span>
                                                     <!--end::Svg Icon-->
@@ -277,28 +283,37 @@ use Carbon\Carbon; @endphp
                                             {{-- @dd($material->exams[0]->studentMaterialExams->where('student_id', '86d009ea-6c10-33d9-ac8f-886cfd1af9cb')->where('type', 'post_test')->first()) --}}
 
                                             @php
-                                                $postTest = $material->exams
-                                                    ->where('type', MaterialExamTypeEnum::POSTEST->value)
-                                                    ->first();
-                                                $preTest = $material->exams
-                                                    ->where('type', MaterialExamTypeEnum::PRETEST->value)
-                                                    ->first();
-                                                $studentPostTest = $postTest->studentMaterialExam
-                                                    ? $postTest->studentMaterialExam
-                                                        ->where('student_id', auth()->user()->id)
-                                                        ->first()
-                                                    : null;
+                                                if (count($material->exams) == 0) {
+                                                    $postTest = null;
+                                                    $preTest = null;
+                                                    $studentPostTest = null;
+                                                    $studentPreTest = null;
+                                                } else {
+                                                    $postTest = $material->exams
+                                                        ->where('type', MaterialExamTypeEnum::POSTEST->value)
+                                                        ->first();
+                                                    $preTest = $material->exams
+                                                        ->where('type', MaterialExamTypeEnum::PRETEST->value)
+                                                        ->first();
+                                                    $studentPostTest = $postTest->studentMaterialExam
+                                                        ? $postTest->studentMaterialExam
+                                                            ->where('student_id', auth()->user()->id)
+                                                            ->first()
+                                                        : null;
 
-                                                $studentPreTest = $preTest->studentMaterialExam
-                                                    ? $preTest->studentMaterialExam
-                                                        ->where('student_id', auth()->user()->id)
-                                                        ->first()
-                                                    : null;
+                                                    $studentPreTest = $preTest->studentMaterialExam
+                                                        ? $preTest->studentMaterialExam
+                                                            ->where('student_id', auth()->user()->id)
+                                                            ->first()
+                                                        : null;
+                                                }
 
                                             @endphp
                                             @if ($postTest)
-                                                <a href="{{ route('student.material-exam', $studentPreTest? $postTest->id: $preTest->id) }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
-                                                id="start-test" data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
+                                                <a href="{{ route('student.material-exam', $studentPreTest ? $postTest->id : $preTest->id) }}"
+                                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
+                                                    id="start-test"
+                                                    data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
                                                     Test</a>
                                             @else
                                                 <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"

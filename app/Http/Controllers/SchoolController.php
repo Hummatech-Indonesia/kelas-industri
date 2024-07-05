@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\View\View;
 use App\Traits\YajraTable;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use App\Services\UserServices;
 use App\Services\SchoolService;
@@ -12,7 +13,11 @@ use App\Services\StudentService;
 use App\Services\GenerationService;
 use App\Services\SchoolYearService;
 use App\Http\Requests\SchoolRequest;
+use App\Services\SubMaterialService;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
+use App\Services\SubMaterialExamService;
+use App\Services\StudentSubMaterialExamService;
 
 class SchoolController extends Controller
 {
@@ -23,14 +28,20 @@ class SchoolController extends Controller
     private GenerationService $generationService;
     private SchoolYearService $schoolYearService;
     private StudentService $studentService;
+    private SubMaterialExamService $subMaterialExamService;
+    private SubMaterialService $subMaterialService;
+    private StudentSubMaterialExamService $studentSubMaterialExamService;
 
-    public function __construct(SchoolService $service, UserServices $userService, GenerationService $generationService, SchoolYearService $schoolYearService, StudentService $studentService)
+    public function __construct(SchoolService $service, UserServices $userService, GenerationService $generationService, SchoolYearService $schoolYearService, StudentService $studentService, SubMaterialExamService $subMaterialExamService, SubMaterialService $subMaterialService, StudentSubMaterialExamService $studentSubMaterialExamService)
     {
         $this->service = $service;
         $this->userService = $userService;
         $this->generationService = $generationService;
         $this->schoolYearService = $schoolYearService;
         $this->studentService = $studentService;
+        $this->subMaterialExamService = $subMaterialExamService;
+        $this->subMaterialService = $subMaterialService;
+        $this->studentSubMaterialExamService = $studentSubMaterialExamService;
     }
 
     /**
@@ -47,6 +58,7 @@ class SchoolController extends Controller
             $schools = $this->service->handleSearch(request()->search);
             $parameters = request()->query();
         }
+        $countStudents = [];
         foreach ($schools as $school) {
             $schoolId = $school->id;
             $countStudent = $this->service->handleCountStudent($schoolId);
@@ -78,7 +90,13 @@ class SchoolController extends Controller
      */
     public function store(SchoolRequest $request): RedirectResponse
     {
-        $this->service->handleCreate($request);
+        // dd($request);
+        $school = $this->service->handleCreate($request);
+        if (isset($request->regristation_exam)) {
+            $this->studentService->handleCreateRegristationExamStudent($school, $request->total_student);
+            // $subMaterial = $this->subMaterialExamService->handleGetRegristationExam();
+            $this->subMaterialExamService->handleCreateRegristationExam($request->validated(), $school);
+        }
 
         return to_route('admin.schools.index')->with('success', trans('alert.add_success'));
     }
@@ -96,6 +114,8 @@ class SchoolController extends Controller
         $countAllStudentActive = $this->service->handleCountAllStudentActive($school->id);
         $generations = $this->generationService->handleGetAll();
         $schoolyears = $this->schoolYearService->handleGetAll();
+        $studentExams = $this->studentSubMaterialExamService->handleGetTester($school->id);
+        $hasExam = $school->regristationExam != null;
 
         if ($classrooms->isEmpty()) {
             $countStudents = [];
@@ -115,6 +135,8 @@ class SchoolController extends Controller
             'generations' => $generations,
             'schoolyears' => $schoolyears,
             'classrooms' => $classrooms,
+            'studentExams' => $studentExams,
+            'hasExam' => $hasExam
         ];
         return view('dashboard.admin.pages.school.detail', $data);
     }
@@ -173,5 +195,15 @@ class SchoolController extends Controller
         if (request()->ajax()) {
             return $this->StudentMockup($this->studentService->handleGetBySchoolAjax($school->id, $request));
         }
+    }
+
+    public function exportStudent(User $school)
+    {
+        return Excel::download(new UsersExport($school), "$school->name-users.xlsx");
+    }
+    public function deleteRegristationExamStudent(User $school)
+    {
+        $this->service->handleDeleteRegristationExamStudent($school);
+        return back()->with('success', trans('alert.delete_success'));
     }
 }

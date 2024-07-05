@@ -85,6 +85,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the regristationExam associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function regristationExam(): HasOne
+    {
+        return $this->hasOne(SubMaterialExam::class, 'school_id');
+    }
+
+    /**
      * one to many relationship
      *
      * @return HasMany

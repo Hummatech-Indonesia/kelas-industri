@@ -8,22 +8,30 @@ use Illuminate\Http\Request;
 use App\Models\StudentMaterialExam;
 use App\Services\StudentMaterialExamService;
 use App\Repositories\MaterialExamQuestionRepository;
+use App\Repositories\QuestionBankRepository;
 use App\Repositories\StudentMaterialExamRepository;
+use App\Services\MaterialService;
 
 class StudentMaterialExamController extends Controller
 {
     private MaterialExamQuestionRepository $examQuestion;
     private StudentMaterialExamRepository $studentExam;
     private StudentMaterialExamService $service;
+    private MaterialService $materialService;
+    private QuestionBankRepository $questionBankRepository;
 
     public function __construct(
         MaterialExamQuestionRepository $examQuestion,
         StudentMaterialExamRepository $studentExam,
-        StudentMaterialExamService $service
+        StudentMaterialExamService $service,
+        MaterialService $materialService,
+        QuestionBankRepository $questionBankRepository
     ) {
         $this->examQuestion = $examQuestion;
         $this->studentExam = $studentExam;
         $this->service = $service;
+        $this->materialService = $materialService;
+        $this->questionBankRepository = $questionBankRepository;
     }
 
     public function index(MaterialExam $materialExam): mixed
@@ -64,15 +72,15 @@ class StudentMaterialExamController extends Controller
     public function answer(Request $request, MaterialExam $materialExam, StudentMaterialExam $studentMaterialExam): mixed
     {
         $questions = $this->examQuestion->getByMaterialExam($materialExam->id);
-        $sortedQuestionsMultipleChoice = $this->service->sortDailyExamQuestion($questions);
+        $sortedQuestionsMultipleChoice = $this->materialService->sortDailyExamQuestion($questions);
 
-        $answerKey = $this->service->getAnswerByQuestion(collect($sortedQuestionsMultipleChoice)->pluck('id')->toArray());
+        $answerKey = $this->questionBankRepository->getAnswerByQuestion(collect($sortedQuestionsMultipleChoice)->pluck('id')->toArray());
 
         $data = $this->service->calculate($request, $answerKey, $materialExam);
 
         $data['finished_count'] = $studentMaterialExam->finished_count + 1;
 
-        $this->service->update($studentMaterialExam->id, $data);
+        $this->studentExam->update($studentMaterialExam->id, $data);
 
         return response()->json($data, 200);
     }

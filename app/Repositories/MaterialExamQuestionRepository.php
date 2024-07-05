@@ -121,4 +121,12 @@ class MaterialExamQuestionRepository extends BaseRepository
             ->orderByRaw('FIELD(question_number, ' . $data['orderQuestionEssay'] . ')')
             ->get();
     }
+
+
+    public function getByMaterialExam($examId)
+    {
+        return $this->model->query()
+            ->where('material_exam_id', $examId)
+            ->get();
+    }
 }

@@ -1,6 +1,7 @@
 @php
-use App\Models\Assignment;
- use App\Models\SubmitAssignment; use Carbon\Carbon; @endphp
+    use App\Models\Assignment;
+    use App\Models\SubmitAssignment;
+use Carbon\Carbon; @endphp
 @extends('dashboard.user.layouts.app')
 
 @section('css')
@@ -99,10 +100,22 @@ use App\Models\Assignment;
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
                         @php
                             $exam = $StudentExam->first();
-                            $assignmentCount = Assignment::whereRelation('submaterial', 'id', $exam->sub_material_id)->count();
-                            $submitAssignmenCount = SubmitAssignment::whereRelation('assignment.submaterial', 'id', $exam->sub_material_id)->where('student_id', auth()->user()->id)->count();
+                            $assignmentCount =
+                                $exam != null
+                                    ? Assignment::whereRelation('submaterial', 'id', $exam->sub_material_id)->count()
+                                    : 0;
+                            $submitAssignmenCount =
+                                $exam != null
+                                    ? SubmitAssignment::whereRelation(
+                                        'assignment.submaterial',
+                                        'id',
+                                        $exam->sub_material_id,
+                                    )
+                                        ->where('student_id', auth()->user()->id)
+                                        ->count()
+                                    : 0;
                         @endphp
-                        @if ($schoolPayment != null && $schoolPayment != null && $StudentExam && ($assignmentCount > $submitAssignmenCount ))
+                        @if ($schoolPayment != null && $schoolPayment != null && $StudentExam && $assignmentCount > $submitAssignmenCount)
                             <!--begin::Alert-->
                             <div class="alert alert-danger d-flex align-items-center justify-content-between p-5">
                                 <!--begin::Wrapper-->
@@ -121,7 +134,8 @@ use App\Models\Assignment;
                                     'classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id,
                                     'material' => $exam->submaterial->material->id,
                                     'submaterial' => $exam->sub_material_id,
-                                ]) }}#list-tugas" class="btn btn-sm btn-primary">Kerjakan</a>
+                                ]) }}#list-tugas"
+                                    class="btn btn-sm btn-primary">Kerjakan</a>
                                 <!--end::Wrapper-->
                             </div>
                             <!--end::Alert-->

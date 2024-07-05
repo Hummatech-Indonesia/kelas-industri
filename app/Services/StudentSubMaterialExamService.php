@@ -69,4 +69,9 @@ class StudentSubMaterialExamService
         // Return the data or pass it to a view
         return $sortedAverages;
     }
+
+
+    public function handleGetTester($schoolId) : mixed {
+        return $this->repository->getTester($schoolId);
+    }
 }

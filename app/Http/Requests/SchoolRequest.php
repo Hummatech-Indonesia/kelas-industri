@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Enums\SubMaterialExamTypeEnum;
+use Illuminate\Foundation\Http\FormRequest;
 
 class SchoolRequest extends BaseRequest
 {
@@ -17,14 +18,25 @@ class SchoolRequest extends BaseRequest
             'headmaster'        => 'nullable|string',
             'address'           => 'required',
             'phone_number'      => 'nullable|max:15',
-            'email'             => ['required','email', Rule::unique('users')],
+            'email'             => ['required', 'email', Rule::unique('users')],
             'password'          => 'confirmed|max:8',
-            'photo'             => 'required|file|max:2048|mimes:jpg,jpeg,png'
+            'photo'             => 'required|file|max:2048|mimes:jpg,jpeg,png',
         ];
 
-        if(request()->routeIs('admin.schools.update')){
+        if ($this->has('regristation_exam')) {
+            $rules['sub_material_id'] = ['required', Rule::exists('sub_materials', 'id')];
+            $rules['total_multiple_choice'] = 'required|integer';
+            $rules['type'] = ['required', Rule::in([SubMaterialExamTypeEnum::REGISTER->value, SubMaterialExamTypeEnum::QUIZ->value])];
+            $rules['start_at'] = 'required|date|after_or_equal:now';
+            $rules['end_at'] = 'required|date|after_or_equal:start_at';
+            $rules['time'] = 'required|regex:/^[0-9]*$/';
+            $rules['last_submit'] = 'nullable|boolean';
+            $rules['cheating_detector'] = 'nullable|boolean';
+        }
+
+        if (request()->routeIs('admin.schools.update')) {
             $rules['photo'] = 'file|max:2048|mimes:jpg,jpeg,png';
-            $rules['email'] = ['required','email', Rule::unique('users')->ignore($this->school)];
+            $rules['email'] = ['required', 'email', Rule::unique('users')->ignore($this->school)];
         }
 
         return $rules;

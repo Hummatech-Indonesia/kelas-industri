@@ -3,17 +3,19 @@
 namespace App\Services;
 
 use App\Models\MaterialExam;
+use Illuminate\Http\Request;
 use App\Models\SubMaterialExam;
 use App\Repositories\StudentExamRepository;
 use App\Http\Requests\AnswerSubmaterialExamRequest;
+use App\Repositories\StudentMaterialExamAnswerRepository;
 use App\Repositories\StudentSubMaterialExamAnswerRepository;
 
 class StudentMaterialExamService
 {
     private StudentExamRepository $repository;
-    private StudentSubMaterialExamAnswerRepository $studentExamAnswerRepository;
+    private StudentMaterialExamAnswerRepository $studentExamAnswerRepository;
 
-    public function __construct(StudentExamRepository $repository, StudentSubMaterialExamAnswerRepository $studentExamAnswerRepository)
+    public function __construct(StudentExamRepository $repository, StudentMaterialExamAnswerRepository $studentExamAnswerRepository)
     {
         $this->studentExamAnswerRepository = $studentExamAnswerRepository;
         $this->repository = $repository;
@@ -44,11 +46,11 @@ class StudentMaterialExamService
         $this->repository->store($data);
     }
 
-    public function calculate(AnswerSubmaterialExamRequest $request, mixed $answerKeys, SubMaterialExam $subMaterialExam): mixed
+    public function calculate(Request $request, mixed $answerKeys, MaterialExam $materialExam): mixed
     {
         // dd($request);
         if ($request->answer_essay) {
-            $studentSubMaterialExam = $this->repository->getWhere([$subMaterialExam->id]);
+            $studentSubMaterialExam = $this->repository->getWhere([$materialExam->id]);
             for ($i = 0; $i < count($request->answer_essay); $i++) {
                 $data['answer'] = $request->answer_essay[$i];
                 if($data['answer']['answer'] == null)  {
@@ -71,7 +73,7 @@ class StudentMaterialExamService
 
         return [
             'answer' => implode(';', $answerArr),
-            'score' => ($subMaterialExam->multiple_choice_value / count($answerKeys) * $true),
+            'score' => ($materialExam->multiple_choice_value / count($answerKeys) * $true),
             'true_answer' => $true,
             'finished_exam' => now(),
         ];

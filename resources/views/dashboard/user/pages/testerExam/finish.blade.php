@@ -5,7 +5,8 @@
 @section('content')
     <div class="container mt-10 mx-auto w-80 w-md-75 w-lg-50">
         <div class="card">
-            <div class="bg-primary mx-0 py-5 px-3 p-0 rounded"><span class="fw-bolder fs-5 text-white"> Terimakasih Sudah Melaksanakan Ujan
+            <div class="bg-primary mx-0 py-5 px-3 p-0 rounded"><span class="fw-bolder fs-5 text-white"> Ujian Telah Selesai
+                    Diselesaikan
                 </span>
             </div>
 
@@ -18,25 +19,26 @@
                 <div class="content fs-3">
                     <div class="row mt-3">
                         <div class="col-5 col-sm-3 fw-bolder fs-5">Mulai Ujian</div>
-                        <div class="col col-sm-9"><span
-                                class="me-1">:</span><span class="fs-5">{{ Carbon::parse($studentSubmaterialExam->created_at)->format('H:i') }}</span>
+                        <div class="col col-sm-9"><span class="me-1">:</span><span
+                                class="fs-5">{{ Carbon::parse($studentSubmaterialExam->created_at)->format('H:i') }}</span>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-5 col-sm-3 fw-bolder fs-5">Selesai Ujian</div>
-                        <div class="col col-sm-9"><span
-                                class="me-1">:</span><span class="fs-5">{{ Carbon::parse($studentSubmaterialExam->finished_exam)->format('H:i') }}</span>
+                        <div class="col col-sm-9"><span class="me-1">:</span><span
+                                class="fs-5">{{ Carbon::parse($studentSubmaterialExam->finished_exam)->format('H:i') }}</span>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-5 col-sm-3 fw-bolder fs-5">Total Soal</div>
-                        <div class="col col-sm-9"><span
-                                class="me-1">:</span><span class="fs-5">{{ $subMaterialExam->total_multiple_choice + $subMaterialExam->total_essay }}</span>
+                        <div class="col col-sm-9"><span class="me-1">:</span><span
+                                class="fs-5">{{ $subMaterialExam->total_multiple_choice + $subMaterialExam->total_essay }}</span>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-5 col-sm-3 fw-bolder fs-5">Pilihan Ganda Benar</div>
-                        <div class="col col-sm-9"><span class="me-1">:</span><span class="fs-5">{{ $studentSubmaterialExam->true_answer }}</span>
+                        <div class="col col-sm-9"><span class="me-1">:</span><span
+                                class="fs-5">{{ $studentSubmaterialExam->true_answer }}</span>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -49,10 +51,10 @@
                             @endif
                         </div>
                     </div>
-
-                    <a href=
-                    "{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $subMaterialExam->subMaterial->material_id, 'submaterial' => $subMaterialExam->sub_material_id]) }}"
-                        class="btn btn-primary w-100 py-3 mt-5">Kembali</a>
+                    @if (auth()->user()->roles->pluck('name')[0] != 'tester')
+                        <a href="{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $subMaterialExam->subMaterial->material_id, 'submaterial' => $subMaterialExam->sub_material_id]) }}"
+                            class="btn btn-primary w-100 py-3 mt-5">Kembali</a>
+                    @endif
                 </div>
             </div>
         </div>

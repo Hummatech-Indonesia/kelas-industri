@@ -11,6 +11,7 @@ use App\Models\Assignment;
 use App\Models\ZoomSchedule;
 use App\Models\SchoolPackage;
 use App\Models\SubMaterialExam;
+use App\Enums\SubMaterialExamTypeEnum;
 
 trait DataSidebar
 {
@@ -169,7 +170,9 @@ trait DataSidebar
     {
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $generation = auth()->user()->studentSchool->studentClassroom->classroom->generation->id;
-            $exam = SubMaterialExam::whereRelation('subMaterial.material', 'generation_id', $generation)->where('start_at', '<', now())->where('end_at', '>', now())->get();
+            $exam = SubMaterialExam::whereRelation('subMaterial.material', 'generation_id', $generation)
+                ->where('type', SubMaterialExamTypeEnum::QUIZ->value)
+                ->where('start_at', '<', now())->where('end_at', '>', now())->get();
             return $exam;
         }
     }

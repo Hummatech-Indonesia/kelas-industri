@@ -100,6 +100,29 @@ class StudentService
 
         $this->repository->store($data);
     }
+    /**
+     * store school year
+     *
+     * @param StudentRequest $request
+     * @return void
+     */
+    public function handleCreateRegristationExamStudent($school, int $amount): void
+    {
+        for ($i = 1; $i <= $amount; $i++) {
+            $dataUser['name'] = strtolower(str_replace(' ', '', $school->name)) . str_pad($i, 3, '0', STR_PAD_LEFT);
+            $dataUser['email'] = strtolower(str_replace(' ', '', $school->name)) . str_pad($i, 3, '0', STR_PAD_LEFT) . '@hummatech.com';
+            $dataUser['password'] = bcrypt('password');
+            $user = $this->userRepository->store($dataUser);
+            $user->assignRole('tester');
+            $data = [
+                'student_id' => $user->id,
+                'school_id' => $school->id,
+            ];
+
+
+            $this->repository->store($data);
+        }
+    }
 
     /**
      * update school year

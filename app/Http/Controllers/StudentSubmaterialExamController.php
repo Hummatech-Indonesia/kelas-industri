@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SubMaterialExamTypeEnum;
+use App\Exports\StudentRegristationExamExport;
 use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -14,8 +16,13 @@ use App\Repositories\QuestionBankRepository;
 use App\Http\Requests\AnswerSubmaterialExamRequest;
 use App\Repositories\SubMaterialExamQuestionRepository;
 use App\Http\Requests\StudentSubMaterialExamScoreRequest;
+use App\Models\User;
 use App\Repositories\StudentSubMaterialExamAnswerRepository;
 use App\Services\StudentSubmaterialExamAnswerService;
+use App\Services\UserServices;
+use Maatwebsite\Excel\Facades\Excel;
+
+use function PHPUnit\Framework\returnSelf;
 
 class StudentSubmaterialExamController extends Controller
 {
@@ -26,8 +33,9 @@ class StudentSubmaterialExamController extends Controller
     private QuestionBankRepository $questionBank;
     private StudentSubMaterialExamAnswerRepository $studentSubMaterialExamAnswer;
     private StudentSubmaterialExamAnswerService $studentSubMaterialExamAnswerService;
+    private UserServices $userService;
 
-    public function __construct(SubMaterialExamQuestionRepository $examQuestion, StudentExamRepository $studentExam, StudentExamService $service, QuestionBankRepository $questionBank, SubMaterialService $subMaterialService, StudentSubMaterialExamAnswerRepository $studentSubMaterialExamAnswer, StudentSubmaterialExamAnswerService $studentSubMaterialExamAnswerService)    {
+    public function __construct(SubMaterialExamQuestionRepository $examQuestion, StudentExamRepository $studentExam, StudentExamService $service, QuestionBankRepository $questionBank, SubMaterialService $subMaterialService, StudentSubMaterialExamAnswerRepository $studentSubMaterialExamAnswer, StudentSubmaterialExamAnswerService $studentSubMaterialExamAnswerService, UserServices $userService) {
         $this->examQuestion = $examQuestion;
         $this->studentExam = $studentExam;
         $this->service = $service;
@@ -35,7 +43,17 @@ class StudentSubmaterialExamController extends Controller
         $this->subMaterialService = $subMaterialService;
         $this->studentSubMaterialExamAnswer = $studentSubMaterialExamAnswer;
         $this->studentSubMaterialExamAnswerService = $studentSubMaterialExamAnswerService;
+        $this->userService = $userService;
     }
+
+    public function regristationExamSetName(SubMaterialExam $subMaterialExam) : View {
+        return view('dashboard.user.pages.testerExam.setName', compact('subMaterialExam'));
+    }
+    public function regristationExamUpdateName(Request $request, SubMaterialExam $subMaterialExam) {
+        $update = $this->userService->handleUpdateName($request, auth()->user()->id);
+        return redirect()->route('tester.exam', $subMaterialExam->id);
+    }
+
     /**
      * index
      *
@@ -44,6 +62,8 @@ class StudentSubmaterialExamController extends Controller
      */
         public function index(SubMaterialExam $subMaterialExam): mixed
     {
+        if($subMaterialExam->start_at > now()) return back()->with('error', 'Ujian Belum Dimulai');
+        if($subMaterialExam->end_at < now()) return back()->with('error', 'Ujian Sudah Ditutup');
         $examQuestionsMultipleChoice = $this->examQuestion->getRandomOrderByExamMultipleChoice($subMaterialExam->id);
         $examQuestionsEssay = $this->examQuestion->getRandomOrderByExamEssay($subMaterialExam->id);
         $studentExam = $this->studentExam->whereIn(['sub_material_exam_id' => $subMaterialExam->id]);
@@ -53,6 +73,7 @@ class StudentSubmaterialExamController extends Controller
             $data['student_exam'] = $studentExam;
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
+            if(auth()->user()->roles->pluck('name')[0] == 'tester') return view('dashboard.user.pages.testerExam.exam', $data);
             return view('dashboard.user.pages.studentExam.exam', $data);
         } else {
             $studentExam->update([
@@ -75,6 +96,7 @@ class StudentSubmaterialExamController extends Controller
             $data['student_exam'] = $studentExam;
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
+            if(auth()->user()->roles->pluck('name')[0] == 'tester') return view('dashboard.user.pages.testerExam.exam', $data);
             return view('dashboard.user.pages.studentExam.exam', $data);
         }
     }
@@ -108,6 +130,7 @@ class StudentSubmaterialExamController extends Controller
         $data['subMaterialExam'] = $subMaterialExam;
         $data['studentSubmaterialExam'] = $studentSubmaterialExam;
         $data['essayGraded'] = $this->studentSubMaterialExamAnswerService->essay_graded($data['studentSubmaterialExam']);
+        if($subMaterialExam->type == SubMaterialExamTypeEnum::REGISTER->value) return view('dashboard.user.pages.testerExam.finish', $data);
         return view('dashboard.user.pages.studentExam.finish', $data);
     }
 
@@ -155,5 +178,10 @@ class StudentSubmaterialExamController extends Controller
     {
         $delete = $this->service->reset($subMaterialExam);
         return response()->json([], 200);
+    }
+
+
+    public function exportRegristationExam(User $school) {
+        return Excel::download(new StudentRegristationExamExport($school->id), "$school->name.xlsx");
     }
 }

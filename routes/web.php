@@ -171,6 +171,8 @@ Route::middleware('auth.custom')->group(function () {
             'material-exam' => MaterialExamController::class,
         ]);
 
+        Route::post('register-exam', [SubMaterialExamController::class, 'registerExamStore'])->name('registerExam.store');
+
         Route::get('criterias/{devision}',[CriteriaController::class,'index'])->name('criterias.index');
         Route::post('criterias',[CriteriaController::class,'store'])->name('criterias.store');
         Route::delete('criterias/{criterias}',[CriteriaController::class,'destroy'])->name('criterias.destroy');
@@ -269,6 +271,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('/import-students', [StudentController::class, 'importStudents'])->name('importStudents');
 
         Route::get('export/UAS/{exam}/{semester}', [ExamController::class, 'export'])->name('exportUAS');
+        Route::get('export-users/{school}', [SchoolController::class, 'exportStudent'])->name('exportUser');
+        Route::get('export-studentRegristationExam/{school}', [StudentSubmaterialExamController::class, 'exportRegristationExam'])->name('exportStudentRegristationExam');
+        Route::delete('delete-regristation-exam-users/{school}', [SchoolController::class, 'deleteRegristationExamStudent'])->name('regristationExam-delete');
         // Route::get('teacher-statistic', )
         // Route::get('print-report', )
     });
@@ -479,10 +484,12 @@ Route::middleware('auth.custom')->group(function () {
         // student material exam
         Route::get('material-exam/{materialExam}', [StudentMaterialExamController::class, 'index'])->name('material-exam');
         // student exam
+        Route::get('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamSetName'])->name('exam-setname');
         Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');
         Route::put('exam/{subMaterialExam}/opentab', [StudentSubmaterialExamController::class, 'openTab'])->name('exam.opentab');
         Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
         Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
+        Route::patch('exam/{materialExam}/{studentMaterialExam}', [StudentMaterialExamController::class, 'answer'])->name('material-exam.submit');
         Route::get('exam/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish');
 
         Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
@@ -508,6 +515,17 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/{semester}/{user}', [HomeController::class, 'semester'])->name('total.dependent');
     });
     //end student
+
+    Route::middleware(['auth', 'role:tester'])->prefix('tester')->name('tester.')->group(function () {
+        Route::get('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamSetName'])->name('exam-setname');
+        Route::put('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamUpdateName'])->name('exam-update-name');
+        Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');
+        Route::put('exam/{subMaterialExam}/opentab', [StudentSubmaterialExamController::class, 'openTab'])->name('exam.opentab');
+        Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
+        Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
+        Route::get('exam/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish');
+    });
+
 
     // notification
     Route::delete('delete-notification/{id}', [NotificationController::class, 'destroy']);

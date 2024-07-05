@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\SubMaterialExamTypeEnum;
 use App\Models\SubMaterialExam;
 
 class SubMaterialExamRepository extends BaseRepository
@@ -15,6 +16,15 @@ class SubMaterialExamRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('end_at', '>', now())
+            ->where('type', SubMaterialExamTypeEnum::QUIZ->value)
+            ->latest()
+            ->get();
+    }
+
+    public function getRegisterExam(): mixed
+    {
+        return $this->model->query()
+            ->where('type', SubMaterialExamTypeEnum::REGISTER->value)
             ->latest()
             ->get();
     }
@@ -30,6 +40,7 @@ class SubMaterialExamRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('end_at', '<=', now())
+            ->where('type', SubMaterialExamTypeEnum::QUIZ->value)
             ->latest()
             ->paginate($limit);
     }
@@ -37,27 +48,31 @@ class SubMaterialExamRepository extends BaseRepository
     public function getExamTakingPlace(int $limit): mixed
     {
         return $this->model->query()
+            ->where('type', SubMaterialExamTypeEnum::QUIZ->value)
             ->where('end_at', '>=', now())
             ->where('start_at', '<=', now())
             ->latest()
             ->paginate($limit);
     }
 
-    public function getBySlug(string $slug): mixed {
+    public function getBySlug(string $slug): mixed
+    {
         return $this->model->query()
-        ->with('studentSubmaterialExams.student.studentSchool.studentClassroom')
-        ->where('slug', $slug)
-        ->first();
+            ->with('studentSubmaterialExams.student.studentSchool.studentClassroom')
+            ->where('type', SubMaterialExamTypeEnum::QUIZ->value)
+            ->where('slug', $slug)
+            ->first();
     }
 
     public function getBeforeFinishedByGeneration(array $generation): mixed
     {
         return $this->model->query()
-        ->where('end_at', '<=', now())
-        ->whereRelation('subMaterial.material.generation', function($query) use ($generation){
-            $query->whereIn('generation', $generation);
-        })
-        ->latest()
-        ->get();
+            ->where('end_at', '<=', now())
+            ->where('type', SubMaterialExamTypeEnum::QUIZ->value)
+            ->whereRelation('subMaterial.material.generation', function ($query) use ($generation) {
+                $query->whereIn('generation', $generation);
+            })
+            ->latest()
+            ->get();
     }
 }

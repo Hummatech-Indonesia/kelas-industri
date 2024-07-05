@@ -2,7 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\StudentSubmaterialExam;
+use App\Models\SubMaterialExam;
 use App\Repositories\UserRepository;
+
+use function PHPUnit\Framework\returnSelf;
 
 class LoginService
 {
@@ -28,7 +32,6 @@ class LoginService
                 } else {
                     return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
                 }
-
             } else {
                 return redirect()->back()->with('error', 'Anda tidak dapat login sekarang, tunggu admin mengkonfirmasi akun anda');
             }
@@ -36,11 +39,21 @@ class LoginService
 
         if ($role == 'teacher' && !isset($user->teacherSchool->teacherClassroom)) {
             return redirect('/login')->with('error', 'Anda belum memiliki kelas.');
-        }           
+        }
 
-         if ($role == 'admin' || $role == 'school' || $role == 'teacher' || $role == 'mentor' || $role == 'administration') {
+        if ($role == 'admin' || $role == 'school' || $role == 'teacher' || $role == 'mentor' || $role == 'administration') {
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
                 return redirect()->route('home')->with('success', 'Berhasil Login.');
+            } else {
+                return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
+            }
+        }
+        if ($role == 'tester') {
+            if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+                $subMaterialExam = SubMaterialExam::where('title', 'Tester')->first();
+                $studenSubmaterialExam = StudentSubmaterialExam::where('student_id', auth()->user()->id)->whereRelation('subMaterialExam', 'sub_material_id', $subMaterialExam->sub_material_id)->first();
+                if($studenSubmaterialExam) return redirect()->route('tester.exam.show-finish', ['subMaterialExam' => $subMaterialExam->id, 'studentSubmaterialExam'=> $studenSubmaterialExam->id]);
+                return redirect()->route('tester.exam-setname', $subMaterialExam->id)->with('success', 'Berhasil Login.');
             } else {
                 return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
             }

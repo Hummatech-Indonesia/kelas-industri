@@ -6,6 +6,7 @@ use App\Models\Batch;
 use App\Models\Generation;
 use App\Models\Alternative;
 use App\Excel\ExportDataset;
+use App\Excel\ExportUser;
 use App\Models\StudentSchool;
 use App\Imports\ImportDataset;
 use App\Helpers\ResponseHelper;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Spk\CriteriaRepository;
 use App\Http\Requests\Spk\ImportExcelRequest;
+use App\Models\User;
 use App\Repositories\Spk\AlternativeRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -37,7 +39,7 @@ class GenerateExcelController extends Controller
     public function export(Batch $batch): BinaryFileResponse
     {
         $criterias = $this->criteria->get();
-        $alternatives = Alternative::query()->where('batch_id',$batch->id)->where('status',1)->get();
+        $alternatives = Alternative::query()->where('batch_id', $batch->id)->where('status', 1)->get();
         return (new ExportDataset($criterias, $alternatives))
             ->download('DATASET-FORMAT.xlsx');
     }
