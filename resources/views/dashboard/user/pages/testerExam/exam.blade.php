@@ -98,7 +98,8 @@
                                                 class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option1"
-                                                    id="option1_{{ $index }}">
+                                                    id="option1_{{ $index }}"
+                                                    data-question_number="{{ $question['number'] }}">
                                                 <label class="d-flex form-check-label text-dark fs-5"
                                                     for="option1_{{ $index }}">
                                                     A. {!! '<span></span>' . $question['option1'] !!}
@@ -108,7 +109,8 @@
                                                 class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option2"
-                                                    id="option2_{{ $index }}">
+                                                    id="option2_{{ $index }}"
+                                                    data-question_number="{{ $question['number'] }}">
                                                 <label class="d-flex form-check-label text-dark fs-5"
                                                     for="option2_{{ $index }}">
                                                     B. {!! '<span></span>' . $question['option2'] !!}
@@ -118,7 +120,8 @@
                                                 class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option3"
-                                                    id="option3_{{ $index }}">
+                                                    id="option3_{{ $index }}"
+                                                    data-question_number="{{ $question['number'] }}">
                                                 <label class="d-flex form-check-label text-dark fs-5"
                                                     for="option3_{{ $index }}">
                                                     C. {!! '<span></span>' . $question['option3'] !!}
@@ -128,7 +131,8 @@
                                                 class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option4"
-                                                    id="option4_{{ $index }}">
+                                                    id="option4_{{ $index }}"
+                                                    data-question_number="{{ $question['number'] }}">
                                                 <label class="d-flex form-check-label text-dark fs-5"
                                                     for="option4_{{ $index }}">
                                                     D. {!! '<span></span>' . $question['option4'] !!}
@@ -138,7 +142,8 @@
                                                 class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option5"
-                                                    id="option5_{{ $index }}">
+                                                    id="option5_{{ $index }}"
+                                                    data-question_number="{{ $question['number'] }}">
                                                 <label class="d-flex form-check-label text-dark"
                                                     for="option5_{{ $index }}">
                                                     E. {!! '<span></span>' . $question['option5'] !!}
@@ -206,7 +211,8 @@
                 </div>
             </div>
             <div class="col card p-0">
-                <div class="bg-primary mx-0 py-5 px-3 p-0 text-center rounded"><span class="fw-bolder fs-5 text-white">Nomor
+                <div class="bg-primary mx-0 py-5 px-3 p-0 text-center rounded"><span
+                        class="fw-bolder fs-5 text-white">Nomor
                         Soal</span>
                 </div>
                 <div class="card-body d-flex flex-column align-items-center">
@@ -231,6 +237,7 @@
                                         onclick="setAnswer('multiple_choice', {{ $index }})">
                                         <a class="nav-link {{ $index == 0 ? 'active' : '' }} d-flex align-items-center justify-content-center bg-secondary text-dark fw-bolder fs-6 rounded fs-bold m-0 p-0 w-100 "
                                             data-bs-toggle="tab" id="btn_multiple_choice_{{ $index }}"
+                                            data-question_number="{{ $question['number'] }}"
                                             href="#question_{{ $index }}">{{ $number++ }}
                                             <span
                                                 class="indicator position-absolute top-0 end-0 translate-middle p-2 m-0 bg-danger border border-light rounded-circle"
@@ -277,6 +284,35 @@
     </div>
 @endsection
 @section('script')
+    <script>
+        const answers =
+            localStorage.getItem('answers') == null ? [
+                @foreach ($questions as $question)
+                    {
+                        'student_question_number': '{{ $question['id'] }}',
+                        'answer': null,
+                        @if ($question['type'] == 'multiple_choice')
+                            'type': 'multiple_choice'
+                        @else
+                            'type': 'essay'
+                        @endif
+                    },
+                @endforeach
+            ] : JSON.parse(localStorage.getItem('answers'))
+        $(document).ready(function() {
+            // console.log(localStorage.getItem('answers'));
+
+            answers.forEach(function(item) {
+                if(item.answer != null) {
+                    $(`input[value="${item.answer}"][data-question_number="${item.student_question_number}"]`)
+                    .prop('checked', true);
+                    $(`a[data-question_number="${item.student_question_number}"]`).addClass('bg-primary')
+                    $(`a[data-question_number="${item.student_question_number}"]`).removeClass('bg-secondary')
+                    $(`a[data-question_number="${item.student_question_number}"] .indicator`).addClass('hide')
+                }
+            })
+        })
+    </script>
     @if ($student_exam->subMaterialExam->cheating_detector)
         <script>
             let openTab = false;
@@ -305,28 +341,6 @@
                                 confirmButton: "btn btn-light-primary",
                             },
                         });
-
-                        if (countOpentTab >= 3) {
-                            $(".chance").text("habis");
-                            $(".message").text("Ujian Anda akan ditutup");
-                            setTimeout(() => {
-                                $.ajax({
-                                    type: "delete",
-                                    url: "{{ route('tester.exam.reset', $student_exam->id) }}",
-                                    data: {
-                                        _token: $('meta[name="csrf-token"]').attr(
-                                            "content"
-                                        ),
-                                    },
-                                    dataType: "json",
-                                    success: function(res) {
-                                        window.location.replace(
-                                            "{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $student_exam->subMaterialExam->subMaterial->material_id, 'submaterial' => $student_exam->subMaterialExam->sub_material_id]) }}"
-                                        );
-                                    },
-                                });
-                            }, 5000);
-                        }
                     },
                 });
             }
@@ -424,26 +438,13 @@
             if (hour === 0 && minute === 0 && second === 0) {
                 clearInterval(count);
                 setAnswer($('#question_' + prevQuestion).data('type'), prevQuestion);
-                sumbitExam();
+                submitExam();
             }
         }, 1000);
     </script>
     <script>
         let prevQuestion = 0;
 
-        const answers = [
-            @foreach ($questions as $question)
-                {
-                    'student_question_number': '{{ $question['id'] }}',
-                    'answer': null,
-                    @if ($question['type'] == 'multiple_choice')
-                        'type': 'multiple_choice'
-                    @else
-                        'type': 'essay'
-                    @endif
-                },
-            @endforeach
-        ];
         $('.mark').click(function() {
             setMark($(this).data('index'));
         })
@@ -493,6 +494,9 @@
                     $('#btn_essay_' + prevQuestion + ' .indicator').removeClass('hide');
                 }
             }
+
+            localStorage.setItem("answers", JSON.stringify(answers));
+            console.log(JSON.parse(localStorage.getItem('answers')));
             prevQuestion = questionIndex;
         }
 
@@ -549,13 +553,14 @@
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
-                    sumbitExam();
+                    submitExam();
                 }
             });
         })
 
 
-        function sumbitExam() {
+        function submitExam() {
+            localStorage.removeItem('answers')
             const groupBy = (array, key) => {
                 return array.reduce((result, currentValue) => {
                     // Ambil nilai dari properti yang dijadikan kunci
@@ -571,6 +576,7 @@
 
                     return result;
                 }, {}); // Inisialisasi hasil sebagai objek kosong
+
             };
 
             // Gunakan fungsi `groupBy` untuk membagi array `students` berdasarkan properti `grade`

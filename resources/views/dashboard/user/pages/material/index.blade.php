@@ -295,8 +295,8 @@ use Carbon\Carbon; @endphp
                                                     $preTest = $material->exams
                                                         ->where('type', MaterialExamTypeEnum::PRETEST->value)
                                                         ->first();
-                                                    $studentPostTest = $postTest->studentMaterialExam
-                                                        ? $postTest->studentMaterialExam
+                                                    $studentPostTest = $postTest->studentMaterialExams
+                                                        ? $postTest->studentMaterialExams
                                                             ->where('student_id', auth()->user()->id)
                                                             ->first()
                                                         : null;
@@ -309,7 +309,7 @@ use Carbon\Carbon; @endphp
                                                 }
 
                                             @endphp
-                                            @if ($postTest)
+                                            {{-- @if ($postTest)
                                                 <a href="{{ route('student.material-exam', $studentPreTest ? $postTest->id : $preTest->id) }}"
                                                     class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
                                                     id="start-test"
@@ -318,7 +318,9 @@ use Carbon\Carbon; @endphp
                                             @else
                                                 <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
                                                     class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
-                                            @endif
+                                                    @endif --}}
+                                            <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                         </div>
 

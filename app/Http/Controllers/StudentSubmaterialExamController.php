@@ -91,8 +91,8 @@ class StudentSubmaterialExamController extends Controller
             $orderQuestionMultipleChoice = $studentExam->order_of_question_multiple_choice;
             $orderQuestionEssay = $studentExam->order_of_question_essay;
 
-            $examQuestionsMultipleChoice = $this->examQuestion->getWhereMultiple(['orderQuestionMultipleChoice' => $orderQuestionMultipleChoice, 'sub_material_exam_id' => $subMaterialExam->id]);
-            $examQuestionsEssay = $this->examQuestion->getWhereEssay(['orderQuestionEssay' => $orderQuestionEssay, 'sub_material_exam_id' => $subMaterialExam->id]);
+            $examQuestionsMultipleChoice = $subMaterialExam->total_multiple_choice > 0? $this->examQuestion->getWhereMultiple(['orderQuestionMultipleChoice' => $orderQuestionMultipleChoice, 'sub_material_exam_id' => $subMaterialExam->id]) : [];
+            $examQuestionsEssay = $subMaterialExam->total_essay > 0? $this->examQuestion->getWhereEssay(['orderQuestionEssay' => $orderQuestionEssay, 'sub_material_exam_id' => $subMaterialExam->id]) : [];
             $data['student_exam'] = $studentExam;
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
