@@ -152,7 +152,7 @@
                             <!--end::Info-->
                             @if ($hasExam)
                                 <div class="row" style="width: 30%;">
-                                @empty($studentExams)
+                                @if(count($studentExams) == 0)
                                     <div class="col-6"><a href="{{ route('admin.exportUser', $school->id) }}"
                                             class="btn btn-sm btn-success w-100">
                                             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/keenthemes/metronic/docs/core/html/src/media/icons/duotune/arrows/arr044.svg-->
@@ -200,7 +200,7 @@
                                                 </span>Akun Test</button>
                                         </form>
                                     </div>
-                                @endempty
+                                @endif
                             </div>
                         @endif
 
