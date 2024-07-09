@@ -40,8 +40,7 @@ class SubMaterialExamService
         $data['title'] = 'Tester';
         $data['school_id'] = $school->id;
         $data['type'] = SubMaterialExamTypeEnum::REGISTER->value;
-        $this->scheduleRepository->store(['title' => 'Ujian' . $data['title'], 'start' => $data['start_at'], 'end' => $data['end_at']]);
-        return $this->repository->store($data);
+        return $this->repository->storeRegristationExam($data);
     }
     public function handleUpdate($request, mixed $id): mixed
     {

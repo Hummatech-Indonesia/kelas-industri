@@ -20,13 +20,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Devision::create(['name' => 'Web']);
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
             SchoolYearSeeder::class,
             GenerationSeeder::class,
+            MaterialSeeder::class,
         ]);
-        Devision::create(['name' => 'Web']);
         Classroom::create([
             'generation_id' => Generation::first()->id,
             'school_id' => User::whereHas('roles', function ($query) {return $query->where('name', 'school');})->first()->id,

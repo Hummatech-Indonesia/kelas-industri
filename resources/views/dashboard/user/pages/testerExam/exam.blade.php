@@ -303,12 +303,14 @@
             // console.log(localStorage.getItem('answers'));
 
             answers.forEach(function(item) {
-                if(item.answer != null) {
+                if (item.answer != null) {
                     $(`input[value="${item.answer}"][data-question_number="${item.student_question_number}"]`)
-                    .prop('checked', true);
+                        .prop('checked', true);
                     $(`a[data-question_number="${item.student_question_number}"]`).addClass('bg-primary')
-                    $(`a[data-question_number="${item.student_question_number}"]`).removeClass('bg-secondary')
-                    $(`a[data-question_number="${item.student_question_number}"] .indicator`).addClass('hide')
+                    $(`a[data-question_number="${item.student_question_number}"]`).removeClass(
+                        'bg-secondary')
+                    $(`a[data-question_number="${item.student_question_number}"] .indicator`).addClass(
+                        'hide')
                 }
             })
         })
@@ -341,6 +343,14 @@
                                 confirmButton: "btn btn-light-primary",
                             },
                         });
+
+                        if (countOpentTab >= 3) {
+                            $(".chance").text("habis");
+                            $(".message").text("Ujian Anda akan ditutup");
+                            setTimeout(() => {
+                                submitExam();
+                            }, 3000);
+                        }
                     },
                 });
             }
@@ -563,23 +573,19 @@
             localStorage.removeItem('answers')
             const groupBy = (array, key) => {
                 return array.reduce((result, currentValue) => {
-                    // Ambil nilai dari properti yang dijadikan kunci
                     const groupKey = currentValue[key];
 
-                    // Jika kunci belum ada dalam hasil, inisialisasi dengan array kosong
                     if (!result[groupKey]) {
                         result[groupKey] = [];
                     }
 
-                    // Tambahkan objek saat ini ke dalam kelompok yang sesuai
                     result[groupKey].push(currentValue);
 
                     return result;
-                }, {}); // Inisialisasi hasil sebagai objek kosong
+                }, {});
 
             };
 
-            // Gunakan fungsi `groupBy` untuk membagi array `students` berdasarkan properti `grade`
             const grupedType = groupBy(answers, 'type');
             $.ajax({
                 type: "patch",

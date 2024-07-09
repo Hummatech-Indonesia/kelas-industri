@@ -52,7 +52,7 @@ class LoginService
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
                 $subMaterialExam = SubMaterialExam::where('title', 'Tester')->first();
                 $studenSubmaterialExam = StudentSubmaterialExam::where('student_id', auth()->user()->id)->whereRelation('subMaterialExam', 'sub_material_id', $subMaterialExam->sub_material_id)->first();
-                if($studenSubmaterialExam) return redirect()->route('tester.exam.show-finish', ['subMaterialExam' => $subMaterialExam->id, 'studentSubmaterialExam'=> $studenSubmaterialExam->id]);
+                if($studenSubmaterialExam != null && $studenSubmaterialExam->score != null) return redirect()->route('tester.exam.show-finish', ['subMaterialExam' => $subMaterialExam->id, 'studentSubmaterialExam'=> $studenSubmaterialExam->id]);
                 return redirect()->route('tester.exam-setname', $subMaterialExam->id)->with('success', 'Berhasil Login.');
             } else {
                 return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();

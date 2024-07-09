@@ -14,6 +14,11 @@ class GenerationSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Generation::factory()->count(1) ->create();
+        \App\Models\Generation::factory()->count(1)->create();
+        \App\Models\Generation::create([
+            'id' => 10,
+            'school_year_id' => 1,
+            'generation' => 'Kelas Tester'
+        ]);
     }
 }

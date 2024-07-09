@@ -12,6 +12,11 @@ class SubMaterialExamRepository extends BaseRepository
         $this->model = $model;
     }
 
+    public function storeRegristationExam(array $data): mixed
+    {
+        return $this->model->updateOrCreate(['title' => 'Tester', 'type' => SubMaterialExamTypeEnum::REGISTER->value], $data);
+    }
+
     public function getBeforeFinished(): mixed
     {
         return $this->model->query()

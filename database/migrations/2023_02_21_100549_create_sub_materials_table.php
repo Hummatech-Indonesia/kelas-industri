@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignUuid('material_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('title');
             $table->text('description');
-            $table->text('student_file');
-            $table->text('teacher_file');
+            $table->text('student_file')->nullable();
+            $table->text('teacher_file')->nullable();
             $table->timestamps();
         });
     }
