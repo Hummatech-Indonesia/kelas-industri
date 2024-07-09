@@ -17,8 +17,15 @@
                     <div class="d-flex flex-column align-items-center">
                         <div class="mb-5 w-100">
                             <div class="content fs-3">
-                                <label for="" class="fomr-label">Inputkan Nama Anda</label>
-                                <input class="form-control" type="text" name="name" id="">
+                                <label for="" class="fomr-label">Inputkan
+                                    Nama Anda</label>
+                                <input class="form-control @error('name') is-invalid @enderror" type="text"
+                                    name="name" id="">
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-50">Lanjut</button>

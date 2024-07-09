@@ -53,6 +53,7 @@ class StudentSubmaterialExamController extends Controller
     }
     public function regristationExamUpdateName(Request $request, SubMaterialExam $subMaterialExam)
     {
+        $request->validate(['name' => 'required'], ['name.required' => 'Nama harus diisi']);
         $update = $this->userService->handleUpdateName($request, auth()->user()->id);
         return redirect()->route('tester.exam', $subMaterialExam->id);
     }
