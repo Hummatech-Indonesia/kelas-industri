@@ -81,6 +81,9 @@ class StudentSubmaterialExamController extends Controller
             if (auth()->user()->roles->pluck('name')[0] == 'tester') return view('dashboard.user.pages.testerExam.exam', $data);
             return view('dashboard.user.pages.studentExam.exam', $data);
         } else {
+            if ($studentExam->score != null) {
+                return redirect()->route('tester.exam.show-finish', ['studentSubmaterialExam' => $studentExam->id, 'subMaterialExam' => $subMaterialExam->id]);
+            }
             if ($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value) {
                 $studentExam->update([
                     'score' => null,
