@@ -37,7 +37,7 @@
             <!--end::Mobile toggle-->
 
             <!--begin::Logo image-->
-            <a href="{{ route('home') }}">
+            <a href="{{ route('landingPage') }}">
                 <img alt="Logo" src="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" class="h-50px" />
             </a>
             <!--end::Logo image-->
