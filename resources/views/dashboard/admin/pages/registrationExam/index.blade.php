@@ -21,13 +21,13 @@
         </div>
         <!--end::Page title-->
         <!--begin::Actions-->
-        <div class="d-flex align-items-center py-2 py-md-1">
+        {{-- <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
             <button class="btn btn-primary fw-bold btn-plus">
                 Tambah </button>
             <!--end::Button-->
-        </div>
+        </div> --}}
         <!--end::Actions-->
     </div>
     <div class="content flex-column-fluid" id="kt_content">

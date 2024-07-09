@@ -111,7 +111,7 @@ class StudentService
         for ($i = 1; $i <= $amount; $i++) {
             $dataUser['name'] = strtolower(str_replace(' ', '', $school->name)) . str_pad($i, 3, '0', STR_PAD_LEFT);
             $dataUser['email'] = strtolower(str_replace(' ', '', $school->name)) . str_pad($i, 3, '0', STR_PAD_LEFT) . '@hummatech.com';
-            $dataUser['password'] = bcrypt('password');
+            $dataUser['password'] = bcrypt('hummatech123@768');
             $user = $this->userRepository->store($dataUser);
             $user->assignRole('tester');
             $data = [
