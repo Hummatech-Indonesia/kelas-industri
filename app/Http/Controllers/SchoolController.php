@@ -94,7 +94,6 @@ class SchoolController extends Controller
         $school = $this->service->handleCreate($request);
         if (isset($request->regristation_exam)) {
             $this->studentService->handleCreateRegristationExamStudent($school, $request->total_student);
-            // $subMaterial = $this->subMaterialExamService->handleGetRegristationExam();
             $this->subMaterialExamService->handleCreateRegristationExam($request->validated(), $school);
         }
 

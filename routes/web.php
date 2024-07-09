@@ -172,11 +172,12 @@ Route::middleware('auth.custom')->group(function () {
         ]);
 
         Route::post('register-exam', [SubMaterialExamController::class, 'registerExamStore'])->name('registerExam.store');
+        Route::put('regristation-exam-update/{subMaterialExam}', [SubMaterialExamController::class, 'registerExamupdate'])->name('exam-update');
 
-        Route::get('criterias/{devision}',[CriteriaController::class,'index'])->name('criterias.index');
-        Route::post('criterias',[CriteriaController::class,'store'])->name('criterias.store');
-        Route::delete('criterias/{criterias}',[CriteriaController::class,'destroy'])->name('criterias.destroy');
-        Route::put('criterias/{criterias}',[CriteriaController::class,'update'])->name('criterias.update');
+        Route::get('criterias/{devision}', [CriteriaController::class, 'index'])->name('criterias.index');
+        Route::post('criterias', [CriteriaController::class, 'store'])->name('criterias.store');
+        Route::delete('criterias/{criterias}', [CriteriaController::class, 'destroy'])->name('criterias.destroy');
+        Route::put('criterias/{criterias}', [CriteriaController::class, 'update'])->name('criterias.update');
 
         Route::get('events/{event}/participants', [EventController::class, 'showParticipants'])->name('events.participants');
         Route::put('events/set-certificate/{event}', [EventPartisipantController::class, 'update'])->name('eventsParticipant.setCertificate');

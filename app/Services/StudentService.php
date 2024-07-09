@@ -106,7 +106,7 @@ class StudentService
      * @param StudentRequest $request
      * @return void
      */
-    public function handleCreateRegristationExamStudent($school, int $amount): void
+    public function handleCreateRegristationExamStudent(User $school, int $amount): void
     {
         for ($i = 1; $i <= $amount; $i++) {
             $dataUser['name'] = strtolower(str_replace(' ', '', $school->name)) . str_pad($i, 3, '0', STR_PAD_LEFT);

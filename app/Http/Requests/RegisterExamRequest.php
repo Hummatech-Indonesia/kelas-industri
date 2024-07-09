@@ -26,13 +26,10 @@ class RegisterExamRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:150',
+            'title' => 'required|string',
             'sub_material_id' => ['required', Rule::exists('sub_materials', 'id')],
             'total_multiple_choice' => 'nullable|integer',
-            'total_essay' => 'nullable|integer',
             'type' => ['required', Rule::in([SubMaterialExamTypeEnum::REGISTER->value, SubMaterialExamTypeEnum::QUIZ->value])],
-            'multiple_choice_value' => 'nullable|integer',
-            'essay_value' => 'nullable|integer',
             'start_at' => 'nullable|date|after_or_equal:now',
             'end_at' => 'nullable|date|after_or_equal:start_at',
             'time' => 'nullable|regex:/^[0-9]*$/',

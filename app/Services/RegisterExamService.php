@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
-use App\Http\Requests\RegisterExamRequest;
-use App\Http\Requests\SubMaterialExamRequest;
+use App\Models\User;
 use App\Models\StudentSubmaterialExam;
 use App\Repositories\ScheduleRepository;
+use App\Http\Requests\RegisterExamRequest;
+use App\Http\Requests\SubMaterialExamRequest;
 use App\Repositories\SubMaterialExamRepository;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
@@ -13,11 +14,15 @@ class RegisterExamService
 {
     private SubMaterialExamRepository $repository;
     private ScheduleRepository $scheduleRepository;
+    private SchoolService $schoolService;
+    private StudentService $studentService;
 
-    public function __construct(SubMaterialExamRepository $repository, ScheduleRepository $scheduleRepository)
+    public function __construct(SubMaterialExamRepository $repository, ScheduleRepository $scheduleRepository, SchoolService $schoolService, StudentService $studentService)
     {
         $this->repository = $repository;
         $this->scheduleRepository = $scheduleRepository;
+        $this->schoolService = $schoolService;
+        $this->studentService = $studentService;
     }
 
     public function handleCreate(RegisterExamRequest $request): mixed
@@ -27,16 +32,14 @@ class RegisterExamService
         $this->scheduleRepository->store(['title' => 'Ujian' . $data['title'], 'start' => $data['start_at'], 'end' => $data['end_at']]);
         return $this->repository->store($data);
     }
-    public function handleUpdate($request, mixed $id): mixed
+    public function handleUpdate($request, User $school, mixed $id): mixed
     {
-        $data = $request->validated();
-        if ($data['total_essay'] == 0) {
-            if ($data['essay_value'] != 0) {
-                return redirect()->back()->with('error', 'Jika total essay nya 0, bobot nilai essay nya harus 0 juga');
-            }
-        }
-        if ($data['multiple_choice_value'] + $data['essay_value'] != 100) {
-            return redirect()->back()->with('error', 'Total bobot nilai harus 100');
+        $data = $request->all();
+        $data['multiple_choice_value'] = 100;
+
+        if($data['total_student']) {
+            $this->schoolService->handleDeleteRegristationExamStudent($school);
+            $this->studentService->handleCreateRegristationExamStudent($school, $data['total_student']);
         }
 
         $data['last_submit'] = isset($data['last_submit']) ? 1 : 0;

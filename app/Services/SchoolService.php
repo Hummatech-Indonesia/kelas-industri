@@ -140,7 +140,7 @@ class SchoolService
     }
 
 
-    public function  handleDeleteRegristationExamStudent($school): mixed
+    public function handleDeleteRegristationExamStudent(User $school): mixed
     {
         return User::whereHas('students', function ($q) use ($school) {
             $q->where('school_id', $school->id);

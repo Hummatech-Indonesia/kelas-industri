@@ -1,4 +1,5 @@
-@php use App\Enums\SubMaterialExamTypeEnum; @endphp
+@php
+use App\Enums\SubMaterialExamTypeEnum; @endphp
 @extends('dashboard.admin.layouts.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
@@ -444,7 +445,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="kt_modal_edit" tabindex="-1" aria-modal="true" role="dialog">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-md">
@@ -500,6 +500,8 @@
                                 @method('PUT')
                                 @csrf
                                 <!--begin::Wrapper-->
+                                <input type="hidden" name="type"
+                                    value="{{ SubMaterialExamTypeEnum::REGISTER->value }}">
                                 <div class="w-100">
                                     <div class="mb-3">
                                         <label class="required form-label @error('title') is-invalid @enderror mb-3">Judul
@@ -586,8 +588,8 @@
                                             <label
                                                 class="required form-label @error('end_at') is-invalid @enderror mb-3">Waktu
                                                 pengerjaan (Menit)</label>
-                                            <input type="number" name="time" class="form-control form-control-solid mb-3"
-                                                id="time-edit">
+                                            <input type="number" name="time"
+                                                class="form-control form-control-solid mb-3" id="time-edit">
                                             @error('end_at')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -602,6 +604,22 @@
                                                 class="form-control form-control-solid mb-3"
                                                 id="total_multiple_choice_edit">
                                             @error('total_multiple_choice')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            class="required form-label @error('total_student') is-invalid @enderror mb-3">Total
+                                            Peserta</label>
+                                        <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
+                                            data-td-target-toggle="nearest">
+                                            <input type="number" name="total_student"
+                                                class="form-control form-control-solid mb-3" id=""
+                                                value="">
+                                            @error('total_student')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -849,7 +867,7 @@
             $('#essay_value_edit').val(essay_value)
             $('#total_essay_edit').val(total_essay)
             $('#total_essay_edit').val(total_essay)
-            $('#form_edit').attr('action', "{{ route('admin.sub-material-exam.update', ':id') }}".replace(':id',
+            $('#form_edit').attr('action', "{{ route('admin.exam-update', ':id') }}".replace(':id',
                 id))
             $('#kt_modal_edit').modal('show')
 

@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use App\Repositories\SubMaterialExamRepository;
 use App\Services\StudentSubMaterialExamService;
 use App\Http\Requests\SubMaterialExamUpdateRequest;
+use App\Models\User;
 use App\Repositories\StudentSubmaterialExamRepository;
 use App\Repositories\SubMaterialExamQuestionRepository;
 use App\Repositories\StudentSubMaterialExamAnswerRepository;
@@ -169,10 +170,11 @@ class SubMaterialExamController extends Controller
      * @param  \App\Models\SubMaterialExam  $subMaterialExam
      * @return \Illuminate\Http\Response
      */
-    public function registerExamupdate(RegisterExamRequest $request, SubMaterialExam $subMaterialExam)
+    public function registerExamupdate(Request $request, SubMaterialExam $subMaterialExam)
     {
-        $this->registerExamService->handleUpdate($request, $subMaterialExam->id);
-        return redirect()->back()->with('success', trans('alert.update_success'));
+        $school = User::find($subMaterialExam->school_id);
+        $this->registerExamService->handleUpdate($request, $school, $subMaterialExam->id);
+        return redirect()->route('admin.sub-material-exam.index')->with('success', trans('alert.update_success'));
     }
     /**
      * Update the specified resource in storage.
