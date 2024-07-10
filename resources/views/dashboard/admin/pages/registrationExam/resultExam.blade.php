@@ -63,7 +63,7 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
     <div class="content row flex-column-fluid" id="kt_content">
         <div class="card card-p-0 card-flush">
             <div class="card-body">
-                <table class="table align-middle border rounded table-row-dashed fs-6 g-5" id="kt_datatable_example">
+                <table class="display" id="kt_datatable_example">
                     <thead>
                         <!--begin::Table row -->
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase">
@@ -73,18 +73,13 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                         <!--end::Table row-->
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
-                        <tr class="odd">
-                            @forelse ($exam->studentSubmaterialExams as $student)
-                                <td>
-                                    <a href="#"
-                                        class="text-gray-900 text-hover-primary">{{ $student->student->name }}</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-gray-900 text-hover-primary">{{ $student->score }}</a>
-                                </td>
-                            @empty
-                            @endforelse
-                        </tr>
+                        @forelse ($exam->studentSubmaterialExams as $student)
+                            <tr>
+                                <td>{{ $student->student->name }}</td>
+                                <td>{{ $student->score }}</td>
+                            </tr>
+                        @empty
+                        @endforelse
                     </tbody>
                 </table>
             </div>
