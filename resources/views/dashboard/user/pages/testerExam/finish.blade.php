@@ -5,8 +5,7 @@
 @section('content')
     <div class="container mt-10 mx-auto w-80 w-md-75 w-lg-50">
         <div class="card">
-            <div class="bg-primary mx-0 py-5 px-3 p-0 rounded"><span class="fw-bolder fs-5 text-white"> Ujian Telah Selesai
-                    Diselesaikan
+            <div class="bg-primary mx-0 py-5 px-3 p-0 rounded text-center"><span class="fw-bolder fs-5 text-white"> Ujian Telah Diselesaikan
                 </span>
             </div>
 

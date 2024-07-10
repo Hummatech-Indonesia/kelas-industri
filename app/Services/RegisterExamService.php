@@ -28,8 +28,9 @@ class RegisterExamService
     public function handleCreate(RegisterExamRequest $request): mixed
     {
         $data = $request->validated();
+        $school = $this->schoolService->getById($data['school_id']);
+        $this->studentService->handleCreateRegristationExamStudent($school, $data['total_student']);
         $data['multiple_choice_value'] = 100;
-        $this->scheduleRepository->store(['title' => 'Ujian' . $data['title'], 'start' => $data['start_at'], 'end' => $data['end_at']]);
         return $this->repository->store($data);
     }
     public function handleUpdate($request, User $school, mixed $id): mixed
@@ -37,7 +38,7 @@ class RegisterExamService
         $data = $request->all();
         $data['multiple_choice_value'] = 100;
 
-        if($data['total_student']) {
+        if($data['total_student'] != null) {
             $this->schoolService->handleDeleteRegristationExamStudent($school);
             $this->studentService->handleCreateRegristationExamStudent($school, $data['total_student']);
         }

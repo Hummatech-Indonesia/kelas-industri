@@ -47,6 +47,10 @@ class StudentSubmaterialExamController extends Controller
         $this->userService = $userService;
     }
 
+    public function regristationExamRegulation(SubMaterialExam $subMaterialExam): View
+    {
+        return view('dashboard.user.pages.testerExam.regulation', compact('subMaterialExam'));
+    }
     public function regristationExamSetName(SubMaterialExam $subMaterialExam): View
     {
         return view('dashboard.user.pages.testerExam.setName', compact('subMaterialExam'));
@@ -67,10 +71,14 @@ class StudentSubmaterialExamController extends Controller
     public function index(SubMaterialExam $subMaterialExam): mixed
     {
         if (count($subMaterialExam->subMaterialExamQuestions) == 0) return back()->with('error', "Belum Ada Soal Untuk Ujian");
+
         $studentExam = $this->studentExam->whereIn(['sub_material_exam_id' => $subMaterialExam->id]);
-        if ($subMaterialExam->type = SubMaterialExamTypeEnum::REGISTER)
+
+        if ($subMaterialExam->type = SubMaterialExamTypeEnum::REGISTER) {
             if ($subMaterialExam->start_at > now()) return back()->with('error', 'Ujian Belum Dimulai');
+        }
         if ($subMaterialExam->end_at < now()) return back()->with('error', 'Ujian Sudah Ditutup');
+
         $examQuestionsMultipleChoice = $this->examQuestion->getRandomOrderByExamMultipleChoice($subMaterialExam->id);
         $examQuestionsEssay = $this->examQuestion->getRandomOrderByExamEssay($subMaterialExam->id);
         if ($studentExam == null) {
@@ -82,7 +90,7 @@ class StudentSubmaterialExamController extends Controller
             if (auth()->user()->roles->pluck('name')[0] == 'tester') return view('dashboard.user.pages.testerExam.exam', $data);
             return view('dashboard.user.pages.studentExam.exam', $data);
         } else {
-            if ($studentExam->score != null) {
+            if ($studentExam->finished_exam) {
                 return redirect()->route('tester.exam.show-finish', ['studentSubmaterialExam' => $studentExam->id, 'subMaterialExam' => $subMaterialExam->id]);
             }
             if ($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value) {

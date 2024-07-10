@@ -589,7 +589,7 @@
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('admin.exam.*') ? 'active' : '' }}"
+                        <a class="menu-link {{ request()->routeIs('admin.exam-registration') || request()->routeIs('admin.regristation-exam-question') ? 'active' : '' }}"
                             href="{{ route('admin.exam-registration') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->

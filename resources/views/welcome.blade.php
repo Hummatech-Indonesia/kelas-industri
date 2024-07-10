@@ -1,9 +1,10 @@
 @php
     use App\Models\StudentSubmaterialExam;
-    $exam = StudentSubmaterialExam::whereRelation('subMaterialExam', function ($q) {
-        $q->where('title', 'Tester');
-    })->first();
+    if (Auth::check() && auth()->user()->roles->pluck('name')[0] == 'tester') {
+        $exam = StudentSubmaterialExam::whereRelation('subMaterialExam', 'school_id', auth()->user()->studentSchool->school_id)->first();
+    }
 @endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,10 +62,12 @@
                             </div>
                         </li>
                         @auth
-                            @if ($exam != null)
-                                <li class="nav-item d-none d-lg-block pl-0"><a
-                                        href="{{ route('tester.exam', $exam->sub_material_exam_id) }}"
-                                        class="btn btn-default m-0">Masuk</a></li>
+                            @if (auth()->user()->roles->pluck('name')[0] == 'tester')
+                                @if ($exam)
+                                    <li class="nav-item d-none d-lg-block pl-0"><a
+                                            href="{{ route('tester.exam', $exam->sub_material_exam_id) }}"
+                                            class="btn btn-default m-0">Masuk</a></li>
+                                @endif
                             @else
                                 <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('home') }}"
                                         class="btn btn-default m-0">Beranda</a></li>
@@ -239,15 +242,18 @@
                             </div>
                             <!-- /.tp-caption -->
                             @auth
-                                @if ($exam != null)
-                                    <a class="tp-caption btn btn-l btn-default" data-x="['left','left','left','center']"
-                                        data-y="middle" data-hoffset="['50','30','30','0']"
-                                        data-voffset="['75','75','75','135']" data-width="['auto','auto','auto','auto']"
-                                        data-textAlign="['left','left','left','center']"
-                                        data-frames='[{"delay":2000,"speed":1200,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                                        data-responsive="on" data-responsive_offset="on" style="z-index: 9;"
-                                        href="{{ route('tester.exam', $exam->sub_material_exam_id) }}">Masuk
-                                    </a>
+                                @if (auth()->user()->roles->pluck('name')[0] == 'tester')
+                                    @if ($exam)
+                                        <a class="tp-caption btn btn-l btn-default"
+                                            data-x="['left','left','left','center']" data-y="middle"
+                                            data-hoffset="['50','30','30','0']" data-voffset="['75','75','75','135']"
+                                            data-width="['auto','auto','auto','auto']"
+                                            data-textAlign="['left','left','left','center']"
+                                            data-frames='[{"delay":2000,"speed":1200,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                                            data-responsive="on" data-responsive_offset="on" style="z-index: 9;"
+                                            href="{{ route('tester.exam', $exam->sub_material_exam_id) }}">Masuk
+                                        </a>
+                                    @endif
                                 @else
                                     <a class="tp-caption btn btn-l btn-default" data-x="['left','left','left','center']"
                                         data-y="middle" data-hoffset="['50','30','30','0']"

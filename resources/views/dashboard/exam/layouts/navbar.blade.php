@@ -2,7 +2,9 @@
     use App\Models\StudentSubmaterialExam;
     $exam = StudentSubmaterialExam::whereRelation('subMaterialExam', function ($q) {
         $q->where('title', 'Tester');
-    })->first();
+    })
+        ->where('student_id', auth()->user()->id)
+        ->first();
     $notificationModel = new App\Models\Notification();
     $notificationReposictory = new App\Repositories\NotificationRepository($notificationModel);
     $notificationService = new App\Services\NotificationService($notificationReposictory);
@@ -271,18 +273,6 @@
                             <!--end::Menu separator-->
 
                             <!--begin::Menu item-->
-                            <div class="menu-item px-5">
-                                <a href="{{ route('profile.index') }}" class="menu-link px-5">
-                                    Profil Saya
-                                </a>
-                            </div>
-                            <!--end::Menu item-->
-
-                            <!--begin::Menu separator-->
-                            <div class="separator my-2"></div>
-                            <!--end::Menu separator-->
-
-                            <!--begin::Menu item-->
                             <!--end::Menu item-->
 
                             <!--begin::Menu item-->
@@ -297,7 +287,7 @@
                                 </form>
                             </div>
                             <!--end::Menu item-->
-                        @elseif($exam != null && $exam->score != null)
+                        @elseif($exam != null && $exam->finished_exam)
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
                                 <a href="{{ route('logout') }}" class="menu-link px-5"

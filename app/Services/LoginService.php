@@ -50,10 +50,20 @@ class LoginService
         }
         if ($role == 'tester') {
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-                $subMaterialExam = SubMaterialExam::where('title', 'Tester')->first();
+                $subMaterialExam = SubMaterialExam::where('school_id', auth()->user()->studentSchool->school_id)->first();
                 $studenSubmaterialExam = StudentSubmaterialExam::where('student_id', auth()->user()->id)->whereRelation('subMaterialExam', 'sub_material_id', $subMaterialExam->sub_material_id)->first();
-                if($studenSubmaterialExam != null && $studenSubmaterialExam->score != null) return redirect()->route('tester.exam.show-finish', ['subMaterialExam' => $subMaterialExam->id, 'studentSubmaterialExam'=> $studenSubmaterialExam->id]);
-                return redirect()->route('tester.exam-setname', $subMaterialExam->id)->with('success', 'Berhasil Login.');
+
+                if ($studenSubmaterialExam) {
+                    if ($studenSubmaterialExam->finished_exam) {
+                        return redirect()->route('tester.exam.show-finish', ['subMaterialExam' => $subMaterialExam->id, 'studentSubmaterialExam' => $studenSubmaterialExam->id]);
+                    }
+                    if ($studenSubmaterialExam->student->name == 'akun test') {
+                        return redirect()->route('tester.exam-setname', $subMaterialExam->id);
+                    } else {
+                        return redirect()->route('tester.exam', $subMaterialExam->id);
+                    }
+                }
+                return redirect()->route('tester.exam-regulation', $subMaterialExam->id);
             } else {
                 return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
             }

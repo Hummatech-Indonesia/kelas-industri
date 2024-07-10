@@ -1,4 +1,13 @@
+
 <!DOCTYPE html>
+@php
+    use App\Models\StudentSubmaterialExam;
+    if (Auth::check() && auth()->user()->roles->pluck('name')[0] == 'tester') {
+        $exam = StudentSubmaterialExam::whereRelation('subMaterialExam', function ($q) {
+            $q->where('school_id', auth()->user()->studentSchool->school_id);
+        })->first();
+    }
+@endphp
 <html lang="en">
 
 <head>
@@ -120,8 +129,16 @@
                             </div>
                         </li>
                         @auth
-                            <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('home') }}"
-                                    class="btn btn-default m-0">Beranda</a></li>
+                            @if (auth()->user()->roles->pluck('name')[0] == 'tester')
+                                @if ($exam)
+                                    <li class="nav-item d-none d-lg-block pl-0"><a
+                                            href="{{ route('tester.exam', $exam->sub_material_exam_id) }}"
+                                            class="btn btn-default m-0">Masuk</a></li>
+                                @endif
+                            @else
+                                <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('home') }}"
+                                        class="btn btn-default m-0">Beranda</a></li>
+                            @endif
                         @else
                             <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('login') }}"
                                     class="btn btn-default m-0">Masuk</a></li>

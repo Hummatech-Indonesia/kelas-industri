@@ -22,30 +22,29 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
         </div>
         <!--end::Page title-->
         <!--begin::Actions-->
-        {{-- <div class="d-flex align-items-center py-2 py-md-1">
+        <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
             <button class="btn btn-primary fw-bold btn-plus">
                 Tambah </button>
             <!--end::Button-->
-        </div> --}}
+        </div>
         <!--end::Actions-->
     </div>
-    <div class="content flex-column-fluid" id="kt_content">
+    <div class="content row flex-column-fluid" id="kt_content">
         @forelse ($exams as $exam)
-            <div class="col-xl-6 mb-5">
+            <div class="col col-xl-6 mb-5">
 
                 <!--begin::Card-->
 
                 <div class="card card-custom gutter-b card-stretch">
 
                     <!--begin::Body-->
-
                     <div class="card-body">
 
                         <!--begin::Section-->
 
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-start">
 
                             <!--begin::Pic-->
 
@@ -121,9 +120,46 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                                 <!--end::Title-->
                             </div>
                             <!--end::Info-->
+                            {{-- <div class="card-toolbar">
+                                <!--begin::Menu-->
+                                <button class="btn btn-icon btn-color-gray-500 btn-active-color-primary justify-content-end"
+                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                    data-kt-menu-overflow="true">
+                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/keenthemes/metronic/docs/core/html/src/media/icons/duotune/general/gen053.svg-->
+                                    <span class="svg-icon svg-icon-muted svg-icon-1hx"><svg width="16" height="16"
+                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="10" y="10" width="4" height="4" rx="2"
+                                                fill="currentColor" />
+                                            <rect x="10" y="3" width="4" height="4" rx="2"
+                                                fill="currentColor" />
+                                            <rect x="10" y="17" width="4" height="4" rx="2"
+                                                fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon--> </button>
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-150px"
+                                    data-kt-menu="true" style="">
+
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3 my-1">
+                                        <a href="#" class="menu-link px-3">
+                                            Lihat Hasil
+                                        </a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                </div>
+
+
+                                <!--begin::Menu 3-->
+
+                                <!--end::Menu 3-->
+
+                                <!--end::Menu-->
+                            </div> --}}
+
 
                         </div>
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-end mt-5">
                             <div class="btn btn-danger btn-sm me-2 btn-delete" data-id="{{ $exam->id }}">
                                 Hapus
                             </div>
@@ -135,13 +171,18 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                                 data-multiple_choice_value="{{ $exam->multiple_choice_value }}"
                                 data-essay_value="{{ $exam->essay_value }}"
                                 data-total_multiple_choice="{{ $exam->total_multiple_choice }}"
-                                data-total_essay="{{ $exam->total_essay }}"
+                                data-total_essay="{{ $exam->total_essay }}" data-school="{{ $exam->school_id }}"
                                 data-cheating_detector="{{ $exam->cheating_detector }}"
                                 data-last_submit="{{ $exam->last_submit }}">
                                 Edit
                             </div>
-                            <a href="{{ route('admin.exam-question', $exam->id) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('admin.regristation-exam-question', $exam->id) }}"
+                                class="btn btn-primary btn-sm me-2">
                                 Lihat Soal
+                            </a>
+                            <a href="{{ route('admin.registerExam.result', $exam->id) }}"
+                                class="btn btn-success btn-sm">
+                                Hasil
                             </a>
                         </div>
                         <!--end::Section-->
@@ -219,6 +260,23 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                                         <input type="text" name="title" class="form-control form-control-solid"
                                             id="">
                                         @error('title')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            class="required form-label @error('sub_material_id') is-invalid @enderror mb-3">Sekolah</label>
+                                        <select
+                                            class="form-select form-select-solid mb-3 @error('material_id') is-invalid @enderror"
+                                            data-control="select2" data-placeholder="Pilih Materi" data-type="add"
+                                            name="school_id" id="school_id-edit">
+                                            @foreach ($schools as $school)
+                                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('material_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -328,6 +386,23 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+
+                                        <div class="col">
+                                            <label
+                                                class="required form-label @error('total_student') is-invalid @enderror mb-3">Total
+                                                Peserta</label>
+                                            <div class="input-group" data-td-target-input="nearest"
+                                                data-td-target-toggle="nearest">
+                                                <input type="number" name="total_student"
+                                                    class="form-control form-control-solid mb-3" id=""
+                                                    value="">
+                                                @error('total_student')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -509,6 +584,23 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                                         <input type="text" name="title" class="form-control form-control-solid"
                                             id="title-edit">
                                         @error('title')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label
+                                            class="required form-label @error('sub_material_id') is-invalid @enderror mb-3">Sekolah</label>
+                                        <select
+                                            class="form-select form-select-solid mb-3 @error('material_id') is-invalid @enderror"
+                                            data-control="select2" data-placeholder="Pilih Materi" data-type="add"
+                                            name="school_id" id="">
+                                            @foreach ($schools as $school)
+                                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('material_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -742,6 +834,7 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
             </div>
         </div>
     </div>
+    <x-delete-modal-component />
 @endsection
 @section('script')
     <script>
@@ -796,7 +889,6 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
             getMaterial($('#select-material-add'));
 
             $('#select-material-add, #select-material-edit').change(function() {
-
                 getSubMaterial($(this));
             });
 
@@ -857,11 +949,13 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
             var cheating_detector = $(this).data('cheating_detector')
             var last_submit = $(this).data('last_submit')
             var cheating_detector = $(this).data('cheating_detector')
+            var school = $(this).data('school')
             $('#title-edit').val(title)
             $('#select-material-edit').val(material_id).trigger('change');
             $('.start_at-edit').val(start_at)
             $('.end_at-edit').val(end_at)
             $('#time-edit').val(time)
+            $(`#school_id-edit`).val(school).trigger('change');
             $('#total_multiple_choice_edit').val(total_multiple_choice)
             $('#multiple_choice_value_edit').val(multiple_choice_value)
             $('#essay_value_edit').val(essay_value)

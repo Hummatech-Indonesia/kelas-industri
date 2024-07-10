@@ -35,6 +35,8 @@ class RegisterExamRequest extends FormRequest
             'time' => 'nullable|regex:/^[0-9]*$/',
             'last_submit' => 'nullable|boolean',
             'cheating_detector' => 'nullable|boolean',
+            'total_student' => 'required',
+            'school_id' => 'required'
         ];
     }
 

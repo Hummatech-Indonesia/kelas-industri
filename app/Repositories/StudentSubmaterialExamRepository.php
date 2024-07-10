@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\SubMaterialExamTypeEnum;
 use App\Helpers\RoleHelper;
 use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
@@ -112,9 +113,6 @@ class StudentSubmaterialExamRepository extends BaseRepository
     public function getTester($schoolId) : mixed {
         return $this->model->query()
         ->with('student')
-        ->whereHas('subMaterialExam', function($q) {
-            return $q->where('slug', 'tester');
-        })
         ->whereRelation('student.studentSchool.school', 'id', $schoolId)
         ->get();
     }

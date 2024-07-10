@@ -172,7 +172,10 @@ Route::middleware('auth.custom')->group(function () {
         ]);
 
         Route::post('register-exam', [SubMaterialExamController::class, 'registerExamStore'])->name('registerExam.store');
+        Route::get('register-exam-result/{subMaterialExam}', [SubMaterialExamController::class, 'registrationExamResult'])->name('registerExam.result');
         Route::put('regristation-exam-update/{subMaterialExam}', [SubMaterialExamController::class, 'registerExamupdate'])->name('exam-update');
+        Route::get('regristation-exam-question/{subMaterialExam}', [SubMaterialExamController::class, 'examQuestion'])->name('regristation-exam-question');
+
 
         Route::get('criterias/{devision}', [CriteriaController::class, 'index'])->name('criterias.index');
         Route::post('criterias', [CriteriaController::class, 'store'])->name('criterias.store');
@@ -518,6 +521,7 @@ Route::middleware('auth.custom')->group(function () {
     //end student
 
     Route::middleware(['auth', 'role:tester'])->prefix('tester')->name('tester.')->group(function () {
+        Route::get('regristation-exam-regulation/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamRegulation'])->name('exam-regulation');
         Route::get('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamSetName'])->name('exam-setname');
         Route::put('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamUpdateName'])->name('exam-update-name');
         Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');

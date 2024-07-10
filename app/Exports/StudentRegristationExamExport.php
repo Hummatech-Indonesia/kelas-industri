@@ -18,9 +18,6 @@ class StudentRegristationExamExport implements FromView
     {
         $studentExams = StudentSubmaterialExam::query()
         ->with('student')
-        ->whereHas('subMaterialExam', function($q) {
-            return $q->where('slug', 'tester');
-        })
         ->whereRelation('student.studentSchool.school', 'id', $this->schoolId)
         ->get();
         return view('exports.regristationExamStudent', compact  ('studentExams'));

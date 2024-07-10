@@ -1,3 +1,12 @@
+@php
+    use App\Models\StudentSubmaterialExam;
+    if (Auth::check() && auth()->user()->roles->pluck('name')[0] == 'tester') {
+        $exam = StudentSubmaterialExam::whereRelation('subMaterialExam', function ($q) {
+            $q->where('school_id', auth()->user()->studentSchool->school_id);
+        })->first();
+    }
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -156,8 +165,16 @@
                             </div>
                         </li>
                         @auth
-                            <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('home') }}"
-                                    class="btn btn-default m-0">Beranda</a></li>
+                            @if (auth()->user()->roles->pluck('name')[0] == 'tester')
+                                @if ($exam)
+                                    <li class="nav-item d-none d-lg-block pl-0"><a
+                                            href="{{ route('tester.exam', $exam->sub_material_exam_id) }}"
+                                            class="btn btn-default m-0">Masuk</a></li>
+                                @endif
+                            @else
+                                <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('home') }}"
+                                        class="btn btn-default m-0">Beranda</a></li>
+                            @endif
                         @else
                             <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('login') }}"
                                     class="btn btn-default m-0">Masuk</a></li>
@@ -274,10 +291,13 @@
                                         <div class="space10"></div>
                                         <div class="post-content text-center">
                                             <span class="post-title text-center mb-1"><a
-                                                    href="{{ route('detail-news', $primary_news->slug) }}" style="font-weight: 500; font-size: 25px; width: max-content;">{{ Str::limit($primary_news->title, 50, '...') }}</a>
+                                                    href="{{ route('detail-news', $primary_news->slug) }}"
+                                                    style="font-weight: 500; font-size: 25px; width: max-content;">{{ Str::limit($primary_news->title, 50, '...') }}</a>
                                             </span>
-                                            <div class="text-center mt-1" style="display: flex; align-items: center; justify-content: center;"><i
-                                                class="jam jam-clock"></i><span class="date ms-2">{{ Carbon::parse($primary_news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                            <div class="text-center mt-1"
+                                                style="display: flex; align-items: center; justify-content: center;"><i
+                                                    class="jam jam-clock"></i><span
+                                                    class="date ms-2">{{ Carbon::parse($primary_news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -306,10 +326,12 @@
                                         </figure>
                                         <div class="post-content">
                                             <span style="font-weight: 500;">
-                                                <a href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 35) }}</a>
+                                                <a
+                                                    href="{{ route('detail-news', $news->slug) }}">{{ Str::limit($news->title, 35) }}</a>
                                             </span>
                                             <div class="meta">
-                                                <span class="date"><i class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
+                                                <span class="date"><i
+                                                        class="jam jam-clock"></i>{{ Carbon::parse($news->date)->locale('id')->isoFormat('D MMMM YYYY') }}</span>
                                             </div>
                                         </div>
                                     </li>

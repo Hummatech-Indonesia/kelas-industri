@@ -23,6 +23,7 @@ use App\Models\User;
 use App\Repositories\StudentSubmaterialExamRepository;
 use App\Repositories\SubMaterialExamQuestionRepository;
 use App\Repositories\StudentSubMaterialExamAnswerRepository;
+use Illuminate\Contracts\View\View;
 
 class SubMaterialExamController extends Controller
 {
@@ -85,7 +86,8 @@ class SubMaterialExamController extends Controller
     public function registrationExam()
     {
         $exams = $this->repository->getRegisterExam();
-        return view('dashboard.admin.pages.registrationExam.index', compact('exams'));
+        $schools = $this->userServices->handleGetAllSchool();
+        return view('dashboard.admin.pages.registrationExam.index', compact('exams', 'schools'));
     }
 
     /**
@@ -174,7 +176,7 @@ class SubMaterialExamController extends Controller
     {
         $school = User::find($subMaterialExam->school_id);
         $this->registerExamService->handleUpdate($request, $school, $subMaterialExam->id);
-        return redirect()->route('admin.sub-material-exam.index')->with('success', trans('alert.update_success'));
+        return redirect()->route('admin.exam-registration')->with('success', trans('alert.update_success'));
     }
     /**
      * Update the specified resource in storage.
@@ -251,5 +253,11 @@ class SubMaterialExamController extends Controller
     {
         $submaterialExam = $this->service->handleGetBySlug($slug);
         return view('dashboard.admin.pages.subMaterialExam.examDetailTakingPlace', compact('submaterialExam'));
+    }
+
+    public function registrationExamResult(SubMaterialExam $subMaterialExam)
+    {
+        $exam = $subMaterialExam;
+        return view('dashboard.admin.pages.registrationExam.resultExam', compact('exam'));
     }
 }

@@ -24,6 +24,7 @@ class RegisterRequest extends FormRequest
         'date_birth' => 'required|date|before_or_equal:today',
         'gender' => ['required', new GenderRule],
         'motivation' => 'required',
+        'school_id' => 'required'
     ];
 }
 

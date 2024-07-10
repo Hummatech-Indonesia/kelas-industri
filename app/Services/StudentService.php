@@ -109,7 +109,7 @@ class StudentService
     public function handleCreateRegristationExamStudent(User $school, int $amount): void
     {
         for ($i = 1; $i <= $amount; $i++) {
-            $dataUser['name'] = strtolower(str_replace(' ', '', $school->name)) . str_pad($i, 3, '0', STR_PAD_LEFT);
+            $dataUser['name'] = 'akun test';
             $dataUser['email'] = strtolower(str_replace(' ', '', $school->name)) . str_pad($i, 3, '0', STR_PAD_LEFT) . '@hummatech.com';
             $dataUser['password'] = bcrypt('hummatech123@768');
             $user = $this->userRepository->store($dataUser);

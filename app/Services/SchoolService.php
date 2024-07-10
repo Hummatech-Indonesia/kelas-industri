@@ -18,6 +18,10 @@ class SchoolService
         $this->repository = $repository;
     }
 
+    public function getById($id) {
+        return $this->repository->show($id);
+    }
+
     /**
      * handle get all
      *
