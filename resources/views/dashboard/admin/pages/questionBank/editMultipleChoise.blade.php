@@ -164,8 +164,61 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            class MyUploadAdapter {
+            constructor(loader) {
+                this.loader = loader;
+            }
+
+            // Memulai proses upload.
+            upload() {
+                return this.loader.file
+                    .then(file => new Promise((resolve, reject) => {
+                        const data = new FormData();
+                        data.append('upload', file);
+
+                        axios.post('{{ route("admin.ckeditor-upload") }}', data)
+                            .then(response => {
+                                resolve({
+                                    default: response.data.url
+                                });
+                            })
+                            .catch(error => {
+                                reject(error);
+                            });
+                    }));
+            }
+
+            // Membatalkan proses upload.
+            abort() {
+                // Implementasikan logika pembatalan jika perlu.
+            }
+        }
+
+        function MyCustomUploadAdapterPlugin(editor) {
+            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                return new MyUploadAdapter(loader);
+            };
+        }
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                extraPlugins: [MyCustomUploadAdapterPlugin],
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        function MyCustomUploadAdapterPlugin(editor) {
+            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                return new MyUploadAdapter(loader);
+            };
+        }
+
+
             ClassicEditor
-                .create(document.querySelector('#kt_docs_ckeditor_classic'))
+                .create(document.querySelector('#kt_docs_ckeditor_classic'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
                 .then(editor => {
                     console.log(editor);
                 })

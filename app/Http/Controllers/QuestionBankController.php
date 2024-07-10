@@ -6,6 +6,7 @@ use App\Models\SubMaterial;
 use App\Models\QuestionBank;
 use Illuminate\Http\Request;
 use App\Services\QuestionBankService;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\QuestionBankRequest;
 use App\Repositories\QuestionBankRepository;
 use App\Http\Requests\QuestionBankEssayRequest;
@@ -143,5 +144,22 @@ class QuestionBankController extends Controller
         if (!$data) return back()->with('error', trans('alert.delete_constrained'));
 
         return back()->with('success', trans('alert.delete_success'));
+    }
+
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $file = $request->file('upload');
+            $path = $file->store('questionBank', 'public'); // Simpan file di direktori 'public/uploads'
+
+            $url = Storage::url($path);
+
+            return response()->json([
+                'url' => $url
+            ]);
+        }
+
+        return response()->json(['error' => 'No file uploaded.'], 400);
     }
 }

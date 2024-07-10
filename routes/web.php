@@ -171,6 +171,8 @@ Route::middleware('auth.custom')->group(function () {
             'material-exam' => MaterialExamController::class,
         ]);
 
+        Route::post('/question-bank/upload-image', [QuestionBankController::class, 'uploadImage'])->name('ckeditor-upload');
+
         Route::post('register-exam', [SubMaterialExamController::class, 'registerExamStore'])->name('registerExam.store');
         Route::get('register-exam-result/{subMaterialExam}', [SubMaterialExamController::class, 'registrationExamResult'])->name('registerExam.result');
         Route::put('regristation-exam-update/{subMaterialExam}', [SubMaterialExamController::class, 'registerExamupdate'])->name('exam-update');

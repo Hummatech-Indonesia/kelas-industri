@@ -133,7 +133,8 @@
                                 <div class="fs-5 fw-bold mb-3">
                                     Jawaban D
                                 </div>
-                                <textarea id="kt_docs_ckeditor_classic_4" rows="5" name="option4" type="text" placeholder="deskripsi tugas">{{ old('option4') }}</textarea>
+                                <textarea id="kt_docs_ckeditor_classic_4" rows="5" name="option4" type="text"
+                                    placeholder="deskripsi tugas">{{ old('option4') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -158,9 +159,63 @@
 <script src="{{ asset('app-assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
 @section('script')
     <script>
+        class MyUploadAdapter {
+            constructor(loader) {
+                this.loader = loader;
+            }
+
+            // Memulai proses upload.
+            upload() {
+                return this.loader.file
+                    .then(file => new Promise((resolve, reject) => {
+                        const data = new FormData();
+                        data.append('upload', file);
+
+                        axios.post('{{ route("admin.ckeditor-upload") }}', data)
+                            .then(response => {
+                                resolve({
+                                    default: response.data.url
+                                });
+                            })
+                            .catch(error => {
+                                reject(error);
+                            });
+                    }));
+            }
+
+            // Membatalkan proses upload.
+            abort() {
+                // Implementasikan logika pembatalan jika perlu.
+            }
+        }
+
+        function MyCustomUploadAdapterPlugin(editor) {
+            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                return new MyUploadAdapter(loader);
+            };
+        }
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                extraPlugins: [MyCustomUploadAdapterPlugin],
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        function MyCustomUploadAdapterPlugin(editor) {
+            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                return new MyUploadAdapter(loader);
+            };
+        }
+
+
+
         $(document).ready(function() {
             ClassicEditor
-                .create(document.querySelector('#kt_docs_ckeditor_classic'))
+                .create(document.querySelector('#kt_docs_ckeditor_classic'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
                 .then(editor => {
                     console.log(editor);
                 })
