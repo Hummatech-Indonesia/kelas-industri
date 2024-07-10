@@ -69,6 +69,9 @@
                                     <li class="nav-item d-none d-lg-block pl-0"><a
                                             href="{{ route('tester.exam', $exam->sub_material_exam_id) }}"
                                             class="btn btn-default m-0">Masuk</a></li>
+                                @else
+                                    <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('login') }}"
+                                            class="btn btn-default m-0">Masuk</a></li>
                                 @endif
                             @else
                                 <li class="nav-item d-none d-lg-block pl-0"><a href="{{ route('home') }}"
