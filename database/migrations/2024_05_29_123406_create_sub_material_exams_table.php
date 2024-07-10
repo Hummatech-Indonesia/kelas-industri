@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('sub_material_exams', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('sub_material_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('title', 100);
+            $table->string('title', 100)->nullable();
             $table->string('slug');
             $table->integer('total_multiple_choice')->nullable();
             $table->integer('total_essay')->nullable();

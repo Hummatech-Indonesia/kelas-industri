@@ -6,29 +6,32 @@ use App\Models\Material;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Helpers\SchoolYearHelper;
+use App\Services\DevisionService;
 use App\Services\MaterialService;
 use App\Services\GenerationService;
 use App\Services\SchoolYearService;
 use App\Services\SubMaterialService;
+use App\Services\MaterialExamService;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MaterialRequest;
-use App\Services\DevisionService;
 
 class MaterialController extends Controller
 {
     private MaterialService $service;
+    private MaterialExamService $materialExamService;
     private GenerationService $generationService;
     private SubMaterialService $subMaterialService;
     private SchoolYearService $schoolYearService;
     private DevisionService $devisionService;
 
-    public function __construct(MaterialService $service, GenerationService $generationService, SubMaterialService $subMaterialService, SchoolYearService $schoolYearService, DevisionService $devisionService)
+    public function __construct(MaterialService $service, GenerationService $generationService, SubMaterialService $subMaterialService, SchoolYearService $schoolYearService, DevisionService $devisionService, MaterialExamService $materialExamService)
     {
         $this->service = $service;
         $this->generationService = $generationService;
         $this->subMaterialService = $subMaterialService;
         $this->schoolYearService = $schoolYearService;
         $this->devisionService = $devisionService;
+        $this->materialExamService = $materialExamService;
     }
 
     /**
@@ -81,7 +84,8 @@ class MaterialController extends Controller
      */
     public function store(MaterialRequest $request): RedirectResponse
     {
-        $this->service->handleCreate($request);
+        $material = $this->service->handleCreate($request);
+        $this->materialExamService->handleCreate($request, $material);
 
         return to_route('admin.materials.index')->with('success', trans('alert.add_success'));
     }

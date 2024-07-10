@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
+use App\Enums\SubMaterialExamTypeEnum;
 
 class SubMaterialRequest extends BaseRequest
 {
@@ -19,6 +20,14 @@ class SubMaterialRequest extends BaseRequest
             'description' => 'required',
             'teacher_file' => 'required|file|mimes:pdf',
             'student_file' => 'required|file|mimes:pdf',
+            'total_multiple_choice' => 'required|integer',
+            'total_essay' => 'required|integer',
+            'type' => ['required', Rule::in([SubMaterialExamTypeEnum::REGISTER->value, SubMaterialExamTypeEnum::QUIZ->value])],
+            'multiple_choice_value' => 'required|integer',
+            'essay_value' => 'required|integer',
+            'time' => 'required|regex:/^[0-9]*$/',
+            'last_submit' => 'nullable|boolean',
+            'cheating_detector' => 'nullable|boolean',
         ];
 
         if (request()->routeIs('admin.subMaterials.update')) {

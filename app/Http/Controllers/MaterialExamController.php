@@ -47,18 +47,6 @@ class MaterialExamController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->repository->create($request->all());
-        return back()->with('success', trans('alert.add_success'));
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\MaterialExam  $materialExam

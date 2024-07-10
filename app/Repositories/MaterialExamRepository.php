@@ -11,17 +11,6 @@ class MaterialExamRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function create($data)
-    {
-        return $this->model->updateOrCreate(
-            [
-                'material_id' => $data['material_id'],
-                'type' => $data['type']
-            ],
-            $data
-        );
-    }
-
     public function getPaginate($paginate)
     {
         return $this->model->query()

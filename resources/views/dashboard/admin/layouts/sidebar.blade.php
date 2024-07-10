@@ -468,24 +468,29 @@
                         <!--end:Menu link-->
                     </div>
                     <div data-kt-menu-trigger="click"
-                        class="menu-item {{ request()->routeIs('admin.sub-material-exam.*') || request()->routeIs('admin.exam-finnaly') || request()->routeIs('admin.exam-taking-place') || request()->routeIs('admin.exam-statistic') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.exam-question') || request()->routeIs('admin.detail-exam-taking-place') ? 'show here' : '' }} menu-accordion">
+                        class="menu-item {{ request()->routeIs('admin.sub-material-exam.*') || request()->routeIs('admin.exam-finnaly') || request()->routeIs('admin.exam-taking-place') || request()->routeIs('admin.exam-statistic') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.exam-question') || request()->routeIs('admin.detail-exam-taking-place') || request()->routeIs('admin.exam-detail-student') ? 'show here' : '' }} menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/communication/com014.svg-->
+                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/keenthemes/metronic/docs/core/html/src/media/icons/duotune/general/gen065.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path opacity="0.3"
-                                            d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z"
+                                            d="M22.9558 10.2848L21.3341 8.6398C21.221 8.52901 21.1317 8.39637 21.0715 8.24996C21.0114 8.10354 20.9816 7.94641 20.9841 7.78814V5.4548C20.9826 5.13514 20.9179 4.81893 20.7938 4.52433C20.6697 4.22973 20.4887 3.96255 20.261 3.73814C20.0333 3.51374 19.7636 3.33652 19.4672 3.21668C19.1709 3.09684 18.8538 3.03673 18.5341 3.0398H16.2008C16.0425 3.04229 15.8854 3.01255 15.739 2.95238C15.5925 2.89221 15.4599 2.80287 15.3491 2.6898L13.7158 1.0448C13.2608 0.590273 12.6439 0.334961 12.0008 0.334961C11.3576 0.334961 10.7408 0.590273 10.2858 1.0448L8.64078 2.66647C8.52999 2.77954 8.39735 2.86887 8.25094 2.92904C8.10452 2.98922 7.94739 3.01896 7.78911 3.01647H5.45578C5.13612 3.01799 4.8199 3.08266 4.5253 3.20675C4.23071 3.33085 3.96353 3.51193 3.73912 3.73959C3.51471 3.96724 3.3375 4.237 3.21766 4.53335C3.09781 4.82971 3.0377 5.14682 3.04078 5.46647V7.7998C3.04327 7.95808 3.01353 8.11521 2.95335 8.26163C2.89318 8.40804 2.80385 8.54068 2.69078 8.65147L1.04578 10.2848C0.591249 10.7398 0.335938 11.3567 0.335938 11.9998C0.335938 12.6429 0.591249 13.2598 1.04578 13.7148L2.66745 15.3598C2.78051 15.4706 2.86985 15.6032 2.93002 15.7496C2.99019 15.8961 3.01994 16.0532 3.01745 16.2115V18.5448C3.01897 18.8645 3.08363 19.1807 3.20773 19.4753C3.33182 19.7699 3.5129 20.0371 3.74056 20.2615C3.96822 20.4859 4.23798 20.6631 4.53433 20.7829C4.83068 20.9028 5.14779 20.9629 5.46745 20.9598H7.80078C7.95906 20.9573 8.11619 20.9871 8.2626 21.0472C8.40902 21.1074 8.54166 21.1967 8.65245 21.3098L10.2974 22.9548C10.7525 23.4093 11.3693 23.6646 12.0124 23.6646C12.6556 23.6646 13.2724 23.4093 13.7274 22.9548L15.3608 21.3331C15.4716 21.2201 15.6042 21.1307 15.7506 21.0706C15.897 21.0104 16.0542 20.9806 16.2124 20.9831H18.5458C19.1894 20.9831 19.8066 20.7275 20.2617 20.2724C20.7168 19.8173 20.9724 19.2001 20.9724 18.5565V16.2231C20.97 16.0649 20.9997 15.9077 21.0599 15.7613C21.12 15.6149 21.2094 15.4823 21.3224 15.3715L22.9674 13.7265C23.1935 13.5002 23.3726 13.2314 23.4944 12.9357C23.6162 12.64 23.6784 12.3231 23.6773 12.0032C23.6762 11.6834 23.6119 11.3669 23.4881 11.072C23.3643 10.7771 23.1834 10.5095 22.9558 10.2848Z"
                                             fill="currentColor" />
                                         <path
-                                            d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z"
+                                            d="M12.0039 15.4998C11.7012 15.4998 11.4109 15.38 11.1969 15.1668C10.9829 14.9535 10.8626 14.6643 10.8626 14.3627V13.9382C10.8467 13.2884 10.9994 12.6456 11.306 12.0718C11.6126 11.4981 12.0627 11.013 12.6126 10.6634C12.7969 10.561 12.9505 10.4114 13.0575 10.2302C13.1645 10.049 13.221 9.84266 13.2213 9.63242C13.2213 9.31073 13.0931 9.00223 12.8648 8.77476C12.6365 8.5473 12.3268 8.41951 12.0039 8.41951C11.6811 8.41951 11.3714 8.5473 11.1431 8.77476C10.9148 9.00223 10.7865 9.31073 10.7865 9.63242C10.7865 9.93399 10.6663 10.2232 10.4523 10.4365C10.2382 10.6497 9.94792 10.7695 9.64522 10.7695C9.34253 10.7695 9.05223 10.6497 8.83819 10.4365C8.62415 10.2232 8.50391 9.93399 8.50391 9.63242C8.50763 9.02196 8.67214 8.42317 8.98099 7.89592C9.28984 7.36868 9.7322 6.93145 10.2639 6.62796C10.7955 6.32447 11.3978 6.16535 12.0105 6.16651C12.6233 6.16767 13.225 6.32908 13.7554 6.63458C14.2859 6.94009 14.7266 7.37899 15.0335 7.9074C15.3403 8.43582 15.5025 9.03522 15.5039 9.64569C15.5053 10.2562 15.3458 10.8563 15.0414 11.3861C14.7369 11.9159 14.2983 12.3568 13.7692 12.6647C13.5645 12.8132 13.4003 13.0101 13.2913 13.2378C13.1824 13.4655 13.1322 13.7167 13.1453 13.9685V14.3931C13.1373 14.6894 13.0136 14.9708 12.8004 15.1776C12.5872 15.3843 12.3014 15.4999 12.0039 15.4998Z"
+                                            fill="currentColor" />
+                                        <path
+                                            d="M12.0026 18.9998C12.6469 18.9998 13.1693 18.4775 13.1693 17.8332C13.1693 17.1888 12.6469 16.6665 12.0026 16.6665C11.3583 16.6665 10.8359 17.1888 10.8359 17.8332C10.8359 18.4775 11.3583 18.9998 12.0026 18.9998Z"
                                             fill="currentColor" />
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
+                                <!--end::Svg Icon-->
                             </span>
-                            <span class="menu-title">Sertifikasi</span><span class="menu-arrow"></span></span>
+                            <span class="menu-title">Quiz</span><span class="menu-arrow"></span></span>
                         <!--end:Menu link-->
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-accordion">
@@ -494,92 +499,26 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <div data-kt-menu-trigger="click"
-                                        class="menu-item {{ request()->routeIs('admin.sub-material-exam.*') || request()->routeIs('admin.exam-finnaly') || request()->routeIs('admin.exam-taking-place') || request()->routeIs('admin.exam-statistic') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.exam-question') || request()->routeIs('admin.detail-exam-taking-place') ? 'show here' : '' }} menu-accordion">
-                                        <!--begin:Menu link-->
-                                        <span class="menu-link">
-                                            <span class="menu-icon">
-                                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/communication/com014.svg-->
-                                                <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path opacity="0.3"
-                                                            d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->
-                                            </span>
-                                            <span class="menu-title">Quiz</span><span
-                                                class="menu-arrow"></span></span>
-                                        <!--end:Menu link-->
-                                        <!--begin:Menu sub-->
-                                        <div class="menu-sub menu-sub-accordion">
-                                            <!--begin:Menu item-->
-                                            <div class="menu-item">
-                                                <!--begin:Menu item-->
-                                                <div class="menu-item">
-                                                    <!--begin:Menu link-->
-                                                    <a class="menu-link {{ request()->routeIs('admin.sub-material-exam.index') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.exam-question') ? 'active' : '' }}"
-                                                        href="{{ route('admin.sub-material-exam.index') }}">
-                                                        <span class="menu-bullet"><span
-                                                                class="bullet bullet-dot"></span></span>
-                                                        <span class="menu-title">Ujian</span>
-                                                    </a>
-                                                    <!--end:Menu link-->
-                                                    <!--begin:Menu link-->
-                                                    <a class="menu-link {{ request()->routeIs('admin.exam-taking-place') || request()->routeIs('admin.detail-exam-taking-place') ? 'active' : '' }}"
+                                    <a class="menu-link {{ request()->routeIs('admin.sub-material-exam.index') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.exam-question') || request()->routeIs('admin.exam-detail-student')  || request()->routeIs('admin.exam-statistic') ? 'active' : '' }}"
+                                        href="{{ route('admin.sub-material-exam.index') }}">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                        <span class="menu-title">List Quiz</span>
+                                    </a>
+                                    <!--end:Menu link-->
+                                    <!--begin:Menu link-->
+                                    {{-- <a class="menu-link {{ request()->routeIs('admin.exam-taking-place') || request()->routeIs('admin.detail-exam-taking-place') ? 'active' : '' }}"
                                                         href="{{ route('admin.exam-taking-place') }}">
                                                         <span class="menu-bullet"><span
                                                                 class="bullet bullet-dot"></span></span>
-                                                        <span class="menu-title">Ujian Berlangsung</span>
+                                                        <span class="menu-title">Quiz Berlangsung</span>
                                                     </a>
                                                     <a class="menu-link {{ request()->routeIs('admin.exam-finnaly') || request()->routeIs('admin.exam-statistic') ? 'active' : '' }}"
                                                         href="{{ route('admin.exam-finnaly') }}">
                                                         <span class="menu-bullet"><span
                                                                 class="bullet bullet-dot"></span></span>
-                                                        <span class="menu-title">Ujian Selesai</span>
-                                                    </a>
-                                                    <!--end:Menu link-->
-                                                </div>
-                                                <!--end:Menu item-->
-                                            </div>
-                                            <!--end:Menu item-->
-                                        </div>
-                                        <!--end:Menu sub-->
-                                    </div>
-                                    <div class="menu-item">
-                                        <!--begin:Menu link-->
-                                        <a class="menu-link {{ request()->routeIs('admin.material-exam.*') ? 'active' : '' }}"
-                                            href="{{ route('admin.material-exam.index') }}">
-                                            <span class="menu-icon">
-                                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
-
-                                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-06-08-055059/core/html/src/media/icons/duotune/general/gen005.svg-->
-                                                <span class="svg-icon svg-icon-muted svg-icon-2x">
-                                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path opacity="0.3"
-                                                            d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"
-                                                            fill="currentColor" />
-                                                        <rect x="7" y="17" width="6" height="2" rx="1"
-                                                            fill="currentColor" />
-                                                        <rect x="7" y="12" width="10" height="2" rx="1"
-                                                            fill="currentColor" />
-                                                        <rect x="7" y="7" width="6" height="2" rx="1"
-                                                            fill="currentColor" />
-                                                        <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->
-                                                <!--end::Svg Icon-->
-                                            </span>
-                                            <span class="menu-title">Test</span></a>
-                                        <!--end:Menu link-->
-                                    </div>
+                                                        <span class="menu-title">Quiz Selesai</span>
+                                                    </a> --}}
+                                    <!--end:Menu link-->
                                 </div>
                                 <!--end:Menu item-->
                             </div>
@@ -587,34 +526,48 @@
                         </div>
                         <!--end:Menu sub-->
                     </div>
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click"
+                        class="menu-item {{ request()->routeIs('admin.exam-finnaly') || request()->routeIs('admin.exam-taking-place') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.detail-exam-taking-place') || request()->routeIs('admin.material-exam.*') || request()->routeIs('admin.exam-registration') ? 'show here' : '' }} menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ request()->routeIs('admin.exam-registration') || request()->routeIs('admin.regristation-exam-question') ? 'active' : '' }}"
-                            href="{{ route('admin.exam-registration') }}">
+                        <span class="menu-link">
                             <span class="menu-icon">
-                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
-
-                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-06-08-055059/core/html/src/media/icons/duotune/general/gen005.svg-->
-                                <span class="svg-icon svg-icon-muted svg-icon-2x">
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path opacity="0.3"
-                                            d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"
+                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/communication/com014.svg-->
+                                <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="25" height="28"
+                                        viewBox="0 0 25 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.40094 3.4401V2.10677C7.40033 1.76658 7.52977 1.43903 7.76277 1.19116C7.99577 0.943285 8.3147 0.793848 8.65427 0.773438H16.0009C16.3381 0.797099 16.6538 0.947953 16.884 1.19548C17.1142 1.44301 17.2418 1.76874 17.2409 2.10677V3.4401C17.2418 3.77813 17.1142 4.10386 16.884 4.35139C16.6538 4.59892 16.3381 4.74978 16.0009 4.77344H8.65427C8.3147 4.75303 7.99577 4.60359 7.76277 4.35572C7.52977 4.10785 7.40033 3.78029 7.40094 3.4401ZM24.0009 10.3068V19.9334C24.0168 20.8755 23.847 21.8114 23.5011 22.6878C23.1552 23.5642 22.6401 24.3639 21.9851 25.0412C21.3301 25.7185 20.5481 26.2601 19.6837 26.6351C18.8194 27.0101 17.8897 27.2111 16.9476 27.2268H7.08094C5.18074 27.2022 3.36795 26.4246 2.04054 25.0646C0.713134 23.7047 -0.0204132 21.8737 0.000939745 19.9734V10.3468C-0.0270515 8.61371 0.571086 6.92871 1.68552 5.60118C2.79996 4.27366 4.35589 3.39271 6.06761 3.1201V3.4401C6.06729 4.1337 6.33724 4.80013 6.82016 5.29799C7.30309 5.79585 7.96099 6.08596 8.65427 6.10677H16.0009C16.6919 6.08257 17.3464 5.79097 17.8265 5.29348C18.3066 4.79598 18.5747 4.13147 18.5743 3.4401V3.21344C20.1405 3.62092 21.5255 4.54049 22.5088 5.82584C23.4921 7.1112 24.0174 8.68849 24.0009 10.3068ZM7.80094 15.4134L10.9743 19.3334C11.0666 19.4457 11.1826 19.5362 11.314 19.5985C11.4454 19.6607 11.5889 19.6931 11.7343 19.6934C11.8856 19.6924 12.0345 19.6557 12.1689 19.5861C12.3033 19.5166 12.4193 19.4163 12.5076 19.2934L16.8543 13.4401C16.9828 13.2317 17.0357 12.9855 17.0041 12.7427C16.9726 12.4999 16.8585 12.2754 16.6809 12.1068C16.4748 11.9647 16.2224 11.9064 15.9748 11.9435C15.7272 11.9806 15.503 12.1105 15.3476 12.3068L11.7476 17.1468L9.33427 14.1601C9.17326 13.9701 8.94633 13.8479 8.69903 13.8183C8.45172 13.7886 8.20234 13.8536 8.00094 14.0001C7.79628 14.1676 7.66209 14.4059 7.62504 14.6677C7.58799 14.9296 7.65078 15.1958 7.80094 15.4134Z"
                                             fill="currentColor" />
-                                        <rect x="7" y="17" width="6" height="2" rx="1"
-                                            fill="currentColor" />
-                                        <rect x="7" y="12" width="10" height="2" rx="1"
-                                            fill="currentColor" />
-                                        <rect x="7" y="7" width="6" height="2" rx="1"
-                                            fill="currentColor" />
-                                        <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <!--end::Svg Icon-->
                             </span>
-                            <span class="menu-title">Ujian Daftar Ulang</span></a>
+                            <span class="menu-title">Ujian</span><span class="menu-arrow"></span></span>
                         <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu link-->
+
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('admin.material-exam.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.material-exam.index') }}">
+                                    <span class="menu-icon">
+
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+
+                                    </span>
+                                    <span class="menu-title">Test</span></a>
+                                <a class="menu-link {{ request()->routeIs('admin.exam-registration') ? 'active' : '' }}"
+                                    href="{{ route('admin.exam-registration') }}">
+                                    <span class="menu-icon">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    </span>
+                                    <span class="menu-title">Daftar Ulang</span></a>
+                                <!--end:Menu item-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->

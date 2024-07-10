@@ -53,9 +53,16 @@ class MaterialService
      * @param MaterialRequest $request
      * @return void
      */
-    public function handleCreate(MaterialRequest $request): void
+    public function handleCreate(MaterialRequest $request): mixed
     {
-        $this->repository->store($request->validated());
+        $validate = $request->validated();
+        $data = [
+            'generation_id' => $validate['generation_id'],
+            'title' => $validate['title'],
+            'description' => $validate['description'],
+            'devision_id' => $validate['devision_id'],
+        ];
+        return $this->repository->store($data);
     }
 
     /**
