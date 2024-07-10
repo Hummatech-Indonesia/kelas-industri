@@ -63,22 +63,22 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
     <div class="content row flex-column-fluid" id="kt_content">
         <div class="card card-p-0 card-flush">
             <div class="card-body">
-                <table class="display" id="kt_datatable_example">
+                <table id="kt_datatable_complex_header"
+                    class="table table-striped table-row-bordered gy-5 gs-7 border rounded w-100">
                     <thead>
-                        <!--begin::Table row -->
-                        <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase">
-                            <th class="min-w-100px">Nama</th>
-                            <th class="min-w-100px">Nilai</th>
+                        <tr class="fw-bold fs-6 text-gray-800 px-7">
+                            <th>Nama</th>
+                            <th>Nilai</th>
                         </tr>
-                        <!--end::Table row-->
                     </thead>
-                    <tbody class="fw-semibold text-gray-600">
-                        @forelse ($exam->studentSubmaterialExams as $student)
-                            <tr>
-                                <td>{{ $student->student->name }}</td>
-                                <td>{{ $student->score }}</td>
-                            </tr>
+                    <tbody>
+                        @forelse ($exam->studentSubmaterialExams as $studentExam)
+                        <tr>
+                            <td>{{ $studentExam->student->name }}</td>
+                            <td>{{ $studentExam->score }}</td>
+                        </tr>
                         @empty
+
                         @endforelse
                     </tbody>
                 </table>
@@ -88,6 +88,6 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
 
     @section('script')
         <script>
-            $("#kt_datatable_example").DataTable();
+            $("#kt_datatable_complex_header").DataTable();
         </script>
     @endsection
