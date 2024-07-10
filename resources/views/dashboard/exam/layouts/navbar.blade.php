@@ -1,8 +1,6 @@
 @php
     use App\Models\StudentSubmaterialExam;
-    $exam = StudentSubmaterialExam::whereRelation('subMaterialExam', function ($q) {
-        $q->where('title', 'Tester');
-    })
+    $exam = StudentSubmaterialExam::whereRelation('subMaterialExam', 'school_id', auth()->user()->studentSchool->school_id)
         ->where('student_id', auth()->user()->id)
         ->first();
     $notificationModel = new App\Models\Notification();
@@ -267,7 +265,7 @@
                         </div>
                         <!--end::Menu item-->
 
-                        @if ($exam == null)
+                        @if ($exam->finished_exam)
                             <!--begin::Menu separator-->
                             <div class="separator my-2"></div>
                             <!--end::Menu separator-->

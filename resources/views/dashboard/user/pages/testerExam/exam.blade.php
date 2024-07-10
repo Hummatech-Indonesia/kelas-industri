@@ -29,15 +29,6 @@
         .form-check.form-check-custom span {
             margin-left: 10px;
         }
-
-        /* Contoh CSS untuk menyembunyikan elemen UI browser */
-        :-webkit-full-screen-ancestor::-webkit-full-page-media,
-        :-webkit-full-screen-ancestor:-webkit-full-screen-ancestor,
-        :-webkit-full-screen-ancestor::-webkit-full-page-media-controls,
-        :-webkit-full-screen-ancestor::-webkit-full-page-media-controls-enclosure,
-        :-webkit-full-screen-ancestor::-webkit-media-controls-enclosure {
-            display: none !important;
-        }
     </style>
 @endsection
 
@@ -179,7 +170,6 @@
                                                     <path
                                                         d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12 12 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A20 20 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a20 20 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
                                                 </svg>
-                                                {{-- Selanjutnya --}}
                                             </span>
                                             <span
                                                 class="prev svg-icon svg-icon-white svg-icon-2hx bg-primary rounded {{ $index == 0 ? 'bg-secondary' : ' ' }}"
@@ -191,7 +181,6 @@
                                                         d="M11.2657 11.4343L15.45 7.25C15.8642 6.83579 15.8642 6.16421 15.45 5.75C15.0358 5.33579 14.3642 5.33579 13.95 5.75L8.40712 11.2929C8.01659 11.6834 8.01659 12.3166 8.40712 12.7071L13.95 18.25C14.3642 18.6642 15.0358 18.6642 15.45 18.25C15.8642 17.8358 15.8642 17.1642 15.45 16.75L11.2657 12.5657C10.9533 12.2533 10.9533 11.7467 11.2657 11.4343Z"
                                                         fill="currentColor"></path>
                                                 </svg>
-                                                {{-- Kembali --}}
                                             </span>
                                             @if ($index == count($questions) - 1)
                                                 <span data-index="{{ $index + 1 }}" data-type="{{ $question['type'] }}"
@@ -311,21 +300,7 @@
                 @endforeach
             ] : JSON.parse(localStorage.getItem('answers'))
         $(document).ready(function() {
-            function enterFullscreen() {
-                var elem = document.documentElement;
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
-                } else if (elem.mozRequestFullScreen) { // Firefox
-                    elem.mozRequestFullScreen();
-                } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    elem.webkitRequestFullscreen();
-                } else if (elem.msRequestFullscreen) { // IE/Edge
-                    elem.msRequestFullscreen();
-                }
-            }
-
-            // Tampilkan tombol kustom saat halaman sudah siap
-            document.addEventListener('click', enterFullscreen);
+            // console.log(localStorage.getItem('answers'));
 
             answers.forEach(function(item) {
                 if (item.answer != null) {
@@ -388,6 +363,7 @@
                     showAllert();
                 }
             });
+
             // Deteksi developer tools terbuka
             let devtoolsOpen = false;
             const threshold = 160;
