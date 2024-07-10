@@ -1,7 +1,9 @@
 @php
     use App\Models\StudentSubmaterialExam;
     if (Auth::check() && auth()->user()->roles->pluck('name')[0] == 'tester') {
-        $exam = StudentSubmaterialExam::whereRelation('subMaterialExam', 'school_id', auth()->user()->studentSchool->school_id)->first();
+        $exam = StudentSubmaterialExam::whereRelation('subMaterialExam', function ($q) {
+            $q->where('school_id', auth()->user()->studentSchool->school_id);
+        })->first();
     }
 @endphp
 
