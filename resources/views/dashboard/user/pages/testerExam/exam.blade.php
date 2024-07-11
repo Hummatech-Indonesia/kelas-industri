@@ -30,6 +30,14 @@
             margin-left: 10px;
         }
 
+        label img {
+            width: 300px !important
+        }
+
+        .question img {
+            width: 75%!important;
+        }
+
         /* Contoh CSS untuk menyembunyikan elemen UI browser */
         :-webkit-full-screen-ancestor::-webkit-full-page-media,
         :-webkit-full-screen-ancestor:-webkit-full-screen-ancestor,

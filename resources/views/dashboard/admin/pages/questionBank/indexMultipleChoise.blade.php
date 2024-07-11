@@ -32,6 +32,14 @@
         <!--end::Actions-->
         <!--end::Page title-->
     </div>
+    <div class="alert alert-warning d-flex align-items-center p-5 mb-10">
+        <i class="ki-duotone ki-shield-tick fs-2hx text-warning me-4"><span class="path1"></span><span
+                class="path2"></span></i>
+        <div class="d-flex flex-column">
+            <h4 class="mb-1 text-warning">Informasi</h4>
+            <span>Lebar gambar akan menjadi pada ujian 300px</span>
+        </div>
+    </div>
     <div class="content flex-column-fluid" id="kt_content">
         @if ($errors->any())
             <x-errors-component />
@@ -127,7 +135,8 @@
                                 <div class="fs-5 fw-bold mb-3">
                                     Jawaban C
                                 </div>
-                                <textarea id="kt_docs_ckeditor_classic_3" rows="5" name="option3" type="text" placeholder="deskripsi tugas">{{ old('option3') }}</textarea>
+                                <textarea id="kt_docs_ckeditor_classic_3" rows="5" name="option3" type="text"
+                                    placeholder="deskripsi tugas">{{ old('option3') }}</textarea>
                             </div>
                             <div class="col-6">
                                 <div class="fs-5 fw-bold mb-3">
@@ -171,7 +180,7 @@
                         const data = new FormData();
                         data.append('upload', file);
 
-                        axios.post('{{ route("admin.ckeditor-upload") }}', data)
+                        axios.post('{{ route('admin.ckeditor-upload') }}', data)
                             .then(response => {
                                 resolve({
                                     default: response.data.url
@@ -217,13 +226,44 @@
                     extraPlugins: [MyCustomUploadAdapterPlugin]
                 })
                 .then(editor => {
-                    console.log(editor);
+                    editor.model.document.on('change:data', () => {
+                        const editorData = editor.getData();
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(editorData, 'text/html');
+                        const images = doc.querySelectorAll('img');
+
+
+                        const imageSources = Array.from(images).map(img => img.getAttribute('src'));
+
+                        if (window.previousImageSources) {
+                            const removedImages = window.previousImageSources.filter(src => !
+                                imageSources.includes(src));
+
+                            removedImages.forEach(src => {
+                                // Send a request to delete the image
+                                axios.post('{{ route('admin.ckeditor-delete') }}', {
+                                        src: src
+                                    })
+                                    .then(response => {
+                                        console.log('Image deleted:', src);
+                                    })
+                                    .catch(error => {
+                                        console.error('Error deleting image:', error);
+                                    });
+                            });
+                        }
+
+                        // Update the previous state
+                        window.previousImageSources = imageSources;
+                    });
                 })
                 .catch(error => {
                     console.error(error);
                 });
             ClassicEditor
-                .create(document.querySelector('#kt_docs_ckeditor_classic_1'))
+                .create(document.querySelector('#kt_docs_ckeditor_classic_1'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
                 .then(editor => {
                     console.log(editor);
                 })
@@ -231,7 +271,9 @@
                     console.error(error);
                 });
             ClassicEditor
-                .create(document.querySelector('#kt_docs_ckeditor_classic_2'))
+                .create(document.querySelector('#kt_docs_ckeditor_classic_2'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
                 .then(editor => {
                     console.log(editor);
                 })
@@ -239,7 +281,9 @@
                     console.error(error);
                 });
             ClassicEditor
-                .create(document.querySelector('#kt_docs_ckeditor_classic_3'))
+                .create(document.querySelector('#kt_docs_ckeditor_classic_3'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
                 .then(editor => {
                     console.log(editor);
                 })
@@ -247,7 +291,9 @@
                     console.error(error);
                 });
             ClassicEditor
-                .create(document.querySelector('#kt_docs_ckeditor_classic_4'))
+                .create(document.querySelector('#kt_docs_ckeditor_classic_4'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
                 .then(editor => {
                     console.log(editor);
                 })
@@ -255,7 +301,9 @@
                     console.error(error);
                 });
             ClassicEditor
-                .create(document.querySelector('#kt_docs_ckeditor_classic_5'))
+                .create(document.querySelector('#kt_docs_ckeditor_classic_5'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
                 .then(editor => {
                     console.log(editor);
                 })

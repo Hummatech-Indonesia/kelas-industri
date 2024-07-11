@@ -172,6 +172,7 @@ Route::middleware('auth.custom')->group(function () {
         ]);
 
         Route::post('/question-bank/upload-image', [QuestionBankController::class, 'uploadImage'])->name('ckeditor-upload');
+        Route::post('/question-bank/delete-image', [QuestionBankController::class, 'deleteImage'])->name('ckeditor-delete');
 
         Route::post('register-exam', [SubMaterialExamController::class, 'registerExamStore'])->name('registerExam.store');
         Route::get('register-exam-result/{subMaterialExam}', [SubMaterialExamController::class, 'registrationExamResult'])->name('registerExam.result');

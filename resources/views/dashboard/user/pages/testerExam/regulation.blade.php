@@ -36,8 +36,18 @@
                 <ol>
                     <li>Waktu Pengerjaan {{ $subMaterialExam->time }} menit</li>
                     <li>Tidak boleh meninggalkan halaman ujian sebelum diselesaikan</li>
-                    <li>Jika anda meeninggalkan halaman ujian akan terhitung hingga 3 kali</li>
+                    <li>Hal yang dianggap kecurangan:
+                        <br>
+                        <ul>
+                            <li>Membuka aplikasi lain</li>
+                            <li>Membuka Tab Lain</li>
+                            <li>Berinteraksi dengan hal-hal lain diluar halaman ujian</li>
+                            <li>Semua Shortcut laptop yang berpotensi membuka/memunculkan tab ke layar</li>
+                        </ul>
+                    </li>
                     <li>Jika lebih dari 3 kali ujian anda akan otomatis di submit</li>
+                    <li>Mohon Tidak Keluar dari mode fullscreen</li>
+                    <li>Mohon notifikasi yang muncul dari Handphone & Laptop</li>
                 </ol>
 
             </div>

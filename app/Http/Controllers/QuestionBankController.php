@@ -162,4 +162,20 @@ class QuestionBankController extends Controller
 
         return response()->json(['error' => 'No file uploaded.'], 400);
     }
+    public function deleteImage(Request $request)
+    {
+        $src = $request->input('src');
+
+        $path = str_replace('/storage/', '', parse_url($src, PHP_URL_PATH));
+
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+            return response()->json(['success' => 'Image deleted successfully.']);
+        }
+
+
+        return 'sdfkjshfksjdfhksjhgjksdgj';
+
+        // return response()->json(['error' => 'Image not found.'], 404);
+    }
 }

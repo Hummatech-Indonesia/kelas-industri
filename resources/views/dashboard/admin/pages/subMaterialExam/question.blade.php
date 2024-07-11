@@ -1,4 +1,11 @@
 @extends('dashboard.admin.layouts.app')
+@section('css')
+    <style>
+        #kt_content img {
+            width: 300px
+        }
+    </style>
+@endsection
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 

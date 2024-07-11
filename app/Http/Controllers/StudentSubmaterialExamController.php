@@ -70,7 +70,11 @@ class StudentSubmaterialExamController extends Controller
      */
     public function index(SubMaterialExam $subMaterialExam): mixed
     {
+        // dd(auth()->user()->roles->pluck('name')[0] == 'tester' && auth()->user()->name == 'akun test');
         if (count($subMaterialExam->subMaterialExamQuestions) == 0) return back()->with('error', "Belum Ada Soal Untuk Ujian");
+        if (auth()->user()->roles->pluck('name')[0] == 'tester' && auth()->user()->name == 'akun test') {
+            return redirect()->route('tester.exam-setname', $subMaterialExam->id);
+        }
 
         $studentExam = $this->studentExam->whereIn(['sub_material_exam_id' => $subMaterialExam->id]);
 

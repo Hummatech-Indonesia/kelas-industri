@@ -1,4 +1,11 @@
 @extends('dashboard.admin.layouts.app')
+@section('css')
+    <style>
+        #kt_content img {
+            width: 300px
+        }
+    </style>
+@endsection
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -45,7 +52,7 @@
         </div>
         <div class="row">
             @forelse ($questionBanks as $questionBank)
-            {{-- @dd($questionBank) --}}
+                {{-- @dd($questionBank) --}}
                 @if ($questionBank->type == 'multiple_choice')
                     <div class="col-12 mb-5">
                         <div class="card">
@@ -71,7 +78,8 @@
                                     <div class="me-3">E .</div> {!! $questionBank->option5 !!}
                                 </div>
                                 <div class="d-flex justify-content-end text-black fs-6">
-                                    <a href="{{ route('admin.question-bank-edit', $questionBank->id) }}" class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                    <a href="{{ route('admin.question-bank-edit', $questionBank->id) }}"
+                                        class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data">
                                         <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </a>
@@ -94,7 +102,8 @@
                                     {!! $questionBank->question !!}
                                 </div>
                                 <div class="d-flex justify-content-end text-black fs-6">
-                                    <a href="{{ route('admin.question-bank-edit', $questionBank->id) }}" class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                    <a href="{{ route('admin.question-bank-edit', $questionBank->id) }}"
+                                        class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data">
                                         <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </a>
