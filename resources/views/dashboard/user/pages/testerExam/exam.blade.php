@@ -35,7 +35,7 @@
         }
 
         .question img {
-            width: 75%!important;
+            width: 75% !important;
         }
 
         /* Contoh CSS untuk menyembunyikan elemen UI browser */
@@ -603,9 +603,7 @@
             });
         })
 
-
         function submitExam() {
-            localStorage.removeItem('answers')
             const groupBy = (array, key) => {
                 return array.reduce((result, currentValue) => {
                     const groupKey = currentValue[key];
@@ -632,6 +630,8 @@
                 },
                 dataType: "json",
                 success: function(response) {
+                    localStorage.removeItem('answers')
+
                     window.location.replace(
                         "{{ route('tester.exam.show-finish', ['subMaterialExam' => $student_exam->sub_material_exam_id, 'studentSubmaterialExam' => $student_exam->id]) }}"
                     );
@@ -640,5 +640,8 @@
                 // }
             });
         }
+        @if ($student_exam->deadline < now())
+            submitExam();
+        @endif
     </script>
 @endsection

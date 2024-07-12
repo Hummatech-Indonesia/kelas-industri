@@ -31,8 +31,8 @@ class MaterialExamService
             'multiple_choice_value' => $data['multiple_choice_value'],
             'essay_value' => $data['essay_value'],
             'time' => $data['time'],
-            'last_submit' => $data['last_submit'],
-            'cheating_detector' => $data['cheating_detector'],
+            'last_submit' => isset($data['last_submit'])? $data['last_submit']: 0,
+            'cheating_detector' => isset($data['cheating_detector'])? $data['cheating_detector']: 0,
         ];
         return $this->repository->store($data);
     }

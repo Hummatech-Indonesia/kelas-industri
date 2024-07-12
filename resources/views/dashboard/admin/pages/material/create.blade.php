@@ -293,11 +293,15 @@
 @endsection
 @section('script')
     <script>
-        $('.last_submit_switch').change(function() {
-            $(this).val(this.checked ? '1' : '0');
-        });
-        $('.cheating_detector_switch').change(function() {
-            $(this).val(this.checked ? '1' : '0');
-        });
+        $(document).ready(function() {
+            $('.last_submit_switch').val('0');
+            $('.cheating_detector_switch').val('0');
+            $('.last_submit_switch').change(function() {
+                $(this).val(this.checked ? '1' : '0');
+            });
+            $('.cheating_detector_switch').change(function() {
+                $(this).val(this.checked ? '1' : '0');
+            });
+        })
     </script>
 @endsection

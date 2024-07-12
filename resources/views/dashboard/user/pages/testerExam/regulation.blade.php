@@ -45,7 +45,7 @@
                             <li>Semua Shortcut laptop yang berpotensi membuka/memunculkan tab ke layar</li>
                         </ul>
                     </li>
-                    <li>Jika lebih dari 3 kali ujian anda akan otomatis di submit</li>
+                    <li>Jika lebih dari 3 kali, ujian anda akan otomatis di submit</li>
                     <li>Mohon Tidak Keluar dari mode fullscreen</li>
                     <li>Mohon notifikasi yang muncul dari Handphone & Laptop</li>
                 </ol>

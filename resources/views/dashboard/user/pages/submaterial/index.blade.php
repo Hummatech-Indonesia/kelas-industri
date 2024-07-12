@@ -150,12 +150,162 @@
                         </form>
                     </div>
 
+                    @php
+                        $exam = $material->exam;
+                        $studentExam = $exam
+                            ? $exam->studentMaterialExams->where('student_id', auth()->user()->id)
+                            : null;
+                    @endphp
 
                     <div class="row">
                         @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                            {{-- @dd($subMaterialsInfo) --}}
+                            @if (!$studentExam)
+                                <div class="col-xl-4 mb-3">
+
+                                    <!--begin::Card-->
+
+                                    <div class="card card-custom gutter-b card-stretch">
+
+                                        <!--begin::Body-->
+
+                                        <div class="card-body">
+
+                                            <!--begin::Section-->
+
+                                            <div class="d-flex align-items-center">
+
+                                                <!--begin::Pic-->
+
+                                                <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
+
+                                                    <span
+                                                        class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">P</span>
+
+
+                                                </div>
+
+                                                <!--end::Pic-->
+
+                                                <!--begin::Info-->
+
+                                                <div class="d-flex flex-column me-auto">
+
+                                                    <!--begin: Title-->
+
+                                                    <a href="http://127.0.0.1:8000/2c2cac89-fb70-385b-84ea-95d95ec3f723/showSubMaterial/0c01bf06-6498-3539-84c0-8c07336d8df7/00f8ca85-852e-3c05-835c-872f40275cd0"
+                                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
+                                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+
+                                                        Pre test
+                                                    </a>
+
+                                                    <!--end::Title-->
+
+                                                </div>
+
+                                                <!--end::Info-->
+
+                                            </div>
+                                            <!--end::Section-->
+                                            <!--begin::Content-->
+                                            <!--end::Content-->
+                                            <!--begin::Text-->
+                                            <p class="mb-7 mt-5"
+                                                style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                                Tes pengetahuan materi
+                                            </p>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Body-->
+                                        <!--begin::Footer-->
+                                        <div class="card-footer d-flex flex-row justify-content-between">
+                                            <a href="http://127.0.0.1:8000/2c2cac89-fb70-385b-84ea-95d95ec3f723/showSubMaterial/0c01bf06-6498-3539-84c0-8c07336d8df7/00f8ca85-852e-3c05-835c-872f40275cd0"
+                                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Mulai</a>
+
+                                        </div>
+
+                                        <!--end::Footer-->
+
+                                    </div>
+
+                                    <!--end::Card-->
+
+                                </div>
+                            @else
+                                <div class="col-xl-4 mb-3">
+
+                                    <!--begin::Card-->
+
+                                    <div class="card card-custom gutter-b card-stretch">
+
+                                        <!--begin::Body-->
+
+                                        <div class="card-body">
+
+                                            <!--begin::Section-->
+
+                                            <div class="d-flex align-items-center">
+
+                                                <!--begin::Pic-->
+
+                                                <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle me-5">
+
+                                                    <span
+                                                        class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">P</span>
+
+
+                                                </div>
+
+                                                <!--end::Pic-->
+
+                                                <!--begin::Info-->
+
+                                                <div class="d-flex flex-column me-auto">
+
+                                                    <!--begin: Title-->
+
+                                                    <a href="http://127.0.0.1:8000/2c2cac89-fb70-385b-84ea-95d95ec3f723/showSubMaterial/0c01bf06-6498-3539-84c0-8c07336d8df7/00f8ca85-852e-3c05-835c-872f40275cd0"
+                                                        class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
+                                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
+
+                                                        Pos Test
+                                                    </a>
+
+                                                    <!--end::Title-->
+
+                                                </div>
+
+                                                <!--end::Info-->
+
+                                            </div>
+                                            <!--end::Section-->
+                                            <!--begin::Content-->
+                                            <!--end::Content-->
+                                            <!--begin::Text-->
+                                            <p class="mb-7 mt-5"
+                                                style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+                                                Evaluasi akhir materi
+                                            </p>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Body-->
+                                        <!--begin::Footer-->
+                                        <div class="card-footer d-flex flex-row justify-content-between">
+                                            <a href="http://127.0.0.1:8000/2c2cac89-fb70-385b-84ea-95d95ec3f723/showSubMaterial/0c01bf06-6498-3539-84c0-8c07336d8df7/00f8ca85-852e-3c05-835c-872f40275cd0"
+                                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Mulai</a>
+
+                                        </div>
+
+                                        <!--end::Footer-->
+
+                                    </div>
+
+                                    <!--end::Card-->
+
+                                </div>
+                            @endif
+
                             @forelse($subMaterialsInfo as $infos)
-                                {{-- @dd($infos) --}}
                                 @if ($infos['isFirst'] == true)
                                     <div class="col-xl-4 mb-3">
 
@@ -245,8 +395,13 @@
 
                                                 </div>
 
-                                                <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
-                                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                                @if ($studentExam)
+                                                    <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                        class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                                @else
+                                                    <button
+                                                        class="btn btn-secondary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto" disabled>details</button>
+                                                @endif
 
                                             </div>
 
@@ -349,9 +504,13 @@
 
                                                     </div>
 
-                                                    <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
-                                                        class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
-
+                                                    @if ($studentExam)
+                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                                    @else
+                                                        <button
+                                                            class="btn btn-secondary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto" disabled>details</button>
+                                                    @endif
                                                 </div>
 
                                                 <!--end::Footer-->
@@ -452,9 +611,13 @@
 
                                                     </div>
 
-                                                    <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
-                                                        class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
-
+                                                    @if ($studentExam)
+                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                                    @else
+                                                        <button
+                                                            class="btn btn-secondary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</button>
+                                                    @endif
                                                 </div>
 
                                                 <!--end::Footer-->
@@ -554,9 +717,13 @@
 
                                                 </div>
 
-                                                <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
-                                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
-
+                                                @if ($studentExam)
+                                                    <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                        class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                                @else
+                                                    <button
+                                                        class="btn btn-secondary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto" disabled>details</button>
+                                                @endif
                                             </div>
 
                                             <!--end::Footer-->
@@ -653,7 +820,6 @@
                                                     <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id]) }}"
                                                         class="fw-bold text-info ml-2">{{ count($subMaterial->assignments) }}
                                                         Tugas</a>
-
 
                                                 </div>
 

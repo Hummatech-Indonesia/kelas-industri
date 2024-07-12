@@ -52,6 +52,16 @@ class SubMaterialExam extends Model
         return $this->hasMany(studentSubmaterialExam::class, 'sub_material_exam_id');
     }
 
+    /**
+     * Get the school that owns the SubMaterial
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function school(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'school_id');
+    }
+
     public function sluggable(): array
     {
         return [

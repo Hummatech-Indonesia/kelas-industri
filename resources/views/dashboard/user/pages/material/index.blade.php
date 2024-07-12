@@ -283,30 +283,30 @@ use Carbon\Carbon; @endphp
                                             {{-- @dd($material->exams[0]->studentMaterialExams->where('student_id', '86d009ea-6c10-33d9-ac8f-886cfd1af9cb')->where('type', 'post_test')->first()) --}}
 
                                             @php
-                                                if (count($material->exams) == 0) {
-                                                    $postTest = null;
-                                                    $preTest = null;
-                                                    $studentPostTest = null;
-                                                    $studentPreTest = null;
-                                                } else {
-                                                    $postTest = $material->exams
-                                                        ->where('type', MaterialExamTypeEnum::POSTEST->value)
-                                                        ->first();
-                                                    $preTest = $material->exams
-                                                        ->where('type', MaterialExamTypeEnum::PRETEST->value)
-                                                        ->first();
-                                                    $studentPostTest = $postTest->studentMaterialExams
-                                                        ? $postTest->studentMaterialExams
-                                                            ->where('student_id', auth()->user()->id)
-                                                            ->first()
-                                                        : null;
+                                                // if (count($material->exams) == 0) {
+                                                //     $postTest = null;
+                                                //     $preTest = null;
+                                                //     $studentPostTest = null;
+                                                //     $studentPreTest = null;
+                                                // } else {
+                                                //     $postTest = $material->exams
+                                                //         ->where('type', MaterialExamTypeEnum::POSTEST->value)
+                                                //         ->first();
+                                                //     $preTest = $material->exams
+                                                //         ->where('type', MaterialExamTypeEnum::PRETEST->value)
+                                                //         ->first();
+                                                //     $studentPostTest = $postTest->studentMaterialExams
+                                                //         ? $postTest->studentMaterialExams
+                                                //             ->where('student_id', auth()->user()->id)
+                                                //             ->first()
+                                                //         : null;
 
-                                                    $studentPreTest = $preTest->studentMaterialExam
-                                                        ? $preTest->studentMaterialExam
-                                                            ->where('student_id', auth()->user()->id)
-                                                            ->first()
-                                                        : null;
-                                                }
+                                                //     $studentPreTest = $preTest->studentMaterialExam
+                                                //         ? $preTest->studentMaterialExam
+                                                //             ->where('student_id', auth()->user()->id)
+                                                //             ->first()
+                                                //         : null;
+                                                // }
 
                                             @endphp
                                             {{-- @if ($postTest)
