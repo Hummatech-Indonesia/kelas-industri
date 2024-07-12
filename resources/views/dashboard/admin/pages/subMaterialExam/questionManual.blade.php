@@ -48,7 +48,6 @@
             <div class="me-2">
                 <label for="" class="form-label">Tipe Soal</label>
                 <select name="type" class="form-select form-select-solid" id="">
-                    <option value="">Pilih Tipe</option>
                     <option value="multiple_choice" {{ isset(request()->type) && request()->type == 'multiple_choice'? 'selected': '' }}>Pilihan Ganda</option>
                     <option value="essay" {{ isset(request()->type) && request()->type == 'essay'? 'selected': '' }}>Essay</option>
                 </select>
@@ -127,7 +126,7 @@
                                                 <input class="form-check-input" type="checkbox"
                                                     value="{{ $subMaterialQuestion->id }}" name="question_bank_id[]"
                                                     id="flexRadioLg" />
-                                                <input type="hidden" name="type" value="multiplechoice" id="">
+                                                <input type="hidden" name="type" value="multiple_choice" id="">
 
                                             </div>
                                         </div>
@@ -163,6 +162,7 @@
 
                                             </div>
                                         </div>
+                                        <input type="hidden" name="type" value="essay" id="">
 
                                         <!--end::Radio-->
                                         <!--end::Description-->

@@ -94,6 +94,8 @@ class QuestionBankRepository extends BaseRepository
             }
             if ($request->type) {
                 $data->where('type', $request->type);
+            } else {
+                $data->where('type', QuestionTypeEnum::MULTIPLECHOICE->value);
             }
 
             return $data->paginate($pagination);

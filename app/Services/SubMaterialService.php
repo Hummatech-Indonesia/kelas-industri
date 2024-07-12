@@ -24,7 +24,7 @@ class SubMaterialService
      */
     public function handleGetPaginate(string $materialId, $request): mixed
     {
-        return $this->repository->get_paginate_by_material($materialId,$request->search, 6);
+        return $this->repository->get_paginate_by_material($materialId, $request->search, 6);
     }
 
     /**
@@ -76,10 +76,10 @@ class SubMaterialService
     public function handleUpdate(SubMaterialRequest $request, string $id): void
     {
         $data = $request->validated();
-        if($request->hasFile('teacher_file')){
+        if ($request->hasFile('teacher_file')) {
             $data['teacher_file'] = $request->file('teacher_file')->store('teacher_file', 'public');
         }
-        if($request->hasFile('student_file')){
+        if ($request->hasFile('student_file')) {
             $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
         }
         $this->repository->update($id, $data);

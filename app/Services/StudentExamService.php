@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\SubMaterialExam;
 use App\Repositories\StudentExamRepository;
 use App\Http\Requests\AnswerSubmaterialExamRequest;
+use App\Models\StudentSubmaterialExam;
+use App\Models\SubMaterialExamQuestion;
 use App\Repositories\StudentSubMaterialExamAnswerRepository;
 
 class StudentExamService
@@ -43,14 +45,14 @@ class StudentExamService
         $this->repository->store($data);
     }
 
-    public function calculate(AnswerSubmaterialExamRequest $request, mixed $answerKeys, SubMaterialExam $subMaterialExam): mixed
+    public function calculate(AnswerSubmaterialExamRequest $request, mixed $answerKeys, SubMaterialExam $subMaterialExam, StudentSubmaterialExam $studentSubMaterialExam): mixed
     {
         // dd($request);
         if ($request->answer_essay) {
             $studentSubMaterialExam = $this->repository->getWhere([$subMaterialExam->id]);
             for ($i = 0; $i < count($request->answer_essay); $i++) {
                 $data['answer'] = $request->answer_essay[$i];
-                if($data['answer']['answer'] == null)  {
+                if ($data['answer']['answer'] == null) {
                     $data['answer']['answer_value'] = 0;
                 }
                 $studentSubMaterialExam->studentSubMaterialExamAnswers()->create($data['answer']);
@@ -58,6 +60,9 @@ class StudentExamService
         }
 
         $answers = $request->answer;
+
+        sort($answers);
+
         $answerArr = [];
         $true = 0;
         foreach ($answers as $i => $answer) {
@@ -85,7 +90,7 @@ class StudentExamService
         return $this->repository->destroy($id);
     }
 
-    public function handleUpdate(string $id,$question_number ,array $data): void
+    public function handleUpdate(string $id, $question_number, array $data): void
     {
         $scores = $this->repository->whereId($id);
         $scoreEssay = $this->studentExamAnswerRepository->scoreAnswerValue($id, $question_number)->answer_value;

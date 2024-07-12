@@ -12,6 +12,8 @@ use App\Repositories\QuestionBankRepository;
 use App\Http\Requests\SubmaterialExamQuestionRequest;
 use App\Repositories\SubMaterialExamQuestionRepository;
 
+use function PHPSTORM_META\type;
+
 class SubMaterialExamQuestionService
 {
     private SubMaterialExamQuestionRepository $repository;
