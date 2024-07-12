@@ -45,7 +45,7 @@ class StudentExamService
         $this->repository->store($data);
     }
 
-    public function calculate(AnswerSubmaterialExamRequest $request, mixed $answerKeys, SubMaterialExam $subMaterialExam, StudentSubmaterialExam $studentSubMaterialExam): mixed
+    public function calculate(AnswerSubmaterialExamRequest $request, mixed $answerKeys, SubMaterialExam $subMaterialExam): mixed
     {
         // dd($request);
         if ($request->answer_essay) {
@@ -61,15 +61,14 @@ class StudentExamService
 
         $answers = $request->answer;
 
-        sort($answers);
-
-        dd($answers);
         $answerArr = [];
         $true = 0;
         foreach ($answers as $i => $answer) {
-            $correctAnswers = $answerKeys[$i]->questionBankAnswers->pluck('answer')->toArray();
+
+            $question = SubMaterialExamQuestion::with('questionBank')->where('sub_material_exam_id', $subMaterialExam->id)->where('question_number', $answer['student_question_number'])->first();
+
             array_push($answerArr, $answer['answer']);
-            if (in_array($answer['answer'], $correctAnswers)) {
+            if (in_array($answer['answer'], $question->questionBank->questionBankAnswers->pluck('answer')->toArray())) {
                 $true++;
             }
         }
