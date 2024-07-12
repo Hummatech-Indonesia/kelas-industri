@@ -98,7 +98,7 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                                 </span>
 
                                 <span class="text-black fw-semibold d-flex fs-6 mb-3">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="me-3"
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="me-2"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z"
