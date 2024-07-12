@@ -42,7 +42,8 @@
                             <li>Membuka aplikasi lain</li>
                             <li>Membuka Tab Lain</li>
                             <li>Berinteraksi dengan hal-hal lain diluar halaman ujian</li>
-                            <li>Semua Shortcut laptop yang berpotensi membuka/memunculkan tab ke layar</li>
+                            <li>Semua Shortcut laptop yang berpotensi membuka/memunculkan tab ke layar,<br> (termasuk tombol
+                                windows, alt + tab, dll)</li>
                         </ul>
                     </li>
                     <li>Jika lebih dari 3 kali, ujian anda akan otomatis di submit</li>
@@ -50,10 +51,27 @@
                     <li>Mohon notifikasi yang muncul dari Handphone & Laptop</li>
                 </ol>
 
+                <div class=" mt-3">
+                    <label class="">Saya sudah menyetujui peraturan di atas</label>
+                    <input class="form-check-input border-3" type="checkbox" id="read" required>
+                </div>
+
             </div>
         </div>
         <div class="d-flex justify-content-end">
-            <a href="{{ route('tester.exam-setname', $subMaterialExam->id) }}" class="btn btn-sm btn-primary px-10 mt-3 ms-100">Lanjut</a>
+            <a href="{{ route('tester.exam-setname', $subMaterialExam->id) }}"
+                class="btn btn-sm btn-primary px-10 mt-3 ms-100" onclick="return validateRead()">Lanjut</a>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        function validateRead() {
+            if (!document.getElementById('read').checked) {
+                alert('Anda harus membaca dan mencentang peraturan ujian sebelum melanjutkan.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 @endsection
