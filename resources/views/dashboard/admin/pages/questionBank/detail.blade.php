@@ -52,7 +52,6 @@
         </div>
         <div class="row">
             @forelse ($questionBanks as $questionBank)
-                {{-- @dd($questionBank) --}}
                 @if ($questionBank->type == 'multiple_choice')
                     <div class="col-12 mb-5">
                         <div class="card">
@@ -62,19 +61,19 @@
                                 <div class="d-flex justify-content-start text-black mb-5 fs-5 fw-semibold">
                                     {!! $questionBank->question !!}
                                 </div>
-                                <div class="d-flex justify-content-start text-black mb-2 fs-6">
+                                <div class="d-flex justify-content-start mb-2 fs-6 {{ in_array('option1', $questionBank->questionBankAnswers->pluck('answer')->toArray())? 'fw-bold text-primary' : 'text-black'}}">
                                     <div class="me-3">A .</div> {!! $questionBank->option1 !!}
                                 </div>
-                                <div class="d-flex justify-content-start text-black mb-2 fs-6">
+                                <div class="d-flex justify-content-start mb-2 fs-6 {{ in_array('option2', $questionBank->questionBankAnswers->pluck('answer')->toArray())? 'fw-bold text-primary' : 'text-black'}}">
                                     <div class="me-3">B .</div> {!! $questionBank->option2 !!}
                                 </div>
-                                <div class="d-flex justify-content-start text-black mb-2 fs-6">
+                                <div class="d-flex justify-content-start mb-2 fs-6 {{ in_array('option3', $questionBank->questionBankAnswers->pluck('answer')->toArray())? 'fw-bold text-primary' : 'text-black'}}">
                                     <div class="me-3">C .</div> {!! $questionBank->option3 !!}
                                 </div>
-                                <div class="d-flex justify-content-start text-black fs-6">
+                                <div class="d-flex justify-content-start fs-6 {{ in_array('option4', $questionBank->questionBankAnswers->pluck('answer')->toArray())? 'fw-bold text-primary' : 'text-black'}}">
                                     <div class="me-3">D .</div> {!! $questionBank->option4 !!}
                                 </div>
-                                <div class="d-flex justify-content-start text-black fs-6">
+                                <div class="d-flex justify-content-start fs-6 {{ in_array('option5', $questionBank->questionBankAnswers->pluck('answer')->toArray())? 'fw-bold text-primary' : 'text-black'}}">
                                     <div class="me-3">E .</div> {!! $questionBank->option5 !!}
                                 </div>
                                 <div class="d-flex justify-content-end text-black fs-6">
