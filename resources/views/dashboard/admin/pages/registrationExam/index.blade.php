@@ -98,7 +98,7 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                                 </span>
 
                                 <span class="text-black fw-semibold d-flex fs-6 mb-3">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="me-3"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z"
@@ -606,7 +606,7 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                                         <select
                                             class="form-select form-select-solid mb-3 @error('material_id') is-invalid @enderror"
                                             data-control="select2" data-placeholder="Pilih Materi" data-type="add"
-                                            name="school_id" id="">
+                                            name="school_id" id="school_id-edit">
                                             @foreach ($schools as $school)
                                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
                                             @endforeach
@@ -946,46 +946,43 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
         });
 
         $('.btn-edit').click(function() {
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var start_at = $(this).data('start_at');
+            var end_at = $(this).data('end_at');
+            var material_id = $(this).data('material_id');
+            var time = $(this).data('time');
+            var total_essay = $(this).data('total_essay');
+            var total_multiple_choice = $(this).data('total_multiple_choice');
+            var multiple_choice_value = $(this).data('multiple_choice_value');
+            var essay_value = $(this).data('essay_value');
+            var cheating_detector = $(this).data('cheating_detector');
+            var last_submit = $(this).data('last_submit');
+            var school = $(this).data('school');
 
-            var id = $(this).data('id')
-            var title = $(this).data('title')
-            var start_at = $(this).data('start_at')
-            var end_at = $(this).data('end_at')
-            var material_id = $(this).data('material_id')
-            var time = $(this).data('time')
-            var total_essay = $(this).data('total_essay')
-            var total_multiple_choice = $(this).data('total_multiple_choice')
-            var multiple_choice_value = $(this).data('multiple_choice_value')
-            var essay_value = $(this).data('essay_value')
-            var cheating_detector = $(this).data('cheating_detector')
-            var last_submit = $(this).data('last_submit')
-            var cheating_detector = $(this).data('cheating_detector')
-            var school = $(this).data('school')
-            $('#title-edit').val(title)
+            $('#title-edit').val(title);
             $('#select-material-edit').val(material_id).trigger('change');
-            $('.start_at-edit').val(start_at)
-            $('.end_at-edit').val(end_at)
-            $('#time-edit').val(time)
-            $(`#school_id-edit`).val(school).trigger('change');
-            $('#total_multiple_choice_edit').val(total_multiple_choice)
-            $('#multiple_choice_value_edit').val(multiple_choice_value)
-            $('#essay_value_edit').val(essay_value)
-            $('#total_essay_edit').val(total_essay)
-            $('#total_essay_edit').val(total_essay)
-            $('#form_edit').attr('action', "{{ route('admin.exam-update', ':id') }}".replace(':id',
-                id))
-            $('#kt_modal_edit').modal('show')
+            $('.start_at-edit').val(start_at);
+            $('.end_at-edit').val(end_at);
+            $('#time-edit').val(time);
+            $('#school_id-edit').val(school).trigger('change');
+            $('#total_multiple_choice_edit').val(total_multiple_choice);
+            $('#multiple_choice_value_edit').val(multiple_choice_value);
+            $('#essay_value_edit').val(essay_value);
+            $('#total_essay_edit').val(total_essay);
+            $('#form_edit').attr('action', "{{ route('admin.exam-update', ':id') }}".replace(':id', id));
+            $('#kt_modal_edit').modal('show');
 
             if (last_submit) {
-                $('#last_submit_switch-edit').attr('checked', true)
+                $('#last_submit_switch-edit').prop('checked', true);
             } else {
-                $('#last_submit_switch-edit').attr('checked', false)
+                $('#last_submit_switch-edit').prop('checked', false);
             }
             if (cheating_detector) {
-                $('#cheating_detector_switch-edit').attr('checked', true)
+                $('#cheating_detector_switch-edit').prop('checked', true);
             } else {
-                $('#cheating_detector_switch-edit').attr('checked', false)
+                $('#cheating_detector_switch-edit').prop('checked', false);
             }
-        })
+        });
     </script>
 @endsection
