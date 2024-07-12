@@ -36,6 +36,7 @@ class SubMaterialExamController extends Controller
     private SubMaterialExamQuestionRepository $examQuestionRepository;
     private StudentSubMaterialExamService $studentSubMaterialExamService;
     private UserServices $userServices;
+    private SchoolService $schoolService;
     private MentorService $mentorService;
     private StudentRepository $studentRepository;
     private StudentSubMaterialExamAnswerRepository $studentExamAnswerRepository;
@@ -53,7 +54,8 @@ class SubMaterialExamController extends Controller
         MentorService $mentorService,
         StudentRepository $studentRepository,
         StudentSubMaterialExamAnswerRepository $studentExamAnswerRepository,
-        StudentSubmaterialExamRepository $studentExamRepository
+        StudentSubmaterialExamRepository $studentExamRepository,
+        SchoolService $schoolService
     ) {
         $this->materialRepository = $materialRepository;
         $this->service = $service;
@@ -67,6 +69,7 @@ class SubMaterialExamController extends Controller
         $this->studentRepository = $studentRepository;
         $this->studentExamAnswerRepository = $studentExamAnswerRepository;
         $this->studentExamRepository = $studentExamRepository;
+        $this->schoolService = $schoolService;
     }
     /**
      * Display a listing of the resource.
@@ -199,8 +202,8 @@ class SubMaterialExamController extends Controller
      */
     public function destroy(SubMaterialExam $subMaterialExam)
     {
+        $this->schoolService->handleDeleteRegristationExamStudent($subMaterialExam->school);
         $data = $this->service->handleDelete($subMaterialExam->id);
-
         if (!$data) {
             return back()->with('error', trans('alert.delete_constrained'));
         }
