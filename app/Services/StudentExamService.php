@@ -63,6 +63,7 @@ class StudentExamService
 
         sort($answers);
 
+        dd($answers);
         $answerArr = [];
         $true = 0;
         foreach ($answers as $i => $answer) {
