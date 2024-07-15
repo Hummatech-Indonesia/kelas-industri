@@ -116,7 +116,7 @@
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option1"
                                                     id="option1_{{ $index }}"
-                                                    data-question_number="{{ $question['number'] }}">
+                                                    data-question_number="{{ $question['id'] }}">
                                                 <label class="d-flex form-check-label text-dark fs-5"
                                                     for="option1_{{ $index }}">
                                                     A. {!! '<span></span>' . $question['option1'] !!}
@@ -127,7 +127,7 @@
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option2"
                                                     id="option2_{{ $index }}"
-                                                    data-question_number="{{ $question['number'] }}">
+                                                    data-question_number="{{ $question['id'] }}">
                                                 <label class="d-flex form-check-label text-dark fs-5"
                                                     for="option2_{{ $index }}">
                                                     B. {!! '<span></span>' . $question['option2'] !!}
@@ -138,7 +138,7 @@
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option3"
                                                     id="option3_{{ $index }}"
-                                                    data-question_number="{{ $question['number'] }}">
+                                                    data-question_number="{{ $question['id'] }}">
                                                 <label class="d-flex form-check-label text-dark fs-5"
                                                     for="option3_{{ $index }}">
                                                     C. {!! '<span></span>' . $question['option3'] !!}
@@ -149,7 +149,7 @@
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option4"
                                                     id="option4_{{ $index }}"
-                                                    data-question_number="{{ $question['number'] }}">
+                                                    data-question_number="{{ $question['id'] }}">
                                                 <label class="d-flex form-check-label text-dark fs-5"
                                                     for="option4_{{ $index }}">
                                                     D. {!! '<span></span>' . $question['option4'] !!}
@@ -160,7 +160,7 @@
                                                 <input class="form-check-input" type="radio"
                                                     name="answer_{{ $index }}" value="option5"
                                                     id="option5_{{ $index }}"
-                                                    data-question_number="{{ $question['number'] }}">
+                                                    data-question_number="{{ $question['id'] }}">
                                                 <label class="d-flex form-check-label text-dark"
                                                     for="option5_{{ $index }}">
                                                     E. {!! '<span></span>' . $question['option5'] !!}
@@ -256,7 +256,7 @@
                                         onclick="setAnswer('multiple_choice', {{ $index }})">
                                         <a class="nav-link {{ $index == 0 ? 'active' : '' }} d-flex align-items-center justify-content-center bg-secondary text-dark fw-bolder fs-6 rounded fs-bold m-0 p-0 w-100 "
                                             data-bs-toggle="tab" id="btn_multiple_choice_{{ $index }}"
-                                            data-question_number="{{ $question['number'] }}"
+                                            data-question_number="{{ $question['id'] }}"
                                             href="#question_{{ $index }}">{{ $number++ }}
                                             <span
                                                 class="indicator position-absolute top-0 end-0 translate-middle p-2 m-0 bg-danger border border-light rounded-circle"
