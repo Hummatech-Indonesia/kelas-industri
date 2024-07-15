@@ -91,7 +91,7 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
     @section('script')
         <script>
             $("#kt_datatable_complex_header").DataTable({
-                "order": [[1, "desc"]] // Mengatur urutan default berdasarkan kolom kedua (indeks 1) secara descending
+                "order": [[2, "desc"]]
             });
         </script>
     @endsection
