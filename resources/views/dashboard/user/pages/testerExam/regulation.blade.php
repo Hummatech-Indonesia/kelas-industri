@@ -53,7 +53,7 @@
 
                 <div class=" mt-3">
                     <input class="form-check-input border-3" type="checkbox" id="read" required>
-                    <label class="">Saya sudah menyetujui peraturan di atas</label>
+                    <label class="" for="read">Saya sudah menyetujui peraturan di atas</label>
                 </div>
 
             </div>
