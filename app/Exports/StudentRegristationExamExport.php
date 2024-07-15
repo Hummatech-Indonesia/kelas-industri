@@ -19,6 +19,7 @@ class StudentRegristationExamExport implements FromView
         $studentExams = StudentSubmaterialExam::query()
         ->with('student')
         ->whereRelation('student.studentSchool.school', 'id', $this->schoolId)
+        ->orderBy('score', 'desc')
         ->get();
         return view('exports.regristationExamStudent', compact  ('studentExams'));
     }

@@ -261,6 +261,7 @@ class SubMaterialExamController extends Controller
     public function registrationExamResult(SubMaterialExam $subMaterialExam)
     {
         $exam = $subMaterialExam;
-        return view('dashboard.admin.pages.registrationExam.resultExam', compact('exam'));
+        $studentExams = $this->studentExamRepository->getTesterExamREsult($exam->id);
+        return view('dashboard.admin.pages.registrationExam.resultExam', compact('exam', 'studentExams'));
     }
 }

@@ -116,4 +116,11 @@ class StudentSubmaterialExamRepository extends BaseRepository
         ->whereRelation('student.studentSchool.school', 'id', $schoolId)
         ->get();
     }
+    public function getTesterExamREsult($examId) : mixed {
+        return $this->model->query()
+        ->with('student')
+        ->whereRelation('subMaterialExam', 'id', $examId)
+        ->orderBy('score', 'desc')
+        ->get();
+    }
 }
