@@ -585,22 +585,36 @@
             var type = $('#question_' + prevQuestion).data('type')
             setAnswer(type, prevQuestion)
 
-            Swal.fire({
-                title: "Apakah anda yakin ingin mengirim jawaban ujian?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Ya",
-                cancelButtonText: "Batal",
-                buttonsStyling: false,
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-danger",
-                },
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    submitExam();
-                }
-            });
+            const nullAnswer = answers.find(answer => answer.answer == null);
+
+            if (nullAnswer) {
+                Swal.fire({
+                    title: "Masih ada soal yang belum dijawab",
+                    icon: "danger",
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-danger",
+                    },
+                })
+            } else {
+                Swal.fire({
+                    title: "Apakah anda yakin ingin mengirim jawaban ujian?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Ya",
+                    cancelButtonText: "Batal",
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-danger",
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        submitExam();
+                    }
+                });
+            }
         })
 
         function submitExam() {

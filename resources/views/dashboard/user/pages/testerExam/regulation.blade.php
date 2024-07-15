@@ -52,8 +52,8 @@
                 </ol>
 
                 <div class=" mt-3">
-                    <label class="">Saya sudah menyetujui peraturan di atas</label>
                     <input class="form-check-input border-3" type="checkbox" id="read" required>
+                    <label class="">Saya sudah menyetujui peraturan di atas</label>
                 </div>
 
             </div>
