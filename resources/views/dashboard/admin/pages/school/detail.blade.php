@@ -150,8 +150,8 @@
                             </div>
 
                             <!--end::Info-->
-                            <div class="row" >
-                                @if (count($studentExams) == 0)
+                            <div class="row">
+                                @if ($hasExam)
                                     <div class="col"><a href="{{ route('admin.exportUser', $school->id) }}"
                                             class="btn btn-sm btn-primary w-150px">
                                             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/keenthemes/metronic/docs/core/html/src/media/icons/duotune/arrows/arr044.svg-->
@@ -166,7 +166,7 @@
                                             <!--end::Svg Icon-->
                                             Akun Tes
                                         </a></div>
-                                    @if ($hasExam)
+                                    @if (count($studentExams) > 0)
                                         <div class="col"><a
                                                 href="{{ route('admin.exportStudentRegristationExam', $school->id) }}"
                                                 class="btn btn-sm btn-success w-150px">
