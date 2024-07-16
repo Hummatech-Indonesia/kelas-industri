@@ -21,7 +21,9 @@ class UsersExport implements FromView
         return view('exports.regristationExamUser', [
             'users' => User::whereHas('students', function ($q) {
                 return $q->where('school_id', $this->school->id);
-            })->get()
+            })
+            ->whereRelation('roles', 'name', 'tester')
+            ->get()
         ]);
     }
 }

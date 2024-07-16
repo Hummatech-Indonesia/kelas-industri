@@ -148,6 +148,8 @@ class SchoolService
     {
         return User::whereHas('students', function ($q) use ($school) {
             $q->where('school_id', $school->id);
-        })->delete();
+        })
+        ->whereRelation('roles', 'name', 'tester')
+        ->delete();
     }
 }
