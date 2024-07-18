@@ -284,3 +284,13 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script>
+        $('.last_submit_switch').change(function() {
+            $(this).val(this.checked ? '1' : '0');
+        });
+        $('.cheating_detector_switch').change(function() {
+            $(this).val(this.checked ? '1' : '0');
+        });
+    </script>
+@endsection

@@ -4,24 +4,21 @@ namespace App\Services;
 
 use App\Models\MaterialExam;
 use Illuminate\Http\Request;
-use App\Models\SubMaterialExam;
-use App\Repositories\StudentExamRepository;
-use App\Http\Requests\AnswerSubmaterialExamRequest;
+use App\Repositories\StudentMaterialExamRepository;
 use App\Repositories\StudentMaterialExamAnswerRepository;
-use App\Repositories\StudentSubMaterialExamAnswerRepository;
 
 class StudentMaterialExamService
 {
-    private StudentExamRepository $repository;
+    private StudentMaterialExamRepository $repository;
     private StudentMaterialExamAnswerRepository $studentExamAnswerRepository;
 
-    public function __construct(StudentExamRepository $repository, StudentMaterialExamAnswerRepository $studentExamAnswerRepository)
+    public function __construct(StudentMaterialExamRepository $repository, StudentMaterialExamAnswerRepository $studentExamAnswerRepository)
     {
         $this->studentExamAnswerRepository = $studentExamAnswerRepository;
         $this->repository = $repository;
     }
 
-    public function store(MaterialExam $exam, $examQuestionsMultipleChoice, $examQuestionsEssay)
+    public function store(MaterialExam $exam, $examQuestionsMultipleChoice, $examQuestionsEssay, $type)
     {
         $indicesSequentialMultipleChoice = $examQuestionsMultipleChoice->pluck('question_number')->map(function ($index) {
             return strval($index);
@@ -38,25 +35,25 @@ class StudentMaterialExamService
         $data =  [
             'material_exam_id' => $exam->id,
             'student_id' => auth()->user()->id,
+            'type' => $type,
             'order_of_question_multiple_choice' => $combinedIndicesStringMultipleChoice,
             'order_of_question_essay' => $combinedIndicesStringEssay,
-            'deadline' => now()->addMinutes($exam->time)
+            'deadline' => now()->addMinutes($exam->time),
         ];
-
+        // dd($type);
         $this->repository->store($data);
     }
 
     public function calculate(Request $request, mixed $answerKeys, MaterialExam $materialExam): mixed
     {
-        // dd($request);
         if ($request->answer_essay) {
-            $studentSubMaterialExam = $this->repository->getWhere([$materialExam->id]);
+            $studentMaterialExam = $this->repository->getWhere([$materialExam->id]);
             for ($i = 0; $i < count($request->answer_essay); $i++) {
                 $data['answer'] = $request->answer_essay[$i];
                 if($data['answer']['answer'] == null)  {
                     $data['answer']['answer_value'] = 0;
                 }
-                $studentSubMaterialExam->studentSubMaterialExamAnswers()->create($data['answer']);
+                $studentMaterialExam->studentMaterialExamAnswers()->create($data['answer']);
             }
         }
 

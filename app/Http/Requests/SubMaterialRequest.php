@@ -56,6 +56,17 @@ class SubMaterialRequest extends BaseRequest
             'student_file.required' => 'File siswa tidak boleh kosong !',
             'student_file.file' => 'File siswa harus berupa file !',
             'student_file.mimes' => 'File siswa harus berupa pdf !',
+            'total_multiple_choice.required' => 'Total soal pilihan ganda diperlukan.',
+            'total_multiple_choice.integer' => 'Total soal pilihan ganda harus berupa angka.',
+            'total_essay.required' => 'Total soal esai diperlukan.',
+            'total_essay.integer' => 'Total soal esai harus berupa angka.',
+            'multiple_choice_value.required' => 'Nilai per soal pilihan ganda diperlukan.',
+            'multiple_choice_value.integer' => 'Nilai per soal pilihan ganda harus berupa angka.',
+            'essay_value.required' => 'Nilai per soal esai diperlukan.',
+            'time.required' => 'Waktu pengerjaan diperlukan.',
+            'time.regex' => 'Waktu pengerjaan hanya boleh berisi angka.',
+            'last_submit.boolean' => 'Pilihan pengiriman terakhir harus berupa benar atau salah.',
+            'cheating_detector.boolean' => 'Pilihan pendeteksi kecurangan harus berupa benar atau salah.',
         ];
     }
 }

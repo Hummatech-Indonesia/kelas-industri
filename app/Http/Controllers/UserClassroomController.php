@@ -17,11 +17,12 @@ use App\Services\MaterialService;
 use App\Services\ClassroomService;
 use App\Services\AssignmentService;
 use App\Services\SubMaterialService;
+use App\Enums\SubMaterialExamTypeEnum;
 use App\Services\SubmitChallengeService;
 use App\Services\SubmitAssignmentService;
 use App\Services\StudentSubMaterialExamService;
-use App\Repositories\StudentSubmaterialExamRepository;
 use App\Services\StudentSubmaterialExamAnswerService;
+use App\Repositories\StudentSubmaterialExamRepository;
 
 class UserClassroomController extends Controller
 {
@@ -95,6 +96,7 @@ class UserClassroomController extends Controller
         $data = $this->GetDataSidebar();
         $data['classroom'] = $classroom;
         $data['materials'] = $this->materialService->handleByClassroom($classroom, $request);
+        $data['materialInfos'] = $this->materialService->handleOrderMaterials($data['materials']);
         $data['search'] = $request->search;
         return \view('dashboard.user.pages.material.index', $data);
     }
@@ -151,7 +153,7 @@ class UserClassroomController extends Controller
         $data['classroom'] = $classroom;
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
-        if ($submaterial->exam) {
+        if ($submaterial->exam->where('type', SubMaterialExamTypeEnum::QUIZ->value)->first()) {
             $data['studentSubmaterialExam'] = $this->studentSubmaterialExamRepository->get_user_submaterial_exam($submaterial->exam->id);
             if ($data['studentSubmaterialExam']) {
                 $data['essayGraded'] = $this->studentSubmaterialExamAnswerService->essay_graded($data['studentSubmaterialExam']);

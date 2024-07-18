@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Enums\SubMaterialExamTypeEnum;
-use App\Http\Requests\SubMaterialExamRequest;
 use App\Models\StudentSubmaterialExam;
 use App\Repositories\ScheduleRepository;
+use App\Http\Requests\SubMaterialRequest;
+use App\Http\Requests\SubMaterialExamRequest;
 use App\Repositories\SubMaterialExamRepository;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
@@ -20,7 +21,7 @@ class SubMaterialExamService
         $this->scheduleRepository = $scheduleRepository;
     }
 
-    public function handleCreate(SubMaterialExamRequest $request): mixed
+    public function handleCreate(SubMaterialRequest $request, $subMaterial): mixed
     {
         $data = $request->validated();
         if ($data['total_essay'] == 0) {
@@ -31,7 +32,8 @@ class SubMaterialExamService
         if ($data['multiple_choice_value'] + $data['essay_value'] != 100) {
             return redirect()->back()->with('error', 'Total bobot nilai harus 100');
         }
-        $this->scheduleRepository->store(['title' => 'Ujian' . $data['title'], 'start' => $data['start_at'], 'end' => $data['end_at']]);
+        $data['sub_material_id'] = $subMaterial['id'];
+        // $this->scheduleRepository->store(['title' => 'Ujian' . $data['title'], 'start' => $data['start_at'], 'end' => $data['end_at']]);
         return $this->repository->store($data);
     }
     public function handleCreateRegristationExam(array $data, $school): mixed

@@ -142,19 +142,7 @@ class SubMaterialExamController extends Controller
         $data['exams'] = $this->repository->getBeforeFinishedByGeneration($generation);
         return view('dashboard.user.pages.studentExam.examMentor', $data);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(SubMaterialExamRequest $request)
-    {
-        $this->service->handleCreate($request);
-
-        return redirect()->back()->with('success', trans('alert.add_success'));
-    }
+    
     /**
      * Store a newly created resource in storage.
      *

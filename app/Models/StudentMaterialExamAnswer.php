@@ -10,6 +10,8 @@ class StudentMaterialExamAnswer extends Model
 {
     use HasFactory;
 
+    protected $table ='student_material_exam_answers';
+    protected $fillable = ['student_exam_id','student_question_number','answer','answer_value'];
 
     /**
      * Get the studentMaterialExam that owns the StudentMaterialExamAnswer
@@ -18,8 +20,8 @@ class StudentMaterialExamAnswer extends Model
      */
     public function studentMaterialExam(): BelongsTo
     {
-        return $this->belongsTo(StudentMaterialExam::class, 'foreign_key', 'other_key');
+        return $this->belongsTo(StudentMaterialExam::class, 'student_exam_id');
     }
 
-    
+
 }

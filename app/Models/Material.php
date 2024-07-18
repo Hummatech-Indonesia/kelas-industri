@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Material extends Model
 {
@@ -17,7 +17,7 @@ class Material extends Model
     protected $table = 'materials';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'generation_id', 'title', 'description', 'devision_id'];
+    protected $fillable = ['id', 'generation_id', 'title', 'description', 'devision_id', 'order'];
 
     /**
      * many to one relationship
@@ -37,6 +37,16 @@ class Material extends Model
     public function subMaterials(): HasMany
     {
         return $this->hasMany(SubMaterial::class, 'material_id');
+    }
+
+    /**
+     * Get the materialExam associated with the Material
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function materialExam(): HasOne
+    {
+        return $this->hasOne(MaterialExam::class);
     }
 
     /**

@@ -25,7 +25,7 @@ class MaterialExamQuestionService
         $this->questionBankRepository = $questionBankRepository;
     }
 
-    public function fillManual(MaterialExam $materialExam, Request $request): mixed
+    public function fillManual(MaterialExam $materialExam, $request): mixed
     {
         $missingQuestionMultipleChoice = $this->getMissingQuestionMultipleChoice($materialExam);
         $missingQuestionEssay = $this->getMissingQuestionEssay($materialExam);

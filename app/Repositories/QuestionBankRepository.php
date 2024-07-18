@@ -214,6 +214,13 @@ class QuestionBankRepository extends BaseRepository
             ->get();
     }
 
+    public function getByMaterialExam(string $materialExamId): mixed
+    {
+        return $this->model->query()
+            ->whereRelation('materialExamQuestions.materialExam', 'id', $materialExamId)
+            ->get();
+    }
+
     /**
      * getByQuestion
      *

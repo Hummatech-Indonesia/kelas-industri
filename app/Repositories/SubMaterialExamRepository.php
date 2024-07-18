@@ -20,7 +20,6 @@ class SubMaterialExamRepository extends BaseRepository
     public function getBeforeFinished(): mixed
     {
         return $this->model->query()
-            ->where('end_at', '>', now())
             ->where('type', SubMaterialExamTypeEnum::QUIZ->value)
             ->latest()
             ->get();

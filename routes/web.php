@@ -489,14 +489,14 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
 
         // student material exam
-        Route::get('material-exam/{materialExam}', [StudentMaterialExamController::class, 'index'])->name('material-exam');
+        Route::get('material-exam/{materialExam}/{type}', [StudentMaterialExamController::class, 'index'])->name('material-exam');
         // student exam
         Route::get('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamSetName'])->name('exam-setname');
         Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');
         Route::put('exam/{subMaterialExam}/opentab', [StudentSubmaterialExamController::class, 'openTab'])->name('exam.opentab');
         Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
         Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
-        Route::patch('exam/{materialExam}/{studentMaterialExam}', [StudentMaterialExamController::class, 'answer'])->name('material-exam.submit');
+        Route::patch('material-exam/{materialExam}/{studentMaterialExam}', [StudentMaterialExamController::class, 'answer'])->name('material-exam.submit');
         Route::get('exam/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish');
 
         Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');

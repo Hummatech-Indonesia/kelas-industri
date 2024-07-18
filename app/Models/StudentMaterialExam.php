@@ -21,6 +21,13 @@ class StudentMaterialExam extends Model
         'order_of_question_multiple_choice',
         'order_of_question_essay',
         'deadline',
+        'answer',
+        'score',
+        'finished_exam',
+        'finished_count',
+        'true_answer',
+        'open_tab',
+
     ];
 
     public function student(): BelongsTo

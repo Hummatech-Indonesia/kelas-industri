@@ -1,5 +1,6 @@
 @php
     use Carbon\Carbon;
+    use App\Enums\SubMaterialExamTypeEnum;
     use App\Models\SubmitAssignment;
 @endphp
 @extends('dashboard.user.layouts.app')
@@ -55,10 +56,9 @@
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     @php
-                        $exam = $subMaterial->exam;
-                        // dd($exam->start_at < now())
+                        $exam = $subMaterial->exam->where('type', SubMaterialExamTypeEnum::QUIZ->value)->first();
                     @endphp
-                    @if ($exam && $exam->start_at < now() && auth()->user()->roles->pluck('name')[0] == 'student')
+                    @if ($exam && auth()->user()->roles->pluck('name')[0] == 'student')
                         <div class="row">
                             <div class="col-12">
 
@@ -111,18 +111,6 @@
                                                                 <div class="badge badge-light-danger">Belum Dikerjakan
                                                                 </div>
                                                             @endif
-                                                        </div>
-                                                    </div>
-                                                    <div class="row align-items-center mb-3">
-                                                        <div class="col-4 col-md-3">Mulai</div>
-                                                        <div class="col">:
-                                                            {{ Carbon::parse($exam->start_at)->isoFormat('dddd, D MMMM YYYY, HH:s') }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="row align-items-center mb-3">
-                                                        <div class="col-4 col-md-3">Berakhir</div>
-                                                        <div class="col">:
-                                                            {{ Carbon::parse($exam->end_at)->isoFormat('dddd, D MMMM YYYY, HH:s') }}
                                                         </div>
                                                     </div>
                                                 </div>

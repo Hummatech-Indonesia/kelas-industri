@@ -44,7 +44,8 @@ class MaterialRepository extends BaseRepository
             return $q->where('generation', $classroom->generation->generation);
         })
         ->where('devision_id', $classroom->devision_id)
-        ->with(['exams.studentMaterialExams'])
+        ->with(['exam.studentMaterialExams'])
+        ->orderBy('order', 'asc')
         ->paginate($limit);
     }
 
@@ -109,5 +110,14 @@ class MaterialRepository extends BaseRepository
         }
 
         return $data->get();
+    }
+
+    public function handlePreviousMaterial(mixed $devisionId, mixed $previousOrder) : mixed
+    {
+        return $this->model->query()
+        ->where('devision_id', $devisionId)
+        ->where('order', $previousOrder)
+        ->select('id')
+        ->first();
     }
 }

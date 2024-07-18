@@ -34,18 +34,19 @@ class StudentMaterialExamController extends Controller
         $this->questionBankRepository = $questionBankRepository;
     }
 
-    public function index(MaterialExam $materialExam): mixed
+    public function index(MaterialExam $materialExam, $type): mixed
     {
         $examQuestionsMultipleChoice = $this->examQuestion->getRandomOrderByExamMultipleChoice($materialExam->id);
         $examQuestionsEssay = $this->examQuestion->getRandomOrderByExamEssay($materialExam->id);
         $studentExam = $this->studentExam->whereIn(['material_exam_id' => $materialExam->id]);
 
         if ($studentExam == null) {
-            $this->service->store($materialExam, $examQuestionsMultipleChoice, $examQuestionsEssay);
+            $this->service->store($materialExam, $examQuestionsMultipleChoice, $examQuestionsEssay, $type);
             $studentExam = $this->studentExam->whereIn(['material_exam_id' => $materialExam->id]);
             $data['student_exam'] = $studentExam;
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
+            $data['type'] = $type;
             return view('dashboard.user.pages.studentMaterialExam.exam', $data);
         } else {
             $studentExam->update([
@@ -65,19 +66,19 @@ class StudentMaterialExamController extends Controller
             $data['student_exam'] = $studentExam;
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
+            $data['type'] = $type;
             return view('dashboard.user.pages.studentMaterialExam.exam', $data);
         }
     }
 
     public function answer(Request $request, MaterialExam $materialExam, StudentMaterialExam $studentMaterialExam): mixed
     {
-        $questions = $this->examQuestion->getByMaterialExam($materialExam->id);
-        $sortedQuestionsMultipleChoice = $this->materialService->sortDailyExamQuestion($questions);
+        $questions = $this->questionBankRepository->getByMaterialExam($materialExam->id);
 
+        $sortedQuestionsMultipleChoice = $this->materialService->sortDailyExamQuestion($questions);
         $answerKey = $this->questionBankRepository->getAnswerByQuestion(collect($sortedQuestionsMultipleChoice)->pluck('id')->toArray());
 
         $data = $this->service->calculate($request, $answerKey, $materialExam);
-
         $data['finished_count'] = $studentMaterialExam->finished_count + 1;
 
         $this->studentExam->update($studentMaterialExam->id, $data);

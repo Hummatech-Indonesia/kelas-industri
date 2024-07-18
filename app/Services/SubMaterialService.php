@@ -33,9 +33,10 @@ class SubMaterialService
      * @param SubMaterialRequest $request
      * @return void
      */
-    public function handleCreate(SubMaterialRequest $request): void
+    public function handleCreate(SubMaterialRequest $request): mixed
     {
         $data = $request->validated();
+
         $data['teacher_file'] = $request->file('teacher_file')->store('teacher_file', 'public');
         $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
 
@@ -48,7 +49,7 @@ class SubMaterialService
             $data['order'] = 1;
         }
 
-        $this->repository->store($data);
+        return $this->repository->store($data);
     }
 
     public function handleListSubMaterials(string $order, string $materialId): mixed

@@ -19,6 +19,15 @@
             <!--end::Breadcrumb-->
 
         </div>
+        <div class="d-flex align-items-center py-2 py-md-1">
+            <select name="" id="" class="form-select me-2">
+                <option value="">Fundamental Java</option>
+            </select>
+            <!--begin::Button-->
+            <button class="btn btn-primary btn-plus fw-bold">
+                Cari </button>
+            <!--end::Button-->
+        </div>
     </div>
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
@@ -61,12 +70,8 @@
 
 
                                     <span class="text-black fw-semibold d-flex fs-6 mb-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="20" height="20"
-                                            viewBox="0 0 24 24">
-                                            <path fill="currentColor"
-                                                d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5c-1.65 0-3.35.3-4.75 1.05c-.1.05-.15.05-.25.05c-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1c1.11-.35 2.33-.5 3.5-.5c1.95 0 4.05.4 5.5 1.5c1.45-1.1 3.55-1.5 5.5-1.5c1.17 0 2.39.15 3.5.5c.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5c-.1 0-.15 0-.25-.05c-1.4-.75-3.1-1.05-4.75-1.05c-1.7 0-4.15.65-5.5 1.5m-1-14c-1.36-.6-3.16-1-4.5-1c-1.2 0-2.4.15-3.5.5v11.5c1.1-.35 2.3-.5 3.5-.5c1.34 0 3.14.4 4.5 1zM13 19c1.36-.6 3.16-1 4.5-1c1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5c-1.34 0-3.14.4-4.5 1zm1-2.65c.96-.35 2.12-.52 3.5-.52c1.04 0 1.88.08 2.5.24v-1.5a13.9 13.9 0 0 0-6 .19zm0-2.66c.96-.35 2.12-.53 3.5-.53c1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23c-1.28 0-2.45.15-3.5.45zM14 11c.96-.33 2.12-.5 3.5-.5c.91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23c-1.32 0-2.5.15-3.5.46z" />
-                                        </svg>
-                                        {{ $exam->subMaterial->title }}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" class="me-2" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22q-1.875 0-3.512-.712t-2.85-1.925t-1.925-2.85T3 13t.713-3.512t1.924-2.85t2.85-1.925T12 4t3.513.713t2.85 1.925t1.925 2.85T21 13t-.712 3.513t-1.925 2.85t-2.85 1.925T12 22m2.8-4.8l1.4-1.4l-3.2-3.2V8h-2v5.4zM5.6 2.35L7 3.75L2.75 8l-1.4-1.4zm12.8 0l4.25 4.25l-1.4 1.4L17 3.75zM12 20q2.925 0 4.963-2.037T19 13t-2.037-4.962T12 6T7.038 8.038T5 13t2.038 4.963T12 20"/></svg>
+                                        {{ $exam->time }} Menit
                                     </span>
 
                                     <span class="text-black fw-semibold d-flex fs-6">
@@ -200,320 +205,153 @@
         </div>
     </div>
 
-    <div class="modal fade" id="kt_modal_edit" tabindex="-1" aria-modal="true" role="dialog">
-        <!--begin::Modal dialog-->
+    <div class="modal fade" id="kt_modal_edit" tabindex="-1" id="kt_modal_1">
         <div class="modal-dialog modal-md">
-            <!--begin::Modal content-->
-            <div class="modal-content modal-rounded">
-                <!--begin::Modal header-->
-                <div class="modal-header py-7 d-flex justify-content-between">
-                    <!--begin::Modal title-->
-                    <h2>Edit Ujian</h2>
-                    <!--end::Modal title-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Quiz</h3>
 
                     <!--begin::Close-->
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
                         <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
                     </div>
                     <!--end::Close-->
                 </div>
-                <!--begin::Modal header-->
-                {{--
-                @if ($errors->any())
-                    @dd($errors->messages)
-                @endif --}}
-                <!--begin::Modal body-->
-                <div class="modal-body">
-                    <!--begin::Stepper-->
-                    <div class="stepper stepper-links d-flex flex-column" id="kt_modal_edit_campaign_stepper"
-                        data-kt-stepper="true">
-                        <!--begin::Nav-->
-                        <div class="stepper-nav justify-content-center">
-                            <!--begin::Step 1-->
-                            <div class="stepper-item me-4 current" data-kt-stepper-element="nav">
-                                <h3 class="stepper-title">
-                                    Informasi Umum
-                                </h3>
-                            </div>
-                            <!--end::Step 1-->
 
-
-                            <!--begin::Step 5-->
-                            <div class="stepper-item" data-kt-stepper-element="nav">
-                                <h3 class="stepper-title">
-                                    Detail
-                                </h3>
+                <form action="" id="form_edit" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="w-100">
+                            <div class="mb-3">
+                                <label class="required form-label @error('end_at') is-invalid @enderror mb-3">Waktu
+                                    pengerjaan (Menit)</label>
+                                <input type="number" name="time" class="form-control form-control-solid mb-3"
+                                    id="time-edit">
+                                @error('end_at')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                            <!--end::Step 5-->
+
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label class="required form-label @error('end_at') is-invalid @enderror mb-3">Bobot
+                                        Nilai Pilihan Ganda</label>
+                                    <input type="number" name="multiple_choice_value"
+                                        class="form-control form-control-solid mb-3" id="multiple_choice_value_edit">
+                                    @error('end_at')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-6">
+                                    <label
+                                        class="required form-label @error('essay_value') is-invalid @enderror mb-3">Bobot
+                                        Nilai Essay</label>
+                                    <input type="number" name="essay_value" class="form-control form-control-solid mb-3"
+                                        id="essay_value_edit">
+                                    @error('essay_value')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-6">
+                                    <label
+                                        class="required form-label @error('total_multiple_choice') is-invalid @enderror mb-3">Total
+                                        Soal Pilihan Ganda</label>
+                                    <input type="number" name="total_multiple_choice"
+                                        class="form-control form-control-solid mb-3" id="total_multiple_choice_edit">
+                                    @error('total_multiple_choice')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-6">
+                                    <label
+                                        class="required form-label @error('total_essay') is-invalid @enderror mb-3">Total
+                                        Soal Essay</label>
+                                    <input type="number" name="total_essay" class="form-control form-control-solid mb-3"
+                                        id="total_essay_edit">
+                                    @error('total_essay')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-check form-switch col-6">
+                                    <input class="form-check-input last_submit_switch" name="last_submit" value="0"
+                                        type="checkbox" role="switch" id="last_submit_switch-edit">
+                                    @error('last_submit')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    <div class="d-flex">
+                                        <label class="form-check-label @error('last_submit') is-invalid @enderror"
+                                            for="flexSwitchCheckDefault">Pengumpulan
+                                            Ujian</label>
+                                        <div data-bs-toggle="tooltip" class="ms-2 mb-2" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip"
+                                            data-bs-title="*Jika aktif maka siswa hanya bisa mengumpulan 5 menit sebelum ujian berakhir">
+                                            <span class="svg-icon svg-icon-muted"><svg width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                        rx="10" fill="currentColor" />
+                                                    <path
+                                                        d="M11.276 13.654C11.276 13.2713 11.3367 12.9447 11.458 12.674C11.5887 12.394 11.738 12.1653 11.906 11.988C12.0833 11.8107 12.3167 11.61 12.606 11.386C12.942 11.1247 13.1893 10.896 13.348 10.7C13.5067 10.4947 13.586 10.2427 13.586 9.944C13.586 9.636 13.4833 9.356 13.278 9.104C13.082 8.84267 12.69 8.712 12.102 8.712C11.486 8.712 11.066 8.866 10.842 9.174C10.6273 9.482 10.52 9.82267 10.52 10.196L10.534 10.574H8.826C8.78867 10.3967 8.77 10.2333 8.77 10.084C8.77 9.552 8.90067 9.07133 9.162 8.642C9.42333 8.20333 9.81067 7.858 10.324 7.606C10.8467 7.354 11.4813 7.228 12.228 7.228C13.1987 7.228 13.9687 7.44733 14.538 7.886C15.1073 8.31533 15.392 8.92667 15.392 9.72C15.392 10.168 15.322 10.5507 15.182 10.868C15.042 11.1853 14.874 11.442 14.678 11.638C14.482 11.834 14.2253 12.0533 13.908 12.296C13.544 12.576 13.2733 12.8233 13.096 13.038C12.928 13.2527 12.844 13.528 12.844 13.864V14.326H11.276V13.654ZM11.192 15.222H12.928V17H11.192V15.222Z"
+                                                        fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch col-6">
+                                    <input class="form-check-input cheating_detector_switch" name="cheating_detector"
+                                        value="0" type="checkbox" role="switch"
+                                        id="cheating_detector_switch-edit">
+                                    @error('cheating_detector')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    <div class="d-flex">
+                                        <label class="form-check-label @error('cheating_detector') is-invalid @enderror"
+                                            for="flexSwitchCheckDefault">Sistem
+                                            Kecurangan</label>
+                                        <div data-bs-toggle="tooltip" class="ms-2 mb-2" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip"
+                                            data-bs-title="*Jika Aktif siswa tidak bisa membukan tab lain">
+                                            <span class="svg-icon svg-icon-muted"><svg width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                        rx="10" fill="currentColor" />
+                                                    <path
+                                                        d="M11.276 13.654C11.276 13.2713 11.3367 12.9447 11.458 12.674C11.5887 12.394 11.738 12.1653 11.906 11.988C12.0833 11.8107 12.3167 11.61 12.606 11.386C12.942 11.1247 13.1893 10.896 13.348 10.7C13.5067 10.4947 13.586 10.2427 13.586 9.944C13.586 9.636 13.4833 9.356 13.278 9.104C13.082 8.84267 12.69 8.712 12.102 8.712C11.486 8.712 11.066 8.866 10.842 9.174C10.6273 9.482 10.52 9.82267 10.52 10.196L10.534 10.574H8.826C8.78867 10.3967 8.77 10.2333 8.77 10.084C8.77 9.552 8.90067 9.07133 9.162 8.642C9.42333 8.20333 9.81067 7.858 10.324 7.606C10.8467 7.354 11.4813 7.228 12.228 7.228C13.1987 7.228 13.9687 7.44733 14.538 7.886C15.1073 8.31533 15.392 8.92667 15.392 9.72C15.392 10.168 15.322 10.5507 15.182 10.868C15.042 11.1853 14.874 11.442 14.678 11.638C14.482 11.834 14.2253 12.0533 13.908 12.296C13.544 12.576 13.2733 12.8233 13.096 13.038C12.928 13.2527 12.844 13.528 12.844 13.864V14.326H11.276V13.654ZM11.192 15.222H12.928V17H11.192V15.222Z"
+                                                        fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!--end::Nav-->
-
-                        <!--begin::Form-->
-                        <form action="" id="form_edit" method="POST">
-                            <!--begin::Step 1-->
-                            <div class="current" data-kt-stepper-element="content">
-                                @method('PUT')
-                                @csrf
-                                <!--begin::Wrapper-->
-                                <div class="w-100">
-                                    <div class="mb-3">
-                                        <label class="required form-label @error('title') is-invalid @enderror mb-3">Judul
-                                            Ujian</label>
-                                        <input type="text" name="title" class="form-control form-control-solid"
-                                            id="title-edit">
-                                        @error('title')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="required form-label  mb-3">Materi
-                                            Ujian</label>
-                                        <select
-                                            class="form-select form-select-solid mb-3 @error('sub_material_id') is-invalid @enderror"
-                                            data-control="select2" data-placeholder="Pilih Materi" data-type="edit"
-                                            id="select-material-edit">
-                                        </select>
-                                        <select class="form-select form-select-solid select-sub-material"
-                                            data-control="select2" data-placeholder="Pilih Submateri"
-                                            name="sub_material_id" id="select-sub-material-edit">
-
-                                        </select>
-                                        @error('sub_material_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label
-                                            class="required form-label @error('start_at') is-invalid @enderror mb-3">Tanggal
-                                            Mulai Ujian</label>
-                                        <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
-                                            data-td-target-toggle="nearest">
-                                            <input id="kt_td_picker_basic_3" name="start_at" type="text"
-                                                class="form-control start_at-edit" data-td-target="#kt_td_picker_basic"
-                                                placeholder="04/03/2023, 14.00" autocomplete="off" />
-                                            <span class="input-group-text" data-td-target="#kt_td_picker_basic"
-                                                data-td-toggle="datetimepicker">
-                                                <i class="fas fa-calendar"></i>
-                                            </span>
-                                            @error('start_at')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label
-                                            class="required form-label @error('end_at') is-invalid @enderror mb-3">Tanggl
-                                            Selesai Ujian</label>
-                                        <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
-                                            data-td-target-toggle="nearest">
-                                            <input id="kt_td_picker_basic_4" name="end_at" type="text"
-                                                class="form-control end_at-edit" data-td-target="#kt_td_picker_basic"
-                                                placeholder="04/03/2023, 14.00" autocomplete="off" />
-                                            <span class="input-group-text" data-td-target="#kt_td_picker_basic"
-                                                data-td-toggle="datetimepicker">
-                                                <i class="fas fa-calendar"></i>
-                                            </span>
-                                            @error('end_at')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--end::Wrapper-->
-                            </div>
-                            <!--end::Step 1-->
-
-                            <!--begin::Step 5-->
-                            <div data-kt-stepper-element="content">
-                                <!--begin::Wrapper-->
-                                <div class="w-100">
-                                    <div class="mb-3">
-                                        <label
-                                            class="required form-label @error('end_at') is-invalid @enderror mb-3">Waktu
-                                            pengerjaan (Menit)</label>
-                                        <input type="number" name="time" class="form-control form-control-solid mb-3"
-                                            id="time-edit">
-                                        @error('end_at')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <label
-                                                class="required form-label @error('end_at') is-invalid @enderror mb-3">Bobot
-                                                Nilai Pilihan Ganda</label>
-                                            <input type="number" name="multiple_choice_value"
-                                                class="form-control form-control-solid mb-3"
-                                                id="multiple_choice_value_edit">
-                                            @error('end_at')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="col-6">
-                                            <label
-                                                class="required form-label @error('essay_value') is-invalid @enderror mb-3">Bobot
-                                                Nilai Essay</label>
-                                            <input type="number" name="essay_value"
-                                                class="form-control form-control-solid mb-3" id="essay_value_edit">
-                                            @error('essay_value')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="col-6">
-                                            <label
-                                                class="required form-label @error('total_multiple_choice') is-invalid @enderror mb-3">Total
-                                                Soal Pilihan Ganda</label>
-                                            <input type="number" name="total_multiple_choice"
-                                                class="form-control form-control-solid mb-3"
-                                                id="total_multiple_choice_edit">
-                                            @error('total_multiple_choice')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="col-6">
-                                            <label
-                                                class="required form-label @error('total_essay') is-invalid @enderror mb-3">Total
-                                                Soal Essay</label>
-                                            <input type="number" name="total_essay"
-                                                class="form-control form-control-solid mb-3" id="total_essay_edit">
-                                            @error('total_essay')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-check form-switch col-6">
-                                            <input class="form-check-input last_submit_switch" name="last_submit"
-                                                value="0" type="checkbox" role="switch"
-                                                id="last_submit_switch-edit">
-                                            @error('last_submit')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                            <div class="d-flex">
-                                                <label class="form-check-label @error('last_submit') is-invalid @enderror"
-                                                    for="flexSwitchCheckDefault">Pengumpulan
-                                                    Ujian</label>
-                                                <div data-bs-toggle="tooltip" class="ms-2 mb-2" data-bs-placement="top"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-bs-title="*Jika aktif maka siswa hanya bisa mengumpulan 5 menit sebelum ujian berakhir">
-                                                    <span class="svg-icon svg-icon-muted"><svg width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <rect opacity="0.3" x="2" y="2" width="20"
-                                                                height="20" rx="10" fill="currentColor" />
-                                                            <path
-                                                                d="M11.276 13.654C11.276 13.2713 11.3367 12.9447 11.458 12.674C11.5887 12.394 11.738 12.1653 11.906 11.988C12.0833 11.8107 12.3167 11.61 12.606 11.386C12.942 11.1247 13.1893 10.896 13.348 10.7C13.5067 10.4947 13.586 10.2427 13.586 9.944C13.586 9.636 13.4833 9.356 13.278 9.104C13.082 8.84267 12.69 8.712 12.102 8.712C11.486 8.712 11.066 8.866 10.842 9.174C10.6273 9.482 10.52 9.82267 10.52 10.196L10.534 10.574H8.826C8.78867 10.3967 8.77 10.2333 8.77 10.084C8.77 9.552 8.90067 9.07133 9.162 8.642C9.42333 8.20333 9.81067 7.858 10.324 7.606C10.8467 7.354 11.4813 7.228 12.228 7.228C13.1987 7.228 13.9687 7.44733 14.538 7.886C15.1073 8.31533 15.392 8.92667 15.392 9.72C15.392 10.168 15.322 10.5507 15.182 10.868C15.042 11.1853 14.874 11.442 14.678 11.638C14.482 11.834 14.2253 12.0533 13.908 12.296C13.544 12.576 13.2733 12.8233 13.096 13.038C12.928 13.2527 12.844 13.528 12.844 13.864V14.326H11.276V13.654ZM11.192 15.222H12.928V17H11.192V15.222Z"
-                                                                fill="currentColor" />
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-check form-switch col-6">
-                                            <input class="form-check-input cheating_detector_switch"
-                                                name="cheating_detector" value="0" type="checkbox" role="switch"
-                                                id="cheating_detector_switch-edit">
-                                            @error('cheating_detector')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                            <div class="d-flex">
-                                                <label
-                                                    class="form-check-label @error('cheating_detector') is-invalid @enderror"
-                                                    for="flexSwitchCheckDefault">Sistem
-                                                    Kecurangan</label>
-                                                <div data-bs-toggle="tooltip" class="ms-2 mb-2" data-bs-placement="top"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-bs-title="*Jika Aktif siswa tidak bisa membukan tab lain">
-                                                    <span class="svg-icon svg-icon-muted"><svg width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <rect opacity="0.3" x="2" y="2" width="20"
-                                                                height="20" rx="10" fill="currentColor" />
-                                                            <path
-                                                                d="M11.276 13.654C11.276 13.2713 11.3367 12.9447 11.458 12.674C11.5887 12.394 11.738 12.1653 11.906 11.988C12.0833 11.8107 12.3167 11.61 12.606 11.386C12.942 11.1247 13.1893 10.896 13.348 10.7C13.5067 10.4947 13.586 10.2427 13.586 9.944C13.586 9.636 13.4833 9.356 13.278 9.104C13.082 8.84267 12.69 8.712 12.102 8.712C11.486 8.712 11.066 8.866 10.842 9.174C10.6273 9.482 10.52 9.82267 10.52 10.196L10.534 10.574H8.826C8.78867 10.3967 8.77 10.2333 8.77 10.084C8.77 9.552 8.90067 9.07133 9.162 8.642C9.42333 8.20333 9.81067 7.858 10.324 7.606C10.8467 7.354 11.4813 7.228 12.228 7.228C13.1987 7.228 13.9687 7.44733 14.538 7.886C15.1073 8.31533 15.392 8.92667 15.392 9.72C15.392 10.168 15.322 10.5507 15.182 10.868C15.042 11.1853 14.874 11.442 14.678 11.638C14.482 11.834 14.2253 12.0533 13.908 12.296C13.544 12.576 13.2733 12.8233 13.096 13.038C12.928 13.2527 12.844 13.528 12.844 13.864V14.326H11.276V13.654ZM11.192 15.222H12.928V17H11.192V15.222Z"
-                                                                fill="currentColor" />
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end::Step 5-->
-                            <!--begin::Actions-->
-                            <div class="d-flex flex-stack pt-3">
-                                <!--begin::Wrapper-->
-                                <div class="me-2">
-                                    <button type="button" class="btn btn-lg btn-light-primary me-3"
-                                        data-kt-stepper-action="previous" data-kt-stepper-state="hide-on-last-step">
-                                        <span class="svg-icon svg-icon-muted icon-size-1"><svg width="24"
-                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                    rx="5" fill="currentColor" />
-                                                <path
-                                                    d="M12.0657 12.5657L14.463 14.963C14.7733 15.2733 14.8151 15.7619 14.5621 16.1204C14.2384 16.5789 13.5789 16.6334 13.1844 16.2342L9.69464 12.7029C9.30968 12.3134 9.30968 11.6866 9.69464 11.2971L13.1844 7.76582C13.5789 7.3666 14.2384 7.42107 14.5621 7.87962C14.8151 8.23809 14.7733 8.72669 14.463 9.03696L12.0657 11.4343C11.7533 11.7467 11.7533 12.2533 12.0657 12.5657Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span> Kembali
-                                    </button>
-                                </div>
-                                <!--end::Wrapper-->
-
-                                <!--begin::Wrapper-->
-                                <div>
-                                    <button type="submit" class="btn btn-primary">
-                                        Kirim
-                                    </button>
-
-                                    <button type="button" class="btn btn-lg btn-light-primary"
-                                        data-kt-stepper-action="next">
-                                        Selanjutnya
-                                        <span class="svg-icon svg-icon-muted icon-size-1"><svg width="24"
-                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                    rx="5" fill="currentColor" />
-                                                <path
-                                                    d="M11.9343 12.5657L9.53696 14.963C9.22669 15.2733 9.18488 15.7619 9.43792 16.1204C9.7616 16.5789 10.4211 16.6334 10.8156 16.2342L14.3054 12.7029C14.6903 12.3134 14.6903 11.6866 14.3054 11.2971L10.8156 7.76582C10.4211 7.3666 9.7616 7.42107 9.43792 7.87962C9.18488 8.23809 9.22669 8.72669 9.53696 9.03696L11.9343 11.4343C12.2467 11.7467 12.2467 12.2533 11.9343 12.5657Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span> </button>
-                                </div>
-                                <!--end::Wrapper-->
-                            </div>
-                            <!--end::Actions-->
-                        </form>
-                        <!--end::Form-->
                     </div>
-                    <!--end::Stepper-->
-                </div>
-                <!--begin::Modal body-->
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

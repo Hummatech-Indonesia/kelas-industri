@@ -24,4 +24,6 @@ class QuestionBankAnswer extends Model
     {
         return $this->belongsTo(QuestionBank::class);
     }
+
+    
 }

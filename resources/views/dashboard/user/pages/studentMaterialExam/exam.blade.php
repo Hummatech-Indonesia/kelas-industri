@@ -281,55 +281,7 @@
         <script>
             let openTab = false;
 
-            function showAllert() {
-                let countOpentTab = 0;
-                // $.ajax({
-                //     type: "PUT",
-                //     url: "{{ route('student.exam.opentab', $student_exam->id) }}",
-                //     data: {
-                //         _token: $('meta[name="csrf-token"]').attr("content"),
-                //     },
-                //     dataType: "json", // Mengubah dataType menjadi json
-                //     success: function(response) {
-                //         countOpentTab = response.openTab;
-                //         openTab = false;
-                //         Swal.fire({
-                //             html: `<div id="alertElement"><p>Sisa kesempatan anda <span class="chance">${
-        //     3 - countOpentTab
-        // }</span></p><p class="message">Mohon kerjakan ujian dengan jujur.</p></div>`,
-                //             title: "Anda terdeteksi membuka tab baru.",
-                //             icon: "error",
-                //             confirmButtonText: "Ok",
-                //             buttonsStyling: false,
-                //             customClass: {
-                //                 confirmButton: "btn btn-light-primary",
-                //             },
-                //         });
 
-                //         if (countOpentTab >= 3) {
-                //             $(".chance").text("habis");
-                //             $(".message").text("Ujian Anda akan ditutup");
-                //             setTimeout(() => {
-                //                 $.ajax({
-                //                     type: "delete",
-                //                     url: "{{ route('student.exam.reset', $student_exam->id) }}",
-                //                     data: {
-                //                         _token: $('meta[name="csrf-token"]').attr(
-                //                             "content"
-                //                         ),
-                //                     },
-                //                     dataType: "json",
-                //                     success: function(res) {
-                //                         window.location.replace(
-                //                             "{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $student_exam->subMaterialExam->subMaterial->material_id, 'submaterial' => $student_exam->subMaterialExam->sub_material_id]) }}"
-                //                         );
-                //                     },
-                //                 });
-                //             }, 5000);
-                //         }
-                //     },
-                // });
-            }
 
             // Deteksi jendela tidak aktif/aktif
             window.addEventListener("blur", () => {

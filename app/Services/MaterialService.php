@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use App\Enums\QuestionTypeEnum;
 use App\Http\Requests\MaterialRequest;
 use App\Repositories\MaterialRepository;
+use App\Repositories\StudentMaterialExamRepository;
 
 class MaterialService
 {
     private MaterialRepository $repository;
+    private StudentMaterialExamRepository $examRepository;
 
-    public function __construct(MaterialRepository $repository)
+    public function __construct(MaterialRepository $repository, StudentMaterialExamRepository $examRepository)
     {
         $this->repository = $repository;
+        $this->examRepository = $examRepository;
     }
 
     public function handleGetAll()
@@ -88,11 +91,6 @@ class MaterialService
         return $this->repository->destroy($id);
     }
 
-    public function handleCountMaterialStudent(int $schoolYearId) : mixed
-    {
-        return $this->repository->get_count_material_student($schoolYearId);
-    }
-
     public function handleCountMaterialUser()
     {
         return $this->repository->get_count_material_user();
@@ -106,7 +104,37 @@ class MaterialService
     public function sortDailyExamQuestion(mixed $questionBank): mixed
     {
         return $questionBank->sortBy(function ($item) {
-            return $item->subMaterialExamQuestions[0]->question_number;
+            return $item->materialExamQuestions[0]->question_number;
         })->where('type', QuestionTypeEnum::MULTIPLECHOICE->value)->values()->all();
+    }
+
+    public function handleOrderMaterials(mixed $materials): mixed
+    {
+        if (auth()->user()->roles->pluck('name')[0] == 'student') {
+            $materialsInfo = [];
+
+            foreach ($materials as $material) {
+                $order = $material->order;
+
+                $previousOrder = $order - 1;
+
+                $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
+
+                if ($previousMaterial) {
+                    $complateExam = $this->examRepository->handleComplateExam($previousMaterial);
+                } else {
+                    $complateExam = true;
+                }
+
+                $isFirst = $order == 1;
+                $materialsInfo[] = [
+                    'material' => $material,
+                    'isFirst' => $isFirst,
+                    'complateExam' => $complateExam,
+                ];
+            }
+
+            return $data['materialsInfo'] = $materialsInfo;
+        }
     }
 }

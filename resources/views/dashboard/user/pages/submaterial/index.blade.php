@@ -268,7 +268,7 @@
                                                         class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
                                                         style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
 
-                                                        Pos Test
+                                                        Post Test
                                                     </a>
 
                                                     <!--end::Title-->
@@ -304,7 +304,7 @@
 
                                 </div>
                             @endif
-
+                            
                             @forelse($subMaterialsInfo as $infos)
                                 @if ($infos['isFirst'] == true)
                                     <div class="col-xl-4 mb-3">
@@ -395,7 +395,7 @@
 
                                                 </div>
 
-                                                @if ($studentExam)
+                                                @if (count($studentExam) == 1)
                                                     <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                         class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
                                                 @else
@@ -717,7 +717,7 @@
 
                                                 </div>
 
-                                                @if ($studentExam)
+                                                @if (count($studentExam) == 1)
                                                     <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                         class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
                                                 @else

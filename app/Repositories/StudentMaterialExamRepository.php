@@ -58,4 +58,12 @@ class StudentMaterialExamRepository extends BaseRepository
     {
         return $this->show($id)->update($data);
     }
+
+    public function handleComplateExam(mixed $previousMaterial): mixed
+    {
+        return $this->model->query()
+        ->where('material_exam_id', $previousMaterial->materialExam->id)
+        ->whereRelation('student', 'id', auth()->user()->id)
+        ->first();
+    }
 }

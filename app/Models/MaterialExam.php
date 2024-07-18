@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Material;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,13 +50,22 @@ class MaterialExam extends Model
         return $this->hasMany(MaterialExamQuestion::class);
     }
 
-
+    /**
+     * Get the studentMaterialExam associated with the MaterialExam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function studentMaterialExam(): HasOne
+    {
+        return $this->hasOne(StudentMaterialExam::class);
+    }
+    
     /**
      * Get all of the studentMaterialExam for the MaterialExam
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-public function studentMaterialExams(): HasMany
+    public function studentMaterialExams(): HasMany
     {
         return $this->hasMany(StudentMaterialExam::class);
     }

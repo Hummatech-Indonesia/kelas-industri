@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\SubMaterialService;
 use Illuminate\Http\RedirectResponse;
+use App\Services\SubMaterialExamService;
 use App\Http\Requests\SubMaterialRequest;
 use App\Repositories\SubMaterialRepository;
 
@@ -16,9 +17,11 @@ class SubMaterialController extends Controller
 {
     private SubMaterialService $service;
     private SubMaterialRepository $repository;
+    private SubMaterialExamService $examService;
 
-    public function __construct(SubMaterialService $service, SubMaterialRepository $repository)
+    public function __construct(SubMaterialService $service, SubMaterialRepository $repository, SubMaterialExamService $examService)
     {
+        $this->examService = $examService;
         $this->service = $service;
         $this->repository = $repository;
     }
@@ -52,7 +55,8 @@ class SubMaterialController extends Controller
      */
     public function store(SubMaterialRequest $request): RedirectResponse
     {
-        $this->service->handleCreate($request);
+        $subMaterial = $this->service->handleCreate($request);
+        $this->examService->handleCreate($request, $subMaterial);
         return to_route('admin.materials.show', $request->material_id)->with('success', trans('alert.add_success'));
     }
 
