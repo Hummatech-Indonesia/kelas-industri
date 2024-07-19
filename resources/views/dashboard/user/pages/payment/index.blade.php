@@ -217,7 +217,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" name="installment" type="checkbox"
                                                     value="" id="installmentCheckbox" />
-                                                <label for="flexCheckDefault" class="form-label">Ingin Menyicil
+                                                <label for="installmentCheckbox" class="form-label">Ingin Menyicil
                                                     Terlebih
                                                     Dahulu?</label>
                                             </div>
