@@ -179,7 +179,8 @@ use Carbon\Carbon; @endphp
                     <div class="row">
                         <div class="row">
                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                @forelse ($materialInfos as $infos)
+                            {{-- @dd($materialInfos) --}}
+                            @forelse ($materialInfos as $infos)
                                     @if ($infos['isFirst'] == true)
                                         <div class="col-xl-4 mb-5">
 
@@ -284,13 +285,13 @@ use Carbon\Carbon; @endphp
 
 
                                                     </div>
-                                                    @if ($infos['material']->materialExam->studentMaterialExams->isEmpty())
-                                                        <a href="{{ route('student.material-exam', ['materialExam' => $infos['material']->materialExam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
+                                                    @if (!$infos['material']->exam->studentMaterialExam)
+                                                        <a href="{{ route('student.material-exam', ['materialExam' => $infos['material']->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
                                                             id="start-test"
                                                             data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
                                                             Test</a>
-                                                    @elseif ($infos['material']->materialExam->studentMaterialExams->where('student_id', auth()->user()->id)->where('type', 'pre_test')->first())
+                                                    @elseif ($infos['material']->exam->studentMaterialExam->finished_exam)
                                                         <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $infos['material']->id]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
                                                     @else
@@ -411,13 +412,13 @@ use Carbon\Carbon; @endphp
 
 
                                                         </div>
-                                                        @if ($infos['material']->materialExam->studentMaterialExams->isEmpty())
-                                                            <a href="{{ route('student.material-exam', ['materialExam' => $infos['material']->materialExam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
+                                                        @if (!$infos['material']->exam->studentMaterialExam->finished_exam)
+                                                            <a href="{{ route('student.material-exam', ['materialExam' => $infos['material']->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
                                                                 class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
                                                                 id="start-test"
                                                                 data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
                                                                 Test</a>
-                                                        @elseif ($infos['material']->materialExam->studentMaterialExams->where('student_id', auth()->user()->id)->where('type', 'pre_test')->first())
+                                                        @elseif ($infos['material']->exam->studentMaterialExam->finished_exam)
                                                             <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $infos['material']->id]) }}"
                                                                 class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
                                                         @else
@@ -537,14 +538,14 @@ use Carbon\Carbon; @endphp
 
 
                                                         </div>
-                                                        @if ($infos['material']->materialExam->studentMaterialExams->isEmpty())
+                                                        @if ($infos['material']->exam->studentMaterialExams->isEmpty())
                                                             <a disabled
-                                                                href="{{ route('student.material-exam', ['materialExam' => $infos['material']->materialExam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
+                                                                href="{{ route('student.material-exam', ['materialExam' => $infos['material']->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
                                                                 class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
                                                                 id="start-test"
                                                                 data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
                                                                 Test</a>
-                                                        @elseif ($infos['material']->materialExam->studentMaterialExams->where('student_id', auth()->user()->id)->where('type', 'pre_test')->first())
+                                                        @elseif ($infos['material']->exam->studentMaterialExams->where('student_id', auth()->user()->id)->where('type', 'pre_test')->first())
                                                             <a disabled
                                                                 href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $infos['material']->id]) }}"
                                                                 class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>

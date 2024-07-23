@@ -138,9 +138,9 @@ class StudentController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function importStudents(Request $request): RedirectResponse
+    public function importStudents(Request $request, $schoolId): RedirectResponse
     {
-        Excel::import(new StudentImport(auth()->id()), $request->file);
+        Excel::import(new StudentImport($schoolId), $request->file);
 
         return back()->with('success', trans('alert.import_success'));
     }

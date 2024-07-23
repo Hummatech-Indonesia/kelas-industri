@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\MaterialExam;
+use App\Models\StudentMaterialExam;
 use Illuminate\Http\Request;
 use App\Repositories\StudentMaterialExamRepository;
 use App\Repositories\StudentMaterialExamAnswerRepository;
@@ -92,5 +93,15 @@ class StudentMaterialExamService
         $currentScore = $scores->score - $scoreEssay;
         $totalScore = $data['score'] + $currentScore;
         $this->repository->update($id, ['score' => $totalScore]);
+    }
+
+    public function essay_graded(StudentMaterialExam $studentMaterialExam): mixed
+    {
+        $essayAnswerCount = $this->studentExamAnswerRepository->get_graded_answer($studentMaterialExam->id);
+        if ($essayAnswerCount < $studentMaterialExam->materialExam->total_essay) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

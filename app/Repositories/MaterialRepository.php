@@ -44,7 +44,9 @@ class MaterialRepository extends BaseRepository
             return $q->where('generation', $classroom->generation->generation);
         })
         ->where('devision_id', $classroom->devision_id)
-        ->with(['exam.studentMaterialExams'])
+        ->with('exam.studentMaterialExams', function ($q) {
+            $q->where('student_id', auth()->user()->id);
+        })
         ->orderBy('order', 'asc')
         ->paginate($limit);
     }

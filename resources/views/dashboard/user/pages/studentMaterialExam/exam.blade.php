@@ -537,11 +537,9 @@
                 },
                 dataType: "json",
                 success: function(response) {
-                    {{--
-                        window.location.replace(
-                            "{{ route('student.exam.show-finish', ['subMaterialExam' => $student_exam->sub_material_exam_id, 'studentSubmaterialExam' => $student_exam->id]) }}"
-                        );
-                        --}}
+                    window.location.replace(
+                        "{{ route('student.material-exam.show-finish', ['materialExam' => $student_exam->material_exam_id, 'studentMaterialExam' => $student_exam->id]) }}"
+                    );
                 },
                 // error: function(err) {
                 // }

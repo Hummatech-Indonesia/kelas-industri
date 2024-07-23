@@ -82,4 +82,11 @@ class StudentPaymentController extends Controller
         $pdf->loadView('pdf.invoice', $list);
         return $pdf->download('invoice.pdf'); // or $pdf->download('invoice.pdf') to download
     }
+
+    public function preview() {
+        // $pdf = app('dompdf.wrapper'); // Get an instance of the PDF wrapper
+        // $pdf->loadView('pdf.invoice');
+        // return $pdf->stream();
+        return view('pdf.invoice');
+    }
 }

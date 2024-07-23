@@ -98,6 +98,7 @@ class UserClassroomController extends Controller
         $data['materials'] = $this->materialService->handleByClassroom($classroom, $request);
         $data['materialInfos'] = $this->materialService->handleOrderMaterials($data['materials']);
         $data['search'] = $request->search;
+        // dd($data['materialInfos'][0]['material']->exam);
         return \view('dashboard.user.pages.material.index', $data);
     }
 

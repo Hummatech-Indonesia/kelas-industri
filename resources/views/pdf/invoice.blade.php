@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Invoice Kelas Industri</title>
-    <link rel="icon" href="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" type="image/png" />
-    <link rel="shortcut icon" href="{{ asset('app-assets/logo_file/Logo-Kelas-Industri.png') }}" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,154 +14,273 @@
             background-color: #fff;
         }
 
-        .text-right {
-            text-align: right;
-        }
-
-        hr {
-            display: block;
-            margin-top: 30px;
-            margin-bottom: 40px;
-            border: none;
-            border-top: 1px solid #ccc;
-        }
-
-        .content-title {
-            padding-top: 20px;
-            font-weight: bold;
-        }
-
-        .value {
-            font-weight: bold;
-            padding-top: 10px;
-            font-size: 1.2rem;
-        }
-
         .invoice-container {
             background-color: #fff;
             padding: 20px;
             max-width: 800px;
-            position: relative;
-            display: block;
-            background: transparent;
+            margin: auto;
+            border: 1px solid #ccc;
         }
 
-        .header .title {
-            text-align: left;
-            padding-left: 10px;
-        }
-
-        .title span {
-            font-size: 1.5rem;
+        .header {
+            display: flex;
+            justify-content: space-between
         }
 
         .header img {
-            max-width: 100px;
+            width: 100px;
         }
 
-        .transaction-code {
+        .header .company-details {
+            /* margin-left: 20px; */
+            width: 40%;
+        }
+
+        .header .company-details h2 {
+            margin: 0;
+            font-size: 24px;
             color: #007bff;
         }
 
-        .content {
-            margin-top: 20px;
+        .header .company-details p {
+            margin: 2px 0;
+            font-size: 12px;
         }
 
-        .invoice-container .background {
+        .header .company-details p span {
+            display: block;
+        }
+
+        .transaction-details {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transaction-details .left p {
+            padding-left: 5px;
+        }
+        .transaction-details .left p:nth-child(1) {
+            margin-top: 3rem;
+        }
+
+        .transaction-details .left,
+        .transaction-details .right {
+            width: 45%;
+        }
+
+        .transaction-details .right {
+            text-align: left;
+            width: fit-content;
+        }
+
+        .transaction-details .right p:nth-child(1) {
+            margin-bottom: 2rem;
+        }
+
+        .transaction-details h1 {
+            /* margin: 0; */
+            font-size: 3rem;
+        }
+
+        .transaction-details p {
+            margin: 2px 0;
+        }
+
+        .content-title {
+            font-weight: bold;
+        }
+
+        .table {
             width: 100%;
-            height: 100%;
-            position: absolute;
-            z-index: -10;
-            background-image: url('/app-assets/logo_file/watermark.png');
-            background-size: 600px;
-            background-repeat: repeat-y;
-            background-position: center;
-            background-origin: content-box;
-            transform: rotate(-18deg);
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #7ab1ec;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #0166d1;
+            color: white;
+            text-align: center;
+        }
+
+        .bg-blue {
+            color: white;
+            background-color: #0166d1;
+        }
+
+        .bg-liht-blue {
+            /* border: 1px solid #0166d1; */
+            background-color: #accdf0;
+        }
+
+        .table .right {
+            text-align: right;
+        }
+
+        .paid-stamp {
+            display: block;
+            text-align: center;
+            color: red;
+            position: relative;
+            transform: rotate(-20deg);
+            width: 250px;
+            margin: 4rem auto;
+        }
+
+        .stamp {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .director-signature {
+            width: 35%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .director-signature .stamp {
+            width: 100px;
+        }
+
+        .director-signature .name {
+            font-weight: bold;
+        }
+
+        .director-signature .position {
+            font-size: 12px;
         }
     </style>
 </head>
 
 <body>
     <div class="invoice-container">
-        <div class="background"
-            style="
-        width: 100%;
-            height: 100%;
-            position: absolute;
-            z-index: -10;
-            background-image: url('/app-assets/logo_file/watermark.png');
-            background-size: 600px;
-            background-repeat: repeat-y;
-            background-position: center;
-            background-origin: content-box;
-            transform: rotate(-18deg);
-        ">
+        <div class="header">
+            <img src="{{ asset('app-assets/logo_file/hummatech.png') }}" alt="Logo Kelas Industri">
+            <div class="company-details">
+                <p><span>PT Humma Teknologi Indonesia</span>
+                    <span>Perumahan Permata Regency I Blok 10 No 28, Kel. Ngijo, Kec. Karangploso, Kab. Malang,
+                        65152</span>
+                    <span>0851 7677 7785</span>
+                    <span>info@hummatech.com</span>
+                </p>
+            </div>
         </div>
-        <table cellspacing="0" cellpadding="0" style="width: 100%;">
+
+        <div class="transaction-details">
+            <div class="left">
+                <h1>Kwitansi</h1>
+                <table>
+                    <tr>
+                        <td>Nomor</td>
+                        <td>: KI-HMTI-2024-001</td>
+                    </tr>
+                    <tr>
+                        <td>Tagihan Dibuat</td>
+                        <td>: </td>
+                    </tr>
+                    <tr>
+                        <td>Tagihan Dibayar</td>
+                        <td>: </td>
+                    </tr>
+                </table>
+
+                <p style="margin-top: 20px">Kepada:</p>
+                <p>Nama</p>
+                <p>SMK</p>
+            </div>
+            <div class="right">
+                <p><strong>Kode Transaksi: <br></strong> <strong>DEV-T23746166541KMABP</strong></p>
+                <p><strong>Metode Pembayaran: <br></strong> <strong>BNI VIRTUAL ACCOUNT</strong></p>
+            </div>
+        </div>
+
+        <table class="table">
             <thead>
-                <tr class="header">
-                    <th style="width: 100px;">
-                        <img src="{{ public_path('app-assets/logo_file/Logo-Kelas-Industri.png') }}"
-                            alt="Logo Kelas Industri" style="width: 100%;">
-                    </th>
-                    <th class="title"><span style="display: inline;">Kelas Industri<br>Hummatech</span></th>
-                    <th style="text-align: right;"><span>Kode Transaksi</span><br><span
-                            class="transaction-code">{{ $reference }}</span></th>
+                <tr>
+                    <th>Deskripsi</th>
+                    <th>Total</th>
                 </tr>
             </thead>
-            <tbody class="content">
+            <tbody>
                 <tr>
-                    <td class="content-title" style="font-weight: normal;" colspan="2">Total Pembayaran</td>
-                    <td class="content-title text-right" style="font-weight: normal;">Metode Pembayaran</td>
+                    <td>Pembayaran Kelas Industri Kelas X Semester Ganjil 2024/2025</td>
+                    <td class="right">Rp. 150.000,-</td>
                 </tr>
-                <tr>
-                    <td class="value" colspan="2">Rp. {{ $payment_total }}</td>
-                    <td class="value text-right">{{ $via }}</td>
+                <tr class="bg-liht-blue">
+                    <td class="right "><strong>Subtotal</strong></td>
+                    <td class="right">Rp. 150.000,-</td>
                 </tr>
-            </tbody>
-        </table>
-        <hr>
-        <table cellspacing="0" cellpadding="0" style="width: 100%;">
-            <tbody class="content">
-                <tr>
-                    <td class="content-title" colspan="2" style="font-weight: normal;">Tagihan Dibuat</td>
-                    <td class="content-title text-right" style="font-weight: normal;">Tagihan Dibayar</td>
+                <tr class="bg-liht-blue">
+                    <td class="right "><strong>Biaya Admin</strong></td>
+                    <td class="right">Rp. 4.250,-</td>
                 </tr>
-                <tr>
-                    <td class="value" colspan="2">{{ $created_at }}</td>
-                    <td class="value text-right">{{ $updated_at }}</td>
-                </tr>
-                <tr>
-                    <td style="padding-top: 20px;">Rincian Pesanan</td>
-                </tr>
-                <tr>
-                    <td style="padding-top: 10px; font-weight: bold;" colspan="2">Paket Siswa</td>
-                    <td class="text-right" style="font-weight: bold;" rowspan="2">Rp. {{ $dependet }}</td>
-                </tr>
-                <tr>
-                    <td colspan="2">(Semester {{ $semester }})</td>
+                <tr class="bg-blue">
+                    <td class="right"><strong>Total</strong></td>
+                    <td class="right"><strong>Rp. 154.250,-</strong></td>
                 </tr>
             </tbody>
         </table>
-        <hr>
-        <table cellspacing="0" cellpadding="0" style="width: 100%;">
-            <tbody class="content">
+
+
+        <h4 style="margin: 30px 0 0 0;">Riwayat Pembayaran</h4>
+        <table class="table" style="margin-top: 0;">
+            <thead>
                 <tr>
-                    <td class="content-title" style="font-weight: bold;" colspan="2">Subtotal Tagihan</td>
-                    <td class="content-title text-right" style="font-weight: bold;">Rp. {{ $dependet }}</td>
+                    <th>Deskripsi</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Biaya Kelas Industri Kelas X Semester Ganjil 2024/2025</td>
+                    <td class="right">Rp. 390.000,-</td>
+                </tr>
+                <tr class="bg-liht-blue">
+                    <td>Sudah Dibayar</td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td class="content-title" style="font-weight: bold;" colspan="2">Biaya Layanan</td>
-                    <td class="content-title text-right" style="font-weight: bold;">Rp. {{ $fee_amount }}</td>
+                    <td>Pembayaran ke-1 (11 Juli 2024)</td>
+                    <td class="right">Rp. 150.000,-</td>
                 </tr>
                 <tr>
-                    <td class="value" colspan="2">Total Pembayaran</td>
-                    <td class="value text-right">Rp. {{ $total }}</td>
+                    <td>Pembayaran ke-2 (19 Juli 2024)</td>
+                    <td class="right">Rp. 100.000,-</td>
+                </tr>
+                <tr>
+                    <td>Pembayaran ke-n (22 Juli 2024)</td>
+                    <td class="right">Rp. 50.000,-</td>
+                </tr>
+                <tr class="bg-blue">
+                    <td class="right"><strong>Kekurangan Pembayaran</strong></td>
+                    <td class="right">Rp. 90.000,-</td>
                 </tr>
             </tbody>
         </table>
-        <hr>
+
+        <div class="stamp">
+            {{-- <div class="paid-stamp"></div>
+             --}}
+             <img class="paid-stamp" src="{{ asset('stamp/stempel lunas.svg') }}" alt="">
+            <div class="director-signature">
+                <div>
+                    <p class="name">Afrizal Himawan, S.Kom</p>
+                    <img class="stamp" src="{{ asset('app-assets/logo_file/stamp.png') }}" alt="Ttd stempel">
+                    <p class="position">Direktur PT Humma Teknologi Indonesia</p>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

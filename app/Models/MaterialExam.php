@@ -57,9 +57,9 @@ class MaterialExam extends Model
      */
     public function studentMaterialExam(): HasOne
     {
-        return $this->hasOne(StudentMaterialExam::class);
+        return $this->hasOne(StudentMaterialExam::class)->where('student_id', auth()->id());
     }
-    
+
     /**
      * Get all of the studentMaterialExam for the MaterialExam
      *

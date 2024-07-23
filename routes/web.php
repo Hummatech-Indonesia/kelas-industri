@@ -275,7 +275,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::patch('/updatePasswordGuru/{teacher}', [TeacherController::class, 'updatePasswordGuru'])->name('updatePasswordGuru');
 
         //student
-        Route::post('/import-students', [StudentController::class, 'importStudents'])->name('importStudents');
+        Route::post('/import-students/{schoolId}', [StudentController::class, 'importStudents'])->name('importStudents');
 
         Route::get('export/UAS/{exam}/{semester}', [ExamController::class, 'export'])->name('exportUAS');
         Route::get('export-users/{school}', [SchoolController::class, 'exportStudent'])->name('exportUser');
@@ -484,12 +484,15 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::get('detail-payment/{payment}', [StudentPaymentController::class, 'detail'])->name('detail-payment');
         Route::get('invoice/{reference}', [StudentPaymentController::class, 'invoice'])->name('invoice');
+        Route::get('invoice-preview/', [StudentPaymentController::class, 'preview'])->name('preview-invoice');
         Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
 
         // student material exam
         Route::get('material-exam/{materialExam}/{type}', [StudentMaterialExamController::class, 'index'])->name('material-exam');
+        Route::get('exam/{materialExam}/{studentMaterialExam}/finish', [StudentMaterialExamController::class, 'showFinish'])->name('material-exam.show-finish');
+
         // student exam
         Route::get('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamSetName'])->name('exam-setname');
         Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');

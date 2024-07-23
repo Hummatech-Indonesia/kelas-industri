@@ -8,3 +8,4 @@ return [
     'transaction' => env('TRIPAY_TRANSACTION'),
     'detail_transaction' => env('TRIPAY_DETAIL_TRANSACTION'),
 ];
+
