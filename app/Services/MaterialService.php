@@ -110,7 +110,6 @@ class MaterialService
 
     public function handleOrderMaterials(mixed $materials): mixed
     {
-        if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $materialsInfo = [];
 
             foreach ($materials as $material) {
@@ -135,6 +134,5 @@ class MaterialService
             }
 
             return $data['materialsInfo'] = $materialsInfo;
-        }
     }
 }

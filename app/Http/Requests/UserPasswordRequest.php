@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
-use App\Http\Requests\UserPasswordRequest;
 
 class UserPasswordRequest extends BaseRequest
 {
