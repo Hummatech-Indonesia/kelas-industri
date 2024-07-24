@@ -22,7 +22,9 @@ class TripayController extends Controller
 
     public function store(Request $request)
     {
+        dd($request);
         if ($request['installment_payment']){
+            $request['installment_payment'] = str_replace('.', '', $request['installment_payment']);
             if ($request['installment_payment'] <= 10000) {
                 return redirect()->back()->with('error', 'Tidak bisa mencicil pembayaran kurang dari Rp. 10.000');
             } else if ($request['installment_payment'] >= $request['nominal']) {

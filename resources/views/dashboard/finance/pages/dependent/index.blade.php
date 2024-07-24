@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @extends('dashboard.finance.layout.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
@@ -69,6 +72,7 @@
                                     <th class="text-start">Tahun Ajaran</th>
                                     <th class="text-start">Semester</th>
                                     <th class="text-start">Nominal</th>
+                                    <th class="text-start">Tenggat Pembayaran</th>
                                     <th class="text-start">Aksi</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -85,12 +89,15 @@
                                         <td>{{ $dependent->classroom->generation->schoolYear->school_year }}</td>
                                         <td>Semester {{ $dependent->semester }}</td>
                                         <td>{{ 'Rp ' . number_format($dependent->nominal, 0, ',', '.') }}</td>
+                                        <td>{{ Carbon::parse($dependent->deadline)->locale('id')->isoFormat('MMMM YYYY') }}
+                                        </td>
                                         <td>
                                             <button
                                                 class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
                                                 data-id="{{ $dependent->id }}" data-semester="{{ $dependent->semester }}"
                                                 data-classroom="{{ $dependent->classroom_id }}"
-                                                data-nominal="{{ $dependent->nominal }}" data-bs-toggle="tooltip"
+                                                data-nominal="{{ $dependent->nominal }}"
+                                                data-deadline="{{ $dependent->deadline }}" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                                                 data-bs-title="Edit Data">
                                                 <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </button>
@@ -140,16 +147,23 @@
                         </select>
 
                         <label class="form-label mt-3" for="classroom_id">Pilih Kelas</label>
-                        <select name="classroom_id[]" id="classroom_id" class="form-select form-select-md form-select-solid" data-control="select2" data-close-on-select="false" data-placeholder="Select an option" data-allow-clear="true" multiple="multiple">
+                        <select name="classroom_id[]" id="classroom_id" class="form-select form-select-md form-select-solid"
+                            data-control="select2" data-close-on-select="false" data-placeholder="Select an option"
+                            data-allow-clear="true" multiple="multiple">
                             @foreach ($classrooms as $classroom)
                                 <option value="{{ $classroom->id }}">{{ $classroom->name }} -
                                     {{ $classroom->devision->name }} -
                                     {{ $classroom->generation->schoolYear->school_year }}</option>
                             @endforeach
                         </select>
-
+                        <label class="form-label mt-3" for="nominal">Tenggat Pembayaran</label>
+                        <input class="form-control kt_datepicker" name="deadline" placeholder="Masukkan tenggat bulan pembayaran"/>
                         <label class="form-label mt-3" for="nominal">Nominal</label>
-                        <input type="number" name="nominal" placeholder="100000" id="nominal" class="form-control mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="text" name="nominal" class="form-control uang" aria-label=""
+                                placeholder="100.000" />
+                        </div>
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary mt-5">Simpan</button>
                         </div>
@@ -188,8 +202,15 @@
                             <option value="5">Semester 5</option>
                             <option value="6">Semester 6</option>
                         </select>
+                        <label class="form-label mt-3" for="nominal">Tenggat Pembayaran</label>
+                        <input class="form-control kt_datepicker" name="deadline" placeholder="Masukkan tenggat bulan pembayaran"
+                            id="deadlineEdit" />
                         <label class="form-label mt-3" for="nominal">Nominal</label>
-                        <input type="number" name="nominal" id="nominalEdit" class="form-control mt-2">
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="text" name="nominal" class="form-control uang" aria-label=""
+                                id="nominalEdit" placeholder="100.000" />
+                        </div>
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary mt-5">Simpan</button>
                         </div>
@@ -200,9 +221,18 @@
     </div>
 @endsection
 @section('script')
-    {{--    <script src="{{ asset('app-assets/js/custom/apps/customers/list/export.js') }}"></script> --}}
     <script src="{{ asset('app-assets/js/custom/apps/customers/list/list.js') }}"></script>
-    {{--    <script src="{{ asset('app-assets/js/custom/apps/customers/add.js') }}"></script> --}}
+    <script src="{{ asset('jQuery-Mask-Plugin-1.14.16/dist/jquery.mask.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+
+            // Format mata uang.
+            $('.uang').mask('000.000.000', {
+                reverse: true
+            });
+
+        })
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 
@@ -222,13 +252,37 @@
             var id = $(this).data('id')
             var semester = $(this).data('semester')
             var classroom = $(this).data('classroom')
-            var nominal = $(this).data('nominal')
+            var deadline = $(this).data('deadline')
+            var nominal = formatRupiah($(this).data('nominal').toString());
             $('#semesterEdit').val(semester)
             $('#classroomEdit').val(classroom)
+            $('#deadlineEdit').val(deadline)
             $('#nominalEdit').val(nominal)
             $('#form_edit').attr('action', "{{ route('administration.dependent.update', ':id') }}".replace(':id',
                 id))
             $('#kt_modal_edit').modal('show')
         })
+
+        function formatRupiah(angka) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+            return rupiah;
+        }
+
+        $(".kt_datepicker").flatpickr({
+            enableTime: false,
+            dateFormat: "Y-m-d",
+        });
+
     </script>
 @endsection

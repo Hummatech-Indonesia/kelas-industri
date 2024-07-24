@@ -243,12 +243,19 @@ use Carbon\Carbon; @endphp
                                                     <!--end::Content-->
 
                                                     <!--begin::Text-->
-
+                                                    @if ($infos['material']->materialExam->studentMaterialExams->isEmpty())
                                                     <p class="mb-7 mt-5"
                                                         style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
 
                                                         {{ $infos['material']->description }}
                                                     </p>
+                                                    @else
+                                                    <p class="mb-7 mt-5"
+                                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 300px ;white-space: nowrap">
+
+                                                        {{ $infos['material']->description }}
+                                                    </p>
+                                                    @endif
 
                                                     <!--end::Text-->
 

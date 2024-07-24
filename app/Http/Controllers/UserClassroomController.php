@@ -126,8 +126,9 @@ class UserClassroomController extends Controller
 
                 if ($previousSubMaterial) {
                     $countAssignment = $this->assignmentService->countAssignments($previousSubMaterial->id, $previousOrder);
-
                     $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubMaterial->id, $previousOrder);
+                    // $studentExam = $this->studentSubmaterialExamRepository->getPreviousStudentExam($previousSubMaterial->id, $previousOrder);
+                    // dd($studentExam);
                 } else {
                     $countAssignment = 0;
                     $countStudentAssignment = 0;
@@ -154,7 +155,7 @@ class UserClassroomController extends Controller
         $data['classroom'] = $classroom;
         $data['material'] = $material;
         $data['subMaterial'] = $submaterial;
-        if ($submaterial->exam->where('type', SubMaterialExamTypeEnum::QUIZ->value)->first()) {
+        if ($submaterial->exam->where('slug', $submaterial->exam->slug)->first()) {
             $data['studentSubmaterialExam'] = $this->studentSubmaterialExamRepository->get_user_submaterial_exam($submaterial->exam->id);
             if ($data['studentSubmaterialExam']) {
                 $data['essayGraded'] = $this->studentSubmaterialExamAnswerService->essay_graded($data['studentSubmaterialExam']);

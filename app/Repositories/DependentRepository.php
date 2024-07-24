@@ -38,6 +38,8 @@ class DependentRepository extends BaseRepository
 
     public function create(array $data): mixed
     {
+        $data['nominal'] = (int) str_replace('.', '', $data['nominal']);
+
         $classroomIds = $data['classroom_id'];
 
         $results = [];
@@ -46,7 +48,8 @@ class DependentRepository extends BaseRepository
             $entryData = [
                 'semester' => $data['semester'],
                 'classroom_id' => $classroomId,
-                'nominal' => $data['nominal']
+                'nominal' => $data['nominal'],
+                'deadline' => $data['deadline'],
             ];
 
             $result = $this->model->query()->create($entryData);
@@ -54,6 +57,12 @@ class DependentRepository extends BaseRepository
         }
 
         return $results;
+    }
+
+    public function update(mixed $id, array $data): mixed
+    {
+        $data['nominal'] = (int) str_replace('.', '', $data['nominal']);
+        return $this->show($id)->update($data);
     }
 
     public function getTotalDependent(String $semester, String $classroomId)

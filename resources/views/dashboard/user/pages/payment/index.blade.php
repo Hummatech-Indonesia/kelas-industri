@@ -133,7 +133,7 @@
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                    <a href="{{ route('student.detail-payment', $tracking->id) }}"
+                                                                        <a href="{{ route('student.detail-payment', $tracking->id) }}"
                                                                             class="btn btn-primary btn-sm">
                                                                             Detail
                                                                         </a>
@@ -181,8 +181,24 @@
                                         <div class="d-flex flex-stack bg-success rounded-3 p-6 mb-11">
                                             <!--begin::Content-->
                                             <div class="fs-6 fw-bold text-white">
-                                                <span class="d-block lh-1 mb-2">Pembayaran semester ini</span>
-                                                <span class="d-block mb-2">Metode Pembayaran</span>
+                                                <span class="d-block mb-2">Total Pembayaran</span>
+                                                <span class="d-block lh-1 mb-2">Jumlah tanggungan semester</span>
+                                                <span class="d-block mb-2">Tenggat Pembayaran
+                                                    <span class="svg-icon svg-icon-1 svg-icon-gray-800"><svg width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-custom-class="custom-tooltip"
+                                                            data-bs-title="Jika tidak lunas sampai tenggat yang ditentukan menu-menu pembelajaran akan ditutup"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <rect opacity="0.3" x="2" y="2" width="20" height="20"
+                                                                rx="10" fill="currentColor" />
+                                                            <rect x="11" y="14" width="7" height="2" rx="1"
+                                                                transform="rotate(-90 11 14)" fill="currentColor" />
+                                                            <rect x="11" y="17" width="2" height="2" rx="1"
+                                                                transform="rotate(-90 11 17)" fill="currentColor" />
+                                                        </svg>
+                                                    </span>
+                                                </span>
                                                 <span class="d-block mb-9"></span>
                                                 <span class="d-block fs-1 lh-1">Total Tanggungan</span>
                                             </div>
@@ -190,10 +206,13 @@
 
                                             <!--begin::Content-->
                                             <div class="fs-6 fw-bold text-white text-end">
+                                                <span class="d-block lh-1 mb-2 metode"
+                                                    data-kt-pos-element="method"></span>
                                                 <span class="d-block lh-1 mb-2 total_bayar"
                                                     data-kt-pos-element="total"></span>
-                                                <span class="d-block lh-1 mb-2 metode" data-kt-pos-element="method"></span>
                                                 <span class="d-block mb-2 tanggungan_pembayaran"
+                                                    data-kt-pos-element="discount"></span>
+                                                <span class="d-block mb-2 tenggat_pembayaran"
                                                     data-kt-pos-element="discount"></span>
                                                 <span class="d-block mb-9" data-kt-pos-element="tax"></span>
                                                 <span class="d-block fs-1 lh-1 total_sisa"
@@ -214,20 +233,26 @@
                                         </div>
                                         <!--end::Content-->
                                         <div class="mb-5">
+                                            <h2 class="fw-bold text-gray-800 mb-5">Pilih Tipe Pembayaran</h2>
                                             <div class="form-check">
-                                                <input class="form-check-input" name="installment" type="checkbox"
-                                                    value="" id="installmentCheckbox" />
-                                                <label for="installmentCheckbox" class="form-label">Ingin Menyicil
-                                                    Terlebih
-                                                    Dahulu?</label>
+                                                <input class="form-check-input" checked name="installment" type="radio"
+                                                    value="" id="fullPaymentCheckbox" />
+                                                <label for="fullPaymentCheckbox" class="form-label">Bayar Lunas</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="installment" type="radio"
+                                                    value="installment" id="installmentCheckbox" />
+                                                <label for="installmentCheckbox" class="form-label">Mencicil</label>
                                             </div>
                                             <div class="" id="div-installment" style="display: none">
                                                 <label for="installment_payment" class="form-label">Inputkan Nominal Yang
-                                                    Ingin Anda
-                                                    Bayarkan</label>
-                                                <input type="number" name="installment_payment"
-                                                    class="form-control form-control-solid" placeholder="Rp. 50.000"
-                                                    id="installment">
+                                                    Ingin Anda Bayarkan</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Rp</span>
+                                                    <input type="text" name="installment_payment"
+                                                        class="form-control uang" aria-label="" id="installment"
+                                                        placeholder="50.000" />
+                                                </div>
                                             </div>
                                         </div>
                                         <!--begin::Payment Method-->
@@ -322,7 +347,7 @@
                                                                             <!--end::Input-->
 
                                                                             <!--begin::Icon-->
-                                                                            <img src="https://assets.tripay.co.id/upload/payment-icon/n22Qsh8jMa1583433577.png"
+                                                                            <img src="{{ $channel->icon_url }}"
                                                                                 alt="" class="img-fluid mb-2"
                                                                                 style="height: 35px;">
                                                                             <!--end::Icon-->
@@ -359,9 +384,9 @@
                                                         <div class="row d-flex flex-equal" data-kt-buttons="true"
                                                             data-kt-buttons-target="[data-kt-button]">
                                                             @foreach ($channels as $channel)
-                                                                <input type="hidden" name="icon_url"
-                                                                    value="{{ $channel->icon_url }}">
                                                                 @if ($channel->group == 'Convenience Store')
+                                                                    <input type="hidden" name="icon_url"
+                                                                        value="{{ $channel->icon_url }}">
                                                                     <div class="col-4 mb-5">
                                                                         <label
                                                                             class="btn bg-light btn-color-gray-600 btn-active-text-gray-800 border border-3 border-gray-100 border-active-primary btn-active-light-primary w-100 px-4 {{ $loop->first ? 'active' : '' }}"
@@ -374,7 +399,7 @@
                                                                             <!--end::Input-->
 
                                                                             <!--begin::Icon-->
-                                                                            <img src="https://assets.tripay.co.id/upload/payment-icon/n22Qsh8jMa1583433577.png"
+                                                                            <img src="{{ $channel->icon_url }}"
                                                                                 alt="" class="img-fluid mb-2"
                                                                                 style="height: 35px;">
                                                                             <!--end::Icon-->
@@ -420,7 +445,7 @@
                                     <div class="d-flex justify-content-between mb-7">
                                         <span class="d-block mb-2">Tanggungan semester ini</span>
                                         <span class="d-block mb-2 tanggungan_pembayaran"
-                                            data-kt-pos-element="discount">Rp. 10.000</span>
+                                            data-kt-pos-element="discount"></span>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -429,8 +454,7 @@
                                             <span class="d-block fs-1">Total Pembayaran</span>
                                         </div>
                                         <span class="d-block fs-1 lh-1 total_sisa total_sisa_modal"
-                                            data-kt-pos-element="grant-total">Rp.
-                                            10.000</span>
+                                            data-kt-pos-element="grant-total"></span>
                                     </div>
                                 </div>
                             </div>
@@ -448,6 +472,7 @@
     </div>
 @endsection
 @section('script')
+    <script src="{{ asset('jQuery-Mask-Plugin-1.14.16/dist/jquery.mask.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             var semester = $('a[data-semester]').first().data('semester');
@@ -458,6 +483,18 @@
                     url: "{{ route('student.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
                         .replace(':semester', semester).replace(':user', userId),
                     success: function(response) {
+                        var deadline = response.nominal.deadline;
+                        var parts = deadline.split('-');
+                        var year = parts[0];
+                        var month = parts[1];
+                        var monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+                        ];
+
+                        var formattedDeadline = monthNames[parseInt(month) - 1] + " " + year;
+                        $('.tenggat_pembayaran').html(formattedDeadline);
+
+                        $('.tenggat_pembayaran').html(formattedDeadline);
                         $('.total_bayar').html(numberFormat(response.totalBayar));
                         $('.tanggungan_pembayaran').html(numberFormat(response.nominal.nominal));
                         $('.total_sisa').html(numberFormat(response.nominal.nominal - response
@@ -538,22 +575,22 @@
                 $('#payment_method').attr('src', formData[index - 1].value)
                 if (check) {
                     const amount = $('#installment').val();
-                    $('.total_sisa_modal').html(numberFormat(amount))
+                    const numericAmount = parseInt(amount.replace(/[^0-9]+/g, ""), 10);
+                    console.log(numericAmount);
+                    $('.total_sisa_modal').html(numberFormat(numericAmount))
                 }
             })
         });
 
         $(document).ready(function() {
             $('input[name="installment"]').click(function() {
-                if ($(this).is(':checked')) {
-                    $('#installmentCheckbox').val('checked');
+                if ($(this).val() === 'installment') {
                     $('#div-installment').show();
                 } else {
-                    $('#installmentCheckbox').val('');
                     $('#div-installment').hide();
                 }
             });
-        })
+        });
 
 
         $('#submit_payment').click(function() {
@@ -569,5 +606,13 @@
                 this.classList.add('active');
             });
         });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.uang').mask('000.000.000', {
+                reverse: true
+            });
+        })
     </script>
 @endsection

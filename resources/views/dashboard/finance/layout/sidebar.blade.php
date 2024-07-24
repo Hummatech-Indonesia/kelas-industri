@@ -197,7 +197,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Status Paket Sekolah</span></a>
+                        <span class="menu-title">Pembayaran Sekolah</span></a>
                     <!--end:Menu link-->
                 </div>
             </div>

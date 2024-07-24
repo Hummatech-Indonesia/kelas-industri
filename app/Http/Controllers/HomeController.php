@@ -306,7 +306,7 @@ class HomeController extends Controller
     public function semester($semester)
     {
         $data['totalBayar'] = Payment::where('semester', $semester)->where('invoice_status', 'paid')->where('user_id', auth()->user()->id)->sum('total_pay');
-        $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', auth()->user()->studentSchool->studentClassroom->classroom->id)->select('nominal')->first();
+        $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', auth()->user()->studentSchool->studentClassroom->classroom->id)->first();
         return response()->json($data);
     }
     public function schoolTrackingSemester($semester, $userId)

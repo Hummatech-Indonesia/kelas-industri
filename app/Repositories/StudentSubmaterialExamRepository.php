@@ -123,4 +123,12 @@ class StudentSubmaterialExamRepository extends BaseRepository
         ->orderBy('score', 'desc')
         ->get();
     }
+
+    public function getPreviousStudentExam(string $previousSubMaterial, int $previousOrder): mixed
+    {
+        return $this->model->query()
+        ->whereRelation('subMaterialExam.subMaterial', 'order', $previousOrder)
+        ->whereRelation('subMaterialExam.subMaterial', 'sub_material_id', $previousSubMaterial)
+        ->first();
+    }
 }

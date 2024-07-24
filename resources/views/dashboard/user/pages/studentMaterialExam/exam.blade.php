@@ -538,7 +538,7 @@
                 dataType: "json",
                 success: function(response) {
                     window.location.replace(
-                        "{{ route('student.material-exam.show-finish', ['materialExam' => $student_exam->material_exam_id, 'studentMaterialExam' => $student_exam->id]) }}"
+                        "{{ route('student.exam.show-finish-exam-material', ['materialExam' => $student_exam->material_exam_id, 'studentMaterialExam' => $student_exam->id]) }}"
                     );
                 },
                 // error: function(err) {

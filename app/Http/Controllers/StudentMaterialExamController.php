@@ -12,14 +12,12 @@ use App\Repositories\QuestionBankRepository;
 use App\Services\StudentMaterialExamService;
 use App\Repositories\StudentMaterialExamRepository;
 use App\Repositories\MaterialExamQuestionRepository;
-use App\Services\StudentSubmaterialExamAnswerService;
 use App\Repositories\StudentMaterialExamAnswerRepository;
 
 class StudentMaterialExamController extends Controller
 {
     private MaterialExamQuestionRepository $examQuestion;
     private StudentMaterialExamRepository $studentExam;
-    private StudentMaterialExamService $studentExamAnswer;
     private StudentMaterialExamService $service;
     private MaterialService $materialService;
     private QuestionBankRepository $questionBankRepository;
@@ -28,7 +26,6 @@ class StudentMaterialExamController extends Controller
     public function __construct(
         MaterialExamQuestionRepository $examQuestion,
         StudentMaterialExamRepository $studentExam,
-        StudentMaterialExamService $studentExamAnswer,
         StudentMaterialExamAnswerRepository $studentExamAnswerRepository,
         StudentMaterialExamService $service,
         MaterialService $materialService,
@@ -37,7 +34,6 @@ class StudentMaterialExamController extends Controller
         $this->studentExamAnswerRepository= $studentExamAnswerRepository;
         $this->examQuestion = $examQuestion;
         $this->studentExam = $studentExam;
-        $this->studentExamAnswer = $studentExamAnswer;
         $this->service = $service;
         $this->materialService = $materialService;
         $this->questionBankRepository = $questionBankRepository;
@@ -102,8 +98,8 @@ class StudentMaterialExamController extends Controller
     {
         $data['materialExam'] = $materialExam;
         $data['studentMaterialExam'] = $studentMaterialExam;
-        $data['essayGraded'] = $this->studentExamAnswer->essay_graded($data['studentMaterialExam']);
-        return view('dashboard.user.pages.studentMaterialExam.finish', $data);
+        $data['essayGraded'] = $this->service->essay_graded($data['studentMaterialExam']);
+        return view('dashboard.user.pages.studentExam.finishStudentMaterial', $data);
     }
 
     /**

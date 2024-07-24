@@ -44,7 +44,6 @@ class StudentPaymentController extends Controller
         $tripay = new TripayController($this->tripayService);
         $data['detailPayment'] = $tripay->show($reference);
         $data['payment'] = $this->paymentService->handleGetByReference($reference);
-
         return view('dashboard.user.pages.payment.show', $data);
     }
 

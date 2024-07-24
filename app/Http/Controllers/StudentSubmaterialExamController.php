@@ -78,10 +78,9 @@ class StudentSubmaterialExamController extends Controller
 
         $studentExam = $this->studentExam->whereIn(['sub_material_exam_id' => $subMaterialExam->id]);
 
-        if ($subMaterialExam->type = SubMaterialExamTypeEnum::REGISTER) {
+        if ($subMaterialExam->type == SubMaterialExamTypeEnum::REGISTER) {
             if ($subMaterialExam->start_at > now()) return back()->with('error', 'Ujian Belum Dimulai');
         }
-        if ($subMaterialExam->end_at < now()) return back()->with('error', 'Ujian Sudah Ditutup');
 
         $examQuestionsMultipleChoice = $this->examQuestion->getRandomOrderByExamMultipleChoice($subMaterialExam->id);
         $examQuestionsEssay = $this->examQuestion->getRandomOrderByExamEssay($subMaterialExam->id);
@@ -136,7 +135,6 @@ class StudentSubmaterialExamController extends Controller
         $questions = $this->questionBank->getBySubmaterialExam($subMaterialExam->id);
         $sortedQuestionsMultipleChoice = $this->subMaterialService->sortDailyExamQuestion($questions);
 
-        // dd($sortedQuestionsMultipleChoice);
         $answerKey = $this->questionBank->getAnswerByQuestion(collect($sortedQuestionsMultipleChoice)->pluck('id')->toArray());
 
         $data = $this->service->calculate($request, $answerKey, $subMaterialExam);
@@ -147,7 +145,6 @@ class StudentSubmaterialExamController extends Controller
 
         return response()->json($data, 200);
     }
-
 
     public function showFinish(SubMaterialExam $subMaterialExam, StudentSubmaterialExam $studentSubmaterialExam): View
     {

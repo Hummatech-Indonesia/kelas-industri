@@ -66,4 +66,6 @@ class StudentMaterialExamRepository extends BaseRepository
         ->whereRelation('student', 'id', auth()->user()->id)
         ->first();
     }
+
+    
 }

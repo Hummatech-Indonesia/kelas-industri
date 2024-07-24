@@ -15,7 +15,7 @@ class Dependent extends Model
     protected $table = 'dependents';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'semester', 'classroom_id', 'nominal'];
+    protected $fillable = ['id', 'semester', 'classroom_id', 'nominal', 'deadline'];
 
     /**
      * Get the user that owns the Dependent

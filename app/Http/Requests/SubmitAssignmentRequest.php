@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\BaseRequest;
-use App\Http\Requests\SubmitAssignmentRequest;
 
 class SubmitAssignmentRequest extends BaseRequest
 {

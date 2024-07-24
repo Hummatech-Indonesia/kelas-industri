@@ -56,7 +56,7 @@
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
                     @php
-                        $exam = $subMaterial->exam->where('type', SubMaterialExamTypeEnum::QUIZ->value)->first();
+                        $exam = $subMaterial->exam->where('slug', $subMaterial->exam->slug)->first();
                     @endphp
                     @if ($exam && auth()->user()->roles->pluck('name')[0] == 'student')
                         <div class="row">
@@ -104,9 +104,6 @@
                                                                     <div class="badge badge-light-success">Sudah Dikerjakan
                                                                     </div> - Dikoreksi
                                                                 @endif
-                                                            @elseif (!$studentSubmaterialExam && $exam->end_at < now())
-                                                                <div class="badge badge-light-danger">Tidak Dikerjakan
-                                                                </div>
                                                             @else
                                                                 <div class="badge badge-light-danger">Belum Dikerjakan
                                                                 </div>
@@ -145,8 +142,7 @@
                                                     @endphp
                                                     @if (
                                                         ((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) &&
-                                                            $exam->end_at > now() &&
-                                                            $subMaterial->assignments->count() == $assignment)
+                                                            $subMaterial->assignments->count() == $assignment || $subMaterial->assignments->count() == 0)
                                                         <a href="{{ route('student.exam', $exam->id) }}"
                                                             class="btn btn-primary btn-sm">
                                                             Mulai Ujian

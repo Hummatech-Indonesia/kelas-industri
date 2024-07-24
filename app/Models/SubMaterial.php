@@ -50,11 +50,11 @@ class SubMaterial extends Model
     /**
      * Get the exam that owns the SubMaterial
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function exam(): HasOne
     {
-        return $this->hasOne(SubMaterialExam::class);
+        return $this->hasOne(SubMaterialExam::class, 'sub_material_id');
     }
 
     /**

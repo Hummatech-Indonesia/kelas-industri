@@ -133,7 +133,7 @@ class ChallengeController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function validChallenge(Request $request,): JsonResponse
+    public function validChallenge(Request $request): JsonResponse
     {
         foreach ($request->ids as $data) {
             $submitChallenge = SubmitChallenge::findOrFail($data['id']);

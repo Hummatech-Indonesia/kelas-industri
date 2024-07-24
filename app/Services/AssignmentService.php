@@ -22,17 +22,6 @@ class AssignmentService
     }
 
     /**
-     * handle get paginated
-     *
-     * @param int $schoolYearId
-     * @return mixed
-     */
-    public function handleGetPaginate(int $schoolYearId): mixed
-    {
-        return $this->repository->get_paginate_by_school_year($schoolYearId, 6);
-    }
-
-    /**
      * handle get assignment student
      *
      * @param string $classroomId
@@ -147,17 +136,12 @@ class AssignmentService
 
     public function handleGetStudentDoneSubmit(Assignment $assignment)
     {
-        return $this->repository->get_student_done_submit($assignmentId);
+        return $this->repository->get_student_done_submit($assignment);
     }
 
     public function handleCountAssignmentStudent()
     {
         return $this->repository->get_count_assignment_student();
-    }
-
-    public function handleCountAssignmentTeacher(string $teacherId)
-    {
-        return $this->repository->get_count_assignment_teacher($teacherId);
     }
 
     /**
