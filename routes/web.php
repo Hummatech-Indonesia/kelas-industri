@@ -414,7 +414,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         Route::get('/showStudentDetail/{student}/{generation}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
-        Route::post('validChallenge1', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
+        Route::post('validChallenged/', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
@@ -479,6 +479,9 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('historyReward', [RewardController::class, 'historyReward'])->name('historyReward');
 
         Route::get('student-payment', [StudentPaymentController::class, 'index'])->name('student-payment');
+        Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
+        Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
+
         Route::get('detail-payment/{payment}', [StudentPaymentController::class, 'detail'])->name('detail-payment');
         Route::get('invoice/{reference}', [StudentPaymentController::class, 'invoice'])->name('invoice');
         Route::get('invoice-preview/', [StudentPaymentController::class, 'preview'])->name('preview-invoice');
@@ -497,7 +500,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
         Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
         Route::patch('material-exam/{materialExam}/{studentMaterialExam}', [StudentMaterialExamController::class, 'answer'])->name('material-exam.submit');
-        Route::get('exam/{materialExam}/{studentMaterialExam}/finish', [StudentMaterialExamController::class, 'showFinish'])->name('exam.show-finish-exam-material');
+        Route::get('exam/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish');
 
         Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
         Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
