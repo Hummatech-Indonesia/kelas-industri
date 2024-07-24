@@ -98,7 +98,7 @@ class UserClassroomController extends Controller
         $data['materials'] = $this->materialService->handleByClassroom($classroom, $request);
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
         $data['materialInfos'] = $this->materialService->handleOrderMaterials($data['materials']);
-        }
+    }
         $data['search'] = $request->search;
         return \view('dashboard.user.pages.material.index', $data);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\TeacherClassroom;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,6 +37,6 @@ class TeacherSchool extends Model
 
     public function teacherClassroom(): HasOne
     {
-        return $this->hasOne(teacherClassroom::class)->latest();
+        return $this->hasOne(TeacherClassroom::class)->latest();
     }
 }
