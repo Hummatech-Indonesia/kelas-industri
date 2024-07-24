@@ -135,6 +135,7 @@ class ChallengeController extends Controller
      */
     public function validChallenge(Request $request): JsonResponse
     {
+        dd($request->ids);
         foreach ($request->ids as $data) {
             $submitChallenge = SubmitChallenge::findOrFail($data['id']);
             $poin = $data['point'];
