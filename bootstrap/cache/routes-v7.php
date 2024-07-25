@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::CKuPVzKbm9xenFJr',
+            '_route' => 'generated::CWC4v8ucHdmZyJ0h',
           ),
           1 => NULL,
           2 => 
@@ -259,7 +259,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::OsMy3gKCAtnf0q7R',
+            '_route' => 'generated::NeJxICRMM7RQffyu',
           ),
           1 => NULL,
           2 => 
@@ -314,7 +314,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::Jpavx48ZcjjU4KXB',
+            '_route' => 'generated::unrqN4s2JbB5jEFw',
           ),
           1 => NULL,
           2 => 
@@ -405,7 +405,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::GYi1Wn4ecpsXFOq0',
+            '_route' => 'generated::B5eFYYEtAyBL1Xwa',
           ),
           1 => NULL,
           2 => 
@@ -2683,7 +2683,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'administration.generated::TWPpNVbku1NvbKQk',
+            '_route' => 'administration.generated::IoZ3s9byE8031MQW',
           ),
           1 => NULL,
           2 => 
@@ -3739,7 +3739,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/mentor/validChallenge' => 
+      '/mentor/validChallenged' => 
       array (
         0 => 
         array (
@@ -3977,26 +3977,6 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/student/invoice-preview' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.preview-invoice',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
       '/student/payment-channel' => 
       array (
         0 => 
@@ -4029,6 +4009,26 @@ app('router')->setCompiledRoutes(
           2 => 
           array (
             'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/student/invoice-preview' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.preview-invoice',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
           ),
           3 => NULL,
           4 => false,
@@ -4421,7 +4421,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::PMltChLFj7EpXMvw',
+            '_route' => 'generated::U1v2vriOhl4TVb16',
           ),
           1 => NULL,
           2 => 
@@ -4440,7 +4440,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::ggEO3GxvVawNRb3j',
+            '_route' => 'generated::nYYHXMZ39y7ISv8j',
           ),
           1 => NULL,
           2 => 
@@ -4608,7 +4608,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/event/([^/]++)(*:22)|/news/([^/]++)(*:43)|/c(?|ertify/([^/]++)/([^/]++)(*:79)|lassrooms/([^/]++)(*:104))|/p(?|assword/reset/([^/]++)(*:140)|rofile/update\\-p(?|rofile/([^/]++)(*:182)|assword/([^/]++)(*:206)))|/admin(?|/(?|a(?|bsent/([^/]++)(*:247)|pprove\\-student/([^/]++)(*:279)|ssignments/([^/]++)(?|(*:309)|/edit(*:322)|(*:330))|ttendance/([^/]++)(?|(*:360)|/edit(*:373)|(*:381))|dministrations/([^/]++)(?|(*:416)|/edit(*:429)|(*:437)))|de(?|tail(?|Kelas/([^/]++)(*:473)|Siswa/([^/]++)(*:495)|Jurnal/([^/]++)(?|(*:521)|/([^/]++)(*:538))|\\-exam\\-taking\\-place/([^/]++)(*:577))|visions/([^/]++)(?|(*:605)|/edit(*:618)|(*:626))|lete(?|/([^/]++)(*:651)|\\-regristation\\-exam\\-users/([^/]++)(*:695)))|c(?|lassrooms/(?|([^/]++)(*:730)|create/([^/]++)(*:753)|store/([^/]++)(*:775)|([^/]++)(?|/([^/]++)(?|/edit(*:811)|(*:819))|(*:828)))|r(?|iterias/([^/]++)(?|(*:861)|(*:869))|eateExam/([^/]++)(*:895)))|teacher(?|\\-statistic/([^/]++)(*:935)|s/(?|create/([^/]++)(*:963)|store/([^/]++)(*:985)|edit/([^/]++)/([^/]++)(*:1015)|update/([^/]++)/([^/]++)(*:1048)|([^/]++)(*:1065)))|s(?|tudents/(?|([^/]++)(*:1099)|create/([^/]++)(*:1123)|store/([^/]++)(*:1146)|edit/([^/]++)/([^/]++)(*:1177)|update/([^/]++)/([^/]++)(*:1210)|([^/]++)(*:1227))|ch(?|ool(?|Years/([^/]++)(?|(*:1265)|/edit(*:1279)|(*:1288))|s/([^/]++)(?|(*:1311)|/edit(*:1325)|(*:1334)))|edules/([^/]++)(?|(*:1363)|/edit(*:1377)|(*:1386)))|ub(?|m(?|aterial(?|s/(?|([^/]++)(?|(*:1432)|/edit(*:1446)|(*:1455))|assignments/([^/]++)/create(*:1492)|([^/]++)/view/([^/]++)(*:1523))|ExamQuestion/([^/]++)(*:1554))|itRewards/([^/]++)(?|(*:1585)|/edit(*:1599)|(*:1608)))|\\-material\\-exam/([^/]++)(?|(*:1647)|/edit(*:1661)|(*:1670)))|aleries/([^/]++)(?|(*:1700)|/edit(*:1714)|(*:1723))|how(?|Classroom/([^/]++)(*:1757)|Student/([^/]++)(*:1782)|Evaluation/([^/]++)(*:1810)))|g(?|a(?|ntiPassword(?|/([^/]++)/([^/]++)(*:1861)|Mentor/([^/]++)(*:1885)|Guru/([^/]++)(*:1907))|llerys/([^/]++)(?|(*:1935)|/edit(*:1949)|(*:1958)))|enerations/([^/]++)(?|(*:1991)|/edit(*:2005)|(*:2014)))|update(?|Password(?|/([^/]++)/([^/]++)(*:2063)|Mentor/([^/]++)(*:2087)|Guru/([^/]++)(*:2109))|\\-essay/([^/]++)(*:2135)|StatusNews/([^/]++)(*:2163)|/([^/]++)(*:2181))|m(?|at(?|erial(?|s/([^/]++)(?|(*:2221)|/(?|edit(*:2238)|create(*:2253)|([^/]++)(*:2270))|(*:2280))|\\-(?|exam(?|/([^/]++)(?|(*:2314)|/edit(*:2328)|(*:2337))|\\-question/([^/]++)(*:2366))|question\\-bank\\-(?|manual/([^/]++)(*:2410)|auto/([^/]++)(*:2432))))|arial\\-exam\\-question\\-manual/([^/]++)/([^/]++)(*:2491))|entors/([^/]++)(?|(*:2519)|/edit(*:2533)|(*:2542)))|zoomSchedules/([^/]++)(?|(*:2578)|/edit(*:2592)|(*:2601))|journal/([^/]++)(?|(*:2630)|/edit(*:2644)|(*:2653))|e(?|x(?|am(?|/([^/]++)(?|(*:2688)|/edit(*:2702)|(*:2711))|\\-(?|statistic/([^/]++)(*:2744)|detail\\-student/([^/]++)(*:2777)|question(?|/([^/]++)(*:2806)|\\-manual/([^/]++)/([^/]++)(*:2841))))|port(?|/UAS/([^/]++)/([^/]++)(*:2882)|\\-(?|users/([^/]++)(*:2910)|studentRegristationExam/([^/]++)(*:2951))))|vent(?|s/(?|([^/]++)(?|(*:2986)|/(?|edit(*:3003)|participants(*:3024))|(*:3034))|set\\-certificate/([^/]++)(*:3069))|Documentation/(?|([^/]++)(?|(*:3107)|/edit(*:3121)|(*:3130))|store/([^/]++)(*:3154)))|dit/([^/]++)(*:3177))|r(?|e(?|wards/([^/]++)(?|(*:3212)|/edit(*:3226)|(*:3235))|g(?|ister\\-exam\\-result/([^/]++)(*:3277)|ristation\\-exam\\-(?|update/([^/]++)(*:3321)|question/([^/]++)(*:3347))))|olling\\-(?|mentor/(?|([^/]++)(*:3388)|get\\-classrooms(*:3412)|action\\-rolling\\-mentor(*:3444)|delete\\-rolling\\-mentor/([^/]++)(*:3485))|teacher/(?|([^/]++)(*:3514)|a(?|ddRollingTeacher/([^/]++)(*:3552)|ction\\-rolling\\-teacher(*:3584))|delete\\-rolling\\-teacher/([^/]++)(*:3627))))|news/([^/]++)(?|(*:3655)|/edit(*:3669)|(*:3678))|que(?|stion\\-bank(?|/(?|([^/]++)(?|(*:3723)|/edit(*:3737)|(*:3746))|upload\\-image(*:3769)|delete\\-image(*:3791)|([^/]++)/edit(*:3813))|\\-(?|m(?|ultiplechoice/([^/]++)(*:3854)|anual/([^/]++)(*:3877))|essay/([^/]++)(*:3901)|auto/([^/]++)(*:3923)))|tion\\-bank(?|s/([^/]++)(*:3957)|\\-detail/([^/]++)(*:3983)))|validStatus/([^/]++)(*:4014)|import\\-students/([^/]++)(*:4048))|istration/(?|t(?|eacher/([^/]++)(?|(*:4093)|/month(*:4108))|racking/(?|([^/]++)(?|(*:4140)|/edit(*:4154)|(*:4163))|student\\-school/(?|([^/]++)(*:4200)|detail/([^/]++)/(?|([^/]++)(*:4236)|store(*:4250)|update(*:4265)))))|mentor/([^/]++)(?|(*:4296)|/month(*:4311))|dependent/([^/]++)(?|(*:4342)|(*:4351))|pa(?|ckage/([^/]++)(?|(*:4383)|/edit(*:4397)|(*:4406))|yment\\-monitoring/([^/]++)(?|(*:4445)|/([^/]++)(*:4463)))|schoolPackage/([^/]++)(?|(*:4499)|/edit(*:4513)|(*:4522))|get\\-total\\-dependent/([^/]++)/([^/]++)(*:4571)))|/school/(?|detailJurnal/([^/]++)(?|(*:4617)|/([^/]++)(*:4635))|classrooms/([^/]++)(?|(*:4667)|/edit(*:4681)|(*:4690))|t(?|eachers/([^/]++)(?|(*:4723)|/edit(*:4737)|(*:4746))|racking/([^/]++)/([^/]++)(*:4781))|journal/([^/]++)(?|(*:4810)|/edit(*:4824)|(*:4833))|exam/([^/]++)(?|(*:4859)|/edit(*:4873)|(*:4882))|packages/([^/]++)(?|(*:4912)|/edit(*:4926)|(*:4935))|showStudent/([^/]++)(*:4965)|gantiPasswordGuru/([^/]++)(*:5000)|updatePasswordGuru/([^/]++)(*:5036)|([^/]++)/([^/]++)(*:5062))|/teacher/(?|challenges/([^/]++)(?|(*:5106)|/edit(*:5120)|(*:5129))|journal/([^/]++)(?|(*:5158)|/edit(*:5172)|(*:5181))|exam/([^/]++)(?|(*:5207)|/edit(*:5221)|(*:5230))|s(?|aleries/([^/]++)(?|(*:5263)|/edit(*:5277)|(*:5286))|howStudent(?|/([^/]++)(*:5318)|Report/([^/]++)(*:5342)))|([^/]++)/assignment/([^/]++)(*:5381)|s(?|torePointAssignment/([^/]++)(*:5422)|howStudentDetail/([^/]++)/([^/]++)(*:5465))|d(?|ownload(?|AllFile/([^/]++)(?|/([^/]++)(*:5517)|(*:5526))|File(?|/([^/]++)(*:5552)|Challenge/([^/]++)(*:5579)))|etail\\-submaterial\\-exam/([^/]++)(*:5623)))|/m(?|entor/(?|challenges/([^/]++)(?|(*:5670)|/edit(*:5684)|(*:5693))|attendance/([^/]++)(?|(*:5725)|/edit(*:5739)|(*:5748))|journal/([^/]++)(?|(*:5777)|/edit(*:5791)|(*:5800))|exam(?|/([^/]++)(?|(*:5829)|/edit(*:5843)|(*:5852))|\\-submaterial\\-assessment/([^/]++)(*:5896))|s(?|aleries/([^/]++)(?|(*:5929)|/edit(*:5943)|(*:5952))|tudent\\-sub\\-material\\-exam\\-essay\\-score/([^/]++)(*:6012)|howStudent/([^/]++)(*:6040))|detail\\-submaterial\\-exam/([^/]++)(*:6084)|([^/]++)/assignment/([^/]++)(*:6121)|s(?|how(?|StudentDetail/([^/]++)/([^/]++)(*:6171)|Document/([^/]++)/([^/]++)(*:6206))|tudent\\-project/([^/]++)(*:6240))|download(?|AllFile/([^/]++)(?|(*:6280)|/([^/]++)(*:6298))|File(?|Challenge/([^/]++)(*:6333)|/([^/]++)(*:6351)))|approval\\-student\\-pr(?|oject/([^/]++)(*:6400)|esentation/([^/]++)(*:6428))|reject\\-student\\-pr(?|oject/([^/]++)(*:6474)|esentation/([^/]++)(*:6502))|finish\\-presentation/([^/]++)(*:6541))|aterials/([^/]++)(*:6568))|/([^/]++)/show(?|Material/([^/]++)(*:6612)|SubMaterial/([^/]++)/([^/]++)(*:6650))|/s(?|howDocument/([^/]++)/([^/]++)(*:6694)|tudent/(?|classrooms/([^/]++)(*:6732)|materials/([^/]++)(*:6759)|show(?|Material/([^/]++)(*:6792)|SubMaterial/([^/]++)(*:6821)|Document/([^/]++)/([^/]++)(*:6856))|([^/]++)/s(?|ubmitAssignment/([^/]++)/([^/]++)/([^/]++)(*:6921)|toreassignment/([^/]++)/([^/]++)(*:6962))|s(?|toreimageassignment/([^/]++)(*:7004)|ubmit(?|Challenge/([^/]++)(*:7039)|Reward(?|/([^/]++)(*:7066)|s/([^/]++)(?|(*:7088)|/edit(*:7102)|(*:7111)))))|absen/([^/]++)(*:7138)|d(?|ownloadFile(?|Challenge/([^/]++)(*:7183)|Assignment/([^/]++)(*:7211))|etail\\-(?|payment/([^/]++)(*:7247)|transaction/([^/]++)(*:7276)))|invoice/([^/]++)(*:7303)|material\\-exam/([^/]++)/([^/]++)(?|(*:7347)|(*:7356))|e(?|xam/([^/]++)(?|/(?|([^/]++)/finish(*:7404)|opentab(*:7420)|([^/]++)(*:7437))|(*:7447))|vents/(?|([^/]++)(*:7474)|follow/([^/]++)(*:7498)|unfollow/([^/]++)(*:7524)))|regristation\\-exam/([^/]++)(*:7562)|c(?|ertify/events/([^/]++)/([^/]++)(*:7606)|hallenges/([^/]++)(*:7633))|pr(?|ojects/([^/]++)(?|(*:7666)|/edit(*:7680)|(*:7689))|esentation/([^/]++)(?|(*:7721)|/edit(*:7735)|(*:7744)))|notes/([^/]++)(?|(*:7772)|/edit(*:7786)|(*:7795))|tasks/([^/]++)(?|(*:7822)|/edit(*:7836)|(*:7845))|([^/]++)/([^/]++)(*:7872)))|/de(?|tail\\-student\\-project/([^/]++)(*:7920)|lete\\-notification/([^/]++)(*:7956))|/tester/(?|regristation\\-exam(?|\\-regulation/([^/]++)(*:8019)|/([^/]++)(?|(*:8040)))|exam/([^/]++)(?|(*:8067)|/(?|opentab(*:8087)|([^/]++)(?|(*:8107)|/finish(*:8123)))|(*:8134)))|/verify(?|/([^/]++)/([^/]++)/([^/]++)(*:8182)|\\-competence/([^/]++)/([^/]++)(*:8221))|/certify(?|/events/([^/]++)/([^/]++)/verification(*:8280)|CompetenceTest/([^/]++)(*:8312))|/admin/spk/(?|st(?|atistic/([^/]++)(*:8357)|udent\\-development/([^/]++)(*:8393))|c(?|riteria/([^/]++)(?|(*:8426)|/edit(*:8440)|(*:8449))|alculation/([^/]++)(*:8478))|batch(?|/([^/]++)(?|(*:8508)|/edit(*:8522)|(*:8531))|\\-(?|export\\-excel/([^/]++)(*:8568)|import\\-excel/([^/]++)(*:8599)|results/([^/]++)(?|(*:8627))))|retrieve\\-dataset/([^/]++)(*:8665)))/?$}sDu',
+      0 => '{^(?|/event/([^/]++)(*:22)|/news/([^/]++)(*:43)|/c(?|ertify/([^/]++)/([^/]++)(*:79)|lassrooms/([^/]++)(*:104))|/p(?|assword/reset/([^/]++)(*:140)|rofile/update\\-p(?|rofile/([^/]++)(*:182)|assword/([^/]++)(*:206)))|/admin(?|/(?|a(?|bsent/([^/]++)(*:247)|pprove\\-student/([^/]++)(*:279)|ssignments/([^/]++)(?|(*:309)|/edit(*:322)|(*:330))|ttendance/([^/]++)(?|(*:360)|/edit(*:373)|(*:381))|dministrations/([^/]++)(?|(*:416)|/edit(*:429)|(*:437)))|de(?|tail(?|Kelas/([^/]++)(*:473)|Siswa/([^/]++)(*:495)|Jurnal/([^/]++)(?|(*:521)|/([^/]++)(*:538))|\\-exam\\-taking\\-place/([^/]++)(*:577))|visions/([^/]++)(?|(*:605)|/edit(*:618)|(*:626))|lete(?|/([^/]++)(*:651)|\\-regristation\\-exam\\-users/([^/]++)(*:695)))|c(?|lassrooms/(?|([^/]++)(*:730)|create/([^/]++)(*:753)|store/([^/]++)(*:775)|([^/]++)(?|/([^/]++)(?|/edit(*:811)|(*:819))|(*:828)))|r(?|iterias/([^/]++)(?|(*:861)|(*:869))|eateExam/([^/]++)(*:895)))|teacher(?|\\-statistic/([^/]++)(*:935)|s/(?|create/([^/]++)(*:963)|store/([^/]++)(*:985)|edit/([^/]++)/([^/]++)(*:1015)|update/([^/]++)/([^/]++)(*:1048)|([^/]++)(*:1065)))|s(?|tudents/(?|([^/]++)(*:1099)|create/([^/]++)(*:1123)|store/([^/]++)(*:1146)|edit/([^/]++)/([^/]++)(*:1177)|update/([^/]++)/([^/]++)(*:1210)|([^/]++)(*:1227))|ch(?|ool(?|Years/([^/]++)(?|(*:1265)|/edit(*:1279)|(*:1288))|s/([^/]++)(?|(*:1311)|/edit(*:1325)|(*:1334)))|edules/([^/]++)(?|(*:1363)|/edit(*:1377)|(*:1386)))|ub(?|m(?|aterial(?|s/(?|([^/]++)(?|(*:1432)|/edit(*:1446)|(*:1455))|assignments/([^/]++)/create(*:1492)|([^/]++)/view/([^/]++)(*:1523))|ExamQuestion/([^/]++)(*:1554))|itRewards/([^/]++)(?|(*:1585)|/edit(*:1599)|(*:1608)))|\\-material\\-exam/([^/]++)(?|(*:1647)|/edit(*:1661)|(*:1670)))|aleries/([^/]++)(?|(*:1700)|/edit(*:1714)|(*:1723))|how(?|Classroom/([^/]++)(*:1757)|Student/([^/]++)(*:1782)|Evaluation/([^/]++)(*:1810)))|g(?|a(?|ntiPassword(?|/([^/]++)/([^/]++)(*:1861)|Mentor/([^/]++)(*:1885)|Guru/([^/]++)(*:1907))|llerys/([^/]++)(?|(*:1935)|/edit(*:1949)|(*:1958)))|enerations/([^/]++)(?|(*:1991)|/edit(*:2005)|(*:2014)))|update(?|Password(?|/([^/]++)/([^/]++)(*:2063)|Mentor/([^/]++)(*:2087)|Guru/([^/]++)(*:2109))|\\-essay/([^/]++)(*:2135)|StatusNews/([^/]++)(*:2163)|/([^/]++)(*:2181))|m(?|at(?|erial(?|s/([^/]++)(?|(*:2221)|/(?|edit(*:2238)|create(*:2253)|([^/]++)(*:2270))|(*:2280))|\\-(?|exam(?|/([^/]++)(?|(*:2314)|/edit(*:2328)|(*:2337))|\\-question/([^/]++)(*:2366))|question\\-bank\\-(?|manual/([^/]++)(*:2410)|auto/([^/]++)(*:2432))))|arial\\-exam\\-question\\-manual/([^/]++)/([^/]++)(*:2491))|entors/([^/]++)(?|(*:2519)|/edit(*:2533)|(*:2542)))|zoomSchedules/([^/]++)(?|(*:2578)|/edit(*:2592)|(*:2601))|journal/([^/]++)(?|(*:2630)|/edit(*:2644)|(*:2653))|e(?|x(?|am(?|/([^/]++)(?|(*:2688)|/edit(*:2702)|(*:2711))|\\-(?|statistic/([^/]++)(*:2744)|detail\\-student/([^/]++)(*:2777)|question(?|/([^/]++)(*:2806)|\\-manual/([^/]++)/([^/]++)(*:2841))))|port(?|/UAS/([^/]++)/([^/]++)(*:2882)|\\-(?|users/([^/]++)(*:2910)|studentRegristationExam/([^/]++)(*:2951))))|vent(?|s/(?|([^/]++)(?|(*:2986)|/(?|edit(*:3003)|participants(*:3024))|(*:3034))|set\\-certificate/([^/]++)(*:3069))|Documentation/(?|([^/]++)(?|(*:3107)|/edit(*:3121)|(*:3130))|store/([^/]++)(*:3154)))|dit/([^/]++)(*:3177))|r(?|e(?|wards/([^/]++)(?|(*:3212)|/edit(*:3226)|(*:3235))|g(?|ister\\-exam\\-result/([^/]++)(*:3277)|ristation\\-exam\\-(?|update/([^/]++)(*:3321)|question/([^/]++)(*:3347))))|olling\\-(?|mentor/(?|([^/]++)(*:3388)|get\\-classrooms(*:3412)|action\\-rolling\\-mentor(*:3444)|delete\\-rolling\\-mentor/([^/]++)(*:3485))|teacher/(?|([^/]++)(*:3514)|a(?|ddRollingTeacher/([^/]++)(*:3552)|ction\\-rolling\\-teacher(*:3584))|delete\\-rolling\\-teacher/([^/]++)(*:3627))))|news/([^/]++)(?|(*:3655)|/edit(*:3669)|(*:3678))|que(?|stion\\-bank(?|/(?|([^/]++)(?|(*:3723)|/edit(*:3737)|(*:3746))|upload\\-image(*:3769)|delete\\-image(*:3791)|([^/]++)/edit(*:3813))|\\-(?|m(?|ultiplechoice/([^/]++)(*:3854)|anual/([^/]++)(*:3877))|essay/([^/]++)(*:3901)|auto/([^/]++)(*:3923)))|tion\\-bank(?|s/([^/]++)(*:3957)|\\-detail/([^/]++)(*:3983)))|validStatus/([^/]++)(*:4014)|import\\-students/([^/]++)(*:4048))|istration/(?|t(?|eacher/([^/]++)(?|(*:4093)|/month(*:4108))|racking/(?|([^/]++)(?|(*:4140)|/edit(*:4154)|(*:4163))|student\\-school/(?|([^/]++)(*:4200)|detail/([^/]++)/(?|([^/]++)(*:4236)|store(*:4250)|update(*:4265)))))|mentor/([^/]++)(?|(*:4296)|/month(*:4311))|dependent/([^/]++)(?|(*:4342)|(*:4351))|pa(?|ckage/([^/]++)(?|(*:4383)|/edit(*:4397)|(*:4406))|yment\\-monitoring/([^/]++)(?|(*:4445)|/([^/]++)(*:4463)))|schoolPackage/([^/]++)(?|(*:4499)|/edit(*:4513)|(*:4522))|get\\-total\\-dependent/([^/]++)/([^/]++)(*:4571)))|/school/(?|detailJurnal/([^/]++)(?|(*:4617)|/([^/]++)(*:4635))|classrooms/([^/]++)(?|(*:4667)|/edit(*:4681)|(*:4690))|t(?|eachers/([^/]++)(?|(*:4723)|/edit(*:4737)|(*:4746))|racking/([^/]++)/([^/]++)(*:4781))|journal/([^/]++)(?|(*:4810)|/edit(*:4824)|(*:4833))|exam/([^/]++)(?|(*:4859)|/edit(*:4873)|(*:4882))|packages/([^/]++)(?|(*:4912)|/edit(*:4926)|(*:4935))|showStudent/([^/]++)(*:4965)|gantiPasswordGuru/([^/]++)(*:5000)|updatePasswordGuru/([^/]++)(*:5036)|([^/]++)/([^/]++)(*:5062))|/teacher/(?|challenges/([^/]++)(?|(*:5106)|/edit(*:5120)|(*:5129))|journal/([^/]++)(?|(*:5158)|/edit(*:5172)|(*:5181))|exam/([^/]++)(?|(*:5207)|/edit(*:5221)|(*:5230))|s(?|aleries/([^/]++)(?|(*:5263)|/edit(*:5277)|(*:5286))|howStudent(?|/([^/]++)(*:5318)|Report/([^/]++)(*:5342)))|([^/]++)/assignment/([^/]++)(*:5381)|s(?|torePointAssignment/([^/]++)(*:5422)|howStudentDetail/([^/]++)/([^/]++)(*:5465))|d(?|ownload(?|AllFile/([^/]++)(?|/([^/]++)(*:5517)|(*:5526))|File(?|/([^/]++)(*:5552)|Challenge/([^/]++)(*:5579)))|etail\\-submaterial\\-exam/([^/]++)(*:5623)))|/m(?|entor/(?|challenges/([^/]++)(?|(*:5670)|/edit(*:5684)|(*:5693))|attendance/([^/]++)(?|(*:5725)|/edit(*:5739)|(*:5748))|journal/([^/]++)(?|(*:5777)|/edit(*:5791)|(*:5800))|exam(?|/([^/]++)(?|(*:5829)|/edit(*:5843)|(*:5852))|\\-submaterial\\-assessment/([^/]++)(*:5896))|s(?|aleries/([^/]++)(?|(*:5929)|/edit(*:5943)|(*:5952))|tudent\\-sub\\-material\\-exam\\-essay\\-score/([^/]++)(*:6012)|howStudent/([^/]++)(*:6040))|detail\\-submaterial\\-exam/([^/]++)(*:6084)|([^/]++)/assignment/([^/]++)(*:6121)|s(?|how(?|StudentDetail/([^/]++)/([^/]++)(*:6171)|Document/([^/]++)/([^/]++)(*:6206))|tudent\\-project/([^/]++)(*:6240))|download(?|AllFile/([^/]++)(?|(*:6280)|/([^/]++)(*:6298))|File(?|Challenge/([^/]++)(*:6333)|/([^/]++)(*:6351)))|approval\\-student\\-pr(?|oject/([^/]++)(*:6400)|esentation/([^/]++)(*:6428))|reject\\-student\\-pr(?|oject/([^/]++)(*:6474)|esentation/([^/]++)(*:6502))|finish\\-presentation/([^/]++)(*:6541))|aterials/([^/]++)(*:6568))|/([^/]++)/show(?|Material/([^/]++)(*:6612)|SubMaterial/([^/]++)/([^/]++)(*:6650))|/s(?|howDocument/([^/]++)/([^/]++)(*:6694)|tudent/(?|classrooms/([^/]++)(*:6732)|materials/([^/]++)(*:6759)|show(?|Material/([^/]++)(*:6792)|SubMaterial/([^/]++)(*:6821)|Document/([^/]++)/([^/]++)(*:6856))|([^/]++)/s(?|ubmitAssignment/([^/]++)/([^/]++)/([^/]++)(*:6921)|toreassignment/([^/]++)/([^/]++)(*:6962))|s(?|toreimageassignment/([^/]++)(*:7004)|ubmit(?|Challenge/([^/]++)(*:7039)|Reward(?|/([^/]++)(*:7066)|s/([^/]++)(?|(*:7088)|/edit(*:7102)|(*:7111)))))|absen/([^/]++)(*:7138)|d(?|ownloadFile(?|Challenge/([^/]++)(*:7183)|Assignment/([^/]++)(*:7211))|etail\\-(?|payment/([^/]++)(*:7247)|transaction/([^/]++)(*:7276)))|invoice/([^/]++)(*:7303)|pr(?|int\\-transaction/([^/]++)(*:7342)|ojects/([^/]++)(?|(*:7369)|/edit(*:7383)|(*:7392))|esentation/([^/]++)(?|(*:7424)|/edit(*:7438)|(*:7447)))|material\\-exam/([^/]++)/([^/]++)(?|(*:7493)|(*:7502))|e(?|xam/([^/]++)(?|/(?|([^/]++)/finish(*:7550)|opentab(*:7566)|([^/]++)(?|(*:7586)|/finish(*:7602)))|(*:7613))|vents/(?|([^/]++)(*:7640)|follow/([^/]++)(*:7664)|unfollow/([^/]++)(*:7690)))|regristation\\-exam/([^/]++)(*:7728)|c(?|ertify/events/([^/]++)/([^/]++)(*:7772)|hallenges/([^/]++)(*:7799))|notes/([^/]++)(?|(*:7826)|/edit(*:7840)|(*:7849))|tasks/([^/]++)(?|(*:7876)|/edit(*:7890)|(*:7899))|([^/]++)/([^/]++)(*:7926)))|/de(?|tail\\-student\\-project/([^/]++)(*:7974)|lete\\-notification/([^/]++)(*:8010))|/tester/(?|regristation\\-exam(?|\\-regulation/([^/]++)(*:8073)|/([^/]++)(?|(*:8094)))|exam/([^/]++)(?|(*:8121)|/(?|opentab(*:8141)|([^/]++)(?|(*:8161)|/finish(*:8177)))|(*:8188)))|/verify(?|/([^/]++)/([^/]++)/([^/]++)(*:8236)|\\-competence/([^/]++)/([^/]++)(*:8275))|/certify(?|/events/([^/]++)/([^/]++)/verification(*:8334)|CompetenceTest/([^/]++)(*:8366))|/admin/spk/(?|st(?|atistic/([^/]++)(*:8411)|udent\\-development/([^/]++)(*:8447))|c(?|riteria/([^/]++)(?|(*:8480)|/edit(*:8494)|(*:8503))|alculation/([^/]++)(*:8532))|batch(?|/([^/]++)(?|(*:8562)|/edit(*:8576)|(*:8585))|\\-(?|export\\-excel/([^/]++)(*:8622)|import\\-excel/([^/]++)(*:8653)|results/([^/]++)(?|(*:8681))))|retrieve\\-dataset/([^/]++)(*:8719)))/?$}sDu',
     ),
     3 => 
     array (
@@ -4801,7 +4801,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'admin.generated::jqkqghg4JZIB7I6J',
+            '_route' => 'admin.generated::CjMEsrB2vi2j68r4',
           ),
           1 => 
           array (
@@ -11809,7 +11809,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'student.generated::HYlv9EGA1kGMpoMq',
+            '_route' => 'student.generated::wnjJyCuy16TFUjck',
           ),
           1 => 
           array (
@@ -11941,18 +11941,17 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7347 => 
+      7342 => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'student.material-exam',
+            '_route' => 'student.print.transaction',
           ),
           1 => 
           array (
-            0 => 'materialExam',
-            1 => 'type',
+            0 => 'payment',
           ),
           2 => 
           array (
@@ -11965,278 +11964,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7356 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.material-exam.submit',
-          ),
-          1 => 
-          array (
-            0 => 'materialExam',
-            1 => 'studentMaterialExam',
-          ),
-          2 => 
-          array (
-            'PATCH' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      7404 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.exam.show-finish-exam-material',
-          ),
-          1 => 
-          array (
-            0 => 'materialExam',
-            1 => 'studentMaterialExam',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      7420 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.exam.opentab',
-          ),
-          1 => 
-          array (
-            0 => 'subMaterialExam',
-          ),
-          2 => 
-          array (
-            'PUT' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      7437 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.exam.submit',
-          ),
-          1 => 
-          array (
-            0 => 'subMaterialExam',
-            1 => 'studentSubmaterialExam',
-          ),
-          2 => 
-          array (
-            'PATCH' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      7447 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.exam',
-          ),
-          1 => 
-          array (
-            0 => 'subMaterialExam',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-        1 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.exam.reset',
-          ),
-          1 => 
-          array (
-            0 => 'subMaterialExam',
-          ),
-          2 => 
-          array (
-            'DELETE' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      7474 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.events.show',
-          ),
-          1 => 
-          array (
-            0 => 'event',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      7498 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.events.follow',
-          ),
-          1 => 
-          array (
-            0 => 'event',
-          ),
-          2 => 
-          array (
-            'POST' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      7524 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.events.unfollow',
-          ),
-          1 => 
-          array (
-            0 => 'event',
-          ),
-          2 => 
-          array (
-            'DELETE' => 0,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      7562 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.exam-setname',
-          ),
-          1 => 
-          array (
-            0 => 'subMaterialExam',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      7606 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.events.print-certify',
-          ),
-          1 => 
-          array (
-            0 => 'event',
-            1 => 'participant',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      7633 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'student.challenges.show',
-          ),
-          1 => 
-          array (
-            0 => 'challenge',
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => true,
-          6 => NULL,
-        ),
-      ),
-      7666 => 
+      7369 => 
       array (
         0 => 
         array (
@@ -12259,7 +11987,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7680 => 
+      7383 => 
       array (
         0 => 
         array (
@@ -12282,7 +12010,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7689 => 
+      7392 => 
       array (
         0 => 
         array (
@@ -12324,7 +12052,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7721 => 
+      7424 => 
       array (
         0 => 
         array (
@@ -12347,7 +12075,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7735 => 
+      7438 => 
       array (
         0 => 
         array (
@@ -12370,7 +12098,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7744 => 
+      7447 => 
       array (
         0 => 
         array (
@@ -12412,7 +12140,326 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      7493 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.material-exam',
+          ),
+          1 => 
+          array (
+            0 => 'materialExam',
+            1 => 'type',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      7502 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.material-exam.submit',
+          ),
+          1 => 
+          array (
+            0 => 'materialExam',
+            1 => 'studentMaterialExam',
+          ),
+          2 => 
+          array (
+            'PATCH' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      7550 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.material-exam.show-finish',
+          ),
+          1 => 
+          array (
+            0 => 'materialExam',
+            1 => 'studentMaterialExam',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      7566 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.exam.opentab',
+          ),
+          1 => 
+          array (
+            0 => 'subMaterialExam',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      7586 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.exam.submit',
+          ),
+          1 => 
+          array (
+            0 => 'subMaterialExam',
+            1 => 'studentSubmaterialExam',
+          ),
+          2 => 
+          array (
+            'PATCH' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      7602 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.exam.show-finish',
+          ),
+          1 => 
+          array (
+            0 => 'subMaterialExam',
+            1 => 'studentSubmaterialExam',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      7613 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.exam',
+          ),
+          1 => 
+          array (
+            0 => 'subMaterialExam',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.exam.reset',
+          ),
+          1 => 
+          array (
+            0 => 'subMaterialExam',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      7640 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.events.show',
+          ),
+          1 => 
+          array (
+            0 => 'event',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      7664 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.events.follow',
+          ),
+          1 => 
+          array (
+            0 => 'event',
+          ),
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      7690 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.events.unfollow',
+          ),
+          1 => 
+          array (
+            0 => 'event',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      7728 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.exam-setname',
+          ),
+          1 => 
+          array (
+            0 => 'subMaterialExam',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
       7772 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.events.print-certify',
+          ),
+          1 => 
+          array (
+            0 => 'event',
+            1 => 'participant',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      7799 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'student.challenges.show',
+          ),
+          1 => 
+          array (
+            0 => 'challenge',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      7826 => 
       array (
         0 => 
         array (
@@ -12435,7 +12482,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7786 => 
+      7840 => 
       array (
         0 => 
         array (
@@ -12458,7 +12505,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7795 => 
+      7849 => 
       array (
         0 => 
         array (
@@ -12500,7 +12547,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7822 => 
+      7876 => 
       array (
         0 => 
         array (
@@ -12523,7 +12570,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7836 => 
+      7890 => 
       array (
         0 => 
         array (
@@ -12546,7 +12593,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7845 => 
+      7899 => 
       array (
         0 => 
         array (
@@ -12588,7 +12635,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7872 => 
+      7926 => 
       array (
         0 => 
         array (
@@ -12612,7 +12659,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7920 => 
+      7974 => 
       array (
         0 => 
         array (
@@ -12635,13 +12682,13 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      7956 => 
+      8010 => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'generated::n50XR8gFKF92ZXuA',
+            '_route' => 'generated::MZM2bjhQHuPFRaqI',
           ),
           1 => 
           array (
@@ -12657,7 +12704,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8019 => 
+      8073 => 
       array (
         0 => 
         array (
@@ -12680,7 +12727,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8040 => 
+      8094 => 
       array (
         0 => 
         array (
@@ -12722,7 +12769,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8067 => 
+      8121 => 
       array (
         0 => 
         array (
@@ -12745,7 +12792,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8087 => 
+      8141 => 
       array (
         0 => 
         array (
@@ -12767,7 +12814,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8107 => 
+      8161 => 
       array (
         0 => 
         array (
@@ -12790,7 +12837,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8123 => 
+      8177 => 
       array (
         0 => 
         array (
@@ -12814,7 +12861,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8134 => 
+      8188 => 
       array (
         0 => 
         array (
@@ -12836,7 +12883,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8182 => 
+      8236 => 
       array (
         0 => 
         array (
@@ -12861,7 +12908,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8221 => 
+      8275 => 
       array (
         0 => 
         array (
@@ -12885,7 +12932,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8280 => 
+      8334 => 
       array (
         0 => 
         array (
@@ -12909,7 +12956,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8312 => 
+      8366 => 
       array (
         0 => 
         array (
@@ -12932,7 +12979,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8357 => 
+      8411 => 
       array (
         0 => 
         array (
@@ -12955,7 +13002,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8393 => 
+      8447 => 
       array (
         0 => 
         array (
@@ -12978,7 +13025,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8426 => 
+      8480 => 
       array (
         0 => 
         array (
@@ -13001,7 +13048,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8440 => 
+      8494 => 
       array (
         0 => 
         array (
@@ -13024,7 +13071,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8449 => 
+      8503 => 
       array (
         0 => 
         array (
@@ -13066,7 +13113,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8478 => 
+      8532 => 
       array (
         0 => 
         array (
@@ -13089,7 +13136,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8508 => 
+      8562 => 
       array (
         0 => 
         array (
@@ -13112,7 +13159,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8522 => 
+      8576 => 
       array (
         0 => 
         array (
@@ -13135,7 +13182,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8531 => 
+      8585 => 
       array (
         0 => 
         array (
@@ -13177,7 +13224,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8568 => 
+      8622 => 
       array (
         0 => 
         array (
@@ -13200,7 +13247,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8599 => 
+      8653 => 
       array (
         0 => 
         array (
@@ -13222,7 +13269,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8627 => 
+      8681 => 
       array (
         0 => 
         array (
@@ -13265,7 +13312,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      8665 => 
+      8719 => 
       array (
         0 => 
         array (
@@ -13449,7 +13496,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::CKuPVzKbm9xenFJr' => 
+    'generated::CWC4v8ucHdmZyJ0h' => 
     array (
       'methods' => 
       array (
@@ -13466,13 +13513,13 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:297:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:79:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000e9c0000000000000000";}";s:4:"hash";s:44:"iIUZqh2Dcee4OqLNrXGcxHuEYMXwD26/OnNmV5A2hEU=";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000005eb0000000000000000";}";s:4:"hash";s:44:"WtmBTlmyfdxcHpNQVHGrTSYdBU8Z4UBTv/ModieRvCE=";}}',
         'namespace' => NULL,
         'prefix' => 'api',
         'where' => 
         array (
         ),
-        'as' => 'generated::CKuPVzKbm9xenFJr',
+        'as' => 'generated::CWC4v8ucHdmZyJ0h',
       ),
       'fallback' => false,
       'defaults' => 
@@ -13858,7 +13905,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::OsMy3gKCAtnf0q7R' => 
+    'generated::NeJxICRMM7RQffyu' => 
     array (
       'methods' => 
       array (
@@ -13878,7 +13925,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::OsMy3gKCAtnf0q7R',
+        'as' => 'generated::NeJxICRMM7RQffyu',
       ),
       'fallback' => false,
       'defaults' => 
@@ -13967,7 +14014,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::Jpavx48ZcjjU4KXB' => 
+    'generated::unrqN4s2JbB5jEFw' => 
     array (
       'methods' => 
       array (
@@ -13987,7 +14034,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::Jpavx48ZcjjU4KXB',
+        'as' => 'generated::unrqN4s2JbB5jEFw',
       ),
       'fallback' => false,
       'defaults' => 
@@ -14186,7 +14233,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::GYi1Wn4ecpsXFOq0' => 
+    'generated::B5eFYYEtAyBL1Xwa' => 
     array (
       'methods' => 
       array (
@@ -14206,7 +14253,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::GYi1Wn4ecpsXFOq0',
+        'as' => 'generated::B5eFYYEtAyBL1Xwa',
       ),
       'fallback' => false,
       'defaults' => 
@@ -14351,9 +14398,9 @@ app('router')->setCompiledRoutes(
           2 => 'auth',
           3 => 'role:admin',
         ),
-        'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:300:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:82:"function () {
+        'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:298:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:80:"function () {
             return \\view(\'dashboard.admin.layouts.app\');
-        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000eb90000000000000000";}";s:4:"hash";s:44:"qZ6H7OyjQqvkT/rM+4nkFpBQcV6QRU9YH1KN0DPeFdE=";}}',
+        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000006080000000000000000";}";s:4:"hash";s:44:"4ozhAYwctoshV1S6gKQGNG4e1ayZIjWJ8n2GkW+Fw0g=";}}',
         'as' => 'admin.',
         'namespace' => NULL,
         'prefix' => '/admin',
@@ -14973,7 +15020,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'admin.generated::jqkqghg4JZIB7I6J' => 
+    'admin.generated::CjMEsrB2vi2j68r4' => 
     array (
       'methods' => 
       array (
@@ -14991,7 +15038,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\ApprovalController@approve',
         'controller' => 'App\\Http\\Controllers\\ApprovalController@approve',
-        'as' => 'admin.generated::jqkqghg4JZIB7I6J',
+        'as' => 'admin.generated::CjMEsrB2vi2j68r4',
         'namespace' => NULL,
         'prefix' => '/admin',
         'where' => 
@@ -27190,7 +27237,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'administration.generated::TWPpNVbku1NvbKQk' => 
+    'administration.generated::IoZ3s9byE8031MQW' => 
     array (
       'methods' => 
       array (
@@ -27209,7 +27256,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\FinanceController@get',
         'controller' => 'App\\Http\\Controllers\\FinanceController@get',
-        'as' => 'administration.generated::TWPpNVbku1NvbKQk',
+        'as' => 'administration.generated::IoZ3s9byE8031MQW',
         'namespace' => NULL,
         'prefix' => '/administration',
         'where' => 
@@ -27247,9 +27294,9 @@ app('router')->setCompiledRoutes(
           2 => 'auth',
           3 => 'role:school',
         ),
-        'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:300:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:82:"function () {
+        'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:298:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:80:"function () {
             return \\view(\'dashboard.admin.layouts.app\');
-        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000fff0000000000000000";}";s:4:"hash";s:44:"9y17jSariWP9Zst8Ox/tDdb9u7ge5fPhG2g/eCESGog=";}}',
+        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000b0d0000000000000000";}";s:4:"hash";s:44:"LsrErcJlnACspYHBSfFK2RQeEA0LtiTlYegOK7cByjk=";}}',
         'as' => 'school.',
         'namespace' => NULL,
         'prefix' => '/school',
@@ -32564,7 +32611,7 @@ app('router')->setCompiledRoutes(
       array (
         0 => 'POST',
       ),
-      'uri' => 'mentor/validChallenge',
+      'uri' => 'mentor/validChallenged',
       'action' => 
       array (
         'middleware' => 
@@ -33353,9 +33400,9 @@ app('router')->setCompiledRoutes(
           2 => 'auth',
           3 => 'role:student',
         ),
-        'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:308:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:90:"function () {
+        'uses' => 'O:47:"Laravel\\SerializableClosure\\SerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Signed":2:{s:12:"serializable";s:306:"O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:88:"function () {
             return \\view(\'dashboard.user.pages.material.index\');
-        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"000000000000109c0000000000000000";}";s:4:"hash";s:44:"PGyoJBYSPs9Ol1cLlMaXcvVaUvOuCMqH2722/LBKwPQ=";}}',
+        }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000baa0000000000000000";}";s:4:"hash";s:44:"TjtuyrlvOuic2o5wtqnjds5SLLBz4b31CWOij9V5/M0=";}}',
         'as' => 'student.',
         'namespace' => NULL,
         'prefix' => '/student',
@@ -33979,7 +34026,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'student.generated::HYlv9EGA1kGMpoMq' => 
+    'student.generated::wnjJyCuy16TFUjck' => 
     array (
       'methods' => 
       array (
@@ -33998,7 +34045,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\AttendanceController@submit',
         'controller' => 'App\\Http\\Controllers\\AttendanceController@submit',
-        'as' => 'student.generated::HYlv9EGA1kGMpoMq',
+        'as' => 'student.generated::wnjJyCuy16TFUjck',
         'namespace' => NULL,
         'prefix' => '/student',
         'where' => 
@@ -34218,6 +34265,85 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'student.payment-channel' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'student/payment-channel',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth.custom',
+          2 => 'auth',
+          3 => 'role:student',
+        ),
+        'uses' => 'App\\Http\\Controllers\\TripayController@index',
+        'controller' => 'App\\Http\\Controllers\\TripayController@index',
+        'as' => 'student.payment-channel',
+        'namespace' => NULL,
+        'prefix' => '/student',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'student.request-transaction' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'student/request-transaction',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth.custom',
+          2 => 'auth',
+          3 => 'role:student',
+        ),
+        'uses' => 'App\\Http\\Controllers\\TripayController@store',
+        'controller' => 'App\\Http\\Controllers\\TripayController@store',
+        'as' => 'student.request-transaction',
+        'namespace' => NULL,
+        'prefix' => '/student',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'student.detail-payment' => 
     array (
       'methods' => 
@@ -34378,14 +34504,14 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'student.payment-channel' => 
+    'student.print.transaction' => 
     array (
       'methods' => 
       array (
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'student/payment-channel',
+      'uri' => 'student/print-transaction/{payment}',
       'action' => 
       array (
         'middleware' => 
@@ -34395,48 +34521,9 @@ app('router')->setCompiledRoutes(
           2 => 'auth',
           3 => 'role:student',
         ),
-        'uses' => 'App\\Http\\Controllers\\TripayController@index',
-        'controller' => 'App\\Http\\Controllers\\TripayController@index',
-        'as' => 'student.payment-channel',
-        'namespace' => NULL,
-        'prefix' => '/student',
-        'where' => 
-        array (
-        ),
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'student.request-transaction' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'POST',
-      ),
-      'uri' => 'student/request-transaction',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth.custom',
-          2 => 'auth',
-          3 => 'role:student',
-        ),
-        'uses' => 'App\\Http\\Controllers\\TripayController@store',
-        'controller' => 'App\\Http\\Controllers\\TripayController@store',
-        'as' => 'student.request-transaction',
+        'uses' => 'App\\Http\\Controllers\\StudentPaymentController@downloadPdf',
+        'controller' => 'App\\Http\\Controllers\\StudentPaymentController@downloadPdf',
+        'as' => 'student.print.transaction',
         'namespace' => NULL,
         'prefix' => '/student',
         'where' => 
@@ -34497,7 +34584,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'student.exam.show-finish-exam-material' => 
+    'student.material-exam.show-finish' => 
     array (
       'methods' => 
       array (
@@ -34516,7 +34603,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\StudentMaterialExamController@showFinish',
         'controller' => 'App\\Http\\Controllers\\StudentMaterialExamController@showFinish',
-        'as' => 'student.exam.show-finish-exam-material',
+        'as' => 'student.material-exam.show-finish',
         'namespace' => NULL,
         'prefix' => '/student',
         'where' => 
@@ -34753,6 +34840,46 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\StudentMaterialExamController@answer',
         'controller' => 'App\\Http\\Controllers\\StudentMaterialExamController@answer',
         'as' => 'student.material-exam.submit',
+        'namespace' => NULL,
+        'prefix' => '/student',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'student.exam.show-finish' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'student/exam/{subMaterialExam}/{studentSubmaterialExam}/finish',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth.custom',
+          2 => 'auth',
+          3 => 'role:student',
+        ),
+        'uses' => 'App\\Http\\Controllers\\StudentSubmaterialExamController@showFinish',
+        'controller' => 'App\\Http\\Controllers\\StudentSubmaterialExamController@showFinish',
+        'as' => 'student.exam.show-finish',
         'namespace' => NULL,
         'prefix' => '/student',
         'where' => 
@@ -36840,7 +36967,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::n50XR8gFKF92ZXuA' => 
+    'generated::MZM2bjhQHuPFRaqI' => 
     array (
       'methods' => 
       array (
@@ -36861,7 +36988,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::n50XR8gFKF92ZXuA',
+        'as' => 'generated::MZM2bjhQHuPFRaqI',
       ),
       'fallback' => false,
       'defaults' => 
@@ -36951,7 +37078,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::PMltChLFj7EpXMvw' => 
+    'generated::U1v2vriOhl4TVb16' => 
     array (
       'methods' => 
       array (
@@ -36971,7 +37098,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::PMltChLFj7EpXMvw',
+        'as' => 'generated::U1v2vriOhl4TVb16',
       ),
       'fallback' => false,
       'defaults' => 
@@ -37098,7 +37225,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::ggEO3GxvVawNRb3j' => 
+    'generated::nYYHXMZ39y7ISv8j' => 
     array (
       'methods' => 
       array (
@@ -37119,7 +37246,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::ggEO3GxvVawNRb3j',
+        'as' => 'generated::nYYHXMZ39y7ISv8j',
       ),
       'fallback' => false,
       'defaults' => 

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 
 class PaymentRepository extends BaseRepository
@@ -74,7 +75,15 @@ class PaymentRepository extends BaseRepository
     public function getByReference($reference): mixed
     {
         return $this->model->query()
-        ->where('reference', $reference)
-        ->first();
+            ->where('reference', $reference)
+            ->first();
+    }
+
+    public function getByUserSemester(mixed $user, mixed $semester): mixed
+    {
+        return $this->model->query()
+            ->where('user_id', $user)
+            ->where('semester', $semester)
+            ->get();
     }
 }

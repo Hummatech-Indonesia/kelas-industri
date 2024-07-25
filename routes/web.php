@@ -486,6 +486,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('invoice/{reference}', [StudentPaymentController::class, 'invoice'])->name('invoice');
         Route::get('invoice-preview/', [StudentPaymentController::class, 'preview'])->name('preview-invoice');
         Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
+        Route::get('print-transaction/{payment}', [StudentPaymentController::class, 'downloadPdf'])->name('print.transaction');
         Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
         Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
 

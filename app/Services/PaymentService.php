@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\PaymentRequest;
+use App\Models\User;
 use App\Repositories\PaymentRepository;
 use Illuminate\Http\Request;
 
@@ -118,5 +119,10 @@ class PaymentService
     public function handleGetByReference($reference)
     {
         return $this->payment->getByReference($reference);
+    }
+
+    public function getByUserSemester(mixed $user, mixed $semester)
+    {
+        return $this->payment->getByUserSemester($user, $semester);
     }
 }

@@ -22,7 +22,6 @@ class TripayController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
         if ($request['installment_payment']){
             $request['installment_payment'] = str_replace('.', '', $request['installment_payment']);
             if ($request['installment_payment'] <= 10000) {

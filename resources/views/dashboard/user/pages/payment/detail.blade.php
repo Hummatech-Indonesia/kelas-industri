@@ -91,7 +91,8 @@
                                     <!--begin::Item-->
                                     <div class="d-flex flex-stack">
                                         <!--begin::Section-->
-                                        <div class=" fw-bold fw-bold fs-5 me-2">Paket Siswa Semester 1</div>
+                                        <div class=" fw-bold fw-bold fs-5 me-2">Paket Siswa Semester
+                                            {{ $payment->semester }}</div>
                                         <!--end::Section-->
 
                                         <!--begin::Statistics-->
@@ -182,7 +183,7 @@
 
                                     <!--begin::Separator-->
                                     <div class="separator separator-solid my-3"></div>
-                                    <a href="{{ route('student.invoice', ['reference' => $payment->reference]) }}"
+                                    <a href="{{ route('student.print.transaction', $payment->id) }}"
                                         class="text-primary text-center justify-content-center d-flex fw-bold fw-bold fs-3 me-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                             viewBox="0 0 24 24">

@@ -38,6 +38,20 @@ class StudentPaymentController extends Controller
         return view('dashboard.user.pages.payment.index', $data);
     }
 
+    public function downloadPdf(Payment $payment)
+    {
+        $dependent = $this->dependentService->handleGetByClassroomSemester($payment->user->studentSchool->studentClassroom->classroom->id, $payment->semester);
+        $paymentHistories = $this->paymentService->getByUserSemester(auth()->user()->id, $payment->semester);
+        $amountPaymentHistories = 0;
+        foreach ($paymentHistories as $paymentHistory) {
+            $amountPaymentHistories += $paymentHistory->total_pay;
+        }
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('dashboard.user.pages.payment.print', ['payment' => $payment, 'dependent' => $dependent, 'paymentHistories' => $paymentHistories, 'amountPaymentHistories' => $amountPaymentHistories]);
+        return $pdf->download('print-invoice.pdf');
+        // return view('dashboard.user.pages.payment.print');
+    }
+
     public function show($reference)
     {
         $data = $this->GetDataSidebar();
@@ -82,7 +96,8 @@ class StudentPaymentController extends Controller
         return $pdf->download('invoice.pdf'); // or $pdf->download('invoice.pdf') to download
     }
 
-    public function preview() {
+    public function preview()
+    {
         // $pdf = app('dompdf.wrapper'); // Get an instance of the PDF wrapper
         // $pdf->loadView('pdf.invoice');
         // return $pdf->stream();

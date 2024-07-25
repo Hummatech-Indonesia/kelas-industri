@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('reference')->nullable();
             $table->enum('invoice_status', ['PAID', 'UNPAID', 'EXPIRED', 'FAILED'])->default('UNPAID');
             $table->integer('total_pay');
-            $table->date('payment_date');
+            $table->timestamp('payment_date');
             $table->integer('semester');
             $table->timestamps();
         });

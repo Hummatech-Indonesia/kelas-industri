@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentExport;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use App\Services\ClassroomService;
 use App\Services\DependentService;
 use App\Http\Requests\PaymentRequest;
 use App\Services\SchoolPackageService;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TrackingPaymentController extends Controller
 {
@@ -142,13 +144,22 @@ class TrackingPaymentController extends Controller
         return view('dashboard.finance.pages.trackingPayment.student', $data);
     }
 
+    /**
+     * exportStudent
+     *
+     * @return void
+     */
+    public function exportStudent()
+    {
+        return Excel::download(new StudentExport, 'student.xlsx');
+    }
+
     public function detailStudent(string $classroom, string $user)
     {
         $data['student'] = $this->userService->handleGetById($user);
         $data['dependents'] = $this->serviceDependent->handleGetAllByClassroom($classroom);
         $data['trackings'] = $this->servicePayment->handleGetByStudent($user);
         $data['user'] = $user;
-        // dd($data['trackings']);
         return view('dashboard.finance.pages.trackingPayment.detailStudent', $data);
     }
     public function schoolDetailStudent(string $classroom, string $user)
