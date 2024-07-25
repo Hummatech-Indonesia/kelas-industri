@@ -50,7 +50,7 @@
                         <div class="col-5 col-sm-3 fw-bolder fs-5">Nilai</div>
                         <div class="col col-sm-9"><span class="me-1">:</span>
                             @if ($essayGraded)
-                                <span class="fs-5">{{ $studentSubmaterialExam->score }}</span>
+                                <span class="fs-5">{{number_format($studentSubmaterialExam->score, 0) }}</span>
                             @else
                                 <div class="badge badge-light-warning">Proses</div>
                             @endif

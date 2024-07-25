@@ -131,4 +131,13 @@ class StudentSubmaterialExamRepository extends BaseRepository
         ->whereRelation('subMaterialExam.subMaterial', 'sub_material_id', $previousSubMaterial)
         ->first();
     }
+
+    public function countAllStudentSubMaterialQuiz(string $material): mixed
+    {
+        return $this->model->query()
+        ->whereRelation('subMaterialExam.subMaterial.material', 'id', $material)
+        ->whereRelation('subMaterialExam', 'type', SubMaterialExamTypeEnum::QUIZ->value)
+        ->whereRelation('student', 'id', auth()->user()->id)
+        ->count();
+    }
 }

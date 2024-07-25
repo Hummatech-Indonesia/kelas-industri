@@ -41,7 +41,7 @@ class StudentMaterialExamService
             'order_of_question_essay' => $combinedIndicesStringEssay,
             'deadline' => now()->addMinutes($exam->time),
         ];
-        // dd($type);
+
         $this->repository->store($data);
     }
 
@@ -51,7 +51,7 @@ class StudentMaterialExamService
             $studentMaterialExam = $this->repository->getWhere([$materialExam->id]);
             for ($i = 0; $i < count($request->answer_essay); $i++) {
                 $data['answer'] = $request->answer_essay[$i];
-                if($data['answer']['answer'] == null)  {
+                if ($data['answer']['answer'] == null) {
                     $data['answer']['answer_value'] = 0;
                 }
                 $studentMaterialExam->studentMaterialExamAnswers()->create($data['answer']);
@@ -86,7 +86,7 @@ class StudentMaterialExamService
         return $this->repository->destroy($id);
     }
 
-    public function handleUpdate(string $id,$question_number ,array $data): void
+    public function handleUpdate(string $id, $question_number, array $data): void
     {
         $scores = $this->repository->whereId($id);
         $scoreEssay = $this->studentExamAnswerRepository->scoreAnswerValue($id, $question_number)->answer_value;

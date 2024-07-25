@@ -429,8 +429,8 @@
                             <div class="d-flex">
                                 <i class="bi bi-envelope-fill fs-1x"></i>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                    fill="currentColor" class="bi bi-dot position-absolute" style="color: red; top: 20px;"
-                                    viewBox="0 0 16 16">
+                                    fill="currentColor" class="bi bi-dot position-absolute"
+                                    style="color: red; top: 20px;" viewBox="0 0 16 16">
                                     <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
                                 </svg>
                             </div>

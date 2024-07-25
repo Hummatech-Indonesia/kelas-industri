@@ -25,6 +25,14 @@ class SubMaterialExamRepository extends BaseRepository
             ->get();
     }
 
+    public function countAllSubMaterialQuiz(string $materialId): mixed
+    {
+        return $this->model->query()
+            ->whereRelation('subMaterial.material', 'id', $materialId)
+            ->where('type', SubMaterialExamTypeEnum::QUIZ->value)
+            ->count();
+    }
+
     public function getRegisterExam(): mixed
     {
         return $this->model->query()

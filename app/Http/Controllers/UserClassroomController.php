@@ -20,6 +20,7 @@ use App\Services\SubMaterialService;
 use App\Enums\SubMaterialExamTypeEnum;
 use App\Services\SubmitChallengeService;
 use App\Services\SubmitAssignmentService;
+use App\Repositories\SubMaterialExamRepository;
 use App\Services\StudentSubMaterialExamService;
 use App\Services\StudentSubmaterialExamAnswerService;
 use App\Repositories\StudentSubmaterialExamRepository;
@@ -36,6 +37,7 @@ class UserClassroomController extends Controller
     private SubmitChallengeService $submitChallengeService;
     private SubmitAssignmentService $submitAssignmentService;
     private StudentSubmaterialExamRepository $studentSubmaterialExamRepository;
+    private SubMaterialExamRepository $submaterialExamRepository;
     private StudentSubMaterialExamService $studentSubmaterialExamService;
     private StudentSubmaterialExamAnswerService $studentSubmaterialExamAnswerService;
 
@@ -50,6 +52,7 @@ class UserClassroomController extends Controller
         AssignmentService $assignmentService,
         StudentSubmaterialExamRepository $studentSubmaterialExamRepository,
         StudentSubMaterialExamService $studentSubmaterialExamService,
+        SubMaterialExamRepository $submaterialExamRepository,
         StudentSubmaterialExamAnswerService $studentSubmaterialExamAnswerService
     ) {
         $this->classroomService = $classroomService;
@@ -62,6 +65,7 @@ class UserClassroomController extends Controller
         $this->assignmentService = $assignmentService;
         $this->studentSubmaterialExamRepository = $studentSubmaterialExamRepository;
         $this->studentSubmaterialExamService = $studentSubmaterialExamService;
+        $this->submaterialExamRepository = $submaterialExamRepository;
         $this->studentSubmaterialExamAnswerService = $studentSubmaterialExamAnswerService;
     }
 
@@ -97,8 +101,8 @@ class UserClassroomController extends Controller
         $data['classroom'] = $classroom;
         $data['materials'] = $this->materialService->handleByClassroom($classroom, $request);
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
-        $data['materialInfos'] = $this->materialService->handleOrderMaterials($data['materials']);
-    }
+            $data['materialInfos'] = $this->materialService->handleOrderMaterials($data['materials']);
+        }
         $data['search'] = $request->search;
         return \view('dashboard.user.pages.material.index', $data);
     }
@@ -116,8 +120,10 @@ class UserClassroomController extends Controller
         ];
 
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
-            $subMaterialsInfo = [];
 
+            $subMaterialsInfo = [];
+            $data['countAllSubMaterialQuiz'] = $this->submaterialExamRepository->countAllSubMaterialQuiz($material->id);
+            $data['countAllStudentSubMaterialQuiz'] = $this->studentSubmaterialExamRepository->countAllStudentSubMaterialQuiz($material->id);
             foreach ($data['subMaterials'] as $subMaterial) {
                 $order = $subMaterial->order;
 
@@ -128,11 +134,11 @@ class UserClassroomController extends Controller
                 if ($previousSubMaterial) {
                     $countAssignment = $this->assignmentService->countAssignments($previousSubMaterial->id, $previousOrder);
                     $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubMaterial->id, $previousOrder);
-                    // $studentExam = $this->studentSubmaterialExamRepository->getPreviousStudentExam($previousSubMaterial->id, $previousOrder);
-                    // dd($studentExam);
+                    $studentExam = $this->studentSubmaterialExamRepository->getPreviousStudentExam($previousSubMaterial->id, $previousOrder);
                 } else {
                     $countAssignment = 0;
                     $countStudentAssignment = 0;
+                    $studentExam = 0;
                 }
 
                 $isFirst = $order == 1;
@@ -141,10 +147,11 @@ class UserClassroomController extends Controller
                     'isFirst' => $isFirst,
                     'countAssignment' => $countAssignment,
                     'countStudentAssignment' => $countStudentAssignment,
+                    'studentExam' => $studentExam,
                 ];
             }
-
             $data['subMaterialsInfo'] = $subMaterialsInfo;
+
         }
 
         return view('dashboard.user.pages.submaterial.index', $data);

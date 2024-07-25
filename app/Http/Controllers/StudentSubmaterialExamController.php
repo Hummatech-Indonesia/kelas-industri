@@ -106,8 +106,10 @@ class StudentSubmaterialExamController extends Controller
                 ]);
             }
             $studentExam->studentSubMaterialExamAnswers()->delete();
-            if (now() < Carbon::parse($subMaterialExam->start_at)) {
-                return redirect()->back()->with('error', 'Ujian Belum Dimulai..');
+            if ($subMaterialExam->type == SubMaterialExamTypeEnum::REGISTER) {
+                if (now() < Carbon::parse($subMaterialExam->start_at)) {
+                    return redirect()->back()->with('error', 'Ujian Belum Dimulai..');
+                }
             }
 
             $orderQuestionMultipleChoice = $studentExam->order_of_question_multiple_choice;
@@ -151,7 +153,9 @@ class StudentSubmaterialExamController extends Controller
         $data['subMaterialExam'] = $subMaterialExam;
         $data['studentSubmaterialExam'] = $studentSubmaterialExam;
         $data['essayGraded'] = $this->studentSubMaterialExamAnswerService->essay_graded($data['studentSubmaterialExam']);
-        if ($subMaterialExam->type == SubMaterialExamTypeEnum::REGISTER->value) return view('dashboard.user.pages.testerExam.finish', $data);
+        if ($subMaterialExam->type == SubMaterialExamTypeEnum::REGISTER->value) {
+            return view('dashboard.user.pages.testerExam.finish', $data);
+        }
         return view('dashboard.user.pages.studentExam.finish', $data);
     }
 

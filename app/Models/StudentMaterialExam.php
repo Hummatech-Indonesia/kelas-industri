@@ -27,7 +27,7 @@ class StudentMaterialExam extends Model
         'finished_count',
         'true_answer',
         'open_tab',
-
+        'type'
     ];
 
     public function student(): BelongsTo

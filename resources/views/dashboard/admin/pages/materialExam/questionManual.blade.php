@@ -71,7 +71,7 @@
                 <button class="btn btn-sm btn-primary" type="submit">
                     Simpan
                 </button>
-                <a href="{{ route('admin.exam-question', $materialExam->id) }}"
+                <a href="{{ route('admin.materialExam-question', $materialExam->id) }}"
                     class="btn btn-flex btn-warning h-40px fs-7 fw-bold btn-plus">
                     Kembali
                 </a>

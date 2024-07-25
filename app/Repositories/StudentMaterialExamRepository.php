@@ -19,18 +19,19 @@ class StudentMaterialExamRepository extends BaseRepository
      * @param  mixed $data
      * @return mixed
      */
-    public function whereIn(array $data): mixed
+    public function whereIn(array $data, string $type): mixed
     {
         return $this->model->query()
+            ->where('type', $type)
             ->where(['material_exam_id' => $data['material_exam_id'], 'student_id' => auth()->user()->id])->first();
     }
 
-    public function whereId(mixed $id): mixed
+    public function whereId(mixed $id, string $type): mixed
     {
         return $this->model->query()
-        ->where('id', $id)
-        ->select('score')
-        ->first();
+            ->where('id', $id)
+            ->select('score')
+            ->first();
     }
 
     /**
@@ -59,13 +60,21 @@ class StudentMaterialExamRepository extends BaseRepository
         return $this->show($id)->update($data);
     }
 
-    public function handleComplateExam(mixed $previousMaterial): mixed
+    public function handleComplateExamPreTest(mixed $previousMaterial): mixed
     {
         return $this->model->query()
-        ->where('material_exam_id', $previousMaterial->materialExam->id)
-        ->whereRelation('student', 'id', auth()->user()->id)
-        ->first();
+            ->where('material_exam_id', $previousMaterial->materialExam->id)
+            ->whereRelation('student', 'id', auth()->user()->id)
+            ->where('type', 'pre_test')
+            ->first();
     }
 
-    
+    public function handleComplateExamPosTest(mixed $previousMaterial): mixed
+    {
+        return $this->model->query()
+            ->where('material_exam_id', $previousMaterial->materialExam->id)
+            ->whereRelation('student', 'id', auth()->user()->id)
+            ->where('type', 'post_test')
+            ->first();
+    }
 }

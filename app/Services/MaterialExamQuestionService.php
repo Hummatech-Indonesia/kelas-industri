@@ -30,8 +30,8 @@ class MaterialExamQuestionService
         $missingQuestionMultipleChoice = $this->getMissingQuestionMultipleChoice($materialExam);
         $missingQuestionEssay = $this->getMissingQuestionEssay($materialExam);
         $totalExamQuestion = $this->getTotalQuestion($materialExam);
-
-        if ($request->type == QuestionTypeEnum::MULTIPLECHOICE->value) {
+        
+        if ($request->type == 'multiplechoice') {
             if ($missingQuestionMultipleChoice == 0) {
                 return redirect()->back()->with('error', 'Anda tidak bisa menambah soal pilihan ganda lagi karena soal sudah mencapai maksimal');
             } else if (count($request->question_bank_id) > $missingQuestionMultipleChoice) {

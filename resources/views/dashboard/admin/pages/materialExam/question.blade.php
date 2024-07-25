@@ -160,7 +160,7 @@
         document.addEventListener("DOMContentLoaded", () => {
 
             $(document).on('click', '.delete', function() {
-                const url = "".replace(':id',
+                const url = "{{ route('admin.destroy-material-question', ':id') }}".replace(':id',
                     $(this).data(
                         'id'))
                 $('#form-delete').attr('action', url)

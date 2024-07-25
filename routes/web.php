@@ -214,6 +214,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('material-question-bank-manual/{materialExam}', [MaterialExamQuestionController::class, 'manual'])->name('material-questionBank.manual');
         Route::post('question-bank-auto/{submaterialExam}', [SubMaterialExamQuestionController::class, 'auto'])->name('questionBank.auto');
         Route::post('material-question-bank-auto/{materialExam}', [MaterialExamQuestionController::class, 'auto'])->name('material-questionBank.auto');
+        Route::delete('material-question-delete/{materialExamQuestion}', [MaterialExamQuestionController::class, 'destroy'])->name('destroy-material-question');
         Route::resource('submaterialExamQuestion', SubMaterialExamQuestionController::class)->only('destroy');
 
         Route::post('question-bank-store-essay', [QuestionBankController::class, 'storeEssay'])->name('questionBank.storeEssay');
@@ -492,7 +493,8 @@ Route::middleware('auth.custom')->group(function () {
 
         // student material exam
         Route::get('material-exam/{materialExam}/{type}', [StudentMaterialExamController::class, 'index'])->name('material-exam');
-        Route::get('exam/{materialExam}/{studentMaterialExam}/finish', [StudentMaterialExamController::class, 'showFinish'])->name('material-exam.show-finish');
+        Route::patch('material-exam/{materialExam}/{studentMaterialExam}', [StudentMaterialExamController::class, 'answer'])->name('material-exam.submit');
+        Route::get('exam/{materialExam}/{studentMaterialExam}/finish', [StudentMaterialExamController::class, 'showFinish'])->name('exam.show-finish-exam-material');
 
         // student exam
         Route::get('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamSetName'])->name('exam-setname');
@@ -500,8 +502,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::put('exam/{subMaterialExam}/opentab', [StudentSubmaterialExamController::class, 'openTab'])->name('exam.opentab');
         Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
         Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
-        Route::patch('material-exam/{materialExam}/{studentMaterialExam}', [StudentMaterialExamController::class, 'answer'])->name('material-exam.submit');
-        Route::get('exam/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish');
+        Route::get('exam-quiz/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish-quiz');
 
         Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
         Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');

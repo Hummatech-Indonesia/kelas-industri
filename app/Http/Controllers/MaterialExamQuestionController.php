@@ -63,4 +63,21 @@ class MaterialExamQuestionController extends Controller
         $this->repository->insert($dataEssay);
         return redirect()->back()->with('success', 'Berhasil Mengisi ' . count($questionMultipleChoice) . ' Soal Pilhan Ganda dan ' . count($questionEssay) . ' Soal Essay!');
     }
+
+    /**
+     * destroy
+     *
+     * @param  MaterialExamQuestion MaterialExamQuestion
+     * @return mixed
+     */
+    public function destroy(MaterialExamQuestion $materialExamQuestion): mixed
+    {
+        $getDataQuestionNumber = $this->repository->getDataQuestionNumber($materialExamQuestion->material_exam_id, $materialExamQuestion->question_number);
+        foreach ($getDataQuestionNumber as $value) {
+            $this->repository->update($value->id, ['question_number' => $value->question_number - 1]);
+        }
+        $this->service->updateExamStatusToNotFull($materialExamQuestion->MaterialExam);
+        $this->repository->destroy($materialExamQuestion->id);
+        return redirect()->back()->with('success', trans('alert.delete_success'));
+    }
 }

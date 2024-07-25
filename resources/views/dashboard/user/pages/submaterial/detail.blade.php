@@ -125,7 +125,7 @@
                                             <div class="col mt-4">
                                                 <div class="d-flex justify-content-start justify-content-md-end gap-3">
                                                     @if ($studentSubmaterialExam && $studentSubmaterialExam->finished_exam)
-                                                        <a href="{{ route('student.exam.show-finish', ['subMaterialExam' => $exam->id, 'studentSubmaterialExam' => $studentSubmaterialExam->id]) }}"
+                                                        <a href="{{ route('student.exam.show-finish-quiz', ['subMaterialExam' => $exam->id, 'studentSubmaterialExam' => $studentSubmaterialExam->id]) }}"
                                                             class="btn btn-primary btn-sm">
                                                             Lihat
                                                         </a>

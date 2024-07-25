@@ -30,8 +30,8 @@ class StudentMaterialExamController extends Controller
         StudentMaterialExamService $service,
         MaterialService $materialService,
         QuestionBankRepository $questionBankRepository
-        ) {
-        $this->studentExamAnswerRepository= $studentExamAnswerRepository;
+    ) {
+        $this->studentExamAnswerRepository = $studentExamAnswerRepository;
         $this->examQuestion = $examQuestion;
         $this->studentExam = $studentExam;
         $this->service = $service;
@@ -45,17 +45,25 @@ class StudentMaterialExamController extends Controller
 
         $examQuestionsMultipleChoice = $this->examQuestion->getRandomOrderByExamMultipleChoice($materialExam->id);
         $examQuestionsEssay = $this->examQuestion->getRandomOrderByExamEssay($materialExam->id);
-        $studentExam = $this->studentExam->whereIn(['material_exam_id' => $materialExam->id]);
-
+        $studentExam = $this->studentExam->whereIn(['material_exam_id' => $materialExam->id], $type);
         if ($studentExam == null) {
             $this->service->store($materialExam, $examQuestionsMultipleChoice, $examQuestionsEssay, $type);
-            $studentExam = $this->studentExam->whereIn(['material_exam_id' => $materialExam->id]);
+            $studentExam = $this->studentExam->whereIn(['material_exam_id' => $materialExam->id],  $type);
             $data['student_exam'] = $studentExam;
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
             $data['type'] = $type;
             return view('dashboard.user.pages.studentMaterialExam.exam', $data);
         } else {
+            if ($type == 'post_test') {
+                $this->service->store($materialExam, $examQuestionsMultipleChoice, $examQuestionsEssay, $type);
+                $studentExam = $this->studentExam->whereIn(['material_exam_id' => $materialExam->id],  $type);
+                $data['student_exam'] = $studentExam;
+                $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
+                $data['question_essay'] = $examQuestionsEssay;
+                $data['type'] = $type;
+                return view('dashboard.user.pages.studentMaterialExam.exam', $data);
+            }
             $studentExam->update([
                 'score' => null,
                 'deadline' => now()->addMinutes($materialExam->time),

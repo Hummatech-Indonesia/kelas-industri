@@ -103,7 +103,7 @@ class MaterialExamController extends Controller
     {
         $materialExam = $this->repository->getExamById($materialExamId);
         $materialQuestions = $this->questionBankRepository->paginateUnusedQuestionMaterial($request, $materialId, 10);
-        // dd($materialQuestions);
+        
         return view('dashboard.admin.pages.materialExam.questionManual', compact('materialQuestions', 'materialExam'));
     }
 }
