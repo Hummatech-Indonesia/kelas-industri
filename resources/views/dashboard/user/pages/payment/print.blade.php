@@ -207,10 +207,12 @@
             </tbody>
         </table>
     </div>
-    <div style="margin-top: 6rem; float:right; margin-right:6.3rem;">
-        <img src="{{ public_path('StempelLunas.png') }}" width="200" alt="Stempel Lunas"
-            style="transform: rotate(-15deg);" alt="" srcset="">
-    </div>
+    @if ($dependent->nominal - $amountPaymentHistories > 0)
+        <div style="margin-top: 6rem; float:right; margin-right:6.3rem;">
+            <img src="{{ public_path('StempelLunas.png') }}" width="200" alt="Stempel Lunas"
+                style="transform: rotate(-15deg);" alt="" srcset="">
+        </div>
+    @endif
 </body>
 
 </html>

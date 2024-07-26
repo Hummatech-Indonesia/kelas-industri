@@ -107,7 +107,7 @@ class ClassroomController extends Controller
             'classroom' => $classroom,
             'students' => $this->studentService->handleGetBySchool($classroom->school->id),
         ];
-        return \view('dashboard.admin.pages.classroom.detail', $data, );
+        return \view('dashboard.admin.pages.classroom.detail', $data,);
     }
 
     /**

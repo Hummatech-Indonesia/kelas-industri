@@ -41,6 +41,7 @@ class User extends Authenticatable
         'motivation',
         'photo',
         'bank',
+        'point',
         'account_number',
         'headmaster',
     ];
