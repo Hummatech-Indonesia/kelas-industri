@@ -114,13 +114,51 @@
                                                                 <td>{{ $student->studentSchool->student->address }}</td>
                                                                 @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                                     <td>
-                                                                        <a href="{{ route('teacher.showStudentDetail',[$student->studentSchool->student->id,$student->classroom->generation_id]) }}"
+                                                                        <a href="{{ route('teacher.showStudentDetail', [$student->studentSchool->student->id, $student->classroom->generation_id]) }}"
                                                                             class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
                                                                     </td>
                                                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                                     <td>
-                                                                        <a href="{{ route('mentor.showStudentDetail', [$student->studentSchool->student->id,$student->classroom->generation_id]) }}"
+                                                                        <a href="{{ route('mentor.showStudentDetail', [$student->studentSchool->student->id, $student->classroom->generation_id]) }}"
                                                                             class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
+                                                                        <form
+                                                                            action="{{ route('mentor.add.point', $student->studentSchool->student->id) }}"
+                                                                            method="POST"
+                                                                            class="btn btn-sm btn-color-primary text-uppercase mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
+                                                                            @method('PUT')
+                                                                            @csrf
+                                                                            <input
+                                                                                class="btn border btn-sm text-uppercase mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
+                                                                                style="width: 70px" type="text"
+                                                                                name="point">
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary btn-sm text-uppercase mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="16" height="16"
+                                                                                    fill="currentColor" class="bi bi-floppy"
+                                                                                    viewBox="0 0 16 16">
+                                                                                    <path d="M11 2H9v3h2z" />
+                                                                                    <path
+                                                                                        d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+                                                                                </svg>
+                                                                            </button>
+                                                                        </form>
+                                                                        {{-- <form action=""
+                                                                            class="btn d-flex btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
+                                                                            method="post">
+                                                                            <input class="form-control" style="width: 50px; margin-right:2px" type="text"
+                                                                                name="poin" id="">
+                                                                            <button class="btn btn-primary"
+                                                                                type="submit"><svg
+                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="16" height="16"
+                                                                                    fill="currentColor" class="bi bi-floppy"
+                                                                                    viewBox="0 0 16 16">
+                                                                                    <path d="M11 2H9v3h2z" />
+                                                                                    <path
+                                                                                        d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+                                                                                </svg></button>
+                                                                        </form> --}}
                                                                     </td>
                                                                 @else
                                                                 @endif
@@ -252,11 +290,9 @@
                     <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Syarat & Ketentuan</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Kebijakan Privasi</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>

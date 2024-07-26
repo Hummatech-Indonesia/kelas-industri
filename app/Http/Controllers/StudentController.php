@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddPointRequest;
 use App\Http\Requests\StudentRequest;
 use App\Http\Requests\UserPasswordRequest;
 use App\Imports\StudentImport;
@@ -63,6 +64,18 @@ class StudentController extends Controller
         ];
 
         return view('dashboard.admin.pages.student.create', $data);
+    }
+
+    /**
+     * addPoint
+     *
+     * @param  mixed $user
+     * @return RedirectResponse
+     */
+    public function addPoint(User $user, AddPointRequest $request): RedirectResponse
+    {
+        $user->update(['point' => $user->point + intval($request->point)]);
+        return redirect()->back()->with('success', trans('alert.update_success'));
     }
 
     /**

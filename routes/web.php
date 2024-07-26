@@ -405,6 +405,8 @@ Route::middleware('auth.custom')->group(function () {
             'saleries' => SalaryController::class,
         ]);
 
+        Route::put('add-point/{user}', [StudentController::class, 'addPoint'])->name('add.point');
+
         Route::get('submaterial-exam', [SubMaterialExamController::class, 'examMentor'])->name('submaterialExam.index');
         Route::get('detail-submaterial-exam/{subMaterialExam}', [SubMaterialExamController::class, 'examMentorDetail'])->name('detailSubMaterialExam');
         Route::get('exam-submaterial-assessment/{subMaterialExam}', [SubMaterialExamController::class, 'examMentorAssessment'])->name('examSubMaterialAssessment');
