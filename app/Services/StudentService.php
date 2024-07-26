@@ -74,6 +74,11 @@ class StudentService
         return $this->repository->getBySchoolPayment($school, $request);
     }
 
+    public function getBySchoolPaymentNotPaginate(string $school, Request $request)
+    {
+        return $this->repository->getBySchoolPaymentNotPaginate($school, $request);
+    }
+
     public function handleGetBySchoolPaymentWithDependent(string $school, Request $request)
     {
         return $this->repository->getBySchoolWithDependent($school, $request);

@@ -58,7 +58,8 @@
                                 Cari</button>
                             <a href="{{ route('administration.tracking.showStudent', $school->id) }}" type="button"
                                 class="btn btn-light text-light"><i class="fonticon-repeat"></i></a>
-                            <button class="btn btn-success fw-bold" type="submit" style="float: right">
+                            <a href="{{ route('administration.import.student', $school->id) }}"
+                                class="btn btn-success fw-bold">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
                                     <path
@@ -66,7 +67,7 @@
                                     <path
                                         d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
                                 </svg>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </form>

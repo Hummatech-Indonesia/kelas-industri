@@ -149,9 +149,9 @@ class TrackingPaymentController extends Controller
      *
      * @return void
      */
-    public function exportStudent()
+    public function exportStudent(User $school, Request $request)
     {
-        return Excel::download(new StudentExport, 'student.xlsx');
+        return Excel::download(new StudentExport($this->studentService, $school, $request), 'student.xlsx');
     }
 
     public function detailStudent(string $classroom, string $user)
