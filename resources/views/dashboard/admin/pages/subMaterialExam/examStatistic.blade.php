@@ -78,7 +78,7 @@
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                         Nilai Tertinggi
-                        {{ !empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sortByDesc('score')->first()->score : 0 }}
+                        {{ count($submaterialExam->studentSubmaterialExams) > 0 ? $submaterialExam->studentSubmaterialExams->sortByDesc('score')->first()->score : 0 }}
                     </span>
                 </div>
             </a>
@@ -104,7 +104,7 @@
 
                     <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                         Nilai Terendah
-                        {{ !empty($submaterialExam->studentSubmaterialExams) ? $submaterialExam->studentSubmaterialExams->sortBy('score')->first()->score : 0 }}
+                        {{ count($submaterialExam->studentSubmaterialExams) > 0 ? $submaterialExam->studentSubmaterialExams->sortBy('score')->first()->score : 0 }}
 
 
                     </span>
