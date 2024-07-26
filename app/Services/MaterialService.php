@@ -56,7 +56,7 @@ class MaterialService
      * @param MaterialRequest $request
      * @return void
      */
-    public function handleCreate(MaterialRequest $request): mixed
+    public function handleCreate(MaterialRequest $request, int $order): mixed
     {
         $validate = $request->validated();
         $data = [
@@ -64,6 +64,7 @@ class MaterialService
             'title' => $validate['title'],
             'description' => $validate['description'],
             'devision_id' => $validate['devision_id'],
+            'order' => $order
         ];
         return $this->repository->store($data);
     }
@@ -75,9 +76,11 @@ class MaterialService
      * @param string $id
      * @return void
      */
-    public function handleUpdate(MaterialRequest $request, string $id): void
+    public function handleUpdate(MaterialRequest $request, string $id, int $order): void
     {
-        $this->repository->update($id, $request->validated());
+        $data = $request->validated();
+        $data['order'] = $order;
+        $this->repository->update($id, $data);
     }
 
     /**
@@ -137,5 +140,10 @@ class MaterialService
             }
 
             return $data['materialsInfo'] = $materialsInfo;
+    }
+
+    public function getOrder($devisionId, $generationId) : int {
+        $latestOrder = $this->repository->getLatestOrder($devisionId, $generationId)->order ?? 0;
+        return ++$latestOrder;
     }
 }

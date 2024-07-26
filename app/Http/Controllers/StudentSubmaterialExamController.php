@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\SubMaterialExamTypeEnum;
 use App\Exports\StudentRegristationExamExport;
+use App\Helpers\RoleHelper;
 use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -93,7 +94,7 @@ class StudentSubmaterialExamController extends Controller
             if (auth()->user()->roles->pluck('name')[0] == 'tester') return view('dashboard.user.pages.testerExam.exam', $data);
             return view('dashboard.user.pages.studentExam.exam', $data);
         } else {
-            if ($studentExam->finished_exam) {
+            if ($studentExam->finished_exam && RoleHelper::get_role() == 'tester') {
                 return redirect()->route('tester.exam.show-finish', ['studentSubmaterialExam' => $studentExam->id, 'subMaterialExam' => $subMaterialExam->id]);
             }
             if ($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value) {
@@ -141,8 +142,11 @@ class StudentSubmaterialExamController extends Controller
 
         $data = $this->service->calculate($request, $answerKey, $subMaterialExam);
 
+        // dd($data);
+        $data['higest_score'] = $studentSubmaterialExam->higest_score > $data['score']? $studentSubmaterialExam->hi : $data['score'];
         $data['finished_count'] = $studentSubmaterialExam->finished_count + 1;
 
+        // dd($data);
         $this->studentExam->update($studentSubmaterialExam->id, $data);
 
         return response()->json($data, 200);

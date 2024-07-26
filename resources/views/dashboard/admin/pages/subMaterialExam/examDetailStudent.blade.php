@@ -113,6 +113,9 @@
                             <th class="min-w-50px text-center">
                                 <span class="dt-column-title fw-bold">Nilai</span>
                             </th>
+                            <th class="min-w-50px text-center">
+                                <span class="dt-column-title fw-bold">Tertinggi</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="fw-semibold">
@@ -139,6 +142,13 @@
                                         <span class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->score }}</span>
                                     @else
                                         <span class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->score }}</span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($student->score < 75)
+                                        <span class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->higest_score }}</span>
+                                    @else
+                                        <span class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->higest_score }}</span>
                                     @endif
                                 </td>
                             </tr>

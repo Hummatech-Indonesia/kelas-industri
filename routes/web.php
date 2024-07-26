@@ -193,7 +193,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('detail-exam-taking-place/{slug}', [SubMaterialExamController::class, 'detailExamTakingPlace'])->name('detail-exam-taking-place');
         Route::get('exam-finnaly', [SubMaterialExamController::class, 'examFinnaly'])->name('exam-finnaly');
         Route::get('exam-statistic/{slug}', [SubMaterialExamController::class, 'examStatistic'])->name('exam-statistic');
-        Route::get('exam-detail-student/{submaterialExam}', [SubMaterialExamController::class, 'examDetailStudent'])->name('exam-detail-student');
+        Route::get('exam-detail-student/{submaterialExam}', [SubMaterialExamController::class, 'examDetailStudent'])->name('exam-detail -student');
 
         Route::get('exam-registration', [SubMaterialExamController::class, 'registrationExam'])->name('exam-registration');
 
@@ -497,7 +497,8 @@ Route::middleware('auth.custom')->group(function () {
         // student material exam
         Route::get('material-exam/{materialExam}/{type}', [StudentMaterialExamController::class, 'index'])->name('material-exam');
         Route::patch('material-exam/{materialExam}/{studentMaterialExam}', [StudentMaterialExamController::class, 'answer'])->name('material-exam.submit');
-        Route::get('exam/{materialExam}/{studentMaterialExam}/finish', [StudentMaterialExamController::class, 'showFinish'])->name('exam.show-finish-exam-material');
+        Route::get('material-exam/{materialExam}/{studentMaterialExam}/finish', [StudentMaterialExamController::class, 'showFinish'])->name('exam.show-finish-exam-material');
+        Route::put('material-exam/{materialExam}/opentab', [StudentMaterialExamController::class, 'openTab'])->name('material-exam.opentab');
 
         // student exam
         Route::get('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamSetName'])->name('exam-setname');

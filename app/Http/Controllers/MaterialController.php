@@ -84,7 +84,8 @@ class MaterialController extends Controller
      */
     public function store(MaterialRequest $request): RedirectResponse
     {
-        $material = $this->service->handleCreate($request);
+        $order = $this->service->getOrder($request->devision_id, $request->generation_id);
+        $material = $this->service->handleCreate($request, $order);
         $this->materialExamService->handleCreate($request, $material);
 
         return to_route('admin.materials.index')->with('success', trans('alert.add_success'));
@@ -132,7 +133,9 @@ class MaterialController extends Controller
      */
     public function update(MaterialRequest $request, Material $material): RedirectResponse
     {
-        $this->service->handleUpdate($request, $material->id);
+        // dd($request);
+        // $order = $this->service->getOrder($request->devision_id ?? $material->devision_id, $request->generation_id ?? $material->generation_id);
+        $this->service->handleUpdate($request, $material->id, $material->order);
 
         return to_route('admin.materials.index')->with('success', trans('alert.update_success'));
     }

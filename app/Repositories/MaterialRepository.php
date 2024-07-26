@@ -122,4 +122,12 @@ class MaterialRepository extends BaseRepository
         ->select('id')
         ->first();
     }
+
+    public function getLatestOrder($devisionId, $generationId) : mixed {
+        return $this->model->query()
+        ->select('order')
+        ->where(['devision_id' => $devisionId, 'generation_id' => $generationId])
+        ->orderBy('order', 'desc')
+        ->first();
+    }
 }
