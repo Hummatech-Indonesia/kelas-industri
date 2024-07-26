@@ -281,14 +281,46 @@
         <script>
             let openTab = false;
 
+            function showAlert() {
+                    let countOpenTab = 0;
+                    $.ajax({
+                        type: "PUT",
+                        url: "{{ route('student.material-exam.opentab', $student_exam->id) }}",
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr("content"),
+                        },
+                        dataType: "json", // Correct dataType to json
+                        success: function(response) {
+                            countOpenTab = response.openTab;
+                            openTab = false;
+                            Swal.fire({
+                                html: `<div id="alertElement"><p>Sisa kesempatan anda <span class="chance">${3 - countOpenTab}</span></p><p class="message">Mohon kerjakan ujian dengan jujur.</p></div>`,
+                                title: "Anda terdeteksi membuka tab baru.",
+                                icon: "error",
+                                confirmButtonText: "Ok",
+                                buttonsStyling: false,
+                                customClass: {
+                                    confirmButton: "btn btn-light-primary",
+                                },
+                            });
 
+                            if (countOpenTab >= 3) {
+                                $(".chance").text("habis");
+                                $(".message").text("Ujian Anda akan ditutup");
+                                setTimeout(() => {
+                                    submitExam();
+                                }, 3000);
+                            }
+                        },
+                    });
+                }
 
             // Deteksi jendela tidak aktif/aktif
             window.addEventListener("blur", () => {
                 console.log("Jendela tidak aktif");
                 if (openTab == false) {
                     openTab = true;
-                    showAllert();
+                    showAlert();
                 }
             });
 
@@ -376,7 +408,7 @@
             if (hour === 0 && minute === 0 && second === 0) {
                 clearInterval(count);
                 setAnswer($('#question_' + prevQuestion).data('type'), prevQuestion);
-                sumbitExam();
+                submitExam();
             }
         }, 1000);
     </script>
@@ -501,13 +533,13 @@
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
-                    sumbitExam();
+                    submitExam();
                 }
             });
         })
 
 
-        function sumbitExam() {
+        function submitExam() {
             const groupBy = (array, key) => {
                 return array.reduce((result, currentValue) => {
                     // Ambil nilai dari properti yang dijadikan kunci
