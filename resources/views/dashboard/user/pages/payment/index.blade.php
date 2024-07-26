@@ -167,6 +167,7 @@
                                 @method('POST')
                                 <!--begin::Pos order-->
                                 <input type="hidden" name="nominal" id="nominal" value="">
+                                <input type="hidden" name="icon_url" id="icon_url">
 
                                 <div class="card card-flush bg-body " id="kt_pos_form">
                                     <!--begin::Header-->
@@ -281,7 +282,7 @@
                                                             data-kt-buttons-target="[data-kt-button]">
                                                             @foreach ($channels as $channel)
                                                                 @if ($channel->group == 'Virtual Account')
-                                                                    <input type="hidden" name="icon_url"
+                                                                    <input type="hidden" name="preview_icon_url"
                                                                         value="{{ $channel->icon_url }}">
                                                                     <div class="col-4 mb-5">
                                                                         <label
@@ -333,7 +334,7 @@
                                                             data-kt-buttons-target="[data-kt-button]">
                                                             @foreach ($channels as $channel)
                                                                 @if ($channel->group == 'E-Wallet')
-                                                                    <input type="hidden" name="icon_url"
+                                                                    <input type="hidden" name="preview_icon_url"
                                                                         value="{{ $channel->icon_url }}">
                                                                     <div class="col-4 mb-5">
                                                                         <label
@@ -385,7 +386,7 @@
                                                             data-kt-buttons-target="[data-kt-button]">
                                                             @foreach ($channels as $channel)
                                                                 @if ($channel->group == 'Convenience Store')
-                                                                    <input type="hidden" name="icon_url"
+                                                                    <input type="hidden" name="preview_icon_url"
                                                                         value="{{ $channel->icon_url }}">
                                                                     <div class="col-4 mb-5">
                                                                         <label
@@ -564,15 +565,18 @@
             $('#confirmation_btn').click(function() {
                 const formData = $('#payment_form').serializeArray();
                 const method = formData.find(function(item) {
-                    return item.name === "icon_url";
+                    return item.name === "preview_icon_url";
                 });
+
+                // console.log(method.value);
                 const index = formData.findIndex(function(item) {
                     return item.name === "method";
                 });
-                console.log(formData[index - 1]);
+                // console.log(formData[index - 1]);
                 const check = $('#installmentCheckbox').is(":checked");
 
                 $('#payment_method').attr('src', formData[index - 1].value)
+                $(`#icon_url`).val(formData[index - 1].value);
                 if (check) {
                     const amount = $('#installment').val();
                     const numericAmount = parseInt(amount.replace(/[^0-9]+/g, ""), 10);
