@@ -140,6 +140,9 @@ class JurnalController extends Controller
         $data = $this->GetDataSidebar();
         $data['journal'] = $journal;
         $data['classrooms'] = $this->classroomService->handleGetClassroomByUserJurnal(auth()->id());
+        if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+            $data['attendances'] = $this->journalAttendaceService->handleGetByJournal($journal->id);
+        }
         return view('dashboard.user.pages.jurnal.edit', $data);
     }
 
@@ -149,6 +152,7 @@ class JurnalController extends Controller
         if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
         } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+            $this->journalAttendaceService->handleUpdate($request->attendance, $journal->id);
             return to_route('teacher.journal.index')->with('success', trans('alert.update_success'));
         }
     }

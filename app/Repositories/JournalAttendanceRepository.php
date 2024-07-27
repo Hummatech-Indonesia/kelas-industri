@@ -13,6 +13,6 @@ class JournalAttendanceRepository extends BaseRepository
     }
 
     public function getByJournal($journalId): mixed {
-        return $this->model->where("journal_id", $journalId)->get();
+        return $this->model->with('studentClassroom.studentSchool.student')->where("journal_id", $journalId)->get();
     }
  }

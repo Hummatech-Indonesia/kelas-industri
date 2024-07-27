@@ -16,7 +16,7 @@
                         <!--begin::Toolbar wrapper-->
                         <div id="kt_app_content_container" class="app-container  container-fluid ">
                             @if ($errors->any())
-                                <x-errors-component/>
+                                <x-errors-component />
                             @endif
                             <div class="row">
                                 @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
@@ -95,35 +95,36 @@
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
 
                                                     <div class="col-lg-9 col-xl-9">
-                                                        
+
                                                         <input class="form-control form-control-solid form-control-lg"
-                                                            name="photo" type="file"
-                                                            placeholder="Masukkan Foto">
+                                                            name="photo" type="file" placeholder="Masukkan Foto">
 
                                                     </div>
 
                                                 </div>
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                <div class="form-group row mb-3">
+                                                    <div class="form-group row mb-3">
 
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
+                                                        <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
 
-                                                    <div class="col-lg-9 col-xl-9">
+                                                        <div class="col-lg-9 col-xl-9">
 
-                                                        <select name="classroom_id" class="form-select form-select-solid"
-                                                            data-control="select2" data-placeholder="Select an option">
-                                                            @foreach ($classrooms as $classroom)
-                                                                <option
-                                                                {{ $journal->classroom_id == $classroom->classroom_id ? 'selected' : '' }}
-                                                                    value="{{ $classroom->classroom_id }}">
-                                                                    {{ $classroom->classroom->name }} - {{ $classroom->classroom->school->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
+                                                            <select name="classroom_id"
+                                                                class="form-select form-select-solid" data-control="select2"
+                                                                data-placeholder="Select an option">
+                                                                @foreach ($classrooms as $classroom)
+                                                                    <option
+                                                                        {{ $journal->classroom_id == $classroom->classroom_id ? 'selected' : '' }}
+                                                                        value="{{ $classroom->classroom_id }}">
+                                                                        {{ $classroom->classroom->name }} -
+                                                                        {{ $classroom->classroom->school->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+
+                                                        </div>
 
                                                     </div>
-
-                                                </div>
                                                 @endif
 
                                                 <div class="form-group row mb-3">
@@ -159,6 +160,81 @@
 
                                 </div>
                             </div>
+                            @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                <div class="col-12 mt-5">
+                                    <div class="card card-custom card-sticky">
+                                        <div class="card-header" style="">
+
+                                            <div class="card-title">
+
+                                                <h3 class="card-label">
+
+                                                    Silakan Isi Data Absensi Siswa
+
+                                                </h3>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table gs-7 gy-7 gx-7">
+                                                    <thead>
+                                                        <tr
+                                                            class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                                                            <th>Nama</th>
+                                                            <th>Kelas</th>
+                                                            <th>Hadir</th>
+                                                            <th>Ijin</th>
+                                                            <th>Sakit</th>
+                                                            <th>Alfa</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($attendances as $attendance)
+                                                            {{-- @dd($attendance) --}}
+                                                            <tr>
+                                                                <td>{{ $attendance->studentClassroom->studentSchool->student->name }}</td>
+                                                                <td>{{ $attendance->studentClassroom->classroom->name }}</td>
+                                                                <td class="text-center">
+                                                                    <div
+                                                                        class="form-check form-check-custom form-check-success form-check-solid">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            value="hadir"
+                                                                            name="attendance[{{ $attendance->studentClassroom->id }}]" {{ $attendance->attendance == 'hadir' ? 'checked' : '' }}>
+                                                                    </div>
+                                                                <td class="text-center">
+                                                                    <div
+                                                                        class="form-check form-check-custom form-check-warning form-check-solid">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            value="ijin"
+                                                                            name="attendance[{{ $attendance->studentClassroom->id }}]" {{ $attendance->attendance == 'ijin' ? 'checked' : '' }}>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <div
+                                                                        class="form-check form-check-custom form-check-danger form-check-solid">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            value="sakit"
+                                                                            name="attendance[{{ $attendance->studentClassroom->id }}]" {{ $attendance->attendance == 'sakit' ? 'checked' : '' }}>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <div
+                                                                        class="form-check form-check-custom form-check-danger form-check-solid">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            value="alfa"
+                                                                            name="attendance[{{ $attendance->studentClassroom->id }}]" {{ $attendance->attendance == 'alfa' ? 'checked' : '' }}>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             </form>
                         </div>
 
@@ -191,7 +267,8 @@
                 <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
                         Kami</a></li>
 
-                <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank" class="menu-link px-2">Syarat &
+                <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                        class="menu-link px-2">Syarat &
                         Ketentuan</a></li>
 
                 <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
@@ -210,12 +287,19 @@
         $("#kt_datatable_responsive").DataTable({
             responsive: true
         });
-
         $(document).ready(function() {
-            const datepicker = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"));
-            datepicker.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
+            var originalData = @json($attendances);
+            console.log(originalData);
+            var newData = {};
+
+            // for (var id in newData) {
+            //     if (JSON.stringify(newData[id]) !== JSON.stringify(originalData[id])) {
+            //     }
+            // }
+
             const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
             datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
+
         })
     </script>
 @endsection
