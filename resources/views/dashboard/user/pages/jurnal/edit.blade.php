@@ -45,7 +45,7 @@
 
                                             <div class="card-toolbar">
 
-                                                <a href="{{ url()->previous() }}"
+                                                <a href="{{ route('teacher.journal.index') }}"
                                                     class="btn btn-light-primary font-weight-bolder me-2">
 
                                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -200,14 +200,14 @@
                                                                         class="form-check form-check-custom form-check-success form-check-solid">
                                                                         <input class="form-check-input" type="radio"
                                                                             value="hadir"
-                                                                            name="attendance[{{ $attendance->studentClassroom->id }}]" {{ $attendance->attendance == 'hadir' ? 'checked' : '' }}>
+                                                                            name="attendance[{{ $attendance->id }}]" {{ $attendance->attendance == 'hadir' ? 'checked' : '' }}>
                                                                     </div>
                                                                 <td class="text-center">
                                                                     <div
                                                                         class="form-check form-check-custom form-check-warning form-check-solid">
                                                                         <input class="form-check-input" type="radio"
                                                                             value="ijin"
-                                                                            name="attendance[{{ $attendance->studentClassroom->id }}]" {{ $attendance->attendance == 'ijin' ? 'checked' : '' }}>
+                                                                            name="attendance[{{ $attendance->id }}]" {{ $attendance->attendance == 'ijin' ? 'checked' : '' }}>
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-center">
@@ -215,7 +215,7 @@
                                                                         class="form-check form-check-custom form-check-danger form-check-solid">
                                                                         <input class="form-check-input" type="radio"
                                                                             value="sakit"
-                                                                            name="attendance[{{ $attendance->studentClassroom->id }}]" {{ $attendance->attendance == 'sakit' ? 'checked' : '' }}>
+                                                                            name="attendance[{{ $attendance->id }}]" {{ $attendance->attendance == 'sakit' ? 'checked' : '' }}>
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-center">
@@ -223,7 +223,7 @@
                                                                         class="form-check form-check-custom form-check-danger form-check-solid">
                                                                         <input class="form-check-input" type="radio"
                                                                             value="alfa"
-                                                                            name="attendance[{{ $attendance->studentClassroom->id }}]" {{ $attendance->attendance == 'alfa' ? 'checked' : '' }}>
+                                                                            name="attendance[{{ $attendance->id }}]" {{ $attendance->attendance == 'alfa' ? 'checked' : '' }}>
                                                                     </div>
                                                                 </td>
                                                             </tr>

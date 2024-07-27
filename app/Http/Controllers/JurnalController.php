@@ -17,6 +17,7 @@ use App\Services\SchoolYearService;
 use App\Http\Requests\JournalRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Services\JournalAttendanceService;
+use App\Http\Requests\UpdateJournalRequest;
 
 class JurnalController extends Controller
 {
@@ -146,14 +147,14 @@ class JurnalController extends Controller
         return view('dashboard.user.pages.jurnal.edit', $data);
     }
 
-    public function update(JournalRequest $request, Journal $journal)
+    public function update(UpdateJournalRequest $request, Journal $journal)
     {
         $this->journalService->handleUpdate($request, $journal);
         if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
         } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $this->journalAttendaceService->handleUpdate($request->attendance, $journal->id);
-            return to_route('teacher.journal.index')->with('success', trans('alert.update_success'));
+            return to_route('teacher.journal.edit', $journal->id)->with('success', trans('alert.update_success'));
         }
     }
 

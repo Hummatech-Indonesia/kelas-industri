@@ -29,7 +29,6 @@ class JournalAttendanceService
     {
         foreach ($attendances as $key => $value) {
             $data['journal_id'] = $journalId;
-            $data['student_classroom_id'] = $key;
             $data['attendance'] = $value;
             $this->repository->update($key, $data);
         }

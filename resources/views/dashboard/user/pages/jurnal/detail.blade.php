@@ -36,7 +36,7 @@
 
                                             <div class="card-toolbar">
 
-                                                <a href="{{ url()->previous() }}"
+                                                <a href="{{ route('teacher.journal.index') }}"
                                                     class="btn btn-light-primary font-weight-bolder me-2">
 
                                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -45,18 +45,6 @@
 
                                                 </a>
 
-
-                                                <div class="btn-group">
-
-                                                    <button type="submit" class="btn btn-primary font-weight-bolder">
-
-                                                        <i class="ki ki-check icon-sm"></i>
-
-                                                        Simpan
-
-                                                    </button>
-
-                                                </div>
 
                                             </div>
 
