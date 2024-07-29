@@ -48,10 +48,35 @@ class CheckPayment
                     ->orderBy('semester', 'desc')
                     ->first();
 
-                $nominalRequired = $previousDependent == null? 0 :$previousDependent->nominal;
+                $nominalRequired = $previousDependent == null ? 0 : $previousDependent->nominal;
                 $isPaymentComplete = $nominalRequired == $studentPayment;
 
-                if (!$isPaymentComplete) {
+                $paymentDeadline = $previousDependent->deadline;
+                $currentDate = now();
+                if ($currentDate > $paymentDeadline && !$isPaymentComplete) {
+                    return redirect()->route('home');
+                }
+            } else {
+                $studentPayment = Payment::query()
+                    ->where('user_id', auth()->user()->id)
+                    ->where('invoice_status', 'PAID')
+                    ->where('semester', 1)
+                    ->sum('total_pay');
+
+                $previousDependent = Dependent::where(
+                    'classroom_id',
+                    auth()->user()->studentSchool->studentClassroom->classroom_id,
+                )
+                    ->where('semester', 1)
+                    ->orderBy('semester', 'desc')
+                    ->first();
+
+                $nominalRequired = $previousDependent == null ? 0 : $previousDependent->nominal;
+                $isPaymentComplete = $nominalRequired == $studentPayment;
+
+                $paymentDeadline = $previousDependent->deadline;
+                $currentDate = now();
+                if ($currentDate > $paymentDeadline && !$isPaymentComplete) {
                     return redirect()->route('home');
                 }
             }

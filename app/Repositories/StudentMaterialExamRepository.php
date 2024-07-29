@@ -77,4 +77,12 @@ class StudentMaterialExamRepository extends BaseRepository
             ->where('type', 'post_test')
             ->first();
     }
+
+    public function getAllStudentSubmit($materialExamId): mixed
+    {
+        return $this->model->query()
+            ->where('material_exam_id', $materialExamId)
+            ->with('student.studentSchool.studentClassroom.classroom')
+            ->get();
+    }
 }

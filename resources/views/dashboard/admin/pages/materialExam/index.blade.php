@@ -124,7 +124,7 @@
 
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="" class="menu-link px-3">
+                                            <a href="{{ route('admin.exam-material-statistic', $exam->id) }}" class="menu-link px-3">
                                                 Lihat Hasil
                                             </a>
                                         </div>

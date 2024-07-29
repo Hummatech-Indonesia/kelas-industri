@@ -130,8 +130,6 @@ trait DataSidebar
                 ->orderBy('semester', 'desc')
                 ->first();
 
-            $isPaymentComplete = true;
-
             if ($dependent && $dependent->semester > 1) {
                 $previousSemester = $dependent->semester - 1;
 
@@ -150,6 +148,39 @@ trait DataSidebar
                     ->first();
                 $nominalRequired = $previousDependent == null ? 0 : $previousDependent->nominal;
                 $isPaymentComplete = $nominalRequired == $studentPayment;
+
+                $paymentDeadline = $previousDependent->deadline;
+                $currentDate = now();
+                if ($currentDate > $paymentDeadline && !$isPaymentComplete) {
+                    $isPaymentComplete = false;
+                } else {
+                    $isPaymentComplete = true;
+                }
+            } else {
+                $studentPayment = Payment::query()
+                    ->where('user_id', auth()->user()->id)
+                    ->where('invoice_status', 'PAID')
+                    ->where('semester', 1)
+                    ->sum('total_pay');
+
+                $previousDependent = Dependent::where(
+                    'classroom_id',
+                    auth()->user()->studentSchool->studentClassroom->classroom_id,
+                )
+                    ->where('semester', 1)
+                    ->orderBy('semester', 'desc')
+                    ->first();
+
+                $nominalRequired = $previousDependent == null ? 0 : $previousDependent->nominal;
+                $isPaymentComplete = $nominalRequired == $studentPayment;
+
+                $paymentDeadline = $previousDependent->deadline;
+                $currentDate = now();
+                if ($currentDate > $paymentDeadline && !$isPaymentComplete) {
+                    $isPaymentComplete = false;
+                } else {
+                    $isPaymentComplete = true;
+                }
             }
             return $isPaymentComplete;
         }

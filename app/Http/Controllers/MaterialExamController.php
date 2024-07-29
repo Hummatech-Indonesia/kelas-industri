@@ -3,27 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\MaterialExam;
-use App\Repositories\MaterialExamQuestionRepository;
+use Illuminate\Http\Request;
+use function PHPUnit\Framework\returnSelf;
 use App\Repositories\MaterialExamRepository;
 use App\Repositories\QuestionBankRepository;
-use Illuminate\Http\Request;
-
-use function PHPUnit\Framework\returnSelf;
+use App\Services\StudentMaterialExamService;
+use App\Repositories\MaterialExamQuestionRepository;
 
 class MaterialExamController extends Controller
 {
     private MaterialExamRepository $repository;
     private QuestionBankRepository $questionBankRepository;
     private MaterialExamQuestionRepository $examQuestionRepository;
+    private StudentMaterialExamService $studentMaterialExamService;
 
     public function __construct(
         MaterialExamRepository $repository,
         QuestionBankRepository $questionBankRepository,
-        MaterialExamQuestionRepository $examQuestionRepository
+        MaterialExamQuestionRepository $examQuestionRepository,
+        StudentMaterialExamService $studentMaterialExamService
     ) {
         $this->repository = $repository;
         $this->questionBankRepository = $questionBankRepository;
         $this->examQuestionRepository = $examQuestionRepository;
+        $this->studentMaterialExamService = $studentMaterialExamService;
     }
     /**
      * Display a listing of the resource.
@@ -103,7 +106,15 @@ class MaterialExamController extends Controller
     {
         $materialExam = $this->repository->getExamById($materialExamId);
         $materialQuestions = $this->questionBankRepository->paginateUnusedQuestionMaterial($request, $materialId, 10);
-        
+
         return view('dashboard.admin.pages.materialExam.questionManual', compact('materialQuestions', 'materialExam'));
+    }
+
+    public function materialExamStatistic(MaterialExam $materialExam)
+    {
+        $data['materialExam'] = $this->repository->getExamById($materialExam->id);
+        $data['studentExams'] = $data['materialExam']->studentMaterialExams->sortByDesc('score')->take(5);
+        $data['avgScoreClassrooms'] = $this->studentMaterialExamService->handleGetAllStudentSubmit($data['materialExam']->id);
+        return view('dashboard.admin.pages.MaterialExam.examStatistic', $data);
     }
 }
