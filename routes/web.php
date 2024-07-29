@@ -193,9 +193,10 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('detail-exam-taking-place/{slug}', [SubMaterialExamController::class, 'detailExamTakingPlace'])->name('detail-exam-taking-place');
         Route::get('exam-finnaly', [SubMaterialExamController::class, 'examFinnaly'])->name('exam-finnaly');
         Route::get('exam-statistic/{slug}', [SubMaterialExamController::class, 'examStatistic'])->name('exam-statistic');
-        Route::get('exam-detail-student/{submaterialExam}', [SubMaterialExamController::class, 'examDetailStudent'])->name('exam-detail -student');
+        Route::get('exam-detail-student/{submaterialExam}', [SubMaterialExamController::class, 'examDetailStudent'])->name('exam-detail-student');
 
         Route::get('exam-material-statistic/{materialExam}', [MaterialExamController::class, 'materialExamStatistic'])->name('exam-material-statistic');
+        Route::get('exam-material-detail-student/{materialExam}/{type}', [MaterialExamController::class, 'examDetailStudent'])->name('exam-material-detail-student');
 
         Route::get('exam-registration', [SubMaterialExamController::class, 'registrationExam'])->name('exam-registration');
 

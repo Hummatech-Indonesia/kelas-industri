@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Http\Request;
 use App\Models\StudentMaterialExam;
 use App\Repositories\BaseRepository;
 
@@ -58,6 +59,29 @@ class StudentMaterialExamRepository extends BaseRepository
     public function update(mixed $id, array $data): mixed
     {
         return $this->show($id)->update($data);
+    }
+
+    public function getByMaterialExam(Request $request, $submaterialExamId, $paginate): mixed
+    {
+        // dd($request->school_id);
+        $result = $this->model->query()
+            ->where('material_exam_id', $submaterialExamId)
+            ->whereRelation('student', function ($q) use ($request) {
+                return $q->where('name',  'LIKE', "%$request->search%");
+            });
+
+        if ($request->school_id && $request->classroom_id) {
+            $result->whereRelation('student.studentSchool', function ($q) use ($request) {
+                return $q->where('school_id', $request->school_id)
+                    ->whereRelation('classrooms', 'classroom_id', $request->classroom_id);
+            });
+        } else if ($request->school_id) {
+            $result->whereRelation('student.studentSchool', function ($q) use ($request) {
+                return $q->where('school_id', $request->school_id);
+            });
+        }
+
+        return $result->paginate($paginate);
     }
 
     public function handleComplateExamPreTest(mixed $previousMaterial): mixed

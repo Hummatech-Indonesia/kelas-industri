@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\MaterialExamTypeEnum;
 use App\Models\MaterialExam;
 use App\Models\StudentMaterialExam;
 use Illuminate\Http\Request;
@@ -76,6 +77,10 @@ class StudentMaterialExamService
             'finished_exam' => now(),
         ];
     }
+    public function halndeGetByMaterialExam(Request $request, $submaterialExamId): mixed
+    {
+        return $this->repository->getByMaterialExam($request, $submaterialExamId, 10);
+    }
     public function handleOpenTab($subMaterialExam): mixed
     {
         return $this->repository->openTab($subMaterialExam);
@@ -107,7 +112,37 @@ class StudentMaterialExamService
 
     public function handleGetAllStudentSubmit($materialExamId)
     {
-        $studentMaterialExams = $this->repository->getAllStudentSubmit($materialExamId);
+        $studentMaterialExams = $this->repository->getAllStudentSubmit($materialExamId)->where('type', MaterialExamTypeEnum::PRETEST->value);
+
+        $topClassroom = $studentMaterialExams
+            ->load('student.studentSchool.studentClassroom.classroom')
+            ->groupBy(function ($item) {
+                return $item->student->studentSchool->studentClassroom->classroom->name;
+            });
+
+        $averages = $topClassroom->map(function ($group) {
+            $averageScore = $group->avg('score');
+            $sampleItem = $group->first();
+
+            if ($sampleItem && $sampleItem->student && $sampleItem->student->studentSchool) {
+                $schoolData = $sampleItem->student->studentSchool->school->only(['name']);
+            } else {
+                $schoolData = [];
+            }
+
+            return [
+                'average_score' => $averageScore,
+                'school' => $schoolData
+            ];
+        });
+
+        $sortedAverages = $averages->sortByDesc('average_score')->take(5);
+
+        return $sortedAverages;
+    }
+    public function handleGetAllStudentPostSubmit($materialExamId)
+    {
+        $studentMaterialExams = $this->repository->getAllStudentSubmit($materialExamId)->where('type', MaterialExamTypeEnum::POSTEST->value);
 
         $topClassroom = $studentMaterialExams
             ->load('student.studentSchool.studentClassroom.classroom')
