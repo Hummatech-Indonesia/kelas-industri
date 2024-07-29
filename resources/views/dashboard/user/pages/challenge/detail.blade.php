@@ -650,7 +650,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "/teacher/validChallengeTeacher/",
+                            url: "{{ route('teacher.validChallengeTeacher') }}",
                             type: 'POST',
                             data: {
                                 ids: ids,
@@ -687,7 +687,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "/mentor/validChallenge/",
+                            url: "{{ route('mentor.validChallenge') }}",
                             type: 'POST',
                             data: {
                                 ids: ids,
