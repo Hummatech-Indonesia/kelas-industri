@@ -124,7 +124,7 @@
 
                             <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                                 Nilai Tertinggi
-                                <span>{{ $studentExams->first()->score }}</span>
+                                <span>{{ $studentExams->first()->score ?? '-' }}</span>
                             </span>
                         </div>
                     </a>
@@ -150,7 +150,7 @@
 
                             <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold my-auto">
                                 Nilai Terendah
-                                <span>{{ $studentExams->sortBy('score')->first()->score }}</span>
+                                <span>{{ $studentExams->sortBy('score')->first()->score ?? '-' }}</span>
                             </span>
                         </div>
                     </a>
