@@ -335,7 +335,7 @@
 
                                         </div>
                                     @elseif ($infos['isFirst'] == false)
-                                        @if ($infos['complateExamPreTest'] != null && $infos['complateExamPosTest'])
+                                        @if ($infos['complateExamPreTest'] && $infos['complateExamPosTest'])
                                             <div class="col-xl-4 mb-5">
 
                                                 <!--begin::Card-->

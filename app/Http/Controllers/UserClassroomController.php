@@ -187,6 +187,9 @@ class UserClassroomController extends Controller
             $prevSubMaterials = $this->subMaterialService->handlePrevSubmaterial($submaterial->order, $submaterial->material->id);
             $materials = $this->materialService->handleGetMaterialByDevision($submaterial->material->devision_id);
 
+            if(auth()->user()->roles->pluck('name')[0] == 'student'){
+                $materialInfos = $this->materialService->handleOrderMaterials($materials);
+            }
             foreach ($materials as $material) {
                 foreach ($material->subMaterials as $subMaterial) {
                     $order = $subMaterial->order;
@@ -197,11 +200,12 @@ class UserClassroomController extends Controller
 
                     if ($previousSubMaterial && auth()->user()->roles->pluck('name')[0] == 'student') {
                         $countAssignment = $this->assignmentService->countAssignments($previousSubMaterial->id, $previousOrder);
-
                         $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubMaterial->id, $previousOrder);
+                        $studentExam = $this->studentSubmaterialExamRepository->getPreviousStudentExam($previousSubMaterial->id, $previousOrder);
                     } else {
                         $countAssignment = 0;
                         $countStudentAssignment = 0;
+                        $studentExam = 0;
                     }
 
                     $isFirst = $order == 1;
@@ -210,6 +214,7 @@ class UserClassroomController extends Controller
                         'isFirst' => $isFirst,
                         'countAssignment' => $countAssignment,
                         'countStudentAssignment' => $countStudentAssignment,
+                        'studentExam' => $studentExam,
                     ];
                 }
 
@@ -227,11 +232,11 @@ class UserClassroomController extends Controller
             }
 
             if ($order == 1) {
-                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials', 'subMaterialsInfo', 'schoolPayment', 'isPaymentComplete'));
+                return view('dashboard.user.pages.submaterial.view', compact('materialInfos','submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials', 'subMaterialsInfo', 'schoolPayment', 'isPaymentComplete'));
             }
 
             if ($countAssignmentByMaterial == 0) {
-                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials', 'subMaterialsInfo', 'schoolPayment', 'isPaymentComplete'));
+                return view('dashboard.user.pages.submaterial.view', compact('materialInfos','submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials', 'subMaterialsInfo', 'schoolPayment', 'isPaymentComplete'));
             }
 
             $countAssignment = $this->assignmentService->countAssignments($previousSubmaterial->id, $previousOrder);
@@ -239,10 +244,10 @@ class UserClassroomController extends Controller
             $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubmaterial->id, $previousOrder);
 
             if ($countAssignment == $countStudentAssignment) {
-                return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials', 'subMaterialsInfo', 'schoolPayment', 'isPaymentComplete'));
+                return view('dashboard.user.pages.submaterial.view', compact('materialInfos', 'submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials', 'subMaterialsInfo', 'schoolPayment', 'isPaymentComplete'));
             }
 
-            return view('dashboard.user.pages.submaterial.view', compact('submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials', 'subMaterialsInfo', 'schoolPayment', 'isPaymentComplete'));
+            return view('dashboard.user.pages.submaterial.view', compact('materialInfos', 'submaterial', 'role', 'listSubMaterials', 'prevSubMaterials', 'materials', 'subMaterialsInfo', 'schoolPayment', 'isPaymentComplete'));
         } else {
             auth()->logout();
             return view('auth.login');

@@ -48,13 +48,12 @@
             <div class="me-2">
                 <label for="" class="form-label">Tipe Soal</label>
                 <select name="type" class="form-select form-select-solid" id="">
-                    <option value="">Pilih Tipe</option>
                     <option value="multiple_choice" {{ isset(request()->type) && request()->type == 'multiple_choice'? 'selected': '' }}>Pilihan Ganda</option>
                     <option value="essay" {{ isset(request()->type) && request()->type == 'essay'? 'selected': '' }}>Essay</option>
                 </select>
             </div>
             <div class="me-2">
-                <button type="submit" class="btn btn-sm btn-primary" style="padding-top: 11px; padding-bottom: 11px;    ">Filter</button>
+                <button type="submit" class="btn btn-sm btn-primary" style="padding-top: 11px; padding-bottom: 11px;">Filter</button>
             </div>
             <div class="me-2">
                 <a href="{{ route('admin.material-exam-question-manual', ['material' => request()->material, 'materialExam' => request()->materialExam]) }}" class="btn btn-sm btn-primary" style="padding-top: 11px; padding-bottom: 11px;    ">Reset</a>
@@ -83,7 +82,7 @@
                         <div class="card bg-primary">
                             <div class="card-body">
                                 <div class="text-white fs-4">
-                                    Pilih soal manual untuk ujian soal {{ $materialExam->title }}
+                                    Pilih soal manual untuk Test soal {{ $materialExam->material->title }}
                                 </div>
                             </div>
                         </div>

@@ -107,24 +107,21 @@ class QuestionBankRepository extends BaseRepository
             ->whereDoesntHave('materialExamQuestions', function ($query) use ($materialId) {
                 $query->whereRelation('materialExam.material', 'id', $materialId);
             })
-            ;
-            // ->when($request->multiple_choice, function ($query) {
-            //     $query->where('type', QuestionTypeEnum::MULTIPLECHOICE->value);
-            // })
-            // ->when($request->essay, function ($query) {
-            //     $query->where('type', QuestionTypeEnum::ESSAY->value);
-            // });
-
-
-            // if($request->start_at) {
-            //     $data->where('created_at', '>=', $request->start_at);
-            // }
-            // if($request->end_at) {
-            //     $data->where('updated_at', '<=', $request->end_at);
-            // }
-            // if ($request->type) {
-            //     $data->where('type', $request->type);
-            // }
+            ->when($request->multiple_choice, function ($query) {
+                $query->where('type', QuestionTypeEnum::MULTIPLECHOICE->value);
+            })
+            ->when($request->essay, function ($query) {
+                $query->where('type', QuestionTypeEnum::ESSAY->value);
+            });
+            if($request->start_at) {
+                $data->where('created_at', '>=', $request->start_at);
+            }
+            if($request->end_at) {
+                $data->where('updated_at', '<=', $request->end_at);
+            }
+            if ($request->type) {
+                $data->where('type', $request->type);
+            }
 
             return $data->paginate($pagination);
     }
