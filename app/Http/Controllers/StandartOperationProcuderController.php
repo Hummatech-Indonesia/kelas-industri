@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StandartOperationProcuderRequest;
+use App\Models\StandartOperationProcedure;
 use App\Services\StandartOperationProcuderService;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,7 @@ class StandartOperationProcuderController extends Controller
     public function store(StandartOperationProcuderRequest $request)
     {
         $this->standartOperationProcuder->store($request);
-        return to_route('admin.standart-operation-producer.index');
+        return to_route('admin.standart-operation-producer.index')->with('success', trans('alert.add_success'));
     }
 
     /**
@@ -77,9 +78,10 @@ class StandartOperationProcuderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StandartOperationProcuderRequest $request, StandartOperationProcedure $standartOperationProcedure)
     {
-        //
+        $this->standartOperationProcuder->update($standartOperationProcedure, $request);
+        return to_route('admin.standart-operation-producer.index')->with('success', trans('alert.update_success'));
     }
 
     /**
@@ -88,8 +90,9 @@ class StandartOperationProcuderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(StandartOperationProcedure $standartOperationProcedure)
     {
-        //
+        $this->standartOperationProcuder->delete($standartOperationProcedure->id);
+        return to_route('admin.standart-operation-producer.index')->with('success', trans('alert.delete_success'));
     }
 }

@@ -45,4 +45,11 @@ class StandartOperationProcuderRepository extends BaseRepository
         return $this->model->query()
             ->delete($id);
     }
+
+    public function update(mixed $id, array $data): mixed
+    {
+        return $this->model->query()
+            ->findOrFail($id)
+            ->update($data);
+    }
 }

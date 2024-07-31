@@ -46,4 +46,9 @@ class StandartOperationProcuderService
     {
         return $this->repository->delete($standartOperationProcedure->id);
     }
+
+    public function update(StandartOperationProcedure $standartOperationProcedure, StandartOperationProcuderRequest $request)
+    {
+        return $this->repository->update($standartOperationProcedure->id, $request->validated());
+    }
 }
