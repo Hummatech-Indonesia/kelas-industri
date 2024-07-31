@@ -499,7 +499,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.sub-material-exam.index') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.exam-question') || request()->routeIs('admin.exam-detail-student')  || request()->routeIs('admin.exam-statistic') ? 'active' : '' }}"
+                                    <a class="menu-link {{ request()->routeIs('admin.sub-material-exam.index') || request()->routeIs('admin.exam-question-manual') || request()->routeIs('admin.exam-question') || request()->routeIs('admin.exam-detail-student') || request()->routeIs('admin.exam-statistic') ? 'active' : '' }}"
                                         href="{{ route('admin.sub-material-exam.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">List Quiz</span>
@@ -590,6 +590,26 @@
                         <!--end:Menu link-->
                     </div>
                     <!--end:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{ request()->routeIs('admin.standart-operation-producer.*') }}"
+                            href="{{ route('admin.standart-operation-producer.index') }}">
+                            <span class="menu-icon">
+                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/files/fil003.svg-->
+                                <span class="svg-icon svg-icon-muted svg-icon-2x"><svg width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.3"
+                                            d="M18 22C19.7 22 21 20.7 21 19C21 18.5 20.9 18.1 20.7 17.7L15.3 6.30005C15.1 5.90005 15 5.5 15 5C15 3.3 16.3 2 18 2H6C4.3 2 3 3.3 3 5C3 5.5 3.1 5.90005 3.3 6.30005L8.7 17.7C8.9 18.1 9 18.5 9 19C9 20.7 7.7 22 6 22H18Z"
+                                            fill="currentColor" />
+                                        <path d="M18 2C19.7 2 21 3.3 21 5H9C9 3.3 7.7 2 6 2H18Z" fill="currentColor" />
+                                        <path d="M9 19C9 20.7 7.7 22 6 22C4.3 22 3 20.7 3 19H9Z" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </span>
+                            <span class="menu-title">SOP</span></a>
+                        <!--end:Menu link-->
+                    </div>
 
                     <!--begin:Menu item-->
                     <div class="menu-item">

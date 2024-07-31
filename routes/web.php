@@ -59,6 +59,7 @@ use App\Http\Controllers\TeacherStatisticController;
 use App\Http\Controllers\EventDocumentationController;
 use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\MaterialExamQuestionController;
+use App\Http\Controllers\StandartOperationProcuderController;
 use App\Http\Controllers\StudentMaterialExamController;
 use App\Http\Controllers\StudentSubmaterialExamController;
 use App\Http\Controllers\SubMaterialExamQuestionController;
@@ -100,6 +101,7 @@ Route::middleware('auth.custom')->group(function () {
             return view('dashboard.admin.layouts.app');
         });
 
+        Route::resource('standart-operation-producer', StandartOperationProcuderController::class);
         Route::get('/absent', [AttendanceController::class, 'index'])->name('absent');
         Route::get('/absent/{attendance}', [AttendanceController::class, 'show'])->name('showAbsent');
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
