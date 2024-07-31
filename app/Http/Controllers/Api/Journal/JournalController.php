@@ -59,6 +59,10 @@ class JournalController extends Controller
                 'data' => $journal
             ], 201);
         }
+
+        return response()->json([
+            'message' => 'Gambar wajib diisi!'
+        ], 400);
     }
 
     /**
