@@ -424,7 +424,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         Route::get('/showStudentDetail/{student}/{generation}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
         Route::post('validChallenge', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
-        Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+        Route::get('/showDocument/{submaterial}/{role}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
         Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
@@ -449,7 +449,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
         Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
         Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
-        Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+        Route::get('/showDocument/{submaterial}/{role}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
         Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
         Route::get('schedules/get-all', [ScheduleController::class, 'all'])->name('schedules.all');
     });

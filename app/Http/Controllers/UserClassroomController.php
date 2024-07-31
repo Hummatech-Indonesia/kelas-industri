@@ -177,7 +177,7 @@ class UserClassroomController extends Controller
         return view('dashboard.user.pages.submaterial.detail', $data);
     }
 
-    public function showDocument(SubMaterial $submaterial, string $role)
+    public function showDocument(SubMaterial $submaterial, string $role, null|string $classroom = null)
     {
         if (auth()->check()) {
             $schoolPayment = $this->SchoolPackageMockup();
@@ -185,7 +185,12 @@ class UserClassroomController extends Controller
             $order = $submaterial->order;
             $listSubMaterials = $this->subMaterialService->handleListSubMaterials($submaterial->order, $submaterial->material->id);
             $prevSubMaterials = $this->subMaterialService->handlePrevSubmaterial($submaterial->order, $submaterial->material->id);
-            $materials = $this->materialService->handleGetMaterialByDevision($submaterial->material->devision_id);
+            if (auth()->user()->roles->pluck('name')[0] != 'student') {
+                $materials = $this->materialService->handleGetMaterialByDevision($submaterial->material->devision_id, $classroom);
+            } else {
+                $materials = $this->materialService->handleGetMaterialByDevision($submaterial->material->devision_id);
+            }
+            $subMaterialsInfo = [];
 
             if(auth()->user()->roles->pluck('name')[0] == 'student'){
                 $materialInfos = $this->materialService->handleOrderMaterials($materials);

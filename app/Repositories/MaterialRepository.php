@@ -98,7 +98,7 @@ class MaterialRepository extends BaseRepository
             ->count();
     }
 
-    public function getByDevision(string $devisionId)
+    public function getByDevision(string $devisionId, $classroomId)
     {
         $data = $this->model->query()
             ->with(['subMaterials' => function ($query) {
@@ -112,6 +112,17 @@ class MaterialRepository extends BaseRepository
 
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data->whereRelation('generation', 'id', auth()->user()->studentSchool->studentClassroom->classroom->generation_id);
+        }
+
+        // dd(auth()->user()->mentorClassrooms->where('classroom_id', $classroomId)->first()->classroom->generation_id);
+        if ($classroomId) {
+            if (auth()->user()->roles->pluck('name')[0] == 'student') {
+                $data->whereRelation('generation', 'id', auth()->user()->mentorClassrooms->where('classroom_id', $classroomId)->first()->classroom->generation_id);
+            } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+                $data->whereRelation('generation', 'id', auth()->user()->teacherSchool->teacherClassroom->classroom->generation_id);
+            } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
+                $data->whereRelation('generation', 'id', auth()->user()->mentorClassrooms->where('classroom_id', $classroomId)->first()->classroom->generation_id);
+            }
         }
 
         return $data->get();
