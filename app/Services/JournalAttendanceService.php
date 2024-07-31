@@ -16,6 +16,7 @@ class JournalAttendanceService
     {
         return $this->repository->getByJournal($journalId);
     }
+
     public function handleCreate($attendances, $journalId): void
     {
         foreach ($attendances as $key => $value) {
@@ -24,5 +25,10 @@ class JournalAttendanceService
             $data['attendance'] = $value;
             $this->repository->store($data);
         }
+    }
+
+    public function handleDeleteByJournal($journalId): void
+    {
+        $this->repository->deleteByJournal($journalId);
     }
 }

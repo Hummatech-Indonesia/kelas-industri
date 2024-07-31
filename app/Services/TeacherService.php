@@ -24,6 +24,11 @@ class TeacherService
         $this->teacherClassroomRepository = $teacherClassroomRepository;
     }
 
+    public function handleShow(User $teacher): mixed
+    {
+        return $this->repository->get_by_teacher($teacher->id);
+    }
+
     /**
      * handle get by school
      *

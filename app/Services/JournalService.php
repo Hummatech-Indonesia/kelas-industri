@@ -134,7 +134,7 @@ class JournalService
         $now = Carbon::now();
         $filteredData = $this->repository->getByFilter(
             $role,
-            $request->school? $request->school: $schoolId,
+            $request->school ? $request->school : $schoolId,
             $request->year ? $request->year : $now->year,
             $request->month ? $request->month : $now->month
         );
@@ -154,7 +154,13 @@ class JournalService
         return $transformedData;
     }
 
-    public function handleGetWithAttendance($journal): mixed {
+    public function handleGetWithAttendance($journal): mixed
+    {
         return $this->repository->get_with_attendance($journal);
+    }
+
+    public function handleShowJournal($journalId): mixed
+    {
+        return $this->repository->show_journal($journalId);
     }
 }

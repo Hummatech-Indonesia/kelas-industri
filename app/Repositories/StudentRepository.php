@@ -84,15 +84,21 @@ class StudentRepository extends BaseRepository
             ]);
     }
 
-    public function get_student_by_classroom(string $schoolId, string $classroomId): mixed
+    public function get_student_by_classroom(string $schoolId, string $classroomId, bool $isPaginate = true): mixed
     {
-        return $this->model->newQuery()
+        $query = $this->model->newQuery()
+            ->with('student')
             ->whereRelation('student', 'status', 'active')
             ->where('school_id', $schoolId)
             ->whereHas('studentClassroom', function ($query) use ($classroomId) {
                 $query->where('classroom_id', $classroomId);
-            })
-            ->paginate(6);
+            });
+
+        if ($isPaginate) {
+            return $query->paginate(6);
+        }
+
+        return $query->get();
     }
 
     public function getBySchoolPayment(string $school, Request $request)

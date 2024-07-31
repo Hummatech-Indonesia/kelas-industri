@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\JournalRequest;
 
 class JournalRequest extends BaseRequest
 {

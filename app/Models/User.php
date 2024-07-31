@@ -220,7 +220,8 @@ class User extends Authenticatable
         return $this->hasOne(SubmitAssignment::class, 'student_id');
     }
 
-    public function EventParticipants(): HasMany {
+    public function EventParticipants(): HasMany
+    {
         return $this->hasMany(EventPartisipant::class);
     }
 

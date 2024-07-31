@@ -21,21 +21,21 @@ class Journal extends Model
 
     protected $guarded = [];
 
-    protected $fillable = ['id','title', 'photo', 'date', 'description','classroom_id', 'created_by'];
+    protected $fillable = ['id', 'title', 'photo', 'date', 'description', 'classroom_id', 'created_by'];
 
 
-    public function classroom():BelongsTo
+    public function classroom(): BelongsTo
     {
         return $this->belongsTo(classroom::class);
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class , 'created_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
+
     public function attendances(): HasMany
     {
         return $this->hasMany(JournalAttendance::class, 'journal_id');
     }
-
 }

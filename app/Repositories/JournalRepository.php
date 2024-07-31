@@ -25,8 +25,46 @@ class JournalRepository extends BaseRepository
     public function get_journal_by_user(): mixed
     {
         return $this->model->query()
+            ->with('classroom', function ($query) {
+                return $query->withCount([
+                    'students as students'
+                ]);
+            })
+            ->withCount([
+                'attendances as permits' => function ($query) {
+                    return $query->where('attendance', 'ijin');
+                },
+                'attendances as sicks' => function ($query) {
+                    return $query->where('attendance', 'sakit');
+                },
+                'attendances as absents' => function ($query) {
+                    return $query->where('attendance', 'alfa');
+                }
+            ])
             ->where('created_by', auth()->id())
             ->get();
+    }
+
+    public function show_journal($journalId): mixed
+    {
+        return $this->model->query()
+            ->with('classroom', function ($query) {
+                return $query->withCount([
+                    'students as students'
+                ]);
+            })
+            ->withCount([
+                'attendances as permits' => function ($query) {
+                    return $query->where('attendance', 'ijin');
+                },
+                'attendances as sicks' => function ($query) {
+                    return $query->where('attendance', 'sakit');
+                },
+                'attendances as absents' => function ($query) {
+                    return $query->where('attendance', 'alfa');
+                }
+            ])
+            ->findOrFail($journalId);
     }
 
     public function get_journal_by_school(): mixed
@@ -71,7 +109,8 @@ class JournalRepository extends BaseRepository
             ]);
     }
 
-    public function get_with_attendance($journal): mixed {
+    public function get_with_attendance($journal): mixed
+    {
         return $this->model->query()->with('attendances')->findOrFail($journal);
     }
 
@@ -87,9 +126,10 @@ class JournalRepository extends BaseRepository
             ->count();
     }
 
-    public function getByFilter($role, $school, $year, $month) : mixed {
+    public function getByFilter($role, $school, $year, $month): mixed
+    {
         return $this->model->query()
-            ->whereRelation('user.teacherSchool','school_id', $school)
+            ->whereRelation('user.teacherSchool', 'school_id', $school)
             ->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->with('user')->whereRelation('user.roles', 'name', $role)->get()->groupBy('created_by');

@@ -115,7 +115,8 @@ class JurnalController extends Controller
         return view('dashboard.admin.pages.jurnal.detail', $data);
     }
 
-    public function detailTeacher($journalId): View {
+    public function detailTeacher($journalId): View
+    {
         $data = $this->GetDataSidebar();
         $data['journal'] = $this->journalService->handleGetWithAttendance($journalId);
         return view('dashboard.user.pages.jurnal.detail', $data);
@@ -129,7 +130,8 @@ class JurnalController extends Controller
         return view('dashboard.admin.pages.jurnal.show', $data);
     }
 
-    public function detailAttendance($classroom, $journalId) : View {
+    public function detailAttendance($classroom, $journalId): View
+    {
         $data['attendances'] = $this->journalAttendaceService->handleGetByJournal($journalId);
         $data['classroom'] = $classroom;
         return view('dashboard.admin.pages.jurnal.absent', $data);

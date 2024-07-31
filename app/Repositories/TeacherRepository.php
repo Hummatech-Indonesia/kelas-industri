@@ -11,6 +11,14 @@ class TeacherRepository extends BaseRepository
         $this->model = $model;
     }
 
+    public function get_by_teacher(String $teacherId): mixed
+    {
+        return $this->model->query()
+            ->with('teacher')
+            ->where('teacher_id', $teacherId)
+            ->get();
+    }
+
     /**
      * @param string $schoolId
      * @return mixed
