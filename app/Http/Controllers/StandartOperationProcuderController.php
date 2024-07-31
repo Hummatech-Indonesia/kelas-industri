@@ -66,9 +66,10 @@ class StandartOperationProcuderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(StandartOperationProcedure $standart_operation_producer)
     {
-        //
+        $sop = $standart_operation_producer;
+        return view('dashboard.admin.pages.SOP.edit', compact('sop'));
     }
 
     /**
@@ -78,9 +79,9 @@ class StandartOperationProcuderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StandartOperationProcuderRequest $request, StandartOperationProcedure $standartOperationProcedure)
+    public function update(StandartOperationProcuderRequest $request, StandartOperationProcedure $standart_operation_producer)
     {
-        $this->standartOperationProcuder->update($standartOperationProcedure, $request);
+        $this->standartOperationProcuder->update($standart_operation_producer, $request);
         return to_route('admin.standart-operation-producer.index')->with('success', trans('alert.update_success'));
     }
 
@@ -90,9 +91,10 @@ class StandartOperationProcuderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StandartOperationProcedure $standartOperationProcedure)
+    public function destroy(StandartOperationProcedure $standart_operation_producer)
     {
-        $this->standartOperationProcuder->delete($standartOperationProcedure->id);
+        // dd($standart_operation_producer->id);
+        $this->standartOperationProcuder->delete($standart_operation_producer);
         return to_route('admin.standart-operation-producer.index')->with('success', trans('alert.delete_success'));
     }
 }

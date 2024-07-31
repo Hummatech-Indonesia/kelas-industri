@@ -30,8 +30,8 @@
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('admin.standart-operation-producer.store') }}" method="POST">
-                @method('POST')
+            <form action="{{ route('admin.standart-operation-producer.update', $sop->id) }}" method="POST">
+                @method('PUT')
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -66,7 +66,7 @@
                                 <div class="form-group row mb-5">
                                     <label class="col-xl-3 col-lg-3 col-form-label">Isi SOP</label>
                                     <div class="col-lg-9 col-xl-9">
-                                        <textarea id="kt_docs_ckeditor_classic" rows="5" name="sop" type="text" placeholder="deskripsi tugas">{{ old('sop') }}</textarea>
+                                        <textarea id="kt_docs_ckeditor_classic" rows="5" name="sop" type="text" placeholder="deskripsi tugas">{!! $sop->sop !!}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -76,9 +76,9 @@
                                     <div class="col-lg-9 col-xl-9">
                                         <select name="for_user" class="form-control" id="">
                                             <option value="">Pilih Pengguna</option>
-                                            <option value="student">Siswa</option>
-                                            <option value="mentor">Mentor</option>
-                                            <option value="admin">Admin</option>
+                                            <option value="student" {{ $sop->for_user == 'student'? 'selected' : '' }}>Siswa</option>
+                                            <option value="mentor" {{ $sop->for_user == 'mentor'? 'selected' : '' }}>Mentor</option>
+                                            <option value="admin" {{ $sop->for_user == 'admin'? 'selected' : '' }}>Admin</option>
                                         </select>
                                     </div>
                                 </div>
