@@ -63,6 +63,7 @@ use App\Http\Controllers\StandartOperationProcuderController;
 use App\Http\Controllers\StudentMaterialExamController;
 use App\Http\Controllers\StudentSubmaterialExamController;
 use App\Http\Controllers\SubMaterialExamQuestionController;
+use App\Models\StandartOperationProcedure;
 
 /*
 |--------------------------------------------------------------------------
@@ -546,6 +547,10 @@ Route::middleware('auth.custom')->group(function () {
         Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
         Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
         Route::get('exam/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish');
+    });
+
+    Route::middleware(['auth', 'role:teacher'])->group(function () {
+        Route::get('standart-operation-producer', [StandartOperationProcuderController::class, 'forUser'])->name('standart.operation.producer.for.user');
     });
 
 

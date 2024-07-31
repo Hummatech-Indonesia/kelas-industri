@@ -15,6 +15,12 @@ class StandartOperationProcuderService
         $this->repository = $repository;
     }
 
+
+    public function getByRole()
+    {
+        return $this->repository->getByRole();
+    }
+
     /**
      * get
      *

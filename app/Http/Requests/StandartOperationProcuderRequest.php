@@ -16,7 +16,7 @@ class StandartOperationProcuderRequest extends FormRequest
     {
         return [
             'sop' => 'required',
-            'for_user' => ['required', Rule::unique('standart_operation_procedures', 'for_user')->ignore($this->standartOperationProcuder)],
+            'for_user' => ['required', Rule::unique('standart_operation_procedures', 'for_user')->ignore($this->standart_operation_producer)],
         ];
     }
 

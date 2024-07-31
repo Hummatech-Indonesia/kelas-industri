@@ -78,7 +78,7 @@
                                             <option value="">Pilih Pengguna</option>
                                             <option value="student">Siswa</option>
                                             <option value="mentor">Mentor</option>
-                                            <option value="admin">Admin</option>
+                                            <option value="teacher">Guru</option>
                                         </select>
                                     </div>
                                 </div>

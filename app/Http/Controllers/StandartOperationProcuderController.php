@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StandartOperationProcuderRequest;
 use App\Models\StandartOperationProcedure;
 use App\Services\StandartOperationProcuderService;
+use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 
 class StandartOperationProcuderController extends Controller
 {
+    use DataSidebar;
+
     private StandartOperationProcuderService $standartOperationProcuder;
 
     public function __construct(StandartOperationProcuderService $standartOperationProcuder)
@@ -25,6 +28,18 @@ class StandartOperationProcuderController extends Controller
     {
         $sops = $this->standartOperationProcuder->get();
         return view('dashboard.admin.pages.SOP.index', compact('sops'));
+    }
+
+    /**
+     * forUser
+     *
+     * @return void
+     */
+    public function forUser()
+    {
+        $data = $this->GetDataSidebar();
+        $data['sop'] = $this->standartOperationProcuder->getByRole();
+        return view('dashboard.admin.pages.SOP.foruser', $data);
     }
 
     /**
@@ -73,11 +88,11 @@ class StandartOperationProcuderController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * update
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  mixed $request
+     * @param  mixed $standart_operation_producer
+     * @return void
      */
     public function update(StandartOperationProcuderRequest $request, StandartOperationProcedure $standart_operation_producer)
     {
