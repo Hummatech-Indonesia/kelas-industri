@@ -135,7 +135,9 @@
                                                     <div class="col-lg-9 col-xl-9">
 
                                                         <textarea class="form-control form-control-solid form-control-lg" rows="5" name="description" type="text"
-                                                            placeholder="deskripsi Jurnal" required="">{{ old('description') }}</textarea>
+                                                            placeholder="deskripsi Jurnal" required="" id="description">{{ old('description') }}</textarea>
+                                                        <div class="count-length description text-danger"><span
+                                                                id="description-length">0</span>/100 karakter</div>
 
                                                     </div>
 
@@ -223,50 +225,51 @@
                                         </div>
                                     </div>
                                 @endif
-                            </form>
+                                </form>
+                            </div>
+
                         </div>
-
+                        <!--end::Toolbar wrapper-->
                     </div>
-                    <!--end::Toolbar wrapper-->
+                    <!--end::Toolbar container-->
                 </div>
-                <!--end::Toolbar container-->
+                <!--end::Content container-->
             </div>
-            <!--end::Content container-->
+            <!--end::Content-->
         </div>
-        <!--end::Content-->
-    </div>
-    <!--end::Content wrapper-->
+        <!--end::Content wrapper-->
 
 
-    <!--begin::Footer-->
-    <div id="kt_app_footer" class="app-footer ">
-        <!--begin::Footer container-->
-        <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
-            <!--begin::Copyright-->
-            <div class="text-dark order-2 order-md-1">
-                <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
-                <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
-                    Industri</a>
+        <!--begin::Footer-->
+        <div id="kt_app_footer" class="app-footer ">
+            <!--begin::Footer container-->
+            <div class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
+                <!--begin::Copyright-->
+                <div class="text-dark order-2 order-md-1">
+                    <span class="text-muted fw-semibold me-1">{{ Carbon::now()->format('Y') }}©</span>
+                    <a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">Kelas
+                        Industri</a>
+                </div>
+                <!--end::Copyright-->
+
+                <!--begin::Menu-->
+                <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
+                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
+                            class="menu-link px-2">Tentang
+                            Kami</a></li>
+
+                    <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
+                            class="menu-link px-2">Syarat &
+                            Ketentuan</a></li>
+
+                    <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                            class="menu-link px-2">Kebijakan Privasi</a></li>
+                </ul>
+                <!--end::Menu-->
             </div>
-            <!--end::Copyright-->
-
-            <!--begin::Menu-->
-            <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
-                        Kami</a></li>
-
-                <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
-                        class="menu-link px-2">Syarat &
-                        Ketentuan</a></li>
-
-                <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
-                        class="menu-link px-2">Kebijakan Privasi</a></li>
-            </ul>
-            <!--end::Menu-->
+            <!--end::Footer container-->
         </div>
-        <!--end::Footer container-->
-    </div>
-    <!--end::Footer-->
+        <!--end::Footer-->
     </div>
 @endsection
 @section('script')
@@ -276,7 +279,17 @@
             responsive: true
         });
 
+        $('.btn-primary').prop('disabled', true);
         $(document).ready(function() {
+            $('#description').on('input', function() {
+                let value = $(this).val();
+                let characterCount = value.length;
+                $('#description-length').text(characterCount);
+                $('.count-length.description').toggleClass('text-success', characterCount >= 100).toggleClass('text-danger', characterCount < 100);
+
+                $('.btn-primary').prop('disabled', characterCount < 100);
+            });
+
             const datepicker = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"));
             datepicker.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
             const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));

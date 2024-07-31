@@ -62,7 +62,6 @@
                                     class="menu-title">Beranda</span></a>
                             <!--end:Menu link-->
                         </div>
-
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             <a href="{{ auth()->user()->roles->pluck('name')[0] == 'student' ? route('student.classrooms') : route('common.classrooms') }}"
@@ -78,22 +77,6 @@
                             <!--end:Menu link-->
                         </div>
 
-                        {{-- <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                            @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                <!--begin:Menu link-->
-                                <a href="{{ auth()->user()->roles->pluck('name')[0] == 'student' ? route('student.exams.index') : route('common.classrooms') }}"
-                                    class="menu-link {{ request()->routeIs('student.exams.index') || request()->routeIs('common.classrooms') ? 'active' : '' }}"
-                                    @if (auth()->user()->roles->pluck('name')[0] == 'student') @if ($schoolPayment != null)
-                                @if ($schoolPayment->status == 'not_yet_paid')
-                                style="cursor: not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
-                                @else
-                                    @if (!$isPaymentComplete) style="cursor:not-allowed; opacity: 0.5;" onclick="event.preventDefault();" @endif
-                                    @endif
-                            @endif
-                            ><span class="menu-title">UAS</span></a>
-                            @endif
-                            <!--end:Menu link-->
-                        </div> --}}
 
                         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
@@ -250,7 +233,6 @@
                                 </div>
                             @endif
                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
-
                                 <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                     <!--begin:Menu link-->
                                     <a href="{{ route('student.schedules.index') }}"
@@ -273,6 +255,12 @@
                                 </div>
                             @endif
                         @endif
+                        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                            <a href="{{ route('standart.operation.producer.for.user') }}"
+                                class="menu-link {{ request()->routeIs('teacher.rankings') ? 'active' : '' }}"><span
+                                    class="menu-title">SOP</span>
+                            </a>
+                        </div>
                     </div>
                     <!--end::Menu-->
                 </div>

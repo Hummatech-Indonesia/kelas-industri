@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests;
 
-class JournalRequest extends BaseRequest
+class UpdateJournalRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,8 +16,8 @@ class JournalRequest extends BaseRequest
         return [
             'title' => 'required',
             'date' => 'nullable',
-            'photo' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'description' => 'required|min:100',
+            'photo' => 'nullable|mimes:png,jpg,jpeg|max:2048',
+            'description' => 'required',
             'classroom_id' => 'nullable',
             'created_by' => 'required'
         ];
@@ -36,7 +36,6 @@ class JournalRequest extends BaseRequest
             'description.required' => 'Deskripsi tidak boleh kosong !',
             'classroom_id.string' => 'Kelas tidak boleh kosong !',
             'created_by.string' => 'Pembuat tidak boleh kosong !',
-            'photo.required' => 'Foto Jurnal tidak boleh kosong!',
             'photo.mimes' => 'Foto harus dalam format PNG, JPG, atau JPEG!',
             'photo.max' => 'Ukuran foto tidak boleh melebihi :max kilobita!',
         ];

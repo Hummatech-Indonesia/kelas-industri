@@ -35,25 +35,19 @@ class StudentSubMaterialExamService
 
     public function handleGetAllStudentSubmit($submaterialExamId)
     {
-        // Retrieve the data using the service
         $studentSubmaterialExams = $this->repository->getAllStudentSubmit($submaterialExamId);
 
-        // Group the data by classroom name via related studentSchool
         $topClassroom = $studentSubmaterialExams
             ->load('student.studentSchool.studentClassroom.classroom')
             ->groupBy(function ($item) {
                 return $item->student->studentSchool->studentClassroom->classroom->name;
             });
-
-        // Calculate the average score for each group and include related data
         $averages = $topClassroom->map(function ($group) {
-            $averageScore = $group->avg('score'); // Replace 'score' with the actual column name you want to average
-            $sampleItem = $group->first(); // Get a sample item from the group to access related data
+            $averageScore = $group->avg('score');
+            $sampleItem = $group->first();
 
-            // Ensure sampleItem and related studentSchool exist
             if ($sampleItem && $sampleItem->student && $sampleItem->student->studentSchool) {
-                $schoolData = $sampleItem->student->studentSchool->school->only(['name']); // Replace with actual attributes you need
-            } else {
+                $schoolData = $sampleItem->student->studentSchool->school->only(['name']);
                 $schoolData = [];
             }
 
@@ -63,10 +57,8 @@ class StudentSubMaterialExamService
             ];
         });
 
-        // Sort the averages in descending order and take the top 5
         $sortedAverages = $averages->sortByDesc('average_score')->take(5);
 
-        // Return the data or pass it to a view
         return $sortedAverages;
     }
 

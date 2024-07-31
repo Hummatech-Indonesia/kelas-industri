@@ -105,7 +105,7 @@
 
                                             <!--begin::Table body-->
                                             <tbody class="fw-semibold text-gray-600">
-                                                @foreach ($journals as $journal)
+                                                @foreach ($journals->sortByDesc('created_at') as $journal)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $journal->title }}</td>

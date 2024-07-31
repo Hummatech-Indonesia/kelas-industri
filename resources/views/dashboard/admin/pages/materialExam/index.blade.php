@@ -1,4 +1,5 @@
 @php
+    use App\Enums\QuestionTypeEnum;
     use App\Enums\MaterialExamTypeEnum;
 @endphp
 @extends('dashboard.admin.layouts.app')
@@ -42,7 +43,7 @@
 
                                 <!--begin::Pic-->
 
-                                <div class="flex-shrink-0 symbol symbol-65 symbol-circle me-5" style="margin-bottom: 15%;">
+                                <div class="flex-shrink-0 symbol symbol-65 symbol-circle me-5" style="margin-bottom: 30%;">
                                     <span
                                         class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest"
                                         style="width:60px;height:60px;">{{ substr($exam->material->title, 0, 1) }}</span>
@@ -63,7 +64,11 @@
 
 
                                     <span class="text-black fw-semibold d-flex fs-6 mb-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" class="me-2" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22q-1.875 0-3.512-.712t-2.85-1.925t-1.925-2.85T3 13t.713-3.512t1.924-2.85t2.85-1.925T12 4t3.513.713t2.85 1.925t1.925 2.85T21 13t-.712 3.513t-1.925 2.85t-2.85 1.925T12 22m2.8-4.8l1.4-1.4l-3.2-3.2V8h-2v5.4zM5.6 2.35L7 3.75L2.75 8l-1.4-1.4zm12.8 0l4.25 4.25l-1.4 1.4L17 3.75zM12 20q2.925 0 4.963-2.037T19 13t-2.037-4.962T12 6T7.038 8.038T5 13t2.038 4.963T12 20"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" class="me-2"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M12 22q-1.875 0-3.512-.712t-2.85-1.925t-1.925-2.85T3 13t.713-3.512t1.924-2.85t2.85-1.925T12 4t3.513.713t2.85 1.925t1.925 2.85T21 13t-.712 3.513t-1.925 2.85t-2.85 1.925T12 22m2.8-4.8l1.4-1.4l-3.2-3.2V8h-2v5.4zM5.6 2.35L7 3.75L2.75 8l-1.4-1.4zm12.8 0l4.25 4.25l-1.4 1.4L17 3.75zM12 20q2.925 0 4.963-2.037T19 13t-2.037-4.962T12 6T7.038 8.038T5 13t2.038 4.963T12 20" />
+                                        </svg>
                                         {{ $exam->time }} Menit
                                     </span>
 
@@ -74,14 +79,18 @@
                                                 d="M5.25 6C5.25 5.80109 5.32902 5.61032 5.46967 5.46967C5.61032 5.32902 5.80109 5.25 6 5.25H12C12.1989 5.25 12.3897 5.32902 12.5303 5.46967C12.671 5.61032 12.75 5.80109 12.75 6C12.75 6.19891 12.671 6.38968 12.5303 6.53033C12.3897 6.67098 12.1989 6.75 12 6.75H6C5.80109 6.75 5.61032 6.67098 5.46967 6.53033C5.32902 6.38968 5.25 6.19891 5.25 6ZM6 9.75H12C12.1989 9.75 12.3897 9.67098 12.5303 9.53033C12.671 9.38967 12.75 9.19891 12.75 9C12.75 8.80108 12.671 8.61032 12.5303 8.46967C12.3897 8.32901 12.1989 8.25 12 8.25H6C5.80109 8.25 5.61032 8.32901 5.46967 8.46967C5.32902 8.61032 5.25 8.80108 5.25 9C5.25 9.19891 5.32902 9.38967 5.46967 9.53033C5.61032 9.67098 5.80109 9.75 6 9.75ZM9 11.25H6C5.80109 11.25 5.61032 11.329 5.46967 11.4697C5.32902 11.6103 5.25 11.8011 5.25 12C5.25 12.1989 5.32902 12.3897 5.46967 12.5303C5.61032 12.671 5.80109 12.75 6 12.75H9C9.19891 12.75 9.38967 12.671 9.53033 12.5303C9.67098 12.3897 9.75 12.1989 9.75 12C9.75 11.8011 9.67098 11.6103 9.53033 11.4697C9.38967 11.329 9.19891 11.25 9 11.25ZM18 1.5V11.6897C18.0006 11.8867 17.9621 12.082 17.8866 12.264C17.8111 12.446 17.7002 12.6112 17.5603 12.75L12.75 17.5603C12.6112 17.7002 12.446 17.8111 12.264 17.8866C12.082 17.9621 11.8867 18.0006 11.6897 18H1.5C1.10217 18 0.720644 17.842 0.43934 17.5607C0.158035 17.2793 0 16.8978 0 16.5V1.5C0 1.10217 0.158035 0.720644 0.43934 0.43934C0.720644 0.158035 1.10217 0 1.5 0H16.5C16.8978 0 17.2793 0.158035 17.5607 0.43934C17.842 0.720644 18 1.10217 18 1.5ZM1.5 16.5H11.25V12C11.25 11.8011 11.329 11.6103 11.4697 11.4697C11.6103 11.329 11.8011 11.25 12 11.25H16.5V1.5H1.5V16.5ZM12.75 12.75V15.4406L15.4397 12.75H12.75Z"
                                                 fill="black" />
                                         </svg>
-                                        {{ count($exam->materialExamQuestions) }} dari
-                                        {{ $exam->total_multiple_choice + $exam->total_essay }} Soal
-                                    </span>
+                                        {{ count($exam->materialExamQuestions) }}
+                                        Terisi dari
+                                        {{ $exam->total_multiple_choice + $exam->total_essay }} Total Soal
 
+                                    </span>
+                                    <div class="fw-semibold">
+                                        ({{ $exam->total_multiple_choice }} Soal Pilihan Ganda, {{ $exam->total_essay }} Soal Essay)
+                                    </div>
                                     <!--end::Title-->
                                 </div>
                                 <!--end::Info-->
-                                <div class="card-toolbar" style="margin-bottom: 25%;">
+                                <div class="card-toolbar" style="margin-bottom: 40%;">
                                     <!--begin::Menu-->
                                     <button
                                         class="btn btn-icon btn-color-gray-500 btn-active-color-primary justify-content-end"
@@ -124,7 +133,8 @@
 
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="" class="menu-link px-3">
+                                            <a href="{{ route('admin.exam-material-statistic', $exam->id) }}"
+                                                class="menu-link px-3">
                                                 Lihat Hasil
                                             </a>
                                         </div>

@@ -488,12 +488,13 @@
                         var parts = deadline.split('-');
                         var year = parts[0];
                         var month = parts[1];
+                        var day = parts[2];
                         var monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
                             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
                         ];
 
-                        var formattedDeadline = monthNames[parseInt(month) - 1] + " " + year;
-                        $('.tenggat_pembayaran').html(formattedDeadline);
+                        var formattedDeadline = day + " " + monthNames[parseInt(month) - 1] + " " +
+                        year;
 
                         $('.tenggat_pembayaran').html(formattedDeadline);
                         $('.total_bayar').html(numberFormat(response.totalBayar));

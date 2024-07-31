@@ -59,9 +59,11 @@ use App\Http\Controllers\TeacherStatisticController;
 use App\Http\Controllers\EventDocumentationController;
 use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\MaterialExamQuestionController;
+use App\Http\Controllers\StandartOperationProcuderController;
 use App\Http\Controllers\StudentMaterialExamController;
 use App\Http\Controllers\StudentSubmaterialExamController;
 use App\Http\Controllers\SubMaterialExamQuestionController;
+use App\Models\StandartOperationProcedure;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +102,7 @@ Route::middleware('auth.custom')->group(function () {
             return view('dashboard.admin.layouts.app');
         });
 
+        Route::resource('standart-operation-producer', StandartOperationProcuderController::class);
         Route::get('/absent', [AttendanceController::class, 'index'])->name('absent');
         Route::get('/absent/{attendance}', [AttendanceController::class, 'show'])->name('showAbsent');
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
@@ -193,7 +196,10 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('detail-exam-taking-place/{slug}', [SubMaterialExamController::class, 'detailExamTakingPlace'])->name('detail-exam-taking-place');
         Route::get('exam-finnaly', [SubMaterialExamController::class, 'examFinnaly'])->name('exam-finnaly');
         Route::get('exam-statistic/{slug}', [SubMaterialExamController::class, 'examStatistic'])->name('exam-statistic');
-        Route::get('exam-detail-student/{submaterialExam}', [SubMaterialExamController::class, 'examDetailStudent'])->name('exam-detail -student');
+        Route::get('exam-detail-student/{submaterialExam}', [SubMaterialExamController::class, 'examDetailStudent'])->name('exam-detail-student');
+
+        Route::get('exam-material-statistic/{materialExam}', [MaterialExamController::class, 'materialExamStatistic'])->name('exam-material-statistic');
+        Route::get('exam-material-detail-student/{materialExam}/{type}', [MaterialExamController::class, 'examDetailStudent'])->name('exam-material-detail-student');
 
         Route::get('exam-registration', [SubMaterialExamController::class, 'registrationExam'])->name('exam-registration');
 
@@ -382,7 +388,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/report', [ReportController::class, 'index'])->name('report');
         Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
         Route::post('/storepoint', [AssignmentController::class, 'storePoint'])->name('storepoint');
-        Route::post('validChallengeTeacher/', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
+        Route::post('validChallengeTeacher', [ChallengeController::class, 'validChallengeTeacher'])->name('validChallengeTeacher');
         Route::post('storePointAssignment/{submitAssingnment}', [PointController::class, 'storePointAssignment'])->name('storePointAssignment');
         Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
         Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
@@ -418,8 +424,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/{classroom}/assignment/{assignment}', [UserAssignmentController::class, 'index'])->name('showAssignment');
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         Route::get('/showStudentDetail/{student}/{generation}', [UserClassroomController::class, 'showStudentDetail'])->name('showStudentDetail');
-        Route::post('validChallenged/', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
-        Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+        Route::post('validChallenge', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
+        Route::get('/showDocument/{submaterial}/{role}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
         Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
@@ -444,7 +450,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
         Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
         Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
-        Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+        Route::get('/showDocument/{submaterial}/{role}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
         Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
         Route::get('schedules/get-all', [ScheduleController::class, 'all'])->name('schedules.all');
     });
@@ -541,6 +547,10 @@ Route::middleware('auth.custom')->group(function () {
         Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
         Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
         Route::get('exam/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish');
+    });
+
+    Route::middleware(['auth', 'role:teacher'])->group(function () {
+        Route::get('standart-operation-producer', [StandartOperationProcuderController::class, 'forUser'])->name('standart.operation.producer.for.user');
     });
 
 

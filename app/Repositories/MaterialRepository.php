@@ -39,16 +39,16 @@ class MaterialRepository extends BaseRepository
     public function get_by_classroom(mixed $classroom, string | null $search, int $limit)
     {
         return $this->model->query()
-        ->where('title', 'LIKE', '%' . $search . '%')
-        ->whereRelation('generation', function ($q) use ($classroom) {
-            return $q->where('generation', $classroom->generation->generation);
-        })
-        ->where('devision_id', $classroom->devision_id)
-        ->with('exam.studentMaterialExams', function ($q) {
-            $q->where('student_id', auth()->user()->id);
-        })
-        ->orderBy('order', 'asc')
-        ->paginate($limit);
+            ->where('title', 'LIKE', '%' . $search . '%')
+            ->whereRelation('generation', function ($q) use ($classroom) {
+                return $q->where('generation', $classroom->generation->generation);
+            })
+            ->where('devision_id', $classroom->devision_id)
+            ->with('exam.studentMaterialExams', function ($q) {
+                $q->where('student_id', auth()->user()->id);
+            })
+            ->orderBy('order', 'asc')
+            ->paginate($limit);
     }
 
     public function search_paginate(string | null $search, string | null $generation, string | null $filter, string $year, int $limit): mixed
@@ -68,7 +68,7 @@ class MaterialRepository extends BaseRepository
                 });
             })
             ->where('title', 'like', '%' . $search . '%')
-            ->orderBy('created_at', 'DESC')
+            ->orderBy('order', 'asc')
             ->paginate($limit);
     }
 
@@ -98,36 +98,51 @@ class MaterialRepository extends BaseRepository
             ->count();
     }
 
-    public function getByDevision(string $devisionId)
+    public function getByDevision(string $devisionId, $classroomId)
     {
         $data = $this->model->query()
-            ->with('subMaterials.assignments', function ($query) {
-                $query->oldest();
-            })
-            ->where('devision_id', $devisionId);
-
+            ->with(['subMaterials' => function ($query) {
+                $query->orderBy('order', 'asc')
+                    ->with(['assignments' => function ($query) {
+                        $query->oldest();
+                    }]);
+            }])
+            ->where('devision_id', $devisionId)
+            ->orderBy('order', 'asc');
 
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data->whereRelation('generation', 'id', auth()->user()->studentSchool->studentClassroom->classroom->generation_id);
         }
 
+        // dd(auth()->user()->mentorClassrooms->where('classroom_id', $classroomId)->first()->classroom->generation_id);
+        if ($classroomId) {
+            if (auth()->user()->roles->pluck('name')[0] == 'student') {
+                $data->whereRelation('generation', 'id', auth()->user()->mentorClassrooms->where('classroom_id', $classroomId)->first()->classroom->generation_id);
+            } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
+                $data->whereRelation('generation', 'id', auth()->user()->teacherSchool->teacherClassroom->classroom->generation_id);
+            } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
+                $data->whereRelation('generation', 'id', auth()->user()->mentorClassrooms->where('classroom_id', $classroomId)->first()->classroom->generation_id);
+            }
+        }
+
         return $data->get();
     }
 
-    public function handlePreviousMaterial(mixed $devisionId, mixed $previousOrder) : mixed
+    public function handlePreviousMaterial(mixed $devisionId, mixed $previousOrder): mixed
     {
         return $this->model->query()
-        ->where('devision_id', $devisionId)
-        ->where('order', $previousOrder)
-        ->select('id')
-        ->first();
+            ->where('devision_id', $devisionId)
+            ->where('order', $previousOrder)
+            ->select('id')
+            ->first();
     }
 
-    public function getLatestOrder($devisionId, $generationId) : mixed {
+    public function getLatestOrder($devisionId, $generationId): mixed
+    {
         return $this->model->query()
-        ->select('order')
-        ->where(['devision_id' => $devisionId, 'generation_id' => $generationId])
-        ->orderBy('order', 'desc')
-        ->first();
+            ->select('order')
+            ->where(['devision_id' => $devisionId, 'generation_id' => $generationId])
+            ->orderBy('order', 'desc')
+            ->first();
     }
 }

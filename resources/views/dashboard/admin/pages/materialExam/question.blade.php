@@ -1,3 +1,6 @@
+@php
+use App\Enums\QuestionTypeEnum;
+@endphp
 @extends('dashboard.admin.layouts.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
@@ -30,8 +33,12 @@
                 <div class="card bg-primary">
                     <div class="card-body">
                         <div class="text-white fs-4">
-                            Terisi {{ count($materialExam->materialExamQuestions) }} Soal
-                            Terisi Dari {{ $materialExam->total_multiple_choice + $materialExam->total_essay }} Soal
+                            Terisi {{ $materialExam->materialExamQuestions->filter(function($question) {
+                                return $question->questionBank->type === QuestionTypeEnum::MULTIPLECHOICE->value;
+                            })->count() }} Soal Pilihan Ganda, dan {{ $materialExam->materialExamQuestions->filter(function($question) {
+                                return $question->questionBank->type === QuestionTypeEnum::ESSAY->value;
+                            })->count() }} soal Essay
+                            Dari {{ $materialExam->total_multiple_choice + $materialExam->total_essay }} Soal
                         </div>
                     </div>
                 </div>

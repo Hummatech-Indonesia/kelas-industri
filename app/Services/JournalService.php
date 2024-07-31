@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\JournalRequest;
+use App\Http\Requests\UpdateJournalRequest;
 use App\Models\Journal;
 use App\Repositories\JournalRepository;
 use Illuminate\Http\Request;
@@ -82,7 +83,7 @@ class JournalService
      * @param int $id
      * @return void
      */
-    public function handleUpdate(JournalRequest $request, Journal $journal): void
+    public function handleUpdate(UpdateJournalRequest $request, Journal $journal): void
     {
         $data = $request->validated();
         if ($request->hasFile('photo')) {

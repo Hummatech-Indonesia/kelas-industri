@@ -31,4 +31,13 @@ class JournalAttendanceService
     {
         $this->repository->deleteByJournal($journalId);
     }
+
+    public function handleUpdate($attendances, $journalId): void
+    {
+        foreach ($attendances as $key => $value) {
+            $data['journal_id'] = $journalId;
+            $data['attendance'] = $value;
+            $this->repository->update($key, $data);
+        }
+    }
 }

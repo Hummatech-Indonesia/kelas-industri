@@ -35,7 +35,7 @@
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            <a href="{{ url()->previous() }}"
+                            <a href="{{ route('student.student-payment') }}"
                                 class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                 <i class="bi bi-arrow-left me-2"></i> Kembali
                             </a>

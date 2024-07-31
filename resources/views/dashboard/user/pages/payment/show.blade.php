@@ -9,103 +9,103 @@
         <div class="d-flex flex-column flex-column-fluid">
             <!--begin::Content-->
             <div id="kt_app_content" class="app-content  flex-column-fluid ">
-                <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-8 ">
+                <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-2 ">
 
                     <!--begin::Toolbar container-->
-                    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex flex-stack flex-wrap ">
+                    <div id="kt_app_toolbar_container" class="app-container  container-fluid ">
                         <!--begin::Toolbar wrapper-->
-                        <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                        <div class="app-toolbar-wrapper ">
 
-                            <!--begin::Page title-->
-                            <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                                <!--begin::Title-->
-                                <h1
-                                    class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Detail Pembayaran
-                                </h1>
-                                <!--end::Title-->
+                            <div class="d-flex justify-content-between mb-5">
+                                <div class="page-title flex-column gap-1 me-3">
+                                    <!--begin::Title-->
+                                    <h1
+                                        class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+                                        Detail Pembayaran
+                                    </h1>
+                                    <!--end::Title-->
 
-                                <!--begin::Breadcrumb-->
-                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                                    <!--begin::Breadcrumb-->
+                                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
 
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Detail Tanggungan Pembayaran anda pada kelas industri.
-                                    </li>
-                                    <!--end::Item-->
-                                </ul>
-                                <!--end::Breadcrumb-->
-                            </div>
-
-                            <div class="btn btn-light-danger btn-sm" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="kt_menu_item_wow">
-                                <span class="svg-icon svg-icon-1 svg-icon-danger">Pemberitahuan <svg width="24"
-                                        height="24" viewBox="0 0 18 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
-                                            fill="currentColor"></rect>
-                                        <rect x="11" y="14" width="7" height="2" rx="1"
-                                            transform="rotate(-90 11 14)" fill="currentColor"></rect>
-                                        <rect x="11" y="17" width="2" height="2" rx="1"
-                                            transform="rotate(-90 11 17)" fill="currentColor"></rect>
-                                    </svg>
-                                </span>
-                            </div>
-
-                            <div class="menu menu-sub menu-sub-dropdown menu-column w-400px w-lg-500px" data-kt-menu="true"
-                                id="kt_menu_notifications" style="padding-top:10px;padding-left:10px;padding-right:10px;">
-                                <!--begin::Heading-->
-                                <div class="alert alert-danger d-flex align-items-center p-5">
-                                    <!--begin::Icon-->
-                                    <span class="svg-icon svg-icon-2hx svg-icon-primary">
-                                        <span class="svg-icon svg-icon-2hx svg-icon-danger"><svg width="24"
-                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                    rx="10" fill="currentColor" />
-                                                <rect x="11" y="14" width="7" height="2" rx="1"
-                                                    transform="rotate(-90 11 14)" fill="currentColor" />
-                                                <rect x="11" y="17" width="2" height="2" rx="1"
-                                                    transform="rotate(-90 11 17)" fill="currentColor" />
+                                        <!--begin::Item-->
+                                        <li class="breadcrumb-item text-muted">
+                                            Detail Tanggungan Pembayaran anda pada kelas industri.
+                                        </li>
+                                        <!--end::Item-->
+                                    </ul>
+                                    <!--end::Breadcrumb-->
+                                </div>
+                                <div class="">
+                                    @if ($payment->invoice_status == 'UNPAID')
+                                        <button id="check-status-btn" class="btn btn-sm btn-primary">
+                                            Cek Status <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M3.75 17L8 12.75V16h10v-4.5l2-2V16a2 2 0 0 1-2 2H8v3.25L3.75 17m16.5-10L16 11.25V8H6v4.5l-2 2V8a2 2 0 0 1 2-2h10V2.75L20.25 7z"
+                                                    fill="currentColor" />
                                             </svg>
-                                        </span>
-                                    </span>
-                                    <!--end::Icon-->
-
-                                    <!--begin::Wrapper-->
-                                    <div class="d-flex flex-column">
-                                        <!--begin::Title-->
-                                        <h4 class="mb-1 text-danger">Informasi</h4>
-                                        <!--end::Title-->
-                                        <!--begin::Content-->
-                                        <ul>
-                                            <li>
-                                                <h6>
-                                                    Jangan keluar dari halaman ini sebelum menyelesaikan pembayaran, karena
-                                                    halaman ini tidak bisa diakses lagi nantinya
-                                                </h6>
-                                            </li>
-                                            <li>
-                                                <h6>
-                                                    Jika anda sudah berhasil menyelesakan pembayaran silahkan refresh
-                                                    halaman
-                                                    ini
-                                                </h6>
-                                            </li>
-                                            <li>
-                                                <h6>
-                                                    Setelah refresh halaman akan muncul button selesai, jika diklik akan
-                                                    mengarah kehalaman invoice pembayaran
-                                                </h6>
-                                            </li>
-                                        </ul>
-
-                                        <!--end::Content-->
-
-                                    </div>
-                                    <!--end::Wrapper-->
+                                        </button>
+                                        <button class="btn btn-sm btn-danger">
+                                            Belum Terbayar <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M3 16.74L7.76 12L3 7.26L7.26 3L12 7.76L16.74 3L21 7.26L16.24 12L21 16.74L16.74 21L12 16.24L7.26 21zm9-3.33l4.74 4.75l1.42-1.42L13.41 12l4.75-4.74l-1.42-1.42L12 10.59L7.26 5.84L5.84 7.26L10.59 12l-4.75 4.74l1.42 1.42z"/></svg>
+                                        </button>
+                                    @else
+                                        <button class="btn btn-sm btn-success">
+                                            Terbayar <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M19.78 2.2L24 6.42L8.44 22L0 13.55l4.22-4.22l4.22 4.22zm0 2.8L8.44 16.36l-4.22-4.17l-1.41 1.36l5.63 5.62L21.19 6.42z"/></svg>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
+                            <!--begin::Page title-->
+                            <div class="alert alert-danger d-flex align-items-center p-4">
+                                <!--begin::Icon-->
+                                <span class="svg-icon svg-icon-2hx svg-icon-primary">
+                                    <span class="svg-icon svg-icon-2hx svg-icon-danger"><svg width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                fill="currentColor" />
+                                            <rect x="11" y="14" width="7" height="2" rx="1"
+                                                transform="rotate(-90 11 14)" fill="currentColor" />
+                                            <rect x="11" y="17" width="2" height="2" rx="1"
+                                                transform="rotate(-90 11 17)" fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                </span>
+                                <!--end::Icon-->
+
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column">
+                                    <!--begin::Title-->
+                                    <h4 class="mb-1 text-danger">Informasi</h4>
+                                    <!--end::Title-->
+                                    <!--begin::Content-->
+                                    <ul>
+                                        <li>
+                                            <h6>
+                                                Jangan keluar dari halaman ini sebelum menyelesaikan pembayaran, karena
+                                                halaman ini tidak bisa diakses lagi nantinya
+                                            </h6>
+                                        </li>
+                                        <li>
+                                            <h6>
+                                                untuk cek status pembayaran silahkan klik button CEK
+                                                STATUS
+                                            </h6>
+                                        </li>
+                                        <li>
+                                            <h6>
+                                                Jika status terbayar akan muncul button selesai, jika diklik akan
+                                                mengarah kehalaman invoice pembayaran
+                                            </h6>
+                                        </li>
+                                    </ul>
+
+                                    <!--end::Content-->
+
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+
                             <!--end::Tab content-->
                             <!--end::Actions-->
                         </div>
@@ -263,7 +263,8 @@
                                             </div>
                                             @if ($payment->invoice_status == 'PAID')
                                                 <div class="">
-                                                    <a href="{{ route('student.detail-payment', $payment->id) }}" class="btn btn-light-primary btn-md">Selesai</a>
+                                                    <a href="{{ route('student.detail-payment', $payment->id) }}"
+                                                        class="btn btn-primary btn-md">Selesai</a>
                                                 </div>
                                             @endif
                                         </div>
@@ -328,6 +329,11 @@
                 parentDiv.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
             });
+        });
+    </script>
+    <script>
+        document.getElementById('check-status-btn').addEventListener('click', function() {
+            location.reload();
         });
     </script>
 @endsection

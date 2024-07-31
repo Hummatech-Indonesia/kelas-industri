@@ -141,8 +141,9 @@
                                                             ->count();
                                                     @endphp
                                                     @if (
-                                                        ((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) &&
-                                                            $subMaterial->assignments->count() == $assignment || $subMaterial->assignments->count() == 0)
+                                                        (((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) &&
+                                                            $subMaterial->assignments->count() == $assignment) ||
+                                                            $subMaterial->assignments->count() == 0)
                                                         <a href="{{ route('student.exam', $exam->id) }}"
                                                             class="btn btn-primary btn-sm">
                                                             Mulai Ujian
@@ -210,11 +211,12 @@
                                                         class="btn btn-danger btn-sm">Materi
                                                     </a>
                                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                    <a href="{{ route('common.showDocument', [$subMaterial->id, 'mentor']) }}"
+                                                    {{-- @dd('sdhfkjshdfjshdf') --}}
+                                                    <a href="{{ route('common.showDocument', ['submaterial' => $subMaterial->id, 'role' => 'mentor', 'classroom' => $classroom->id]) }}"
                                                         class="btn btn-danger btn-sm">Materi
                                                     </a>
                                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                    <a href="{{ route('common.showDocument', [$subMaterial->id, 'teacher']) }}"
+                                                    <a href="{{ route('common.showDocument', ['submaterial' => $subMaterial->id, 'role' => 'teacher', 'classroom' => $classroom->id]) }}"
                                                         class="btn btn-danger btn-sm">Materi
                                                     </a>
                                                 @endif
