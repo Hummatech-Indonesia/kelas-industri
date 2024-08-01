@@ -153,17 +153,17 @@
                         @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
-                                <a href="{{ route('teacher.submaterialExam.index') }}"
-                                    class="menu-link {{ request()->routeIs('teacher.submaterialExam.index') || request()->routeIs('teacher.detailSubMaterialExam') ? 'active' : '' }}">
-                                    <span class="menu-title">Ujian</span></a>
+                                <a href="{{ route('teacher.materialExam.index') }}"
+                                    class="menu-link {{ request()->routeIs('teacher.materialExam.index') || request()->routeIs('teacher.detailMaterialExam') ? 'active' : '' }}">
+                                    <span class="menu-title">Test</span></a>
                             </div>
                         @endif
                         @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->
-                                <a href="{{ route('mentor.submaterialExam.index') }}"
-                                    class="menu-link {{ request()->routeIs('mentor.submaterialExam.index') || request()->routeIs('mentor.detailSubMaterialExam') || request()->routeIs('mentor.examSubMaterialAssessment') ? 'active' : '' }}">
-                                    <span class="menu-title">Ujian</span></a>
+                                <a href="{{ route('mentor.materialExam.index') }}"
+                                    class="menu-link {{ request()->routeIs('mentor.materialExam.index') || request()->routeIs('mentor.detailSubMaterialExam') || request()->routeIs('mentor.examSubMaterialAssessment') ? 'active' : '' }}">
+                                    <span class="menu-title">Test</span></a>
                             </div>
                             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                 <!--begin:Menu link-->

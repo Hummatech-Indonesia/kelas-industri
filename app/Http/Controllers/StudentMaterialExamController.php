@@ -94,7 +94,7 @@ class StudentMaterialExamController extends Controller
         $sortedQuestionsMultipleChoice = $this->materialService->sortDailyExamQuestion($questions);
         $answerKey = $this->questionBankRepository->getAnswerByQuestion(collect($sortedQuestionsMultipleChoice)->pluck('id')->toArray());
 
-        $data = $this->service->calculate($request, $answerKey, $materialExam);
+        $data = $this->service->calculate($request, $answerKey, $materialExam, $studentMaterialExam);
         $data['finished_count'] = $studentMaterialExam->finished_count + 1;
 
         $this->studentExam->update($studentMaterialExam->id, $data);
@@ -121,7 +121,6 @@ class StudentMaterialExamController extends Controller
         $essayValue = $materialExam->essay_value;
         $score = 0;
         $data = $request;
-
         $scoreByAnswerId = [];
 
         foreach ($data['student_material_exam_answer_id'] as $index => $answerId) {

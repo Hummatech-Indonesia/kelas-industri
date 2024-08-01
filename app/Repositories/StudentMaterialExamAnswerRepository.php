@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use App\Models\StudentMaterialExamAnswer;
 
@@ -12,12 +13,23 @@ class StudentMaterialExamAnswerRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function getAnswerBySubMaterial(string $materialExamId)
+    public function getAnswerBySubMaterial(string $materialExamId, Request $request)
     {
         return $this->model->query()
         ->with('studentMaterialExam.student')
         ->whereRelation('studentMaterialExam', function ($query) use ($materialExamId){
             $query->where('material_exam_id', $materialExamId);
+        })
+        ->when($request->has('type'), function ($query) use ($request) {
+            $query->whereRelation('studentMaterialExam', 'type', $request->type);
+        }, function ($query) {
+            $query->whereRelation('studentMaterialExam', 'type', 'pre_test');
+        })
+        ->when($request->answer_value == 'null', function ($query){
+            $query->whereNull('answer_value');
+        })
+        ->when($request->answer_value == 'not_null', function ($query){
+            $query->whereNotNull('answer_value');
         })
         ->get();
     }

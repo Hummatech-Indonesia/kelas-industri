@@ -21,7 +21,7 @@
                                 <!--begin::Title-->
                                 <h1
                                     class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                                    Ujian
+                                    Pre Test dan Post Test Materi
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -29,7 +29,7 @@
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
                                         <a href="#" class="text-muted text-hover-primary">
-                                            List Ujian Pada Kelas Yang Anda Ajar </a>
+                                            List Test siswa Pada Kelas Yang Anda Ajar </a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -113,14 +113,14 @@
                                             <!--begin::Icon-->
                                             <div class="symbol bg-primary symbol-45px w-45px me-3">
                                                 <div class="p-3 text-white text-center">
-                                                    {{ substr($exam->title, 0, 1) }}
+                                                    {{ substr($exam->material->title, 0, 1) }}
                                                 </div>
                                             </div>
                                             <!--end::Icon-->
 
                                             <!--begin::Title-->
                                             <a href="#" class="fs-5 fw-semibold text-hover-primary text-dark m-0">
-                                                {{ $exam->title }}</a>
+                                                {{ $exam->material->title }}</a>
                                             <!--end::Title-->
                                         </div>
 
@@ -148,7 +148,7 @@
                                                 data-kt-menu="true" style="">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <div class="menu-content fs-6 text-gray-900 fw-bold px-3 py-4">Ujian
+                                                    <div class="menu-content fs-6 text-gray-900 fw-bold px-3 py-4">Test
                                                         Siswa
                                                     </div>
                                                 </div>
@@ -161,7 +161,7 @@
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="{{ route('teacher.detailSubMaterialExam', $exam->id) }}"
+                                                        <a href="{{ route('teacher.detailMaterialExam', $exam->id) }}"
                                                             class="menu-link px-3">
                                                             Detail Ujian
                                                         </a>
@@ -170,7 +170,7 @@
                                                 @else
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="{{ route('mentor.detailSubMaterialExam', $exam->id) }}"
+                                                        <a href="{{ route('mentor.detailMaterialExam', $exam->id) }}"
                                                             class="menu-link px-3">
                                                             Detail Ujian
                                                         </a>
@@ -181,7 +181,7 @@
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="{{ route('mentor.examSubMaterialAssessment', $exam->id) }}"
+                                                        <a href="{{ route('mentor.examMaterialAssessment', $exam->id) }}"
                                                             class="menu-link px-3">
                                                             Penilaian Soal Essay
                                                         </a>
@@ -197,51 +197,6 @@
                                     <!--begin::Card body-->
                                     <div class="card-body d-flex flex-column px-9 pt-6 pb-8">
                                         <!--begin::Heading-->
-                                        <div class="fs-4 fw-bold">
-                                            <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
-                                                <svg class="me-2" width="20" height="20" viewBox="0 0 20 20"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z"
-                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path d="M10 4.59961V9.99961L13.6 11.7996" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg>
-                                                (Mulai)
-                                                {{ Carbon::parse($exam->start_at)->locale('id')->isoFormat('DD MMMM YYYY, HH:ss') }}
-
-                                            </span>
-                                        </div>
-                                        <div class="fs-4 fw-bold">
-                                            <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
-                                                <svg width="20" height="20" class="me-2" viewBox="0 0 20 20"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M18.0526 9.52632C18.0526 7.83997 17.5526 6.1915 16.6157 4.78935C15.6788 3.38721 14.3472 2.29437 12.7892 1.64903C11.2312 1.00369 9.51686 0.834845 7.86292 1.16383C6.20897 1.49282 4.68973 2.30488 3.4973 3.4973C2.30488 4.68973 1.49282 6.20897 1.16383 7.86292C0.834845 9.51686 1.00369 11.2312 1.64903 12.7892C2.29437 14.3472 3.38721 15.6788 4.78935 16.6157C6.1915 17.5526 7.83997 18.0526 9.52632 18.0526"
-                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path
-                                                        d="M9.52539 4.78906V9.5259L11.4201 11.4206M13.3149 13.3154H18.9991V18.9996H13.3149V13.3154Z"
-                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg>
-                                                (Selesai)
-                                                {{ Carbon::parse($exam->end_at)->locale('id')->isoFormat('DD MMMM YYYY, HH:ss') }}
-
-                                            </span>
-                                        </div>
-                                        <div class="fs-4 fw-bold">
-                                            <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="22"
-                                                    height="22" viewBox="0 0 24 24">
-                                                    <path fill="currentColor"
-                                                        d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5c-1.65 0-3.35.3-4.75 1.05c-.1.05-.15.05-.25.05c-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1c1.11-.35 2.33-.5 3.5-.5c1.95 0 4.05.4 5.5 1.5c1.45-1.1 3.55-1.5 5.5-1.5c1.17 0 2.39.15 3.5.5c.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5c-.1 0-.15 0-.25-.05c-1.4-.75-3.1-1.05-4.75-1.05c-1.7 0-4.15.65-5.5 1.5m-1-14c-1.36-.6-3.16-1-4.5-1c-1.2 0-2.4.15-3.5.5v11.5c1.1-.35 2.3-.5 3.5-.5c1.34 0 3.14.4 4.5 1zM13 19c1.36-.6 3.16-1 4.5-1c1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5c-1.34 0-3.14.4-4.5 1zm1-2.65c.96-.35 2.12-.52 3.5-.52c1.04 0 1.88.08 2.5.24v-1.5a13.9 13.9 0 0 0-6 .19zm0-2.66c.96-.35 2.12-.53 3.5-.53c1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23c-1.28 0-2.45.15-3.5.45zM14 11c.96-.33 2.12-.5 3.5-.5c.91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23c-1.32 0-2.5.15-3.5.46z" />
-                                                </svg>
-                                                {{ $exam->subMaterial->title }}
-                                            </span>
-                                        </div>
                                         <div class="fs-4 fw-semibold d-flex">
                                             <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="me-1" width="24"
@@ -259,7 +214,17 @@
                                                     <path fill="currentColor"
                                                         d="M10 21H5c-1.11 0-2-.89-2-2V5c0-1.11.89-2 2-2h14c1.11 0 2 .89 2 2v5.33c-.3-.12-.63-.19-.96-.19c-.37 0-.72.08-1.04.23V5H5v14h5.11l-.11.11zM7 9h10V7H7zm0 8h5.11L14 15.12V15H7zm0-4h9.12l.88-.88V11H7zm14.7.58l-1.28-1.28a.55.55 0 0 0-.77 0l-1 1l2.05 2.05l1-1a.55.55 0 0 0 0-.77M12 22h2.06l6.05-6.07l-2.05-2.05L12 19.94z" />
                                                 </svg>
-                                                {{ $exam->total_multiple_choice + $exam->total_essay }} Soal
+                                                {{ $exam->total_essay }} Soal Essay
+                                            </span>
+                                        </div>
+                                        <div class="fs-4 fw-bold">
+                                            <span class="text-black fw-semibold d-flex fs-6 mb-3 text-dark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="22"
+                                                    height="22" viewBox="0 0 24 24">
+                                                    <path fill="currentColor"
+                                                        d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5c-1.65 0-3.35.3-4.75 1.05c-.1.05-.15.05-.25.05c-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1c1.11-.35 2.33-.5 3.5-.5c1.95 0 4.05.4 5.5 1.5c1.45-1.1 3.55-1.5 5.5-1.5c1.17 0 2.39.15 3.5.5c.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5c-.1 0-.15 0-.25-.05c-1.4-.75-3.1-1.05-4.75-1.05c-1.7 0-4.15.65-5.5 1.5m-1-14c-1.36-.6-3.16-1-4.5-1c-1.2 0-2.4.15-3.5.5v11.5c1.1-.35 2.3-.5 3.5-.5c1.34 0 3.14.4 4.5 1zM13 19c1.36-.6 3.16-1 4.5-1c1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5c-1.34 0-3.14.4-4.5 1zm1-2.65c.96-.35 2.12-.52 3.5-.52c1.04 0 1.88.08 2.5.24v-1.5a13.9 13.9 0 0 0-6 .19zm0-2.66c.96-.35 2.12-.53 3.5-.53c1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23c-1.28 0-2.45.15-3.5.45zM14 11c.96-.33 2.12-.5 3.5-.5c.91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23c-1.32 0-2.5.15-3.5.46z" />
+                                                </svg> Bobot Nilai Essay
+                                                {{ $exam->essay_value }}%
                                             </span>
                                         </div>
                                         <!--end::Card body-->
@@ -271,7 +236,7 @@
                             <div class="col-lg-12 text-center">
                                 <img src="{{ asset('user-assets/media/misc/no-data.png') }}" style="width: 250px;"
                                     alt="" />
-                                <h4>Belum ada ujian yang selesai</h4>
+                                <h4>Belum ada Test yang Tersedia</h4>
                             </div>
                         @endforelse
                     </div>

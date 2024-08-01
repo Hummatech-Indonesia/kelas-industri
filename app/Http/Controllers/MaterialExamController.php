@@ -2,36 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\MaterialExamTypeEnum;
+use App\Helpers\RoleHelper;
+use App\Traits\DataSidebar;
 use App\Models\MaterialExam;
 use Illuminate\Http\Request;
+use App\Services\UserServices;
+use App\Services\MentorService;
+use App\Services\TeacherService;
+use App\Enums\MaterialExamTypeEnum;
+use App\Services\MaterialExamService;
 use function PHPUnit\Framework\returnSelf;
 use App\Repositories\MaterialExamRepository;
 use App\Repositories\QuestionBankRepository;
 use App\Services\StudentMaterialExamService;
+use App\Repositories\StudentMaterialExamRepository;
 use App\Repositories\MaterialExamQuestionRepository;
-use App\Services\UserServices;
+use App\Repositories\StudentMaterialExamAnswerRepository;
 
 class MaterialExamController extends Controller
 {
+    use DataSidebar;
     private MaterialExamRepository $repository;
     private QuestionBankRepository $questionBankRepository;
     private MaterialExamQuestionRepository $examQuestionRepository;
     private StudentMaterialExamService $studentMaterialExamService;
     private UserServices $userServices;
+    private MaterialExamService $service;
+    private StudentMaterialExamRepository $studentExamRepository;
+    private MentorService $mentorService;
+    private StudentMaterialExamAnswerRepository $studentExamAnswerRepository;
+    private TeacherService $teacherService;
 
     public function __construct(
         MaterialExamRepository $repository,
         QuestionBankRepository $questionBankRepository,
         MaterialExamQuestionRepository $examQuestionRepository,
         StudentMaterialExamService $studentMaterialExamService,
-        UserServices $userServices
+        UserServices $userServices,
+        MaterialExamService $service,
+        StudentMaterialExamRepository $studentExamRepository,
+        MentorService $mentorService,
+        StudentMaterialExamAnswerRepository $studentExamAnswerRepository,
+        TeacherService $teacherService
     ) {
         $this->repository = $repository;
         $this->questionBankRepository = $questionBankRepository;
         $this->examQuestionRepository = $examQuestionRepository;
         $this->studentMaterialExamService = $studentMaterialExamService;
         $this->userServices = $userServices;
+        $this->service = $service;
+        $this->studentExamRepository = $studentExamRepository;
+        $this->mentorService = $mentorService;
+        $this->studentExamAnswerRepository = $studentExamAnswerRepository;
+        $this->teacherService = $teacherService;
     }
     /**
      * Display a listing of the resource.
@@ -42,38 +65,6 @@ class MaterialExamController extends Controller
     {
         $exams = $this->repository->getPaginate(6);
         return view('dashboard.admin.pages.materialExam.index', compact('exams'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MaterialExam  $materialExam
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MaterialExam $materialExam)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MaterialExam  $materialExam
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MaterialExam $materialExam)
-    {
-        //
     }
 
     /**
@@ -132,5 +123,62 @@ class MaterialExamController extends Controller
         $data['schools'] = $this->userServices->handleGetAllSchool();
         $data['studentSubMaterialExams'] = $this->studentMaterialExamService->halndeGetByMaterialExam($request, $materialExam)->where('type', $type == MaterialExamTypeEnum::PRETEST->value ? MaterialExamTypeEnum::PRETEST->value : MaterialExamTypeEnum::POSTEST->value);
         return view('dashboard.admin.pages.MaterialExam.examDetailStudent', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function examMentor()
+    {
+        $data = $this->GetDataSidebar();
+        $generation = $this->service->generationMentorClassroom();
+        $data['exams'] = $this->repository->getBeforeFinishedByGeneration($generation);
+        return view('dashboard.user.pages.studentExam.examMentor', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function examMentorDetail(MaterialExam $materialExam, Request $request)
+    {
+        $data = $this->GetDataSidebar();
+        if (RoleHelper::get_role() == 'mentor') {
+            $data['classrooms'] = $this->mentorService->handleGetMentorClassrooms(auth()->user()->id);
+        }
+        $data['classrooms'] = $this->teacherService->handleGetTeacherClassrooms(auth()->user()->teacherSchool->id);
+        $data['students'] = $this->studentExamRepository->getAllStudent($materialExam->id, $request);
+        $data['lowValue'] = $this->studentExamRepository->getMinValue($materialExam->id, $request);
+        $data['highValue'] = $this->studentExamRepository->getMaxValue($materialExam->id, $request);
+        $data['averageValue'] = $this->studentExamRepository->getAvgValue($materialExam->id, $request);
+        return view('dashboard.user.pages.studentExam.examDetail', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function examMentorAssessment(MaterialExam $materialExam, Request $request)
+    {
+        $data = $this->GetDataSidebar();
+        $data['classrooms'] = $this->mentorService->handleGetMentorClassrooms(auth()->user()->id);
+        $classroomId = $this->mentorService->handleArrClassroom($data['classrooms']);
+        $data['students'] = $this->studentExamRepository->getByClassroomArray($materialExam->id, $classroomId, $request, 10);
+        $data['answers'] = $this->studentExamAnswerRepository->getAnswerBySubMaterial($materialExam->id, $request);
+        $data['materialExam'] = $materialExam;
+        $data['studentAnswers'] = $data['answers']->groupBy('studentMaterialExam.id');
+        return view('dashboard.user.pages.studentExam.examAssessment', $data);
+    }
+
+    public function examTeacher()
+    {
+        $data = $this->GetDataSidebar();
+        $generation = $this->service->generationTeacherClassroom();
+        $data['exams'] = $this->repository->getBeforeFinishedByGeneration($generation);
+        return view('dashboard.user.pages.studentExam.examMentor', $data);
     }
 }

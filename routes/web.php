@@ -396,8 +396,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
         Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
-        Route::get('submaterial-exam', [SubMaterialExamController::class, 'examTeacher'])->name('submaterialExam.index');
-        Route::get('detail-submaterial-exam/{subMaterialExam}', [SubMaterialExamController::class, 'examMentorDetail'])->name('detailSubMaterialExam');
+        Route::get('material-exam', [MaterialExamController::class, 'examTeacher'])->name('materialExam.index');
+        Route::get('detail-material-exam/{materialExam}', [MaterialExamController::class, 'examMentorDetail'])->name('detailMaterialExam');
     });
     //end teacher
 
@@ -413,11 +413,11 @@ Route::middleware('auth.custom')->group(function () {
 
         Route::put('add-point/{user}', [StudentController::class, 'addPoint'])->name('add.point');
 
-        Route::get('submaterial-exam', [SubMaterialExamController::class, 'examMentor'])->name('submaterialExam.index');
-        Route::get('detail-submaterial-exam/{subMaterialExam}', [SubMaterialExamController::class, 'examMentorDetail'])->name('detailSubMaterialExam');
-        Route::get('exam-submaterial-assessment/{subMaterialExam}', [SubMaterialExamController::class, 'examMentorAssessment'])->name('examSubMaterialAssessment');
+        Route::get('material-exam', [MaterialExamController::class, 'examMentor'])->name('materialExam.index');
+        Route::get('detail-material-exam/{materialExam}', [MaterialExamController::class, 'examMentorDetail'])->name('detailMaterialExam');
+        Route::get('exam-material-assessment/{materialExam}', [MaterialExamController::class, 'examMentorAssessment'])->name('examMaterialAssessment');
 
-        Route::post('student-sub-material-exam-essay-score/{subMaterialExam}', [StudentSubMaterialExamController::class, 'studentSubMaterialExamEssayScore'])->name('studentSubMaterialExamEssayScore');
+        Route::post('student-material-exam-essay-score/{materialExam}', [StudentMaterialExamController::class, 'studentMaterialExamEssayScore'])->name('studentMaterialExamEssayScore');
 
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
 

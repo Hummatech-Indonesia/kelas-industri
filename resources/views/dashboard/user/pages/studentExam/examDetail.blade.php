@@ -42,7 +42,7 @@
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('mentor.submaterialExam.index') }}"
+                                    <a href="{{ route('mentor.materialExam.index') }}"
                                         class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                         <i class="bi bi-arrow-left me-2"></i> Kembali
                                     </a>
@@ -54,7 +54,45 @@
                     </div>
                     <!--end::Toolbar container-->
                 </div>
+
                 <div id="kt_app_toolbar_container" class="app-container container-fluid">
+                    <form action="" class="mb-4" method="get">
+                        <div class="row">
+                            <div class="col-2">
+                                <select name="type" class="form-select me-2">
+                                    <option value="pre_test" {{ request()->type == 'pre_test' ? 'selected' : '' }}>Pre Test
+                                    </option>
+                                    <option value="post_test" {{ request()->type == 'post_test' ? 'selected' : '' }}>Post
+                                        Test</option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <select name="classroom_id" class="form-select me-2">
+                                    <option value="">Kelas</option>
+                                    @foreach ($classrooms as $classroom)
+                                        <option value="{{ $classroom->classroom_id }}"
+                                            {{ request()->classroom_id == $classroom->classroom_id ? 'selected' : '' }}>
+                                            {{ $classroom->classroom->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <button type="submit" class="btn btn-light-primary btn-md">
+                                    <span class="svg-icon svg-icon-1"><svg width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z"
+                                                fill="currentColor" />
+                                            <path opacity="0.3"
+                                                d="M11 20C6 20 2 16 2 11C2 6 6 2 11 2C16 2 20 6 20 11C20 16 16 20 11 20ZM11 4C7.1 4 4 7.1 4 11C4 14.9 7.1 18 11 18C14.9 18 18 14.9 18 11C18 7.1 14.9 4 11 4ZM8 11C8 9.3 9.3 8 11 8C11.6 8 12 7.6 12 7C12 6.4 11.6 6 11 6C8.2 6 6 8.2 6 11C6 11.6 6.4 12 7 12C7.6 12 8 11.6 8 11Z"
+                                                fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-12 mb-0">
                             <div class="card border-bottom border-success px-4 mb-5">
@@ -65,11 +103,26 @@
                                         </p>
                                     </div>
                                     <div class="">
-                                        <img src="http://127.0.0.1:8632/infogreen.svg" width="30px" alt="">
+                                        <span class="svg-icon svg-icon-success svg-icon-2hx"><svg width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M16.0173 9H15.3945C14.2833 9 13.263 9.61425 12.7431 10.5963L12.154 11.7091C12.0645 11.8781 12.1072 12.0868 12.2559 12.2071L12.6402 12.5183C13.2631 13.0225 13.7556 13.6691 14.0764 14.4035L14.2321 14.7601C14.2957 14.9058 14.4396 15 14.5987 15H18.6747C19.7297 15 20.4057 13.8774 19.912 12.945L18.6686 10.5963C18.1487 9.61425 17.1285 9 16.0173 9Z"
+                                                    fill="currentColor" />
+                                                <rect opacity="0.3" x="14" y="4" width="4" height="4"
+                                                    rx="2" fill="currentColor" />
+                                                <path
+                                                    d="M4.65486 14.8559C5.40389 13.1224 7.11161 12 9 12C10.8884 12 12.5961 13.1224 13.3451 14.8559L14.793 18.2067C15.3636 19.5271 14.3955 21 12.9571 21H5.04292C3.60453 21 2.63644 19.5271 3.20698 18.2067L4.65486 14.8559Z"
+                                                    fill="currentColor" />
+                                                <rect opacity="0.3" x="6" y="5" width="6" height="6"
+                                                    rx="3" fill="currentColor" />
+                                            </svg>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="">
-                                    <p class="fs-4 text-info mb-4 all-student" style="font-weight: 1000;">{{ count($students) }}</p>
+                                    <p class="fs-4 text-info mb-4 all-student" style="font-weight: 1000;">
+                                        {{ count($students) }}</p>
                                 </div>
                             </div>
                         </div>
@@ -82,12 +135,21 @@
                                         </p>
                                     </div>
                                     <div class="">
-                                        <img src="https://teacher.mischool.online/infowarning.svg" width="30px"
-                                            alt="">
+                                        <span class="svg-icon svg-icon-warning svg-icon-2hx"><svg width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M17.8 8.79999L13 13.6L9.7 10.3C9.3 9.89999 8.7 9.89999 8.3 10.3L2.3 16.3C1.9 16.7 1.9 17.3 2.3 17.7C2.5 17.9 2.7 18 3 18C3.3 18 3.5 17.9 3.7 17.7L9 12.4L12.3 15.7C12.7 16.1 13.3 16.1 13.7 15.7L19.2 10.2L17.8 8.79999Z"
+                                                    fill="currentColor" />
+                                                <path opacity="0.3" d="M22 13.1V7C22 6.4 21.6 6 21 6H14.9L22 13.1Z"
+                                                    fill="currentColor" />
+                                            </svg>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="">
-                                    <p class="fs-4 text-info mb-4 high-grade" style="font-weight: 1000;">{{ $highValue }}</p>
+                                    <p class="fs-4 text-info mb-4 high-grade" style="font-weight: 1000;">{{ $highValue }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -99,12 +161,22 @@
                                             Nilai Rata-Rata
                                         </p>
                                     </div>
-                                    <div class="">
-                                        <img src="https://teacher.mischool.online/info.svg" width="30px" alt="">
-                                    </div>
+                                    <span class="svg-icon svg-icon-info svg-icon-2hx"><svg width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="8" y="9" width="3" height="10" rx="1.5"
+                                                fill="currentColor" />
+                                            <rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5"
+                                                fill="currentColor" />
+                                            <rect x="18" y="11" width="3" height="8" rx="1.5"
+                                                fill="currentColor" />
+                                            <rect x="3" y="13" width="3" height="6" rx="1.5"
+                                                fill="currentColor" />
+                                        </svg>
+                                    </span>
                                 </div>
                                 <div class="">
-                                    <p class="fs-4 text-info mb-4 mid-grade" style="font-weight: 1000;">{{$averageValue}}</p>
+                                    <p class="fs-4 text-info mb-4 mid-grade" style="font-weight: 1000;">{{ $averageValue }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -117,16 +189,27 @@
                                         </p>
                                     </div>
                                     <div class="">
-                                        <img src="https://teacher.mischool.online/infodanger.svg" width="30px"
-                                            alt="">
+                                        <span class="svg-icon svg-icon-danger svg-icon-2hx"><svg width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M19.2 13.8L13.7 8.3C13.3 7.9 12.7 7.9 12.3 8.3L9 11.6L3.7 6.3C3.3 5.9 2.7 5.9 2.3 6.3C1.9 6.7 1.9 7.3 2.3 7.7L8.3 13.7C8.7 14.1 9.3 14.1 9.7 13.7L13 10.4L17.8 15.2L19.2 13.8Z"
+                                                    fill="currentColor" />
+                                                <path opacity="0.3" d="M22 10.9V17C22 17.6 21.6 18 21 18H14.9L22 10.9Z"
+                                                    fill="currentColor" />
+                                            </svg>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="">
-                                    <p class="fs-4 text-info mb-4 low-grade" style="font-weight: 1000;">{{ $lowValue }}</p>
+                                    <p class="fs-4 text-info mb-4 low-grade" style="font-weight: 1000;">
+                                        {{ $lowValue }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -182,15 +265,17 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <span
-                                                            class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->subMaterialExam->total_multiple_choice - $student->true_answer }}</span>
+                                                            class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->materialExam->total_multiple_choice - $student->true_answer }}</span>
                                                     </td>
                                                     <td class="text-center">
-                                                        @if ($student->subMaterialExam->studentSubmaterialExams == null)
-                                                            <span class="badge py-3 px-4 fs-7 badge-light-danger">Belum Ujian</span>
-                                                            @elseif ($student->studentSubMaterialExamAnswers[0]->answer_value == null)
+                                                        {{-- @dd($student->studentMaterialExamAnswers[0]->answer_value) --}}
+                                                        @if ($student->materialExam->studentMaterialExams == null)
+                                                            <span class="badge py-3 px-4 fs-7 badge-light-danger">Belum
+                                                                Ujian</span>
+                                                        @elseif ($student->studentMaterialExamAnswers[0]->answer_value == null)
                                                             <span class="badge py-3 px-4 fs-7 badge-light-warning">Belum
                                                                 Dinilai</span>
-                                                            @else
+                                                        @else
                                                             <span class="badge py-3 px-4 fs-7 badge-light-success">Sudah
                                                                 Dinilai</span>
                                                         @endif

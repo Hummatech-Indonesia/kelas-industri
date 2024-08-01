@@ -75,16 +75,4 @@ class SubMaterialExamRepository extends BaseRepository
             ->where('slug', $slug)
             ->first();
     }
-
-    public function getBeforeFinishedByGeneration(array $generation): mixed
-    {
-        return $this->model->query()
-            ->where('end_at', '<=', now())
-            ->where('type', SubMaterialExamTypeEnum::QUIZ->value)
-            ->whereRelation('subMaterial.material.generation', function ($query) use ($generation) {
-                $query->whereIn('generation', $generation);
-            })
-            ->latest()
-            ->get();
-    }
 }

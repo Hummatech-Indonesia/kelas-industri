@@ -55,60 +55,6 @@ class StudentSubmaterialExamRepository extends BaseRepository
         return $result->paginate($paginate);
     }
 
-    public function getAllStudent(string $subMaterialExamId): mixed
-    {
-        return $this->model->query()
-            ->with(['student.studentSchool.studentClassroom.classroom', 'subMaterialExam', 'studentSubMaterialExamAnswers'])
-            ->where('sub_material_exam_id', $subMaterialExamId)
-            ->whereRelation('student', 'status', 'active')
-            ->get();
-    }
-
-    public function getMinValue(string $subMaterialExamId): mixed
-    {
-        return $this->model->query()
-            ->where('sub_material_exam_id', $subMaterialExamId)
-            ->min('score');
-    }
-
-    public function getMaxValue(string $subMaterialExamId): mixed
-    {
-        return $this->model->query()
-            ->where('sub_material_exam_id', $subMaterialExamId)
-            ->max('score');
-    }
-
-    public function getAvgValue(string $subMaterialExamId): mixed
-    {
-        if (RoleHelper::get_role() == 'mentor') {
-            $classroomArry = auth()->user()->mentorClassrooms->pluck('classroom_id')->toArray();
-        }else{
-            $classroomArry = auth()->user()->teacherSchool->teacherClassrooms->pluck('classroom_id')->toArray();
-        }
-
-        return $this->model->query()
-            ->whereRelation('student.studentSchool.studentClassroom', function ($query) use ($classroomArry) {
-                $query->whereIn('classroom_id', $classroomArry);
-            })
-            ->where('sub_material_exam_id', $subMaterialExamId)
-            ->avg('score');
-    }
-
-    public function getByClassroomArray(string $subMaterialExamId, mixed $classroomId, Request $request, int $limit): mixed
-    {
-        return $this->model->query()
-            ->where('sub_material_exam_id', $subMaterialExamId)
-            ->with('student.studentSchool.studentClassroom.classroom')
-            ->whereHas('student.studentSchool.studentClassroom', function ($query) use ($classroomId) {
-                $query->whereIn('classroom_id', $classroomId);
-            })
-            ->when($request->classroom_id, function ($q) use ($request) {
-                $q->whereRelation('student.studentSchool.studentClassroom', 'classroom_id', $request->classroom_id);
-            })
-            ->whereRelation('student', 'status', 'active')
-            ->paginate($limit);
-    }
-
 
     public function getTester($schoolId) : mixed {
         return $this->model->query()

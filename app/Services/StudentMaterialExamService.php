@@ -46,10 +46,10 @@ class StudentMaterialExamService
         $this->repository->store($data);
     }
 
-    public function calculate(Request $request, mixed $answerKeys, MaterialExam $materialExam): mixed
+    public function calculate(Request $request, mixed $answerKeys, MaterialExam $materialExam, StudentMaterialExam $studentMaterialExam): mixed
     {
         if ($request->answer_essay) {
-            $studentMaterialExam = $this->repository->getWhere([$materialExam->id]);
+            $studentMaterialExam = $this->repository->getWhere([$materialExam->id], $studentMaterialExam->type);
             for ($i = 0; $i < count($request->answer_essay); $i++) {
                 $data['answer'] = $request->answer_essay[$i];
                 if ($data['answer']['answer'] == null) {

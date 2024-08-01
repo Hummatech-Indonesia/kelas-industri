@@ -24,4 +24,17 @@ class MaterialExamRepository extends BaseRepository
             ->where('id', $id)
             ->first();
     }
+
+
+    public function getBeforeFinishedByGeneration(array $generation): mixed
+    {
+        return $this->model->query()
+            ->whereRelation('material.generation', function ($query) use ($generation) {
+                $query->whereIn('generation', $generation);
+            })
+            ->whereRelation('material', function ($query) {
+                $query->orderBy('order', 'asc');
+            })
+            ->get();
+    }
 }
