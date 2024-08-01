@@ -207,9 +207,10 @@
                                             <!--end::Col-->
                                         </div>
 
+                                        @if (auth()->user()->hasRole('student'))
                                         <div class="row mb-6">
                                             <!--begin::Label-->
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nomer induk siswa</label>
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nomor induk siswa</label>
                                             <!--end::Label-->
 
                                             <!--begin::Col-->
@@ -218,6 +219,7 @@
                                             </div>
                                             <!--end::Col-->
                                         </div>
+                                        @endif
                                         <!--end::Input group-->
                                     </div>
                                     <!--end::Card body-->

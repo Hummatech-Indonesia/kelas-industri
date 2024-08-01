@@ -92,21 +92,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        // // Mendapatkan semua siswa
-        // $students = User::whereRelation('roles', 'name', 'student')->get();
-
-        // // Loop melalui setiap siswa
-        // foreach ($students as $student) {
-        //     // Mendapatkan pembayaran siswa dengan tagihan belum lunas
-        //     $unpaidPayments = $student->payment()->whereColumn('paid_amount', '<', 'fee_amount')->get();
-
-        //     dd($unpaidPayments);
-        //     // Lakukan sesuatu dengan pembayaran yang belum lunas
-        //     // foreach ($unpaidPayments as $payment) {
-        //     //     // Lakukan tindakan yang diperlukan
-        //     // }
-        // }
-
         $role = auth()->user()->roles->pluck('name')[0];
         $userId = auth()->id();
 

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
-use App\Http\Requests\PasswordRequest;
 
 class PasswordRequest extends BaseRequest
 {
@@ -13,7 +12,7 @@ class PasswordRequest extends BaseRequest
      *
      * @return array<string, mixed>
      */
-    
+
     public function rules(): array
     {
         return [

@@ -94,15 +94,15 @@
                         <div class="row">
                             <div class="col">
                                 <h4 class="text-muted">Total Pemasukan</h4>
-                                <h3><span class="text-primary">Rp. {{ $incomes->sum() }}</span></h3>
+                                <h3><span class="text-primary">Rp. {{ number_format($incomes->sum()) }}</span></h3>
                             </div>
                             <div class="col border-2 border-start border-end">
                                 <h4 class="text-muted">Total Pengeluaran</h4>
-                                <h3><span class="text-primary">Rp. {{ $spents->sum() }}</span></h3>
+                                <h3><span class="text-primary">Rp. {{ number_format($spents->sum()) }}</span></h3>
                             </div>
                             <div class="col">
                                 <h4 class="text-muted">Total Piutang</h4>
-                                <h3><span class="text-primary">Rp. {{ $depts->sum() }}</span></h3>
+                                <h3><span class="text-primary">Rp. {{ number_format($depts->sum()) }}</span></h3>
                             </div>
                         </div>
                         <form action="#kt_jurnal_guru" method="GET" class="d-flex gap-2">
