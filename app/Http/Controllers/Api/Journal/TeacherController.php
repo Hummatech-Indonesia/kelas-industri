@@ -22,11 +22,11 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $data = $this->service->handleShow(auth()->user());
+        // $data = $this->service->handleShow(auth()->user());
 
         return response()->json([
             'message' => 'Berhasil mengambil data user',
-            'data' => $data,
+            'data' => auth()->user(),
         ]);
     }
 
