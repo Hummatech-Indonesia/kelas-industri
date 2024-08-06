@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\JournalRequest;
+use App\Http\Requests\UpdateJournalRequest;
 use App\Models\Journal;
 use App\Services\JournalAttendanceService;
 
@@ -82,17 +83,19 @@ class JournalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  JournalRequest  $request
+     * @param  UpdateJournalRequest  $request
      * @param  Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function update(JournalRequest $request, Journal $journal)
+    public function update(UpdateJournalRequest $request, Journal $journal)
     {
         $this->journalService->handleUpdate($request, $journal);
 
         // memperbarui absensi siswa 
         $this->journalAttendaceService->handleDeleteByJournal($journal->id);
-        $this->journalAttendaceService->handleCreate($request->attendance, $journal->id);
+        if ($request->attendance != null) {
+            $this->journalAttendaceService->handleCreate($request->attendance, $journal->id);
+        }
 
         return response()->json([
             'message' => 'Berhasil memperbarui jurnal'

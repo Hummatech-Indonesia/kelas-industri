@@ -79,7 +79,7 @@ class JournalService
     /**
      * update generation year
      *
-     * @param JournalRequest $request
+     * @param UpdateJournalRequest $request
      * @param int $id
      * @return void
      */
