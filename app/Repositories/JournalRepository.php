@@ -25,11 +25,13 @@ class JournalRepository extends BaseRepository
     public function get_journal_by_user(): mixed
     {
         return $this->model->query()
-            ->with('classroom', function ($query) {
-                return $query->withCount([
-                    'students as students'
-                ]);
-            })
+            ->with([
+                'classroom' => function ($query) {
+                    return $query->withCount([
+                        'students as students'
+                    ]);
+                },
+            ])
             ->withCount([
                 'attendances as permits' => function ($query) {
                     return $query->where('attendance', 'ijin');
@@ -48,11 +50,14 @@ class JournalRepository extends BaseRepository
     public function show_journal($journalId): mixed
     {
         return $this->model->query()
-            ->with('classroom', function ($query) {
-                return $query->withCount([
-                    'students as students'
-                ]);
-            })
+            ->with([
+                'classroom' => function ($query) {
+                    return $query->withCount([
+                        'students as students'
+                    ]);
+                },
+                'attendanceAlfa', 'attendanceIjin', 'attendanceSakit'
+            ])
             ->withCount([
                 'attendances as permits' => function ($query) {
                     return $query->where('attendance', 'ijin');

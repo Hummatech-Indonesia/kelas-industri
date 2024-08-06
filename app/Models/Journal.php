@@ -38,4 +38,19 @@ class Journal extends Model
     {
         return $this->hasMany(JournalAttendance::class, 'journal_id');
     }
+
+    public function attendanceAlfa(): HasMany
+    {
+        return $this->hasMany(JournalAttendance::class, 'journal_id')->alfa();
+    }
+
+    public function attendanceIjin(): HasMany
+    {
+        return $this->hasMany(JournalAttendance::class, 'journal_id')->ijin();
+    }
+
+    public function attendanceSakit(): HasMany
+    {
+        return $this->hasMany(JournalAttendance::class, 'journal_id')->sakit();
+    }
 }

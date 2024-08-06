@@ -13,8 +13,24 @@ class JournalAttendance extends Model
 
     protected $fillable = ['journal_id', 'student_classroom_id', 'attendance'];
 
-    public function studentClassroom(): BelongsTo {
+    public function studentClassroom(): BelongsTo
+    {
         return $this->belongsTo(StudentClassroom::class);
+    }
+
+    public function scopeAlfa($query)
+    {
+        return $query->where('attendance', 'alfa');
+    }
+
+    public function scopeIjin($query)
+    {
+        return $query->where('attendance', 'ijin');
+    }
+
+    public function scopeSakit($query)
+    {
+        return $query->where('attendance', 'sakit');
     }
 
     /**
