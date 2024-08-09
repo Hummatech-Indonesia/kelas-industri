@@ -103,7 +103,7 @@ class ClassroomController extends Controller
     {;
 
         $data = [
-            'studentClassroom' => $this->studentService->handleGetStudentByClassroom($classroom->school->id, $classroom->id),
+            'studentClassroom' => $this->studentService->handleGetStudentByClassroom($classroom->school->id, $classroom->id, false),
             'classroom' => $classroom,
             'students' => $this->studentService->handleGetBySchool($classroom->school->id),
         ];
