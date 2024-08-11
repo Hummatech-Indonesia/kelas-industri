@@ -115,9 +115,6 @@ class MaterialService
     {
         $materialsInfo = [];
 
-        $prevMaterial = [];
-        $stat = null;
-
         foreach ($materials as $material) {
             $order = $material->order;
 
@@ -125,16 +122,12 @@ class MaterialService
             $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
 
             if ($previousMaterial) {
-                $stat = ['stat' => 'not null', 'material' => $previousMaterial];
                 $complateExamPreTest = $this->examRepository->handleComplateExamPreTest($previousMaterial);
                 $complateExamPosTest = $this->examRepository->handleComplateExamPosTest($previousMaterial);
             } else {
-                $stat = ['stat' => 'null', 'material' => $previousMaterial];
                 $complateExamPreTest = true;
                 $complateExamPosTest = true;
             }
-            $prevMaterial[] = ['order' => $previousOrder, 'status' => $stat];
-            continue;
 
             $isFirst = $order == 1;
             $materialsInfo[] = [
@@ -144,8 +137,6 @@ class MaterialService
                 'complateExamPosTest' => $complateExamPosTest,
             ];
         }
-
-        dd($prevMaterial);
 
         return $data['materialsInfo'] = $materialsInfo;
     }
