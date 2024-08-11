@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Journal\JournalController;
 use App\Http\Controllers\Api\Journal\TeacherController;
 use App\Http\Controllers\Api\Student\StudentController;
+use App\Models\Generation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
         'teacher' => TeacherController::class,
     ]);
     Route::get('/student/get-student-by-teacher/{teacher}', [StudentController::class, 'getStudentByTeacher']);
+});
+Route::get('generations', function () {
+    return Generation::all();
 });
