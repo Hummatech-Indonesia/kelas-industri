@@ -35,3 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     ]);
     Route::get('/student/get-student-by-teacher/{teacher}', [StudentController::class, 'getStudentByTeacher']);
 });
+
+Route::get('materials', function () {
+    return Material::with('materialExam')->get();
+});
