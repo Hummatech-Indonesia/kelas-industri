@@ -2,14 +2,15 @@
 
 use App\Models\Material;
 use App\Models\Generation;
+use App\Models\SubMaterial;
 use App\Models\MaterialExam;
 use Illuminate\Http\Request;
+use App\Models\SubMaterialExam;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Journal\JournalController;
 use App\Http\Controllers\Api\Journal\TeacherController;
 use App\Http\Controllers\Api\Student\StudentController;
-use App\Models\SubMaterialExam;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ Route::get('subMaterialEXam', function () {
     return SubMaterialExam::all();
 });
 Route::get('delete-submaterial', function () {
-    $submaterial = SubMaterialExam::where('id', "aae143ee-5c0c-38a6-b691-24d2b323eeb7")->first();
+    $submaterial = SubMaterial::where('id', "aae143ee-5c0c-38a6-b691-24d2b323eeb7")->first();
     dd($submaterial);
 });
 Route::get('materials', function () {
