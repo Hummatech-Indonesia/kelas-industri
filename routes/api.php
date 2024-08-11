@@ -1,12 +1,14 @@
 <?php
 
+use App\Models\Material;
+use App\Models\Generation;
+use App\Models\MaterialExam;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Journal\JournalController;
 use App\Http\Controllers\Api\Journal\TeacherController;
 use App\Http\Controllers\Api\Student\StudentController;
-use App\Models\Generation;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +35,10 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::get('generations', function () {
     return Generation::all();
+});
+Route::get('materialExams', function () {
+    return MaterialExam::all();
+});
+Route::get('materials', function () {
+    return Material::all();
 });
