@@ -43,15 +43,15 @@ class MaterialController extends Controller
     {
         $schoolYear = SchoolYearHelper::get_current_school_year();
         $selectedSchoolYear = 0;
-        if($schoolYear){
+        if ($schoolYear) {
             $selectedSchoolYear = $schoolYear->id;
         }
-        if($request->filter){
+        if ($request->filter) {
             $filter = $request->filter;
-        }else{
+        } else {
             $filter = $selectedSchoolYear;
         }
-        if (request()->ajax()) return $this->generationService->handleGetBySchoolYear($request->school_year_id,$selectedSchoolYear);
+        if (request()->ajax()) return $this->generationService->handleGetBySchoolYear($request->school_year_id, $selectedSchoolYear);
         $data = [
             'school_years' => $this->schoolYearService->handleGetAll(),
             'generations' => $this->generationService->handleGetAll(),
@@ -86,7 +86,12 @@ class MaterialController extends Controller
     {
         $order = $this->service->getOrder($request->devision_id, $request->generation_id);
         $material = $this->service->handleCreate($request, $order);
-        $this->materialExamService->handleCreate($request, $material);
+        $materialExam = $this->materialExamService->handleCreate($request, $material);
+        if (!$materialExam) {
+            $material->delete();
+            dd($materialExam);
+            return to_route('admin.materials.index')->with('error', trans('alert.add_failed'));
+        }
 
         return to_route('admin.materials.index')->with('success', trans('alert.add_success'));
     }
@@ -103,7 +108,7 @@ class MaterialController extends Controller
             'material'  => $material,
             'subMaterials' => $this->subMaterialService->handleGetPaginate($material->id, $request),
             'parameters' => [
-            'material'  => $material->id
+                'material'  => $material->id
             ]
         ];
         return view('dashboard.admin.pages.submaterial.index', $data);
@@ -150,7 +155,7 @@ class MaterialController extends Controller
     {
         $data = $this->service->handleDelete($material->id);
 
-        if(!$data) return to_route('admin.materials.index')->with('error', trans('alert.delete_constrained'));
+        if (!$data) return to_route('admin.materials.index')->with('error', trans('alert.delete_constrained'));
 
         return to_route('admin.materials.index')->with('success', trans('alert.delete_success'));
     }
@@ -166,7 +171,7 @@ class MaterialController extends Controller
             'material'  => $material,
             'subMaterials' => $this->subMaterialService->handleGetPaginate($material->id, $request),
             'parameters' => [
-            'material'  => $material->id
+                'material'  => $material->id
             ]
         ];
         return view('dashboard.admin.pages.questionBank.index', $data);
