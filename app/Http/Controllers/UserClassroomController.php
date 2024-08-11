@@ -104,7 +104,7 @@ class UserClassroomController extends Controller
             $data['materialInfos'] = $this->materialService->handleOrderMaterials($data['materials']);
         }
         $data['search'] = $request->search;
-        return \view('dashboard.user.pages.material.index', $data);
+        return view('dashboard.user.pages.material.index', $data);
     }
 
     public function showMaterial(Classroom $classroom, Material $material, Request $request): View

@@ -133,7 +133,7 @@ class MaterialRepository extends BaseRepository
         return $this->model->query()
             ->where('devision_id', $devisionId)
             ->where('order', $previousOrder)
-            ->select('id')
+            // ->select('id')
             ->first();
     }
 
