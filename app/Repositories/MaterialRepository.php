@@ -42,7 +42,7 @@ class MaterialRepository extends BaseRepository
             ->where('title', 'LIKE', '%' . $search . '%')
             ->whereRelation('generation', 'id', $classroom->generation_id)
             ->where('devision_id', $classroom->devision_id)
-            ->with('exam.studentMaterialExams', function ($q) {
+            ->with('materialExam.studentMaterialExams', function ($q) {
                 $q->where('student_id', auth()->user()->id);
             })
             ->orderBy('order', 'asc')
