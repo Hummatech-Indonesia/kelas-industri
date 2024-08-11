@@ -35,19 +35,3 @@ Route::middleware('auth:sanctum')->group(function () {
     ]);
     Route::get('/student/get-student-by-teacher/{teacher}', [StudentController::class, 'getStudentByTeacher']);
 });
-Route::get('generations', function () {
-    return Generation::all();
-});
-Route::get('materialExams', function () {
-    return MaterialExam::all();
-});
-Route::get('subMaterialEXam', function () {
-    return SubMaterialExam::all();
-});
-Route::get('delete-submaterial', function () {
-    $submaterial = SubMaterial::where('id', "aae143ee-5c0c-38a6-b691-24d2b323eeb7")->first();
-    dd($submaterial->delete());
-});
-Route::get('materials', function () {
-    return Material::with('materialExam')->get();
-});
