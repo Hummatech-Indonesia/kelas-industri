@@ -33,9 +33,9 @@ class SubMaterialExamService
             return redirect()->back()->with('error', 'Total bobot nilai harus 100');
         }
         $data['sub_material_id'] = $subMaterial['id'];
-        // $this->scheduleRepository->store(['title' => 'Ujian' . $data['title'], 'start' => $data['start_at'], 'end' => $data['end_at']]);
         return $this->repository->store($data);
     }
+    
     public function handleCreateRegristationExam(array $data, $school): mixed
     {
         $data['multiple_choice_value'] = 100;
