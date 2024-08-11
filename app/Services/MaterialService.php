@@ -125,15 +125,15 @@ class MaterialService
             $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
 
             if ($previousMaterial) {
-                $stat = 'not null';
-                // $complateExamPreTest = $this->examRepository->handleComplateExamPreTest($previousMaterial);
-                // $complateExamPosTest = $this->examRepository->handleComplateExamPosTest($previousMaterial);
+                $stat = ['stat' => 'not null', 'material' => $previousMaterial];
+                $complateExamPreTest = $this->examRepository->handleComplateExamPreTest($previousMaterial);
+                $complateExamPosTest = $this->examRepository->handleComplateExamPosTest($previousMaterial);
             } else {
-                $stat = 'null';
-                // $complateExamPreTest = true;
-                // $complateExamPosTest = true;
+                $stat = ['stat' => 'null', 'material' => $previousMaterial];
+                $complateExamPreTest = true;
+                $complateExamPosTest = true;
             }
-            $prevMaterial[] = ['order' => $previousOrder,'material' => $previousMaterial, 'status' => $stat];
+            $prevMaterial[] = ['order' => $previousOrder, 'status' => $stat];
             continue;
 
             $isFirst = $order == 1;
