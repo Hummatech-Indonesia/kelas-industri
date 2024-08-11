@@ -40,9 +40,7 @@ class MaterialRepository extends BaseRepository
     {
         return $this->model->query()
             ->where('title', 'LIKE', '%' . $search . '%')
-            ->whereRelation('generation', function ($q) use ($classroom) {
-                return $q->where('generation', $classroom->generation->generation);
-            })
+            ->whereRelation('generation', 'id', $classroom->generation_id)
             ->where('devision_id', $classroom->devision_id)
             ->with('exam.studentMaterialExams', function ($q) {
                 $q->where('student_id', auth()->user()->id);
