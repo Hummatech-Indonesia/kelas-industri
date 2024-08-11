@@ -99,8 +99,8 @@ class UserClassroomController extends Controller
     {
         $data = $this->GetDataSidebar();
         $data['classroom'] = $classroom;
-        dd($classroom, $data['materials']);
         $data['materials'] = $this->materialService->handleByClassroom($classroom, $request);
+        dd($classroom, $data['materials']);
         // dd($data['materials']);
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
             $data['materialInfos'] = $this->materialService->handleOrderMaterials($data['materials']);
