@@ -120,6 +120,7 @@ class MaterialService
 
             $previousOrder = $order - 1;
             $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
+            dd($previousMaterial);
 
             if ($previousMaterial) {
                 $complateExamPreTest = $this->examRepository->handleComplateExamPreTest($previousMaterial);
