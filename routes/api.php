@@ -40,5 +40,5 @@ Route::get('materialExams', function () {
     return MaterialExam::all();
 });
 Route::get('materials', function () {
-    return Material::all();
+    return Material::with('materialExam')->get();
 });
