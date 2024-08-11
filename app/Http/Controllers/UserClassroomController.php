@@ -103,7 +103,7 @@ class UserClassroomController extends Controller
         // dd($classroom, $data['materials']);
         // dd($data['materials']);
         if (auth()->user()->roles->pluck('name')[0] == 'student') {
-            $data['materialInfos'] = $this->materialService->handleOrderMaterials($data['materials']);
+            // $data['materialInfos'] = $this->materialService->handleOrderMaterials($data['materials']);
         }
         $data['search'] = $request->search;
         return view('dashboard.user.pages.material.index', $data);
