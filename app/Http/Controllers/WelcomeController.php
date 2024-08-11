@@ -35,7 +35,6 @@ class WelcomeController extends Controller
 
     public function index()
     {
-        dd("testing CI/CD");
         $data = [
             'school' => count($this->userService->handleGetAllSchool()),
             'MOUS' => $this->userService->handleGetAllSchool(),
