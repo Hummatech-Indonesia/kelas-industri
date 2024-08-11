@@ -123,8 +123,8 @@ class MaterialService
             $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
 
             if ($previousMaterial) {
-                $materialsPrev[] = $previousMaterial;
-                continue;
+                // $materialsPrev[] = $previousMaterial;
+                // continue;
                 $complateExamPreTest = $this->examRepository->handleComplateExamPreTest($previousMaterial);
                 $complateExamPosTest = $this->examRepository->handleComplateExamPosTest($previousMaterial);
             } else {
@@ -141,7 +141,7 @@ class MaterialService
             ];
         }
 
-        dd($materialsPrev);
+        // dd($materialsPrev);
         return $data['materialsInfo'] = $materialsInfo;
     }
 
