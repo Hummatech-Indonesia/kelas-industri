@@ -109,7 +109,6 @@ class UserClassroomController extends Controller
 
     public function showMaterial(Classroom $classroom, Material $material, Request $request): View
     {
-
         $data = $this->GetDataSidebar();
         $data['classroom'] = $classroom;
         $data['material'] = $material;
