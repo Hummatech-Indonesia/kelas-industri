@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Journal\JournalController;
 use App\Http\Controllers\Api\Journal\TeacherController;
 use App\Http\Controllers\Api\Student\StudentController;
+use App\Models\SubMaterialExam;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,9 @@ Route::get('generations', function () {
 });
 Route::get('materialExams', function () {
     return MaterialExam::all();
+});
+Route::get('subMaterialEXam', function () {
+    return SubMaterialExam::all();
 });
 Route::get('materials', function () {
     return Material::with('materialExam')->get();

@@ -87,6 +87,7 @@ class MaterialController extends Controller
         $order = $this->service->getOrder($request->devision_id, $request->generation_id);
         $material = $this->service->handleCreate($request, $order);
         $materialExam = $this->materialExamService->handleCreate($request, $material);
+        
         if (!$materialExam) {
             $material->delete();
             dd($materialExam);
