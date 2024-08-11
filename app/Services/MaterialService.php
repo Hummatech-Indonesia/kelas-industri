@@ -119,7 +119,6 @@ class MaterialService
             $order = $material->order;
 
             $previousOrder = $order - 1;
-            dd($previousOrder);
             $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
 
             if ($previousMaterial) {

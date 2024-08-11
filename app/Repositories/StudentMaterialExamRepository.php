@@ -88,6 +88,7 @@ class StudentMaterialExamRepository extends BaseRepository
 
     public function handleComplateExamPreTest(mixed $previousMaterial): mixed
     {
+        dd('test');
         return $this->model->query()
             ->where('material_exam_id', $previousMaterial->materialExam->id)
             ->whereRelation('student', 'id', auth()->user()->id)
@@ -178,11 +179,11 @@ class StudentMaterialExamRepository extends BaseRepository
             }, function ($query) {
                 $query->where('type', 'pre_test');
             })
-            ->when($request->answer_value == 'null', function ($query){
-                $query->whereRelation('studentMaterialExamAnswers','answer_value', null);
+            ->when($request->answer_value == 'null', function ($query) {
+                $query->whereRelation('studentMaterialExamAnswers', 'answer_value', null);
             })
-            ->when($request->answer_value == 'not_null', function ($query){
-                $query->whereRelation('studentMaterialExamAnswers','answer_value', '!=' , null);
+            ->when($request->answer_value == 'not_null', function ($query) {
+                $query->whereRelation('studentMaterialExamAnswers', 'answer_value', '!=', null);
             })
             ->when($request->classroom_id, function ($q) use ($request) {
                 $q->whereRelation('student.studentSchool.studentClassroom', 'classroom_id', $request->classroom_id);
@@ -204,11 +205,11 @@ class StudentMaterialExamRepository extends BaseRepository
             }, function ($query) {
                 $query->where('type', 'pre_test');
             })
-            ->when($request->answer_value == 'null', function ($query){
-                $query->whereRelation('studentMaterialExamAnswers','answer_value', null);
+            ->when($request->answer_value == 'null', function ($query) {
+                $query->whereRelation('studentMaterialExamAnswers', 'answer_value', null);
             })
-            ->when($request->answer_value == 'not_null', function ($query){
-                $query->whereRelation('studentMaterialExamAnswers','answer_value', '!=' , null);
+            ->when($request->answer_value == 'not_null', function ($query) {
+                $query->whereRelation('studentMaterialExamAnswers', 'answer_value', '!=', null);
             })
             ->when($request->classroom_id, function ($q) use ($request) {
                 $q->whereRelation('student.studentSchool.studentClassroom', 'classroom_id', $request->classroom_id);
