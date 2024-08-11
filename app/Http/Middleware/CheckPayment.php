@@ -51,7 +51,7 @@ class CheckPayment
                 $nominalRequired = $previousDependent == null ? 0 : $previousDependent->nominal;
                 $isPaymentComplete = $nominalRequired == $studentPayment;
 
-                $paymentDeadline = $previousDependent->deadline;
+                $paymentDeadline = $previousDependent->deadline ?? null;
                 $currentDate = now();
                 if ($currentDate > $paymentDeadline && !$isPaymentComplete) {
                     return redirect()->route('home');
@@ -74,7 +74,7 @@ class CheckPayment
                 $nominalRequired = $previousDependent == null ? 0 : $previousDependent->nominal;
                 $isPaymentComplete = $nominalRequired == $studentPayment;
 
-                $paymentDeadline = $previousDependent->deadline;
+                $paymentDeadline = $previousDependent->deadline ?? null;
                 $currentDate = now();
                 if ($currentDate > $paymentDeadline && !$isPaymentComplete) {
                     return redirect()->route('home');

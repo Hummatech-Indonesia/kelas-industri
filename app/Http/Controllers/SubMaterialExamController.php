@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Traits\DataSidebar;
 use Illuminate\Http\Request;
 use App\Services\UserServices;
 use App\Models\SubMaterialExam;
 use App\Services\SchoolService;
+use Illuminate\Contracts\View\View;
 use App\Services\RegisterExamService;
+use App\Enums\SubMaterialExamTypeEnum;
 use App\Repositories\StudentRepository;
 use App\Repositories\MaterialRepository;
 use App\Services\SubMaterialExamService;
@@ -17,10 +20,8 @@ use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use App\Repositories\SubMaterialExamRepository;
 use App\Services\StudentSubMaterialExamService;
 use App\Http\Requests\SubMaterialExamUpdateRequest;
-use App\Models\User;
 use App\Repositories\StudentSubmaterialExamRepository;
 use App\Repositories\SubMaterialExamQuestionRepository;
-use Illuminate\Contracts\View\View;
 
 class SubMaterialExamController extends Controller
 {
@@ -131,7 +132,9 @@ class SubMaterialExamController extends Controller
      */
     public function destroy(SubMaterialExam $subMaterialExam)
     {
-        $this->schoolService->handleDeleteRegristationExamStudent($subMaterialExam->school);
+        if($subMaterialExam->type == SubMaterialExamTypeEnum::REGISTER) {
+            $this->schoolService->handleDeleteRegristationExamStudent($subMaterialExam->school);
+        }
         $data = $this->service->handleDelete($subMaterialExam->id);
         if (!$data) {
             return back()->with('error', trans('alert.delete_constrained'));
