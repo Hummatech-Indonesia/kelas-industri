@@ -26,7 +26,7 @@ class MaterialService
 
     public function handleByClassroom(mixed $classroom, $request)
     {
-        return $this->repository->get_by_classroom($classroom, $request->search ,6);
+        return $this->repository->get_by_classroom($classroom, $request->search, 6);
     }
 
     public function handleGetMaterialByDevision(string $devisionId, $classroomId = null)
@@ -45,9 +45,9 @@ class MaterialService
         return $this->repository->get_paginate_by_school_year($request, $schoolYearId, 6);
     }
 
-    public function handleSearch(Request $search,$year): mixed
+    public function handleSearch(Request $search, $year): mixed
     {
-        return $this->repository->search_paginate($search->search,$search->generation_id,$search->filter, $year ,6);
+        return $this->repository->search_paginate($search->search, $search->generation_id, $search->filter, $year, 6);
     }
 
     /**
@@ -113,36 +113,37 @@ class MaterialService
 
     public function handleOrderMaterials(mixed $materials): mixed
     {
-            $materialsInfo = [];
+        $materialsInfo = [];
 
-            foreach ($materials as $material) {
-                $order = $material->order;
+        foreach ($materials as $material) {
+            $order = $material->order;
 
-                $previousOrder = $order - 1;
+            $previousOrder = $order - 1;
+            dd($previousOrder);
+            $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
 
-                $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
-
-                if ($previousMaterial) {
-                    $complateExamPreTest = $this->examRepository->handleComplateExamPreTest($previousMaterial);
-                    $complateExamPosTest = $this->examRepository->handleComplateExamPosTest($previousMaterial);
-                } else {
-                    $complateExamPreTest = true;
-                    $complateExamPosTest = true;
-                }
-
-                $isFirst = $order == 1;
-                $materialsInfo[] = [
-                    'material' => $material,
-                    'isFirst' => $isFirst,
-                    'complateExamPreTest' => $complateExamPreTest,
-                    'complateExamPosTest' => $complateExamPosTest,
-                ];
+            if ($previousMaterial) {
+                $complateExamPreTest = $this->examRepository->handleComplateExamPreTest($previousMaterial);
+                $complateExamPosTest = $this->examRepository->handleComplateExamPosTest($previousMaterial);
+            } else {
+                $complateExamPreTest = true;
+                $complateExamPosTest = true;
             }
 
-            return $data['materialsInfo'] = $materialsInfo;
+            $isFirst = $order == 1;
+            $materialsInfo[] = [
+                'material' => $material,
+                'isFirst' => $isFirst,
+                'complateExamPreTest' => $complateExamPreTest,
+                'complateExamPosTest' => $complateExamPosTest,
+            ];
+        }
+
+        return $data['materialsInfo'] = $materialsInfo;
     }
 
-    public function getOrder($devisionId, $generationId) : int {
+    public function getOrder($devisionId, $generationId): int
+    {
         $latestOrder = $this->repository->getLatestOrder($devisionId, $generationId)->order ?? 0;
         return ++$latestOrder;
     }
