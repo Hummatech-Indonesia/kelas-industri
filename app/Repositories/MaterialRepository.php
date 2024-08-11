@@ -134,6 +134,7 @@ class MaterialRepository extends BaseRepository
             ->where('devision_id', $devisionId)
             ->where('order', $previousOrder)
             // ->select('id')
+            ->with('materialExam')
             ->first();
     }
 
