@@ -131,6 +131,7 @@ class SubMaterialExamController extends Controller
      */
     public function destroy(SubMaterialExam $subMaterialExam)
     {
+        dd($subMaterialExam);
         $this->schoolService->handleDeleteRegristationExamStudent($subMaterialExam->school);
         $data = $this->service->handleDelete($subMaterialExam->id);
         if (!$data) {
