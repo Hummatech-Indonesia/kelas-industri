@@ -46,7 +46,7 @@ Route::get('subMaterialEXam', function () {
 });
 Route::get('delete-submaterial', function () {
     $submaterial = SubMaterial::where('id', "aae143ee-5c0c-38a6-b691-24d2b323eeb7")->first();
-    dd($submaterial);
+    dd($submaterial->delete());
 });
 Route::get('materials', function () {
     return Material::with('materialExam')->get();
