@@ -194,7 +194,7 @@ use Carbon\Carbon; @endphp
                     @endif
                     @if (auth()->user()->roles->pluck('name')[0] == 'student')
                         <div class="covercard row gap-2 mt-4">
-                            <a href="#" class="card col-3 hover-elevate-up col shadow-sm parent-hover">
+                            <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <span class="w-4 h-4 my-auto fs-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -209,7 +209,7 @@ use Carbon\Carbon; @endphp
                                     </span>
                                 </div>
                             </a>
-                            <a href="#" class="card col-3 hover-elevate-up col shadow-sm parent-hover">
+                            <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <span class="w-4 h-4 my-auto fs-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -224,7 +224,7 @@ use Carbon\Carbon; @endphp
                                     </span>
                                 </div>
                             </a>
-                            <a href="#" class="card col-3 hover-elevate-up col shadow-sm parent-hover">
+                            <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <span class="w-4 h-4 my-auto fs-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -239,7 +239,7 @@ use Carbon\Carbon; @endphp
                                     </span>
                                 </div>
                             </a>
-                            <a href="#" class="card col-3 hover-elevate-up col shadow-sm parent-hover">
+                            <a href="#" class="card hover-elevate-up col shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <span class="w-4 h-4 my-auto fs-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -1052,12 +1052,14 @@ use Carbon\Carbon; @endphp
 @endsection
 @section('css')
     <Style>
-        @media (max-width:639px) {
+        @media (max-width: 639px) {
             .covercard {
                 display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr))
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
         }
+
 
         @media (min-width:640px) {
             .searching {
