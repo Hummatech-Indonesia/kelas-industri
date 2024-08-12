@@ -174,7 +174,7 @@ trait DataSidebar
                 $nominalRequired = $previousDependent == null ? 0 : $previousDependent->nominal;
                 $isPaymentComplete = $nominalRequired == $studentPayment;
 
-                $paymentDeadline = $previousDependent->deadline;
+                $paymentDeadline = $previousDependent->deadline ?? null;
                 $currentDate = now();
                 if ($currentDate > $paymentDeadline && !$isPaymentComplete) {
                     $isPaymentComplete = false;
