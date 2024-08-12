@@ -258,7 +258,7 @@
                 </a>
             </div>
 
-            <div class="covercard row gap-2 mt-4">
+            <div class=" row gap-2 mt-4">
                 <div class="card shadow-sm">
                     <div class="mt-4 mx-5">
                         <h4 class="card-title">Keuangan</h4>
