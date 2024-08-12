@@ -46,7 +46,7 @@ class Material extends Model
      */
     public function materialExam(): HasOne
     {
-        return $this->hasOne(MaterialExam::class);
+        return $this->hasOne(MaterialExam::class, 'material_id');
     }
 
     /**
@@ -56,7 +56,7 @@ class Material extends Model
      */
     public function exam(): HasOne
     {
-        return $this->hasOne(MaterialExam::class);
+        return $this->hasOne(MaterialExam::class, 'material_id');
     }
 
     /**
