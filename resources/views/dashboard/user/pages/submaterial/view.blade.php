@@ -122,7 +122,7 @@
                                         @endif
                                         <!--begin:Menu item-->
                                         @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                            @foreach ($materialInfos as $index => $material)
+                                            @foreach ($materialInfos as $index => $material)x
                                                 @php
                                                     $totalMaterialSubmitAssigment = 0;
                                                     $submaterialIds = $material['material']->subMaterials
