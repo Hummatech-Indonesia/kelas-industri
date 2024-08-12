@@ -549,7 +549,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('exam/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish');
     });
 
-    Route::middleware(['auth', 'role:teacher'])->group(function () {
+    Route::middleware(['auth', 'role:teacher|student'])->group(function () {
         Route::get('standart-operation-producer', [StandartOperationProcuderController::class, 'forUser'])->name('standart.operation.producer.for.user');
     });
 
