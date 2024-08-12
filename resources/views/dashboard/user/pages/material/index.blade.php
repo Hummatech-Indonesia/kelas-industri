@@ -224,27 +224,17 @@
                                                             </div>
                                                             {{-- </a> --}}
 
-
                                                             <span class="text-muted font-weight-bold">
                                                                 {{ $material->generation->generation }}
                                                             </span>
 
                                                             <!--end::Title-->
-
                                                         </div>
-
                                                         <!--end::Info-->
-
-
                                                     </div>
-
                                                     <!--end::Section-->
-
                                                     <!--begin::Content-->
-
-
                                                     <!--end::Content-->
-
                                                     <!--begin::Text-->
                                                     @if ($material?->exam?->studentMaterialExams->isEmpty())
                                                         <div class="mt-3">
@@ -279,20 +269,12 @@
                                                             {{ $material->description }}
                                                         </p>
                                                     @endif
-
                                                     <!--end::Text-->
-
-
                                                 </div>
-
                                                 <!--end::Body-->
-
                                                 <!--begin::Footer-->
-
                                                 <div class="card-footer d-flex flex-row justify-content-between">
-
                                                     <div class="d-flex">
-
                                                         <div class="d-flex align-items-center me-5">
                                                             <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
                                                             <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
@@ -306,16 +288,14 @@
                                                                 </svg>
                                                             </span>
                                                             <!--end::Svg Icon-->
-                                                            <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
-                                                                class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
-                                                                Bab</a>
-
-
+                                                            @if ($material->exam->studentMaterialExam)
+                                                                <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                                    class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
+                                                                    Bab</a>
+                                                            @endif
                                                         </div>
-
-
                                                     </div>
-                                                    @if (!$material?->exam?->studentMaterialExam)
+                                                    @if (!$material->exam->studentMaterialExam)
                                                         <a href="{{ route('student.material-exam', ['materialExam' => $material->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
                                                             id="start-test"
@@ -325,17 +305,16 @@
                                                         <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
                                                     @else
-                                                        <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
-                                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">-</a>
+                                                        <a href="{{ route('student.material-exam', ['materialExam' => $material->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
+                                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
+                                                            id="start-test"
+                                                            data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
+                                                            PRETEST Ulang</a>
                                                     @endif
                                                 </div>
-
                                                 <!--end::Footer-->
-
                                             </div>
-
                                             <!--end::Card-->
-
                                         </div>
                                     @else
                                         @php
