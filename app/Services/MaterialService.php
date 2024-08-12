@@ -115,6 +115,7 @@ class MaterialService
     {
         $materialsInfo = [];
 
+        dd($materials);
         foreach ($materials as $material) {
             $order = $material->order;
             $previousOrder = $order - 1;
