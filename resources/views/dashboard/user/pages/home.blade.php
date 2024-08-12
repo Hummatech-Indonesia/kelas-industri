@@ -1052,12 +1052,14 @@ use Carbon\Carbon; @endphp
 @endsection
 @section('css')
     <Style>
-        @media (max-width:639px) {
+        @media (max-width: 639px) {
             .covercard {
                 display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr))
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
         }
+
 
         @media (min-width:640px) {
             .searching {
