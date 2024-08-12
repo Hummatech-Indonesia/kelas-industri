@@ -111,29 +111,18 @@ class MaterialService
         })->where('type', QuestionTypeEnum::MULTIPLECHOICE->value)->values()->all();
     }
 
-    public function handleOrderMaterials(mixed $materials): mixed
+    public function handleOrderMaterials(mixed $materials): array
     {
-
-        // $previousMaterial = [];
-        // dd(!is_null($previousMaterial));
-
-        // if(null) {
-        //     dd('skdgfshjgdfhsjgfj');
-        // }
         $materialsInfo = [];
 
-        $materialsPrev = [];
         foreach ($materials as $material) {
             $order = $material->order;
-
             $previousOrder = $order - 1;
             $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
 
             if (is_null($previousMaterial)) {
                 $complateExamPreTest = true;
                 $complateExamPosTest = true;
-                // $materialsPrev[] = $previousMaterial;
-                // continue;
             } else {
                 $complateExamPreTest = $this->examRepository->handleComplateExamPreTest($previousMaterial);
                 $complateExamPosTest = $this->examRepository->handleComplateExamPosTest($previousMaterial);
@@ -148,9 +137,9 @@ class MaterialService
             ];
         }
 
-        // dd($materialsPrev);
-        return $data['materialsInfo'] = $materialsInfo;
+        return $materialsInfo;
     }
+
 
     public function getOrder($devisionId, $generationId): int
     {
