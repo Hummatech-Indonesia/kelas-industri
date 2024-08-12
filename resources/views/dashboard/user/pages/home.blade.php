@@ -6,6 +6,12 @@ use Carbon\Carbon; @endphp
 
 @section('css')
     <style>
+        @media (max-width: 639px) {
+            .covercard {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
         .carousel-indicators {
             align-items: center;
         }
