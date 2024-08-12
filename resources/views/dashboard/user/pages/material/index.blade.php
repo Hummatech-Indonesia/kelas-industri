@@ -315,7 +315,7 @@
 
 
                                                     </div>
-                                                    @if (!$material->exam->studentMaterialExam)
+                                                    @if (!$material?->exam?->studentMaterialExam)
                                                         <a href="{{ route('student.material-exam', ['materialExam' => $material->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
                                                             id="start-test"
