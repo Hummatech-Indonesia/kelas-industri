@@ -36,118 +36,116 @@
                     <!--begin::Card body-->
                     <div class="card-body pt-12">
 
-                        <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5">
-                            <!--begin::Table head-->
-                            <thead>
-                                <!--begin::Table row-->
-                                <tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="text-start">No</th>
-                                    <th class="text-center">Nama</th>
-                                    <th class="text-center">Jumlah Kriteria</th>
-                                    <th class="text-center">Total Bobot SPK</th>
-                                    <th class="text-center">Kriteria</th>
-                                    <th class="text-center">Aksi</th>
-                                </tr>
-                                <!--end::Table row-->
-                            </thead>
-                            <!--end::Table head-->
-
-                            <!--begin::Table body-->
-                            <tbody class="fw-semibold text-gray-600">
-                                    @forelse ($devisions as $devision)
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="d-flex flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">
-                                                        {{-- {{ ($devisions->firstItem() - $loop->iteration) + 1 }} --}}
-                                                        {{ $loop->iteration }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <div class="d-flex flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">{{ $devision->name }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <div class="d-flex flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">{{ count($devision->criterias) }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <div class="d-flex flex-column">
-                                                        <div class="text-gray-900 fw-bold fs-7"><span class="badge {{ $devision->criterias()->sum('weight')  == 100 ? "bg-success text-light-success" : "bg-danger text-light-danger"}}">{{ $devision->criterias()->sum('weight') }}</span> </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <div class="d-flex flex-column">
-                                                    <a href="{{route('admin.criterias.index',$devision->id)}}">
-                                                        <!--begin::Button-->
-                                                    <button class="btn btn-primary btn fw-bold">
-                                                        Lihat Kriteria </button>
-                                                    <!--end::Button-->
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <div class="d-flex flex-column">
-                                                    <div class="text-gray-900 fw-bold fs-7">
-                                                        <button
-                                                        class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
-                                                        data-id="{{ $devision->id }}"
-                                                        data-name="{{ $devision->name }}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data">
-                                                        <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </button>
-
-                                                    <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-delete delete"
-                                                        data-id="{{ $devision->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data">
-                                                        <i class="fonticon-trash-bin fs-2 text-danger"></i>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+                        <div class="table-responsive">
+                            <!--begin::Table-->
+                            <table class="table align-middle table-row-dashed fs-6 gy-5">
+                                <!--begin::Table head-->
+                                <thead>
+                                    <!--begin::Table row-->
+                                    <tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                        <th class="text-start">No</th>
+                                        <th class="text-center">Nama</th>
+                                        <th class="text-center">Jumlah Kriteria</th>
+                                        <th class="text-center">Total Bobot SPK</th>
+                                        <th class="text-center">Kriteria</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="7">
-                                            <div class="col-12 text-center">
-                                                <!--begin::Illustration-->
-                                                <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
-                                                    alt="" />
-                                                <!--end::Illustration-->
-
-                                                <!--begin::Title-->
-                                                <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
-                                                <!--end::Title-->
-
-                                                <!--begin::Desctiption-->
-                                                <span class="fw-semibold text-gray-700 mb-4 d-block">
-                                                    anda belum memiliki Devisi untuk saat ini.
-                                                </span>
-                                                <!--end::Desctiption-->
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforelse
-                            </tbody>
-                            <!--end::Table body-->
-                        </table>
-                        <!--end::Table-->
+                                    <!--end::Table row-->
+                                </thead>
+                                <!--end::Table head-->
+                                <!--begin::Table body-->
+                                <tbody class="fw-semibold text-gray-600">
+                                        @forelse ($devisions as $devision)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-start">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-gray-900 fw-bold fs-7">
+                                                            {{-- {{ ($devisions->firstItem() - $loop->iteration) + 1 }} --}}
+                                                            {{ $loop->iteration }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-gray-900 fw-bold fs-7">{{ $devision->name }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-gray-900 fw-bold fs-7">{{ count($devision->criterias) }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <div class="d-flex flex-column">
+                                                            <div class="text-gray-900 fw-bold fs-7"><span class="badge {{ $devision->criterias()->sum('weight')  == 100 ? "bg-success text-light-success" : "bg-danger text-light-danger"}}">{{ $devision->criterias()->sum('weight') }}</span> </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <div class="d-flex flex-column">
+                                                        <a href="{{route('admin.criterias.index',$devision->id)}}">
+                                                            <!--begin::Button-->
+                                                        <button class="btn btn-primary btn fw-bold">
+                                                            Lihat Kriteria </button>
+                                                        <!--end::Button-->
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-gray-900 fw-bold fs-7">
+                                                            <button
+                                                            class="btn btn-icon btn-bg-light btn-edit btn-active-color-primary btn-sm me-1"
+                                                            data-id="{{ $devision->id }}"
+                                                            data-name="{{ $devision->name }}"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-custom-class="custom-tooltip" data-bs-title="Edit Data">
+                                                            <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </button>
+                                                        <div class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm btn-delete delete"
+                                                            data-id="{{ $devision->id }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data">
+                                                            <i class="fonticon-trash-bin fs-2 text-danger"></i>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="7">
+                                                <div class="col-12 text-center">
+                                                    <!--begin::Illustration-->
+                                                    <img src="{{ asset('user-assets/media/misc/watch.svg') }}" class="h-150px"
+                                                        alt="" />
+                                                    <!--end::Illustration-->
+                                                    <!--begin::Title-->
+                                                    <h4 class="fw-bold text-gray-900 my-4">Ups ! Masih Kosong</h4>
+                                                    <!--end::Title-->
+                                                    <!--begin::Desctiption-->
+                                                    <span class="fw-semibold text-gray-700 mb-4 d-block">
+                                                        anda belum memiliki Devisi untuk saat ini.
+                                                    </span>
+                                                    <!--end::Desctiption-->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforelse
+                                </tbody>
+                                <!--end::Table body-->
+                            </table>
+                            <!--end::Table-->
+                        </div>
                         {{ $devisions->links('pagination::bootstrap-5') }}
                     </div>
                     <!--end::Card body-->
