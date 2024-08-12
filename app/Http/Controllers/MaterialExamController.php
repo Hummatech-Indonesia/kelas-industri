@@ -113,7 +113,7 @@ class MaterialExamController extends Controller
         $data['postExams'] = $data['materialExam']->studentMaterialExams->where('type', MaterialExamTypeEnum::POSTEST->value)->sortByDesc('score')->take(5);
         $data['avgScoreClassrooms'] = $this->studentMaterialExamService->handleGetAllStudentSubmit($data['materialExam']->id);
         $data['avgPostScoreClassrooms'] = $this->studentMaterialExamService->handleGetAllStudentPostSubmit($data['materialExam']->id);
-        return view('dashboard.admin.pages.MaterialExam.examStatistic', $data);
+        return view('dashboard.admin.pages.materialExam.examStatistic', $data);
     }
 
     public function examDetailStudent(Request $request, $materialExam, $type)
@@ -122,7 +122,7 @@ class MaterialExamController extends Controller
         $data['search'] = $request->search;
         $data['schools'] = $this->userServices->handleGetAllSchool();
         $data['studentSubMaterialExams'] = $this->studentMaterialExamService->halndeGetByMaterialExam($request, $materialExam)->where('type', $type == MaterialExamTypeEnum::PRETEST->value ? MaterialExamTypeEnum::PRETEST->value : MaterialExamTypeEnum::POSTEST->value);
-        return view('dashboard.admin.pages.MaterialExam.examDetailStudent', $data);
+        return view('dashboard.admin.pages.materialExam.examDetailStudent', $data);
     }
 
     /**
