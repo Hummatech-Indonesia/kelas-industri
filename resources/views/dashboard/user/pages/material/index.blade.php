@@ -246,7 +246,7 @@
                                                     <!--end::Content-->
 
                                                     <!--begin::Text-->
-                                                    @if ($material->exam->studentMaterialExams->isEmpty())
+                                                    @if ($material?->exam?->studentMaterialExams->isEmpty())
                                                         <div class="mt-3">
                                                             <span class="text-black fw-semibold d-flex">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="19"
@@ -345,17 +345,16 @@
                                                 ->where('student_id', auth()->user()->id)
                                                 ->where('type', MaterialExamTypeEnum::POSTEST->value)
                                                 ->whereNotNull('finished_exam', 1)
-                                                ->first()
-                                                ;
+                                                ->first();
 
-                                                $currentMaterialPretestComplete = $materials[$key]
-                                            ->materialExam->studentMaterialExams
+                                            $currentMaterialPretestComplete = $materials[
+                                                $key
+                                            ]->materialExam->studentMaterialExams
                                                 ->where('student_id', auth()->user()->id)
                                                 ->where('type', MaterialExamTypeEnum::PRETEST->value)
                                                 ->whereNotNull('finished_exam', 1)
-                                                ->first()
-                                                ;
-                                                // dd($materials[$key- 1]);
+                                                ->first();
+                                            // dd($materials[$key- 1]);
                                         @endphp
                                         {{-- @dd($currentMaterialPretestComplete) --}}
                                         <div class="col-xl-4 mb-5">
