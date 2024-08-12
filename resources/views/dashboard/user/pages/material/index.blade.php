@@ -236,7 +236,7 @@
                                                     <!--begin::Content-->
                                                     <!--end::Content-->
                                                     <!--begin::Text-->
-                                                    @if ($material?->exam?->studentMaterialExams->isEmpty())
+                                                    @if ($material->exam->studentMaterialExams->isEmpty())
                                                         <div class="mt-3">
                                                             <span class="text-black fw-semibold d-flex">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="19"

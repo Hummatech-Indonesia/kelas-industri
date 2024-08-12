@@ -113,6 +113,13 @@ class MaterialService
 
     public function handleOrderMaterials(mixed $materials): mixed
     {
+
+        // $previousMaterial = null;
+        // dd(is_null($previousMaterial));
+
+        // if(null) {
+        //     dd('skdgfshjgdfhsjgfj');
+        // }
         $materialsInfo = [];
 
         $materialsPrev = [];
@@ -122,7 +129,7 @@ class MaterialService
             $previousOrder = $order - 1;
             $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
 
-            if ($previousMaterial) {
+            if (!is_null($previousMaterial)) {
                 // $materialsPrev[] = $previousMaterial;
                 // continue;
                 $complateExamPreTest = $this->examRepository->handleComplateExamPreTest($previousMaterial);
