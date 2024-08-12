@@ -77,8 +77,8 @@ class StudentMaterialExamController extends Controller
             $orderQuestionMultipleChoice = $studentExam->order_of_question_multiple_choice;
             $orderQuestionEssay = $studentExam->order_of_question_essay;
 
-            $examQuestionsMultipleChoice = $materialExam->total_multiple_choice > 0 ? $this->examQuestion->getWhereMultiple(['orderQuestionMultipleChoice' => $orderQuestionMultipleChoice, 'material_exam_id' => $materialExam->id]) : [];
-            $examQuestionsEssay = $materialExam->total_multiple_choice > 0 ? $this->examQuestion->getWhereEssay(['orderQuestionEssay' => $orderQuestionEssay, 'material_exam_id' => $materialExam->id]) : [];
+            // $examQuestionsMultipleChoice = $materialExam->total_multiple_choice > 0 ? $this->examQuestion->getWhereMultiple(['orderQuestionMultipleChoice' => $orderQuestionMultipleChoice, 'material_exam_id' => $materialExam->id]) : [];
+            // $examQuestionsEssay = $materialExam->total_multiple_choice > 0 ? $this->examQuestion->getWhereEssay(['orderQuestionEssay' => $orderQuestionEssay, 'material_exam_id' => $materialExam->id]) : [];
             $data['student_exam'] = $studentExam;
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;

@@ -133,6 +133,7 @@ class MaterialRepository extends BaseRepository
             ->where('order', $previousOrder)
             // ->select('id')
             ->with('materialExam')
+            ->with('exam')
             ->first();
     }
 
