@@ -114,12 +114,12 @@ class MaterialService
     public function handleOrderMaterials(mixed $materials): array
     {
         $materialsInfo = [];
-        // dd($materials);
+        dd($materials);
         foreach ($materials as $material) {
             $order = $material->order;
             $previousOrder = $order - 1;
             $previousMaterial = $this->repository->handlePreviousMaterial($material->devision_id, $previousOrder);
-            
+
             if (is_null($previousMaterial)) {
                 $complateExamPreTest = true;
                 $complateExamPosTest = true;
