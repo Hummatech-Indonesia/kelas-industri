@@ -192,9 +192,9 @@ class UserClassroomController extends Controller
             }
             $subMaterialsInfo = [];
 
-            // if (auth()->user()->roles->pluck('name')[0] == 'student') {
-            //     $materialInfos = $this->materialService->handleOrderMaterials($materials);
-            // }
+            if (auth()->user()->roles->pluck('name')[0] == 'student') {
+                $materialInfos = $this->materialService->handleOrderMaterials($materials);
+            }
             foreach ($materials as $material) {
                 foreach ($material->subMaterials as $subMaterial) {
                     $order = $subMaterial->order;
