@@ -114,7 +114,6 @@ class MaterialService
     public function handleOrderMaterials(mixed $materials): array
     {
         $materialsInfo = [];
-        dd($materials);
         foreach ($materials as $material) {
             $order = $material->order;
             $previousOrder = $order - 1;
