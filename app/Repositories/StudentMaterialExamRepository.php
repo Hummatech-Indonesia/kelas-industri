@@ -65,7 +65,6 @@ class StudentMaterialExamRepository extends BaseRepository
 
     public function getByMaterialExam(Request $request, $submaterialExamId, $paginate): mixed
     {
-        // dd($request->school_id);
         $result = $this->model->query()
             ->where('material_exam_id', $submaterialExamId)
             ->whereRelation('student', function ($q) use ($request) {
