@@ -85,8 +85,6 @@ Route::get('/news/{slug}', [WelcomeController::class, 'detail'])->name('detail-n
 Route::get('certify/{material}/{classroom}', [CertifyController::class, 'certify'])->name('certify');
 Route::get('all-school', [SchoolController::class, 'school'])->name('all-school');
 Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name('classroomBySchool');
-Route::resource('zoomSchedules', ZoomScheduleController::class);
-
 
 Auth::routes(['login' => true, 'register' => true]);
 
@@ -103,6 +101,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
         });
+        Route::resource('zoomSchedules', ZoomScheduleController::class);
 
 
         Route::resource('standart-operation-producer', StandartOperationProcuderController::class);
