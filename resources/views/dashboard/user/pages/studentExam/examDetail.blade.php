@@ -79,8 +79,8 @@
                             </div>
                             <div class="col-1">
                                 <button type="submit" class="btn btn-light-primary btn-md">
-                                    <span class="svg-icon svg-icon-1"><svg width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <span class="svg-icon svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24"
+                                            fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z"
                                                 fill="currentColor" />
@@ -165,8 +165,8 @@
                                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <rect x="8" y="9" width="3" height="10" rx="1.5"
                                                 fill="currentColor" />
-                                            <rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5"
-                                                fill="currentColor" />
+                                            <rect opacity="0.5" x="13" y="5" width="3" height="14"
+                                                rx="1.5" fill="currentColor" />
                                             <rect x="18" y="11" width="3" height="8" rx="1.5"
                                                 fill="currentColor" />
                                             <rect x="3" y="13" width="3" height="6" rx="1.5"
@@ -175,7 +175,8 @@
                                     </span>
                                 </div>
                                 <div class="">
-                                    <p class="fs-4 text-info mb-4 mid-grade" style="font-weight: 1000;">{{ $averageValue }}
+                                    <p class="fs-4 text-info mb-4 mid-grade" style="font-weight: 1000;">
+                                        {{ $averageValue }}
                                     </p>
                                 </div>
                             </div>
@@ -252,6 +253,10 @@
                                         </thead>
                                         <tbody class="fw-semibold">
                                             @forelse ($students as $student)
+                                                @php
+                                                    $checkExampAnswer = $student->studentMaterialExamAnswers;
+                                                    $checkStudentAnswer = $checkExampAnswer->where('student_exam_id', $student->id)->first();
+                                                @endphp
                                                 <tr>
                                                     <td class="text-center">
                                                         {{ $student->student->name }}
@@ -261,18 +266,20 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <span
-                                                            class="badge py-3 px-4 fs-7 badge-light-success">{{ $student->true_answer }}</span>
+                                                            class="badge py-3 px-4 fs-7 badge-light-success">{{ $student->true_answer + count($checkExampAnswer->where('answer_value', '!=', null)) }}</span>
                                                     </td>
                                                     <td class="text-center">
                                                         <span
                                                             class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->materialExam->total_multiple_choice - $student->true_answer }}</span>
                                                     </td>
                                                     <td class="text-center">
-                                                        {{-- @dd($student->studentMaterialExamAnswers[0]->answer_value) --}}
                                                         @if ($student->materialExam->studentMaterialExams == null)
                                                             <span class="badge py-3 px-4 fs-7 badge-light-danger">Belum
                                                                 Ujian</span>
-                                                        @elseif ($student->studentMaterialExamAnswers[0]->answer_value == null)
+                                                        @elseif ($checkExampAnswer->first() == null && $student->materialExam == null)
+                                                            <span class="badge py-3 px-4 fs-7 badge-light-warning">Belum
+                                                                Dinilai</span>
+                                                        @elseif ($checkStudentAnswer && $checkStudentAnswer?->answer_value == null)
                                                             <span class="badge py-3 px-4 fs-7 badge-light-warning">Belum
                                                                 Dinilai</span>
                                                         @else

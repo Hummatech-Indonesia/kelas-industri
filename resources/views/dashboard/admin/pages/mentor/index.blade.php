@@ -38,30 +38,31 @@
                     <!--begin::Card body-->
                     <div class="card-body pt-0">
 
-                        <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
-                            <!--begin::Table head-->
-                            <thead>
-                            <!--begin::Table row-->
-                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>No Telepon</th>
-                                <th>No Rekening</th>
-                                <th>Bank</th>
-                                <th>Aksi</th>
-                            </tr>
-                            <!--end::Table row-->
-                            </thead>
-                            <!--end::Table head-->
-
-                            <!--begin::Table body-->
-                            <tbody class="fw-semibold text-gray-600">
-                            </tbody>
-                            <!--end::Table body-->
-                        </table>
-                        <!--end::Table-->
+                        <div class="table-responsive">
+                            <!--begin::Table-->
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
+                                <!--begin::Table head-->
+                                <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>No Telepon</th>
+                                    <th>No Rekening</th>
+                                    <th>Bank</th>
+                                    <th>Aksi</th>
+                                </tr>
+                                <!--end::Table row-->
+                                </thead>
+                                <!--end::Table head-->
+                                <!--begin::Table body-->
+                                <tbody class="fw-semibold text-gray-600">
+                                </tbody>
+                                <!--end::Table body-->
+                            </table>
+                            <!--end::Table-->
+                        </div>
                     </div>
                     <!--end::Card body-->
                 </div>

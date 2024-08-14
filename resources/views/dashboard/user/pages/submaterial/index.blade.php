@@ -30,11 +30,37 @@
                                 </h1>
                                 <!--end::Title-->
 
+                                {{-- @dd(Route::current()->parameter('classroom')->id, Route::current()->parameter('material')->id, Route::current()->action['as']) --}}
                                 <!--begin::Breadcrumb-->
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        {{ count($material->subMaterials) }} Bab
+                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
+                                            Kelas </a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{ route('common.materials', request()->classroom->id) }}" class="text-muted text-hover-primary">
+                                            Materi {{ request()->classroom->name }}</a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="" class="text-muted text-hover-primary">
+                                            {{ request()->material->title }}
+                                        </a>
                                     </li>
                                     <!--end::Item-->
 

@@ -44,6 +44,28 @@
                                     Detail Event
                                 </h1>
                                 <!--end::Title-->
+
+                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{ route('student.events.index') }}" class="text-muted text-hover-primary">
+                                            Event </a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{ route('student.events.index') }}" class="text-muted text-hover-primary">
+                                            {{ request()->event->title }} </a>
+                                    </li>
+                                    <!--end::Item-->
+
+                                </ul>
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->

@@ -75,7 +75,7 @@ class ExamController extends Controller
                 $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomTeacher(auth()->id(),$schools, $selectedSchoolYear);
                 return view('dashboard.user.pages.exam.index', $data, );
             } elseif (auth()->user()->roles->pluck('name')[0] == 'mentor') {
-                $schools = (auth()->user()->mentorClassrooms[0]->classroom->school_id);
+                // $schools = (auth()->user()->mentorClassrooms[0]->classroom->school_id);
                 $data['schoolYear'] = $this->schoolYearService->handleGetAll();
                 $data['schoolYearFilter'] = $selectedSchoolYear;
                 $data['classrooms'] = $this->classroomService->handleGetSchoolClassrooomMentor(auth()->id(), $selectedSchoolYear);
