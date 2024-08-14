@@ -168,7 +168,7 @@
         $('#schools').change(function() {
             $.ajax({
                 method: 'GET',
-                url: '{{ route('admin.zoomSchedules.create') }}',
+                url: '{{ route('admin.zoom-schedules.create') }}',
                 data: {
                     school_id: $(this).val()
                 },

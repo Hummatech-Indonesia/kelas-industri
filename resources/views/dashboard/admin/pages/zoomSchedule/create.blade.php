@@ -30,7 +30,7 @@
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('admin.zoomSchedules.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.zoom-schedules.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
@@ -49,7 +49,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('admin.zoomSchedules.index') }}"
+                                <a href="{{ route('admin.zoom-schedules.index') }}"
                                     class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -192,7 +192,7 @@
             $('#schools').change(function() {
                 $.ajax({
                     method: 'GET',
-                    url: '{{ route('admin.zoomSchedules.create') }}',
+                    url: '{{ route('admin.zoom-schedules.create') }}',
                     data: {
                         school_id: $(this).val()
                     },
