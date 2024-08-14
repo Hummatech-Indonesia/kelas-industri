@@ -64,7 +64,7 @@ class ZoomScheduleController extends Controller
      */
     public function store(ZoomScheduleRequest $request): RedirectResponse
     {
-        $this->service->handleCreateMultiple($request);
+        $this->service->handleCreate($request);
         // $this->service->handleCreate($request);
 
         return to_route('admin.zoomSchedules.index')->with('success', trans('alert.add_success'));
