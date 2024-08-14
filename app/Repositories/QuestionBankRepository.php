@@ -230,7 +230,7 @@ class QuestionBankRepository extends BaseRepository
             ->whereRelation('questionBankAnswers', function ($query) use ($data) {
                 $query->whereIn('question_bank_id', $data);
             })
-            ->with('questionBankAnswers')
+            ->with('questionBankAnswers','materialExamQuestions')
             ->get();
     }
 }
