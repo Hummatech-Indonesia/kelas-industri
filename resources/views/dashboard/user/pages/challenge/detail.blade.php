@@ -37,9 +37,22 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Detail Tantangan
+                                        <a href="{{ route('student.challenges.index') }}" class="text-muted text-hover-primary">
+                                            Tantangan </a>
                                     </li>
                                     <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{ route('student.challenges.show', request()->challenge->id) }}"
+                                            class="text-muted text-hover-primary">
+                                            {{ request()->challenge->title }}</a>
+                                    </li>
 
                                 </ul>
                                 <!--end::Breadcrumb-->

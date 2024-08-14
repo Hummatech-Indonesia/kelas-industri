@@ -25,6 +25,17 @@
                                     Kelas
                                 </h1>
                                 <!--end::Title-->
+
+
+                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
+                                            Kelas </a>
+                                    </li>
+                                    <!--end::Item-->
+
+                                </ul>
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->

@@ -482,9 +482,10 @@
                                             @endforeach
                                             {{-- @dd($subMaterialsInfo) --}}
                                         @else
-                                        {{-- @dd($materials) --}}
+                                            {{-- @dd($materials) --}}
                                             @foreach ($materials as $index => $material)
-                                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion px-2 {{ $material->subMaterials->where('id', request()->submaterial->id)->first() ? 'here show' : '' }}">
+                                                <div data-kt-menu-trigger="click"
+                                                    class="menu-item menu-accordion px-2 {{ $material->subMaterials->where('id', request()->submaterial->id)->first() ? 'here show' : '' }}">
                                                     <span class="menu-link">
                                                         <span class="menu-icon"><svg xmlns="http://www.w3.org/2000/svg"
                                                                 fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -1070,7 +1071,15 @@
             console.log(url);
             window.location.href = url;
         }
-        //
+
+        $('#kt_app_sidebar_mobile_toggle').click(function() {
+            const sidebar = $('#kt_app_sidebar_panel')
+            if(sidebar.hasClass('app-sidebar-panel d-flex card rounded')) {
+                sidebar.removeClass();
+            } else {
+                sidebar.addClass('app-sidebar-panel d-flex card rounded')
+            }
+        })
 
         // change assigment
         function changeAssigment() {

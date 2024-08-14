@@ -32,8 +32,8 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="#" class="text-muted text-hover-primary">
-                                            Home </a>
+                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
+                                            Kelas </a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -44,18 +44,8 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Utilities
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Search
+                                        <a href="{{ url()->current() }}" class="text-muted text-hover-primary">
+                                            Materi {{ request()->classroom->name }}</a>
                                     </li>
                                     <!--end::Item-->
 

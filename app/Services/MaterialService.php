@@ -91,6 +91,16 @@ class MaterialService
      */
     public function handleDelete(string $id): bool
     {
+        $materi = $this->repository->show($id);
+        $updatedOrderMaterials = $this->repository->updateOrderDelete($materi);
+        // dd($updatedOrderMaterials);
+        $order = $materi->order;
+        dd($materi, $updatedOrderMaterials);
+        foreach ($updatedOrderMaterials as $material) {
+            $this->repository->update($material->id, [
+                'order' => $material->order
+            ]);
+        }
         return $this->repository->destroy($id);
     }
 

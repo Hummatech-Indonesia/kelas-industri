@@ -144,5 +144,14 @@ class MaterialRepository extends BaseRepository
             ->where(['devision_id' => $devisionId, 'generation_id' => $generationId])
             ->orderBy('order', 'desc')
             ->first();
+        }
+
+        public function updateOrderDelete($deletedMaterial) {
+            // dd($deletedMaterial);
+            return $this->model->query()
+            // ->where('order', '>', $deletedMaterial->order)
+            ->where(['devision_id' => $deletedMaterial->devision_id, 'generation_id' => $deletedMaterial->generatioin_id])
+            // ->orderBy('order', 'desc')
+            ->get();
     }
 }

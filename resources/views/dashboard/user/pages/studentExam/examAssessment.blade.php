@@ -163,62 +163,69 @@
                                                                 )
                                                                 ->where('student_exam_id', $studentExam->id)
                                                                 ->first();
-                                                            $value = StudentMaterialExamAnswer::query()
-                                                                ->where(
-                                                                    'student_question_number',
-                                                                    $question->question_number,
-                                                                )
-                                                                ->where(
-                                                                    'student_exam_id',
-                                                                    $answer->studentMaterialExam->id,
-                                                                )
-                                                                ->select('answer_value')
-                                                                ->first();
+                                                            if ($answer) {
+                                                                $value = StudentMaterialExamAnswer::query()
+                                                                    ->where(
+                                                                        'student_question_number',
+                                                                        $question->question_number,
+                                                                    )
+                                                                    ->where(
+                                                                        'student_exam_id',
+                                                                        $answer->studentMaterialExam->id,
+                                                                    )
+                                                                    ->select('answer_value')
+                                                                    ->first();
+                                                            }
                                                         @endphp
-                                                        <div class="card mb-4">
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="d-flex justify-content-between">
-                                                                        <div class="fw-bold fs-4">
-                                                                            Soal Essay
+                                                        @if ($answer)
+                                                            <div class="card mb-4">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="d-flex justify-content-between">
+                                                                            <div class="fw-bold fs-4">
+                                                                                Soal Essay
+                                                                            </div>
+                                                                            <div class="">
+                                                                                <input type="number"
+                                                                                    value="{{ $value ? $value->answer_value : '' }}"
+                                                                                    name="answer_value[]"
+                                                                                    placeholder="Nilai"
+                                                                                    class="form-control form-control-solid @error('answer_value[]') is-invalid @enderror"
+                                                                                    id="">
+                                                                                @error('answer_value[]')
+                                                                                    <span class="invalid-feedback"
+                                                                                        role="alert">
+                                                                                        <strong>{{ $message }}</strong>
+                                                                                    </span>
+                                                                                @enderror
+                                                                                <input type="hidden"
+                                                                                    name="student_material_exam_answer_id[]"
+                                                                                    value="{{ $answer->studentMaterialExam->id }}">
+                                                                                <input type="hidden"
+                                                                                    name="student_question_number[]"
+                                                                                    value="{{ $answer->student_question_number }}">
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="">
-                                                                            <input type="number"
-                                                                                value="{{ $value ? $value->answer_value : '' }}"
-                                                                                name="answer_value[]" placeholder="Nilai"
-                                                                                class="form-control form-control-solid @error('answer_value[]') is-invalid @enderror"
-                                                                                id="">
-                                                                            @error('answer_value[]')
-                                                                                <span class="invalid-feedback" role="alert">
-                                                                                    <strong>{{ $message }}</strong>
-                                                                                </span>
-                                                                            @enderror
-                                                                            <input type="hidden"
-                                                                                name="student_material_exam_answer_id[]"
-                                                                                value="{{ $answer->studentMaterialExam->id }}">
-                                                                            <input type="hidden"
-                                                                                name="student_question_number[]"
-                                                                                value="{{ $answer->student_question_number }}">
+                                                                        <div class="mt-3 fw-semibold fs-6">
+                                                                            {!! $question->questionBank->question !!}
+                                                                        </div>
+                                                                        <div class="mt-3 fw-bold fs-4">
+                                                                            Jawaban
+                                                                        </div>
+                                                                        <div class="mt-3 fw-semibold fs-6">
+                                                                            @if ($answer->answer)
+                                                                                {{ $answer->answer }}
+                                                                            @else
+                                                                                <span class="badge badge-danger">Tidak
+                                                                                    dijawab</span>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
-                                                                    <div class="mt-3 fw-semibold fs-6">
-                                                                        {!! $question->questionBank->question !!}
-                                                                    </div>
-                                                                    <div class="mt-3 fw-bold fs-4">
-                                                                        Jawaban
-                                                                    </div>
-                                                                    <div class="mt-3 fw-semibold fs-6">
-                                                                        @if ($answer->answer)
-                                                                            {{ $answer->answer }}
-                                                                        @else
-                                                                            <span class="badge badge-danger">Tidak
-                                                                                dijawab</span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
 
+
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     @endforeach
                                                 </div>
 

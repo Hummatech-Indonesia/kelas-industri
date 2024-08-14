@@ -30,7 +30,7 @@
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
                                         <a href="#" class="text-muted text-hover-primary">
-                                            Home </a>
+                                            Tantangan </a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -41,7 +41,10 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Utilities </li>
+                                        <a href="{{ route('student.challenges.show', request()->challenge->id) }}" class="text-muted text-hover-primary">
+                                            {{ request()->challenge->title }} </a>
+                                    </li>
+                                    
                                     <!--end::Item-->
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item">
@@ -51,7 +54,9 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Search </li>
+                                        <a href="#" class="text-muted text-hover-primary">
+                                            Kumpulkan </a>
+                                    </li>
                                     <!--end::Item-->
 
                                 </ul>

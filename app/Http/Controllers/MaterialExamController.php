@@ -148,9 +148,11 @@ class MaterialExamController extends Controller
         $data = $this->GetDataSidebar();
         if (RoleHelper::get_role() == 'mentor') {
             $data['classrooms'] = $this->mentorService->handleGetMentorClassrooms(auth()->user()->id);
+        }else{
+            $data['classrooms'] = $this->teacherService->handleGetTeacherClassrooms(auth()->user()->teacherSchool->id);
         }
-        $data['classrooms'] = $this->teacherService->handleGetTeacherClassrooms(auth()->user()->teacherSchool->id);
         $data['students'] = $this->studentExamRepository->getAllStudent($materialExam->id, $request);
+        // dd($data['students']);
         $data['lowValue'] = $this->studentExamRepository->getMinValue($materialExam->id, $request);
         $data['highValue'] = $this->studentExamRepository->getMaxValue($materialExam->id, $request);
         $data['averageValue'] = $this->studentExamRepository->getAvgValue($materialExam->id, $request);

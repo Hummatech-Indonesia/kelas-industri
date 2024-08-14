@@ -27,8 +27,15 @@
                                 <!--end::Title-->
 
                                 <!--begin::Breadcrumb-->
-                                <p class="fw-semibold fs-7 my-0 text-muted">List
-                                    tantangan {{ auth()->user()->name }}</p>
+                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{ route('student.challenges.index') }}" class="text-muted text-hover-primary">
+                                            Tantangan </a>
+                                    </li>
+                                    <!--end::Item-->
+
+                                </ul>
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->
