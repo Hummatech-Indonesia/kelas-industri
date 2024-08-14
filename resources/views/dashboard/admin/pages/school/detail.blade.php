@@ -595,6 +595,7 @@
                 </div>
                 <!--end::Page title-->
                 <div class="d-flex">
+                    <input type="text" class="form-control" name="name" id="name">
                     <select class="form-select form-select-solid me-4" name="classroom_id" aria-label="Select example"
                         value="{{ old('classroom_id') }}" id="select-classroom">
                         <option value="">Pilih Kelas</option>
@@ -669,7 +670,8 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <form action="{{ route('admin.importStudents', $school->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.importStudents', $school->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <!--begin::Alert-->
@@ -767,6 +769,13 @@
                 $("#datatables-responsive").DataTable().ajax.url(url).load();
             });
 
+            $("#name").on('change', function() {
+                var name = $(this).val();
+                var url = "{{ route('admin.students.all', ['school' => $school->id]) }}";
+
+                $("#datatables-responsive").DataTable().ajax.url(url).load();
+            });
+
             $("#datatables-responsive").DataTable({
                 paging: true,
                 pageLength: 10,
@@ -778,6 +787,7 @@
                     url: "{{ route('admin.students.all', ['school' => $school->id]) }}",
                     data: function(d) {
                         d.classroom_id = $('#select-classroom').val();
+                        d.name = $('#name').val();
                     }
                 },
                 oLanguage: {
