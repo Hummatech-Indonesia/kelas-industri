@@ -451,11 +451,11 @@
                                                                 </svg>
                                                             </span>
                                                             <!--end::Svg Icon-->
-                                                            @if ($prevMaterialComplete || $currentMaterialPretestComplete)
+                                                            {{-- @if ($prevMaterialComplete || $currentMaterialPretestComplete)
                                                                 <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
                                                                     class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
                                                                     Bab</a>
-                                                            @endif
+                                                            @endif --}}
 
                                                         </div>
 
