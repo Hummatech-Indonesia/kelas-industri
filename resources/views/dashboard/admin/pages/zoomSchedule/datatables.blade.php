@@ -4,7 +4,7 @@
                 aria-haspopup="true" aria-expanded="false">Opsi
         </button>
         <div class="dropdown-menu"><a class="dropdown-item"
-                                      href="{{ route('admin.zoomSchedules.edit', $data->id) }}">Edit</a><a type="button"
+                                      href="{{ route('admin.zoom-schedules.edit', $data->id) }}">Edit</a><a type="button"
                                                                                                            data-toggle="modal"
                                                                                                            data-target="#kt_modal_delete"
                                                                                                            data-id='{{ $data->id }}'

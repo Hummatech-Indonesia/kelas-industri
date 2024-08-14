@@ -101,8 +101,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
         });
-        Route::resource('zoomSchedules', ZoomScheduleController::class);
 
+        Route::resource('zoom-schedules', ZoomScheduleController::class);
 
         Route::resource('standart-operation-producer', StandartOperationProcuderController::class);
         Route::get('/absent', [AttendanceController::class, 'index'])->name('absent');

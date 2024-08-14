@@ -24,7 +24,7 @@
         <div class="d-flex align-items-center py-2 py-md-1">
 
             <!--begin::Button-->
-            <a href="{{ route('admin.zoomSchedules.create') }}" class="btn btn-primary fw-bold">
+            <a href="{{ route('admin.zoom-schedules.create') }}" class="btn btn-primary fw-bold">
                 Tambah </a>
             <!--end::Button-->
         </div>
@@ -77,7 +77,7 @@
         document.addEventListener("DOMContentLoaded", () => {
 
             $(document).on('click', '.delete', function () {
-                const url = "{{ route('admin.zoomSchedules.destroy', ':id') }}".replace(':id', $(this).data('id'))
+                const url = "{{ route('admin.zoom-schedules.destroy', ':id') }}".replace(':id', $(this).data('id'))
                 $('#form-delete').attr('action', url)
 
                 $('#kt_modal_delete').modal('show')
@@ -95,7 +95,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                ajax: "{{ route('admin.zoomSchedules.index') }}",
+                ajax: "{{ route('admin.zoom-schedules.index') }}",
                 oLanguage: {sProcessing: 'loading...'},
                 columns: [
                     {

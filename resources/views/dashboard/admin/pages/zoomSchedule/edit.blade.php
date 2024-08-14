@@ -30,7 +30,7 @@
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('admin.zoomSchedules.update', $zoomSchedule->id) }}" method="POST"
+            <form action="{{ route('admin.zoom-schedules.update', $zoomSchedule->id) }}" method="POST"
                   enctype="multipart/form-data">
                 @method('PATCH')
                 @csrf
@@ -51,7 +51,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('admin.zoomSchedules.index') }}"
+                                <a href="{{ route('admin.zoom-schedules.index') }}"
                                    class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
@@ -194,7 +194,7 @@
             console.log(classroom_id);
             $.ajax({
                 method: 'GET',
-                url: '{{ route('admin.zoomSchedules.create') }}',
+                url: '{{ route('admin.zoom-schedules.create') }}',
                 data: {
                     school_id: schoolId,
                     classroom_id: classroom_id

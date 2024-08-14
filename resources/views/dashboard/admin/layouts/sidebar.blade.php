@@ -635,7 +635,7 @@
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div data-kt-menu-trigger="click"
-                        class="menu-item {{ request()->routeIs('admin.zoomSchedules.*') ? 'show here' : '' }} menu-accordion">
+                        class="menu-item {{ request()->routeIs('admin.zoom-schedules.*') ? 'show here' : '' }} menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -665,15 +665,15 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.zoomSchedules.create') ? 'active' : '' }}"
-                                        href="{{ route('admin.zoomSchedules.create') }}">
+                                    <a class="menu-link {{ request()->routeIs('admin.zoom-schedules.create') ? 'active' : '' }}"
+                                        href="{{ route('admin.zoom-schedules.create') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Tambah Jadwal zoom</span>
                                     </a>
                                     <!--end:Menu link-->
                                     <!--begin:Menu link-->
-                                    <a class="menu-link {{ request()->routeIs('admin.zoomSchedules.*') && !request()->routeIs('admin.zoomSchedules.create') ? 'active' : '' }}"
-                                        href="{{ route('admin.zoomSchedules.index') }}">
+                                    <a class="menu-link {{ request()->routeIs('admin.zoom-schedules.*') && !request()->routeIs('admin.zoom-schedules.create') ? 'active' : '' }}"
+                                        href="{{ route('admin.zoom-schedules.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">List Jadwal zoom</span>
                                     </a>
