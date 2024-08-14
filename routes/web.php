@@ -102,6 +102,8 @@ Route::middleware('auth.custom')->group(function () {
             return view('dashboard.admin.layouts.app');
         });
 
+        // Route::resource('zoomSchedules', [ZoomScheduleController::class]);
+
         Route::resource('standart-operation-producer', StandartOperationProcuderController::class);
         Route::get('/absent', [AttendanceController::class, 'index'])->name('absent');
         Route::get('/absent/{attendance}', [AttendanceController::class, 'show'])->name('showAbsent');
@@ -155,7 +157,6 @@ Route::middleware('auth.custom')->group(function () {
             'submaterials' => SubMaterialController::class,
             'assignments' => AssignmentController::class,
             'mentors' => MentorController::class,
-            'zoomSchedules' => ZoomScheduleController::class,
             'journal' => JurnalController::class,
             'attendance' => AttendanceController::class,
             'exam' => ExamController::class,
