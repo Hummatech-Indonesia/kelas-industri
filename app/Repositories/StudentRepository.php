@@ -84,11 +84,14 @@ class StudentRepository extends BaseRepository
             ]);
     }
 
-    public function get_student_by_classroom(string $schoolId, string $classroomId, bool $isPaginate = true): mixed
+    public function get_student_by_classroom(string $schoolId, string $classroomId, bool $isPaginate = true, Request $request): mixed
     {
         $query = $this->model->query()
             ->with('studentClassroom', 'student')
             ->whereRelation('student', 'status', 'active')
+            ->when($request->name, function ($query) use ($request) {
+                $query->whereRelation('student', 'name', 'LIKE', '%' . $request->name . '%');
+            })
             ->where('school_id', $schoolId)
             ->whereHas('studentClassroom', function ($query) use ($classroomId) {
                 $query->where('classroom_id', $classroomId);

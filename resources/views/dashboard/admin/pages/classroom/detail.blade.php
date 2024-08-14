@@ -114,7 +114,13 @@
                                 <!--end::Title-->
                             </div>
                             <div class="card-body">
-
+                                <div class="d-flex">
+                                    <form action="" class="d-flex" method="get">
+                                        <input type="text" name="name" value="{{ request()->input('name') }}"
+                                            placeholder="cari siswa..." class="form-control me-3">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                    </form>
+                                </div>
                                 @if (count($studentClassroom) > 0)
                                     <table id="kt_datatable_responsive"
                                         class="table table-striped border rounded gy-5 gs-7">

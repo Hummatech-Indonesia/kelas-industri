@@ -63,9 +63,9 @@ class StudentService
         return $this->studentClassroomRepository->update_classroom($request);
     }
 
-    public function handleGetStudentByClassroom(string $schoolId, string $classroomId, bool $isPaginate = true): mixed
+    public function handleGetStudentByClassroom(string $schoolId, string $classroomId, bool $isPaginate = true, Request $request): mixed
     {
-        return $this->repository->get_student_by_classroom($schoolId, $classroomId, $isPaginate);
+        return $this->repository->get_student_by_classroom($schoolId, $classroomId, $isPaginate, $request);
     }
 
 
