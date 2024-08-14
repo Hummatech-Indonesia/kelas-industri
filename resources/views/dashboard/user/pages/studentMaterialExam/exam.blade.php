@@ -282,38 +282,38 @@
             let openTab = false;
 
             function showAlert() {
-                    let countOpenTab = 0;
-                    $.ajax({
-                        type: "PUT",
-                        url: "{{ route('student.material-exam.opentab', $student_exam->id) }}",
-                        data: {
-                            _token: $('meta[name="csrf-token"]').attr("content"),
-                        },
-                        dataType: "json", // Correct dataType to json
-                        success: function(response) {
-                            countOpenTab = response.openTab;
-                            openTab = false;
-                            Swal.fire({
-                                html: `<div id="alertElement"><p>Sisa kesempatan anda <span class="chance">${3 - countOpenTab}</span></p><p class="message">Mohon kerjakan ujian dengan jujur.</p></div>`,
-                                title: "Anda terdeteksi membuka tab baru.",
-                                icon: "error",
-                                confirmButtonText: "Ok",
-                                buttonsStyling: false,
-                                customClass: {
-                                    confirmButton: "btn btn-light-primary",
-                                },
-                            });
+                let countOpenTab = 0;
+                $.ajax({
+                    type: "PUT",
+                    url: "{{ route('student.material-exam.opentab', $student_exam->id) }}",
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    dataType: "json", // Correct dataType to json
+                    success: function(response) {
+                        countOpenTab = response.openTab;
+                        openTab = false;
+                        Swal.fire({
+                            html: `<div id="alertElement"><p>Sisa kesempatan anda <span class="chance">${3 - countOpenTab}</span></p><p class="message">Mohon kerjakan ujian dengan jujur.</p></div>`,
+                            title: "Anda terdeteksi membuka tab baru.",
+                            icon: "error",
+                            confirmButtonText: "Ok",
+                            buttonsStyling: false,
+                            customClass: {
+                                confirmButton: "btn btn-light-primary",
+                            },
+                        });
 
-                            if (countOpenTab >= 3) {
-                                $(".chance").text("habis");
-                                $(".message").text("Ujian Anda akan ditutup");
-                                setTimeout(() => {
-                                    submitExam();
-                                }, 3000);
-                            }
-                        },
-                    });
-                }
+                        if (countOpenTab >= 3) {
+                            $(".chance").text("habis");
+                            $(".message").text("Ujian Anda akan ditutup");
+                            setTimeout(() => {
+                                submitExam();
+                            }, 3000);
+                        }
+                    },
+                });
+            }
 
             // Deteksi jendela tidak aktif/aktif
             window.addEventListener("blur", () => {
@@ -519,23 +519,37 @@
         $('.submit-btn').on('click', function() {
             var type = $('#question_' + prevQuestion).data('type')
             setAnswer(type, prevQuestion)
+            
+            const nullAnswer = answers.find(answer => answer.answer == null);
 
-            Swal.fire({
-                title: "Apakah anda yakin ingin mengirim jawaban ujian?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Ya",
-                cancelButtonText: "Batal",
-                buttonsStyling: false,
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-danger",
-                },
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    submitExam();
-                }
-            });
+            if (nullAnswer) {
+                Swal.fire({
+                    title: "Masih ada soal yang belum dijawab",
+                    icon: "danger",
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-danger",
+                    },
+                })
+            } else {
+                Swal.fire({
+                    title: "Apakah anda yakin ingin mengirim jawaban ujian?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Ya",
+                    cancelButtonText: "Batal",
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-danger",
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        submitExam();
+                    }
+                });
+            }
         })
 
 
