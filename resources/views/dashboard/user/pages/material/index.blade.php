@@ -275,7 +275,7 @@
                                                 <!--begin::Footer-->
                                                 <div class="card-footer d-flex flex-row justify-content-between">
                                                     <div class="d-flex">
-                                                        @if ($material->exam->studentMaterialExam->finished_exam)
+                                                        @if ($material->exam?->studentMaterialExam?->finished_exam)
                                                             <div class="d-flex align-items-center me-5">
                                                                 <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
                                                                 <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
