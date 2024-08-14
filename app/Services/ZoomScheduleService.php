@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Traits\YajraTable;
 use App\Http\Requests\ZoomScheduleRequest;
 use App\Repositories\ZoomScheduleRepository;
+use Illuminate\Http\Request;
+use Intervention\Image\Colors\Rgb\Channels\Red;
 
 class ZoomScheduleService
 {
@@ -34,9 +36,15 @@ class ZoomScheduleService
      * @param ZoomScheduleRequest $request
      * @return void
      */
-    public function handleCreate(ZoomScheduleRequest $request): void
+    public function handleCreate(Request $request): void
     {
-        $this->repository->store($request->validated());
+        $this->repository->store([
+            'classroom_id' => $request->classroom_id,
+            'mentor_id' => $request->mentor_id,
+            'title' => $request->title,
+            'link' => $request->link,
+            'date' => $request->date
+        ]);
     }
 
     public function handleCreateMultiple(ZoomScheduleRequest $request): void
@@ -100,7 +108,8 @@ class ZoomScheduleService
         return $this->repository->get_zoom_schedule_mentor();
     }
 
-    public function handleGetLatest() {
+    public function handleGetLatest()
+    {
         return $this->repository->get_latest();
     }
 }

@@ -641,7 +641,7 @@
                                     <span id="currentPage">0</span><span class="mx-1">/</span><span
                                         id="totalPages">0</span>
                                 </div>
-                                {{-- {{dd($assigments)}} --}}
+                                
                                 {{-- assigment card --}}
                                 @if (count($submaterial->assignments) > 0 && auth()->user()->roles->pluck('name')[0] == 'student')
                                     <div class="assigment-card card m-auto mb-8" style="width: 80%;">

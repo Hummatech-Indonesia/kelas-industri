@@ -13,6 +13,7 @@ use App\Services\ClassroomService;
 use App\Services\ZoomScheduleService;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ZoomScheduleRequest;
+use Illuminate\Http\Request;
 
 class ZoomScheduleController extends Controller
 {
@@ -35,7 +36,6 @@ class ZoomScheduleController extends Controller
     public function index(): mixed
     {
         if (request()->ajax()) return $this->service->handleGetAll();
-
         return view('dashboard.admin.pages.zoomSchedule.index');
     }
 
@@ -47,7 +47,6 @@ class ZoomScheduleController extends Controller
     public function create(): mixed
     {
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
-
         if (request()->ajax()) return $this->classroomService->handleGetBySchool(request()->school_id, $currentSchoolYear->id);
 
         $data = [
@@ -64,9 +63,26 @@ class ZoomScheduleController extends Controller
      * @param ZoomScheduleRequest $request
      * @return RedirectResponse
      */
-    public function store(ZoomScheduleRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $this->service->handleCreateMultiple($request);
+        $request->validate([
+            'classroom_id' => 'required',
+            'mentor_id' => 'required',
+            'title' => 'required|string',
+            'link' => 'required|url',
+            'date' => 'required|after_or_equal:now',
+        ], [
+            'classroom_id.required' => 'Kelas tidak boleh kosong !',
+            'mentor_id,required' => 'Mentor tidak boleh kosong !',
+            'title.required' => 'Judul tidak boleh kosong !',
+            'title.string' => 'Judul harus berupa string !',
+            'link.required' => 'Link tidak boleh kosong !',
+            'link.url' => 'Link harus berupa url !',
+            'date.required' => 'Tanggal tidak boleh kosong !',
+            'date.after_or_equal' => 'Tanggal harus melebihi tanggal sekarang !'
+        ]);
+
+        $this->service->handleCreate($request);
         // $this->service->handleCreate($request);
 
         return to_route('admin.zoomSchedules.index')->with('success', trans('alert.add_success'));

@@ -32,8 +32,8 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
-                                            Kelas </a>
+                                        <a href="#" class="text-muted text-hover-primary">
+                                            Home </a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -44,8 +44,18 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ url()->current() }}" class="text-muted text-hover-primary">
-                                            Materi {{ request()->classroom->name }}</a>
+                                        Utilities
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        Search
                                     </li>
                                     <!--end::Item-->
 
@@ -265,25 +275,25 @@
                                                 <!--begin::Footer-->
                                                 <div class="card-footer d-flex flex-row justify-content-between">
                                                     <div class="d-flex">
-                                                        <div class="d-flex align-items-center me-5">
-                                                            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
-                                                            <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
-                                                                    width="24" height="24" viewBox="0 0 24 24"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect opacity="0.5" x="7" y="2" width="14"
-                                                                        height="16" rx="3"
-                                                                        fill="currentColor" />
-                                                                    <rect x="3" y="6" width="14" height="16"
-                                                                        rx="3" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->
-                                                            @if (!$material->exam->studentMaterialExam)
+                                                        @if ($material->exam?->studentMaterialExam?->finished_exam)
+                                                            <div class="d-flex align-items-center me-5">
+                                                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/general/gen028.svg-->
+                                                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                                        width="24" height="24" viewBox="0 0 24 24"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect opacity="0.5" x="7" y="2" width="14"
+                                                                            height="16" rx="3"
+                                                                            fill="currentColor" />
+                                                                        <rect x="3" y="6" width="14" height="16"
+                                                                            rx="3" fill="currentColor" />
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
                                                                 <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
                                                                     class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
                                                                     Bab</a>
-                                                            @endif
-                                                        </div>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                     @if (!$material->exam->studentMaterialExam)
                                                         <a href="{{ route('student.material-exam', ['materialExam' => $material->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
