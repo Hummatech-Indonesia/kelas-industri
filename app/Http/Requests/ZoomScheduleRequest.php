@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 class ZoomScheduleRequest extends BaseRequest
 {
+    public function authorize(): bool
+    {
+        return true;
+    }
     /**
      * Get the validation rules that apply to the request.
      *
