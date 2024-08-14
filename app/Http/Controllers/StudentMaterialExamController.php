@@ -91,8 +91,8 @@ class StudentMaterialExamController extends Controller
     {
         $questions = $this->questionBankRepository->getByMaterialExam($materialExam->id);
 
-        $sortedQuestionsMultipleChoice = $this->materialService->sortDailyExamQuestion($questions);
-        $answerKey = $this->questionBankRepository->getAnswerByQuestion(collect($sortedQuestionsMultipleChoice)->pluck('id')->toArray());
+        $questionAnswer = $this->questionBankRepository->getAnswerByQuestion(collect($questions)->pluck('id')->toArray());
+        $answerKey = $this->materialService->sortDailyExamQuestion($questionAnswer);
 
         $data = $this->service->calculate($request, $answerKey, $materialExam, $studentMaterialExam);
         $data['finished_count'] = $studentMaterialExam->finished_count + 1;

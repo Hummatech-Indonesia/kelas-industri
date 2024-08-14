@@ -60,8 +60,12 @@ class StudentMaterialExamService
         }
 
         $answers = $request->answer;
+
+        sort($answers);
+
         $answerArr = [];
         $true = 0;
+
         foreach ($answers as $i => $answer) {
             $correctAnswers = $answerKeys[$i]->questionBankAnswers->pluck('answer')->toArray();
             array_push($answerArr, $answer['answer']);
@@ -70,6 +74,7 @@ class StudentMaterialExamService
             }
         }
 
+        // dd($true, $answers, $answerKeys);
         return [
             'answer' => implode(';', $answerArr),
             'score' => ($materialExam->multiple_choice_value / count($answerKeys) * $true),
