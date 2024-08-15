@@ -62,9 +62,9 @@ class ZoomScheduleController extends Controller
      * @param ZoomScheduleRequest $request
      * @return RedirectResponse
      */
-    public function store(ZoomScheduleRequest $request): RedirectResponse
-    {
-        
+    public function store(Requests $request): RedirectResponse
+    {   
+        dd($request);
         $this->service->handleCreate($request);
         // $this->service->handleCreate($request);
 
