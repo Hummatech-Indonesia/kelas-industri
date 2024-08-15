@@ -45,6 +45,7 @@ class ZoomScheduleController extends Controller
      */
     public function create(): mixed
     {
+        dd(csrf_token());
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         if (request()->ajax()) return $this->classroomService->handleGetBySchool(request()->school_id, $currentSchoolYear->id);
 
@@ -62,9 +63,9 @@ class ZoomScheduleController extends Controller
      * @param ZoomScheduleRequest $request
      * @return RedirectResponse
      */
-    public function store(ZoomScheduleRequest $request): RedirectResponse
-    {
-
+    public function store(Requests $request): RedirectResponse
+    {   
+        dd($request);
         $this->service->handleCreate($request);
         // $this->service->handleCreate($request);
 

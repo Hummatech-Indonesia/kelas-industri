@@ -115,12 +115,10 @@
                                         </div>
 
                                         <div class="d-flex flex-wrap mb-1">
-
                                             <p
                                                 class="text-muted text-hover-dark font-weight-bold me-lg-8 me-5 mb-lg-0 mb-2">
                                                 <i class="las la-envelope me-2 fs-3"></i>{{ $school->email }}
                                             </p>
-
                                         </div>
 
                                         <div class="d-flex flex-wrap mb-1">
@@ -595,7 +593,7 @@
                 </div>
                 <!--end::Page title-->
                 <div class="d-flex">
-                    <input type="text" class="form-control" name="name" id="name">
+                    <input type="text" class="form-control" placeholder="name" name="name" id="name">
                     <select class="form-select form-select-solid me-4" name="classroom_id" aria-label="Select example"
                         value="{{ old('classroom_id') }}" id="select-classroom">
                         <option value="">Pilih Kelas</option>
