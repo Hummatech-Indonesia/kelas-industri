@@ -92,10 +92,9 @@
 
                                                 <div class="form-group row mb-3">
 
+                                                    <img src="{{ asset('storage/' . $journal->photo) }}" alt=""
+                                                        srcset="" style="widows: 60px">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
-
-                                                    <img src="{{ asset('storage/' . $journal->photo) }}" width="60" alt=""
-                                                        srcset="">
                                                     <div class="col-lg-9 col-xl-9">
 
                                                         <input class="form-control form-control-solid form-control-lg"
