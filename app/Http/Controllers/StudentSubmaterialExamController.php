@@ -100,7 +100,7 @@ class StudentSubmaterialExamController extends Controller
             if ($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value) {
                 $studentExam->update([
                     'score' => null,
-                    'deadline' => now()->addMinutes($subMaterialExam->time),
+                    // 'deadline' => now()->addMinutes($subMaterialExam->time),
                     'finished_exam' => null,
                     'true_answer' => null,
                     'answer' => null

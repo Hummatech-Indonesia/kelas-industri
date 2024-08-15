@@ -28,27 +28,14 @@
 
                                 <!--begin::Breadcrumb-->
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                                    <!--begin::Item-->
-
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-
-                                    </li>
-                                    <!--end::Item-->
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        List jadwal absensi pada kelas industri.
+                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
+                                            Absensi </a>
                                     </li>
                                     <!--end::Item-->
-                                    <!--begin::Item-->
-
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-
-                                    <!--end::Item-->
+                                    
 
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -88,7 +75,7 @@
                                                     <th data-priority="4">Link</th>
                                                     <th data-priority="5">Status</th>
                                                     <th data-priority="6" class="text-center ">Aksi</th>
-                                                    
+
                                                 </tr>
                                                 <!--end::Table row-->
                                             </thead>

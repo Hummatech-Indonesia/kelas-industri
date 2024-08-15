@@ -48,6 +48,7 @@
     foreach ($question_multiple_choice as $index => $question) {
         array_push($questions, [
             'number' => $index + 1,
+            'student_question_number' => $question->question_number,
             'id' => $question->question_number,
             'question' => $question->questionBank->question,
             'option1' => $question->questionBank->option1,
@@ -61,6 +62,7 @@
     foreach ($question_essay as $index => $question) {
         array_push($questions, [
             'number' => $index + 1,
+            'student_question_number' => $question->question_number,
             'id' => $question->question_number,
             'question' => $question->questionBank->question,
             'type' => 'essay',
@@ -92,7 +94,7 @@
                                         <p class="fs-4">{!! $question['question'] !!}</p>
                                         {{-- <img src="{{ asset('storage/school-logo/Mask group.png') }}" alt=""> --}}
                                     </div>
-                                    <div class="answer ">
+                                    <div class="answer student_question_number_{{ $question['student_question_number'] }}">
                                         @if ($question['type'] == 'multiple_choice')
                                             <div
                                                 class="form-check form-check-custom form-check-solid align-items-center form-check-sm mb-4">
@@ -229,7 +231,7 @@
                                 <div class="col p-0 m-0 h-50px w-50px position-relative">
                                     <li class="nav-item border rounded d-flex justify-content-end p-0 m-0 h-100 w-100"
                                         onclick="setAnswer('multiple_choice', {{ $index }})">
-                                        <a class="nav-link {{ $index == 0 ? 'active' : '' }} d-flex align-items-center justify-content-center bg-secondary text-dark fw-bolder fs-6 rounded fs-bold m-0 p-0 w-100 "
+                                        <a class="nav-link {{ $index == 0 ? 'active' : '' }} btn_multiple_choice_{{ $question['student_question_number'] }} d-flex align-items-center justify-content-center bg-secondary text-dark fw-bolder fs-6 rounded fs-bold m-0 p-0 w-100 "
                                             data-bs-toggle="tab" id="btn_multiple_choice_{{ $index }}"
                                             href="#question_{{ $index }}">{{ $number++ }}
                                             <span
@@ -254,7 +256,7 @@
                                 <div class="col p-0 m-0 h-50px w-50px position-relative">
                                     <li class="nav-item border rounded d-flex justify-content-end p-0 m-0 h-100 w-100"
                                         onclick="setAnswer('essay', {{ $index }})">
-                                        <a class="nav-link {{ $index == 0 ? 'active' : '' }} d-flex align-items-center justify-content-center bg-secondary text-dark fw-bolder fs-6 rounded  m-0 p-0 w-100 "
+                                        <a class="nav-link {{ $index == 0 ? 'active' : '' }} btn_multiple_choice_{{ $question['student_question_number'] }} d-flex align-items-center justify-content-center bg-secondary text-dark fw-bolder fs-6 rounded  m-0 p-0 w-100 "
                                             data-bs-toggle="tab" id="btn_essay_{{ $index }}"
                                             href="#question_{{ $index }}">{{ $number++ }}
                                             <span
@@ -415,7 +417,8 @@
     <script>
         let prevQuestion = 0;
 
-        const answers = [
+        const answers = JSON.parse(localStorage.getItem('answers')) ? JSON.parse(localStorage.getItem(
+            'answers')) : [
             @foreach ($questions as $question)
                 {
                     'student_question_number': '{{ $question['id'] }}',
@@ -428,6 +431,34 @@
                 },
             @endforeach
         ];
+
+        localAnswers = answers;
+        localAnswers.forEach(function(answer) {
+            console.log(answer.student_question_number);
+            console.log(answer.answer);
+            console.log($('.student_question_number_' + answer.student_question_number +
+                ` input[value="${answer.answer}"]`))
+
+
+
+            if (answer.answer) {
+                if (answer.type == 'essay') {
+                    $('.student_question_number_' + answer.student_question_number +
+                        ` textarea`).val(answer.answer)
+                } else {
+                    $('.student_question_number_' + answer.student_question_number +
+                        ` input[value="${answer.answer}"]`).attr('checked', true)
+
+                }
+                $('.btn_multiple_choice_' + answer.student_question_number).addClass('bg-primary');
+                $('.btn_multiple_choice_' + answer.student_question_number).removeClass('bg-secondary');
+            }
+        })
+
+        function saveLocalAnswer() {
+            localStorage.setItem('answers', JSON.stringify(answers));
+        }
+
         $('.mark').click(function() {
             setMark($(this).data('index'));
         })
@@ -477,6 +508,7 @@
                     $('#btn_essay_' + prevQuestion + ' .indicator').removeClass('hide');
                 }
             }
+            saveLocalAnswer();
             prevQuestion = questionIndex;
         }
 
@@ -519,7 +551,7 @@
         $('.submit-btn').on('click', function() {
             var type = $('#question_' + prevQuestion).data('type')
             setAnswer(type, prevQuestion)
-            
+
             const nullAnswer = answers.find(answer => answer.answer == null);
 
             if (nullAnswer) {

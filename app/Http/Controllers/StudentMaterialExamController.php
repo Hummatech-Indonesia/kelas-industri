@@ -66,16 +66,16 @@ class StudentMaterialExamController extends Controller
             }
             $studentExam->update([
                 'score' => null,
-                'deadline' => now()->addMinutes($materialExam->time),
+                // 'deadline' => now()->addMinutes($materialExam->time),
                 'finished_exam' => null,
                 'true_answer' => null,
                 'answer' => null
             ]);
 
-            $studentExam->studentMaterialExamAnswers()->delete();
+            // $studentExam->studentMaterialExamAnswers()->delete();
 
-            $orderQuestionMultipleChoice = $studentExam->order_of_question_multiple_choice;
-            $orderQuestionEssay = $studentExam->order_of_question_essay;
+            // $orderQuestionMultipleChoice = $studentExam->order_of_question_multiple_choice;
+            // $orderQuestionEssay = $studentExam->order_of_question_essay;
 
             // $examQuestionsMultipleChoice = $materialExam->total_multiple_choice > 0 ? $this->examQuestion->getWhereMultiple(['orderQuestionMultipleChoice' => $orderQuestionMultipleChoice, 'material_exam_id' => $materialExam->id]) : [];
             // $examQuestionsEssay = $materialExam->total_multiple_choice > 0 ? $this->examQuestion->getWhereEssay(['orderQuestionEssay' => $orderQuestionEssay, 'material_exam_id' => $materialExam->id]) : [];
@@ -83,6 +83,7 @@ class StudentMaterialExamController extends Controller
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
             $data['type'] = $type;
+            // dd($data);
             return view('dashboard.user.pages.studentMaterialExam.exam', $data);
         }
     }

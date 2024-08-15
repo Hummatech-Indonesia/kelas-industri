@@ -182,6 +182,13 @@
                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                 {{-- @dd($materialInfos) --}}
                                 @forelse ($materials as $key => $material)
+                                @php
+                                    $currentMaterialPretestComplete = $materials[$key]->materialExam->studentMaterialExams
+                                                ->where('student_id', auth()->user()->id)
+                                                ->where('type', MaterialExamTypeEnum::PRETEST->value)
+                                                ->whereNotNull('finished_exam')
+                                                ->first();
+                                @endphp
                                     @if ($key == 0)
                                         <div class="col-xl-4 mb-5">
 
@@ -295,14 +302,14 @@
                                                             </div>
                                                         @endif
                                                     </div>
-                                                    @if (!$material->exam->studentMaterialExam)
+                                                    @if (!$currentMaterialPretestComplete)
                                                         {{-- <a href="{{ route('student.material-exam', ['materialExam' => $material->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
                                                             id="start-test"
                                                             data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
                                                             PRETEST</a> --}}
                                                         <button
-                                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto start-pretest">Mulai
+                                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto start-pretest" data-exam="{{ $material->exam->id }}">Mulai
                                                             PRETEST</button>
                                                     @elseif ($material->exam->studentMaterialExam->finished_exam)
                                                         <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
@@ -323,15 +330,7 @@
                                             ]->materialExam->studentMaterialExams
                                                 ->where('student_id', auth()->user()->id)
                                                 ->where('type', MaterialExamTypeEnum::POSTEST->value)
-                                                ->whereNotNull('finished_exam', 1)
-                                                ->first();
-
-                                            $currentMaterialPretestComplete = $materials[
-                                                $key
-                                            ]->materialExam->studentMaterialExams
-                                                ->where('student_id', auth()->user()->id)
-                                                ->where('type', MaterialExamTypeEnum::PRETEST->value)
-                                                ->whereNotNull('finished_exam', 1)
+                                                ->whereNotNull('finished_exam')
                                                 ->first();
                                             // dd($materials[$key- 1]);
                                         @endphp
@@ -473,13 +472,15 @@
 
 
                                                     </div>
-                                                    @if (!$prevMaterialComplete || !$currentMaterialPretestComplete)
+                                                    {{-- @dd(!$currentMaterialPretestComplete && !$prevMaterialComplete) --}}
+                                                    @if ($prevMaterialComplete && !$currentMaterialPretestComplete)
                                                         {{-- <a href="{{ route('student.material-exam', ['materialExam' => $material->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto"
                                                             id="start-test"
                                                             data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
                                                             PRETEST</a> --}}
                                                         <button
+                                                        data-true="{{ $prevMaterialComplete && !$currentMaterialPretestComplete }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto start-pretest">Mulai
                                                             PRETEST</button>
                                                     @elseif ($prevMaterialComplete && $currentMaterialPretestComplete)
@@ -685,26 +686,30 @@
     </Style>
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function() {
-            $('.start-pretest').click(function() {
-                Swal.fire({
-                    html: "Apakah anda yakin ingin memulai PRETEST? ",
-                    icon: "question",
-                    buttonsStyling: false,
-                    showCancelButton: true,
-                    confirmButtonText: "Iya",
-                    cancelButtonText: 'Batal',
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                        cancelButton: 'btn btn-danger'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.open("{{ route('student.material-exam', ['materialExam' => $material->exam->id, 'type' => MaterialExamTypeEnum::PRETEST->value]) }}", '_blank');
-                    }
-                });
-            })
+<script>
+    $(document).ready(function() {
+        $('.start-pretest').click(function() {
+            // Get the exam ID from the clicked element
+            let examId = $(this).data('exam');
+
+            Swal.fire({
+                html: "Apakah anda yakin ingin memulai PRETEST?",
+                icon: "question",
+                buttonsStyling: false,
+                showCancelButton: true,
+                confirmButtonText: "Iya",
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: "btn btn-primary",
+                    cancelButton: 'btn btn-danger'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.open("{{ route('student.material-exam', ['materialExam' => ':exam-id', 'type' => MaterialExamTypeEnum::PRETEST->value]) }}".replace(':exam-id', examId), '_blank');
+                }
+            });
         });
-    </script>
+    });
+</script>
+
 @endsection

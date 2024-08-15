@@ -29,25 +29,10 @@
                                 <!--begin::Breadcrumb-->
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
-
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        List jurnal pada kelas industri.
+                                        <a href="{{ route(auth()->user()->roles->pluck('name')[0] == 'teacher' ? 'teacher' : 'mentor' . '.journal.index') }}" class="text-muted text-hover-primary">
+                                            Jurnal </a>
                                     </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-
                                     <!--end::Item-->
 
                                 </ul>

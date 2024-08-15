@@ -29,25 +29,21 @@
                                 <!--begin::Breadcrumb-->
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
-
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="{{ route('mentor.attendance.index') }}" class="text-muted text-hover-primary">
+                                            Absensi </a>
+                                    </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item">
-
+                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
                                     </li>
                                     <!--end::Item-->
 
-                                    <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        List siswa Yang sudah absen pada kelas anda.
+                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
+                                            {{ request()->attendance->title }} </a>
                                     </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-
                                     <!--end::Item-->
 
                                 </ul>
@@ -56,7 +52,8 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{ url()->previous() }}" class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                <a href="{{ url()->previous() }}"
+                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
                                     <i class="bi bi-arrow-left me-2"></i> Kembali
                                 </a>
                             </div>
@@ -141,11 +138,9 @@
                     <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Syarat & Ketentuan</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Kebijakan Privasi</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>
