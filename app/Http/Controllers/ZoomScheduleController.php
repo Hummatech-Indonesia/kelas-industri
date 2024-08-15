@@ -45,7 +45,6 @@ class ZoomScheduleController extends Controller
      */
     public function create(): mixed
     {
-        // dd(csrf_token());
         $currentSchoolYear = SchoolYearHelper::get_current_school_year();
         if (request()->ajax()) return $this->classroomService->handleGetBySchool(request()->school_id, $currentSchoolYear->id);
 
