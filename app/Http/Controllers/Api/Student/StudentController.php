@@ -18,11 +18,18 @@ class StudentController extends Controller
         $this->service = $studentService;
     }
 
+    /**
+     * getStudentByTeacher
+     *
+     * @param  mixed $teacher
+     * @param  mixed $request
+     * @return JsonResponse
+     */
     public function getStudentByTeacher(User $teacher, Request $request): JsonResponse
     {
         $schoolId = $teacher->teacherSchool->school_id;
         $classroomId = $teacher->teacherSchool->teacherClassroom->classroom_id;
-        $data = $this->service->handleGetStudentByClassroom($schoolId, $classroomId, false);
+        $data = $this->service->handleGetStudentByClassroom($schoolId, $classroomId, false, $request);
 
         return response()->json([
             "message" => "Berhasil mengambil data siswa",
