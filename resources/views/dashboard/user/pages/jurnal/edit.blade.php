@@ -81,7 +81,6 @@
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Judul</label>
 
                                                     <div class="col-lg-9 col-xl-9">
-
                                                         <input class="form-control form-control-solid form-control-lg"
                                                             name="title" type="text" value="{{ $journal->title }}"
                                                             placeholder="Masukkan Judul" required="">
@@ -89,8 +88,13 @@
                                                     </div>
 
                                                 </div>
-                                                <img src="{{ asset('storage/' . $journal->photo) }}" alt=""
-                                                    srcset="" style="width: 260px">
+                                                <div class="form-group row mb-3">
+                                                    <div class="col-xl-3 col-lg-3"></div>
+                                                    <div class="col-lg-9 col-xl-9">
+                                                        <img src="{{ asset('storage/' . $journal->photo) }}" alt=""
+                                                            srcset="" style="width: 260px">
+                                                    </div>
+                                                </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
                                                     <div class="col-lg-9 col-xl-9">
