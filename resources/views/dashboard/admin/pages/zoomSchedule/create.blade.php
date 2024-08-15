@@ -49,7 +49,7 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('admin.zoom-schedules.index') }}"
+                                <a href="{{ route('zoom-schedules.index') }}"
                                     class="btn btn-light-primary font-weight-bolder me-2">
 
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
