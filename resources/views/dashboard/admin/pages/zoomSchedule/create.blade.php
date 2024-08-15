@@ -30,8 +30,8 @@
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('admin.zoom-schedules.store') }}" method="POST" enctype="multipart/form-data">
-                
+            <form action="{{ route('zoom-schedules.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
 

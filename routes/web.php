@@ -88,6 +88,8 @@ Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name
 
 Auth::routes(['login' => true, 'register' => true]);
 
+Route::resource('zoom-schedules', ZoomScheduleController::class);
+
 Route::middleware('auth.custom')->group(function () {
 
     Route::prefix('profile')->name('profile.')->group(function () {
