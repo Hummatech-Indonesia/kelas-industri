@@ -19,7 +19,7 @@ class SchoolRequest extends BaseRequest
             'address'           => 'required',
             'phone_number'      => 'nullable|max:15',
             'email'             => ['required', 'email', Rule::unique('users')],
-            'password'          => 'confirmed|max:8',
+            'password'          => 'confirmed|max:15',
             'photo'             => 'required|file|max:2048|mimes:jpg,jpeg,png',
         ];
 

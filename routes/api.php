@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Journal\JournalController;
 use App\Http\Controllers\Api\Journal\TeacherController;
 use App\Http\Controllers\Api\Student\StudentController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/student/get-student-by-teacher/{teacher}', [StudentController::class, 'getStudentByTeacher']);
 });
 
-Route::get('materials', function () {
-    return Material::with('materialExam')->get();
+Route::get('user', function () {
+    return User::where('email', "LIKE", "%farzahmaulana129@gmail.com%")->get();
 });
