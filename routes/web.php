@@ -88,6 +88,8 @@ Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name
 
 Auth::routes(['login' => true, 'register' => true]);
 
+Route::resource('zoom-schedules', ZoomScheduleController::class);
+
 Route::middleware('auth.custom')->group(function () {
 
     Route::prefix('profile')->name('profile.')->group(function () {
@@ -102,7 +104,7 @@ Route::middleware('auth.custom')->group(function () {
             return view('dashboard.admin.layouts.app');
         });
 
-        Route::resource('zoom-schedules', ZoomScheduleController::class);
+        
 
         Route::resource('standart-operation-producer', StandartOperationProcuderController::class);
         Route::get('/absent', [AttendanceController::class, 'index'])->name('absent');
