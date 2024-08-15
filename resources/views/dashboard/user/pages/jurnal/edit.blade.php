@@ -94,7 +94,7 @@
 
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
 
-                                                    <img src="{{ asset('storage/' . $journal->photo) }}" width="250" alt=""
+                                                    <img src="{{ asset('storage/' . $journal->photo) }}" width="60" alt=""
                                                         srcset="">
                                                     <div class="col-lg-9 col-xl-9">
 
