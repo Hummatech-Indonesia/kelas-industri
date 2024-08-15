@@ -14,19 +14,10 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 class StudentExport implements FromView, ShouldAutoSize
 {
-    use Exportable;
-    protected $request;
-    private StudentService $studentService;
-    private User $school;
-
-    public function __construct(
-        StudentService $studentService,
-        User $school,
-        Request $request,
-    ) {
-        $this->request = $request;
-        $this->school = $school;
-        $this->studentService = $studentService;
+    // use Exportable;
+    protected $students;
+    public function __construct($students) {
+        $this->students = $students;
     }
 
     /**
@@ -34,7 +25,7 @@ class StudentExport implements FromView, ShouldAutoSize
      */
     public function view(): View
     {
-        $students = $this->studentService->getBySchoolPaymentNotPaginate($this->school->id, $this->request);
-        return view('dashboard.finance.pages.trackingPayment.excel', ['students' => $students]);
+        // $students = $this->studentService->getBySchoolPaymentNotPaginate($this->school->id, $this->request);
+        return view('exports.ClassroomStudent', ['students' => $this->students]);
     }
 }

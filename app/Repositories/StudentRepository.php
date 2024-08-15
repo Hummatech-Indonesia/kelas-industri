@@ -56,7 +56,7 @@ class StudentRepository extends BaseRepository
             ->get();
     }
 
-    public function get_by_classroom(string $classroomId, int $limit): mixed
+    public function get_by_classroom_paginate(string $classroomId, int $limit): mixed
     {
         return $this->model->query()
             ->whereHas('studentClassroom', function ($query) use ($classroomId) {
@@ -64,6 +64,15 @@ class StudentRepository extends BaseRepository
             })
             ->whereRelation('student', 'status', 'active')
             ->paginate($limit);
+    }
+    public function get_by_classroom(string $classroomId): mixed
+    {
+        return $this->model->query()
+            ->whereHas('studentClassroom', function ($query) use ($classroomId) {
+                $query->where('classroom_id', $classroomId);
+            })
+            ->whereRelation('student', 'status', 'active')
+            ->get();
     }
 
     /**

@@ -85,13 +85,13 @@
     @endif
 
     <div class="content flex-column-fluid" id="kt_content">
-        <div class="row">
+        <div class="row row-gap-3">
             @if ($errors->any())
                 <div class="col-12">
                     <x-errors-component />
                 </div>
             @endif
-            <div class="col-8">
+            <div class="col col-md-8">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -114,11 +114,15 @@
                                 <!--end::Title-->
                             </div>
                             <div class="card-body">
-                                <div class="d-flex">
+                                <div class="d-flex gap-3">
                                     <form action="" class="d-flex" method="get">
                                         <input type="text" name="name" value="{{ request()->input('name') }}"
                                             placeholder="cari siswa..." class="form-control me-3">
                                         <button type="submit" class="btn btn-primary">Cari</button>
+                                    </form>
+
+                                    <form action="{{ route('admin.export.students', $classroom->id) }}" class="d-flex" method="get">
+                                        <button type="submit" class="btn btn-success">Export</button>
                                     </form>
                                 </div>
                                 @if (count($studentClassroom) > 0)
@@ -153,7 +157,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col col-md-4">
                 <div class="card mb-5 mb-xl-8">
                     <!--begin::Card body-->
                     <div class="card-body">

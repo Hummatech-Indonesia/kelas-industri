@@ -114,6 +114,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/detailKelas/{school}', [ReportController::class, 'show'])->name('detailKelas');
         Route::get('/detailSiswa/{classroom}', [ReportController::class, 'detail'])->name('detailSiswa');
         Route::resource('classrooms', ClassroomController::class)->only('show');
+        Route::get('/classrooms/{classroom}/export', [ClassroomController::class, 'exportStudent'])->name('export.students');
+
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
         Route::get('/detailJurnal/{classroom}/{journal}', [JurnalController::class, 'detailAttendance'])->name('journal.attendance');
 

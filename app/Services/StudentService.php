@@ -50,7 +50,11 @@ class StudentService
 
     public function handleGetByClassroom(string $classroomId): mixed
     {
-        return $this->repository->get_by_classroom($classroomId, 6);
+        return $this->repository->get_by_classroom_paginate($classroomId, 6);
+    }
+    public function handleAllByClassroom(string $classroomId): mixed
+    {
+        return $this->repository->get_by_classroom($classroomId);
     }
 
     public function handleUpdateSchool(Request $request): mixed

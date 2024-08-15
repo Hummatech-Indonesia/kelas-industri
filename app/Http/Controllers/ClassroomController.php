@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentExport;
 use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\ClassroomRequest;
 use App\Models\Classroom;
@@ -15,6 +16,7 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClassroomController extends Controller
 {
@@ -176,5 +178,14 @@ class ClassroomController extends Controller
         if (request()->ajax()) {
             return $this->service->handleGetBySchoolClassroom($request->schoolId);
         }
+    }
+
+
+
+
+    public function exportStudent(Classroom $classroom)
+    {
+        $students = $this->studentService->handleAllByClassroom($classroom->id);
+        return Excel::download(new StudentExport($students), $classroom->school->name . ' - ' . $classroom->name . '.xlsx');
     }
 }
