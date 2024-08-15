@@ -94,6 +94,8 @@
 
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
 
+                                                    <img src="{{ asset('storage/' . $journal->photo) }}" width="250" alt=""
+                                                        srcset="">
                                                     <div class="col-lg-9 col-xl-9">
 
                                                         <input class="form-control form-control-solid form-control-lg"
@@ -193,21 +195,25 @@
                                                         @foreach ($attendances as $attendance)
                                                             {{-- @dd($attendance) --}}
                                                             <tr>
-                                                                <td>{{ $attendance->studentClassroom->studentSchool->student->name }}</td>
-                                                                <td>{{ $attendance->studentClassroom->classroom->name }}</td>
+                                                                <td>{{ $attendance->studentClassroom->studentSchool->student->name }}
+                                                                </td>
+                                                                <td>{{ $attendance->studentClassroom->classroom->name }}
+                                                                </td>
                                                                 <td class="text-center">
                                                                     <div
                                                                         class="form-check form-check-custom form-check-success form-check-solid">
                                                                         <input class="form-check-input" type="radio"
                                                                             value="hadir"
-                                                                            name="attendance[{{ $attendance->id }}]" {{ $attendance->attendance == 'hadir' ? 'checked' : '' }}>
+                                                                            name="attendance[{{ $attendance->id }}]"
+                                                                            {{ $attendance->attendance == 'hadir' ? 'checked' : '' }}>
                                                                     </div>
                                                                 <td class="text-center">
                                                                     <div
                                                                         class="form-check form-check-custom form-check-warning form-check-solid">
                                                                         <input class="form-check-input" type="radio"
                                                                             value="ijin"
-                                                                            name="attendance[{{ $attendance->id }}]" {{ $attendance->attendance == 'ijin' ? 'checked' : '' }}>
+                                                                            name="attendance[{{ $attendance->id }}]"
+                                                                            {{ $attendance->attendance == 'ijin' ? 'checked' : '' }}>
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-center">
@@ -215,7 +221,8 @@
                                                                         class="form-check form-check-custom form-check-danger form-check-solid">
                                                                         <input class="form-check-input" type="radio"
                                                                             value="sakit"
-                                                                            name="attendance[{{ $attendance->id }}]" {{ $attendance->attendance == 'sakit' ? 'checked' : '' }}>
+                                                                            name="attendance[{{ $attendance->id }}]"
+                                                                            {{ $attendance->attendance == 'sakit' ? 'checked' : '' }}>
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-center">
@@ -223,7 +230,8 @@
                                                                         class="form-check form-check-custom form-check-danger form-check-solid">
                                                                         <input class="form-check-input" type="radio"
                                                                             value="alfa"
-                                                                            name="attendance[{{ $attendance->id }}]" {{ $attendance->attendance == 'alfa' ? 'checked' : '' }}>
+                                                                            name="attendance[{{ $attendance->id }}]"
+                                                                            {{ $attendance->attendance == 'alfa' ? 'checked' : '' }}>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -287,6 +295,5 @@
         $("#kt_datatable_responsive").DataTable({
             responsive: true
         });
-
     </script>
 @endsection
