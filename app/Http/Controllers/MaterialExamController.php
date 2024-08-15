@@ -10,6 +10,7 @@ use App\Services\UserServices;
 use App\Services\MentorService;
 use App\Services\TeacherService;
 use App\Enums\MaterialExamTypeEnum;
+use App\Models\StudentMaterialExam;
 use App\Services\MaterialExamService;
 use function PHPUnit\Framework\returnSelf;
 use App\Repositories\MaterialExamRepository;
@@ -182,5 +183,14 @@ class MaterialExamController extends Controller
         $generation = $this->service->generationTeacherClassroom();
         $data['exams'] = $this->repository->getBeforeFinishedByGeneration($generation);
         return view('dashboard.user.pages.studentExam.examMentor', $data);
+    }
+
+    public function reset(StudentMaterialExam $studentMaterialExam) {
+        try {
+            $studentMaterialExam->delete();
+            return back()->with('success', 'berhasil mereset test');
+        } catch (\Throwable $th) {
+            return back()->withError($th->getMessage());
+        }
     }
 }

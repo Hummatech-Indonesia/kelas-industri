@@ -415,6 +415,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::put('add-point/{user}', [StudentController::class, 'addPoint'])->name('add.point');
 
         Route::get('material-exam', [MaterialExamController::class, 'examMentor'])->name('materialExam.index');
+        Route::delete('material-exam/{studentMaterialExam}/reset', [MaterialExamController::class, 'reset'])->name('materialExam.reset');
         Route::get('detail-material-exam/{materialExam}', [MaterialExamController::class, 'examMentorDetail'])->name('detailMaterialExam');
         Route::get('exam-material-assessment/{materialExam}', [MaterialExamController::class, 'examMentorAssessment'])->name('examMaterialAssessment');
 

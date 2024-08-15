@@ -249,13 +249,18 @@
                                                 <th class="min-w-50px text-center">
                                                     <span class="dt-column-title fw-bold">Nilai Soal</span>
                                                 </th>
+                                                <th class="min-w-50px text-center">
+                                                    <span class="dt-column-title fw-bold">Aksi</span>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody class="fw-semibold">
                                             @forelse ($students as $student)
                                                 @php
                                                     $checkExampAnswer = $student->studentMaterialExamAnswers;
-                                                    $checkStudentAnswer = $checkExampAnswer->where('student_exam_id', $student->id)->first();
+                                                    $checkStudentAnswer = $checkExampAnswer
+                                                        ->where('student_exam_id', $student->id)
+                                                        ->first();
                                                 @endphp
                                                 <tr>
                                                     <td class="text-center">
@@ -291,6 +296,19 @@
                                                         <span
                                                             class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->score }}</span>
                                                     </td>
+                                                    <th>
+                                                        <form
+                                                            action="{{ route('mentor.materialExam.reset', $student->id) }}"
+                                                            method="POST" class="reset-form"
+                                                            data-student-name="{{ $student->student->name }}">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                class="btn m-auto btn-danger btn-reset-test">
+                                                                Reset
+                                                            </button>
+                                                        </form>
+                                                    </th>
                                                 </tr>
                                             @empty
                                             @endforelse
@@ -333,4 +351,31 @@
             <!--end::Footer-->
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('.reset-form').submit(function(e) {
+            let studentName = $(this).data('student-name');
+            let form = this;
+
+            e.preventDefault();
+            Swal.fire({
+                    html: `Apakah anda yakin ingin mereset test untuk ${studentName}? `,
+                    icon: "question",
+                    buttonsStyling: false,
+                    showCancelButton: true,
+                    confirmButtonText: "Iya",
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: 'btn btn-danger'
+                    }
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
 @endsection
