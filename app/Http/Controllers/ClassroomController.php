@@ -99,11 +99,11 @@ class ClassroomController extends Controller
      * @return View
      * @throws Exception
      */
-    public function show(Classroom $classroom): View
+    public function show(Classroom $classroom, Request $request): View
     {;
 
         $data = [
-            'studentClassroom' => $this->studentService->handleGetStudentByClassroom($classroom->school->id, $classroom->id, false),
+            'studentClassroom' => $this->studentService->handleGetStudentByClassroom($classroom->school->id, $classroom->id, false, $request),
             'classroom' => $classroom,
             'students' => $this->studentService->handleGetBySchool($classroom->school->id),
         ];
