@@ -140,6 +140,7 @@ class JurnalController extends Controller
 
     public function edit(Journal $journal): View
     {
+        dd($journal);
         $data = $this->GetDataSidebar();
         $data['journal'] = $journal;
         $data['classrooms'] = $this->classroomService->handleGetClassroomByUserJurnal(auth()->id());
