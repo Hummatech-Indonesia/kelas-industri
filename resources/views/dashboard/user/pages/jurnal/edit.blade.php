@@ -287,19 +287,6 @@
         $("#kt_datatable_responsive").DataTable({
             responsive: true
         });
-        $(document).ready(function() {
-            var originalData = @json($attendances);
-            console.log(originalData);
-            var newData = {};
 
-            // for (var id in newData) {
-            //     if (JSON.stringify(newData[id]) !== JSON.stringify(originalData[id])) {
-            //     }
-            // }
-
-            const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
-            datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
-
-        })
     </script>
 @endsection
