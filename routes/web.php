@@ -63,7 +63,6 @@ use App\Http\Controllers\StandartOperationProcuderController;
 use App\Http\Controllers\StudentMaterialExamController;
 use App\Http\Controllers\StudentSubmaterialExamController;
 use App\Http\Controllers\SubMaterialExamQuestionController;
-use App\Http\Controllers\ZoomScheduleNewController;
 use App\Models\StandartOperationProcedure;
 
 /*
@@ -86,7 +85,6 @@ Route::get('/news/{slug}', [WelcomeController::class, 'detail'])->name('detail-n
 Route::get('certify/{material}/{classroom}', [CertifyController::class, 'certify'])->name('certify');
 Route::get('all-school', [SchoolController::class, 'school'])->name('all-school');
 Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name('classroomBySchool');
-Route::post('test-meet-store', [ZoomScheduleNewController::class, 'store'])->name('test.meet.store');
 
 Auth::routes(['login' => true, 'register' => true]);
 
@@ -99,14 +97,13 @@ Route::middleware('auth.custom')->group(function () {
         Route::patch('/update-password/{user}', [ProfileController::class, 'updatePassword'])->name('updatePassword');
     });
 
-
     //admin
     Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
         });
 
-        Route::resource('zoom-schedules', ZoomScheduleController::class)->except('store');
+        Route::resource('zoom-schedules', ZoomScheduleController::class);
 
         Route::resource('standart-operation-producer', StandartOperationProcuderController::class);
         Route::get('/absent', [AttendanceController::class, 'index'])->name('absent');
@@ -116,8 +113,6 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/detailKelas/{school}', [ReportController::class, 'show'])->name('detailKelas');
         Route::get('/detailSiswa/{classroom}', [ReportController::class, 'detail'])->name('detailSiswa');
         Route::resource('classrooms', ClassroomController::class)->only('show');
-        Route::get('/classrooms/{classroom}/export', [ClassroomController::class, 'exportStudent'])->name('export.students');
-
         Route::get('/detailJurnal/{classroom}', [JurnalController::class, 'detailJurnal'])->name('detailJurnal');
         Route::get('/detailJurnal/{classroom}/{journal}', [JurnalController::class, 'detailAttendance'])->name('journal.attendance');
 
