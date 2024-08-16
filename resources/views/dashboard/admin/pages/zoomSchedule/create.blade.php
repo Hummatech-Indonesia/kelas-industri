@@ -87,6 +87,21 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="form-group row mb-3">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Mentor</label>
+                                    <div class="col-lg-9 col-xl-9">
+                                        <select name="mentor_id" class="form-select form-select-solid me-5"
+                                            data-control="select2" data-placeholder="Select an option">
+                                            @foreach ($mentors as $mentor)
+                                                <option {{ old('mentor_id') == $mentor->id ? 'selected' : '' }}
+                                                    value="{{ $mentor->id }}">{{ $mentor->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="form-group row mb-3">
                                     <label class="col-xl-3 col-lg-3 col-form-label">Tanggal</label>
@@ -102,6 +117,22 @@
                                             </span>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group row mb-3">
+
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Link</label>
+
+                                    <div class="col-lg-9 col-xl-9">
+
+                                        <input class="form-control form-control-solid form-control-lg" name="link"
+                                            type="text" value="{{ old('link') }}"
+                                            placeholder="https://zoom.us/j/96417985873?pwd=a2txVnQ5RnZacFMvOTNPT3duall6UT09"
+                                            required="">
+
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
