@@ -86,7 +86,9 @@ Route::get('certify/{material}/{classroom}', [CertifyController::class, 'certify
 Route::get('all-school', [SchoolController::class, 'school'])->name('all-school');
 Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name('classroomBySchool');
 
-Auth::routes(['login' => true, 'register' => true]);
+Route::middleware('guest')->group(function () {
+    Auth::routes(['login' => true, 'register' => true]);
+});
 
 
 Route::middleware('auth.custom')->group(function () {
