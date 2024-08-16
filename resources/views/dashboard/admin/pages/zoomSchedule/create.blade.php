@@ -58,7 +58,7 @@
                                     <label class="col-xl-3 col-lg-3 col-form-label">Judul</label>
                                     <div class="col-lg-9 col-xl-9">
                                         <input type="text" name="title" placeholder="Judul Zoom" class="form-control"
-                                            id="">
+                                            value="{{ old('title') }}" />
                                     </div>
                                 </div>
                             </div>
@@ -70,8 +70,10 @@
                                             data-control="select2" data-placeholder="Select an option" id="schools">
                                             <option value=""></option>
                                             @foreach ($schools as $school)
-                                                <option {{ old('school_id') == $school->id ? 'selected' : '' }}
-                                                    value="{{ $school->id }}">{{ $school->name }}</option>
+                                                <option value="{{ $school->id }}"
+                                                    {{ old('generation_id') == $school->id ? 'selected' : '' }}>
+                                                    {{ $school->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -83,6 +85,11 @@
                                     <div class="col-lg-9 col-xl-9">
                                         <select name="classroom_id" class="form-select form-select-solid me-5"
                                             data-control="select2" data-placeholder="Select an option" id="classrooms">
+                                            @if (old('classroom_id'))
+                                                <option value="{{ old('classroom_id') }}" selected>
+                                                    {{ old('classroom_name') }}
+                                                </option>
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
@@ -95,7 +102,8 @@
                                             data-td-target-toggle="nearest">
                                             <input id="kt_td_picker_basic_2" name="date" type="text"
                                                 class="form-control" data-td-target="#kt_td_picker_basic"
-                                                placeholder="04/03/2023, 14.00" autocomplete="off" />
+                                                placeholder="04/03/2023, 14.00" autocomplete="off"
+                                                value="{{ old('date') }}" />
                                             <span class="input-group-text" data-td-target="#kt_td_picker_basic"
                                                 data-td-toggle="datetimepicker">
                                                 <i class="fas fa-calendar"></i>
@@ -111,8 +119,10 @@
                                         <select name="mentor_id" class="form-select form-select-solid me-5"
                                             data-control="select2" data-placeholder="Select an option">
                                             @foreach ($mentors as $mentor)
-                                                <option {{ old('mentor_id') == $mentor->id ? 'selected' : '' }}
-                                                    value="{{ $mentor->id }}">{{ $mentor->name }}</option>
+                                                <option value="{{ $mentor->id }}"
+                                                    {{ old('mentor_id') == $mentor->id ? 'selected' : '' }}>
+                                                    {{ $mentor->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -123,7 +133,7 @@
                                     <label class="col-xl-3 col-lg-3 col-form-label">Link Zoom</label>
                                     <div class="col-lg-9 col-xl-9">
                                         <input type="url" name="linked" class="form-control"
-                                            placeholder="Inputkan Link Zoom" id="">
+                                            placeholder="Inputkan Link Zoom" value="{{ old('linked') }}" />
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +152,6 @@
             const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
             datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s');
 
-
             $('#schools').change(function() {
                 $.ajax({
                     method: 'GET',
@@ -151,23 +160,27 @@
                         school_id: $(this).val()
                     },
                     success: function(classrooms) {
-                        $('#classrooms').html('')
-                        console.log(classrooms)
-                        let html = ''
+                        $('#classrooms').html('');
+                        console.log(classrooms);
+                        let html = '';
 
                         classrooms.map(classroom => {
                             html +=
-                                `<option
-                                    (old('classsroom_id') == ${classroom.id}) ? 'selected' : '' value="${classroom.id}">${classroom.name} - ${classroom.generation.school_year.school_year} </option>`
-                        })
+                                `<option value="${classroom.id}" ${classroom.id == {{ old('classroom_id') }} ? 'selected' : ''}>${classroom.name} - ${classroom.generation.school_year.school_year}</option>`;
+                        });
 
-                        $('#classrooms').html(html)
+                        $('#classrooms').html(html);
                     },
                     error: function(response) {
-                        console.log(response.responseText)
+                        console.log(response.responseText);
                     }
-                })
-            })
+                });
+            });
+
+            // Trigger event change manually to load classrooms if school is selected
+            @if (old('generation_id'))
+                $('#schools').trigger('change');
+            @endif
         });
     </script>
 @endsection
