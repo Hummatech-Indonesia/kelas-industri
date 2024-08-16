@@ -3,8 +3,6 @@
     use Illuminate\Support\Carbon;
 
     $assigments = [];
-    $currentAssignmentCount = request()->submaterial->assignments->count() != 0 ? request()->submaterial->assignments->StudentSubmitAssignment->where('student_id', auth()->user()->id)->count() == request()->submaterial->assignments->count() : true;
-    $currentSubmaterialExam = request()->submaterial->exam ? request()->submaterial->exam->studentSubmaterialExams->where('student_id', auth()->user()->id) != null : true;
 @endphp
 @extends('dashboard.user.layouts.wide')
 @section('style')
@@ -806,7 +804,6 @@
                                 </div>
                                 <div class="d-flex justify-content-end align-items-center color-gray-700 next-sub-materials">
                                     @foreach ($listSubMaterials as $listSubMaterial)
-                                    @if ($currentAssignmentCount && $currentSubmaterialExam)
                                         <a @if (auth()->user()->roles->pluck('name')[0] == 'student') href="{{ route('common.showDocument', [$listSubMaterial->id, 'student']) }}"
                                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'student')
                                                 href="{{ route('common.showDocument', [$listSubMaterial->id, 'teacher']) }}"
@@ -831,8 +828,6 @@
                                                 </svg>
                                             </div>
                                         </a>
-                                    @endif
-
                                     @endforeach
                                 </div>
                             </div>
