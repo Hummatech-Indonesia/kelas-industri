@@ -36,7 +36,7 @@ class ZoomScheduleService
      * @param ZoomScheduleRequest $request
      * @return void
      */
-    public function handleCreate(Request $request): void
+    public function handleCreate(ZoomScheduleRequest $request): void
     {
         $this->repository->store($request->validated());
     }
