@@ -317,7 +317,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('salary-mentor/show', [AdminitrasionController::class, 'showSalaryMentor'])->name('salary-mentor.show');
 
         Route::get('dependent/{school}', [DependentController::class, 'index'])->name('dependent.index');
-        Route::resource('dependent', DependentController::class)->only('store', 'update');
+        Route::resource('dependent', DependentController::class)->except('index');
         Route::resources([
             'tracking' => TrackingPaymentController::class,
             'package' => PackageController::class,

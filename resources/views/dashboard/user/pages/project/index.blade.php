@@ -2,6 +2,25 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('app-assets/plugins/global/plugins.bundle.css') }}" type="text/css">
+    <style>
+       #listTask {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* Default for desktop */
+}
+
+@media (max-width: 1024px) {
+    #listTask {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* Tablet view */
+    }
+}
+
+@media (max-width: 640px) {
+    #listTask {
+        grid-template-columns: repeat(1, minmax(0, 1fr)); /* Mobile view */
+    }
+}
+
+    </style>
 @endsection
 
 @section('content')
@@ -32,7 +51,8 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('student.projects.index') }}" class="text-muted text-hover-primary">
+                                        <a href="{{ route('student.projects.index') }}"
+                                            class="text-muted text-hover-primary">
                                             Project </a>
                                     </li>
                                     <!--end::Item-->
@@ -149,7 +169,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <div class="fs-4 fw-bold">
                                                         {{ $project && $project->start != null? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }}
-                                                            {{-- {{ $project->start != null? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }} --}}
+                                                        {{-- {{ $project->start != null? \Carbon\Carbon::parse($project->start)->locale('id')->isoFormat('D MMMM YYYY'): '-' }} --}}
                                                     </div>
                                                 </div>
                                                 <!--end::Number-->
@@ -264,9 +284,9 @@
                                     <!--end::Heading-->
                                 </div>
                                 <div style="overflow-x: auto; width: 100%">
-                                    <div class="d-flex flex-nowrap" style="min-width: 100%">
+                                    <div id="listTask" style="min-width: 100%;">
                                         <!-- Ubah class row menjadi d-flex dan tambahkan flex-nowrap -->
-                                        <div class="col-md-3 col-lg-12 col-xl-3 me-5">
+                                        <div class="">
                                             <!--begin::Col header-->
                                             <div class="mb-9">
                                                 <div class="d-flex flex-stack">
@@ -320,7 +340,6 @@
                                                     </div>
 
                                                 </div>
-
                                                 <div class="h-3px w-100 bg-warning"></div>
                                             </div>
                                             <div style="overflow-y: auto; max-height: 550px;">
@@ -487,11 +506,14 @@
                                                     @endif
                                                 @endforeach
                                             </div>
-                                            <a href="#" class="btn {{ in_array($project->status, ['not_approved', 'pending'])? 'btn-secondary': 'btn-primary'}} w-100 fs-6 px-8 py-4"
-                                                data-bs-toggle="modal" data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending'])? 'disabled': 'kt_modal_new_target'}}">Buat Tugas
+                                            <a href="#"
+                                                class="btn {{ in_array($project->status, ['not_approved', 'pending']) ? 'btn-secondary' : 'btn-primary' }} w-100 fs-6 px-8 py-4"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending']) ? 'disabled' : 'kt_modal_new_target' }}">Buat
+                                                Tugas
                                                 Baru</a>
                                         </div>
-                                        <div class="col-md-3 col-lg-12 col-xl-3 me-5">
+                                        <div class="">
                                             <!--begin::Col header-->
                                             <div class="mb-9">
                                                 <div class="d-flex flex-stack">
@@ -669,7 +691,7 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-lg-12 col-xl-3 me-5">
+                                        <div class="">
                                             <div class="mb-9">
                                                 <div class="d-flex flex-stack">
                                                     <div class="fw-bold fs-4">
@@ -845,7 +867,7 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-lg-12 col-xl-3 me-5">
+                                        <div class="">
                                             <!--begin::Col header-->
                                             <div class="mb-9">
                                                 <div class="d-flex flex-stack">
@@ -940,7 +962,7 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-lg-12 col-xl-3">
+                                        <div class="">
                                             <!--begin::Col header-->
                                             <div class="mb-9">
                                                 <div class="d-flex flex-stack">
@@ -1155,7 +1177,8 @@
                                                         <!--begin::Toolbar-->
                                                         <div class="card-toolbar">
                                                             <button type="submit"
-                                                                class="btn btn-sm {{ in_array($project->status, ['not_approved', 'pending'])? 'btn-secondary': 'btn-success'}}" {{ in_array($project->status, ['not_approved', 'pending'])? 'disabled': ''}}>Simpan</button>
+                                                                class="btn btn-sm {{ in_array($project->status, ['not_approved', 'pending']) ? 'btn-secondary' : 'btn-success' }}"
+                                                                {{ in_array($project->status, ['not_approved', 'pending']) ? 'disabled' : '' }}>Simpan</button>
                                                         </div>
                                                         <!--end::Toolbar-->
                                                     </div>
@@ -1245,8 +1268,9 @@
                                                         anda.</span>
                                                 </h3>
 
-                                                <div class="btn btn-sm {{ in_array($project->status, ['not_approved', 'pending'])? 'btn-secondary': 'btn-primary'}} mb-5" data-bs-toggle="modal"
-                                                    data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending'])? '': 'kt_modal_new_project'}}">
+                                                <div class="btn btn-sm {{ in_array($project->status, ['not_approved', 'pending']) ? 'btn-secondary' : 'btn-primary' }} mb-5"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#{{ in_array($project->status, ['not_approved', 'pending']) ? '' : 'kt_modal_new_project' }}">
                                                     Ajukan Presentasi
                                                 </div>
                                             </div>
@@ -1258,7 +1282,8 @@
                                                             <th class="min-w-100px" data-priority="2">Deskripsi</th>
                                                             <th class="min-w-100px" data-priority="3">Tanggal</th>
                                                             <th class="min-w-100px" data-priority="4">List Presentasi</th>
-                                                            <th class="min-w-100px" data-priority="5">Status Presentasi</th>
+                                                            <th class="min-w-100px" data-priority="5">Status Presentasi
+                                                            </th>
                                                             <th class="min-w-100px" data-priority="5">Aksi</th>
                                                         </tr>
                                                     </thead>
@@ -1297,10 +1322,13 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    @if($presentation->status == 'not_approved')
-                                                                    <span class="badge badge-primary px-4 py-3" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#kt_modal_new_project">
-                                                                        Ajukan Lagi
-                                                                    </span>
+                                                                    @if ($presentation->status == 'not_approved')
+                                                                        <span class="badge badge-primary px-4 py-3"
+                                                                            style="cursor: pointer;"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#kt_modal_new_project">
+                                                                            Ajukan Lagi
+                                                                        </span>
                                                                     @endif
                                                                 </td>
                                                             </tr>
@@ -1361,9 +1389,8 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox"
-                                                        disabled
-                                                        {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation? 'checked': ''}}>
+                                                        <input class="form-check-input" type="checkbox" disabled
+                                                            {{ isset($presentationFinishes[0]) && $presentationFinishes[0]->presentation ? 'checked' : '' }}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1533,11 +1560,9 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox"
-                                                        disabled
-                                                        {{ isset($presentationFinishes[1]) && $presentationFinishes[1]->presentation? 'checked': ''}}
-                                                        >
-                                                        </div>
+                                                        <input class="form-check-input" type="checkbox" disabled
+                                                            {{ isset($presentationFinishes[1]) && $presentationFinishes[1]->presentation ? 'checked' : '' }}>
+                                                    </div>
                                                     <!--end::Checkbox-->
 
                                                     <!--begin::Details-->
@@ -1705,8 +1730,8 @@
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
                                                         <input class="form-check-input" type="checkbox" value="true"
-                                                        disabled
-                                                        {{ isset($presentationFinishes[2]) && $presentationFinishes[2]->presentation? 'checked': ''}}>
+                                                            disabled
+                                                            {{ isset($presentationFinishes[2]) && $presentationFinishes[2]->presentation ? 'checked' : '' }}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -1875,10 +1900,8 @@
 
                                                     <!--begin::Checkbox-->
                                                     <div class="form-check form-check-custom form-check-solid ms-6 me-4">
-                                                        <input class="form-check-input" type="checkbox"
-                                                        disabled
-                                                        {{ isset($presentationFinishes[3]) && $presentationFinishes[3]->presentation? 'checked': ''}}
-                                                        >
+                                                        <input class="form-check-input" type="checkbox" disabled
+                                                            {{ isset($presentationFinishes[3]) && $presentationFinishes[3]->presentation ? 'checked' : '' }}>
                                                     </div>
                                                     <!--end::Checkbox-->
 
@@ -2176,9 +2199,9 @@
                                     <!--end::Card header-->
 
                                     <!--begin::Form-->
-                                    <form id="kt_project_settings_form"
-                                    action="{{ route('student.projects.store') }}" method="post"
-                                        class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+                                    <form id="kt_project_settings_form" action="{{ route('student.projects.store') }}"
+                                        method="post" class="form fv-plugins-bootstrap5 fv-plugins-framework"
+                                        novalidate="novalidate">
                                         @csrf
                                         <!--begin::Card body-->
                                         <div class="card-body p-9">
@@ -2363,7 +2386,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="total_pay" class="mb-2">Deskripsi Project</label>
-                            <textarea name="description" class="form-control" id="" cols="30"placeholder="Masukkan deskripsi project" rows="5">{{ $project ? $project->description : '' }}</textarea>
+                            <textarea name="description" class="form-control" id=""
+                                cols="30"placeholder="Masukkan deskripsi project" rows="5">{{ $project ? $project->description : '' }}</textarea>
                         </div>
                         <div class="mb-5">
                             <label for="payment_date" class="mb-2">Tenggat Project</label>

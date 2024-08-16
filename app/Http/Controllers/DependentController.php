@@ -42,9 +42,21 @@ class DependentController extends Controller
         return redirect()->back()->with('success', trans('alert.update_success'));
     }
 
-    public function semester($semester,User $user)
+    /**
+     * delete
+     *
+     * @param  mixed $dependent
+     * @return void
+     */
+    public function destroy(Dependent $dependent)
     {
-        $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', $user->id)->where('invoice_status','paid')->sum('total_pay');
+        $this->service->handleDelete($dependent);
+        return redirect()->back()->with('success', trans('alert.delete_success'));
+    }
+
+    public function semester($semester, User $user)
+    {
+        $data['totalBayar'] = Payment::where('semester', $semester)->where('user_id', $user->id)->where('invoice_status', 'paid')->sum('total_pay');
         $data['nominal'] = Dependent::where('semester', $semester)->where('classroom_id', $user->studentSchool->studentClassroom->classroom->id)->select('nominal')->first();
         return response()->json($data);
     }

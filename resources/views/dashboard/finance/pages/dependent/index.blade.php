@@ -101,6 +101,12 @@
                                                 data-bs-placement="top" data-bs-custom-class="custom-tooltip"
                                                 data-bs-title="Edit Data">
                                                 <i class="fa-regular fa-pen-to-square fs-3 text-warning"></i> </button>
+                                            <form action="{{ route('administration.dependent.destroy', $dependent->id) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit">Hapus</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -157,7 +163,8 @@
                             @endforeach
                         </select>
                         <label class="form-label mt-3" for="nominal">Tenggat Pembayaran</label>
-                        <input class="form-control kt_datepicker" name="deadline" placeholder="Masukkan tenggat bulan pembayaran"/>
+                        <input class="form-control kt_datepicker" name="deadline"
+                            placeholder="Masukkan tenggat bulan pembayaran" />
                         <label class="form-label mt-3" for="nominal">Nominal</label>
                         <div class="input-group">
                             <span class="input-group-text">Rp</span>
@@ -203,8 +210,8 @@
                             <option value="6">Semester 6</option>
                         </select>
                         <label class="form-label mt-3" for="nominal">Tenggat Pembayaran</label>
-                        <input class="form-control kt_datepicker" name="deadline" placeholder="Masukkan tenggat bulan pembayaran"
-                            id="deadlineEdit" />
+                        <input class="form-control kt_datepicker" name="deadline"
+                            placeholder="Masukkan tenggat bulan pembayaran" id="deadlineEdit" />
                         <label class="form-label mt-3" for="nominal">Nominal</label>
                         <div class="input-group">
                             <span class="input-group-text">Rp</span>
@@ -283,6 +290,5 @@
             enableTime: false,
             dateFormat: "Y-m-d",
         });
-
     </script>
 @endsection

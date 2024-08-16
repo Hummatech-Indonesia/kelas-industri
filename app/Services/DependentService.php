@@ -16,7 +16,8 @@ class DependentService
         $this->repository = $repository;
     }
 
-    public function handleGetLatest(): mixed {
+    public function handleGetLatest(): mixed
+    {
         return $this->repository->getLatest();
     }
 
@@ -48,5 +49,10 @@ class DependentService
     public function handleGetByClassroomSemester(String $classroomId, String $semester): mixed
     {
         return $this->repository->getByClassroomSemester($classroomId, $semester);
+    }
+
+    public function handleDelete(Dependent $dependent)
+    {
+        return $this->repository->delete($dependent->id);
     }
 }

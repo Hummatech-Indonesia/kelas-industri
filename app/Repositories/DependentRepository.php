@@ -13,7 +13,8 @@ class DependentRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function getLatest(): mixed {
+    public function getLatest(): mixed
+    {
         return $this->model->query()->latest()->first();
     }
 
@@ -68,10 +69,10 @@ class DependentRepository extends BaseRepository
     public function getTotalDependent(String $semester, String $classroomId)
     {
         return $this->model->query()
-        ->where('classroom_id', $classroomId)
-        ->where('semester', $semester)
-        ->select('nominal')
-        ->first();
+            ->where('classroom_id', $classroomId)
+            ->where('semester', $semester)
+            ->select('nominal')
+            ->first();
     }
 
     public function getByClassroomSemester(String $classroomId, String $semester): mixed
@@ -82,4 +83,10 @@ class DependentRepository extends BaseRepository
             ->first();
     }
 
+    public function delete(mixed $id)
+    {
+        return $this->model->query()
+            ->findOrFail($id)
+            ->delete();
+    }
 }
