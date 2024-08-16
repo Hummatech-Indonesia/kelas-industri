@@ -38,6 +38,7 @@ class ZoomScheduleService
      */
     public function handleCreate(ZoomScheduleRequest $request): void
     {
+        dd($request->validated());
         $this->repository->store($request->validated());
     }
 
