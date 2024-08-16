@@ -67,7 +67,7 @@ class StudentMaterialExamController extends Controller
                 return view('dashboard.user.pages.studentMaterialExam.exam', $data);
             }
 
-            if(!isNull($studentExam->finished_exam)) {
+            if(!is_null($studentExam->finished_exam)) {
                 return back()->with('error', 'anda sudah mengerjakan');
             }
 
