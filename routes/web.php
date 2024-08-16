@@ -63,6 +63,7 @@ use App\Http\Controllers\StandartOperationProcuderController;
 use App\Http\Controllers\StudentMaterialExamController;
 use App\Http\Controllers\StudentSubmaterialExamController;
 use App\Http\Controllers\SubMaterialExamQuestionController;
+use App\Http\Controllers\ZoomScheduleNewController;
 use App\Models\StandartOperationProcedure;
 
 /*
@@ -97,14 +98,15 @@ Route::middleware('auth.custom')->group(function () {
         Route::patch('/update-password/{user}', [ProfileController::class, 'updatePassword'])->name('updatePassword');
     });
 
+    Route::post('zoom', [ZoomScheduleNewController::class, 'store'])->name('zoom.store');
+
     //admin
     Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
         });
 
-        Route::resource('zoom-schedules', ZoomScheduleController::class);
-        Route::post('store-zoom-schedules', [ZoomScheduleController::class, 'storeNew'])->name('store.zoom.schedules');
+        Route::resource('zoom-schedules', ZoomScheduleController::class)->except('store');
 
         Route::resource('standart-operation-producer', StandartOperationProcuderController::class);
         Route::get('/absent', [AttendanceController::class, 'index'])->name('absent');

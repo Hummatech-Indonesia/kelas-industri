@@ -13,7 +13,6 @@ use App\Services\ClassroomService;
 use App\Services\ZoomScheduleService;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ZoomScheduleRequest;
-use Illuminate\Http\Request;
 
 class ZoomScheduleController extends Controller
 {
@@ -64,19 +63,6 @@ class ZoomScheduleController extends Controller
      * @return RedirectResponse
      */
     public function store(ZoomScheduleController $request): RedirectResponse
-    {
-        $this->service->handleCreate($request);
-
-        return to_route('admin.zoom-schedules.index')->with('success', trans('alert.add_success'));
-    }
-
-    /**
-     * storeNew
-     *
-     * @param  mixed $request
-     * @return RedirectResponse
-     */
-    public function storeNew(ZoomScheduleRequest $request): RedirectResponse
     {
         $this->service->handleCreate($request);
 
