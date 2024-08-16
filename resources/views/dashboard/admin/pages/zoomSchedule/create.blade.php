@@ -68,20 +68,29 @@
                                             id="">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group row mb-5">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Pengguna</label>
+                                <div class="form-group row mb-3">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Sekolah</label>
                                     <div class="col-lg-9 col-xl-9">
-                                        <select name="for_user" class="form-control" id="">
-                                            <option value="">Pilih Pengguna</option>
-                                            <option value="student">Siswa</option>
-                                            <option value="mentor">Mentor</option>
-                                            <option value="teacher">Guru</option>
+                                        <select class="form-select form-select-solid me-5" data-control="select2"
+                                            data-placeholder="Select an option" id="schools">
+                                            <option value=""></option>
+                                            @foreach ($schools as $school)
+                                                <option {{ old('school_id') == $school->id ? 'selected' : '' }}
+                                                    value="{{ $school->id }}">{{ $school->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
+                                    <div class="col-lg-9 col-xl-9">
+                                        <select name="classroom_id" class="form-select form-select-solid me-5"
+                                            data-control="select2" data-placeholder="Select an option" id="classrooms">
                                         </select>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>
@@ -90,18 +99,37 @@
         </div>
     </div>
 @endsection
-<script src="{{ asset('app-assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
 @section('script')
     <script>
         $(document).ready(function() {
-            ClassicEditor
-                .create(document.querySelector('#kt_docs_ckeditor_classic'))
-                .then(editor => {
-                    console.log(editor);
+            const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
+            datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
+
+            $('#schools').change(function() {
+                $.ajax({
+                    method: 'GET',
+                    url: '{{ route('admin.zoom-schedules.create') }}',
+                    data: {
+                        school_id: $(this).val()
+                    },
+                    success: function(classrooms) {
+                        $('#classrooms').html('')
+                        console.log(classrooms)
+                        let html = ''
+
+                        classrooms.map(classroom => {
+                            html +=
+                                `<option
+                                    (old('classsroom_id') == ${classroom.id}) ? 'selected' : '' value="${classroom.id}">${classroom.name} - ${classroom.generation.school_year.school_year} </option>`
+                        })
+
+                        $('#classrooms').html(html)
+                    },
+                    error: function(response) {
+                        console.log(response.responseText)
+                    }
                 })
-                .catch(error => {
-                    console.error(error);
-                });
+            })
         })
     </script>
 @endsection
