@@ -14,7 +14,7 @@
 
             <!--begin::Breadcrumb-->
             <p class="text-muted m-0">
-                Halaman tambah jadwal zoom
+                Halaman Tambah Jadwal Zoom
             </p>
             <!--end::Breadcrumb-->
         </div>
@@ -30,151 +30,127 @@
     @endif
     <div class="content flex-column-fluid" id="kt_content">
         <div class="row">
-            <form action="{{ route('zoom-schedules.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.zoom-schedules.store') }}" method="POST" enctype="multipart/form-data">
+                @method('POST')
                 @csrf
                 <div class="col-12">
                     <div class="card card-custom card-sticky" id="kt_page_sticky_card">
-
                         <div class="card-header" style="">
-
                             <div class="card-title">
-
                                 <h3 class="card-label">
-
-                                    Silakan Isi Data Jadwal Zoom
-
+                                    Silakan Isi Jadwal Zoom
                                 </h3>
-
                             </div>
 
                             <div class="card-toolbar">
-
                                 <a href="{{ route('admin.zoom-schedules.index') }}"
                                     class="btn btn-light-primary font-weight-bolder me-2">
-
                                     <i class="ki ki-long-arrow-back icon-sm"></i>
-
                                     Kembali
-
                                 </a>
 
                                 <div class="btn-group">
-
                                     <button type="submit" class="btn btn-primary font-weight-bolder">
 
                                         <i class="ki ki-check icon-sm"></i>
-
                                         Simpan
-
                                     </button>
-
                                 </div>
-
                             </div>
-
                         </div>
 
                         <div class="card-body">
+                            <div class="form-group row mb-3">
 
-                            <div class="row">
-                                <div class="form-group row mb-3">
+                                <label class="col-xl-3 col-lg-3 col-form-label">Judul</label>
 
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Judul</label>
+                                <div class="col-lg-9 col-xl-9">
 
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg" name="title"
-                                            type="text" value="{{ old('title') }}"
-                                            placeholder="Jadwal Zoom SMKN 1 Kepanjen" required="">
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Sekolah</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <select name="generation_id" class="form-select form-select-solid me-5"
-                                            data-control="select2" data-placeholder="Select an option" id="schools">
-                                            <option value=""></option>
-                                            @foreach ($schools as $school)
-                                                <option {{ old('school_id') == $school->id ? 'selected' : '' }}
-                                                    value="{{ $school->id }}">{{ $school->name }}</option>
-                                            @endforeach
-                                        </select>
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <select name="classroom_id" class="form-select form-select-solid me-5"
-                                            data-control="select2" data-placeholder="Select an option" id="classrooms">
-                                        </select>
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Mentor</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <select name="mentor_id" class="form-select form-select-solid me-5"
-                                            data-control="select2" data-placeholder="Select an option">
-                                            @foreach ($mentors as $mentor)
-                                                <option {{ old('mentor_id') == $mentor->id ? 'selected' : '' }}
-                                                    value="{{ $mentor->id }}">{{ $mentor->name }}</option>
-                                            @endforeach
-                                        </select>
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Tanggal</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
-                                            data-td-target-toggle="nearest">
-                                            <input id="kt_td_picker_basic_2" name="date" type="text"
-                                                class="form-control" data-td-target="#kt_td_picker_basic"
-                                                placeholder="04/03/2023, 14.00" autocomplete="off" />
-                                            <span class="input-group-text" data-td-target="#kt_td_picker_basic"
-                                                data-td-toggle="datetimepicker">
-                                                <i class="fas fa-calendar"></i>
-                                            </span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group row mb-3">
-
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Link</label>
-
-                                    <div class="col-lg-9 col-xl-9">
-
-                                        <input class="form-control form-control-solid form-control-lg" name="link"
-                                            type="text" value="{{ old('link') }}"
-                                            placeholder="https://zoom.us/j/96417985873?pwd=a2txVnQ5RnZacFMvOTNPT3duall6UT09"
-                                            required="">
-
-                                    </div>
-
+                                    <input class="form-control form-control-solid form-control-lg" name="title"
+                                        type="text" value="{{ old('title') }}" placeholder="Jadwal Zoom SMKN 1 Kepanjen"
+                                        required="">
                                 </div>
                             </div>
+                            <div class="form-group row mb-3">
 
+                                <label class="col-xl-3 col-lg-3 col-form-label">Sekolah</label>
+
+                                <div class="col-lg-9 col-xl-9">
+
+                                    <select name="generation_id" class="form-select form-select-solid me-5"
+                                        data-control="select2" data-placeholder="Select an option" id="schools">
+                                        <option value=""></option>
+                                        @foreach ($schools as $school)
+                                            <option {{ old('school_id') == $school->id ? 'selected' : '' }}
+                                                value="{{ $school->id }}">{{ $school->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row mb-3">
+
+                                <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
+
+                                <div class="col-lg-9 col-xl-9">
+
+                                    <select name="classroom_id" class="form-select form-select-solid me-5"
+                                        data-control="select2" data-placeholder="Select an option" id="classrooms">
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row mb-3">
+
+                                <label class="col-xl-3 col-lg-3 col-form-label">Mentor</label>
+
+                                <div class="col-lg-9 col-xl-9">
+
+                                    <select name="mentor_id" class="form-select form-select-solid me-5"
+                                        data-control="select2" data-placeholder="Select an option">
+                                        @foreach ($mentors as $mentor)
+                                            <option {{ old('mentor_id') == $mentor->id ? 'selected' : '' }}
+                                                value="{{ $mentor->id }}">{{ $mentor->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row mb-3">
+
+                                <label class="col-xl-3 col-lg-3 col-form-label">Tanggal</label>
+
+                                <div class="col-lg-9 col-xl-9">
+
+                                    <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest"
+                                        data-td-target-toggle="nearest">
+                                        <input id="kt_td_picker_basic_2" name="date" type="text" class="form-control"
+                                            data-td-target="#kt_td_picker_basic" placeholder="04/03/2023, 14.00"
+                                            autocomplete="off" />
+                                        <span class="input-group-text" data-td-target="#kt_td_picker_basic"
+                                            data-td-toggle="datetimepicker">
+                                            <i class="fas fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+
+                                <label class="col-xl-3 col-lg-3 col-form-label">Link</label>
+
+                                <div class="col-lg-9 col-xl-9">
+
+                                    <input class="form-control form-control-solid form-control-lg" name="link"
+                                        type="text" value="{{ old('link') }}"
+                                        placeholder="https://zoom.us/j/96417985873?pwd=a2txVnQ5RnZacFMvOTNPT3duall6UT09"
+                                        required="">
+
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>
@@ -183,6 +159,7 @@
         </div>
     </div>
 @endsection
+<script src="{{ asset('app-assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
 @section('script')
     <script>
         $(document).ready(function() {
