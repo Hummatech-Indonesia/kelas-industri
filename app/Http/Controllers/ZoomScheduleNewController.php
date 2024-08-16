@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class ZoomScheduleNewController extends Controller
 {
-    private ZoomScheduleRepository $repository;
-    public function __construct(ZoomScheduleRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     /**
      * store
      *
