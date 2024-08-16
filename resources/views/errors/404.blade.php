@@ -24,7 +24,7 @@ License: For each use you must have a valid license purchased only from above li
             Grab your copy now and get life-time updates for free.
         " />
     <meta name="keywords"
-        content="   
+        content="
             metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js,
             Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates,
             free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button,
@@ -163,10 +163,10 @@ License: For each use you must have a valid license purchased only from above li
                         <!--end::Illustration-->
 
                         <!--begin::Link-->
-                        <div class="mb-0">
+                        {{-- <div class="mb-0">
                             <a href="{{ route('home') }}" class="btn btn-sm btn-primary">Return
                                 Home</a>
-                        </div>
+                        </div> --}}
                         <!--end::Link-->
 
                     </div>
