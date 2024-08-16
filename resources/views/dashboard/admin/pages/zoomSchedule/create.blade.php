@@ -118,6 +118,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group row mb-3">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Link Zoom</label>
+                                    <div class="col-lg-9 col-xl-9">
+                                        <input type="url" name="linked" class="form-control"
+                                            placeholder="Inputkan Link Zoom" id="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
