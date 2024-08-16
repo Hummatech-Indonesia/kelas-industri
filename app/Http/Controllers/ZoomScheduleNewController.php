@@ -22,6 +22,7 @@ class ZoomScheduleNewController extends Controller
      */
     public function store(ZoomScheduleRequest $request)
     {
+        dd('test');
         $this->repository->store($request->validated());
     }
 }
