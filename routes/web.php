@@ -450,18 +450,20 @@ Route::middleware('auth.custom')->group(function () {
     });
     //end mentor
 
-    //mentor, student, teacher
-    Route::name('common.')->group(function () {
-        Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
-        Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
-        Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
-        Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
-        Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
-        Route::get('/showDocument/{submaterial}/{role}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
-        Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
-        Route::get('schedules/get-all', [ScheduleController::class, 'all'])->name('schedules.all');
+    Route::middleware(['auth', 'role:student|mentor|teacher'])->group(function () {
+        //mentor, student, teacher
+        Route::name('common.')->group(function () {
+            Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
+            Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
+            Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
+            Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
+            Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
+            Route::get('/showDocument/{submaterial}/{role}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+            Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
+            Route::get('schedules/get-all', [ScheduleController::class, 'all'])->name('schedules.all');
+        });
+        //end mentor, student, teacher
     });
-    //end mentor, student, teacher
 
     //student
     Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
