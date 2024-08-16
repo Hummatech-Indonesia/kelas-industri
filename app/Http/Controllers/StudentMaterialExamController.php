@@ -14,6 +14,8 @@ use App\Repositories\StudentMaterialExamRepository;
 use App\Repositories\MaterialExamQuestionRepository;
 use App\Repositories\StudentMaterialExamAnswerRepository;
 
+use function PHPUnit\Framework\isNull;
+
 class StudentMaterialExamController extends Controller
 {
     private MaterialExamQuestionRepository $examQuestion;
@@ -64,6 +66,11 @@ class StudentMaterialExamController extends Controller
                 $data['type'] = $type;
                 return view('dashboard.user.pages.studentMaterialExam.exam', $data);
             }
+
+            if(!isNull($studentExam->finished_exam)) {
+                return back()->with('error', 'anda sudah mengerjakan');
+            }
+
             $studentExam->update([
                 'score' => null,
                 // 'deadline' => now()->addMinutes($materialExam->time),
