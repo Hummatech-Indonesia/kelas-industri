@@ -30,8 +30,15 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route(auth()->user()->roles->pluck('name')[0] == 'teacher' ? 'teacher' : 'mentor' . '.journal.index') }}" class="text-muted text-hover-primary">
-                                            Jurnal </a>
+                                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                            <a href="{{ route('teacher.journal.index') }}"
+                                                class="text-muted text-hover-primary">
+                                                Jurnal </a>
+                                        @else
+                                            <a href="{{ route('mentor.journal.index') }}"
+                                                class="text-muted text-hover-primary">
+                                                Jurnal </a>
+                                        @endif
                                     </li>
                                     <!--end::Item-->
 
