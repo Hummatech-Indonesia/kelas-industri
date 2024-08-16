@@ -62,14 +62,14 @@
                                         <select class="form-select form-select-solid form-select-sm" name="school_id"
                                             data-control="select2" id="select-school" data-placeholder="Pilih sekolah">
                                             {{-- Options will be populated by Ajax --}}
-                                            <option value="null" selected>Semua sekolah</option>
+                                            <option value="" selected>Semua sekolah</option>
                                         </select>
                                     </div>
                                     <div class="col-auto">
                                         <select class="form-select form-select-solid form-select-sm" name="classroom_id"
                                             data-control="select2" id="select-classroom" data-placeholder="Pilih kelas">
                                             {{-- Options will be populated by Ajax --}}
-                                            <option value="null" selected>Semua kelas</option>
+                                            <option value="" selected>Semua kelas</option>
                                         </select>
                                     </div>
                                     <div class="col-auto">

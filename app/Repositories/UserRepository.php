@@ -264,13 +264,13 @@ class UserRepository extends BaseRepository
             ->withCount(['journals'])
             ->with(['teacherSchool.teacherClassrooms.classroom' => function ($query) {
                 $query->withCount([
-                //     'assignments as total_submissions' => function ($query) {
-                //     $query->withCount('StudentSubmitAssignment');
-                // },
-                'challenges as total_challenges' => function ($query) {
-                    $query->withCount('StudentChallenge');
-                }
-            ]);
+                    //     'assignments as total_submissions' => function ($query) {
+                    //     $query->withCount('StudentSubmitAssignment');
+                    // },
+                    'challenges as total_challenges' => function ($query) {
+                        $query->withCount('StudentChallenge');
+                    }
+                ]);
             }])
             ->get();
     }
