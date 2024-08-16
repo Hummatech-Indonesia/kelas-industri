@@ -10,7 +10,7 @@
 
 <body>
 
-    <form action="{{ route('admin.zoom-schedules.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.zoom-schedules.store') }}" method="post">
         @csrf
         <div class="col-12">
             <div class="card card-custom card-sticky" id="kt_page_sticky_card">
