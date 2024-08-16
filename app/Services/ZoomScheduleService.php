@@ -38,7 +38,9 @@ class ZoomScheduleService
      */
     public function handleCreate(ZoomScheduleRequest $request): void
     {
-        $this->repository->store($request->validated());
+        $data = $request->validated();
+        $data['link'] = $data['linked'];
+        $this->repository->store($data);
     }
 
     public function handleCreateMultiple(ZoomScheduleRequest $request): void
