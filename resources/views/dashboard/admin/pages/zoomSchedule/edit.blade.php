@@ -1,8 +1,6 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
-
-
         <!--begin::Page title-->
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
