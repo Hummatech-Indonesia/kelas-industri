@@ -130,6 +130,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('classrooms/{classroom}/{school}/edit', [ClassroomController::class, 'edit'])->name('classrooms.edit');
         Route::patch('classrooms/{classroom}/{school}', [ClassroomController::class, 'update'])->name('classrooms.update');
         Route::delete('classrooms/{classroom}', [ClassroomController::class, 'destroy'])->name('classrooms.destroy');
+        Route::get('classrooms/{classroom}/export', [ClassroomController::class, 'exportStudent'])->name('export.students');
 
         Route::get('teachers/create/{school}', [TeacherController::class, 'create'])->name('teachers.create');
         Route::post('teachers/store/{school}', [TeacherController::class, 'store'])->name('teachers.store');
