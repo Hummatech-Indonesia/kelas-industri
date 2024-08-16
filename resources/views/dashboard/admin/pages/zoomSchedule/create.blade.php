@@ -10,6 +10,7 @@
 
 <body>
     <form action="{{ route('admin.zoom-schedules.store') }}" method="post">
+        @csrf
         <input type="text">
         <button type="submit">Kirim</button>
     </form>
