@@ -86,6 +86,7 @@ Route::get('/news/{slug}', [WelcomeController::class, 'detail'])->name('detail-n
 Route::get('certify/{material}/{classroom}', [CertifyController::class, 'certify'])->name('certify');
 Route::get('all-school', [SchoolController::class, 'school'])->name('all-school');
 Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name('classroomBySchool');
+Route::post('zoom', [ZoomScheduleNewController::class, 'store'])->name('zoom.store');
 
 Auth::routes(['login' => true, 'register' => true]);
 
@@ -98,7 +99,6 @@ Route::middleware('auth.custom')->group(function () {
         Route::patch('/update-password/{user}', [ProfileController::class, 'updatePassword'])->name('updatePassword');
     });
 
-    Route::post('zoom', [ZoomScheduleNewController::class, 'store'])->name('zoom.store');
 
     //admin
     Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
