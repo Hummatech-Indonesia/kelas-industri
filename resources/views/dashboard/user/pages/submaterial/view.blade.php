@@ -48,6 +48,16 @@
 
         }
 
+        .assigment-card {
+            width: 80%;
+            z-index: -100;
+        }
+        @media screen and (max-width: 600px) {
+            .assigment-card {
+                width: 100% !important;
+            }
+        }
+
         .assigment-card .assigment-item {
             display: none;
         }
@@ -644,7 +654,7 @@
 
                                 {{-- assigment card --}}
                                 @if (count($submaterial->assignments) > 0 && auth()->user()->roles->pluck('name')[0] == 'student')
-                                    <div class="assigment-card card m-auto mb-8" style="width: 80%;">
+                                    <div class="assigment-card card m-auto mb-8">
                                         <div class="card-body text-start">
                                             <div id="kt_datatable_responsive_wrapper"
                                                 class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -1074,7 +1084,7 @@
 
         $('#kt_app_sidebar_mobile_toggle').click(function() {
             const sidebar = $('#kt_app_sidebar_panel')
-            if(sidebar.hasClass('app-sidebar-panel d-flex card rounded')) {
+            if (sidebar.hasClass('app-sidebar-panel d-flex card rounded')) {
                 sidebar.removeClass();
             } else {
                 sidebar.addClass('app-sidebar-panel d-flex card rounded')

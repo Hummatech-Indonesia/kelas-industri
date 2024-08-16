@@ -77,6 +77,9 @@
                     <!--end::Toolbar container-->
                 </div>
                 <div id="kt_app_content_container" class="app-container  container-fluid ">
+                    @if ($errors->any())
+                        <x-errors-component />
+                    @endif
                     <div class="card mb-6 mb-xl-9">
                         <div class="card-body pt-9 pb-0">
                             <!--begin::Details-->
