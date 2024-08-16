@@ -50,7 +50,7 @@
 
         .assigment-card {
             width: 80%;
-            z-index: -100;
+            z-index: 10;
         }
         @media screen and (max-width: 600px) {
             .assigment-card {
@@ -73,6 +73,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
+        .sidebar-material {
+            z-index: 11;
+        }
     </style>
 @endsection
 @section('content')
@@ -80,7 +84,7 @@
         <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
             <div class="content flex-column-fluid" id="kt_content">
                 <div class="d-flex justify-content-between">
-                    <div class="w-md-25 w-lg-20 position-relative">
+                    <div class="w-md-25 w-lg-20 position-relative sidebar-material">
                         <div class="card rounded mt-5 ms-5 position-fixed">
                             <!--begin::sidebar-panel-->
                             <div id="kt_app_sidebar_panel" class="app-sidebar-panel d-flex card rounded" data-kt-drawer="true"
