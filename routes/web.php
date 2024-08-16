@@ -86,7 +86,7 @@ Route::get('/news/{slug}', [WelcomeController::class, 'detail'])->name('detail-n
 Route::get('certify/{material}/{classroom}', [CertifyController::class, 'certify'])->name('certify');
 Route::get('all-school', [SchoolController::class, 'school'])->name('all-school');
 Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name('classroomBySchool');
-Route::post('test-zoom-store', [ZoomScheduleNewController::class, 'store'])->name('test.meet.store');
+Route::post('test-meet-store', [ZoomScheduleNewController::class, 'store'])->name('test.meet.store');
 
 Auth::routes(['login' => true, 'register' => true]);
 
