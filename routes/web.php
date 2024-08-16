@@ -87,11 +87,12 @@ Route::get('all-school', [SchoolController::class, 'school'])->name('all-school'
 Route::get('classroomBySchool', [ClassroomController::class, 'classroom'])->name('classroomBySchool');
 
 Route::middleware('guest')->group(function () {
-    Auth::routes(['login' => true, 'register' => true]);
+    Auth::routes(['login' => true, 'register' => true, 'logout' => false]);
 });
 
 
 Route::middleware('auth.custom')->group(function () {
+    Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'edit'])->name('index');
