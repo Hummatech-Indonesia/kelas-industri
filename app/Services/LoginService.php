@@ -68,6 +68,5 @@ class LoginService
                 return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
             }
         }
-        // return 'kontol';
     }
 }
