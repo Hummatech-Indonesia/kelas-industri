@@ -245,7 +245,7 @@
 
                                             <div class="my-lg-0 my-1">
                                                 @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                    <a href="{{ route('common.showDocument', [$subMaterial->id, 'student']) }}"
+                                                    <a href="{{ route('student.showDocument', [$subMaterial->id, 'student']) }}"
                                                         class="btn btn-danger btn-sm">Materi
                                                     </a>
                                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')

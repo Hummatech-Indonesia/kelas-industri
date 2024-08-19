@@ -240,7 +240,9 @@
                                                                                 </svg>
                                                                             </span>
                                                                             <span
-                                                                                onclick="changeMaterial('{{ route('common.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}')"
+                                                                                @if (auth()->user()->hasRole('student')) onclick="changeMaterial('{{ route('student.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}')"
+                                                                            @else
+                                                                                onclick="changeMaterial('{{ route('common.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}')" @endif
                                                                                 class="menu-title">{{ $subMaterials['subMaterial']->title }}</span>
                                                                             @if (count($subMaterials['subMaterial']->assignments) == count($answerAssignments))
                                                                                 @php $totalMaterialSubmitAssigment++ @endphp
@@ -320,7 +322,9 @@
                                                                                     </svg>
                                                                                 </span>
                                                                                 <span
-                                                                                    onclick="changeMaterial('{{ route('common.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}')"
+                                                                                    @if (auth()->user()->hasRole('student')) onclick="changeMaterial('{{ route('student.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}')"
+                                                                            @else
+                                                                                onclick="changeMaterial('{{ route('common.showDocument', [$subMaterials['subMaterial']->id, 'student']) }}')" @endif
                                                                                     class="menu-title">{{ $subMaterials['subMaterial']->title }}</span>
                                                                                 @if (count($subMaterials['subMaterial']->assignments) == count($answerAssignments))
                                                                                     @php $totalMaterialSubmitAssigment++ @endphp
@@ -1103,7 +1107,6 @@
     <script>
         // change materi
         function changeMaterial(url) {
-            console.log(url);
             window.location.href = url;
         }
 

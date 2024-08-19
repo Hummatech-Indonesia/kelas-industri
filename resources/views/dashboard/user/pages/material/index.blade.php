@@ -76,10 +76,17 @@
                                         </form> --}}
                                     @endif
 
-                                    <a href="{{ route('common.classrooms') }}"
-                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                        <i class="bi bi-arrow-left me-2"></i> Kembali
-                                    </a>
+                                    @if (auth()->user()->hasRole('student'))
+                                        <a href="{{ route('student.classrooms') }}"
+                                            class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                            <i class="bi bi-arrow-left me-2"></i> Kembali
+                                        </a>
+                                    @else
+                                        <a href="{{ route('common.classrooms') }}"
+                                            class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                            <i class="bi bi-arrow-left me-2"></i> Kembali
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                             <!--end::Actions-->
@@ -182,13 +189,15 @@
                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
                                 {{-- @dd($materialInfos) --}}
                                 @forelse ($materials as $key => $material)
-                                @php
-                                    $currentMaterialPretestComplete = $materials[$key]->materialExam->studentMaterialExams
-                                                ->where('student_id', auth()->user()->id)
-                                                ->where('type', MaterialExamTypeEnum::PRETEST->value)
-                                                ->whereNotNull('finished_exam')
-                                                ->first();
-                                @endphp
+                                    @php
+                                        $currentMaterialPretestComplete = $materials[
+                                            $key
+                                        ]->materialExam->studentMaterialExams
+                                            ->where('student_id', auth()->user()->id)
+                                            ->where('type', MaterialExamTypeEnum::PRETEST->value)
+                                            ->whereNotNull('finished_exam')
+                                            ->first();
+                                    @endphp
                                     @if ($key == 0)
                                         <div class="col-xl-4 mb-5">
 
@@ -296,9 +305,15 @@
                                                                     </svg>
                                                                 </span>
                                                                 <!--end::Svg Icon-->
-                                                                <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
-                                                                    class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
-                                                                    Bab</a>
+                                                                @if (auth()->user()->hasRole('student'))
+                                                                    <a href="{{ route('student.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                                        class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
+                                                                        Bab</a>
+                                                                @else
+                                                                    <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                                        class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
+                                                                        Bab</a>
+                                                                @endif
                                                             </div>
                                                         @endif
                                                     </div>
@@ -309,10 +324,11 @@
                                                             data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
                                                             PRETEST</a> --}}
                                                         <button
-                                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto start-pretest" data-exam="{{ $material->exam->id }}">Mulai
+                                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto start-pretest"
+                                                            data-exam="{{ $material->exam->id }}">Mulai
                                                             PRETEST</button>
                                                     @elseif ($material->exam->studentMaterialExam->finished_exam)
-                                                        <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                        <a href="{{ route('student.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
                                                     @else
                                                         <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
@@ -463,9 +479,15 @@
                                                                 </svg>
                                                             </span>
                                                             <!--end::Svg Icon-->
-                                                            <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
-                                                                class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
-                                                                Bab</a>
+                                                            @if (auth()->user()->hasRole('student'))
+                                                                <a href="{{ route('student.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                                    class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
+                                                                    Bab</a>
+                                                            @else
+                                                                <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                                    class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
+                                                                    Bab</a>
+                                                            @endif
 
 
                                                         </div>
@@ -480,7 +502,7 @@
                                                             data-type="{{ MaterialExamTypeEnum::PRETEST->value }}">Mulai
                                                             PRETEST</a> --}}
                                                         <button
-                                                        data-true="{{ $prevMaterialComplete && !$currentMaterialPretestComplete }}"
+                                                            data-true="{{ $prevMaterialComplete && !$currentMaterialPretestComplete }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto start-pretest">Mulai
                                                             PRETEST</button>
                                                     @elseif ($prevMaterialComplete && $currentMaterialPretestComplete)
@@ -598,9 +620,15 @@
                                                             </svg>
                                                         </span>
                                                         <!--end::Svg Icon-->
-                                                        <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
-                                                            class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
-                                                            Bab</a>
+                                                        @if (auth()->user()->hasRole('student'))
+                                                            <a href="{{ route('student.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                                class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
+                                                                Bab</a>
+                                                        @else
+                                                            <a href="{{ route('common.showMaterial', ['classroom' => $classroom->id, 'material' => $material->id]) }}"
+                                                                class="fw-bold text-info ml-2">{{ count($material->subMaterials) }}
+                                                                Bab</a>
+                                                        @endif
 
 
                                                     </div>
@@ -686,30 +714,31 @@
     </Style>
 @endsection
 @section('script')
-<script>
-    $(document).ready(function() {
-        $('.start-pretest').click(function() {
-            // Get the exam ID from the clicked element
-            let examId = $(this).data('exam');
+    <script>
+        $(document).ready(function() {
+            $('.start-pretest').click(function() {
+                // Get the exam ID from the clicked element
+                let examId = $(this).data('exam');
 
-            Swal.fire({
-                html: "Apakah anda yakin ingin memulai PRETEST?",
-                icon: "question",
-                buttonsStyling: false,
-                showCancelButton: true,
-                confirmButtonText: "Iya",
-                cancelButtonText: 'Batal',
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                    cancelButton: 'btn btn-danger'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.open("{{ route('student.material-exam', ['materialExam' => ':exam-id', 'type' => MaterialExamTypeEnum::PRETEST->value]) }}".replace(':exam-id', examId), '_blank');
-                }
+                Swal.fire({
+                    html: "Apakah anda yakin ingin memulai PRETEST?",
+                    icon: "question",
+                    buttonsStyling: false,
+                    showCancelButton: true,
+                    confirmButtonText: "Iya",
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: 'btn btn-danger'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(
+                            "{{ route('student.material-exam', ['materialExam' => ':exam-id', 'type' => MaterialExamTypeEnum::PRETEST->value]) }}"
+                            .replace(':exam-id', examId), '_blank');
+                    }
+                });
             });
         });
-    });
-</script>
-
+    </script>
 @endsection

@@ -195,8 +195,8 @@
                         @if ($schoolPayment != null)
                             @if ($schoolPayment->status == 'not_yet_paid')
                                 <a data-bs-toggle="tab" href="#kt_app_sidebar_schedule"
-                                    style="cursor: not-allowed; opacity: 0.5;" class="nav-link py-4 px-1 position-relative"
-                                    @disabled(true)>
+                                    style="cursor: not-allowed; opacity: 0.5;"
+                                    class="nav-link py-4 px-1 position-relative" @disabled(true)>
                                     <i class="bi bi-file-earmark-text fs-1"></i>
 
                                     @if (count($StudentExam) > 0)
@@ -209,7 +209,8 @@
                                     <span class="pt-2 fs-9 fs-lg-7 fw-bold" style="color: #A1A5B7;">Ujian</span>
                                 </a>
                             @else
-                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam" class="nav-link py-4 px-1 position-relative">
+                                <a data-bs-toggle="tab" href="#kt_app_sidebar_exam"
+                                    class="nav-link py-4 px-1 position-relative">
                                     <i class="bi bi-file-earmark-text fs-1"></i>
 
                                     @if (count($StudentExam) > 0)
@@ -225,8 +226,8 @@
                         @else
                             @if (!$isPaymentComplete)
                                 <a data-bs-toggle="tab" href="#kt_app_sidebar_exam"
-                                    style="cursor: not-allowed; opacity: 0.5;" class="nav-link py-4 px-1 position-relative"
-                                    @disabled(true)>
+                                    style="cursor: not-allowed; opacity: 0.5;"
+                                    class="nav-link py-4 px-1 position-relative" @disabled(true)>
                                     <i class="bi bi-file-earmark-text fs-1"></i>
 
                                     @if (count($StudentExam) > 0)
@@ -329,8 +330,14 @@
                                                 <div class="d-flex flex-row-fluid flex-wrap">
                                                     <!--begin:Author-->
                                                     <div class="flex-grow-1 me-2">
-                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $assignment->submaterial->material->id, 'submaterial' => $assignment->sub_material_id]) }}"
-                                                            class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $assignment->title }}</a>
+
+                                                        @if (auth()->user()->hasRole('student'))
+                                                            <a href="{{ route('student.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $assignment->submaterial->material->id, 'submaterial' => $assignment->sub_material_id]) }}"
+                                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $assignment->title }}</a>
+                                                        @else
+                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $assignment->submaterial->material->id, 'submaterial' => $assignment->sub_material_id]) }}"
+                                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $assignment->title }}</a>
+                                                        @endif
                                                         <span
                                                             class="text-muted fw-semibold d-block fs-">{{ $assignment->submaterial->title }}</span>
                                                         <span
@@ -390,8 +397,13 @@
                                                 <div class="d-flex flex-row-fluid flex-wrap">
                                                     <!--begin:Author-->
                                                     <div class="flex-grow-1 me-2">
-                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $assignment->submaterial->material->id, 'submaterial' => $assignment->sub_material_id]) }}"
-                                                            class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $assignment->title }}</a>
+                                                        @if (auth()->user()->hasRole('student'))
+                                                            <a href="{{ route('student.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $assignment->submaterial->material->id, 'submaterial' => $assignment->sub_material_id]) }}"
+                                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $assignment->title }}</a>
+                                                        @else
+                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $assignment->submaterial->material->id, 'submaterial' => $assignment->sub_material_id]) }}"
+                                                                class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ $assignment->title }}</a>
+                                                        @endif
                                                         <span
                                                             class="text-muted fw-semibold d-block fs-">{{ $assignment->submaterial->title }}</span>
                                                         <span

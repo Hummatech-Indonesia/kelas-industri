@@ -264,22 +264,32 @@
 
                                         <div class="d-flex">
                                             {{-- masih salah --}}
-                                            <a href="{{ route('common.showClassrooms', $classroom->classroom->id) }}"
-                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                            @if (auth()->user()->hasRole('student'))
+                                                <a href="{{ route('student.showClassrooms', $classroom->classroom->id) }}"
+                                                    class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                            @else
+                                                <a href="{{ route('common.showClassrooms', $classroom->classroom->id) }}"
+                                                    class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                                            @endif
 
                                         </div>
 
                                         @if ($classroom->classroom->generation->generation == 'Kelas 12')
-                                        @if (auth()->user()->hasRole('student'))
-                                        <a href="{{ route('student.projects.index') }}"
-                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">project</a>
+                                            @if (auth()->user()->hasRole('student'))
+                                                <a href="{{ route('student.projects.index') }}"
+                                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">project</a>
+                                            @else
+                                                <a href="{{ route('mentor.studentProject', $classroom->classroom->id) }}"
+                                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">project</a>
+                                            @endif
                                         @else
-                                        <a href="{{ route('mentor.studentProject', $classroom->classroom->id) }}"
-                                            class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">project</a>
-                                        @endif
-                                        @else
-                                            <a href="{{ route('common.materials', $classroom->classroom->id) }}"
-                                                class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">materi</a>
+                                            @if (auth()->user()->hasRole('student'))
+                                                <a href="{{ route('student.materials', $classroom->classroom->id) }}"
+                                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">materi</a>
+                                            @else
+                                                <a href="{{ route('common.materials', $classroom->classroom->id) }}"
+                                                    class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">materi</a>
+                                            @endif
                                         @endif
 
                                     </div>
