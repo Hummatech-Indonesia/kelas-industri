@@ -24,8 +24,8 @@ class TripayController extends Controller
     {
         if ($request['installment_payment']){
             $request['installment_payment'] = str_replace('.', '', $request['installment_payment']);
-            if ($request['installment_payment'] <= 10000) {
-                return redirect()->back()->with('error', 'Tidak bisa mencicil pembayaran kurang dari Rp. 10.000');
+            if ($request['installment_payment'] < 50000) {
+                return redirect()->back()->with('error', 'Tidak bisa mencicil pembayaran kurang dari Rp. 50.000');
             } else if ($request['installment_payment'] >= $request['nominal']) {
                 return redirect()->back()->with('error', 'Nominal yang anda bayarkan melebihi dari tanggungan semester ' . $request['semester']);
             }
