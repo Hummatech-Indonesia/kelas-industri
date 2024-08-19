@@ -1,7 +1,7 @@
 @php
     use App\Models\SubmitAssignment;
     use Illuminate\Support\Carbon;
-
+    use App\Helpers\CheckStudentAsiggmentHelper;
     $assigments = [];
 @endphp
 @extends('dashboard.user.layouts.wide')
@@ -52,6 +52,7 @@
             width: 80%;
             z-index: 10;
         }
+
         @media screen and (max-width: 600px) {
             .assigment-card {
                 width: 100% !important;
@@ -818,30 +819,50 @@
                                 </div>
                                 <div class="d-flex justify-content-end align-items-center color-gray-700 next-sub-materials">
                                     @foreach ($listSubMaterials as $listSubMaterial)
-                                        <a @if (auth()->user()->roles->pluck('name')[0] == 'student') href="{{ route('common.showDocument', [$listSubMaterial->id, 'student']) }}"
-                                                @elseif (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                href="{{ route('common.showDocument', [$listSubMaterial->id, 'teacher']) }}"
-                                                @else
-                                                href="{{ route('common.showDocument', [$listSubMaterial->id, 'mentor']) }}" @endif
-                                            class="align-items-center" style="width: 210px">
-                                            <div class="d-flex justify-content-between align-items-center px-3 py-2 rounded buttonHover"
-                                                style="border: 1px solid #6e6e6e">
-                                                <div class="d-flex flex-column  me-2">
-                                                    <span class="fs-9">Selanjutnya -
-                                                        {{ $listSubMaterial->title }}</span>
-                                                    <span
-                                                        class="fs-7 ">{{ Str::limit($listSubMaterial->material->title, 25, '...') }}</span>
+                                        @if (CheckStudentAsiggmentHelper::studentAssigment($submaterial->id))
+                                            <a @if (auth()->user()->roles->pluck('name')[0] == 'student') href="{{ route('common.showDocument', [$listSubMaterial->id, 'student']) }}"
+                                                    @elseif (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                    href="{{ route('common.showDocument', [$listSubMaterial->id, 'teacher']) }}"
+                                                    @else
+                                                    href="{{ route('common.showDocument', [$listSubMaterial->id, 'mentor']) }}" @endif
+                                                class="align-items-center" style="width: 210px">
+                                                <div class="d-flex justify-content-between align-items-center px-3 py-2 rounded buttonHover"
+                                                    style="border: 1px solid #6e6e6e">
+                                                    <div class="d-flex flex-column  me-2">
+                                                        <span class="fs-9">Selanjutnya -
+                                                            {{ $listSubMaterial->title }}</span>
+                                                        <span
+                                                            class="fs-7 ">{{ Str::limit($listSubMaterial->material->title, 25, '...') }}</span>
+                                                    </div>
+                                                    <svg class="buttonHover" xmlns="http://www.w3.org/2000/svg"
+                                                        width="32" height="32" viewBox="0 0 24 24">
+                                                        <path3fil3="currentColor"
+                                                        d="M16.15 13H5q-.425 0-.712-.288T4 12q0-.425.288-.712T5 11h11.15L13.3
+                                                        8.15q-.3-.3-.288-.7t.288-.7q.3-.3.713-.312t.712.287L19.3
+                                                        11.3q.15.15.213.325t.062.375q0 .2-.062.375t-.213.325l-4.575
+                                                        4.575q-.3.3-.712.288t-.713-.313q-.275-.3-.288-.7t.288-.7z" />
+                                                    </svg>
                                                 </div>
-                                                <svg class="buttonHover" xmlns="http://www.w3.org/2000/svg" width="32"
-                                                    height="32" viewBox="0 0 24 24">
-                                                    <path3fil3="currentColor"
-                                                    d="M16.15 13H5q-.425 0-.712-.288T4 12q0-.425.288-.712T5 11h11.15L13.3
-                                                    8.15q-.3-.3-.288-.7t.288-.7q.3-.3.713-.312t.712.287L19.3
-                                                    11.3q.15.15.213.325t.062.375q0 .2-.062.375t-.213.325l-4.575
-                                                    4.575q-.3.3-.712.288t-.713-.313q-.275-.3-.288-.7t.288-.7z" />
-                                                </svg>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        @else
+                                            <a href="javascript:void(0);" class="align-items-center link-disabled"
+                                                style="width: 210px; pointer-events: none;">
+                                                <div class="d-flex justify-content-between align-items-center px-3 py-2 rounded buttonHover"
+                                                    style="border: 1px solid #6e6e6e;">
+                                                    <div class="d-flex flex-column me-2">
+                                                        <span class="fs-9">Selanjutnya -
+                                                            {{ $listSubMaterial->title }}</span>
+                                                        <span
+                                                            class="fs-7">{{ Str::limit($listSubMaterial->material->title, 25, '...') }}</span>
+                                                    </div>
+                                                    <svg class="buttonHover" xmlns="http://www.w3.org/2000/svg"
+                                                        width="32" height="32" viewBox="0 0 24 24">
+                                                        <path fill="currentColor"
+                                                            d="M16.15 13H5q-.425 0-.712-.288T4 12q0-.425.288-.712T5 11h11.15L13.3 8.15q-.3-.3-.288-.7t.288-.7q.3-.3.713-.312t.712.287L19.3 11.3q.15.15.213.325t.062.375q0 .2-.062.375t-.213.325l-4.575 4.575q-.3.3-.712.288t-.713-.313q-.275-.3-.288-.7t.288-.7z" />
+                                                    </svg>
+                                                </div>
+                                            </a>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>

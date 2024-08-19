@@ -183,8 +183,8 @@ class UserClassroomController extends Controller
             $schoolPayment = $this->SchoolPackageMockup();
             $isPaymentComplete = $this->MenuMockup();
             $order = $submaterial->order;
-            $listSubMaterials = $this->subMaterialService->handleListSubMaterials($submaterial->order, $submaterial->material->id);
-            $prevSubMaterials = $this->subMaterialService->handlePrevSubmaterial($submaterial->order, $submaterial->material->id);
+            $listSubMaterials = $this->subMaterialService->handleListSubMaterials($order, $submaterial->material->id);
+            $prevSubMaterials = $this->subMaterialService->handlePrevSubmaterial($order, $submaterial->material->id);
             if (auth()->user()->roles->pluck('name')[0] != 'student') {
                 $materials = $this->materialService->handleGetMaterialByDevision($submaterial->material->devision_id, $classroom);
             } else {
