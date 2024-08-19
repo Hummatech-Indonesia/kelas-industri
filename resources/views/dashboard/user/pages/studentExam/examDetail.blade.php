@@ -278,9 +278,13 @@
                                                             class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->materialExam->total_multiple_choice - $student->true_answer }}</span>
                                                     </td>
                                                     <td class="text-center">
+                                                        {{-- @dd($student) --}}
                                                         @if ($student->materialExam->studentMaterialExams == null)
                                                             <span class="badge py-3 px-4 fs-7 badge-light-danger">Belum
                                                                 Ujian</span>
+                                                        @elseif (is_null($student->materialExam->finished_exam))
+                                                            <span class="badge py-3 px-4 fs-7 badge-light-danger">Sedang
+                                                                Mengerjakan</span>
                                                         @elseif ($checkExampAnswer->first() == null && $student->materialExam == null)
                                                             <span class="badge py-3 px-4 fs-7 badge-light-warning">Belum
                                                                 Dinilai</span>
