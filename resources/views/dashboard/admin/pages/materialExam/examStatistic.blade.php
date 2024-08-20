@@ -26,7 +26,8 @@
             <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
                 <!--begin::Link-->
                 <a class="nav-link d-flex justify-content-between flex-column flex-center overflow-hidden py-4"
-                    data-bs-toggle="pill" href="#kt_tab_pane_1" aria-selected="" role="tab" tabindex="-1" data-id="pre-test">
+                    data-bs-toggle="pill" href="#kt_tab_pane_1" aria-selected="" role="tab" tabindex="-1"
+                    data-id="pre-test">
                     <!--begin::Subtitle-->
                     <span class="nav-text text-gray-700 fw-bold fs-6 lh-1" id="tab-pretest">
                         Pre Test
@@ -44,7 +45,8 @@
             <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
                 <!--begin::Link-->
                 <a class="nav-link d-flex justify-content-between flex-column flex-center overflow-hidden py-4"
-                    data-bs-toggle="pill" href="#kt_tab_pane_2" aria-selected="" role="tab" tabindex="-1" data-id="post-test">
+                    data-bs-toggle="pill" href="#kt_tab_pane_2" aria-selected="" role="tab" tabindex="-1"
+                    data-id="post-test">
                     <!--begin::Subtitle-->
                     <span class="nav-text text-gray-700 fw-bold fs-6 lh-1" id="tab-semester-">
                         Post Test
@@ -213,7 +215,7 @@
                                             <div
                                                 class="p-2 px-4 bg-light-info rounded-2 d-flex align-items-center justify-content-center">
                                                 <h4 class="text-info mb-0 fs-5" style="font-weight: 900">
-                                                    {{ $classroom['average_score'] }}
+                                                    {{ round($classroom['average_score']) }}
                                                 </h4>
                                             </div>
                                         </div>
@@ -287,27 +289,35 @@
                                         </tr>
                                     </thead>
                                     <tbody class="fw-semibold">
+                                        {{-- @dd($studentExams) --}}
+                                        @php
+                                            $rank = 0;
+                                        @endphp
                                         @forelse ($studentExams as $index => $student)
+                                            {{-- @dd($index) --}}
+                                            @php
+                                                $rank++;
+                                            @endphp
                                             <tr>
                                                 <td class="text-center">
-                                                    @if ($index == 0)
+                                                    @if ($rank == 1)
                                                         <img width="30px"
                                                             src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
                                                             alt="">
-                                                    @elseif ($index == 1)
+                                                    @elseif ($rank == 2)
                                                         <img width="30px"
                                                             src="{{ asset('app-assets/medal_file/silver-medal.png') }}"
                                                             alt="">
-                                                    @elseif ($index == 2)
+                                                    @elseif ($rank == 3)
                                                         <img width="30px"
                                                             src="{{ asset('app-assets/medal_file/bronze-medal.png') }}"
                                                             alt="">
-                                                    @elseif ($index == 3)
+                                                    @elseif ($rank == 4)
                                                         <div class="d-flex justify-content-center items-center"
                                                             style="width:40px; height:50px; ">
                                                             <p>4</p>
                                                         </div>
-                                                    @elseif ($index == 4)
+                                                    @elseif ($rank == 5)
                                                         <div class="d-flex justify-content-center items-center"
                                                             style="width:40px; height:50px; ">
                                                             <p>5</p>
@@ -526,7 +536,7 @@
                                             <div
                                                 class="p-2 px-4 bg-light-info rounded-2 d-flex align-items-center justify-content-center">
                                                 <h4 class="text-info mb-0 fs-5" style="font-weight: 900">
-                                                    {{ $classroom['average_score'] }}
+                                                    {{ round($classroom['average_score']) }}
                                                 </h4>
                                             </div>
                                         </div>
@@ -600,27 +610,33 @@
                                         </tr>
                                     </thead>
                                     <tbody class="fw-semibold">
+                                        @php
+                                            $rank = 0;
+                                        @endphp
                                         @forelse ($postExams as $index => $student)
+                                            @php
+                                                $rank++;
+                                            @endphp
                                             <tr>
                                                 <td class="text-center">
-                                                    @if ($index == 0)
+                                                    @if ($rank == 1)
                                                         <img width="30px"
                                                             src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
                                                             alt="">
-                                                    @elseif ($index == 1)
+                                                    @elseif ($rank == 2)
                                                         <img width="30px"
                                                             src="{{ asset('app-assets/medal_file/silver-medal.png') }}"
                                                             alt="">
-                                                    @elseif ($index == 2)
+                                                    @elseif ($rank == 3)
                                                         <img width="30px"
                                                             src="{{ asset('app-assets/medal_file/bronze-medal.png') }}"
                                                             alt="">
-                                                    @elseif ($index == 3)
+                                                    @elseif ($rank == 4)
                                                         <div class="d-flex justify-content-center items-center"
                                                             style="width:40px; height:50px; ">
                                                             <p>4</p>
                                                         </div>
-                                                    @elseif ($index == 4)
+                                                    @elseif ($rank == 5)
                                                         <div class="d-flex justify-content-center items-center"
                                                             style="width:40px; height:50px; ">
                                                             <p>5</p>
@@ -698,7 +714,7 @@
         $(document).ready(function() {
             active = sessionStorage.getItem('material-exam-statistic-active');
             console.log(active);
-            if(!active) {
+            if (!active) {
                 var el = $(`.nav-pills .nav-item .nav-link:first-child`).first();
                 el.addClass('active');
                 $(`${el.attr('href')}`).addClass('show')

@@ -67,6 +67,8 @@ class StudentMaterialExamRepository extends BaseRepository
     {
         $result = $this->model->query()
             ->where('material_exam_id', $submaterialExamId)
+            ->orderBy('score', 'desc')
+            ->orderBy('finished_exam', 'asc')
             ->whereRelation('student', function ($q) use ($request) {
                 return $q->where('name',  'LIKE', "%$request->search%");
             });

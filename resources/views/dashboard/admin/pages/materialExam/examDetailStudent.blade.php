@@ -119,11 +119,21 @@
                         </tr>
                     </thead>
                     <tbody class="fw-semibold">
-                        @forelse ($studentSubMaterialExams as $student)
+                        @forelse ($studentSubMaterialExams as $index => $student)
                             <tr>
                                 <td class="text-center">
-                                    <img width="30px" src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
-                                        alt="">
+                                    @if ($index == 0)
+                                        <img width="30px" src="{{ asset('app-assets/medal_file/gold-medal.png') }}"
+                                            alt="">
+                                    @elseif($index == 1)
+                                        <img width="30px" src="{{ asset('app-assets/medal_file/silver-medal.png') }}"
+                                            alt="">
+                                    @elseif($index == 2)
+                                        <img width="30px" src="{{ asset('app-assets/medal_file/bronze-medal.png') }}"
+                                            alt="">
+                                            @else
+                                            {{ $index ++ }}
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     {{ $student->student->name }}
@@ -146,9 +156,11 @@
                                 </td>
                                 <td class="text-center">
                                     @if ($student->score < 75)
-                                        <span class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->higest_score }}</span>
+                                        <span
+                                            class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->higest_score }}</span>
                                     @else
-                                        <span class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->higest_score }}</span>
+                                        <span
+                                            class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->higest_score }}</span>
                                     @endif
                                 </td>
                             </tr>
