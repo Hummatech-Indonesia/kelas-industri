@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TeacherExport;
 use App\Helpers\SchoolYearHelper;
 use App\Http\Requests\TeacherRequest;
 use App\Http\Requests\UserPasswordRequest;
 use App\Models\MentorClassroom;
 use App\Models\TeacherClassroom;
+use App\Models\TeacherSchool;
 use App\Models\User;
 use App\Services\ClassroomService;
 use App\Services\TeacherService;
@@ -16,6 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TeacherController extends Controller
 {
@@ -198,5 +201,10 @@ class TeacherController extends Controller
         $this->userServices->handleChangePassword($request, $teacher->id);
 
         return to_route('school.teachers.index')->with('success', trans('alert.update_success'));
+    }
+
+
+    public function exportTeacherSchool(User $school) {
+        return Excel::download(new TeacherExport($school->id), 'Akun Guru '.$school->name.'.xlsx');
     }
 }

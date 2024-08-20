@@ -304,9 +304,12 @@
                         </div>
 
                         <div>
+                            <a href="{{ route('admin.exportTeacher', [$school->id]) }}"
+                                class="btn btn-success fw-bold mb-2">
+                                Export </a>
                             <a href="{{ route('admin.rollingTeacher.index', [$school->id]) }}"
                                 class="btn btn-dark fw-bold mb-2">
-                                Rooling Guru </a>
+                                Rolling Guru </a>
                             <a href="{{ route('admin.teachers.create', [$school->id]) }}"
                                 class="btn btn-primary fw-bold mb-2">
                                 Tambah </a>
