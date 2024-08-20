@@ -1,4 +1,5 @@
 @php
+use App\Enums\MaterialExamTypeEnum;
     use Carbon\Carbon;
 @endphp
 @extends('dashboard.user.layouts.app')
@@ -278,11 +279,12 @@
                                                             class="badge py-3 px-4 fs-7 badge-light-danger">{{ $student->materialExam->total_multiple_choice - $student->true_answer }}</span>
                                                     </td>
                                                     <td class="text-center">
-                                                        {{-- @dd($student) --}}
+                                                        {{-- @dd($student->materialExam->studentMaterialExams->where('type', MaterialExamTypeEnum::PRETEST->value)->where('student_id', auth()->user()->id)->first()->finished_exam) --}}
+                                                        {{-- @dd($student->finished_exam) --}}
                                                         @if ($student->materialExam->studentMaterialExams == null)
                                                             <span class="badge py-3 px-4 fs-7 badge-light-danger">Belum
                                                                 Ujian</span>
-                                                        @elseif (is_null($student->materialExam->finished_exam))
+                                                        @elseif (is_null($student->finished_exam))
                                                             <span class="badge py-3 px-4 fs-7 badge-light-danger">Sedang
                                                                 Mengerjakan</span>
                                                         @elseif ($checkExampAnswer->first() == null && $student->materialExam == null)
