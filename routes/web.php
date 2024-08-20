@@ -296,7 +296,8 @@ Route::middleware('auth.custom')->group(function () {
         Route::delete('delete-regristation-exam-users/{school}', [SchoolController::class, 'deleteRegristationExamStudent'])->name('regristationExam-delete');
 
 
-        Route::get('export-teacher/{school}', [TeacherController::class, 'exportTeacherSchool'])->name('exportTeacher');
+        Route::get('export-teacher/{school}', [TeacherController::class, 'exportTea
+        cherSchool'])->name('exportTeacher');
         // Route::get('teacher-statistic', )
         // Route::get('print-report', )
     });

@@ -278,9 +278,10 @@
                                         @php
                                             $studentMaterial = $material->exam->studentMaterialExams
                                                 ->where('type', MaterialExamTypeEnum::PRETEST->value)
+                                                ->where('student_id', auth()->user()->id)
                                                 ->first();
                                         @endphp
-                                        @if ($material->exam->studentMaterialExams->where('type', MaterialExamTypeEnum::PRETEST->value)->first())
+                                        @if ($studentMaterial)
                                             <a href="{{ route('student.exam.show-finish-exam-material', ['materialExam' => $material->exam->id, 'studentMaterialExam' => $studentMaterial->id]) }}"
                                                 class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat
                                                 Hasil</a>
@@ -811,9 +812,10 @@
                                             @php
                                                 $studentMaterialId = $material->exam->studentMaterialExams
                                                     ->where('type', MaterialExamTypeEnum::POSTEST->value)
+                                                    ->where('student_id', auth()->user()->id)
                                                     ->first();
                                             @endphp
-                                            @if ($material->exam->studentMaterialExams->where('type', MaterialExamTypeEnum::POSTEST->value)->first())
+                                            @if ($studentMaterialId)
                                                 <a href="{{ route('student.exam.show-finish-exam-material', ['materialExam' => $material->exam->id, 'studentMaterialExam' => $studentMaterialId->id]) }}"
                                                     class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat
                                                     Hasil</a>
