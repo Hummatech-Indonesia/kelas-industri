@@ -95,7 +95,6 @@ class MaterialService
         $updatedOrderMaterials = $this->repository->updateOrderDelete($materi);
         // dd($updatedOrderMaterials);
         $order = $materi->order;
-        dd($materi, $updatedOrderMaterials);
         foreach ($updatedOrderMaterials as $material) {
             $this->repository->update($material->id, [
                 'order' => $material->order
