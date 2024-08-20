@@ -132,7 +132,7 @@
                                         <img width="30px" src="{{ asset('app-assets/medal_file/bronze-medal.png') }}"
                                             alt="">
                                             @else
-                                            {{ $index ++ }}
+                                            {{ $index + 1 }}
                                     @endif
                                 </td>
                                 <td class="text-center">
