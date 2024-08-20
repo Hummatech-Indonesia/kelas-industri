@@ -450,7 +450,7 @@ Route::middleware('auth.custom')->group(function () {
     });
     //end mentor
 
-    Route::middleware(['auth', 'role:student|mentor|teacher'])->group(function () {
+    Route::middleware(['auth', 'role:mentor|teacher'])->group(function () {
         //mentor, student, teacher
         Route::name('common.')->group(function () {
             Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
@@ -458,7 +458,7 @@ Route::middleware('auth.custom')->group(function () {
             Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
             Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
             Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
-            Route::get('/showDocument/{submaterial}/{role}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+            Route::get('/showDocument/{submaterial}/{classroom}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
             Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
             Route::get('schedules/get-all', [ScheduleController::class, 'all'])->name('schedules.all');
         });
@@ -466,21 +466,23 @@ Route::middleware('auth.custom')->group(function () {
     });
 
     //student
-    Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
+    Route::middleware(['auth', 'role:student', 'checkpayment'])->prefix('student')->name('student.')->group(function () {
         Route::get('/', function () {
             return view('dashboard.user.pages.material.index');
         });
-        Route::get('/ranking', [PointController::class, 'index'])->name('rankings')->middleware('checkpayment');
-        Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms')->middleware('checkpayment');
+        // Route::get('/showDocument/{submaterial}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+        Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
+        Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
+        Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
         Route::get('/create', [UserClassroomController::class, 'create'])->name('create');
         Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
         Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
-        Route::get('/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
-        Route::get('/showSubMaterial/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial')->middleware('checkpayment');
+        Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
+        Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
         Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 
-        Route::get('/event', [EventController::class, 'studentEvent'])->name('events.index')->middleware('checkpayment');
-        Route::get('/schedule', [ScheduleController::class, 'indexStudent'])->name('schedules.index')->middleware('checkpayment');
+        Route::get('/event', [EventController::class, 'studentEvent'])->name('events.index');
+        Route::get('/schedule', [ScheduleController::class, 'indexStudent'])->name('schedules.index');
 
 
         Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
@@ -529,10 +531,10 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('certify/events/{event}/{participant}', [CertifyController::class, 'eventCertify'])->name('events.print-certify');
 
         Route::resource('challenges', ChallengeController::class)
-            ->only(['index', 'show'])->middleware('checkpayment');
+            ->only(['index', 'show']);
 
         Route::resource('rewards', RewardController::class)
-            ->only(['index'])->middleware('checkpayment');
+            ->only(['index']);
 
         Route::resources([
             'submitRewards' => SubmitRewardController::class,

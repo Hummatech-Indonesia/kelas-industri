@@ -24,7 +24,7 @@
         </div>
 
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <a href="{{ route('admin.sub-material-exam.index') }}"
+            <a href="{{ route('admin.exam-registration') }}"
                 class="btn btn-flex btn-warning h-40px fs-7 fw-bold btn-plus">
                 Kembali
             </a>

@@ -3,8 +3,6 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
 @extends('dashboard.admin.layouts.app')
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
-
-
         <!--begin::Page title-->
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
@@ -24,7 +22,6 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
         <!--begin::Actions-->
         <div class="row align-items-center py-2 py-md-1">
             <div class="col">
-
                 <a href="{{ route('admin.exportStudentRegristationExam', $exam->school_id) }}"
                     class="btn btn-sm btn-success w-150px">
                     <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/keenthemes/metronic/docs/core/html/src/media/icons/duotune/arrows/arr044.svg-->
@@ -56,6 +53,11 @@ use App\Enums\SubMaterialExamTypeEnum; @endphp
                             </svg>
                         </span>Akun Test</button>
                 </form>
+            </div>
+            <div class="col">
+                <a href="{{ route('admin.exam-registration') }}" class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                    <i class="bi bi-arrow-left me-2"></i> Kembali
+                </a>
             </div>
         </div>
         <!--end::Actions-->

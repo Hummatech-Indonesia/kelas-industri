@@ -190,7 +190,7 @@
                             : null;
                     @endphp
 
-                    <div class="row">
+                    <div class="row row-gap-5">
                         @if (auth()->user()->roles->pluck('name')[0] == 'student')
                             <div class="col-xl-4 mb-3">
 
@@ -329,7 +329,7 @@
 
                                                         <!--begin: Title-->
 
-                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                        <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                             class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
                                                             style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
 
@@ -375,7 +375,7 @@
                                                             </svg>
                                                         </span>
                                                         <!--end::Svg Icon-->
-                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                        <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                             class="fw-bold text-info ml-2">{{ count($infos['subMaterial']->assignments) }}
                                                             Tugas</a>
 
@@ -384,7 +384,7 @@
 
 
                                                 </div>
-                                                <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                     class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
 
                                             </div>
@@ -431,7 +431,7 @@
 
                                                             <!--begin: Title-->
 
-                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                                 class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
                                                                 style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
 
@@ -478,7 +478,7 @@
                                                                 </svg>
                                                             </span>
                                                             <!--end::Svg Icon-->
-                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                                 class="fw-bold text-info ml-2">{{ count($infos['subMaterial']->assignments) }}
                                                                 Tugas</a>
 
@@ -489,7 +489,7 @@
                                                     </div>
 
                                                     @if ($studentExam)
-                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                        <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
                                                     @else
                                                         <button
@@ -539,7 +539,7 @@
 
                                                             <!--begin: Title-->
 
-                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                                 class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
                                                                 style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
 
@@ -586,7 +586,7 @@
                                                                 </svg>
                                                             </span>
                                                             <!--end::Svg Icon-->
-                                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                            <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                                 class="fw-bold text-info ml-2">{{ count($infos['subMaterial']->assignments) }}
                                                                 Tugas</a>
 
@@ -597,7 +597,7 @@
                                                     </div>
 
                                                     @if ($studentExam)
-                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                        <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                             class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
                                                     @else
                                                         <button
@@ -646,7 +646,7 @@
 
                                                         <!--begin: Title-->
 
-                                                        <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                        <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                             class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
                                                             style="text-overflow: ellipsis;overflow: hidden ;max-width: 170px ;white-space: nowrap">
 
@@ -703,7 +703,7 @@
                                                 </div>
 
                                                 @if (count($studentExam) == 1)
-                                                    <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
+                                                    <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $infos['subMaterial']->id]) }}"
                                                         class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
                                                 @else
                                                     <button
