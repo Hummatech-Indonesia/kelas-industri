@@ -132,5 +132,4 @@ class SubMaterialController extends Controller
             return $this->repository->getByMaterial($request->materialId);
         }
     }
-
 }
