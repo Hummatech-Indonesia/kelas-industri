@@ -186,6 +186,6 @@ class ClassroomController extends Controller
     public function exportStudent(Classroom $classroom)
     {
         $students = $this->studentService->handleAllByClassroom($classroom->id);
-        return Excel::download(new StudentExport($students), $classroom->school->name . ' - ' . $classroom->name . '.xlsx');
+        return Excel::download(new StudentExport($students), $classroom->name . ' - ' . $classroom->school->name . '.xlsx');
     }
 }
