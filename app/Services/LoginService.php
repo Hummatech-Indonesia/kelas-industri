@@ -26,6 +26,7 @@ class LoginService
             if ($user->status == 'active') {
                 if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
                     if (is_null($user->studentSchool->studentClassroom)) {
+                        auth()->logout();
                         return redirect('/login')->with('error', 'Anda belum memiliki kelas.');
                     }
                     return redirect()->route('home')->with('success', 'Berhasil Login.');
@@ -38,6 +39,7 @@ class LoginService
         }
 
         if ($role == 'teacher' && !isset($user->teacherSchool->teacherClassroom)) {
+            auth()->logout();
             return redirect('/login')->with('error', 'Anda belum memiliki kelas.');
         }
 
