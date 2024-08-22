@@ -63,16 +63,16 @@ class StudentMaterialExamRepository extends BaseRepository
         return $this->show($id)->update($data);
     }
 
-    public function getByMaterialExam(Request $request, $submaterialExamId, $paginate): mixed
+    public function getByMaterialExam(Request $request, $submaterialExamId, $paginate, $type): mixed
     {
         $result = $this->model->query()
             ->where('material_exam_id', $submaterialExamId)
             ->orderBy('score', 'desc')
             ->orderBy('finished_exam', 'asc')
+            ->where('type', $type)
             ->whereRelation('student', function ($q) use ($request) {
-                return $q->where('name',  'LIKE', "%$request->search%");
+                return $q->where('name',  'LIKE', "%" . $request->search . "%");
             });
-
         if ($request->school_id && $request->classroom_id) {
             $result->whereRelation('student.studentSchool', function ($q) use ($request) {
                 return $q->where('school_id', $request->school_id)
@@ -85,6 +85,29 @@ class StudentMaterialExamRepository extends BaseRepository
         }
 
         return $result->paginate($paginate);
+    }
+    public function getByMaterialExamPdf(Request $request, $submaterialExamId, $paginate, $type): mixed
+    {
+        $result = $this->model->query()
+            ->where('material_exam_id', $submaterialExamId)
+            ->orderBy('score', 'desc')
+            ->orderBy('finished_exam', 'asc')
+            ->where('type', $type)
+            ->whereRelation('student', function ($q) use ($request) {
+                return $q->where('name',  'LIKE', "%" . $request->search . "%");
+            });
+        if ($request->school_id && $request->classroom_id) {
+            $result->whereRelation('student.studentSchool', function ($q) use ($request) {
+                return $q->where('school_id', $request->school_id)
+                    ->whereRelation('classrooms', 'classroom_id', $request->classroom_id);
+            });
+        } else if ($request->school_id) {
+            $result->whereRelation('student.studentSchool', function ($q) use ($request) {
+                return $q->where('school_id', $request->school_id);
+            });
+        }
+
+        return $result->get();
     }
 
     public function handleComplateExamPreTest(mixed $previousMaterial): mixed

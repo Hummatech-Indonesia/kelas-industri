@@ -59,6 +59,7 @@ use App\Http\Controllers\TeacherStatisticController;
 use App\Http\Controllers\EventDocumentationController;
 use App\Http\Controllers\PresentationFinishController;
 use App\Http\Controllers\MaterialExamQuestionController;
+use App\Http\Controllers\ScoreStudentController;
 use App\Http\Controllers\StandartOperationProcuderController;
 use App\Http\Controllers\StudentMaterialExamController;
 use App\Http\Controllers\StudentSubmaterialExamController;
@@ -105,6 +106,11 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
         });
+
+        // Route::get('download-score-student', function () {
+        //     return view('dashboard.admin.pages.materialExam.download-score-student');
+        // });
+        Route::get('download-score-student/{materialExam}/{type}', [ScoreStudentController::class, 'downloadPreTest'])->name('download.score.student');
 
         Route::resource('zoom-schedules', ZoomScheduleController::class);
 

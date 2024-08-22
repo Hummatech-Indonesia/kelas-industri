@@ -82,9 +82,13 @@ class StudentMaterialExamService
             'finished_exam' => now(),
         ];
     }
-    public function halndeGetByMaterialExam(Request $request, $submaterialExamId): mixed
+    public function halndeGetByMaterialExam(Request $request, $submaterialExamId, $type): mixed
     {
-        return $this->repository->getByMaterialExam($request, $submaterialExamId, 10);
+        return $this->repository->getByMaterialExam($request, $submaterialExamId, 10, $type);
+    }
+    public function halndeGetByMaterialExamPdf(Request $request, $submaterialExamId, $type): mixed
+    {
+        return $this->repository->getByMaterialExamPdf($request, $submaterialExamId, 10, $type);
     }
     public function handleOpenTab($subMaterialExam): mixed
     {

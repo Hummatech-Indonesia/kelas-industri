@@ -107,6 +107,12 @@ class MaterialExamController extends Controller
         return view('dashboard.admin.pages.materialExam.questionManual', compact('materialQuestions', 'materialExam'));
     }
 
+    /**
+     * materialExamStatistic
+     *
+     * @param  mixed $materialExam
+     * @return void
+     */
     public function materialExamStatistic(MaterialExam $materialExam)
     {
         $data['materialExam'] = $this->repository->getExamById($materialExam->id);
@@ -117,12 +123,22 @@ class MaterialExamController extends Controller
         return view('dashboard.admin.pages.materialExam.examStatistic', $data);
     }
 
+    /**
+     * examDetailStudent
+     *
+     * @param  mixed $request
+     * @param  mixed $materialExam
+     * @param  mixed $type
+     * @return void
+     */
     public function examDetailStudent(Request $request, $materialExam, $type)
     {
         $data['materialExam'] = $materialExam;
         $data['search'] = $request->search;
+        $data['type'] = $type;
         $data['schools'] = $this->userServices->handleGetAllSchool();
-        $data['studentSubMaterialExams'] = $this->studentMaterialExamService->halndeGetByMaterialExam($request, $materialExam)->where('type', $type == MaterialExamTypeEnum::PRETEST->value ? MaterialExamTypeEnum::PRETEST->value : MaterialExamTypeEnum::POSTEST->value);
+        // ->where('type', $type == MaterialExamTypeEnum::PRETEST->value ? MaterialExamTypeEnum::PRETEST->value : MaterialExamTypeEnum::POSTEST->value)
+        $data['studentSubMaterialExams'] = $this->studentMaterialExamService->halndeGetByMaterialExam($request, $materialExam, $type);
         return view('dashboard.admin.pages.materialExam.examDetailStudent', $data);
     }
 
@@ -149,7 +165,7 @@ class MaterialExamController extends Controller
         $data = $this->GetDataSidebar();
         if (RoleHelper::get_role() == 'mentor') {
             $data['classrooms'] = $this->mentorService->handleGetMentorClassrooms(auth()->user()->id);
-        }else{
+        } else {
             $data['classrooms'] = $this->teacherService->handleGetTeacherClassrooms(auth()->user()->teacherSchool->id);
         }
         $data['students'] = $this->studentExamRepository->getAllStudent($materialExam->id, $request);
@@ -185,7 +201,8 @@ class MaterialExamController extends Controller
         return view('dashboard.user.pages.studentExam.examMentor', $data);
     }
 
-    public function reset(StudentMaterialExam $studentMaterialExam) {
+    public function reset(StudentMaterialExam $studentMaterialExam)
+    {
         try {
             $studentMaterialExam->delete();
             return back()->with('success', 'berhasil mereset test');
