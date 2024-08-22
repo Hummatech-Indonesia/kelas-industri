@@ -1,9 +1,9 @@
 @extends('dashboard.admin.layouts.app')
 <style>
-        .ck-content * {
-            color: black !important
-        }
-    </style>
+    .ck-content * {
+        color: black !important
+    }
+</style>
 @section('content')
     <div class="toolbar mb-5 mb-lg-7" id="kt_toolbar">
 
@@ -101,8 +101,7 @@
 
                                     <div class="col-lg-9 col-xl-9">
 
-                                        <textarea id="kt_docs_ckeditor_classic" rows="5" name="description" type="text"
-                                            placeholder="deskripsi tugas">{{ old('description') }}</textarea>
+                                        <textarea id="kt_docs_ckeditor_classic" rows="5" name="description" type="text" placeholder="deskripsi tugas">{{ old('description') }}</textarea>
 
                                     </div>
 
@@ -161,21 +160,105 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            ClassicEditor
-                .create(document.querySelector('#kt_docs_ckeditor_classic'))
-                .then(editor => {
-                    console.log(editor);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
             const datepicker = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic"));
             datepicker.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
             const datepicker2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_basic_2"));
             datepicker2.dates.formatInput = date => moment(date).format('YYYY-MM-DD H:m:s')
-
         })
     </script>
+    <script>
+        class MyUploadAdapter {
+            constructor(loader) {
+                this.loader = loader;
+            }
 
+            // Memulai proses upload.
+            upload() {
+                return this.loader.file
+                    .then(file => new Promise((resolve, reject) => {
+                        const data = new FormData();
+                        data.append('upload', file);
+
+                        axios.post('{{ route('admin.ckeditor-upload') }}', data)
+                            .then(response => {
+                                resolve({
+                                    default: response.data.url
+                                });
+                            })
+                            .catch(error => {
+                                reject(error);
+                            });
+                    }));
+            }
+
+            // Membatalkan proses upload.
+            abort() {
+                // Implementasikan logika pembatalan jika perlu.
+            }
+        }
+
+        function MyCustomUploadAdapterPlugin(editor) {
+            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                return new MyUploadAdapter(loader);
+            };
+        }
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                extraPlugins: [MyCustomUploadAdapterPlugin],
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        function MyCustomUploadAdapterPlugin(editor) {
+            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                return new MyUploadAdapter(loader);
+            };
+        }
+
+
+
+        $(document).ready(function() {
+            ClassicEditor
+                .create(document.querySelector('#kt_docs_ckeditor_classic'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
+                .then(editor => {
+                    editor.model.document.on('change:data', () => {
+                        const editorData = editor.getData();
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(editorData, 'text/html');
+                        const images = doc.querySelectorAll('img');
+
+
+                        const imageSources = Array.from(images).map(img => img.getAttribute('src'));
+
+                        if (window.previousImageSources) {
+                            const removedImages = window.previousImageSources.filter(src => !
+                                imageSources.includes(src));
+
+                            removedImages.forEach(src => {
+                                // Send a request to delete the image
+                                axios.post('{{ route('admin.ckeditor-delete') }}', {
+                                        src: src
+                                    })
+                                    .then(response => {
+                                        console.log('Image deleted:', src);
+                                    })
+                                    .catch(error => {
+                                        console.error('Error deleting image:', error);
+                                    });
+                            });
+                        }
+
+                        // Update the previous state
+                        window.previousImageSources = imageSources;
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        })
+    </script>
 @endsection

@@ -137,7 +137,6 @@ class MaterialExamController extends Controller
         $data['search'] = $request->search;
         $data['type'] = $type;
         $data['schools'] = $this->userServices->handleGetAllSchool();
-        // ->where('type', $type == MaterialExamTypeEnum::PRETEST->value ? MaterialExamTypeEnum::PRETEST->value : MaterialExamTypeEnum::POSTEST->value)
         $data['studentSubMaterialExams'] = $this->studentMaterialExamService->halndeGetByMaterialExam($request, $materialExam, $type);
         return view('dashboard.admin.pages.materialExam.examDetailStudent', $data);
     }
