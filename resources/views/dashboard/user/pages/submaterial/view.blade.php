@@ -542,49 +542,6 @@
                                                                             class="menu-title">{{ $subMaterial->title }}</span>
                                                                         {{-- <span class="menu-arrow"></span> --}}
                                                                     </a>
-
-                                                                    <!--begin::Menu sub-->
-                                                                    {{-- <div
-                                                                        class="menu-sub menu-sub-accordion {{ request()->submaterial->id == $subMaterial->id ? 'here show' : '' }} pt-3">
-                                                                        @foreach ($subMaterial->assignments as $assigment)
-                                                                            <!--begin::Menu item-->
-                                                                            <div class="menu-item">
-                                                                                <a @if ($assigment->sub_material_id != $submaterial->id) href="{{ route('student.showDocument', [$assigment->sub_material_id, auth()->user()->roles->pluck('name')[0]]) }}#assigment_{{ $assigment->id }}"
-                                                                            @else href="#assigment_{{ $assigment->id }}" @endif
-                                                                                    id="assigment_link_{{ $assigment->id }}"
-                                                                                    class="menu-link assigment-link py-3">
-                                                                                    <span class="menu-bullet">
-                                                                                        <span
-                                                                                            class="bullet bullet-dot"></span>
-                                                                                    </span>
-                                                                                    @if (auth()->user()->roles->pluck('name')[0] == 'student')
-                                                                                        @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first())
-                                                                                            @if ($assigment->StudentSubmitAssignment->where('student_id', auth()->user()->id)->where('assignment_id', $assigment->id)->first()->point)
-                                                                                                <span
-                                                                                                    class="sub-assigment-link menu-title text-warning">{{ $assigment->title }}</span>
-                                                                                                <span
-                                                                                                    class="warning"></span>
-                                                                                            @else
-                                                                                                <span
-                                                                                                    class="sub-assigment-link menu-title text-success">{{ $assigment->title }}</span>
-                                                                                                <span
-                                                                                                    class="success"></span>
-                                                                                            @endif
-                                                                                        @else
-                                                                                            <span
-                                                                                                class="sub-assigment-link menu-title text-danger">{{ $assigment->title }}</span>
-                                                                                            <span class="erorr"></span>
-                                                                                        @endif
-                                                                                    @else
-                                                                                    @endif
-                                                                                    <span
-                                                                                        class="menu-title">{{ $assigment->title }}</span>
-                                                                                </a>
-                                                                            </div>
-                                                                            <!--end::Menu item-->
-                                                                        @endforeach
-                                                                    </div> --}}
-                                                                    <!--end::Menu sub-->
                                                                 </div>
                                                                 <!--end:Menu item-->
                                                             </div>

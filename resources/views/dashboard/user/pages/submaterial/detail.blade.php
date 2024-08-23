@@ -67,8 +67,7 @@
                                     <!--end::Item-->
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href=""
-                                            class="text-muted text-hover-primary">
+                                        <a href="" class="text-muted text-hover-primary">
                                             {{ request()->submaterial->title }}
                                         </a>
                                     </li>
@@ -249,7 +248,6 @@
                                                         class="btn btn-danger btn-sm">Materi
                                                     </a>
                                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
-                                                    {{-- @dd('sdhfkjshdfjshdf') --}}
                                                     <a href="{{ route('common.showDocument', ['submaterial' => $subMaterial->id, 'role' => 'mentor', 'classroom' => $classroom->id]) }}"
                                                         class="btn btn-danger btn-sm">Materi
                                                     </a>
