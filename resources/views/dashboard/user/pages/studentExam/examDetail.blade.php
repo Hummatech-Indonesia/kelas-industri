@@ -261,9 +261,11 @@
                                                 <th class="min-w-50px text-center">
                                                     <span class="dt-column-title fw-bold">Nilai Soal</span>
                                                 </th>
-                                                <th class="min-w-50px text-center">
-                                                    <span class="dt-column-title fw-bold">Aksi</span>
-                                                </th>
+                                                @role('mentor')
+                                                    <th class="min-w-50px text-center">
+                                                        <span class="dt-column-title fw-bold">Aksi</span>
+                                                    </th>
+                                                @endrole
                                             </tr>
                                         </thead>
                                         <tbody class="fw-semibold">
@@ -316,19 +318,21 @@
                                                         <span
                                                             class="badge py-3 px-4 fs-7 badge-light-primary">{{ $student->score }}</span>
                                                     </td>
-                                                    <th>
-                                                        <form
-                                                            action="{{ route('mentor.materialExam.reset', $student->id) }}"
-                                                            method="POST" class="reset-form"
-                                                            data-student-name="{{ $student->student->name }}">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit"
-                                                                class="btn m-auto btn-danger btn-reset-test">
-                                                                Reset
-                                                            </button>
-                                                        </form>
-                                                    </th>
+                                                    @role('mentor')
+                                                        <th>
+                                                            <form
+                                                                action="{{ route('mentor.materialExam.reset', $student->id) }}"
+                                                                method="POST" class="reset-form"
+                                                                data-student-name="{{ $student->student->name }}">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button type="submit"
+                                                                    class="btn m-auto btn-danger btn-reset-test">
+                                                                    Reset
+                                                                </button>
+                                                            </form>
+                                                        </th>
+                                                    @endrole
                                                 </tr>
                                             @empty
                                             @endforelse
