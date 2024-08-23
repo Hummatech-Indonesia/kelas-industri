@@ -30,8 +30,21 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('student.challenges.index') }}" class="text-muted text-hover-primary">
-                                            Tantangan </a>
+                                        @role('student')
+                                            <a href="{{ route('student.challenges.index') }}"
+                                                class="text-muted text-hover-primary">
+                                                Tantangan </a>
+                                        @endrole
+                                        @role('teacher')
+                                            <a href="{{ route('teacher.challenges.index') }}"
+                                                class="text-muted text-hover-primary">
+                                                Tantangan </a>
+                                        @endrole
+                                        @role('mentor')
+                                            <a href="{{ route('mentor.challenges.index') }}"
+                                                class="text-muted text-hover-primary">
+                                                Tantangan </a>
+                                        @endrole
                                     </li>
                                     <!--end::Item-->
 

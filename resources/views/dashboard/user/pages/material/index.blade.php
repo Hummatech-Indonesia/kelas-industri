@@ -32,8 +32,13 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="#" class="text-muted text-hover-primary">
-                                            Home </a>
+                                        @role('student')
+                                            <a href="{{ route('student.classrooms') }}" class="text-muted text-hover-primary">
+                                                Kelas </a>
+                                        @else
+                                            <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
+                                                Kelas </a>
+                                        @endrole
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -44,20 +49,17 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Utilities
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
+                                        @role('student')
+                                            <a href="{{ route('student.materials', request()->classroom->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                Materi {{ request()->classroom->name }}</a>
+                                        @else
+                                            <a href="{{ route('common.materials', request()->classroom->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                Materi {{ request()->classroom->name }}</a>
+                                        @endrole
 
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Search
                                     </li>
-                                    <!--end::Item-->
 
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -215,7 +217,8 @@
 
                                                         <!--begin::Pic-->
 
-                                                        <div class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle me-5">
+                                                        <div
+                                                            class="flex-shrink-0 me-4 symbol symbol-65 symbol-circle me-5">
 
                                                             <span
                                                                 class="font-size-h5 symbol-label bg-primary text-inverse-primary h1 font-weight-boldest">{{ substr($material->title, 0, 1) }}</span>

@@ -30,8 +30,14 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
-                                            Kelas </a>
+                                        @role('student')
+                                            <a href="{{ route('student.classrooms') }}" class="text-muted text-hover-primary">
+                                                Kelas </a>
+                                        @else
+                                            <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
+                                                Kelas </a>
+                                        @endrole
+
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -42,8 +48,16 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('common.showClassrooms', request()->classroom->id) }}" class="text-muted text-hover-primary">
-                                            Detail </a>
+                                        @role('student')
+                                            <a href="{{ route('student.showClassrooms', request()->classroom->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                Detail </a>
+                                        @else
+                                            <a href="{{ route('common.showClassrooms', request()->classroom->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                Detail </a>
+                                        @endrole
+
                                     </li>
                                     <!--end::Item-->
 
@@ -54,10 +68,18 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
 
-                                <a href="{{ route('common.classrooms') }}"
-                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                    <i class="bi bi-arrow-left me-2"></i> Kembali
-                                </a>
+                                @role('student')
+                                    <a href="{{ route('student.classrooms') }}"
+                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                                    </a>
+                                @else
+                                    <a href="{{ route('common.classrooms') }}"
+                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                                    </a>
+                                @endrole
+
 
                             </div>
                             <!--end::Actions-->

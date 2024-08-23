@@ -1,5 +1,5 @@
 @php
-use App\Enums\MaterialExamTypeEnum;
+    use App\Enums\MaterialExamTypeEnum;
     use Carbon\Carbon;
 @endphp
 @extends('dashboard.user.layouts.app')
@@ -43,10 +43,18 @@ use App\Enums\MaterialExamTypeEnum;
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('mentor.materialExam.index') }}"
-                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                        <i class="bi bi-arrow-left me-2"></i> Kembali
-                                    </a>
+                                    @role('mentor')
+                                        <a href="{{ route('mentor.materialExam.index') }}"
+                                            class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                            <i class="bi bi-arrow-left me-2"></i> Kembali
+                                        </a>
+                                    @endrole
+                                    @role('teacher')
+                                        <a href="{{ route('teacher.materialExam.index') }}"
+                                            class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                            <i class="bi bi-arrow-left me-2"></i> Kembali
+                                        </a>
+                                    @endrole
                                 </div>
                             </div>
                             <!--end::Actions-->
@@ -233,6 +241,9 @@ use App\Enums\MaterialExamTypeEnum;
                                         <thead>
                                             <tr>
                                                 <th class="min-w-150px text-center">
+                                                    <span class="dt-column-title fw-bold">No</span>
+                                                </th>
+                                                <th class="min-w-150px text-center">
                                                     <span class="dt-column-title fw-bold">Nama</span>
                                                 </th>
                                                 <th class="min-w-50px text-center">
@@ -265,6 +276,9 @@ use App\Enums\MaterialExamTypeEnum;
                                                 @endphp
                                                 <tr>
                                                     <td class="text-center">
+                                                        {{ $loop->iteration }}
+                                                    </td>
+                                                    <td class="text-start">
                                                         {{ $student->student->name }}
                                                     </td>
                                                     <td class="text-center">

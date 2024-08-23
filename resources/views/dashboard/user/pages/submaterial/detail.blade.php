@@ -32,8 +32,14 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
-                                            Kelas </a>
+                                        @role('student')
+                                            <a href="{{ route('student.classrooms') }}" class="text-muted text-hover-primary">
+                                                Kelas </a>
+                                        @else
+                                            <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
+                                                Kelas </a>
+                                        @endrole
+
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -44,9 +50,16 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('student.materials', request()->classroom->id) }}"
-                                            class="text-muted text-hover-primary">
-                                            Materi {{ request()->classroom->name }}</a>
+                                        @role('student')
+                                            <a href="{{ route('student.materials', request()->classroom->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                Materi {{ request()->classroom->name }}</a>
+                                        @else
+                                            <a href="{{ route('common.materials', request()->classroom->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                Materi {{ request()->classroom->name }}</a>
+                                        @endrole
+
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -56,10 +69,18 @@
                                     <!--end::Item-->
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('common.showMaterial', ['classroom' => request()->classroom->id, 'material' => request()->material->id]) }}"
-                                            class="text-muted text-hover-primary">
-                                            {{ request()->material->title }}
-                                        </a>
+                                        @role('student')
+                                            <a href="{{ route('student.showMaterial', ['classroom' => request()->classroom->id, 'material' => request()->material->id]) }}"
+                                                class="text-muted text-hover-primary">
+                                                {{ request()->material->title }}
+                                            </a>
+                                        @else
+                                            <a href="{{ route('common.showMaterial', ['classroom' => request()->classroom->id, 'material' => request()->material->id]) }}"
+                                                class="text-muted text-hover-primary">
+                                                {{ request()->material->title }}
+                                            </a>
+                                        @endrole
+
                                     </li>
                                     <li class="breadcrumb-item">
                                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
@@ -79,10 +100,18 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{ route('common.showMaterial', ['classroom' => $classroom, 'material' => $material]) }}"
-                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                    <i class="bi bi-arrow-left me-2"></i> Kembali
-                                </a>
+                                @role('student')
+                                    <a href="{{ route('student.showMaterial', ['classroom' => $classroom, 'material' => $material]) }}"
+                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                                    </a>
+                                @else
+                                    <a href="{{ route('common.showMaterial', ['classroom' => $classroom, 'material' => $material]) }}"
+                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                                    </a>
+                                @endrole
+
                             </div>
                             <!--end::Actions-->
                         </div>

@@ -29,37 +29,6 @@
                                 </h1>
                                 <!--end::Title-->
 
-                                <!--begin::Breadcrumb-->
-                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        <a href="../../index-2.html" class="text-muted text-hover-primary">
-                                            Home </a>
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Utilities </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Search </li>
-                                    <!--end::Item-->
-
-                                </ul>
-                                <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->
                             <!--begin::Actions-->
@@ -157,7 +126,7 @@
                                                     <select name="classroom_id" class="form-select form-select-solid me-5"
                                                         data-control="select2" data-placeholder="Pilih Kelas">
                                                         @foreach ($classrooms as $classroom)
-                                                        
+
                                                             <option value="{{ $classroom->classroom->id }}">
                                                                 {{ $classroom->classroom->name }} - {{ $classroom->classroom->school->name }}
                                                             </option>
