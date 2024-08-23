@@ -67,7 +67,6 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-
                                 @role('student')
                                     <a href="{{ route('student.classrooms') }}"
                                         class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
@@ -119,7 +118,7 @@
                                         </div>
                                         <div class="card-body">
 
-                                            @if (count($classroom->students) > 0)
+                                            @if (count($students) > 0)
                                                 <table id="kt_datatable_responsive"
                                                     class="table table-striped border rounded gy-5 gs-7">
                                                     <thead>
@@ -139,26 +138,27 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($classroom->students as $student)
+                                                        {{-- @dd($students) --}}
+                                                        @foreach ($students as $studentSchool)
                                                             <tr>
 
                                                                 <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $student->studentSchool->student->name }}</td>
-                                                                <td>{{ $student->studentSchool->student->email }}</td>
-                                                                <td>{{ $student->studentSchool->student->phone_number }}
+                                                                <td>{{ $studentSchool->student->name }}</td>
+                                                                <td>{{ $studentSchool->student->email }}</td>
+                                                                <td>{{ $studentSchool->student->phone_number }}
                                                                 </td>
-                                                                <td>{{ $student->studentSchool->student->address }}</td>
+                                                                <td>{{ $studentSchool->student->address }}</td>
                                                                 @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                                     <td>
-                                                                        <a href="{{ route('teacher.showStudentDetail', [$student->studentSchool->student->id, $student->classroom->generation_id]) }}"
+                                                                        <a href="{{ route('teacher.showStudentDetail', [$studentSchool->student->id, $studentSchool->studentClassroom->classroom->generation_id]) }}"
                                                                             class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
                                                                     </td>
                                                                 @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
                                                                     <td>
-                                                                        <a href="{{ route('mentor.showStudentDetail', [$student->studentSchool->student->id, $student->classroom->generation_id]) }}"
+                                                                        <a href="{{ route('mentor.showStudentDetail', [$studentSchool->student->id, $studentSchool->studentClassroom->classroom->generation_id]) }}"
                                                                             class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Detail</a>
                                                                         <form
-                                                                            action="{{ route('mentor.add.point', $student->studentSchool->student->id) }}"
+                                                                            action="{{ route('mentor.add.point', $studentSchool->student->id) }}"
                                                                             method="POST"
                                                                             class="btn btn-sm btn-color-primary text-uppercase mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">
                                                                             @method('PUT')

@@ -77,9 +77,9 @@ class UserClassroomController extends Controller
         return view('dashboard.user.pages.classroom.index', $data);
     }
 
-    public function show(Classroom $classroom): View
+    public function show(Classroom $classroom, Request $request): View
     {
-        $students = $this->studentService->handleGetByClassroom($classroom->id);
+        $students = $this->studentService->handleGetStudentByClassroom($classroom->school->id, $classroom->id, false, $request);
         if (auth()->user()->roles->pluck('name')[0] == 'admin') {
             $data = [
                 'students' => $students,
