@@ -30,8 +30,17 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('mentor.attendance.index') }}" class="text-muted text-hover-primary">
-                                            Absensi </a>
+                                        @role('mentor')
+                                            <a href="{{ route('mentor.attendance.index') }}"
+                                                class="text-muted text-hover-primary">
+                                                Absensi </a>
+                                        @endrole
+                                        @role('admin')
+                                            <a href="{{ route('admin.attendance.index') }}"
+                                                class="text-muted text-hover-primary">
+                                                Absensi </a>
+                                        @endrole
+
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -41,8 +50,17 @@
                                     <!--end::Item-->
 
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
-                                            {{ request()->attendance->title }} </a>
+                                        @role('mentor')
+                                            <a href="{{ route('mentor.attendance.show', request()->attendance->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                {{ request()->attendance->title }} </a>
+                                        @endrole
+                                        @role('admin')
+                                            <a href="{{ route('admin.attendance.show', request()->attendance->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                {{ request()->attendance->title }} </a>
+                                        @endrole
+
                                     </li>
                                     <!--end::Item-->
 
@@ -52,10 +70,18 @@
                             <!--end::Page title-->
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="{{ url()->previous() }}"
-                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                    <i class="bi bi-arrow-left me-2"></i> Kembali
-                                </a>
+                                @role('mentor')
+                                    <a href="{{ route('mentor.attendance.index') }}"
+                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                                    </a>
+                                @endrole
+                                @role('admin')
+                                    <a href="{{ route('admin.attendance.index') }}"
+                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                                    </a>
+                                @endrole
                             </div>
                             <!--end::Actions-->
                         </div>

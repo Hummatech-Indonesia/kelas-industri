@@ -35,8 +35,13 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
-                                            Kelas </a>
+                                        @role('student')
+                                            <a href="{{ route('student.classrooms') }}" class="text-muted text-hover-primary">
+                                                Kelas </a>
+                                        @else
+                                            <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
+                                                Kelas </a>
+                                        @endrole
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -47,8 +52,16 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('common.materials', request()->classroom->id) }}" class="text-muted text-hover-primary">
-                                            Materi {{ request()->classroom->name }}</a>
+                                        @role('student')
+                                            <a href="{{ route('student.materials', request()->classroom->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                Materi {{ request()->classroom->name }}</a>
+                                        @else
+                                            <a href="{{ route('common.materials', request()->classroom->id) }}"
+                                                class="text-muted text-hover-primary">
+                                                Materi {{ request()->classroom->name }}</a>
+                                        @endrole
+
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->
@@ -71,21 +84,29 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 @if (auth()->user()->hasRole('student'))
-                                <div class="d-flex align-items-center me-4">
-                                    <form
-                                        action="{{ route('certify', ['material' => $material->id, 'classroom' => $classroom->id]) }}"
-                                        method="get">
-                                        <button class="btn btn-primary h-40px fs-7 fw-bold">
-                                            Download Sertifikat Materi
-                                        </button>
-                                    </form>
-                                </div>
+                                    <div class="d-flex align-items-center me-4">
+                                        <form
+                                            action="{{ route('certify', ['material' => $material->id, 'classroom' => $classroom->id]) }}"
+                                            method="get">
+                                            <button class="btn btn-primary h-40px fs-7 fw-bold">
+                                                Download Sertifikat Materi
+                                            </button>
+                                        </form>
+                                    </div>
                                 @endif
 
-                                <a href="{{ route('common.materials', ['classroom' => $classroom]) }}"
-                                    class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                    <i class="bi bi-arrow-left me-2"></i> Kembali
-                                </a>
+                                @role('student')
+                                    <a href="{{ route('student.materials', ['classroom' => $classroom]) }}"
+                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                                    </a>
+                                @else
+                                    <a href="{{ route('common.materials', ['classroom' => $classroom]) }}"
+                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                                    </a>
+                                @endrole
+
                             </div>
                             <!--end::Actions-->
                         </div>

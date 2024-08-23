@@ -233,6 +233,9 @@ use App\Enums\MaterialExamTypeEnum;
                                         <thead>
                                             <tr>
                                                 <th class="min-w-150px text-center">
+                                                    <span class="dt-column-title fw-bold">No</span>
+                                                </th>
+                                                <th class="min-w-150px text-center">
                                                     <span class="dt-column-title fw-bold">Nama</span>
                                                 </th>
                                                 <th class="min-w-50px text-center">
@@ -265,6 +268,9 @@ use App\Enums\MaterialExamTypeEnum;
                                                 @endphp
                                                 <tr>
                                                     <td class="text-center">
+                                                        {{ $loop->iteration }}
+                                                    </td>
+                                                    <td class="text-start">
                                                         {{ $student->student->name }}
                                                     </td>
                                                     <td class="text-center">

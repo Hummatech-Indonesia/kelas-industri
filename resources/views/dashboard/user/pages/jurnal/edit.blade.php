@@ -45,14 +45,26 @@
 
                                             <div class="card-toolbar">
 
-                                                <a href="{{ route('teacher.journal.index') }}"
-                                                    class="btn btn-light-primary font-weight-bolder me-2">
+                                                @role('teacher')
+                                                    <a href="{{ route('teacher.journal.index') }}"
+                                                        class="btn btn-light-primary font-weight-bolder me-2">
 
-                                                    <i class="ki ki-long-arrow-back icon-sm"></i>
+                                                        <i class="ki ki-long-arrow-back icon-sm"></i>
 
-                                                    Kembali
+                                                        Kembali
 
-                                                </a>
+                                                    </a>
+                                                @endrole
+                                                @role('mentor')
+                                                    <a href="{{ route('mentor.journal.index') }}"
+                                                        class="btn btn-light-primary font-weight-bolder me-2">
+
+                                                        <i class="ki ki-long-arrow-back icon-sm"></i>
+
+                                                        Kembali
+
+                                                    </a>
+                                                @endrole
 
 
                                                 <div class="btn-group">

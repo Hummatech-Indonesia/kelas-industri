@@ -31,11 +31,18 @@
 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('common.classrooms') }}" class="text-muted text-hover-primary">
-                                            Absensi </a>
+                                        @role('mentor')
+                                            <a href="{{ route('mentor.attendance.index') }}" class="text-muted text-hover-primary">
+                                                Absensi </a>
+                                        @endrole
+                                        @role('admin')
+                                            <a href="{{ route('admin.attendance.index') }}" class="text-muted text-hover-primary">
+                                                Absensi </a>
+                                        @endrole
+
                                     </li>
                                     <!--end::Item-->
-                                    
+
 
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -64,10 +71,10 @@
 
                                     <!--begin::Table-->
                                     @if ($attendances->count() > 0)
-                                    <table id="kt_datatable_responsive"
-                                    class="table table-striped border rounded gy-5 gs-7">
-                                    <thead>
-                                            <!--begin::Table row-->
+                                        <table id="kt_datatable_responsive"
+                                            class="table table-striped border rounded gy-5 gs-7">
+                                            <thead>
+                                                <!--begin::Table row-->
                                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                                     <th data-priority="1">No</th>
                                                     <th data-priority="2">Judul</th>
@@ -119,7 +126,8 @@
                                                                     data-id="{{ $attendance->id }}">
                                                                     <i class="fonticon-trash-bin fs-2 text-danger"></i>
                                                                 </button>
-                                                                <a href="{{route('mentor.attendance.show', [$attendance->id])}}">
+                                                                <a
+                                                                    href="{{ route('mentor.attendance.show', [$attendance->id]) }}">
                                                                     <button class="btn btn-default btn-sm p-1">
                                                                         <i class=" fa fa-eye fs-3 text-primary "></i>
                                                                     </button>
@@ -166,11 +174,9 @@
                     <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Syarat & Ketentuan</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="#"
-                            class="menu-link px-2">Kebijakan Privasi</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>
@@ -211,12 +217,12 @@
     {{--    end Update Statusl --}}
 @endsection
 @section('script')
-<script>
-    $("#kt_datatable_responsive").DataTable({
-        responsive: true
-    });
-</script>
-<script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script>
+        $("#kt_datatable_responsive").DataTable({
+            responsive: true
+        });
+    </script>
+    <script src="{{ asset('app-assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $('.btn-delete').click(function() {
             const url = "{{ route('mentor.attendance.destroy', ':id') }}".replace(':id', $(this).data(

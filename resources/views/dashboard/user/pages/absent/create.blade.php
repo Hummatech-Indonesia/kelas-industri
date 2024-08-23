@@ -12,15 +12,15 @@
                 <div id="kt_app_toolbar" class="app-toolbar py-4 py-lg-8 ">
 
                     <!--begin::Toolbar container-->
-                    <div id="kt_app_toolbar_container"
-                         class="app-container  container-fluid d-flex flex-stack flex-wrap ">
+                    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex flex-stack flex-wrap ">
                         <!--begin::Toolbar wrapper-->
                         <div id="kt_app_content_container" class="app-container  container-fluid ">
                             @if ($errors->any())
                                 <x-errors-component />
                             @endif
                             <div class="row">
-                                <form action="{{ route('mentor.attendance.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('mentor.attendance.store') }}" method="POST"
+                                    enctype="multipart/form-data">
 
                                     @csrf
                                     <div class="col-12">
@@ -40,27 +40,23 @@
 
                                                 <div class="card-toolbar">
                                                     @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                        <a href="{{ route('teacher.challenges.index') }}"
+                                                            class="btn btn-light-primary font-weight-bolder me-2">
 
-                                                    <a href="{{ route('teacher.challenges.index') }}"
-                                                        class="btn btn-light-primary font-weight-bolder me-2">
+                                                            <i class="ki ki-long-arrow-back icon-sm"></i>
 
-                                                        <i class="ki ki-long-arrow-back icon-sm"></i>
+                                                            Kembali
 
-                                                        Kembali
-
-                                                    </a>
-
+                                                        </a>
                                                     @elseif (auth()->user()->roles->pluck('name')[0] == 'mentor')
+                                                        <a href="{{ route('mentor.attendance.index') }}"
+                                                            class="btn btn-light-primary font-weight-bolder me-2">
 
-                                                    <a href="{{ route('mentor.attendance.index') }}"
-                                                    class="btn btn-light-primary font-weight-bolder me-2">
+                                                            <i class="ki ki-long-arrow-back icon-sm"></i>
 
-                                                    <i class="ki ki-long-arrow-back icon-sm"></i>
+                                                            Kembali
 
-                                                    Kembali
-
-                                                </a>
-
+                                                        </a>
                                                     @endif
 
                                                     <div class="btn-group">
@@ -134,11 +130,9 @@
                     <li class="menu-item"><a href="#" class="menu-link px-2">Tentang
                             Kami</a></li>
 
-                    <li class="menu-item"><a href="#"
-                                             class="menu-link px-2">Syarat & Ketentuan</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Syarat & Ketentuan</a></li>
 
-                    <li class="menu-item"><a href="#"
-                                             class="menu-link px-2">Kebijakan Privasi</a></li>
+                    <li class="menu-item"><a href="#" class="menu-link px-2">Kebijakan Privasi</a></li>
                 </ul>
                 <!--end::Menu-->
             </div>
