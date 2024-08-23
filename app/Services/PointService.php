@@ -14,6 +14,13 @@ class PointService
         $this->repository = $repository;
     }
 
+    public function getWeekPoint($user) {
+        return $this->repository->getWeekPoint($user);
+    }
+    public function store($data) {
+        return $this->repository->store($data);
+    }
+
     public function handleGetSchool()
     {
         return $this->repository->get_school();

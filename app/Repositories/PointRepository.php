@@ -2,8 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Models\Point;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Point;
 use Illuminate\Http\Request;
 
 class PointRepository extends BaseRepository
@@ -16,6 +17,14 @@ class PointRepository extends BaseRepository
         $this->user = $user;
     }
 
+
+    public function getWeekPoint($user)
+    {
+        return $this->model->query()
+            ->where('student_id', $user->id)
+            ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->get();
+    }
     public function update_or_create_point(array $data)
     {
         return $this->model->query()
@@ -61,10 +70,10 @@ class PointRepository extends BaseRepository
             ->role('student')
             ->whereHas('studentSchool.school')
             ->orderBy('point', 'desc')->whereHas('studentSchool', function ($query) use ($schoolId) {
-                        $query->whereHas('school', function ($query) use ($schoolId) {
-                            $query->where('id', $schoolId);
-                        });
-                    })
+                $query->whereHas('school', function ($query) use ($schoolId) {
+                    $query->where('id', $schoolId);
+                });
+            })
             ->limit(5)
             ->get();
     }
@@ -100,5 +109,4 @@ class PointRepository extends BaseRepository
             ->select('point')
             ->first();
     }
-
 }

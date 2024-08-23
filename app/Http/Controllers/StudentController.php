@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddPointRequest;
-use App\Http\Requests\StudentRequest;
-use App\Http\Requests\UserPasswordRequest;
-use App\Imports\StudentImport;
-use App\Models\User;
-use App\Services\ClassroomService;
-use App\Services\StudentService;
-use App\Services\UserServices;
-use App\Traits\YajraTable;
 use Exception;
-use Illuminate\Http\RedirectResponse;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Point;
+use Illuminate\View\View;
+use App\Traits\YajraTable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
+use App\Imports\StudentImport;
+use App\Services\PointService;
+use App\Services\UserServices;
+use App\Services\StudentService;
+use App\Services\ClassroomService;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\StudentRequest;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\AddPointRequest;
+use App\Http\Requests\UserPasswordRequest;
 
 class StudentController extends Controller
 {
@@ -25,12 +28,14 @@ class StudentController extends Controller
     private StudentService $studentService;
     private UserServices $userService;
     private ClassroomService $classroomService;
+    private PointService $pointService;
 
-    public function __construct(StudentService $studentService, UserServices $userService, ClassroomService $classroomService)
+    public function __construct(StudentService $studentService, UserServices $userService, ClassroomService $classroomService, PointService $pointService)
     {
         $this->studentService = $studentService;
         $this->userService = $userService;
         $this->classroomService = $classroomService;
+        $this->pointService = $pointService;
     }
 
     /**
@@ -72,10 +77,24 @@ class StudentController extends Controller
      * @param  mixed $user
      * @return RedirectResponse
      */
-    public function addPoint(User $user, AddPointRequest $request): RedirectResponse
+    public function addPoint(User $user, AddPointRequest $request)
     {
-        $user->update(['point' => $user->point + intval($request->point)]);
-        return redirect()->back()->with('success', trans('alert.update_success'));
+        $point = $this->pointService->getWeekPoint($user);
+        if (count($point) == 0) {
+            $storedPoint = $this->pointService->store([
+                'student_id' => $user->id,
+                'point' => $request->point
+            ]);
+
+            $user->update(['point' => $user->point + intval($request->point)]);
+
+            return redirect()->back()->with('success', trans('alert.add_success'));
+
+        } else {
+            return redirect()->back()->with('error', 'Siswa sudah mendapat point tambahan minggu ini!');
+        }
+        // dd($request);
+        // $user->update(['point' => $user->point + intval($request->point)]);
     }
 
     /**
