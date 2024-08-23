@@ -45,6 +45,7 @@ class AssignmentRepository extends BaseRepository
     public function get_assignment_student(string $classroomId, string $assignmentId, Request $request, int $limit): mixed
     {
         return $this->student->query()
+            ->where('status', 'active')
             ->whereHas('studentSchool.classrooms', function ($q) use ($classroomId) {
                 $q->where('classroom_id', $classroomId);
             })
@@ -70,7 +71,7 @@ class AssignmentRepository extends BaseRepository
         return $this->student->query()
             ->with('submitAssignment', function ($q) use ($assignmentId) {
                 $q->where('assignment_id', $assignmentId)
-                ->with('images');
+                    ->with('images');
             })
             ->whereRelation('studentSchool.classrooms', function ($q) use ($classroomId) {
                 $q->where('classroom_id', $classroomId);
