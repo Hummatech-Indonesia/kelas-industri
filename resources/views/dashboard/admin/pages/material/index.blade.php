@@ -127,13 +127,13 @@
 
                                     <a href="{{ route('admin.materials.show', $material->id) }}"
                                         class="card-title text-hover-primary font-weight-bolder font-size-h6 text-dark mb-1"
-                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 120px ;white-space: nowrap">
 
                                         {{ $material->title }}
                                     </a>
 
                                     <span class="text-muted font-weight-bold"
-                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 150px ;white-space: nowrap">
+                                        style="text-overflow: ellipsis;overflow: hidden ;max-width: 120px ;white-space: nowrap">
                                         Devisi {{ $material->devision->name }}
                                     </span>
 
