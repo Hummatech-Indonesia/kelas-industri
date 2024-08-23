@@ -1,5 +1,5 @@
 @php
-use App\Enums\MaterialExamTypeEnum;
+    use App\Enums\MaterialExamTypeEnum;
     use Carbon\Carbon;
 @endphp
 @extends('dashboard.user.layouts.app')
@@ -43,10 +43,18 @@ use App\Enums\MaterialExamTypeEnum;
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('mentor.materialExam.index') }}"
-                                        class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
-                                        <i class="bi bi-arrow-left me-2"></i> Kembali
-                                    </a>
+                                    @role('mentor')
+                                        <a href="{{ route('mentor.materialExam.index') }}"
+                                            class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                            <i class="bi bi-arrow-left me-2"></i> Kembali
+                                        </a>
+                                    @endrole
+                                    @role('teacher')
+                                        <a href="{{ route('teacher.materialExam.index') }}"
+                                            class="btn btn-flex btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">
+                                            <i class="bi bi-arrow-left me-2"></i> Kembali
+                                        </a>
+                                    @endrole
                                 </div>
                             </div>
                             <!--end::Actions-->
