@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('submit_assignments', function (Blueprint $table) {
-            Schema::dropColumns('is_rated');
+            Schema::dropColumns('submit_assignments','is_rated');
         });
     }
 };
