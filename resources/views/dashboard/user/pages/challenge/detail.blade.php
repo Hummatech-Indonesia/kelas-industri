@@ -325,6 +325,7 @@
                                                 </tr>
                                             </thead>
                                             @forelse ($student as $students)
+                                                {{-- @dd($students) --}}
                                                 <tbody>
                                                     <tr>
                                                         <td>
@@ -363,10 +364,11 @@
                                                                         </svg>
                                                                     </span> Gambar</button>
                                                             @else
+                                                                {{-- @dd($students) --}}
                                                                 @if (auth()->user()->hasRole('mentor'))
-                                                                    <a href="{{ route('mentor.downloadAssignment', ['submitAssignment' => $students->id]) }}"
+                                                                    <a href="{{ route('mentor.downloadFileChallenge', ['submitChallenge' => $students->id]) }}"
                                                                     @else <a
-                                                                        href="{{ route('teacher.downloadAssignment', ['submitAssignment' => $students->id]) }}"
+                                                                        href="{{ route('teacher.downloadFileChallenge', ['submitChallenge' => $students->id]) }}"
                                                                         @endif
                                                                         target="_blank"
                                                                         class="btn btn-danger btn-sm btn-download">
