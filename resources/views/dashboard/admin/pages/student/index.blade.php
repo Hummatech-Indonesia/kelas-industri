@@ -26,9 +26,9 @@
             <select class="form-select form-select-solid" name="classroom_id" aria-label="Select example"
                 value="{{ old('classroom_id') }}" id="select-classroom">
                 <option value="">Pilih Kelas</option>
-                @foreach ($classrooms as $classroom)
+                {{-- @foreach ($classrooms as $classroom)
                     <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
-                @endforeach
+                @endforeach --}}
             </select>
 
             <!--end::Button-->
@@ -44,7 +44,8 @@
                     <div class="card-body pt-0">
 
                         <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatables-responsive">
+                        <table id="kt_datatable_footer_callback"
+                            class="table table-striped table-row-bordered gy-5 gs-7 border rounded">
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
@@ -52,7 +53,7 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    <th>No Telepon</th>
+                                    <th>Sekolah</th>
                                     <th>Kelas</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -61,9 +62,20 @@
 
                             <!--begin::Table body-->
                             <tbody class="fw-semibold text-gray-600">
+                                @foreach ($students as $student)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $student->name }}</td>
+                                        <td>{{ $student->email }}</td>
+                                        <td>{{ $student->studentSchool? $student->studentSchool->school->name : '-' }}</td>
+                                        <td>{{ $student->studentSchool?->studentClassroom ? $student->studentSchool->studentClassroom->classroom->name : '-' }}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                             <!--end::Table body-->
                         </table>
+                        {{ $students->links() }}
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->
@@ -88,53 +100,97 @@
 
                 $("#datatables-responsive").DataTable().ajax.url(url).load();
             });
+            $("#kt_datatable_footer_callback").DataTable({
+                "footerCallback": function(row, data, start, end, display) {
+                    var api = this.api(),
+                        data;
 
-            $("#datatables-responsive").DataTable({
-                paging: true,
-                pageLength: 10,
-                responsive: true,
-                processing: true,
-                serverSide: true,
-                searching: true,
-                ajax: {
-                    url: "{{ route('school.students.index') }}",
-                    data: function(d) {
-                        d.classroom_id = $('#select-classroom').val();
-                    }
-                },
-                oLanguage: {
-                    sProcessing: 'loading...'
-                },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        searchable: false
-                    },
-                    {
-                        data: 'student.name',
-                        name: 'student.name'
-                    },
-                    {
-                        data: 'student.email',
-                        name: 'student.email'
-                    },
-                    {
-                        data: 'student.phone_number',
-                        name: 'student.phone_number'
-                    },
-                    {
-                        data: 'student_classroom.classroom.name',
-                        name: 'student_classroom.classroom.name',
-                        render: function(data, type, row) {
-                            if (row.student_classroom) {
-                                return data;
-                            } else {
-                                return '-';
-                            }
-                        }
-                    }
-                ]
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function(i) {
+                        return typeof i === "string" ?
+                            i.replace(/[\$,]/g, "") * 1 :
+                            typeof i === "number" ?
+                            i : 0;
+                    };
+
+                    // Total over all pages
+                    // var total = api
+                    //     .column(4)
+                    //     .data()
+                    //     .reduce(function(a, b) {
+                    //         return intVal(a) + intVal(b);
+                    //     }, 0);
+
+                    // Total over this page
+                    // var pageTotal = api
+                    //     .column(4, {
+                    //         page: "current"
+                    //     })
+                    //     .data()
+                    //     .reduce(function(a, b) {
+                    //         return intVal(a) + intVal(b);
+                    //     }, 0);
+
+                    // Update footer
+                    // $(api.column(4).footer()).html(
+                    //     "$" + pageTotal + " ( $" + total + " total)"
+                    // );
+                }
             });
+
+            // $("#datatables-responsive").DataTable({
+            //     paging: true,
+            //     pageLength: 10,
+            //     responsive: true,
+            //     processing: true,
+            //     serverSide: true,
+            //     searching: true,
+            //     // ajax: {
+            //     //     url: "{{ route('school.students.index') }}",
+            //     //     data: function(d) {
+            //     //         d.classroom_id = $('#select-classroom').val();
+            //     //     }
+            //     // },
+            //     oLanguage: {
+            //         sProcessing: 'loading...'
+            //     },
+            //     columns: [{
+            //             data: 'DT_RowIndex',
+            //             searchable: false
+            //         },
+            //         // {
+            //         //     data: 'student.name',
+            //         //     name: 'student.name'
+            //         // },
+            //         // {
+            //         //     data: 'student.email',
+            //         //     name: 'student.email'
+            //         // },
+            //         // {
+            //         //     data: 'student.phone_number',
+            //         //     name: 'student.phone_number'
+            //         // },
+            //         //     {
+            //         //         data: 'student_classroom.classroom.name',
+            //         //         name: 'student_classroom.classroom.name',
+            //         //         render: function(data, type, row) {
+            //         //             if (row.student_classroom) {
+            //         //                 return data;
+            //         //             } else {
+            //         //                 return '-';
+            //         //             }
+            //         //         }
+            //     ]
+            //     // columns: @json($students)
+            // });
 
         });
     </script>
+@endsection
+@section('css')
+<style>
+    .dataTables_paginate.paging_simple_numbers {
+        display: none;
+    }
+</style>
 @endsection

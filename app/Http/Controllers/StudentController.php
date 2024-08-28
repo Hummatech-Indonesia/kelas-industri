@@ -89,7 +89,6 @@ class StudentController extends Controller
             $user->update(['point' => $user->point + intval($request->point)]);
 
             return redirect()->back()->with('success', trans('alert.add_success'));
-
         } else {
             return redirect()->back()->with('error', 'Siswa sudah mendapat point tambahan minggu ini!');
         }
@@ -206,5 +205,24 @@ class StudentController extends Controller
         $this->userService->handleChangePassword($request, $student->id);
 
         return to_route('admin.schools.show', $school->id)->with('success', trans('alert.update_success'));
+    }
+
+    public function showAll(Request $request)
+    {
+        $students = User::query()
+            ->whereHas('roles', function ($q) {
+                $q->where('name', 'student');
+            })
+            ->with('studentSchool.studentClassroom.classroom')
+            ->when($request->search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%');
+                });
+            })
+            ->paginate(100);
+
+        // dd($students);
+        return view('dashboard.admin.pages.student.index', compact('students'));
     }
 }

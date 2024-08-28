@@ -103,6 +103,14 @@ Route::middleware('auth.custom')->group(function () {
 
     //admin
     Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+
+        // show all
+
+        Route::get('students', [StudentController::class, 'showAll'])->name('students-all');
+        // Route::get('students', [StudentController::class, 'listStudent']);
+
+
+
         Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
         });
