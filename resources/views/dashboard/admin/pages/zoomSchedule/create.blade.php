@@ -166,7 +166,7 @@
 
                         classrooms.map(classroom => {
                             html +=
-                                `<option value="${classroom.id}" ${classroom.id == {{ old('classroom_id') }} ? 'selected' : ''}>${classroom.name} - ${classroom.generation.school_year.school_year}</option>`;
+                                `<option value="${classroom.id}" {{ old('classroom_id') ? 'selected' : '' }}>${classroom.name} - ${classroom.generation.school_year.school_year}</option>`;
                         });
 
                         $('#classrooms').html(html);
