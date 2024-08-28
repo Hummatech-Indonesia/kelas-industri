@@ -35,6 +35,6 @@ class SubmitAssignment extends Model
      */
     public function images(): HasMany
     {
-        return $this->hasMany(SubmitAssignmentImage::class);
+        return $this->hasMany(SubmitAssignmentImage::class, 'submit_assignment_id');
     }
 }

@@ -37,7 +37,8 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="{{ route('student.challenges.index') }}" class="text-muted text-hover-primary">
+                                        <a href="{{ route('student.challenges.index') }}"
+                                            class="text-muted text-hover-primary">
                                             Tantangan </a>
                                     </li>
                                     <!--end::Item-->
@@ -323,7 +324,7 @@
                                                     <th class="min-w-100px" data-priority="4">Point</th>
                                                 </tr>
                                             </thead>
-                                            @foreach ($student as $students)
+                                            @forelse ($student as $students)
                                                 <tbody>
                                                     <tr>
                                                         <td>
@@ -345,6 +346,7 @@
                                                                     PATHINFO_EXTENSION,
                                                                 );
                                                             @endphp
+                                                            {{-- @dd($student) --}}
                                                             @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg']))
                                                                 <button class="btn btn-primary btn-sm btn-img"
                                                                     data-file="{{ asset('storage/' . $students->file) }}">
@@ -361,26 +363,30 @@
                                                                         </svg>
                                                                     </span> Gambar</button>
                                                             @else
-                                                                <a href="{{ Route('teacher.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
-                                                                    target="_blank"
-                                                                    class="btn btn-danger btn-sm btn-download">
-                                                                    <span class="svg-icon svg-icon-muted svg-icon-4">
-                                                                        <svg width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path opacity="0.3"
-                                                                                d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
-                                                                                fill="currentColor" />
-                                                                            <path opacity="0.3"
-                                                                                d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
-                                                                                fill="currentColor" />
-                                                                            <path
-                                                                                d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
-                                                                                fill="currentColor" />
-                                                                        </svg>
-                                                                    </span>
-                                                                    Download </a>
-                                                            @endif
+                                                                @if (auth()->user()->hasRole('mentor'))
+                                                                    <a href="{{ route('mentor.downloadAssignment', ['submitAssignment' => $students->id]) }}"
+                                                                    @else <a
+                                                                        href="{{ route('teacher.downloadAssignment', ['submitAssignment' => $students->id]) }}"
+                                                                        @endif
+                                                                        target="_blank"
+                                                                        class="btn btn-danger btn-sm btn-download">
+                                                                        <span class="svg-icon svg-icon-muted svg-icon-4">
+                                                                            <svg width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                <path opacity="0.3"
+                                                                                    d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
+                                                                                    fill="currentColor" />
+                                                                                <path opacity="0.3"
+                                                                                    d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                                                                    fill="currentColor" />
+                                                                                <path
+                                                                                    d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                                                                    fill="currentColor" />
+                                                                            </svg>
+                                                                        </span>
+                                                                        Download </a>
+                                                                @endif
                                                         </td>
                                                         <td>
                                                             @if ($students->is_valid == 'not_valid')
@@ -407,7 +413,8 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                            @endforeach
+                                            @empty
+                                            @endforelse
 
                                         </table>
                                     </div>
