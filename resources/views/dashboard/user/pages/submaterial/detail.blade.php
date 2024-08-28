@@ -372,10 +372,13 @@
                                                                     </a>
                                                                 @else
                                                                     @if (in_array(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray()))
-                                                                        @if (
+                                                                    {{-- @dd($assignment->StudentSubmitAssignment[
+                                                                        array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
+                                                                    ]) --}}
+                                                                        @if (!
                                                                             $assignment->StudentSubmitAssignment[
                                                                                 array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
-                                                                            ]->point === null)
+                                                                            ]->is_rated)
                                                                             <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
                                                                                 class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Edit
                                                                                 Tugas

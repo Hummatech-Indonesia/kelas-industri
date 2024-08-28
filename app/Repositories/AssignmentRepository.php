@@ -108,6 +108,7 @@ class AssignmentRepository extends BaseRepository
         $data = $this->submitAssignment->query()
             ->findorfail($id);
         $data->point = $point;
+        $data->is_rated = true;
         $data->save();
     }
 
