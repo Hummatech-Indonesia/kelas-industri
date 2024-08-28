@@ -214,12 +214,12 @@ class StudentController extends Controller
                 $q->where('name', 'student');
             })
             ->with('studentSchool.studentClassroom.classroom')
-            ->when($request->search, function ($query, $search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('email', 'like', '%' . $search . '%');
-                });
-            })
+            // ->when($request->search, function ($query, $search) {
+            //     $query->where(function ($q) use ($search) {
+            //         $q->where('name', 'like', '%' . $search . '%')
+            //             ->orWhere('email', 'like', '%' . $search . '%');
+            //     });
+            // })
             ->paginate(100);
 
         // dd($students);

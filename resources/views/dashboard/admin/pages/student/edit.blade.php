@@ -50,26 +50,28 @@
 
                             <div class="card-toolbar">
 
-                                <a href="{{ route('school.students.index') }}"
-                                    class="btn btn-light-primary font-weight-bolder me-2">
+                                @if (auth()->user()->hasRole('admin'))
+                                <a href="{{ route('admin.schools.show', request()->school->id) }}" @else <a
+                                        href="{{ route('school.students.index') }}" @endif
+                                        class="btn btn-light-primary font-weight-bolder me-2">
 
-                                    <i class="ki ki-long-arrow-back icon-sm"></i>
+                                        <i class="ki ki-long-arrow-back icon-sm"></i>
 
-                                    Kembali
+                                        Kembali
 
-                                </a>
+                                    </a>
 
-                                <div class="btn-group">
+                                    <div class="btn-group">
 
-                                    <button type="submit" class="btn btn-primary font-weight-bolder">
+                                        <button type="submit" class="btn btn-primary font-weight-bolder">
 
-                                        <i class="ki ki-check icon-sm"></i>
+                                            <i class="ki ki-check icon-sm"></i>
 
-                                        Simpan
+                                            Simpan
 
-                                    </button>
+                                        </button>
 
-                                </div>
+                                    </div>
 
                             </div>
 
