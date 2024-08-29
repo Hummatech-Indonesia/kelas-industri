@@ -375,8 +375,7 @@
                                                                     {{-- @dd($assignment->StudentSubmitAssignment[
                                                                         array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
                                                                     ]) --}}
-                                                                        @if (!
-                                                                            $assignment->StudentSubmitAssignment[
+                                                                        @if (!$assignment->StudentSubmitAssignment[
                                                                                 array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
                                                                             ]->is_rated)
                                                                             <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"

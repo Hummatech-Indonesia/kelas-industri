@@ -88,8 +88,11 @@
 
                                         <div class="card-toolbar">
 
-                                            <a href="{{ route('common.showSubMaterial', ['classroom' => $classroom, 'material' => $material, 'submaterial' => $subMaterial]) }}"
-                                                class="btn btn-light-primary font-weight-bolder me-2">
+                                            @role('student')
+                                                <a href="{{ route('student.showSubMaterial', ['classroom' => $classroom, 'material' => $material, 'submaterial' => $subMaterial]) }}"
+                                                @else <a
+                                                    href="{{ route('common.showSubMaterial', ['classroom' => $classroom, 'material' => $material, 'submaterial' => $subMaterial]) }}"
+                                                @endrole class="btn btn-light-primary font-weight-bolder me-2">
 
                                                 <i class="ki ki-long-arrow-back icon-sm"></i>
 

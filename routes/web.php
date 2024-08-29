@@ -451,7 +451,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::post('validChallenge', [ChallengeController::class, 'validChallenge'])->name('validChallenge');
         Route::get('/showDocument/{submaterial}/{role}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
         Route::get('/downloadAllFile/{challenge}', [ChallengeController::class, 'downloadAll'])->name('downloadAllFile');
-        Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadFileChallenge');
+        Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'downlosubmitAssignmentad'])->name('downloadFileChallenge');
         Route::get('downloadAllFile/{classroom}/{assignment}', [UserAssignmentController::class, 'downloadAll'])->name('downloadAll');
         Route::get('downloadFile/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
 

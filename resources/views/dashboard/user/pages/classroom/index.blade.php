@@ -136,7 +136,7 @@
                                 <!--end::Card-->
                             </form>
                         @elseif (auth()->user()->roles->pluck('name')[0] == 'student')
-                            <form id="form-search" action="{{ route('common.classrooms') }}">
+                            <form id="form-search" action="{{ route('student.classrooms') }}">
                                 <!--begin::Card-->
                                 <div class="card mb-7">
                                     <!--begin::Card body-->

@@ -57,9 +57,15 @@
                         </div>
                     </div>
 
+                    @role('student')
+                    <a href=
+                    "{{ route('student.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $subMaterialExam->subMaterial->material_id, 'submaterial' => $subMaterialExam->sub_material_id]) }}"
+                        class="btn btn-primary w-100 py-3 mt-5">Kembali</a>
+                    @else
                     <a href=
                     "{{ route('common.showSubMaterial', ['classroom' => auth()->user()->studentSchool->studentClassroom->classroom->id, 'material' => $subMaterialExam->subMaterial->material_id, 'submaterial' => $subMaterialExam->sub_material_id]) }}"
                         class="btn btn-primary w-100 py-3 mt-5">Kembali</a>
+                    @endrole
                 </div>
             </div>
         </div>

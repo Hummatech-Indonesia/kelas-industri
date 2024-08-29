@@ -161,7 +161,11 @@
 
                     <div class="row">
                         <form
+                            @role('student')
+                            action="{{ route('student.showMaterial', ['material' => $material, 'classroom' => $classroom]) }}">
+                            @else
                             action="{{ route('common.showMaterial', ['material' => $material, 'classroom' => $classroom]) }}">
+                            @endrole
                             <!--begin::Card-->
                             <div class="card mb-7">
                                 <!--begin::Card body-->
