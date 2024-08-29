@@ -132,7 +132,7 @@
                                 <div class="form-group row mb-3">
                                     <label class="col-xl-3 col-lg-3 col-form-label">Link Zoom</label>
                                     <div class="col-lg-9 col-xl-9">
-                                        <input type="url" name="linked" class="form-control"
+                                        <input type="text" name="linked" class="form-control"
                                             placeholder="Inputkan Link Zoom" value="{{ old('linked') }}" />
                                     </div>
                                 </div>
