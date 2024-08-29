@@ -39,7 +39,7 @@ class ZoomScheduleService
     public function handleCreate(ZoomScheduleRequest $request): void
     {
         $data = $request->validated();
-        $data['link'] = $data['linked'];
+        $data['link'] = urlencode($data['linked']);
         $this->repository->store($data);
     }
 
