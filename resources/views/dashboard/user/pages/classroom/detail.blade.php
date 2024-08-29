@@ -109,6 +109,12 @@
                                                         {{ $classroom->name }}.</span>
                                                 </h3>
                                             </div>
+                                            <div class="col-lg-6">
+                                                <form action="" class="d-flex gap-2">
+                                                    <input type="text" class="form-control" placeholder="Cari">
+                                                    <button class="btn btn-primary">Cari</button>
+                                                </form>
+                                            </div>
                                             {{-- <div class="col-lg-6 d-flex justify-content-end">
                                                 <button class="btn btn-light-primary h-40px fs-7" data-bs-toggle="modal"
                                                         data-bs-target="#modal-add">Tambah
