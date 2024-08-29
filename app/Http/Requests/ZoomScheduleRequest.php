@@ -19,7 +19,7 @@ class ZoomScheduleRequest extends BaseRequest
             'classroom_id' => 'required',
             'mentor_id' => 'required',
             'title' => 'required|string',
-            'linked' => 'required',
+            'linked' => 'required|string',
             'date' => 'required|after_or_equal:now'
         ];
     }
