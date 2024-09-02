@@ -56,6 +56,7 @@ class AssignmentRepository extends BaseRepository
                 $q->where('assignment_id', $assignmentId);
             })
             ->where('name', 'like', '%' . $request->search . '%')
+            ->orderBy('name', 'ASC')
             ->paginate($limit);
     }
 
