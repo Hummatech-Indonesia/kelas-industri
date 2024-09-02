@@ -111,7 +111,7 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <form action="" class="d-flex gap-2">
-                                                    <input type="text" class="form-control" placeholder="Cari">
+                                                    <input type="text" class="form-control" placeholder="Cari" name="name">
                                                     <button class="btn btn-primary">Cari</button>
                                                 </form>
                                             </div>
