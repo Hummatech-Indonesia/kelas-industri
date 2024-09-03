@@ -48,7 +48,7 @@ class StudentSubMaterialExamService
 
             if ($sampleItem && $sampleItem->student && $sampleItem->student->studentSchool) {
                 $schoolData = $sampleItem->student->studentSchool->school->only(['name']);
-                $schoolData = [];
+                // $schoolData = [];
             }
 
             return [

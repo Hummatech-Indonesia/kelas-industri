@@ -168,7 +168,7 @@
                                     <div
                                         class="p-2 px-4 bg-light-info rounded-2 d-flex align-items-center justify-content-center">
                                         <h4 class="text-info mb-0 fs-5" style="font-weight: 900">
-                                            {{ $classroom['average_score'] }}
+                                            {{ round($classroom['average_score']) }}
                                         </h4>
                                     </div>
                                 </div>
