@@ -127,6 +127,7 @@
                                                         class="svg-icon svg-icon-muted svg-icon-2hx btn-detail"
                                                         data-id="{{ $user->id }}" id="btn-detail-{{ $user->id }}"
                                                         data-name="{{ $user->name }}"
+                                                        data-email="{{ $user->email }}"
                                                         data-school="{{ $user->studentSchool->school->name }}"
                                                         data-classroom="{{ $user->studentSchool->studentClassroom ? $user->studentSchool->studentClassroom->classroom->name : '-' }}"
                                                         data-nisn = "{{ $user->national_student_id }}"
@@ -229,7 +230,7 @@
         </div>
 
         <div class="modal fade" tabindex="-1" id="modal-detail">
-            <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Detail Data Siswa</h4>
@@ -254,6 +255,8 @@
                                 <div class="text-gray-800 fw-semibold fs-5 mt-1 mb-2" id="detail-classroom"></div>
                             </div>
                             <div class="col">
+                                <div class="fs-4 fw-bold text-gray-900">Email</div>
+                                <div class="text-gray-800 fw-semibold fs-5 mt-1 mb-2" id="detail-email"></div>
                                 <div class="fs-4 fw-bold text-gray-900">NISN</div>
                                 <div class="text-gray-800 fw-semibold fs-5 mt-1 mb-2" id="detail-nisn"></div>
                                 <div class="fs-4 fw-bold text-gray-900">Jenis Kelamin</div>
@@ -399,6 +402,8 @@
 
             $('.btn-detail').click(function() {
                 const data = getDataAttributes($(this).attr('id'))
+                console.log(data);
+
                 handleDetail(data)
                 $('#modal-detail').modal('show')
             })
