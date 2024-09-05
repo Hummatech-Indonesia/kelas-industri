@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ApprovalRequest;
-use App\Models\StudentSchool;
 use App\Models\User;
-use App\Services\UserServices;
-use App\Repositories\UserRepository;
-use App\Services\ClassroomService;
-use App\Services\StudentService;
 use Illuminate\Http\Request;
+use App\Models\StudentSchool;
+use App\Services\UserServices;
+use App\Services\StudentService;
+use App\Services\ClassroomService;
+use App\Repositories\UserRepository;
+use App\Http\Requests\ApprovalRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ApprovalController extends Controller
 {
@@ -49,6 +50,16 @@ class ApprovalController extends Controller
         $this->studentService->handleUpdateSchool($request);
         $this->studentService->handleUpdateClassroom($request);
         return redirect()->back();
+    }
+
+    public function deleteUser(User $user): mixed
+    {
+        if (Storage::exists('public/' . $user->photo)) {
+            Storage::delete('public/' . $user->photo);
+        }
+        
+        $this->userRepository->destroy($user->id);
+        return redirect()->back()->with('success', 'User berhasil dihapus');
     }
 
     /**

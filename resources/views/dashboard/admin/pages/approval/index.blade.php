@@ -54,7 +54,8 @@
                                         </button>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="{{route('admin.wrongInput')}}" class="btn btn-primary btn-sm" type="submit" id="btn-search">
+                                        <a href="{{ route('admin.wrongInput') }}" class="btn btn-primary btn-sm"
+                                            type="submit" id="btn-search">
                                             Ganti Sekolah
                                         </a>
                                     </div>
@@ -109,7 +110,8 @@
                                                     <input type="checkbox" class="select" name="status[]"
                                                         value="{{ $user->id }}">
                                                 </td>
-                                                <td>{{ ($users->currentPage() - 1) * $users->perPage() + $loop->index + 1 }}</td>
+                                                <td>{{ ($users->currentPage() - 1) * $users->perPage() + $loop->index + 1 }}
+                                                </td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>
                                                     {{ $user->studentSchool->school->name }}
@@ -158,6 +160,22 @@
                                                                 <path
                                                                     d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                                     fill="currentColor" />
+                                                            </svg>
+                                                        </span>
+                                                        <span type="button" data-id="{{ $user->id }}"
+                                                            data-user="{{ $user->id }}"
+                                                            class="svg-icon btn-delete svg-icon-danger svg-icon-2hx"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                <path d="M4 7l16 0" />
+                                                                <path d="M10 11l0 6" />
+                                                                <path d="M14 11l0 6" />
+                                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
                                                             </svg>
                                                         </span>
                                                     </div>
@@ -264,6 +282,15 @@
                         selectedValues.push($(this).val());
                     });
                 });
+
+                $('.btn-delete').click(function() {
+                    let id = $(this).data('user');
+
+                    $('#form-delete').attr('action', "{{ route('admin.regristation.deleteUser', '') }}/" + id);
+                    // let form = $('#form-delete');
+                    // console.log(form);
+                    $('#kt_modal_delete').modal('show');
+                })
 
                 $("#btn-accept-siswa").click(function() {
                     Swal.fire({

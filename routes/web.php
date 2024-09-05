@@ -140,6 +140,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('studentRegistration', [ApprovalController::class, 'studentRegistration'])->name('studentRegistration');
         Route::get('studentRegistration/wrongInput', [ApprovalController::class, 'wrongInput'])->name('wrongInput');
         Route::patch('studentRegistration/updateSchool', [ApprovalController::class, 'updateSchool'])->name('updateSchool');
+        Route::delete('studentRegistration/{user}', [ApprovalController::class, 'deleteUser'])->name('regristation.deleteUser');
         Route::patch('approve-student-all', [ApprovalController::class, 'approveAll'])->name('approveStudentAll');
         Route::patch('approve-student/{user}', [ApprovalController::class, 'approve']);
         Route::get('classrooms/create/{school}', [ClassroomController::class, 'create'])->name('classrooms.create');
