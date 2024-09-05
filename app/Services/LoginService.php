@@ -25,6 +25,7 @@ class LoginService
         if ($role == 'student') {
             if ($user->status == 'active') {
                 if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+                    dd(!isset($user->studentSchool->studentClassroom));
                     if (!isset($user->studentSchool->studentClassroom)) {
                         auth()->logout();
                         return redirect('/login')->with('error', 'Anda belum memiliki kelas.');
@@ -35,6 +36,8 @@ class LoginService
                     return redirect()->back()->withErrors(trans('auth.login_failed'))->withInput();
                 }
             } else {
+                auth()->logout();
+                // dd($user);
                 return redirect()->back()->with('error', 'Anda tidak dapat login sekarang, tunggu admin mengkonfirmasi akun anda');
             }
         }
