@@ -163,4 +163,28 @@ trait YajraTable
             ->rawColumns(['action'])
             ->toJson();
     }
+
+
+    /**
+     * Datatable mockup for student resource
+     *
+     * @param mixed $collection
+     *
+     * @return JsonResponse
+     * @throws Exception
+     */
+
+    public function AllStudentMockup(mixed $collection): JsonResponse
+    {
+        return DataTables::of($collection)
+            ->addIndexColumn()
+            ->editColumn('classrooms', function ($data) {
+                return view('dashboard.admin.pages.student.classrooms', compact('data'));
+            })
+            ->addColumn('action', function ($data) {
+                return view('dashboard.admin.pages.student.datatables', compact('data'));
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
 }

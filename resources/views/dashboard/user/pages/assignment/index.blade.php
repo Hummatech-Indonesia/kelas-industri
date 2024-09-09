@@ -199,7 +199,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse($students as $student)
+                                            @forelse($students as $student) 
                                                 <tr>
                                                     <td>{{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}
                                                     </td>

@@ -19,6 +19,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StudentRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\AddPointRequest;
+use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\UserPasswordRequest;
 
 class StudentController extends Controller
@@ -209,18 +210,23 @@ class StudentController extends Controller
 
     public function showAll(Request $request)
     {
-        $students = User::query()
-            ->whereHas('roles', function ($q) {
-                $q->where('name', 'student');
-            })
-            ->with('studentSchool.studentClassroom.classroom')
-            // ->when($request->search, function ($query, $search) {
-            //     $query->where(function ($q) use ($search) {
-            //         $q->where('name', 'like', '%' . $search . '%')
-            //             ->orWhere('email', 'like', '%' . $search . '%');
-            //     });
-            // })
-            ->paginate(100);
+        if ($request->ajax()) {
+            $students = User::query()
+                ->whereHas('roles', function ($q) {
+                    $q->where('name', 'student');
+                })
+                ->with('studentSchool.studentClassroom.classroom')
+                // ->when($request->search, function ($query, $search) {
+                //     $query->where(function ($q) use ($search) {
+                //         $q->where('name', 'like', '%' . $search . '%')
+                //             ->orWhere('email', 'like', '%' . $search . '%');
+                //     });
+                // })
+                ->paginate(100);
+        }
+
+        DataTables::of($students)
+            ->make();
 
         // dd($students);
         return view('dashboard.admin.pages.student.index', compact('students'));
