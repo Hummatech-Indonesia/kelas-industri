@@ -52,7 +52,7 @@ class StudentSubmaterialExamRepository extends BaseRepository
             });
         }
 
-        $data = $result->paginate($paginate);
+        return $data = $result->paginate($paginate);
     }
 
 
