@@ -96,7 +96,7 @@
                                 <x-errors-component />
                             </div>
                         @endif
-                        <div class="col-8">
+                        <div class="col col-md-8">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card">
@@ -216,7 +216,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col col-md-4">
                             <div class="card mb-5 mb-xl-8">
                                 <!--begin::Card body-->
                                 <div class="card-body">
