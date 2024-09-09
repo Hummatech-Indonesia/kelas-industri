@@ -78,6 +78,15 @@
         .sidebar-material {
             z-index: 11;
         }
+
+        .modal {
+            z-index: 2000 !important;
+        }
+
+        .modal-backdrop {
+            /* z-index: 9 !important; */
+            display: none !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -678,9 +687,8 @@
                                                     @php
                                                         $showAssigmentFirst = false;
                                                     @endphp
-                                                    <div class="modal fade" tabindex="-1"
-                                                        id="detail_modal_{{ $assigment->id }}">
-                                                        <div class="modal-dialog" style="width: 500px">
+                                                    <div class="modal fade" id="detail_modal_{{ $assigment->id }}">
+                                                        <div class="modal-dialog modal-dialog-centered" style="width: 500px;">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title">{{ $assigment->title }}</h5>
