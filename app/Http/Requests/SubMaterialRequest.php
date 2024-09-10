@@ -18,8 +18,8 @@ class SubMaterialRequest extends BaseRequest
             'material_id' => 'required',
             'title' => 'required|string',
             'description' => 'required',
-            'teacher_file' => 'required|file|mimes:pdf|max:10240',
-            'student_file' => 'required|file|mimes:pdf|max:10240',
+            'teacher_file' => 'required|mimes:pdf|max:10240',
+            'student_file' => 'required|mimes:pdf|max:10240',
             'total_multiple_choice' => 'required|integer',
             'total_essay' => 'required|integer',
             'type' => ['required', Rule::in([SubMaterialExamTypeEnum::REGISTER->value, SubMaterialExamTypeEnum::QUIZ->value])],
@@ -31,8 +31,8 @@ class SubMaterialRequest extends BaseRequest
         ];
 
         if (request()->routeIs('admin.subMaterials.update')) {
-            $rules['teacher_file'] = 'file|mimes:pdf||max:10240';
-            $rules['student_file'] = 'file|mimes:pdf||max:10240';
+            $rules['teacher_file'] = 'mimes:pdf||max:10240';
+            $rules['student_file'] = 'mimes:pdf||max:10240';
             $rules['total_multiple_choice'] = 'nullable';
             $rules['total_essay'] = 'nullable';
             $rules['type'] = 'nullable';

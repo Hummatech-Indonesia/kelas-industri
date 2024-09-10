@@ -6,7 +6,6 @@ use App\Models\SubMaterial;
 use App\Enums\QuestionTypeEnum;
 use App\Http\Requests\SubMaterialRequest;
 use App\Repositories\SubMaterialRepository;
-use Illuminate\Validation\ValidationException;
 
 class SubMaterialService
 {
@@ -50,9 +49,8 @@ class SubMaterialService
             } else {
                 $data['order'] = 1;
             }
-        } catch (ValidationException $e) {
-            // Tangani kesalahan validasi
-            dd($e->errors());
+        } catch (\Exception $th) {
+            dd($th);
         }
 
         return $this->repository->store($data);
