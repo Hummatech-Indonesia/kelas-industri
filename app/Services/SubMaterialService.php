@@ -35,9 +35,9 @@ class SubMaterialService
      */
     public function handleCreate(SubMaterialRequest $request): mixed
     {
+        try {
         $data = $request->validated();
 
-        try {
             $data['teacher_file'] = $request->file('teacher_file')->store('teacher_file', 'public');
             $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
 
