@@ -153,7 +153,7 @@
                                     <input type="hidden" name="type" value="{{ SubMaterialExamTypeEnum::QUIZ->value }}">
                                     <label class="required form-label @error('time') is-invalid @enderror mb-3">Waktu
                                         pengerjaan (Menit)</label>
-                                    <input type="number" name="time" class="form-control form-control-solid mb-3"
+                                    <input type="number" name="time" class="form-control form-control-solid mb-3" value="{{ old('time') }}"
                                         id="">
                                     @error('time')
                                         <span class="invalid-feedback" role="alert">
@@ -166,7 +166,7 @@
                                         <label class="required form-label  mb-3">Bobot
                                             Nilai Pilihan Ganda</label>
                                         <input type="number" name="multiple_choice_value"
-                                            class="form-control form-control-solid mb-3 @error('multiple_choice_value') is-invalid @enderror"
+                                            class="form-control form-control-solid mb-3 @error('multiple_choice_value') is-invalid @enderror" value="{{ old('multiple_choice_value') }}"
                                             id="">
                                         @error('multiple_choice_value')
                                             <span class="invalid-feedback" role="alert">
@@ -178,7 +178,7 @@
                                         <label
                                             class="required form-label @error('essay_value') is-invalid @enderror mb-3">Bobot
                                             Nilai Essay</label>
-                                        <input type="number" name="essay_value"
+                                        <input type="number" name="essay_value" value="{{ old('essay_value') }}"
                                             class="form-control form-control-solid mb-3" id="">
                                         @error('essay_value')
                                             <span class="invalid-feedback" role="alert">
@@ -192,7 +192,7 @@
                                         <label
                                             class="required form-label @error('total_multiple_choice') is-invalid @enderror mb-3">Total
                                             Soal Pilihan Ganda</label>
-                                        <input type="number" name="total_multiple_choice"
+                                        <input type="number" name="total_multiple_choice" value="{{ old('total_multiple_choice') }}"
                                             class="form-control form-control-solid mb-3" id="">
                                         @error('total_multiple_choice')
                                             <span class="invalid-feedback" role="alert">
@@ -204,7 +204,7 @@
                                         <label
                                             class="required form-label @error('total_essay') is-invalid @enderror mb-3">Total
                                             Soal Essay</label>
-                                        <input type="number" name="total_essay"
+                                        <input type="number" name="total_essay" value="{{ old('total_essay') }}"
                                             class="form-control form-control-solid mb-3" id="">
                                         @error('total_essay')
                                             <span class="invalid-feedback" role="alert">
