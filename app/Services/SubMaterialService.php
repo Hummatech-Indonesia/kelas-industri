@@ -37,24 +37,23 @@ class SubMaterialService
     {
         $data = $request->validated();
 
-        // try {
-        //     $data['teacher_file'] = $request->file('teacher_file')->store('teacher_file', 'public');
-        //     $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
+        try {
+            $data['teacher_file'] = $request->file('teacher_file')->store('teacher_file', 'public');
+            $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
 
-        //     $existingMaterial = SubMaterial::where('material_id', $data['material_id'])->exists();
+            $existingMaterial = SubMaterial::where('material_id', $data['material_id'])->exists();
 
-        //     if ($existingMaterial) {
-        //         $lastOrder = SubMaterial::where('material_id', $data['material_id'])->max('order');
-        //         $data['order'] = $lastOrder + 1;
-        //     } else {
-        //         $data['order'] = 1;
-        //     }
-        // } catch (\Exception $th) {
-        //     throw $th;
-        // }
+            if ($existingMaterial) {
+                $lastOrder = SubMaterial::where('material_id', $data['material_id'])->max('order');
+                $data['order'] = $lastOrder + 1;
+            } else {
+                $data['order'] = 1;
+            }
+        } catch (\Exception $th) {
+            dd($th);
+        }
 
-        // return $this->repository->store($data);
-        return false;
+        return $this->repository->store($data);
     }
 
     public function handleListSubMaterials(string $order, string $materialId): mixed
