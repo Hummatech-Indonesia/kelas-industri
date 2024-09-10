@@ -49,7 +49,7 @@ class SubMaterialService
             } else {
                 $data['order'] = 1;
             }
-        } catch (\Throwable $th) {
+        } catch (\Exception $th) {
             dd($th);
         }
 
