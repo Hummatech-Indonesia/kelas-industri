@@ -75,7 +75,6 @@ class UserAssignmentController extends Controller
     public function deleteImages(SubmitAssignment $submitAssignment)
     {
         $this->submitAssignmentImageService->handleDelete($submitAssignment);
-        $submitAssignment->delete();
     }
 
     public function download(SubmitAssignment $submitAssignment)
