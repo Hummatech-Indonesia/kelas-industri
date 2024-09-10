@@ -35,18 +35,22 @@ class SubMaterialService
      */
     public function handleCreate(SubMaterialRequest $request): mixed
     {
-        $data = $request->validated();
+        try {
+            $data = $request->validated();
 
-        $data['teacher_file'] = $request->file('teacher_file')->store('teacher_file', 'public');
-        $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
+            $data['teacher_file'] = $request->file('teacher_file')->store('teacher_file', 'public');
+            $data['student_file'] = $request->file('student_file')->store('student_file', 'public');
 
-        $existingMaterial = SubMaterial::where('material_id', $data['material_id'])->exists();
+            $existingMaterial = SubMaterial::where('material_id', $data['material_id'])->exists();
 
-        if ($existingMaterial) {
-            $lastOrder = SubMaterial::where('material_id', $data['material_id'])->max('order');
-            $data['order'] = $lastOrder + 1;
-        } else {
-            $data['order'] = 1;
+            if ($existingMaterial) {
+                $lastOrder = SubMaterial::where('material_id', $data['material_id'])->max('order');
+                $data['order'] = $lastOrder + 1;
+            } else {
+                $data['order'] = 1;
+            }
+        } catch (\Throwable $th) {
+            dd($th);
         }
 
         return $this->repository->store($data);
