@@ -52,7 +52,7 @@ class SubMaterialService
             }
         } catch (ValidationException $e) {
             // Tangani kesalahan validasi
-            return response()->json(['error' => $e->errors()], 422);
+            dd($e->errors());
         }
 
         return $this->repository->store($data);
