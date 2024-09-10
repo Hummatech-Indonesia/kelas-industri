@@ -33,7 +33,6 @@ class SubMaterialRequest extends BaseRequest
         if (request()->routeIs('admin.subMaterials.update')) {
             $rules['teacher_file'] = 'file|mimes:pdf||max:10240';
             $rules['student_file'] = 'file|mimes:pdf||max:10240';
-            $rules['student_file'] = 'file|mimes:pdf||max:10240';
             $rules['total_multiple_choice'] = 'nullable';
             $rules['total_essay'] = 'nullable';
             $rules['type'] = 'nullable';
