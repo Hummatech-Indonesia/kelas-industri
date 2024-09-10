@@ -68,8 +68,14 @@ class UserAssignmentController extends Controller
 
     public function storeImage(UploadAssignmentImage $request, SubmitAssignment $submitAssignment)
     {
+        $this->submitAssignmentImageService->handleDelete($submitAssignment);
         $this->submitAssignmentImageService->handleCreate($request, $submitAssignment);
         return response()->json(null, 200);
+    }
+    public function deleteImages(SubmitAssignment $submitAssignment)
+    {
+        $this->submitAssignmentImageService->handleDelete($submitAssignment);
+        $submitAssignment->delete();
     }
 
     public function download(SubmitAssignment $submitAssignment)
@@ -103,7 +109,7 @@ class UserAssignmentController extends Controller
             }
 
             // Tutup file ZIP setelah selesai
-            $zip->close();
+            // $zip->close();
         } else {
             return redirect()->back()->with('error', 'Gagal membuat file ZIP');
         }

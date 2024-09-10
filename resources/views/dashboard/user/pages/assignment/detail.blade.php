@@ -199,6 +199,7 @@
                                                                 </li>
                                                                 <li>File yang diinputkan harus ekstensi rar/zip atau png,
                                                                     jpg, jpeg.</li>
+                                                                <li>Jumlah maksimal 10 file</li>
                                                                 <li>Link harus berupa url yang berisi repository tugas anda
                                                                 </li>
                                                             </ul>
@@ -337,7 +338,6 @@
             progressBar.addClass(colorClass);
         }
 
-
         $('#form-store').submit(function(e) {
             // console.log(e);
             // return true;
@@ -364,11 +364,12 @@
                     },
                     success: function(response) {
                         if (response.success) {
+                            submitAssignmentId = response.submitAssignment.id
                             myDropzone.options.url =
                                 `{{ route('student.store-image-assignment', '') }}/${response.submitAssignment.id}`;
                             myDropzone.processQueue();
                         }
-                        console.log(myDropzone.options.url);
+                        // console.log(myDropzone.options.url);
                     },
                     error: function(response) {
                         console.log(response);
@@ -412,16 +413,49 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             init: function() {
+                var hasError = false;
+
+                this.on("error", function(file, response) {
+                    hasError = true; // Set error flag to true
+                    // Menampilkan pesan error dengan SweetAlert2
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: `{{ route('student.delete-image-assignment', '') }}/${submitAssignmentId}`,
+                        dataType: "json",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+                    Swal.fire({
+                        title: 'Error!',
+                        icon: 'error',
+                        html: 'Terjadi kesalahan saat mengirim file.<br><p>Mohon cek kembali format file anda.<br>Data anda yang lama terhapus!</p>'
+                    }).then(function(response) {
+                        window.location.reload();
+                    });
+
+                    // Menampilkan pesan error di Dropzone
+                    file.previewElement.classList.add("dz-error");
+                });
+
                 this.on("complete", function(file) {
+                    // Jika semua file telah selesai diupload, dan tidak ada file yang sedang diupload atau antre,
+                    // serta tidak ada error
                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-                        updateProgressBar(100, "bg-success");
-                        Swal.fire({
-                            title: 'Berhasil!',
-                            icon: 'success',
-                            text: 'Berhasil Mengirim Tugas',
-                        }).then(function() {
-                            location.reload();
-                        });
+                        if (!hasError) { // Periksa apakah ada error
+                            updateProgressBar(100, "bg-success");
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                icon: 'success',
+                                text: 'Berhasil Mengirim Tugas',
+                            }).then(function() {
+                                location.reload();
+                            });
+                        }
                     }
                 });
             }

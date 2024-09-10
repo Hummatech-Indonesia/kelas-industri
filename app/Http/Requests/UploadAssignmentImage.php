@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UploadAssignmentImage extends FormRequest
+class  UploadAssignmentImage extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UploadAssignmentImage extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|mimes:png,jpg,jpeg'
+            'file' => 'required|mimes:zip,rar,png,jpg,jpeg'
         ];
     }
 }

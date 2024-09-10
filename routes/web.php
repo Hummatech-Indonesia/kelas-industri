@@ -506,6 +506,7 @@ Route::middleware('auth.custom')->group(function () {
         Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
         Route::post('{classroom}/storeassignment/{material}/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
         Route::post('storeimageassignment/{submitAssignment}', [UserAssignmentController::class, 'storeImage'])->name('store-image-assignment');
+        Route::delete('delete-image-assignment/{submitAssignment}', [UserAssignmentController::class, 'deleteImages'])->name('delete-image-assignment');
 
         Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
         Route::post('storeChallenge', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
