@@ -68,7 +68,7 @@ class UserAssignmentController extends Controller
 
     public function storeImage(UploadAssignmentImage $request, SubmitAssignment $submitAssignment)
     {
-        $this->submitAssignmentImageService->handleDelete($submitAssignment);
+        // $this->submitAssignmentImageService->handleDelete($submitAssignment);
         $this->submitAssignmentImageService->handleCreate($request, $submitAssignment);
         return response()->json(null, 200);
     }
@@ -128,42 +128,35 @@ class UserAssignmentController extends Controller
 
     public function downloadAll(Classroom $classroom, Assignment $assignment)
     {
-        $files = $this->assignmentService->handleGetAssignmentStudentDownload($classroom->id, $assignment->id);
+        $submitAssignments = SubmitAssignment::with(['student', 'images'])->get();
+        // dd($submitAssignments);
 
-        if (count($files) > 0) {
-            $zipName = 'Assignment.zip';
-            $zipPath = public_path("app/public/" . $zipName);
+        $notFoundFile = 0;
+        if (count($submitAssignments) > 0) {
+            $zip_name = $assignment->title . ' - ' . $classroom->name . '.zip';
+            $zip_path = public_path($zip_name);
             $zip = new ZipArchive;
 
-            if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
-                $filesToAdd = [];
+            if ($zip->open($zip_path, \ZipArchive::CREATE || \ZipArchive::OVERWRITE) === TRUE) {
+                foreach ($submitAssignments as $submitAssignment) {
+                    $studentName = $submitAssignment->student->name; // Nama siswa
+                    $studentFolder = $studentName . '/'; // Nama folder untuk siswa
 
-                foreach ($files as $file) {
-                    if ($file->submitAssignment && $file->submitAssignment->images) {
-                        $filePath = public_path('app/public/' . $file->submitAssignment->file);
-                        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+                    foreach ($submitAssignment->images as $image) {
+                        $filePath = public_path('storage/' . $image->image); // Path file gambar
 
-                        foreach ($file->submitAssignment->images as $image) {
-                            if (file_exists($filePath)) {
-                                $filesToAdd[] = [
-                                    'path' => $filePath,
-                                    'name' => $file->name . '/' . $image->id . '.' . $extension,
-                                ];
-                            }
+                        if (file_exists($filePath)) {
+                            $zipFilePath = $studentFolder . basename($filePath);
+                            $zip->addFile($filePath, $zipFilePath);
+                        } else {
+                            $notFoundFile++;
                         }
                     }
                 }
 
-                if (!empty($filesToAdd)) {
-                    foreach ($filesToAdd as $fileToAdd) {
-                        $zip->addFile($fileToAdd['path'], $fileToAdd['name']);
-                    }
-                    $zip->close();
+                $zip->close();
 
-                    return response()->download($zipPath, $zipName);
-                } else {
-                    $errorMessage = "File Tugas Siswa Tidak Ditemukan Silahkan Untuk Memberitahu Agar Mengisi Ulang Tugas.";
-                }
+                return response()->download($zip_path, $zip_name)->deleteFileAfterSend(true);
             } else {
                 $errorMessage = "Tidak dapat membuat ZIP archive.";
             }
