@@ -83,8 +83,13 @@ class AssignmentService
         $data['student_id'] = $studentId;
 
         // Set Default Nilai
-        $data['point'] = 90;
-        $this->setPoint($data['student_id'], $data['assignment_id']);
+        $xisingSubmitAssignment = $this->repository->get_submit_assignment_student($data['student_id'] ,$data['assignment_id']);
+
+        // dd($xisingSubmitAssignment, !$xisingSubmitAssignment);
+        if (!$xisingSubmitAssignment) {
+            $data['point'] = 90;
+            $this->setPoint($data['student_id'], $data['assignment_id']);
+        }
 
         return $this->repository->create_submit_assignment($data, $studentId);
     }

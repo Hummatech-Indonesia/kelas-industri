@@ -199,7 +199,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse($students as $student) 
+                                            @forelse($students as $student)
                                                 <tr>
                                                     <td>{{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}
                                                     </td>
@@ -220,7 +220,9 @@
                                                             @endphp
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                                 {{-- @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg'])) --}}
+                                                                {{-- @dd($student->submitAssignment->images) --}}
                                                                 @if (count($student->submitAssignment->images) == 1)
+                                                                {{-- @dd('sdfsdfsdfsfd') --}}
                                                                     <button class="btn btn-primary btn-sm btn-img"
                                                                         data-file="{{ asset('storage/' . $student->submitAssignment->images[0]->image) }}">
                                                                         <span

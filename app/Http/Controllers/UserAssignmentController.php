@@ -79,48 +79,51 @@ class UserAssignmentController extends Controller
 
     public function download(SubmitAssignment $submitAssignment)
     {
-
-        // Set nama untuk file ZIP
+        // Set the name for the ZIP file
         $zip_name = $submitAssignment->student->name . '.zip';
         $zip_path = public_path($zip_name);
 
         $zip = new \ZipArchive();
 
-        // Coba buka file ZIP untuk pembuatan dan timpa jika sudah ada
+        // Open the ZIP file for creation and overwrite if it exists
         if ($zip->open($zip_path, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
             foreach ($submitAssignment->images as $submitImage) {
-                $file = public_path('storage/' . $submitImage->file);
+                $file = public_path('storage/' . $submitImage->image);
 
-                // Periksa apakah file ada sebelum menambahkannya ke ZIP
+                // Check if the file exists before adding it to the ZIP
                 if (file_exists($file)) {
-                    // Gunakan nama dasar file untuk nama lokal di dalam ZIP
+                    // Use the base name of the file for the local name inside the ZIP
                     $zip->addFile($file, basename($file));
                 } else {
-                    $role = auth()->user()->roles->pluck('name')[0];
-                    $message = ($role == 'teacher' || $role == 'mentor')
-                        ? 'Ada kesalahan pada file tugas siswa, silakan memberitahu siswa untuk mengisi ulang tugas.'
-                        : 'Ada kesalahan pada file tugas Anda, silakan input kembali tugas Anda.';
-
-                    // Tutup file ZIP jika ada kesalahan
-                    $zip->close();
-                    return redirect()->back()->with('error', $message);
+                    if (auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor') {
+                        return redirect()->back()->with('error', 'Ada Kesalahan Pada File Tugas Siswa, Silahkan Memberitahu Siswa Untuk Mengisi Ulang Tugas.');
+                    } else {
+                        return redirect()->back()->with('error', 'Ada Kesalahan Pada File Tugas Anda, Silahkan Input Kembali Tugas Anda.');
+                    }
                 }
             }
-
-            // Tutup file ZIP setelah selesai
-            // $zip->close();
+            $zip->close();
         } else {
-            return redirect()->back()->with('error', 'Gagal membuat file ZIP');
+            echo 'Failed to create ZIP file';
         }
 
-        // Periksa jika file ZIP sudah ada sebelum mengunduh
-        if (file_exists($zip_path)) {
-            // Kembalikan file ZIP sebagai respons unduhan dan hapus file setelah dikirim
-            return response()->download($zip_path)->deleteFileAfterSend(true);
-        } else {
-            return redirect()->back()->with('error', 'File ZIP tidak ditemukan');
-        }
+        // Return the ZIP file as a download response
+        return response()->download($zip_path)->deleteFileAfterSend(true);
+
+        // if (file_exists('storage/' . $submitAssignment->file)) {
+        //     $extension = pathinfo(storage_path('storage/' . $submitAssignment->file), PATHINFO_EXTENSION);
+        //     $path = public_path('storage/' . $submitAssignment->file);
+        //     $name = $submitAssignment->student->name . '.' . $extension;
+        //     return response()->download($path, $name);
+        // } else {
+        //     if (auth()->user()->roles->pluck('name')[0] == 'teacher' || auth()->user()->roles->pluck('name')[0] == 'mentor') {
+        //         return redirect()->back()->with('error', ' Tugas Siswa Tidak Ada, Silahkan Memberitahu Untuk Mengisi Ulang Tugas.');
+        //     } else {
+        //         return redirect()->back()->with('error', 'Tugas Anda Tidak Tersedia, Silahkan Input Kembali Tugas Anda.');
+        //     }
+        // }
     }
+
 
 
     public function downloadAll(Classroom $classroom, Assignment $assignment)
