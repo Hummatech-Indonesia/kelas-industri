@@ -47,6 +47,7 @@ use App\Http\Controllers\Spk\CriteriaController;
 use App\Http\Controllers\SubmitRewardController;
 use App\Http\Controllers\ZoomScheduleController;
 use App\Http\Controllers\AdminitrasionController;
+use App\Http\Controllers\Api\Journal\JournalController;
 use App\Http\Controllers\SchoolPackageController;
 use App\Http\Controllers\UserClassroomController;
 use App\Http\Controllers\StudentPaymentController;
@@ -405,6 +406,7 @@ Route::middleware('auth.custom')->group(function () {
             'exam' => ExamController::class,
             'saleries' => SalaryController::class,
         ]);
+        Route::get('journal/students/{classroom}', [JurnalController::class, 'getStudents'])->name('journal.students');
         Route::get('journal/{journal}', [JurnalController::class, 'detailTeacher'])->name('journal.detail');
         Route::get('/showStudent/{classroom}', [ExamController::class, 'showStudent'])->name('showStudent');
         Route::get('/showStudentReport/{classroom}', [ReportController::class, 'showStudent'])->name('showStudentReport');

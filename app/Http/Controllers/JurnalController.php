@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseHelper;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Journal;
@@ -73,10 +74,13 @@ class JurnalController extends Controller
     {
         $data = $this->GetDataSidebar();
         $data['classrooms'] = $this->classroomService->handleGetClassroomByUserJurnal(auth()->id());
-        if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            $data['students'] = $this->classroomService->handleGetStudent(Auth()->user()->teacherSchool->teacherClassroom->classroom->id);
-        }
         return view('dashboard.user.pages.jurnal.create', $data);
+    }
+
+    public function getStudents(Classroom $classroom)
+    {
+        $data['students'] = $this->classroomService->handleGetStudent($classroom->id);
+        return ResponseHelper::success($data);
     }
 
     public function store(JournalRequest $request): RedirectResponse

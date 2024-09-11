@@ -473,9 +473,9 @@
         var hasPhoto = $(".btn-img").length > 0;
         var hasFiles = $(".btn-file").length > 0;
 
-        if (!hasPhoto && !hasFiles) {
-            $("#btn-download-all").remove();
-        }
+            // if (!hasPhoto && !hasFiles) {
+            //     $("#btn-download-all").remove();
+            // }
 
         $('.btn-img').click(function() {
             var photo = $(this).data('file');

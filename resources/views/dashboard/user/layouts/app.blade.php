@@ -125,6 +125,7 @@
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 {{--End Plugin Javascript --}}
 @yield('script')
+@stack('script')
 <!--end::Javascript-->
 <script>
     @if(Session::has('success'))

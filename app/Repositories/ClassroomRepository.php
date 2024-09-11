@@ -245,6 +245,7 @@ class ClassroomRepository extends BaseRepository
             ->whereHas('studentSchool.student', function ($q) {
                 $q->where('status', 'active');
             })
+            ->with(['studentSchool.student', 'classroom'])
             ->where('classroom_id', $classroomId)
             ->get();
     }
