@@ -86,7 +86,7 @@ class UserAssignmentController extends Controller
         $zip = new \ZipArchive();
 
         // Open the ZIP file for creation and overwrite if it exists
-        if ($zip->open($zip_path, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
+        if ($zip->open($zip_path, \ZipArchive::CREATE || \ZipArchive::OVERWRITE) === TRUE) {
             foreach ($submitAssignment->images as $submitImage) {
                 $file = public_path('storage/' . $submitImage->image);
 
@@ -108,7 +108,11 @@ class UserAssignmentController extends Controller
         }
 
         // Return the ZIP file as a download response
-        return response()->download($zip_path)->deleteFileAfterSend(true);
+        if (file_exists($zip_path)) {
+            return response()->download($zip_path)->deleteFileAfterSend(true);
+        } else {
+            return back()->withError('File tidak ditemukan. Beritahu siswa untuk mengirim ulang');
+        }
 
         // if (file_exists('storage/' . $submitAssignment->file)) {
         //     $extension = pathinfo(storage_path('storage/' . $submitAssignment->file), PATHINFO_EXTENSION);
