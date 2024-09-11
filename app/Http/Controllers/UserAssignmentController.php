@@ -132,8 +132,13 @@ class UserAssignmentController extends Controller
 
     public function downloadAll(Classroom $classroom, Assignment $assignment)
     {
-        $submitAssignments = SubmitAssignment::with(['student', 'images'])->get();
-        // dd($submitAssignments);
+        $submitAssignments = SubmitAssignment::with(['student', 'images'])
+            ->where('assignment_id', $assignment->id)
+            ->whereHas('student.studentSchool.studentClassroom', function ($query) use ($classroom) {
+                $query->where('classroom_id', $classroom->id);
+            })
+            ->get();
+            // dd($submitAssignments);
 
         $notFoundFile = 0;
         if (count($submitAssignments) > 0) {
