@@ -441,7 +441,7 @@
                                             ->where('higest_score', '>=', 75)
                                             ->first();
                                     @endphp
-                                    @if (($infos['countAssignment'] == $infos['countStudentAssignment'] && $quiz != null) || $quiz->finished_exam >= 3)
+                                    @if (($infos['countAssignment'] == $infos['countStudentAssignment'] && $quiz != null))
                                         <div class="col-xl-4 mb-3">
 
                                             <!--begin::Card-->
