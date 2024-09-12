@@ -212,8 +212,9 @@
                 <x-empty-component title="bab" />
             @endforelse
         </div>
+        {{-- @dd(Request::route()->getName()) --}}
         <div class="row">
-            <x-pagination-component :paginator="$subMaterials" route="admin.materials.show" :parameters="$parameters" />
+            <x-pagination-component :paginator="$subMaterials" route="admin.questionBank" :parameters="$parameters" />
         </div>
         <x-delete-modal-component />
     </div>
