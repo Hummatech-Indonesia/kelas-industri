@@ -139,7 +139,7 @@ class UserClassroomController extends Controller
                 } else {
                     $countAssignment = 0;
                     $countStudentAssignment = 0;
-                    $studentExam = 0;
+                    $studentExam = null;
                 }
 
                 $isFirst = $order == 1;

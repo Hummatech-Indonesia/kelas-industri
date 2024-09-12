@@ -321,7 +321,7 @@
                                 <!--end::Card-->
 
                             </div>
-                            @forelse($subMaterialsInfo as $infos)
+                            @forelse($subMaterialsInfo as $index => $infos)
                                 @if ($infos['isFirst'] == true)
                                     <div class="col-xl-4 mb-3">
 
@@ -423,7 +423,18 @@
 
                                     </div>
                                 @elseif ($infos['isFirst'] == false)
-                                    @if ($infos['countAssignment'] == $infos['countStudentAssignment'] && $infos['studentExam'] != null)
+                                    {{-- @dd($infos['subMaterial']->id) --}}
+                                    {{-- @dd($subMaterialsInfo) --}}
+                                    @php
+                                        $quiz = \App\Models\StudentSubMaterialExam::whereHas('student', function ($query) {
+                                            $query->where('id', auth()->user()->id);
+                                        })->whereHas('subMaterialExam.subMaterial', function ($query) use ($infos, $index, $subMaterialsInfo) {
+                                                $query->where('id', $subMaterialsInfo[$index - 1]['subMaterial']->id);
+                                            })
+                                            ->where('higest_score', '>=', 75)
+                                            ->first();
+                                    @endphp
+                                    @if ($infos['countAssignment'] == $infos['countStudentAssignment'] && $quiz != null)
                                         <div class="col-xl-4 mb-3">
 
                                             <!--begin::Card-->
