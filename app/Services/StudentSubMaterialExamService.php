@@ -19,9 +19,7 @@ class StudentSubMaterialExamService
     {
         $studentExam = $this->repository->get_user_submaterial_exam($submaterialExamId);
 
-        if ($studentExam->finished_count >= 3) {
-            return 'limit';
-        } elseif ($studentExam->score < 75) {
+        if ($studentExam->score < 75) {
             return 'remedial';
         } else {
             return 'passed';
