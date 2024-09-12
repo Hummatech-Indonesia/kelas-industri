@@ -438,10 +438,13 @@
                                             ) {
                                                 $query->where('id', $subMaterialsInfo[$index - 1]['subMaterial']->id);
                                             })
-                                            ->where('higest_score', '>=', 75)
+                                            // ->where('higest_score', '>=', 75)
                                             ->first();
+                                        // dd($quiz->finished_count);
                                     @endphp
-                                    @if (($infos['countAssignment'] == $infos['countStudentAssignment'] && $quiz != null))
+                                    @if (
+                                        ($infos['countAssignment'] == $infos['countStudentAssignment'] && $quiz != null && $quiz->higest_score >= 75) ||
+                                            $quiz?->finished_count >= 3)
                                         <div class="col-xl-4 mb-3">
 
                                             <!--begin::Card-->
