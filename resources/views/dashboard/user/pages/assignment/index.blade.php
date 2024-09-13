@@ -195,6 +195,7 @@
                                                 <th data-priority="1">No</th>
                                                 <th class="min-w-200px" data-priority="2">Nama</th>
                                                 <th class="min-w-100px" data-priority="3">File</th>
+                                                <th class="min-w-100px" data-priority="4">link</th>
                                                 <th data-priority="4">Nilai</th>
                                             </tr>
                                         </thead>
@@ -222,7 +223,7 @@
                                                                 {{-- @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg'])) --}}
                                                                 {{-- @dd($student->submitAssignment->images) --}}
                                                                 @if (count($student->submitAssignment->images) == 1)
-                                                                {{-- @dd('sdfsdfsdfsfd') --}}
+                                                                    {{-- @dd('sdfsdfsdfsfd') --}}
                                                                     <button class="btn btn-primary btn-sm btn-img"
                                                                         data-file="{{ asset('storage/' . $student->submitAssignment->images[0]->image) }}">
                                                                         <span
@@ -298,6 +299,27 @@
                                                                 @endif
                                                             @endif
                                                         </td>
+                                                        <td>
+                                                            @if ($student->submitAssignment->link)
+                                                                <a href="https://{{ $student->submitAssignment->link }}"
+                                                                    class="d-flex align-items-center justify-content-between mt-3 gap-2"
+                                                                    style="width: fit-content">Github <svg
+                                                                        xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                        height="16" viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icons-tabler-outline icon-tabler-external-link">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path
+                                                                            d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
+                                                                        <path d="M11 13l9 -9" />
+                                                                        <path d="M15 4h5v5" />
+                                                                    </svg></a>
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
                                                         @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                                             @if ($student->submitAssignment->point)
                                                                 <td>
@@ -329,7 +351,6 @@
                                                         <td>-</td>
                                                         <td>-</td>
                                                     @endif
-
                                                 </tr>
                                             @empty
                                                 <x-empty-component title="tugas" />
@@ -473,9 +494,9 @@
         var hasPhoto = $(".btn-img").length > 0;
         var hasFiles = $(".btn-file").length > 0;
 
-            // if (!hasPhoto && !hasFiles) {
-            //     $("#btn-download-all").remove();
-            // }
+        // if (!hasPhoto && !hasFiles) {
+        //     $("#btn-download-all").remove();
+        // }
 
         $('.btn-img').click(function() {
             var photo = $(this).data('file');

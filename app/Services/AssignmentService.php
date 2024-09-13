@@ -91,6 +91,8 @@ class AssignmentService
             $this->setPoint($data['student_id'], $data['assignment_id']);
         }
 
+        $data['link'] = str_replace(['https://', 'http://'],'', $data['link']);
+
         return $this->repository->create_submit_assignment($data, $studentId);
     }
 

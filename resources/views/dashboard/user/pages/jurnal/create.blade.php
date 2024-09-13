@@ -102,30 +102,29 @@
 
                                                 </div>
 
-                                                    <div class="form-group row mb-3">
+                                                <div class="form-group row mb-3">
 
-                                                        <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Kelas</label>
 
-                                                        <div class="col-lg-9 col-xl-9">
+                                                    <div class="col-lg-9 col-xl-9">
 
-                                                            <select name="classroom_id"
-                                                            id="classroom"
-                                                                class="form-select form-select-solid" data-control="select2"
-                                                                data-placeholder="Pilih kelas">
+                                                        <select name="classroom_id" id="classroom"
+                                                            class="form-select form-select-solid" data-control="select2"
+                                                            data-placeholder="Pilih kelas">
 
-                                                                @foreach ($classrooms as $classroom)
-                                                                    <option
-                                                                        {{ old('classroom_id') == $classroom->classroom_id ? 'selected' : '' }}
-                                                                        value="{{ $classroom->classroom_id }}">
-                                                                        {{ $classroom->classroom->name }} -
-                                                                        {{ $classroom->classroom->school->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-
-                                                        </div>
+                                                            @foreach ($classrooms as $classroom)
+                                                                <option
+                                                                    {{ old('classroom_id') == $classroom->classroom_id ? 'selected' : '' }}
+                                                                    value="{{ $classroom->classroom_id }}">
+                                                                    {{ $classroom->classroom->name }} -
+                                                                    {{ $classroom->classroom->school->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
 
                                                     </div>
+
+                                                </div>
 
                                                 <div class="form-group row mb-3">
 
@@ -180,8 +179,7 @@
 
                 <!--begin::Menu-->
                 <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
-                            class="menu-link px-2">Tentang
+                    <li class="menu-item"><a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">Tentang
                             Kami</a></li>
 
                     <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
@@ -211,7 +209,8 @@
                 let value = $(this).val();
                 let characterCount = value.length;
                 $('#description-length').text(characterCount);
-                $('.count-length.description').toggleClass('text-success', characterCount >= 100).toggleClass('text-danger', characterCount < 100);
+                $('.count-length.description').toggleClass('text-success', characterCount >= 100)
+                    .toggleClass('text-danger', characterCount < 100);
 
                 $('.btn-primary').prop('disabled', characterCount < 100);
             });
