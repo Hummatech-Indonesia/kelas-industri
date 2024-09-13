@@ -248,7 +248,7 @@
                                                 <div class="col-lg-9 col-xl-9">
 
                                                     <input class="form-control form-control-solid form-control-lg"
-                                                        name="link" type="url" value=""
+                                                        name="link" type="url" value="" id="link"
                                                         placeholder="Link github tugas (opsional)">
 
                                                 </div>
@@ -337,6 +337,15 @@
             progressBar.removeClass("bg-success bg-danger");
             progressBar.addClass(colorClass);
         }
+
+        let link = '';
+
+        $('#link').on('input', function (e) {
+            link = $(this).val();
+            link = link.replace(/^https?:\/\//, '');
+            // console.log(link);
+            $(this).val(link);
+        });
 
         $('#form-store').submit(function(e) {
             // console.log(e);
