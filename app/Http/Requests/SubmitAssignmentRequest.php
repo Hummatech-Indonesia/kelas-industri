@@ -14,7 +14,7 @@ class SubmitAssignmentRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'link' => 'nullable|url',
+            'link' => 'nullable',
             'assignment_id' => 'required',
         ];
     }

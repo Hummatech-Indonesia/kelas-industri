@@ -248,7 +248,7 @@
                                                 <div class="col-lg-9 col-xl-9">
 
                                                     <input class="form-control form-control-solid form-control-lg"
-                                                        name="link" type="url" value="" id="link"
+                                                        name="link" type="text" value="" id="link"
                                                         placeholder="Link github tugas (opsional)">
 
                                                 </div>
