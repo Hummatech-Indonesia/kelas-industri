@@ -423,9 +423,17 @@
 
                                     </div>
                                 @elseif ($infos['isFirst'] == false)
-                                    {{-- @dd($infos['subMaterial']->id) --}}
-                                    {{-- @dd($subMaterialsInfo) --}}
+                                {{-- @dd($material) --}}
                                     @php
+                                        $prevsubMaterial = App\Models\SubMaterial::where(
+                                            'order',
+                                            '<',
+                                            $infos['subMaterial']->order,
+                                        )
+                                        ->whereRelation('material','id', $material->id)
+                                            ->orderBy('order', 'desc')
+                                            ->first();
+                                            // dd($prevsubMaterial);
                                         $quiz = \App\Models\StudentSubMaterialExam::whereHas('student', function (
                                             $query,
                                         ) {
@@ -435,15 +443,15 @@
                                                 $infos,
                                                 $index,
                                                 $subMaterialsInfo,
+                                                $prevsubMaterial
                                             ) {
-                                                $query->where('id', $subMaterialsInfo[$index - 1]['subMaterial']->id);
+                                                $query->where('id', $prevsubMaterial->id);
                                             })
                                             ->where('higest_score', '>=', 75)
                                             ->first();
-                                        // dd($quiz->finished_count);
+                                        // dd($quiz);
                                     @endphp
-                                    @if (
-                                        ($infos['countAssignment'] == $infos['countStudentAssignment'] && $quiz != null))
+                                    @if ($infos['countAssignment'] == $infos['countStudentAssignment'] && $quiz != null)
                                         <div class="col-xl-4 mb-3">
 
                                             <!--begin::Card-->
