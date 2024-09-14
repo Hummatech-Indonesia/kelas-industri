@@ -86,10 +86,11 @@
 
             @if (Illuminate\Support\Facades\Route::is('teacher.journal.create'))
                 getClassroomStudents(classroom)
+            @else
+                const attendances = @json($attendances);
             @endif
 
             function appendCurrentAttendances() {
-                const attendances = @json($attendances);
                 attendances.forEach(function(attendance) {
                     $('#abesntion-list').append(`<tr>
                                 <td>${attendance.student_classroom.student_school.student.name}</td>
