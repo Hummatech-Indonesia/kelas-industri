@@ -357,7 +357,12 @@
                                                             class="badge badge-light-danger">{{ \Carbon\Carbon::parse($assignment->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
                                                     </td>
                                                     <td>
-                                                        @if (strtotime(now()) <= strtotime($assignment->end_date))
+                                                        @if (
+                                                            $assignment->StudentSubmitAssignment[
+                                                                array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
+                                                            ]->is_rated)
+                                                            <span class="badge badge-light-success">Sudah Dinilai</span>
+                                                        @elseif (strtotime(now()) <= strtotime($assignment->end_date))
                                                             <span class="badge badge-light-success">Tersedia</span>
                                                         @else
                                                             <span class="badge badge-light-danger">Ditutup</span>
@@ -372,18 +377,21 @@
                                                                     </a>
                                                                 @else
                                                                     @if (in_array(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray()))
-                                                                    {{-- @dd($assignment->StudentSubmitAssignment[
+                                                                        {{-- @dd($assignment->StudentSubmitAssignment[
                                                                         array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
                                                                     ]) --}}
-                                                                        @if (!$assignment->StudentSubmitAssignment[
+                                                                        {{-- @dd($assignment->StudentSubmitAssignment[
+                                                                        array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
+                                                                    ]->is_rated) --}}
+                                                                        @if (
+                                                                            !$assignment->StudentSubmitAssignment[
                                                                                 array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
                                                                             ]->is_rated)
-                                                                            <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
-                                                                                class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Edit
-                                                                                Tugas
-                                                                            </a>
                                                                         @else
-                                                                            <span class="badge badge-light-danger">-</span>
+                                                                        <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
+                                                                            class="btn btn-bg-light btn-sm btn-color-primary text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">Lihat Tugas
+                                                                        </a>
+                                                                            {{-- <span class="badge badge-light-danger">Lihat</span> --}}
                                                                         @endif
                                                                     @else
                                                                         <a href="{{ route('student.submitAssignment', ['classroom' => $classroom->id, 'material' => $material->id, 'submaterial' => $subMaterial->id, 'assignment' => $assignment->id]) }}"
