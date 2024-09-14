@@ -26,49 +26,6 @@
                         </tr>
                     </thead>
                     <tbody id="abesntion-list">
-                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                            @if (Route::is('teacher.journal.edit'))
-                                @foreach ($attendances as $attendance)
-                                    <tr class="hide">
-                                        <td>{{ $attendance->studentClassroom->studentSchool->student->name }}
-                                        </td>
-                                        <td>{{ $attendance->studentClassroom->classroom->name }}
-                                        </td>
-                                        <td class="text-center">
-                                            <div
-                                                class="form-check form-check-custom form-check-success form-check-solid">
-                                                <input class="form-check-input" type="radio" value="hadir"
-                                                    name="attendance[{{ $attendance->id }}]"
-                                                    {{ $attendance->attendance == 'hadir' ? 'checked' : '' }}>
-                                            </div>
-                                        <td class="text-center">
-                                            <div
-                                                class="form-check form-check-custom form-check-warning form-check-solid">
-                                                <input class="form-check-input" type="radio" value="ijin"
-                                                    name="attendance[{{ $attendance->id }}]"
-                                                    {{ $attendance->attendance == 'ijin' ? 'checked' : '' }}>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div
-                                                class="form-check form-check-custom form-check-danger form-check-solid">
-                                                <input class="form-check-input" type="radio" value="sakit"
-                                                    name="attendance[{{ $attendance->id }}]"
-                                                    {{ $attendance->attendance == 'sakit' ? 'checked' : '' }}>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div
-                                                class="form-check form-check-custom form-check-danger form-check-solid">
-                                                <input class="form-check-input" type="radio" value="alfa"
-                                                    name="attendance[{{ $attendance->id }}]"
-                                                    {{ $attendance->attendance == 'alfa' ? 'checked' : '' }}>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        @endif
                     </tbody>
                 </table>
             </div>
@@ -90,11 +47,7 @@
                 classroom = $(this).val();
 
                 $('#abesntion-list').empty();
-                if (classroom == '{{ $journal->classroom_id }}') {
-                    appendCurrentAttendances();
-                } else {
-                    getClassroomStudents(classroom);
-                }
+                getClassroomStudents(classroom);
 
             });
 
