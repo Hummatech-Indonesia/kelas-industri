@@ -156,16 +156,15 @@ class JurnalController extends Controller
 
     public function update(UpdateJournalRequest $request, Journal $journal)
     {
-        // dd($request);
         $this->journalService->handleUpdate($request, $journal);
         if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
         } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             if ($request->classroom_id == $journal->classroom_id) {
+                $this->journalAttendaceService->handleUpdate($request->attendance, $journal->id);
+            } else {
                 $this->journalAttendaceService->handleDeleteByJournal($journal->id);
                 $this->journalAttendaceService->handleCreate($request->attendance, $journal->id);
-            } else {
-                $this->journalAttendaceService->handleUpdate($request->attendance, $journal->id);
             }
             return to_route('teacher.journal.edit', $journal->id)->with('success', trans('alert.update_success'));
         }

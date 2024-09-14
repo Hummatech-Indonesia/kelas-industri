@@ -25,6 +25,7 @@
                             <th>Alfa</th>
                         </tr>
                     </thead>
+                    {{-- @dd($attendances) --}}
                     <tbody id="abesntion-list">
                         @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                             @foreach ($attendances as $attendance)
@@ -81,35 +82,35 @@
             const attendances = @json($attendances);
 
             function appendCurrentAttendances() {
-                // attendances.forEach(function(attendance) {
-                //     $('#abesntion-list').append(`<tr>
-            //                 <td>${attendance.student_classroom.student_school.student.name}</td>
-            //                 <td>${attendance.student_classroom.classroom.name}</td>
-            //                 <td class="text-center">
-            //                     <div class="form-check form-check-custom form-check-success form-check-solid">
-            //                         <input class="form-check-input" type="radio" value="hadir"
-            //                             name="attendance[${attendance.student_classroom.student_school.student.id}]" ${attendance.attendance == 'hadir' ? 'checked':''}>
-            //                     </div>
-            //                 <td class="text-center">
-            //                     <div class="form-check form-check-custom form-check-warning form-check-solid">
-            //                         <input class="form-check-input" type="radio" value="ijin"
-            //                             name="attendance[${attendance.student_classroom.student_school.student.id}]" ${attendance.attendance == 'ijin' ? 'checked':''}>
-            //                     </div>
-            //                 </td>
-            //                 <td class="text-center">
-            //                     <div class="form-check form-check-custom form-check-danger form-check-solid">
-            //                         <input class="form-check-input" type="radio" value="sakit"
-            //                             name="attendance[${attendance.student_classroom.student_school.student.id}]" ${attendance.attendance == 'sakit' ? 'checked':''}>
-            //                     </div>
-            //                 </td>
-            //                 <td class="text-center">
-            //                     <div class="form-check form-check-custom form-check-danger form-check-solid">
-            //                         <input class="form-check-input" type="radio" value="alfa"
-            //                             name="attendance[${attendance.student_classroom.student_school.student.id}]" ${attendance.attendance == 'alfa' ? 'checked':''}>
-            //                     </div>
-            //                 </td>
-            //             </tr>`)
-                // });
+                attendances.forEach(function(attendance) {
+                    $('#abesntion-list').append(`<tr>
+                            <td>${attendance.student_classroom.student_school.student.name}</td>
+                            <td>${attendance.student_classroom.classroom.name}</td>
+                            <td class="text-center">
+                                <div class="form-check form-check-custom form-check-success form-check-solid">
+                                    <input class="form-check-input" type="radio" value="hadir"
+                                        name="attendance[${attendance.id}]" ${attendance.attendance == 'hadir' ? 'checked':''}>
+                                </div>
+                            <td class="text-center">
+                                <div class="form-check form-check-custom form-check-warning form-check-solid">
+                                    <input class="form-check-input" type="radio" value="ijin"
+                                        name="attendance[${attendance.id}]" ${attendance.attendance == 'ijin' ? 'checked':''}>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check form-check-custom form-check-danger form-check-solid">
+                                    <input class="form-check-input" type="radio" value="sakit"
+                                        name="attendance[${attendance.id}]" ${attendance.attendance == 'sakit' ? 'checked':''}>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check form-check-custom form-check-danger form-check-solid">
+                                    <input class="form-check-input" type="radio" value="alfa"
+                                        name="attendance[${attendance.id}]" ${attendance.attendance == 'alfa' ? 'checked':''}>
+                                </div>
+                            </td>
+                        </tr>`)
+                });
             }
 
             $('#classroom').change(function(e) {

@@ -37,10 +37,22 @@ class JournalAttendanceService
 
     public function handleUpdate($attendances, $journalId): void
     {
+        // dd($attendances);
+        // $invalid = [];
         foreach ($attendances as $key => $value) {
             $data['journal_id'] = $journalId;
             $data['attendance'] = $value;
-            $this->repository->update($key, $data);
+            // try {
+                $this->repository->update($key, $data);
+            // } catch (\Throwable $th) {
+                // $invalid[] = $key;
+            // }
         }
+        // if(!empty($invalid)) {
+        //     echo "gagal:<br>";
+        //     foreach ($invalid as $key) {
+        //         echo '$key<br>';
+        //     }
+        // }
     }
 }
