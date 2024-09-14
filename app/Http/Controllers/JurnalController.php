@@ -151,8 +151,6 @@ class JurnalController extends Controller
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $data['attendances'] = $this->journalAttendaceService->handleGetByJournal($journal->id);
         }
-        // dd('sdfsdfsdf');
-        // dd();
         return view('dashboard.user.pages.jurnal.edit', $data);
     }
 
