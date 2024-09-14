@@ -80,6 +80,8 @@
             // console.log(attendances);
 
             const attendances = @json($attendances);
+            console.log(attendances.length);
+
 
             function appendCurrentAttendances() {
                 attendances.forEach(function(attendance) {
