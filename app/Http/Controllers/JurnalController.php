@@ -19,6 +19,7 @@ use App\Http\Requests\JournalRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Services\JournalAttendanceService;
 use App\Http\Requests\UpdateJournalRequest;
+use Illuminate\Support\Facades\Route;
 
 class JurnalController extends Controller
 {
@@ -150,16 +151,24 @@ class JurnalController extends Controller
         if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $data['attendances'] = $this->journalAttendaceService->handleGetByJournal($journal->id);
         }
+        // dd('sdfsdfsdf');
+        // dd();
         return view('dashboard.user.pages.jurnal.edit', $data);
     }
 
     public function update(UpdateJournalRequest $request, Journal $journal)
     {
+        // dd($request);
         $this->journalService->handleUpdate($request, $journal);
         if (auth()->user()->roles->pluck('name')[0] == 'mentor') {
             return to_route('mentor.journal.index')->with('success', trans('Berhasil Memperbarui Jurnal'));
         } elseif (auth()->user()->roles->pluck('name')[0] == 'teacher') {
-            $this->journalAttendaceService->handleUpdate($request->attendance, $journal->id);
+            if ($request->classroom_id == $journal->classroom_id) {
+                $this->journalAttendaceService->handleDeleteByJournal($journal->id);
+                $this->journalAttendaceService->handleCreate($request->attendance, $journal->id);
+            } else {
+                $this->journalAttendaceService->handleUpdate($request->attendance, $journal->id);
+            }
             return to_route('teacher.journal.edit', $journal->id)->with('success', trans('alert.update_success'));
         }
     }

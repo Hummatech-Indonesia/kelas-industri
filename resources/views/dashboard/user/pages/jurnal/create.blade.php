@@ -146,7 +146,6 @@
 
                                     </div>
                                 </div>
-
                                 @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                                     @include('dashboard.user.pages.jurnal.widgets.create.absention-list')
                                 @endif

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Journal;
 use App\Repositories\JournalAttendanceRepository;
 
 class JournalAttendanceService
@@ -19,11 +20,13 @@ class JournalAttendanceService
 
     public function handleCreate($attendances, $journalId): void
     {
-        foreach ($attendances as $key => $value) {
-            $data['journal_id'] = $journalId;
-            $data['student_classroom_id'] = $key;
-            $data['attendance'] = $value;
-            $this->repository->store($data);
+        if ($attendances) {
+            foreach ($attendances as $key => $value) {
+                $data['journal_id'] = $journalId;
+                $data['student_classroom_id'] = $key;
+                $data['attendance'] = $value;
+                $this->repository->store($data);
+            }
         }
     }
 
