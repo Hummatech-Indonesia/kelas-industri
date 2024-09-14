@@ -161,7 +161,7 @@
                                 </div>
                                 <div class="card-body">
                                     <form
-                                        action="{{ route('teacher.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
+                                        action="{{ route(auth()->user()->roles->pluck('name')[0] . '.showAssignment', ['classroom' => $classroom->id, 'assignment' => $assignment->id]) }}"
                                         method="get" class="row g-3 align-items-center mb-3">
                                         <div class="col-auto">
                                             <select name="filterShowing" id="filterShowing"
