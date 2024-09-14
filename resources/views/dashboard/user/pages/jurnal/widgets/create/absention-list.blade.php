@@ -29,7 +29,7 @@
                         @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
                             @if (Route::is('teacher.journal.edit'))
                                 @foreach ($attendances as $attendance)
-                                    <tr>
+                                    <tr class="hide">
                                         <td>{{ $attendance->studentClassroom->studentSchool->student->name }}
                                         </td>
                                         <td>{{ $attendance->studentClassroom->classroom->name }}
@@ -82,7 +82,7 @@
         $(document).ready(function() {
 
             let classroom = $('#classroom').val();
-            console.log('sfdasfdasdfs');
+            console.log(@json($attendances));
 
             @if (Route::is('teacher.journal.create'))
                 getClassroomStudents(classroom)
