@@ -84,8 +84,6 @@
 
             if (attendances.length == 0) {
                 getClassroomStudents(classroom);
-            } else {
-                appendCurrentAttendances();
             }
 
             function appendCurrentAttendances() {
