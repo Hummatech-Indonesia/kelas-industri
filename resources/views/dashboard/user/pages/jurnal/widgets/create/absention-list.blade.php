@@ -82,11 +82,10 @@
         $(document).ready(function() {
 
             let classroom = $('#classroom').val();
-            const attendances = @json($attendances);
-            console.log(attendances);
-
+            // console.log(attendances);
 
             @if (Illuminate\Support\Facades\Route::is('teacher.journal.create'))
+            const attendances = @json($attendances);
                 getClassroomStudents(classroom)
             @endif
 
