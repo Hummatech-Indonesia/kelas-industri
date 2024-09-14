@@ -83,44 +83,7 @@
 
             let classroom = $('#classroom').val();
             // console.log(attendances);
-
-            @if (Illuminate\Support\Facades\Route::is('teacher.journal.create'))
-                getClassroomStudents(classroom)
-            @else
-                const attendances = @json($attendances);
-            @endif
-
-            function appendCurrentAttendances() {
-                attendances.forEach(function(attendance) {
-                    $('#abesntion-list').append(`<tr>
-                                <td>${attendance.student_classroom.student_school.student.name}</td>
-                                <td>${attendance.student_classroom.classroom.name}</td>
-                                <td class="text-center">
-                                    <div class="form-check form-check-custom form-check-success form-check-solid">
-                                        <input class="form-check-input" type="radio" value="hadir"
-                                            name="attendance[${attendance.student_classroom.student_school.student.id}]" ${attendance.attendance == 'hadir' ? 'checked':''}>
-                                    </div>
-                                <td class="text-center">
-                                    <div class="form-check form-check-custom form-check-warning form-check-solid">
-                                        <input class="form-check-input" type="radio" value="ijin"
-                                            name="attendance[${attendance.student_classroom.student_school.student.id}]" ${attendance.attendance == 'ijin' ? 'checked':''}>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="form-check form-check-custom form-check-danger form-check-solid">
-                                        <input class="form-check-input" type="radio" value="sakit"
-                                            name="attendance[${attendance.student_classroom.student_school.student.id}]" ${attendance.attendance == 'sakit' ? 'checked':''}>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="form-check form-check-custom form-check-danger form-check-solid">
-                                        <input class="form-check-input" type="radio" value="alfa"
-                                            name="attendance[${attendance.student_classroom.student_school.student.id}]" ${attendance.attendance == 'alfa' ? 'checked':''}>
-                                    </div>
-                                </td>
-                            </tr>`)
-                });
-            }
+            getClassroomStudents(classroom)
 
             $('#classroom').change(function(e) {
                 e.preventDefault();
