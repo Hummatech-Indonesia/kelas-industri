@@ -80,8 +80,13 @@
             // console.log(attendances);
 
             const attendances = @json($attendances);
-            console.log(attendances.length);
+            // console.log(attendances.length);
 
+            if (attendances.length == 0) {
+                getClassroomStudents(classroom);
+            } else {
+                appendCurrentAttendances();
+            }
 
             function appendCurrentAttendances() {
                 attendances.forEach(function(attendance) {
