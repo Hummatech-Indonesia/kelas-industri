@@ -126,7 +126,6 @@
                                                             class="form-select form-select-solid" data-control="select2"
                                                             data-placeholder="Select an option">
                                                             @foreach ($classrooms as $classroom)
-                                                            @dd($journal->classroom_id == $classroom->classroom_id)
                                                                 <option
                                                                     {{ $journal->classroom_id == $classroom->classroom_id ? 'selected' : '' }}
                                                                     value="{{ $classroom->classroom_id }}">
