@@ -160,7 +160,7 @@
                                 <td class="text-center">
                                     <div class="form-check form-check-custom form-check-success form-check-solid">
                                         <input class="form-check-input" type="radio" value="hadir"
-                                            name="attendance[${student.id}]">
+                                            name="attendance[${student.id}]" checked>
                                     </div>
                                 <td class="text-center">
                                     <div class="form-check form-check-custom form-check-warning form-check-solid">
