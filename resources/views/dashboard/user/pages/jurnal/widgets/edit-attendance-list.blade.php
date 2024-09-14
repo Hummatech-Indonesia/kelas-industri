@@ -27,9 +27,9 @@
                     </thead>
                     <tbody id="abesntion-list">
                         @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                            @if (Route::is('teacher.journal.edit'))
+                            @if (Illuminate\Support\Facades\Route::is('teacher.journal.edit'))
                                 @foreach ($attendances as $attendance)
-                                    <tr class="hide">
+                                    <tr>
                                         <td>{{ $attendance->studentClassroom->studentSchool->student->name }}
                                         </td>
                                         <td>{{ $attendance->studentClassroom->classroom->name }}
