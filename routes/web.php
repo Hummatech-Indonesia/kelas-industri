@@ -104,18 +104,12 @@ Route::middleware('auth.custom')->group(function () {
 
     //admin
     Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-
         // show all
-
         Route::get('students', [StudentController::class, 'showAll'])->name('students-all');
         // Route::get('students', [StudentController::class, 'listStudent']);
-
-
-
         Route::get('/', function () {
             return view('dashboard.admin.layouts.app');
         });
-
         // Route::get('download-score-student', function () {
         //     return view('dashboard.admin.pages.materialExam.download-score-student');
         // });
@@ -486,87 +480,89 @@ Route::middleware('auth.custom')->group(function () {
     });
 
     //student
-    Route::middleware(['auth', 'role:student', 'checkpayment'])->prefix('student')->name('student.')->group(function () {
-        Route::get('/', function () {
-            return view('dashboard.user.pages.material.index');
-        });
-        // Route::get('/showDocument/{submaterial}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
-        Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
-        Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
-        Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
-        Route::get('/create', [UserClassroomController::class, 'create'])->name('create');
-        Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
-        Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
-        Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
-        Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
-        Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
-
-        Route::get('/event', [EventController::class, 'studentEvent'])->name('events.index');
-        Route::get('/schedule', [ScheduleController::class, 'indexStudent'])->name('schedules.index');
-
-
-        Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
-        Route::post('{classroom}/storeassignment/{material}/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
-        Route::post('storeimageassignment/{submitAssignment}', [UserAssignmentController::class, 'storeImage'])->name('store-image-assignment');
-        Route::delete('delete-image-assignment/{submitAssignment}', [UserAssignmentController::class, 'deleteImages'])->name('delete-image-assignment');
-
-        Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
-        Route::post('storeChallenge', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
-        Route::get('/absen/{attendance}', [AttendanceController::class, 'submit']);
-
-        Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadChallenge');
-        Route::get('downloadFileAssignment/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
-
-        Route::post('submitReward/{reward}', [SubmitRewardController::class, 'submitReward'])->name('submitReward');
-        Route::get('historyReward', [RewardController::class, 'historyReward'])->name('historyReward');
-
+    Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
         Route::get('student-payment', [StudentPaymentController::class, 'index'])->name('student-payment');
-        Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
-        Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
+        Route::middleware(['checkpayment'])->group(function () {
+            Route::get('/', function () {
+                return view('dashboard.user.pages.material.index');
+            });
+            // Route::get('/showDocument/{submaterial}/{classroom?}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+            Route::get('/detail-student-project/{project}', [ProjectController::class, 'show'])->name('detail-student-project');
+            Route::get('/ranking', [PointController::class, 'index'])->name('rankings');
+            Route::get('/classrooms', [UserClassroomController::class, 'index'])->name('classrooms');
+            Route::get('/create', [UserClassroomController::class, 'create'])->name('create');
+            Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
+            Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
+            Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
+            Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
+            Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
 
-        Route::get('detail-payment/{payment}', [StudentPaymentController::class, 'detail'])->name('detail-payment');
-        Route::get('invoice/{reference}', [StudentPaymentController::class, 'invoice'])->name('invoice');
-        Route::get('invoice-preview/', [StudentPaymentController::class, 'preview'])->name('preview-invoice');
-        Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
-        Route::get('print-transaction/{payment}', [StudentPaymentController::class, 'downloadPdf'])->name('print.transaction');
-        Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
-        Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
+            Route::get('/event', [EventController::class, 'studentEvent'])->name('events.index');
+            Route::get('/schedule', [ScheduleController::class, 'indexStudent'])->name('schedules.index');
 
-        // student material exam
-        Route::get('material-exam/{materialExam}/{type}', [StudentMaterialExamController::class, 'index'])->name('material-exam');
-        Route::patch('material-exam/{materialExam}/{studentMaterialExam}', [StudentMaterialExamController::class, 'answer'])->name('material-exam.submit');
-        Route::get('material-exam/{materialExam}/{studentMaterialExam}/finish', [StudentMaterialExamController::class, 'showFinish'])->name('exam.show-finish-exam-material');
-        Route::put('material-exam/{materialExam}/opentab', [StudentMaterialExamController::class, 'openTab'])->name('material-exam.opentab');
 
-        // student exam
-        Route::get('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamSetName'])->name('exam-setname');
-        Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');
-        Route::put('exam/{subMaterialExam}/opentab', [StudentSubmaterialExamController::class, 'openTab'])->name('exam.opentab');
-        Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
-        Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
-        Route::get('exam-quiz/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish-quiz');
+            Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
+            Route::post('{classroom}/storeassignment/{material}/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
+            Route::post('storeimageassignment/{submitAssignment}', [UserAssignmentController::class, 'storeImage'])->name('store-image-assignment');
+            Route::delete('delete-image-assignment/{submitAssignment}', [UserAssignmentController::class, 'deleteImages'])->name('delete-image-assignment');
 
-        Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
-        Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
-        Route::delete('events/unfollow/{event}', [EventPartisipantController::class, 'destroy'])->name('events.unfollow');
-        Route::get('certify/events/{event}/{participant}', [CertifyController::class, 'eventCertify'])->name('events.print-certify');
+            Route::get('submitChallenge/{challenge}', [ChallengeController::class, 'submitChallenge'])->name('submitChallenge');
+            Route::post('storeChallenge', [ChallengeController::class, 'storeChallenge'])->name('storeChallenge');
+            Route::get('/absen/{attendance}', [AttendanceController::class, 'submit']);
 
-        Route::resource('challenges', ChallengeController::class)
-            ->only(['index', 'show']);
+            Route::get('/downloadFileChallenge/{submitChallenge}', [ChallengeController::class, 'download'])->name('downloadChallenge');
+            Route::get('downloadFileAssignment/{submitAssignment}', [UserAssignmentController::class, 'download'])->name('downloadAssignment');
 
-        Route::resource('rewards', RewardController::class)
-            ->only(['index']);
+            Route::post('submitReward/{reward}', [SubmitRewardController::class, 'submitReward'])->name('submitReward');
+            Route::get('historyReward', [RewardController::class, 'historyReward'])->name('historyReward');
 
-        Route::resources([
-            'submitRewards' => SubmitRewardController::class,
-            'projects' => ProjectController::class,
-            'presentation' => PresentationController::class,
-            'notes' => NoteController::class,
-            'tasks' => TaskController::class,
-        ]);
-        Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
+            Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
+            Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
 
-        Route::get('/{semester}/{user}', [HomeController::class, 'semester'])->name('total.dependent');
+            Route::get('detail-payment/{payment}', [StudentPaymentController::class, 'detail'])->name('detail-payment');
+            Route::get('invoice/{reference}', [StudentPaymentController::class, 'invoice'])->name('invoice');
+            Route::get('invoice-preview/', [StudentPaymentController::class, 'preview'])->name('preview-invoice');
+            Route::get('detail-transaction/{reference}', [StudentPaymentController::class, 'show'])->name('detail-transaction');
+            Route::get('print-transaction/{payment}', [StudentPaymentController::class, 'downloadPdf'])->name('print.transaction');
+            Route::get('payment-channel', [TripayController::class, 'index'])->name('payment-channel');
+            Route::post('request-transaction', [TripayController::class, 'store'])->name('request-transaction');
+
+            // student material exam
+            Route::get('material-exam/{materialExam}/{type}', [StudentMaterialExamController::class, 'index'])->name('material-exam');
+            Route::patch('material-exam/{materialExam}/{studentMaterialExam}', [StudentMaterialExamController::class, 'answer'])->name('material-exam.submit');
+            Route::get('material-exam/{materialExam}/{studentMaterialExam}/finish', [StudentMaterialExamController::class, 'showFinish'])->name('exam.show-finish-exam-material');
+            Route::put('material-exam/{materialExam}/opentab', [StudentMaterialExamController::class, 'openTab'])->name('material-exam.opentab');
+
+            // student exam
+            Route::get('regristation-exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'regristationExamSetName'])->name('exam-setname');
+            Route::get('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'index'])->name('exam');
+            Route::put('exam/{subMaterialExam}/opentab', [StudentSubmaterialExamController::class, 'openTab'])->name('exam.opentab');
+            Route::delete('exam/{subMaterialExam}', [StudentSubmaterialExamController::class, 'reset'])->name('exam.reset');
+            Route::patch('exam/{subMaterialExam}/{studentSubmaterialExam}', [StudentSubmaterialExamController::class, 'answer'])->name('exam.submit');
+            Route::get('exam-quiz/{subMaterialExam}/{studentSubmaterialExam}/finish', [StudentSubmaterialExamController::class, 'showFinish'])->name('exam.show-finish-quiz');
+
+            Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
+            Route::post('events/follow/{event}', [EventPartisipantController::class, 'store'])->name('events.follow');
+            Route::delete('events/unfollow/{event}', [EventPartisipantController::class, 'destroy'])->name('events.unfollow');
+            Route::get('certify/events/{event}/{participant}', [CertifyController::class, 'eventCertify'])->name('events.print-certify');
+
+            Route::resource('challenges', ChallengeController::class)
+                ->only(['index', 'show']);
+
+            Route::resource('rewards', RewardController::class)
+                ->only(['index']);
+
+            Route::resources([
+                'submitRewards' => SubmitRewardController::class,
+                'projects' => ProjectController::class,
+                'presentation' => PresentationController::class,
+                'notes' => NoteController::class,
+                'tasks' => TaskController::class,
+            ]);
+            Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
+
+            Route::get('/{semester}/{user}', [HomeController::class, 'semester'])->name('total.dependent');
+        });
     });
     //end student
 
