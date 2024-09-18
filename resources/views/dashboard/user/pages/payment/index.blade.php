@@ -195,9 +195,8 @@
                                                                 rx="10" fill="currentColor" />
                                                             <rect x="11" y="14" width="7" height="2" rx="1"
                                                                 transform="rotate(-90 11 14)" fill="currentColor" />
-                                                            <rect x="11" y="17" width="2" height="2"
-                                                                rx="1" transform="rotate(-90 11 17)"
-                                                                fill="currentColor" />
+                                                            <rect x="11" y="17" width="2" height="2" rx="1"
+                                                                transform="rotate(-90 11 17)" fill="currentColor" />
                                                         </svg>
                                                     </span>
                                                 </span>
@@ -479,15 +478,12 @@
         $(document).ready(function() {
             var semester = $('a[data-semester]').first().data('semester');
             var userId = $('a[data-semester]').first().data('user');
-
             if (semester && userId) {
-                console.log(semester, userId);
-
                 $.ajax({
                     type: "GET",
-                    url: "/student/" + semester + "/" + userId,
+                    url: "{{ route('student.total.dependent', ['semester' => ':semester', 'user' => ':user']) }}"
+                        .replace(':semester', semester).replace(':user', userId),
                     success: function(response) {
-
                         var deadline = response.nominal.deadline;
                         var parts = deadline.split('-');
                         var year = parts[0];
@@ -498,7 +494,7 @@
                         ];
 
                         var formattedDeadline = day + " " + monthNames[parseInt(month) - 1] + " " +
-                            year;
+                        year;
 
                         $('.tenggat_pembayaran').html(formattedDeadline);
                         $('.total_bayar').html(numberFormat(response.totalBayar));

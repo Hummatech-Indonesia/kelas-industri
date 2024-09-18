@@ -482,7 +482,6 @@ Route::middleware('auth.custom')->group(function () {
     //student
     Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
         Route::get('student-payment', [StudentPaymentController::class, 'index'])->name('student-payment');
-        Route::get('/{semester}/{user}', [HomeController::class, 'semester'])->name('total.dependent');
         Route::middleware(['checkpayment'])->group(function () {
             Route::get('/', function () {
                 return view('dashboard.user.pages.material.index');
@@ -561,6 +560,8 @@ Route::middleware('auth.custom')->group(function () {
                 'tasks' => TaskController::class,
             ]);
             Route::get('print-certify', [CertifyController::class, 'exportPdf'])->name('print-certify');
+
+            Route::get('/{semester}/{user}', [HomeController::class, 'semester'])->name('total.dependent');
         });
     });
     //end student
