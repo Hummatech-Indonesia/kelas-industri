@@ -198,7 +198,7 @@ class HomeController extends Controller
             $data['schoolPackages'] = $this->userService->handleCountSchoolPackages($data['schools']);
             $data['countAttendance'] = $this->attendanceService->handleCountMentorAttendanceMonthYear($request);
 
-            if($this->dependentService->handleGetLatest()) {
+            if ($this->dependentService->handleGetLatest()) {
                 $data['studentPayment'] = $this->paymentService->handleGetGroupUser($this->dependentService->handleGetLatest());
             }
             return view('dashboard.finance.pages.home', $data);
@@ -302,7 +302,8 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
-    public function showExam(): mixed {
+    public function showExam(): mixed
+    {
         $data = $this->GetDataSidebar();
         return view('dashboard.user.pages.studentExam.exam', $data);
     }

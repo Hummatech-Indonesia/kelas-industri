@@ -35,6 +35,8 @@ class StudentPaymentController extends Controller
         $data['dependents'] = $this->dependentService->handleGetAllByClassroom($classId);
         $data['channels'] = $tripay->index();
         $data['trackings'] = $this->paymentService->handleGetPaymentByStudet(auth()->user()->id);
+        
+        // dd($data);
         return view('dashboard.user.pages.payment.index', $data);
     }
 
