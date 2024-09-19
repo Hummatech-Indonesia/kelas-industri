@@ -138,7 +138,7 @@ class UserAssignmentController extends Controller
                 $query->where('classroom_id', $classroom->id);
             })
             ->get();
-            // dd($submitAssignments);
+        // dd($submitAssignments);
 
         $notFoundFile = 0;
         if (count($submitAssignments) > 0) {
@@ -165,7 +165,11 @@ class UserAssignmentController extends Controller
 
                 $zip->close();
 
-                return response()->download($zip_path, $zip_name)->deleteFileAfterSend(true);
+                if (file_exists($zip_path)) {
+                    return response()->download($zip_path, $zip_name)->deleteFileAfterSend(true);
+                } else {
+                    return back()->withError('File tidak ditemukan. Beritahu siswa untuk mengirim ulang');
+                }
             } else {
                 $errorMessage = "Tidak dapat membuat ZIP archive.";
             }
