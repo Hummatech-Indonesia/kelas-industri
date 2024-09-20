@@ -103,7 +103,8 @@ class StudentSubmaterialExamController extends Controller
                     'deadline' => now()->addMinutes($subMaterialExam->time),
                     'finished_exam' => null,
                     'true_answer' => null,
-                    'answer' => null
+                    'answer' => null,
+                    'open_tab' => 0
                 ]);
             }
             $studentExam->studentSubMaterialExamAnswers()->delete();
