@@ -229,7 +229,7 @@ class ChallengeController extends Controller
     {
         $file = $this->service->handleGetChallengeByMentor($challenge->id);
 
-        $zipName = 'Challenge.zip';
+        $zipName = "$challenge->title.zip";
         $zipPath = storage_path('app/public/' . $zipName);
 
         $zip = new ZipArchive;
