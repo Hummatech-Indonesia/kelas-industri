@@ -218,7 +218,10 @@
                                     </div>
                                     <!--end::Menu sub-->
                                 </div>
-                            @elseif ($subMaterials['countAssignment'] == $subMaterials['countStudentAssignment'] && $subMaterials['studentExam'] != null)
+                            @elseif (
+                                $subMaterials['countAssignment'] == $subMaterials['countStudentAssignment'] &&
+                                    $subMaterials['completedSubMaterial']
+                            )
                                 <div class="menu-item menu-accordion {{ request()->submaterial->id == $subMaterials['subMaterial']->id ? 'here show' : '' }}"
                                     data-kt-menu-trigger="click">
                                     <!--begin:Menu link-->
@@ -284,8 +287,7 @@
                                 <div
                                     class="menu-item {{ request()->submaterial->id == $subMaterials['subMaterial']->id ? 'here' : '' }}">
                                     <!--begin:Menu link-->
-                                    <a role="link" class="menu-link"
-                                        style="color: gray; pointer-events: none">
+                                    <a role="link" class="menu-link" style="color: gray; pointer-events: none">
                                         <span class="menu-bullet">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"

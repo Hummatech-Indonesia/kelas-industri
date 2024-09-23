@@ -70,7 +70,6 @@ class SubMaterialRepository extends BaseRepository
         return $this->model->query()
             ->where('material_id', $materialId)
             ->where('order', $previousOrder)
-            ->select('id')
             ->first();
     }
 

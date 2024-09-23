@@ -18,6 +18,7 @@ use App\Services\ClassroomService;
 use App\Services\AssignmentService;
 use App\Services\SubMaterialService;
 use App\Enums\SubMaterialExamTypeEnum;
+use App\Helpers\CheckComplementionSubmaterial;
 use App\Services\SubmitChallengeService;
 use App\Services\SubmitAssignmentService;
 use App\Repositories\SubMaterialExamRepository;
@@ -207,6 +208,7 @@ class UserClassroomController extends Controller
                         $countAssignment = $this->assignmentService->countAssignments($previousSubMaterial->id, $previousOrder);
                         $countStudentAssignment = $this->assignmentService->countStudentAssignments($previousSubMaterial->id, $previousOrder);
                         $studentExam = $this->studentSubmaterialExamRepository->getPreviousStudentExam($previousSubMaterial->id, $previousOrder);
+                        $completeSubMaterial = CheckComplementionSubmaterial::checkComplemention(auth()->user(), $previousSubMaterial);
                     } else {
                         $countAssignment = 0;
                         $countStudentAssignment = 0;
@@ -220,11 +222,14 @@ class UserClassroomController extends Controller
                         'countAssignment' => $countAssignment,
                         'countStudentAssignment' => $countStudentAssignment,
                         'studentExam' => $studentExam,
+                        'completedSubMaterial' => $completeSubMaterial ?? true
                     ];
                 }
 
                 $subMaterialsInfo = $subMaterialsInfos;
             }
+
+            // dd($subMaterialsInfo);
 
             $previousOrder = $order - 1;
 

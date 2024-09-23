@@ -494,15 +494,15 @@ Route::middleware('auth.custom')->group(function () {
             Route::get('/classrooms/{classroom}', [UserClassroomController::class, 'show'])->name('showClassrooms');
             Route::get('/materials/{classroom}', [UserClassroomController::class, 'materials'])->name('materials');
             Route::get('{classroom}/showMaterial/{material}', [UserClassroomController::class, 'showMaterial'])->name('showMaterial');
-            Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial');
-            Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument');
+            Route::get('{classroom}/showSubMaterial/{material}/{submaterial}', [UserClassroomController::class, 'showSubMaterial'])->name('showSubMaterial')->middleware('checkComplemention');
+            Route::get('/showDocument/{submaterial}/{role}', [UserClassroomController::class, 'showDocument'])->name('showDocument')->middleware('checkComplemention');
 
             Route::get('/event', [EventController::class, 'studentEvent'])->name('events.index');
             Route::get('/schedule', [ScheduleController::class, 'indexStudent'])->name('schedules.index');
 
 
-            Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment');
-            Route::post('{classroom}/storeassignment/{material}/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment');
+            Route::get('{classroom}/submitAssignment/{material}/{submaterial}/{assignment}', [UserAssignmentController::class, 'create'])->name('submitAssignment')->middleware('checkComplemention');
+            Route::post('{classroom}/storeassignment/{material}/{submaterial}', [UserAssignmentController::class, 'store'])->name('storeassignment')->middleware('checkComplemention');
             Route::post('storeimageassignment/{submitAssignment}', [UserAssignmentController::class, 'storeImage'])->name('store-image-assignment');
             Route::delete('delete-image-assignment/{submitAssignment}', [UserAssignmentController::class, 'deleteImages'])->name('delete-image-assignment');
 
