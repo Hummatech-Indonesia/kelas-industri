@@ -71,7 +71,6 @@ class JournalService
         } else if (auth()->user()->roles->pluck('name')[0] == 'teacher') {
             $data['date'] = Carbon::now();
             $data['photo'] = $request->file('photo')->store('journal_file', 'public');
-            $data['classroom_id'] = Auth()->user()->teacherSchool->teacherClassroom->classroom->id;
             return $this->repository->store($data);
         }
     }
