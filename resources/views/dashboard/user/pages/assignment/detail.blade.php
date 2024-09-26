@@ -516,7 +516,7 @@
             maxFiles: 20,
             maxFilesize: 1000, // MB
             addRemoveLinks: true,
-            parallelUploads: 5,
+            parallelUploads: 10,
             accept: function(file, done) {
                 if (file.name == "wow.jpg") {
                     done("Naha, you don't.");
