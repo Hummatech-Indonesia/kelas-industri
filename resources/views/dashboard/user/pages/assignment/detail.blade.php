@@ -513,7 +513,7 @@
             url: '#',
             autoProcessQueue: false,
             paramName: "file", // The name that will be used to transfer the file
-            maxFiles: 10,
+            maxFiles: 20,
             maxFilesize: 1000, // MB
             addRemoveLinks: true,
             parallelUploads: 5,
