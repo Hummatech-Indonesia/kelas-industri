@@ -357,10 +357,13 @@
                                                             class="badge badge-light-danger">{{ \Carbon\Carbon::parse($assignment->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
                                                     </td>
                                                     <td>
-                                                        @if (
-                                                            $assignment->StudentSubmitAssignment[
-                                                                array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
-                                                            ]->is_rated)
+                                                        @php
+                                                            $is_rated =
+                                                                $assignment->StudentSubmitAssignment
+                                                                    ->where('student_id', auth()->user()->id)
+                                                                    ->first()?->is_rated;
+                                                        @endphp
+                                                        @if ($is_rated)
                                                             <span class="badge badge-light-success">Sudah Dinilai</span>
                                                         @elseif (strtotime(now()) <= strtotime($assignment->end_date))
                                                             <span class="badge badge-light-success">Tersedia</span>
