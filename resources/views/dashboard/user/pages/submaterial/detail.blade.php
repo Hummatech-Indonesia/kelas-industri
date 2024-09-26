@@ -206,10 +206,11 @@
                                                             )
                                                             ->count();
                                                     @endphp
+                                                    {{-- @dd($subMaterial->assignments$assignment) --}}
                                                     @if (
                                                         (((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) &&
                                                             $subMaterial->assignments->count() == $assignment) ||
-                                                            $subMaterial->assignments->count() == 0)
+                                                            $subMaterial->assignments->count() >= 0)
                                                         <a href="{{ route('student.exam', $exam->id) }}"
                                                             class="btn btn-primary btn-sm">
                                                             Mulai Ujian
