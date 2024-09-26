@@ -23,7 +23,7 @@ class CheckComplementionSubmaterial
             ->whereRelation('student', 'id', $user->id)
             ->first();
 
-        $completeAssignment = $assignment == $studentAssignment;
+        $completeAssignment = $assignment >= $studentAssignment;
         if (is_null($submaterial)) return true;
         return $completeAssignment && $completeQuiz;
     }
