@@ -206,11 +206,10 @@
                                                             )
                                                             ->count();
                                                     @endphp
-                                                    {{-- @dd($subMaterial->assignments$assignment) --}}
                                                     @if (
                                                         (((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) &&
                                                             $subMaterial->assignments->count() == $assignment) ||
-                                                            $subMaterial->assignments->count() >= 0)
+                                                            $subMaterial->assignments->count() == 0)
                                                         <a href="{{ route('student.exam', $exam->id) }}"
                                                             class="btn btn-primary btn-sm">
                                                             Mulai Ujian
@@ -358,15 +357,10 @@
                                                             class="badge badge-light-danger">{{ \Carbon\Carbon::parse($assignment->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
                                                     </td>
                                                     <td>
-                                                        @php
-                                                            $is_rated =
-                                                                $assignment->StudentSubmitAssignment
-                                                                    ->where('student_id', auth()->user()->id)
-                                                                    ->first()->is_rated == 0
-                                                                    ? false
-                                                                    : true;
-                                                        @endphp
-                                                        @if ($is_rated)
+                                                        @if (
+                                                            $assignment->StudentSubmitAssignment[
+                                                                array_search(auth()->user()->id, $assignment->StudentSubmitAssignment->pluck('student_id')->toArray())
+                                                            ]->is_rated)
                                                             <span class="badge badge-light-success">Sudah Dinilai</span>
                                                         @elseif (strtotime(now()) <= strtotime($assignment->end_date))
                                                             <span class="badge badge-light-success">Tersedia</span>
