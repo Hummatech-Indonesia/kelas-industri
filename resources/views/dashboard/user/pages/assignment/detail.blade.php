@@ -514,7 +514,7 @@
             autoProcessQueue: false,
             paramName: "file", // The name that will be used to transfer the file
             maxFiles: 10,
-            maxFilesize: 10, // MB
+            maxFilesize: 1000, // MB
             addRemoveLinks: true,
             parallelUploads: 5,
             accept: function(file, done) {
