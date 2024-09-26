@@ -617,7 +617,22 @@
             }
         })
 
+        let submitExams = false;
+
         function submitExam() {
+            if (submitExams) return;
+            submitExams = true;
+            $('#kt_app_wrapper').append(
+                `<div class="w-100 h-100 position-fixed top-0 d-flex justify-content-center align-items-center"
+        style="
+z-index: 100000;
+background: rgb(0 0 0 / 41%);
+">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>`
+            );
             const groupBy = (array, key) => {
                 return array.reduce((result, currentValue) => {
                     const groupKey = currentValue[key];
@@ -650,8 +665,17 @@
                         "{{ route(auth()->user()->roles->pluck('name')[0] == 'tester' ? 'tester.exam.show-finish' : 'student.exam.show-finish-quiz', ['subMaterialExam' => $student_exam->sub_material_exam_id, 'studentSubmaterialExam' => $student_exam->id]) }}"
                     );
                 },
-                // error: function(err) {
-                // }
+                error: function(err) {
+                    Swal.fire({
+                        title: `Gagal mengirim jawaban`,
+                        icon: "error",
+                        confirmButtonText: "Ok",
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: "btn btn-light-primary",
+                        },
+                    });
+                }
             });
         }
         @if ($student_exam->deadline < now())

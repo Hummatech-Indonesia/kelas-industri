@@ -97,8 +97,9 @@ class StudentSubmaterialExamController extends Controller
             if ($studentExam->finished_exam && RoleHelper::get_role() == 'tester') {
                 return redirect()->route('tester.exam.show-finish', ['studentSubmaterialExam' => $studentExam->id, 'subMaterialExam' => $subMaterialExam->id]);
             }
-            if ($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value) {
-                $studentExam->update([
+            // dd($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value && $studentExam->finished_exam);
+            if ($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value && $studentExam->finished_exam) {
+                $updated = $studentExam->update([
                     'score' => null,
                     'deadline' => now()->addMinutes($subMaterialExam->time),
                     'finished_exam' => null,

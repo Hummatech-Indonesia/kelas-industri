@@ -20,7 +20,7 @@ class SubMaterialExam extends Model
     protected $table = 'sub_material_exams';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id','sub_material_id','title','slug', 'type','total_multiple_choice', 'total_essay', 'multiple_choice_value', 'essay_value','start_at', 'end_at', 'cheating_detector', 'last_submit', 'time', 'status', 'school_id', 'total_student'];
+    protected $fillable = ['id','sub_material_id','title','slug', 'type','total_multiple_choice', 'total_essay', 'multiple_choice_value', 'essay_value','start_at', 'end_at', 'cheating_detector', 'last_submit', 'time', 'status', 'school_id', 'total_student', 'open_tab'];
 
     /**
      * Get the user that owns the SubMaterialExam
