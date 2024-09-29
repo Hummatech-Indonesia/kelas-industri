@@ -627,7 +627,7 @@
         style="
 z-index: 100000;
 background: rgb(0 0 0 / 41%);
-">
+" id="loading-animation">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -666,6 +666,8 @@ background: rgb(0 0 0 / 41%);
                     );
                 },
                 error: function(err) {
+                    submitExams = false;
+                    $('#loading-animation').remove();
                     Swal.fire({
                         title: `Gagal mengirim jawaban`,
                         icon: "error",
