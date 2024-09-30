@@ -18,7 +18,7 @@ class JournalRequest extends BaseRequest
             'date' => 'nullable',
             'photo' => 'required|mimes:png,jpg,jpeg|max:2048',
             'description' => 'required|min:100',
-            'classroom_id' => 'nullable',
+            'classroom_id' => 'required',
             'created_by' => 'required'
         ];
     }
