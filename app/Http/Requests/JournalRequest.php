@@ -36,6 +36,7 @@ class JournalRequest extends BaseRequest
             'description.required' => 'Deskripsi tidak boleh kosong !',
             'classroom_id.string' => 'Kelas tidak boleh kosong !',
             'created_by.string' => 'Pembuat tidak boleh kosong !',
+            'classroom_id.required' => 'Kelas tidak boleh kosong !',
             'photo.required' => 'Foto Jurnal tidak boleh kosong!',
             'photo.mimes' => 'Foto harus dalam format PNG, JPG, atau JPEG!',
             'photo.max' => 'Ukuran foto tidak boleh melebihi :max kilobita!',
