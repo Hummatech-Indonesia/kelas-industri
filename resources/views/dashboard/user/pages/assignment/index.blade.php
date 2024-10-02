@@ -1,5 +1,12 @@
 @php use Carbon\Carbon; @endphp
 @extends('dashboard.user.layouts.app')
+@section('css')
+    <style>
+        .table input[type="text"] {
+            min-width: 90px;
+        }
+    </style>
+@endsection
 
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -189,174 +196,179 @@
                                             </button>
                                         </div>
                                     </form>
-                                    <table id="" class="table table-striped border rounded gy-5 gs-7">
-                                        <thead>
-                                            <tr class="fw-semibold fs-6 text-gray-800">
-                                                <th data-priority="1">No</th>
-                                                <th class="min-w-200px" data-priority="2">Nama</th>
-                                                <th class="min-w-100px" data-priority="3">File</th>
-                                                <th class="min-w-100px" data-priority="4">link</th>
-                                                <th data-priority="4">Nilai</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse($students as $student)
-                                                <tr>
-                                                    <td>{{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}
-                                                    </td>
-                                                    <td>{{ $student->name }}</td>
-                                                    @if ($student->submitAssignment)
-                                                        {{-- @dd(count($student->submitAssignment->images)) --}}
-                                                        <td>
-                                                            @php
-                                                                $filePath = explode(
-                                                                    '/',
-                                                                    $student->submitAssignment->file,
-                                                                );
-                                                                $fileName = end($filePath);
-                                                                $fileExtension = pathinfo(
-                                                                    $fileName,
-                                                                    PATHINFO_EXTENSION,
-                                                                );
-                                                            @endphp
+                                    <div class="table-responsive">
+                                        <table id="" class="table table-striped border rounded gy-5 gs-7">
+                                            <thead>
+                                                <tr class="fw-semibold fs-6 text-gray-800">
+                                                    <th data-priority="1">No</th>
+                                                    <th class="min-w-200px" data-priority="2">Nama</th>
+                                                    <th class="min-w-100px" data-priority="3">File</th>
+                                                    <th class="min-w-100px" data-priority="4">link</th>
+                                                    <th data-priority="4">Nilai</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse($students as $student)
+                                                    <tr>
+                                                        <td>{{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}
+                                                        </td>
+                                                        <td>{{ $student->name }}</td>
+                                                        @if ($student->submitAssignment)
+                                                            {{-- @dd(count($student->submitAssignment->images)) --}}
+                                                            <td>
+                                                                @php
+                                                                    $filePath = explode(
+                                                                        '/',
+                                                                        $student->submitAssignment->file,
+                                                                    );
+                                                                    $fileName = end($filePath);
+                                                                    $fileExtension = pathinfo(
+                                                                        $fileName,
+                                                                        PATHINFO_EXTENSION,
+                                                                    );
+                                                                @endphp
+                                                                @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
+                                                                    {{-- @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg'])) --}}
+                                                                    {{-- @dd($student->submitAssignment->images) --}}
+                                                                    @if (count($student->submitAssignment->images) == 1)
+                                                                        {{-- @dd('sdfsdfsdfsfd') --}}
+                                                                        <button class="btn btn-primary btn-sm btn-img"
+                                                                            data-file="{{ asset('storage/' . $student->submitAssignment->images[0]->image) }}">
+                                                                            <span
+                                                                                class="svg-icon svg-icon-muted svg-icon-4"><svg
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path opacity="0.3"
+                                                                                        d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z"
+                                                                                        fill="currentColor" />
+                                                                                    <path
+                                                                                        d="M19.1 10C18.7 9.60001 18.1 9.60001 17.7 10L10.7 17H2V19C2 19.6 2.4 20 3 20H21C21.6 20 22 19.6 22 19V12.9L19.1 10Z"
+                                                                                        fill="currentColor" />
+                                                                                </svg>
+                                                                            </span> Gambar</button>
+                                                                    @else
+                                                                        <a href="{{ Route('teacher.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
+                                                                            target="_blank"
+                                                                            class="btn btn-danger btn-sm btn-download">
+                                                                            <span
+                                                                                class="svg-icon svg-icon-muted svg-icon-4">
+                                                                                <svg width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path opacity="0.3"
+                                                                                        d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
+                                                                                        fill="currentColor" />
+                                                                                    <path opacity="0.3"
+                                                                                        d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                                                                        fill="currentColor" />
+                                                                                    <path
+                                                                                        d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                                                                        fill="currentColor" />
+                                                                                </svg>
+                                                                            </span>
+                                                                            Download </a>
+                                                                    @endif
+                                                                @else
+                                                                    @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg']))
+                                                                        <button class="btn btn-primary btn-sm btn-img"
+                                                                            data-file="{{ asset('storage/' . $student->submitAssignment->file) }}">
+                                                                            <span
+                                                                                class="svg-icon svg-icon-muted svg-icon-4"><svg
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path opacity="0.3"
+                                                                                        d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z"
+                                                                                        fill="currentColor" />
+                                                                                    <path
+                                                                                        d="M19.1 10C18.7 9.60001 18.1 9.60001 17.7 10L10.7 17H2V19C2 19.6 2.4 20 3 20H21C21.6 20 22 19.6 22 19V12.9L19.1 10Z"
+                                                                                        fill="currentColor" />
+                                                                                </svg>
+                                                                            </span> Gambar</button>
+                                                                    @else
+                                                                        <a href="{{ Route('mentor.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
+                                                                            target="_blank"
+                                                                            class="btn btn-danger btn-sm btn-download">
+                                                                            <span
+                                                                                class="svg-icon svg-icon-muted svg-icon-4">
+                                                                                <svg width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path opacity="0.3"
+                                                                                        d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
+                                                                                        fill="currentColor" />
+                                                                                    <path opacity="0.3"
+                                                                                        d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                                                                        fill="currentColor" />
+                                                                                    <path
+                                                                                        d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                                                                        fill="currentColor" />
+                                                                                </svg>
+                                                                            </span> Download </a>
+                                                                    @endif
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                @if ($student->submitAssignment->link)
+                                                                    <a href="https://{{ $student->submitAssignment->link }}"
+                                                                        class="d-flex align-items-center justify-content-between mt-3 gap-2"
+                                                                        style="width: fit-content">Github <svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width="16" height="16"
+                                                                            viewBox="0 0 24 24" fill="none"
+                                                                            stroke="currentColor" stroke-width="2"
+                                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                                            class="icon icon-tabler icons-tabler-outline icon-tabler-external-link">
+                                                                            <path stroke="none" d="M0 0h24v24H0z"
+                                                                                fill="none" />
+                                                                            <path
+                                                                                d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
+                                                                            <path d="M11 13l9 -9" />
+                                                                            <path d="M15 4h5v5" />
+                                                                        </svg></a>
+                                                                @else
+                                                                    -
+                                                                @endif
+                                                            </td>
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                                {{-- @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg'])) --}}
-                                                                {{-- @dd($student->submitAssignment->images) --}}
-                                                                @if (count($student->submitAssignment->images) == 1)
-                                                                    {{-- @dd('sdfsdfsdfsfd') --}}
-                                                                    <button class="btn btn-primary btn-sm btn-img"
-                                                                        data-file="{{ asset('storage/' . $student->submitAssignment->images[0]->image) }}">
-                                                                        <span
-                                                                            class="svg-icon svg-icon-muted svg-icon-4"><svg
-                                                                                width="24" height="24"
-                                                                                viewBox="0 0 24 24" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <path opacity="0.3"
-                                                                                    d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z"
-                                                                                    fill="currentColor" />
-                                                                                <path
-                                                                                    d="M19.1 10C18.7 9.60001 18.1 9.60001 17.7 10L10.7 17H2V19C2 19.6 2.4 20 3 20H21C21.6 20 22 19.6 22 19V12.9L19.1 10Z"
-                                                                                    fill="currentColor" />
-                                                                            </svg>
-                                                                        </span> Gambar</button>
+                                                                @if ($student->submitAssignment->point)
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            data-id="{{ $student->submitAssignment->id }}"
+                                                                            value="{{ $student->submitAssignment->point }}"
+                                                                            class="form-control form-control-solid input-nilai form-control-lg"
+                                                                            placeholder="Nilai">
+                                                                    </td>
                                                                 @else
-                                                                    <a href="{{ Route('teacher.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
-                                                                        target="_blank"
-                                                                        class="btn btn-danger btn-sm btn-download">
-                                                                        <span class="svg-icon svg-icon-muted svg-icon-4">
-                                                                            <svg width="24" height="24"
-                                                                                viewBox="0 0 24 24" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <path opacity="0.3"
-                                                                                    d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
-                                                                                    fill="currentColor" />
-                                                                                <path opacity="0.3"
-                                                                                    d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
-                                                                                    fill="currentColor" />
-                                                                                <path
-                                                                                    d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
-                                                                                    fill="currentColor" />
-                                                                            </svg>
-                                                                        </span>
-                                                                        Download </a>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            data-id="{{ $student->submitAssignment->id }}"
+                                                                            value=""
+                                                                            class="form-control form-control-solid input-nilai form-control-lg"
+                                                                            placeholder="Nilai">
+                                                                    </td>
                                                                 @endif
                                                             @else
-                                                                @if (in_array(strtolower($fileExtension), ['jpg', 'png', 'jpeg']))
-                                                                    <button class="btn btn-primary btn-sm btn-img"
-                                                                        data-file="{{ asset('storage/' . $student->submitAssignment->file) }}">
-                                                                        <span
-                                                                            class="svg-icon svg-icon-muted svg-icon-4"><svg
-                                                                                width="24" height="24"
-                                                                                viewBox="0 0 24 24" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <path opacity="0.3"
-                                                                                    d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z"
-                                                                                    fill="currentColor" />
-                                                                                <path
-                                                                                    d="M19.1 10C18.7 9.60001 18.1 9.60001 17.7 10L10.7 17H2V19C2 19.6 2.4 20 3 20H21C21.6 20 22 19.6 22 19V12.9L19.1 10Z"
-                                                                                    fill="currentColor" />
-                                                                            </svg>
-                                                                        </span> Gambar</button>
+                                                                @if ($student->submitAssignment->point)
+                                                                    <td>{{ $student->submitAssignment->point }}</td>
                                                                 @else
-                                                                    <a href="{{ Route('mentor.downloadAssignment', ['submitAssignment' => $student->submitAssignment->id]) }}"
-                                                                        target="_blank"
-                                                                        class="btn btn-danger btn-sm btn-download">
-                                                                        <span class="svg-icon svg-icon-muted svg-icon-4">
-                                                                            <svg width="24" height="24"
-                                                                                viewBox="0 0 24 24" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <path opacity="0.3"
-                                                                                    d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z"
-                                                                                    fill="currentColor" />
-                                                                                <path opacity="0.3"
-                                                                                    d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
-                                                                                    fill="currentColor" />
-                                                                                <path
-                                                                                    d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
-                                                                                    fill="currentColor" />
-                                                                            </svg>
-                                                                        </span> Download </a>
+                                                                    <td>
+                                                                        -
+                                                                    </td>
                                                                 @endif
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($student->submitAssignment->link)
-                                                                <a href="https://{{ $student->submitAssignment->link }}"
-                                                                    class="d-flex align-items-center justify-content-between mt-3 gap-2"
-                                                                    style="width: fit-content">Github <svg
-                                                                        xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                        height="16" viewBox="0 0 24 24" fill="none"
-                                                                        stroke="currentColor" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        class="icon icon-tabler icons-tabler-outline icon-tabler-external-link">
-                                                                        <path stroke="none" d="M0 0h24v24H0z"
-                                                                            fill="none" />
-                                                                        <path
-                                                                            d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
-                                                                        <path d="M11 13l9 -9" />
-                                                                        <path d="M15 4h5v5" />
-                                                                    </svg></a>
-                                                            @else
-                                                                -
-                                                            @endif
-                                                        </td>
-                                                        @if (auth()->user()->roles->pluck('name')[0] == 'teacher')
-                                                            @if ($student->submitAssignment->point)
-                                                                <td>
-                                                                    <input type="text"
-                                                                        data-id="{{ $student->submitAssignment->id }}"
-                                                                        value="{{ $student->submitAssignment->point }}"
-                                                                        class="form-control form-control-solid input-nilai form-control-lg"
-                                                                        placeholder="Nilai">
-                                                                </td>
-                                                            @else
-                                                                <td>
-                                                                    <input type="text"
-                                                                        data-id="{{ $student->submitAssignment->id }}"
-                                                                        value=""
-                                                                        class="form-control form-control-solid input-nilai form-control-lg"
-                                                                        placeholder="Nilai">
-                                                                </td>
                                                             @endif
                                                         @else
-                                                            @if ($student->submitAssignment->point)
-                                                                <td>{{ $student->submitAssignment->point }}</td>
-                                                            @else
-                                                                <td>
-                                                                    -
-                                                                </td>
-                                                            @endif
+                                                            <td>-</td>
+                                                            <td>-</td>
                                                         @endif
-                                                    @else
-                                                        <td>-</td>
-                                                        <td>-</td>
-                                                    @endif
-                                                </tr>
-                                            @empty
-                                                <x-empty-component title="tugas" />
-                                            @endforelse
-                                        </tbody>
-                                    </table>
+                                                    </tr>
+                                                @empty
+                                                    <x-empty-component title="tugas" />
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
                                     {{-- paginate --}}
                                     {{ $students->links('pagination::bootstrap-5') }}
                                     {{-- endpaginate --}}
