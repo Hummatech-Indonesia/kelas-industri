@@ -186,6 +186,7 @@
                                                     <div class="col">:
                                                         {{ $exam->total_multiple_choice + $exam->total_essay }} </div>
                                                 </div>
+                                                <small class="text-danger">* Lengkapi semua tugas sebelum memulai ujian</small>
                                             </div>
                                             <!--end::Info-->
                                             <div class="col mt-4">

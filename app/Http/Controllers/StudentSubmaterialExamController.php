@@ -143,13 +143,10 @@ class StudentSubmaterialExamController extends Controller
 
         $data = $this->service->calculate($request, $answerKey, $subMaterialExam);
 
-        // dd($data);
-        // $data['higest_score'] = $studentSubmaterialExam->higest_score > $data['score']? $studentSubmaterialExam->hi : $data['score'];
         $data['higest_score'] = is_null($studentSubmaterialExam->higest_score) ? $data['score'] : max($studentSubmaterialExam->higest_score, $data['score']);
         $data['finished_count'] = $studentSubmaterialExam->finished_count + 1;
         $data['deadline'] = null;
 
-        // dd($data);
         $this->studentExam->update($studentSubmaterialExam->id, $data);
 
         return response()->json($data, 200);
