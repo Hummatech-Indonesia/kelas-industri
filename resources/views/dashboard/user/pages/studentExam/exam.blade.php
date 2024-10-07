@@ -668,8 +668,12 @@ background: rgb(0 0 0 / 41%);
                 error: function(err) {
                     submitExams = false;
                     $('#loading-animation').remove();
+                    console.log(err);
                     Swal.fire({
                         title: `Gagal mengirim jawaban`,
+                        @if (auth()->user()->id == '1d221140-0fe1-3d00-b59e-1814cd1426f8')
+                            text: 'error: ' + err.responseJSON.message,
+                        @endif
                         icon: "error",
                         confirmButtonText: "Ok",
                         buttonsStyling: false,

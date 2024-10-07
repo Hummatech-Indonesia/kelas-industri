@@ -37,15 +37,6 @@
         .question img {
             width: 75% !important;
         }
-
-        /* Contoh CSS untuk menyembunyikan elemen UI browser */
-        :-webkit-full-screen-ancestor::-webkit-full-page-media,
-        :-webkit-full-screen-ancestor:-webkit-full-screen-ancestor,
-        :-webkit-full-screen-ancestor::-webkit-full-page-media-controls,
-        :-webkit-full-screen-ancestor::-webkit-full-page-media-controls-enclosure,
-        :-webkit-full-screen-ancestor::-webkit-media-controls-enclosure {
-            display: none !important;
-        }
     </style>
 @endsection
 
@@ -170,7 +161,8 @@
                                             <div class="mb-10">
                                                 <label for="exampleFormControlInput1" class="form-label">Jawaban
                                                     Anda</label>
-                                                <textarea class="form-control form-control-solid" id="essay_answer_{{ $index }}" data-question_number="{{ $question['id'] }}" placeholder="Example input"></textarea>
+                                                <textarea class="form-control form-control-solid" id="essay_answer_{{ $index }}"
+                                                    data-question_number="{{ $question['id'] }}" placeholder="Example input"></textarea>
                                             </div>
                                         @endif
                                     </div>
@@ -323,11 +315,11 @@
 
             answers.forEach(function(item) {
                 if (item.answer != null) {
-                    if(item.type == 'essay') {
+                    if (item.type == 'essay') {
                         $(`[data-question_number="${item.student_question_number}"]`).val(item.answer);
                     } else {
                         $(`input[value="${item.answer}"][data-question_number="${item.student_question_number}"]`)
-                        .prop('checked', true);
+                            .prop('checked', true);
                     }
                     $(`a[data-question_number="${item.student_question_number}"]`).addClass('bg-primary')
                     $(`a[data-question_number="${item.student_question_number}"]`).removeClass(
@@ -337,23 +329,6 @@
                 }
             })
 
-
-
-            function enterFullscreen() {
-                var elem = document.documentElement;
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
-                } else if (elem.mozRequestFullScreen) { // Firefox
-                    elem.mozRequestFullScreen();
-                } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    elem.webkitRequestFullscreen();
-                } else if (elem.msRequestFullscreen) { // IE/Edge
-                    elem.msRequestFullscreen();
-                }
-            }
-
-            // Tampilkan tombol kustom saat halaman sudah siap
-            document.addEventListener('click', enterFullscreen);
         })
     </script>
     @if ($student_exam->materialExam->cheating_detector)

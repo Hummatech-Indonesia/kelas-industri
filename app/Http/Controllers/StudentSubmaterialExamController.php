@@ -87,8 +87,8 @@ class StudentSubmaterialExamController extends Controller
         $examQuestionsEssay = $this->examQuestion->getRandomOrderByExamEssay($subMaterialExam->id);
         if ($studentExam == null) {
             $this->service->store($subMaterialExam, $examQuestionsMultipleChoice, $examQuestionsEssay);
-            $studentExam = $this->studentExam->whereIn(['sub_material_exam_id' => $subMaterialExam->id]);
             $data['student_exam'] = $studentExam;
+            $studentExam = $this->studentExam->whereIn(['sub_material_exam_id' => $subMaterialExam->id]);
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
             if (auth()->user()->roles->pluck('name')[0] == 'tester') return view('dashboard.user.pages.testerExam.exam', $data);
@@ -97,8 +97,7 @@ class StudentSubmaterialExamController extends Controller
             if ($studentExam->finished_exam && RoleHelper::get_role() == 'tester') {
                 return redirect()->route('tester.exam.show-finish', ['studentSubmaterialExam' => $studentExam->id, 'subMaterialExam' => $subMaterialExam->id]);
             }
-            // dd($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value && $studentExam->finished_exam);
-            if ($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value && $studentExam->finished_exam) {
+            if ($subMaterialExam->type == SubMaterialExamTypeEnum::QUIZ->value && $studentExam->deadline == null) {
                 $updated = $studentExam->update([
                     'score' => null,
                     'deadline' => now()->addMinutes($subMaterialExam->time),
@@ -148,6 +147,7 @@ class StudentSubmaterialExamController extends Controller
         // $data['higest_score'] = $studentSubmaterialExam->higest_score > $data['score']? $studentSubmaterialExam->hi : $data['score'];
         $data['higest_score'] = is_null($studentSubmaterialExam->higest_score) ? $data['score'] : max($studentSubmaterialExam->higest_score, $data['score']);
         $data['finished_count'] = $studentSubmaterialExam->finished_count + 1;
+        $data['deadline'] = null;
 
         // dd($data);
         $this->studentExam->update($studentSubmaterialExam->id, $data);

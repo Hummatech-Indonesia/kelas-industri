@@ -533,6 +533,8 @@
                 this.on("error", function(file, response) {
                     hasError = true; // Set error flag to true
                     // Menampilkan pesan error dengan SweetAlert2
+                    console.log(JSON.parse(file.xhr.response));
+                    console.log(response);
 
                     $.ajax({
                         type: "DELETE",
@@ -549,9 +551,10 @@
                         title: 'Error!',
                         icon: 'error',
                         html: 'Terjadi kesalahan saat mengirim file.<br><p>Mohon cek kembali format file anda.<br>Data anda yang lama terhapus!</p>'
-                    }).then(function(response) {
-                        window.location.reload();
-                    });
+                    })
+                    // .then(function(response) {
+                    //     window.location.reload();
+                    // });
 
                     // Menampilkan pesan error di Dropzone
                     file.previewElement.classList.add("dz-error");

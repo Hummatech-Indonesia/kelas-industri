@@ -18,7 +18,7 @@ class StudentSubMaterialExamService
     public function checkRemedial($submaterialExamId): mixed
     {
         $studentExam = $this->repository->get_user_submaterial_exam($submaterialExamId);
-        if ($studentExam->score < 75) {
+        if ($studentExam->higest_score < 75) {
             return 'remedial';
         } else {
             return 'passed';

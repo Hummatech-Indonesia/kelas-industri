@@ -69,8 +69,12 @@ class UserAssignmentController extends Controller
     public function storeImage(UploadAssignmentImage $request, SubmitAssignment $submitAssignment)
     {
         // $this->submitAssignmentImageService->handleDelete($submitAssignment);
-        $this->submitAssignmentImageService->handleCreate($request, $submitAssignment);
-        return response()->json(null, 200);
+        try {
+            $this->submitAssignmentImageService->handleCreate($request, $submitAssignment);
+            return response()->json(null, 200);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
     public function deleteImages(SubmitAssignment $submitAssignment)
     {

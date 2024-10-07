@@ -356,21 +356,17 @@
                                                     <td><span
                                                             class="badge badge-light-danger">{{ \Carbon\Carbon::parse($assignment->end_date)->locale('id')->isoFormat('D MMMM YYYY HH:mm') }}</span>
                                                     </td>
-                                                    <td>
-                                                        @php
-                                                            $is_rated =
+                                                    <td @php
+$is_rated =
                                                                 $assignment->StudentSubmitAssignment
                                                                     ->where('student_id', auth()->user()->id)
-                                                                    ->first()?->is_rated;
-                                                        @endphp
-                                                        @if ($is_rated)
-                                                            <span class="badge badge-light-success">Sudah Dinilai</span>
+                                                                    ->first()?->is_rated; @endphp
+                                                        @if ($is_rated) <span class="badge badge-light-success">Sudah Dinilai</span>
                                                         @elseif (strtotime(now()) <= strtotime($assignment->end_date))
                                                             <span class="badge badge-light-success">Tersedia</span>
                                                         @else
-                                                            <span class="badge badge-light-danger">Ditutup</span>
-                                                        @endif
-                                                    </td>
+                                                            <span class="badge badge-light-danger">Ditutup</span> @endif
+                                                        </td>
                                                     <td>
                                                         @if (strtotime(now()) <= strtotime($assignment->end_date))
                                                             @if (auth()->user()->roles->pluck('name')[0] == 'student')
