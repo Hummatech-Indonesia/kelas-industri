@@ -87,8 +87,8 @@ class StudentSubmaterialExamController extends Controller
         $examQuestionsEssay = $this->examQuestion->getRandomOrderByExamEssay($subMaterialExam->id);
         if ($studentExam == null) {
             $this->service->store($subMaterialExam, $examQuestionsMultipleChoice, $examQuestionsEssay);
-            $data['student_exam'] = $studentExam;
             $studentExam = $this->studentExam->whereIn(['sub_material_exam_id' => $subMaterialExam->id]);
+            $data['student_exam'] = $studentExam;
             $data['question_multiple_choice'] = $examQuestionsMultipleChoice;
             $data['question_essay'] = $examQuestionsEssay;
             if (auth()->user()->roles->pluck('name')[0] == 'tester') return view('dashboard.user.pages.testerExam.exam', $data);
