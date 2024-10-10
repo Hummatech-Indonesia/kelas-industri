@@ -186,7 +186,8 @@
                                                     <div class="col">:
                                                         {{ $exam->total_multiple_choice + $exam->total_essay }} </div>
                                                 </div>
-                                                <small class="text-danger">* Lengkapi semua tugas sebelum memulai ujian</small>
+                                                <small class="text-danger">* Lengkapi semua tugas sebelum memulai
+                                                    ujian</small>
                                             </div>
                                             <!--end::Info-->
                                             <div class="col mt-4">
@@ -207,9 +208,10 @@
                                                             )
                                                             ->count();
                                                     @endphp
+                                                    {{-- @dd((((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) &&  $assignment >= $subMaterial->assignments->count()) || $subMaterial->assignments->count() == 0) --}}
                                                     @if (
                                                         (((isset($isRemedial) && $isRemedial == 'remedial') || !$studentSubmaterialExam) &&
-                                                            $subMaterial->assignments->count() == $assignment) ||
+                                                            $assignment >= $subMaterial->assignments->count()) ||
                                                             $subMaterial->assignments->count() == 0)
                                                         <a href="{{ route('student.exam', $exam->id) }}"
                                                             class="btn btn-primary btn-sm">
